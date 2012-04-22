@@ -1,0 +1,106 @@
+body {
+	background-color: #f9fafc;
+	padding: 1em;
+	font-family: sans-serif;
+	}
+
+h1 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 40em;
+	background-color: #3C8FD1;
+	border: 3px solid #005D99;
+	-moz-border-radius: 10px;
+	color: #f1f4f9;
+	font-size: 2em;
+	text-align: center;
+	font-variant: small-caps;
+	text-shadow: 2px 2px 3px #333;
+	-moz-box-shadow: 0px 20px 10px -10px #888;
+	}
+
+fieldset {
+	border: 1px solid #C9D1DD;
+	text-shadow: 2px 2px 3px #333;
+	margin-right: auto;
+	width: 32em;
+	}
+
+h2 {
+	font-size: 1.5em;
+	font-variant: small-caps;
+	background-color: #f1f4f9;
+	border-bottom: 2px solid #3C8FD1;
+	border-left: 2px solid #3C8FD1;
+	padding-left: 0.5em;
+	-moz-border-radius-bottomleft: 5px;
+	}
+
+.searchedTerm {
+	font-style: italic;
+	}
+
+table {
+	border: 3px solid #5C7497;
+	border-collapse: collapse;
+	font-size: 0.8em;
+	}
+
+tr {
+	background-color: #f9fafc;
+	border: 1px solid black;
+	}
+
+tr:nth-child(odd) {
+	background-color: #C9D1DD;
+	}
+
+tr:nth-child(even) {
+	background-color: #f9fafc;
+	}
+
+th {
+	background-color: #3C8FD1;
+	color: white;
+	border: 1px solid black;
+	}
+td {
+	padding: 0.5em;
+	border: 1px solid black;
+	}
+
+a[hreflang]:after {
+        content: "\0000a0(" attr(hreflang) ")";
+	}
+	
+#links {
+	margin-top: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.5em;
+	width: 80%;
+	font-size: 1em;
+	background-color: #f3ffcd;
+	border: 3px solid #498504;
+	-moz-border-radius: 10px;
+	-moz-box-shadow: 0px 10px 5px -5px #888;
+	}
+#links ul {
+	padding: .2em 0;
+	margin: 0;
+	list-style-type: none;
+	text-align: center;
+	}
+#links ul li {
+	display: inline;
+	}
+#links ul li a, #links ul li a:visited {
+	font-size: 1em;
+	color: #5E9E14 !important;
+	text-decoration: none;
+	font-weight: bold;
+	padding: .2em 0.5em;
+	}
+#links ul li a:hover {
+  text-decoration: underline;
+  }
