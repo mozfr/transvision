@@ -17,10 +17,10 @@ beta_locales=$root/beta.txt
 release_locales=$root/release.txt
 
 # list of locations of our local hg repos
-release_l10n=$local_hg/RELEASE_L10N/
-beta_l10n=$local_hg/BETA_L10N/
-aurora_l10n=$local_hg/AURORA_L10N/
-trunk_l10n=$local_hg/TRUNK_L10N/
+release_l10n=$local_hg/RELEASE_L10N
+beta_l10n=$local_hg/BETA_L10N
+aurora_l10n=$local_hg/AURORA_L10N
+trunk_l10n=$local_hg/TRUNK_L10N
 
 release_source=$local_hg/RELEASE_EN-US
 beta_source=$local_hg/BETA_EN-US
