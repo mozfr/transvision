@@ -1,14 +1,16 @@
 <?php
 
+$repo = '/home/pascalc/newtransvision';
+
 ## Deduce the memoire.tmx directory name
-$tmxfile = '/home/pascalc/transvision/TMX/memoire_en-US_' . $locale . '.tmx';
+$tmxfile = $repo . '/TMX/memoire_en-US_' . $locale . '.tmx';
 
 # clearstatcache();
 
-include '/home/pascalc/transvision/TMX/' . $base . '/' . $locale . '/cache_' . $locale . '.php'; // localised
+include $repo . '/TMX/' . $base . '/' . $locale . '/cache_' . $locale . '.php'; // localised
 $tmx_fr = $tmx;
 
-include '/home/pascalc/transvision/TMX/' . $base . '/' . $locale . '/cache_en-US.php'; // english
+include $repo . '/TMX/' . $base . '/' . $locale . '/cache_en-US.php'; // english
 $tmx_en = $tmx;
 
 // get language arrays
