@@ -126,16 +126,16 @@ if __name__ == "__main__":
     chaine2={}
     chaines={}
     chaines2={}
-        if len(args) < 1:
-            fr = "../fr/"
+    if len(args) < 1:
+        fr = "../fr/"
+        en_US  = "../hg.frenchmozilla.fr/"
+    else:
+        if len(args) < 2:
+            fr=args[0]
             en_US  = "../hg.frenchmozilla.fr/"
         else:
-            if len(args) < 2:
-                fr=args[0]
-                en_US  = "../hg.frenchmozilla.fr/"
-            else:
-                fr=args[0]
-                en_US=args[1]
+            fr=args[0]
+            en_US=args[1]
     if len(args)<3:
         langcode1="fr"
         langcode2="en-US"
