@@ -47,7 +47,7 @@ if (isset($_GET['locale'])){
     $locale = 'fr';
 }
 
-$dirs = array_filter(glob('/home/pascalc/newtransvision/glossaire/TMX/' . $base . '/cache/*'), 'is_dir');
+$dirs = array_filter(glob('/home/pascalc/newtransvision/TMX/' . $base . '/*'), 'is_dir');
 foreach ($dirs as $dir) {
     $locs       = explode('/', $dir);
     $loc        = array_pop($locs);
