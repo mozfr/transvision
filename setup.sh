@@ -9,11 +9,42 @@ local_hg=$root/data/hg
 glossaire=$root/glossaire
 checkrepo=false
 
+# List of locations of our local hg repos
+release_l10n=$local_hg/RELEASE_L10N
+beta_l10n=$local_hg/BETA_L10N
+aurora_l10n=$local_hg/AURORA_L10N
+trunk_l10n=$local_hg/TRUNK_L10N
+
+release_source=$local_hg/RELEASE_EN-US
+beta_source=$local_hg/BETA_EN-US
+aurora_source=$local_hg/AURORA_EN-US
+trunk_source=$local_hg/TRUNK_EN-US
+
+
 # List of locales per branch
 trunk_locales=$root/trunk.txt
 aurora_locales=$root/aurora.txt
 beta_locales=$root/beta.txt
 release_locales=$root/release.txt
+
+# Make sure that we have the file structure
+mkdir -p $release_l10n
+mkdir -p $beta_l10n
+mkdir -p $aurora_l10n
+mkdir -p $trunk_l10n
+mkdir -p $glossaire
+
+# Make sure we have all the glossaire files in the Transvision repo
+cp tmxmaker.py $glossaire
+cp glossaire.sh $glossaire
+
+# Make sure we have all the list of locales in the Transvision repo
+cp trunk.txt $root
+cp aurora.txt $root
+cp beta.txt $root
+cp release.txt $root
+cp list_rep_mozilla-central.txt $root
+cp list_rep_comm-central.txt $root
 
 # Restructure en-US
 for dir in `cat $root/list_rep_mozilla-central.txt`
@@ -45,38 +76,6 @@ do
     mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
     ln -s  $local_hg/TRUNK_EN-US/comm-central/$dir $local_hg/TRUNK_EN-US/COMMUN/$dir
 done
-
-
-# List of locations of our local hg repos
-release_l10n=$local_hg/RELEASE_L10N
-beta_l10n=$local_hg/BETA_L10N
-aurora_l10n=$local_hg/AURORA_L10N
-trunk_l10n=$local_hg/TRUNK_L10N
-
-release_source=$local_hg/RELEASE_EN-US
-beta_source=$local_hg/BETA_EN-US
-aurora_source=$local_hg/AURORA_EN-US
-trunk_source=$local_hg/TRUNK_EN-US
-
-
-# Make sure that we have the file structure
-mkdir -p $release_l10n
-mkdir -p $beta_l10n
-mkdir -p $aurora_l10n
-mkdir -p $trunk_l10n
-mkdir -p $glossaire
-
-
-# Make sure we have all the glossaire files in the Transvision repo
-cp tmxmaker.py $glossaire
-cp glossaire.sh $glossaire
-
-# Make sure we have all the list of locales in the Transvision repo
-#~ cp trunk.txt $root
-#~ cp aurora.txt $root
-#~ cp beta.txt $root
-#~ cp release.txt $root
-
 
 # Check out the SILME library and set it to the latest released version
 if [ ! -d $glossaire/silme/.hg ]
