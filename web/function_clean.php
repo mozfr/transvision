@@ -6,8 +6,7 @@
  *
  */
 
-function secureText($var, $tablo = true)
-{
+function secureText($var, $tablo = true) {
     if (!is_array($var)) {
         $var   = array($var);
         $tablo = false;
@@ -31,4 +30,3 @@ function secureText($var, $tablo = true)
 
     return ($tablo == true) ? $var : $var[0];
 }
-?>

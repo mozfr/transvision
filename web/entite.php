@@ -1,28 +1,23 @@
 <?php
-header('Content-type: text/html; charset=UTF-8'); 
 
-include "../PAGES/function_clean.php";
- 
-
+include '../PAGES/function_clean.php';
 
 # Find the current directory and the locale short name
-$locale=strip_tags(preg_replace("/\/glossaire\/(.*)\/entite.php/","$1",$_SERVER['REQUEST_URI']));
+$locale = strip_tags(preg_replace("/\/glossaire\/(.*)\/entite.php/", "$1", $_SERVER['REQUEST_URI']));
 #$locale1=strip_tags(preg_replace("/\/*index.php.*/","",$_SERVER['REQUEST_URI']));
 #$locale2=strip_tags(preg_replace("/\/glossaire\/(.*)/","$1",$locale1));
 #$locale=strip_tags(preg_replace("/(.*)\//","$1",$locale2));
 
 ## Deduce the memoire.tmx directory name
-$tmxfile = "/var/www/frmoz/glossaire/TMX/memoire_en-US-".$locale.".tmx";
-
+$tmxfile = "/home/pascalc/transvision/TMX/memoire_en-US-" . $locale . ".tmx";
 
 clearstatcache();
 
+include "/home/pascalc/transvision/TMX/cache/" . $locale . "/cache_" . $locale . ".php"; // localised
+$tmx_fr = $tmx;
 
-include "/var/www/frmoz/glossaire/TMX/cache/".$locale."/cache_".$locale.".php"; // localised
-$tmx_fr=$tmx;
-
-include "/var/www/frmoz/glossaire/TMX/cache/".$locale."/cache_en-US.php"; // english
-$tmx_en=$tmx;
+include "/home/pascalc/transvision/TMX/cache/" . $locale . "/cache_en-US.php"; // english
+$tmx_en = $tmx;
 
 // get language arrays
 $l_en = $tmx_en;
@@ -46,7 +41,7 @@ echo "<script type=\"text/javascript\" src=\"../PAGES/wz_tooltip.js\"></script>\
 // list keys and values
 echo "<ul>\n";
 while (list($key, $val) = each($l_en)) {
-	echo "<li>\$tmx-&gt;resource['".$key."'] = ".$val."</li>\n";
+    echo "<li>\$tmx-&gt;resource['".$key."'] = ".$val."</li>\n";
 }
 echo "</ul>\n";
 
@@ -55,24 +50,23 @@ echo "<h2>French:</h2>\n";
 // list keys and values
 echo "<ul>";
 while (list($key, $val) = each($l_fr)) {
-	echo "<li>\$tmx-&gt;resource['".$key."'] = ".$val."</li>\n";
+    echo "<li>\$tmx-&gt;resource['".$key."'] = ".$val."</li>\n";
 }
 echo "</ul>\n";
 */
 
-$recherche2=$recherche;
+$recherche2 = $recherche;
 
 //$recherche=$_GET['recherche'];
 if (isset($_GET['recherche'])) {
     $recherche = stripslashes(secureText($_GET['recherche']));
 }
 
-$recherche2=$recherche;
-$recherche= preg_quote($recherche);
-$recherche=sql_regcase("*".$recherche."*");
+$recherche2 = $recherche;
+$recherche  = preg_quote($recherche);
+$recherche  = sql_regcase("*" . $recherche . "*");
 
-
-$keys = preg_grep(sql_regcase("/\&.*;/"), $l_en);
+$keys  = preg_grep(sql_regcase("/\&.*;/"), $l_en);
 $keys2 = preg_grep(sql_regcase("/\&.*;/"), $l_fr);
 
 
@@ -80,31 +74,32 @@ $keys2 = preg_grep(sql_regcase("/\&.*;/"), $l_fr);
 //$keys2 = preg_grep($recherche, $l_fr);
 echo "  <h2>"."English entity list</h2>\n\n";
 echo "  <table>\n\n";
-echo "	  <tr>\n";
+echo "    <tr>\n";
 echo "      <th>Entity</th>\n";
 echo "      <th>en-US</th>\n";
 echo "      <th>".$locale."</th>\n";
 echo "    </tr>\n\n";
+
 foreach ($keys as $key=>$chaine) {
-$aaa=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine));
-$bbb=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_fr[$key]));
-#echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine))."</td>\n";
-#echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_fr[$key]))."</td>\n";
-#echo "    </tr>\n\n";
-if ($aaa==$bbb) {
-#echo "      <td>".$key."</td>\n";
-#echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$chaine."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($aaa)."</a></td>\n";
-#echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$l_fr[$key]."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($bbb)."</a></td>\n";
-#echo "    </tr>\n\n";
+    $aaa=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine));
+    $bbb=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_fr[$key]));
+    #echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine))."</td>\n";
+    #echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_fr[$key]))."</td>\n";
+    #echo "    </tr>\n\n";
+    if ($aaa == $bbb) {
+        #echo "      <td>".$key."</td>\n";
+        #echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$chaine."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($aaa)."</a></td>\n";
+        #echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$l_fr[$key]."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($bbb)."</a></td>\n";
+        #echo "    </tr>\n\n";
+    } else {
+        echo "    <tr>\n";
+        echo "      <td>".$key."</td>\n";
+        echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($chaine)."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($aaa)."</a></td>\n";
+        echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($l_fr[$key])."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($bbb)."</a></td>\n";
+        echo "    </tr>\n\n";
+    }
 }
-else {
-echo "    <tr>\n";
-echo "      <td>".$key."</td>\n";
-echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($chaine)."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($aaa)."</a></td>\n";
-echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($l_fr[$key])."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($bbb)."</a></td>\n";
-echo "    </tr>\n\n";
-}
-}
+
 echo "  </table>\n\n";
 echo "  <h2>".$locale." entity list</h2>\n\n";
 echo "  <table>\n\n";
@@ -113,25 +108,26 @@ echo "      <th>Entity</th>\n";
 echo "      <th>en-US</th>\n";
 echo "      <th>".$locale."</th>\n";
 echo "    </tr>\n\n";
-foreach ($keys2 as $key=>$chaine) {
-$bbb=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine));
-$aaa=strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_en[$key]));
-#echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_en[$key]))."</td>\n";
-#echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine))."</td>\n";
-#echo "    </tr>\n\n";
-if ($aaa==$bbb) {
-#echo "      <td>".$key."</td>\n";
-#echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$l_en[$key]."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($aaa)."</a></td>\n";
-#echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$chaine."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($bbb)."</a></td>\n";
-#echo "    </tr>\n\n";
-}
-else {
-echo "    <tr>\n";
-echo "      <td>".$key."</td>\n";
-echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($l_en[$key])."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($aaa)."</a></td>\n";
-echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($chaine)."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($bbb)."</a></td>\n";
-echo "    </tr>\n\n";
-}
+
+foreach ($keys2 as $key => $chaine) {
+    $bbb = strip_tags(preg_replace("/.*(\&.*;).*/", "$1", $chaine));
+    $aaa = strip_tags(preg_replace("/.*(\&.*;).*/", "$1", $l_en[$key]));
+    #echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$l_en[$key]))."</td>\n";
+    #echo "      <td>".strip_tags(preg_replace("/.*(\&.*;).*/","$1",$chaine))."</td>\n";
+    #echo "    </tr>\n\n";
+
+    if ($aaa == $bbb) {
+    #echo "      <td>".$key."</td>\n";
+    #echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$l_en[$key]."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($aaa)."</a></td>\n";
+    #echo "      <td><a  href=\"javascript:void(0);\" onmouseover=\"Tip('.".$chaine."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\">".htmlspecialchars($bbb)."</a></td>\n";
+    #echo "    </tr>\n\n";
+    } else {
+        echo "    <tr>\n";
+        echo "      <td>".$key."</td>\n";
+        echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($l_en[$key])."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($aaa)."</a></td>\n";
+        echo "      <td><a href=\"javascript:void(0);\" onmouseover=\"Tip('.".htmlspecialchars($chaine)."', CLICKSTICKY, true);\" onmouseout=\"UnTip()\" class=\"entities\">".htmlspecialchars($bbb)."</a></td>\n";
+        echo "    </tr>\n\n";
+    }
 }
 echo "  </table>\n\n";
 //print_r($keys);
@@ -148,9 +144,3 @@ echo "    </ul>\n";
 echo "  </div>\n\n";
 
 echo "</body></html>";
-
-
-//============================================================+
-// END OF FILE                                                 
-//============================================================+
-?>

@@ -33,32 +33,26 @@ $check9 = checkState($_GET['t2t']);
 //Return only english or locale in the webservice
 $resultloc=checkState($_GET['result_loc']);
 
-if (isset( $_GET['repo'])){
-	$check6= $_GET['repo'];
-	$base= $check6;
+if (isset($_GET['repo'])){
+    $check6 = $_GET['repo'];
+    $base   = $check6;
+} else {
+    $check6='release';
+    $base= $check6;
 }
-else {
-        $check6='release';
-        $base= $check6;
+
+if (isset($_GET['locale'])){
+    $locale = $_GET['locale'];
+} else {
+    $locale = 'fr';
 }
 
-
-if (isset( $_GET['locale'])){
-	$locale= $_GET['locale'];
-}
-else {
-	$locale='fr';}
-
-
-
-
-
-
-$dirs = array_filter(glob('/var/www/frmoz/glossaire/'.$base.'TMX/cache/*'), 'is_dir');
+$dirs = array_filter(glob('/var/www/frmoz/glossaire/' . $base . 'TMX/cache/*'), 'is_dir');
 foreach ($dirs as $dir) {
-	$locs=explode('/',$dir);
-	$loc=array_pop($locs);
-	$loc_list[]=$loc;}
+    $locs       = explode('/', $dir);
+    $loc        = array_pop($locs);
+    $loc_list[] = $loc;
+}
 
 // deal with special cases depending on checkboxes ticked on or off
 if ($check3 == 'checked') {
@@ -70,7 +64,7 @@ if ($check3 == 'checked') {
 
 // Search for perfectMatch
 if ($check7 == 'checked') {
-    $recherche  = "^".$recherche."$";
+    $recherche       = '^' . $recherche . '$';
     $recherche2      = $recherche;
     $_GET['regular'] = true;
 //    $check2 = 'checked';
@@ -83,5 +77,3 @@ if ($_GET['regular'] == false) {
 //if ($check4 == 'checked') {
  //   $l_en = array_flip($l_en);
 //}
-
-?>
