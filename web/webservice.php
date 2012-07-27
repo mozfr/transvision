@@ -19,7 +19,7 @@ include'recherche.php';
 foreach ($keys as $key => $chaine) {
     $ken[$key][$chaine] = $l_fr[$key];
 }
-foreach ($keys2 as $key = >$chaine) {
+foreach ($keys2 as $key => $chaine) {
     $kfr[$key][$chaine] = $l_en[$key];
 }
 
