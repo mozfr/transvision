@@ -10,7 +10,7 @@
 root=~/transvision
 local_hg=$root/data/hg
 glossaire=$root/glossaire
-checkrepo=false
+checkrepo=true
 
 
 # List of locales per branch
