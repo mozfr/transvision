@@ -28,7 +28,7 @@ if ($check['repo'] == 'release') $re = 'checked';
 ?>
 
   <h1>Transvision glossary</h1>
-  <h1><?=$base?> <?=$locale?></h1>
+  <div id="current">You are looking at the <?=$base?> channel (<?=$locale?>)</div>
     <form method="get" action="./" >
         <fieldset id="main">
             <fieldset>
@@ -69,7 +69,7 @@ if ($check['repo'] == 'release') $re = 'checked';
             </fieldset>
 
             <fieldset>
-                <legend>Search</legend>
+                <legend>Start search</legend>
                     <input type="text" name="recherche" id="recherche" value="<?=$recherche3?>" placeholder="Type your search term here" size="30" />
                     <input type="submit" value="Go" alt="Go" />
             </fieldset>

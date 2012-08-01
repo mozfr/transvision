@@ -3,22 +3,42 @@ body {
     background-color: #f9fafc;
     padding: 1em;
     font-family: sans-serif;
+    padding-top:50px;
 }
 
 h1 {
-    margin-left: auto;
-    margin-right: auto;
-    width: 640px;
+    position: absolute;
+    top: 0;
+    left:0;
+    margin:0;
+    padding: 5px 2em;
+    width: auto;
     background-color: #3C8FD1;
-    border: 3px solid #005D99;
-    border-radius: 10px;
+    border: 1px solid #005D99;
+    border-bottom-right-radius: 20px;
+    color: #f1f4f9;
+    font-size: 1.5em;
+    text-align: center;
+    font-variant: small-caps;
+    text-shadow: 1px 1px 2px #333;
+    box-shadow: 0px 5px 5px -5px #888;
+}
+
+
+div#current {
+    margin: 50px auto;
+    width: 750px;
+    padding:0 1em;
+    background-color: #3C8FD1;
+    border: 1px solid #005D99;
     color: #f1f4f9;
     font-size: 2em;
     text-align: center;
     font-variant: small-caps;
-    text-shadow: 2px 2px 3px #333;
-    box-shadow: 0px 20px 10px -10px #888;
+    text-shadow: 1px 1px 2px #333;
 }
+
+
 
 fieldset#main {
     width: auto;
@@ -28,7 +48,7 @@ fieldset {
     border: 1px solid #C9D1DD;
     display:inline;
     min-height:3em;
-    background-color: white;
+    background-color: #F1F4F9;
     margin-top:0.5em;
 }
 
@@ -37,7 +57,7 @@ legend {
 }
 
 input[type="text"] {
-    width: 500px;
+    width: 885px;
 }
 
 h2 {
