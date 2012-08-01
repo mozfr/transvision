@@ -30,51 +30,48 @@ if ($check['repo'] == 'release') $re = 'checked';
   <h1>Transvision glossary</h1>
   <h1><?=$base?> <?=$locale?></h1>
     <form method="get" action="./" >
-        <p>
-            <label for="recherche">Search:</label>
-            <input type="text" name="recherche" id="recherche" value="<?=$recherche3?>" placeholder="Type your search term here" size="30" />
-        </p>
-        <p>
-            <label for="recherche">Locale:</label>
-            <select name='locale'>
-            <?=$option_list?>
-            </select>
-        </p>
+        <fieldset id="main">
+            <fieldset>
+                <legend>Locale:</legend>
+                <select name='locale'>
+                <?=$option_list?>
+                </select>
+            </fieldset>
 
-    <p>
-        <fieldset>
-        <legend>Channel</legend>
-          <input type="radio" name="repo" value="trunk"   id="trunk"   <?=$tr?> ><label for="trunk">Central</label>
-          <input type="radio" name="repo" value="aurora"  id="aurora"  <?=$au?> ><label for="aurora">Aurora</label>
-          <input type="radio" name="repo" value="beta"    id="beta"    <?=$be?> ><label for="beta">Beta</label>
-          <input type="radio" name="repo" value="release" id="release" <?=$re?> ><label for="release">Release</label>
+            <fieldset>
+                <legend>Channel</legend>
+                <input type="radio" name="repo" value="trunk"   id="trunk"   <?=$tr?> ><label for="trunk">Central</label>
+                <input type="radio" name="repo" value="aurora"  id="aurora"  <?=$au?> ><label for="aurora">Aurora</label>
+                <input type="radio" name="repo" value="beta"    id="beta"    <?=$be?> ><label for="beta">Beta</label>
+                <input type="radio" name="repo" value="release" id="release" <?=$re?> ><label for="release">Release</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Search options</legend>
+                <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=checkboxState($check['case_sensitive'])?> />
+                <label for="case_sensitive">Case sensitive</label>
+                <input type="checkbox" name="regular" id="regular" value="regular" <?=checkboxState($check['regular'])?> />
+                <label for="regular">Regular Expression</label>
+                <input type="checkbox" name="wild" id="wild" value="wild"          <?=checkboxState($check['wild'])?> />
+                <label for="wild">* wildcard</label>
+                <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
+                <label for="whole_word">whole word</label>
+                <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> />
+                <label for="ent">entity search</label>
+                <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
+                <label for="perfect_match">Perfect match</label>
+                <!--
+                <input type="checkbox" name="alignement" id="alignement" value="alignement" <?=checkboxState($check['alignement'])?> />
+                <label for="alignement">Alignement</label>
+                -->
+                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> />
+                <label for="t2t">Glossaire</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Search</legend>
+                    <input type="text" name="recherche" id="recherche" value="<?=$recherche3?>" placeholder="Type your search term here" size="30" />
+                    <input type="submit" value="Go" alt="Go" />
+            </fieldset>
         </fieldset>
-    </p>
-    <p>
-        <fieldset>
-         <legend>Search options</legend>
-         <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=checkboxState($check['case_sensitive'])?> />
-         <label for="case_sensitive">Case sensitive</label>
-         <input type="checkbox" name="regular" id="regular" value="regular" <?=checkboxState($check['regular'])?> />
-         <label for="regular">Regular Expression</label>
-         <input type="checkbox" name="wild" id="wild" value="wild"          <?=checkboxState($check['wild'])?> />
-         <label for="wild">* wildcard</label>
-         <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
-         <label for="whole_word">whole word</label>
-         <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> />
-         <label for="ent">entity search</label>
-         <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
-         <label for="perfect_match">Perfect match</label>
-    <!--
-         <input type="checkbox" name="alignement" id="alignement" value="alignement" <?=checkboxState($check['alignement'])?> />
-         <label for="alignement">Alignement</label>
-    -->
-         <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> />
-         <label for="t2t">Glossaire</label>
-         </fieldset>
-    </p>
-
-   <p>
-     <input type="submit" value="Search&hellip;" alt="Search&hellip;" />
-   </p>
  </form>
