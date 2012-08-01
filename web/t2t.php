@@ -2,7 +2,9 @@
 
 // Search for the string
 include 'recherche.php';
-//Get the locale results
+
+// Get the locale results
+$results = array();
 foreach ($keys as $key => $chaine) {
     $results[$key] = strtolower($l_fr[$key]);
 }

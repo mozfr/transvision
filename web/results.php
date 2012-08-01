@@ -34,7 +34,7 @@ foreach ($keys as $key => $chaine) {
     echo "    <tr>\n";
     echo "      <td>" . $key_link . $base2 . '">' . $key_color . "</a></td>\n";
     echo "      <td>".preg_replace("/(" . $recherche . ")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', strip_tags($chaine)) . "</td>\n";
-    echo "      <td>" . strip_tags($l_fr[$key]) . "</td>\n";
+    echo "      <td dir='$direction'>" . strip_tags($l_fr[$key]) . "</td>\n";
     echo "    </tr>\n\n";
 }
 
@@ -55,7 +55,7 @@ foreach ($keys2 as $key => $chaine) {
     echo "    <tr>\n";
     echo "      <td>" . $key_link . '">' . $key_color . "</a></td>\n";
     echo "      <td>" . strip_tags($l_en[$key]) . "</td>\n";
-    echo "      <td>" . preg_replace("/(".$recherche.")/i", $rouge . '${1}</span>', strip_tags($chaine)) . "</td>\n";
+    echo "      <td dir='$direction'>" . preg_replace("/(".$recherche.")/i", $rouge . '${1}</span>', strip_tags($chaine)) . "</td>\n";
     echo "    </tr>\n\n";
 }
 echo "  </table>\n\n";
