@@ -36,7 +36,7 @@ $base          = $check['repo'];
 $locale        = (isset($_GET['locale'])) ? $_GET['locale'] : $detectedLocale;
 $direction     = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
-$dirs = array_filter(glob('/home/pascalc/transvision/TMX/' . $base . '/*'), 'is_dir');
+$dirs = array_filter(glob(TMX . $base . '/*'), 'is_dir');
 
 foreach ($dirs as $dir) {
     $locs       = explode('/', $dir);

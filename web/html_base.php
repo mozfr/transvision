@@ -5,7 +5,7 @@ if (!$valid) {
 }
 
 // Get the locale list
-$loc_list = scandir('/home/pascalc/transvision/TMX/' . $base . '/');
+$loc_list = scandir(TMX . $base . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));
 
 

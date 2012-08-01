@@ -11,9 +11,9 @@ require_once '../include/header.php';
 include '../PAGES/d_html_base.php';
 
 if ($unique==1) {
-    include '/home/pascalc/transvision/TMX/cache/' . $locale . '/doublons_unique_' . $locale . '.php';
+    include TMX . '/cache/' . $locale . '/doublons_unique_' . $locale . '.php';
 } else {
-    include '/home/pascalc/transvision/TMX/cache/' . $locale . '/doublons_' . $locale . '.php';
+    include TMX . '/cache/' . $locale . '/doublons_' . $locale . '.php';
 }
 
 $i = 1;

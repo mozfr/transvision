@@ -12,14 +12,14 @@ $locale = strip_tags(preg_replace("/\/glossaire\/(.*)\/entite.php/", "$1", $_SER
 #$locale=strip_tags(preg_replace("/(.*)\//","$1",$locale2));
 
 ## Deduce the memoire.tmx directory name
-$tmxfile = "/home/pascalc/transvision/TMX/memoire_en-US-" . $locale . ".tmx";
+$tmxfile = TMX . '/memoire_en-US-' . $locale . '.tmx';
 
 clearstatcache();
 
-include "/home/pascalc/transvision/TMX/cache/" . $locale . "/cache_" . $locale . ".php"; // localised
+include TMX . '/cache/' . $locale . '/cache_' . $locale . '.php'; // localised
 $tmx_fr = $tmx;
 
-include "/home/pascalc/transvision/TMX/cache/" . $locale . "/cache_en-US.php"; // english
+include TMX . '/cache/' . $locale . '/cache_en-US.php'; // english
 $tmx_en = $tmx;
 
 // get language arrays
