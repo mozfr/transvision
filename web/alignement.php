@@ -13,7 +13,6 @@ include 'cache_import.php';
 
 require_once 'header.php';
 
-echo "<body>\n";
 echo "  <h1>String alignement</h1>\n\n";
 
 echo "    <form method=\"get\" action=\"alignement.php\" >\n";

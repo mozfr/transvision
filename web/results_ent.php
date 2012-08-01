@@ -19,7 +19,7 @@ foreach ($keys as $key => $chaine) {
     echo "      <td>" . preg_replace("/(".$recherche.")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', strip_tags($chaine)) . "</td>\n";
     // echo "      <td>".strip_tags($chaine)."</td>\n";
     echo "      <td>" . strip_tags($key) . "</td>\n";
-    echo "      <td>" . strip_tags($l_fr[$chaine]) . "</td>\n";
+    echo "      <td dir='$direction'>" . strip_tags($l_fr[$chaine]) . "</td>\n";
     echo "    </tr>\n\n";
 }
 

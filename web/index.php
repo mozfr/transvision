@@ -9,8 +9,8 @@ require_once 'init.php';
 // include the search options.
 require_once 'search_options.php';
 
-// Include the necessary header
-require_once 'header.php';
+// Start output buffering, we will output in a template
+ob_start();
 
 // Base html
 require_once 'html_base.php';
@@ -25,12 +25,17 @@ if ($check['t2t']) {
     require_once 'recherche.php';
 
     // result presentation
-    if (!$check['ent']) {
-        require_once 'results.php';
-    } else {
-        require_once 'results_ent.php';
+    if($recherche != '') {
+        if (!$check['ent']) {
+            require_once 'results.php';
+        } else {
+            require_once 'results_ent.php';
+        }
     }
 }
 
-// include the footer of the page
-require_once 'footer.html';
+$content = ob_get_contents();
+ob_end_clean();
+
+// display the page
+require_once 'views/template.php';

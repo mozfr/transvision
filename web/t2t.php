@@ -38,7 +38,11 @@ if (count($results) > 3) {
         $i = $i+1;
     }
 
+    echo "<ul dir='$direction'>";
+
     foreach ($moti as $mot){
-        echo $mot . '<br>';
+        echo "<p>$mot</p>";
     }
+
+    echo "</ul>";
 }
