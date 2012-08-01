@@ -1,4 +1,8 @@
 <?php
+if (!$valid) {
+    die("File can't be called directly");
+}
+
 include 'function_clean.php';
 
 # Include the locale name finder

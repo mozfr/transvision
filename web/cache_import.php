@@ -1,5 +1,9 @@
 <?php
 
+if (!$valid) {
+    die("File can't be called directly");
+}
+
 // Deduce the memoire.tmx directory name
 $tmxfile = TMX . '/memoire_en-US_' . $locale . '.tmx';
 

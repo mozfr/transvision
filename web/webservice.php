@@ -1,19 +1,24 @@
 <?php
-header('Content-type: text/html; charset=UTF-8');
 
-#include the search options.
-include 'search_option.php';
+// Variable allowing includes
+$valid = true;
 
-#include the locale name finder
-#include 'locale_find.php';
+// Init application
+require_once 'init.php';
 
-#include the cache files.
-include 'cache_import.php';
+header('Content-type: application/json; charset=UTF-8');
 
+// include the search options.
+require_once 'search_options.php';
 
+// include the locale name finder
+// include 'locale_find.php';
 
-#fonction de recherche
-include'recherche.php';
+// include the cache files.
+require_once 'cache_import.php';
+
+// fonction de recherche
+require_once'recherche.php';
 
 
 foreach ($keys as $key => $chaine) {
@@ -23,19 +28,15 @@ foreach ($keys2 as $key => $chaine) {
     $kfr[$key][$chaine] = $l_en[$key];
 }
 
-
-
 $json_en = json_encode($ken);
 $json_fr = json_encode($kfr);
 
-#echo json_encode($keys2);
-
-
 if (isset($_GET['callback'])) {
-    if ($_GET['return_loc'] == 'loc'){
-    echo $_GET['callback'] . '(' . $json_fr . ');';}
-    else{
-    echo $_GET['callback'] . '(' . $json_en . ');';}
+    if ($_GET['return_loc'] == 'loc') {
+        echo $_GET['callback'] . '(' . $json_fr . ');';
+    } else{
+        echo $_GET['callback'] . '(' . $json_en . ');';
+    }
 } else {
     if ($_GET['return_loc'] == 'loc'){
         echo $json_fr;
@@ -43,4 +44,3 @@ if (isset($_GET['callback'])) {
         echo $json_en;
     }
 }
-//echo $callback . '(' . $json_en . ')';

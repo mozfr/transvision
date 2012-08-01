@@ -1,4 +1,7 @@
 <?php
+if (!$valid) {
+    die("File can't be called directly");
+}
 
 include '../PAGES/function_clean.php';
 

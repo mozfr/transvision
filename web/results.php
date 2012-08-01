@@ -1,5 +1,9 @@
 <?php
 
+if (!$valid) {
+    die("File can't be called directly");
+}
+
 $rouge = '<span style="color: rgb( 200,0, 0);">';
 $bleu  = '<span style="color: rgb( 0, 0,200);">';
 $vert  = '<span style="color: rgb( 0, 0,0);">';

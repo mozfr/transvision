@@ -1,4 +1,8 @@
 <?php
+if (!$valid) {
+    die("File can't be called directly");
+}
+
 // aucune distance de trouvée pour le moment
 $shortest = -1;
 

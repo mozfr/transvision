@@ -1,5 +1,9 @@
 <?php
 
+if (!$valid) {
+    die("File can't be called directly");
+}
+
 // If $recherche consits of several words, each are stocked on the $aaa variable
 $aaa = explode(' ', $recherche);
 
