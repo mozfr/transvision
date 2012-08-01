@@ -1,3 +1,4 @@
+ach
 af
 ak
 ar
@@ -11,6 +12,7 @@ br
 bs
 ca
 cs
+csb
 cy
 da
 de
@@ -25,6 +27,7 @@ es-MX
 et
 eu
 fa
+ff
 fi
 fr
 fy-NL
@@ -49,21 +52,21 @@ kn
 ko
 ku
 lg
+lij
 lt
 lv
 mai
 mk
 ml
-mn
 mr
 ms
+my
 nb-NO
 ne-NP
 nl
 nn-NO
 nr
 nso
-oc
 or
 pa-IN
 pl
@@ -93,6 +96,7 @@ ts
 uk
 ve
 vi
+wo
 xh
 zh-CN
 zh-TW
