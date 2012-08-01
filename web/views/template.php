@@ -12,7 +12,7 @@ if (!$valid) {
     <link rel="stylesheet" href="style/glossary.css" type="text/css" media="all" />
   </head>
 <body>
-
+  <h1>Transvision glossary <?=VERSION?></h1>
     <?=$content?>
 
   <div id="links">

@@ -26,8 +26,6 @@ if ($check['repo'] == 'beta')    $be = 'checked';
 if ($check['repo'] == 'release') $re = 'checked';
 
 ?>
-
-  <h1>Transvision glossary</h1>
   <div id="current">You are looking at the <?=$base?> channel (<?=$locale?>)</div>
     <form method="get" action="./" >
         <fieldset id="main">

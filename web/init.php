@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 define('APPROOT', '/home/pascalc/transvision');
 define('HG',  APPROOT .'/data/hg/');
 define('TMX', APPROOT .'/TMX/');
+define('VERSION', '1.1');
 
 // Locale detection
 require_once 'classes/ChooseLocale.class.php';
