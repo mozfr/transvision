@@ -15,41 +15,41 @@ import silme.io
 
 silme.format.Manager.register('dtd', 'properties')
 
-def getchaine(package,dir):
+def getchaine(package,directory):
     for item in package:
         aa=item[0]
         bb=item[1]
         if (type(bb) is not silme.core.structure.Blob) and not(isinstance(bb,silme.core.Package)):
             for id in bb:
-                chaines[dir+":"+aa+":"+id]=bb[id].get_value()
+                chaines[directory+":"+aa+":"+id]=bb[id].get_value()
 
     for pack in package.packages():
         for item in pack:
             if isinstance(item[1], silme.core.Package):
-                getchaine(item[1],dir)
+                getchaine(item[1],directory)
 
             else:
                 aa=item[0]
                 bb=item[1]
                 if type(bb) is not silme.core.structure.Blob:
                     for id in bb:
-                        chaines[dir+":"+aa+":"+id]=bb[id].get_value()
+                        chaines[directory+":"+aa+":"+id]=bb[id].get_value()
     return chaines
 
-def tmxheader(file,langcode2):
+def tmxheader(fichier,langcode2):
     from datetime import datetime
-    file.write('<?xml version="1.0" encoding="UTF-8"?>')
-    file.write("\n")
-    file.write('<tmx version="1.4">')
-    file.write("\n")
-    file.write(' <header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="'+str(datetime.now())+'" creationtoolversion="0.1" creationtool="tmxmaker_transvision" srclang="'+langcode2+'" segtype="sentence" datatype="plaintext">')
-    file.write("\n")
-    file.write(' </header>')
-    file.write("\n")
-    file.write(' <body>')
-    file.write("\n")
+    fichier.write('<?xml version="1.0" encoding="UTF-8"?>')
+    fichier.write("\n")
+    fichier.write('<tmx version="1.4">')
+    fichier.write("\n")
+    fichier.write(' <header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="'+str(datetime.now())+'" creationtoolversion="0.1" creationtool="tmxmaker_transvision" srclang="'+langcode2+'" segtype="sentence" datatype="plaintext">')
+    fichier.write("\n")
+    fichier.write(' </header>')
+    fichier.write("\n")
+    fichier.write(' <body>')
+    fichier.write("\n")
 
-def addtu(ent,ch1,ch2,file,langcode1,langcode2):
+def addtu(ent,ch1,ch2,fichier,langcode1,langcode2):
     ch1=ch1.replace('&','&amp;')
     ch2=ch2.replace('&','&amp;')
     ch1=ch1.replace('<','&lt;')
@@ -65,23 +65,23 @@ def addtu(ent,ch1,ch2,file,langcode1,langcode2):
     ch1=ch1.replace('}','')
     ch2=ch2.replace('}','')
 
-    file.write('    <tu tuid="'+ent+'" srclang="'+langcode2+'">')
-    file.write("\n")
-    file.write("        <tuv xml:lang=\""+langcode2+"\"><seg>"+ch1.encode('utf-8')+"</seg></tuv>")
-    file.write("\n")
-    file.write("        <tuv xml:lang=\""+langcode1+"\"><seg>"+ch2.encode('utf-8')+'</seg></tuv>')
-    file.write("\n")
-    file.write("    </tu>")
-    file.write("\n")
+    fichier.write('    <tu tuid="'+ent+'" srclang="'+langcode2+'">')
+    fichier.write("\n")
+    fichier.write("        <tuv xml:lang=\""+langcode2+"\"><seg>"+ch1.encode('utf-8')+"</seg></tuv>")
+    fichier.write("\n")
+    fichier.write("        <tuv xml:lang=\""+langcode1+"\"><seg>"+ch2.encode('utf-8')+'</seg></tuv>')
+    fichier.write("\n")
+    fichier.write("    </tu>")
+    fichier.write("\n")
 
-def tmxclose(file):
-    file.write('</body>\n</tmx>')
+def tmxclose(fichier):
+    fichier.write('</body>\n</tmx>')
 
-def cacheheader(file):
-    file.write("<?php")
-    file.write("\n")
+def cacheheader(fichier):
+    fichier.write("<?php")
+    fichier.write("\n")
 
-def cacheadd(ent,ch,file):
+def cacheadd(ent,ch,fichier):
     ch=ch.replace('&','&amp;')
     ch=ch.replace('<','&lt;')
     ch=ch.replace('>','&gt;')
@@ -90,11 +90,11 @@ def cacheadd(ent,ch,file):
     ch=ch.replace('}','')
     ch=ch.replace('{','')
     ch=ch.replace('$','\$')
-    file.write('$tmx[\''+ent.encode('utf-8')+'\']="'+ch.encode('utf-8')+'";')
-    file.write("\n")
+    fichier.write('$tmx[\''+ent.encode('utf-8')+'\']="'+ch.encode('utf-8')+'";')
+    fichier.write("\n")
 
-def cacheclose(file):
-    file.write('?>')
+def cacheclose(fichier):
+    fichier.write('?>')
 
 
 if __name__ == "__main__":
@@ -155,21 +155,21 @@ if __name__ == "__main__":
     cacheheader(fichier3)
     total={}
     total2={}
-    for dir in dirs:
+    for directory in dirs:
         chaine={}
         chaine2={}
         chaines={}
         chaines2={}
-        path1=en_US+dir
-        path2=fr+dir
+        path1=en_US+directory
+        path2=fr+directory
 
         rcsClient = silme.io.Manager.get('file')
         l10nPackage = rcsClient.get_package(path1 , object_type='entitylist')
         rcsClient2 = silme.io.Manager.get('file')
         l10nPackage2 = rcsClient.get_package(path2 , object_type='entitylist')
 
-        chaine=getchaine(l10nPackage,dir)
-        chaine2=getchaine(l10nPackage2,dir)
+        chaine=getchaine(l10nPackage,directory)
+        chaine2=getchaine(l10nPackage2,directory)
         for entity in chaine:
             if len(chaine[entity])>2:
                 addtu(entity,chaine[entity],chaine2.get(entity,""),fichier,langcode1,langcode2)
