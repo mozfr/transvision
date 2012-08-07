@@ -15,7 +15,7 @@ import silme.io
 
 silme.format.Manager.register('dtd', 'properties')
 
-def getchaine1(package,dir):
+def getchaine(package,dir):
     for item in package:
         aa=item[0]
         bb=item[1]
@@ -26,7 +26,7 @@ def getchaine1(package,dir):
     for pack in package.packages():
         for item in pack:
             if isinstance(item[1], silme.core.Package):
-                getchaine1(item[1],dir)
+                getchaine(item[1],dir)
 
             else:
                 aa=item[0]
@@ -35,25 +35,6 @@ def getchaine1(package,dir):
                     for id in bb:
                         chaines[dir+":"+aa+":"+id]=bb[id].get_value()
     return chaines
-
-def getchaine2(package,dir):
-    for item in package:
-        aa=item[0]
-        bb=item[1]
-        if (type(bb) is not silme.core.structure.Blob) and not(isinstance(bb,silme.core.Package)):
-            for id in bb:
-                chaines2[dir+":"+aa+":"+id]=bb[id].get_value()
-    for pack in package.packages():
-        for item in pack:
-            if isinstance(item[1], silme.core.Package):
-                getchaine2(item[1],dir)
-            else:
-                aa=item[0]
-                bb=item[1]
-                if type(bb) is not silme.core.structure.Blob:
-                    for id in bb:
-                        chaines2[dir+":"+aa+":"+id]=bb[id].get_value()
-    return chaines2
 
 def tmxheader(file,langcode2):
     from datetime import datetime
@@ -187,10 +168,8 @@ if __name__ == "__main__":
         rcsClient2 = silme.io.Manager.get('file')
         l10nPackage2 = rcsClient.get_package(path2 , object_type='entitylist')
 
-        getchaine1(l10nPackage,dir)
-        getchaine2(l10nPackage2,dir)
-        chaine=chaines
-        chaine2=chaines2
+        chaine=getchaine(l10nPackage,dir)
+        chaine2=getchaine(l10nPackage2,dir)
         for entity in chaine:
             if len(chaine[entity])>2:
                 addtu(entity,chaine[entity],chaine2.get(entity,""),fichier,langcode1,langcode2)
