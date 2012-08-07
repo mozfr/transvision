@@ -139,15 +139,17 @@ if __name__ == "__main__":
     dirs=filter(lambda x:x in dirs1,dirs2)
 
     localdir    = "/home/pascalc/transvision/TMX/"
-    nomfichier  = localdir+depot+"/"+langcode1+"/memoire_"+langcode2+"_"+langcode1+".tmx"
-    nomfichier2 = localdir+depot+"/"+langcode1+"/cache_"+langcode2+".php"
-    nomfichier3 = localdir+depot+"/"+langcode1+"/cache_"+langcode1+".php"
-    nomfichier4 = localdir+depot+"/"+langcode1+"/doublons_"+langcode1+".php"
-    nomfichier5 = localdir+depot+"/"+langcode1+"/doublons_unique_"+langcode1+".php"
-    fichier = open(nomfichier, "w")
+    localpath   = localdir+depot+"/"+langcode1
+    nomfichier1 = localpath+"/memoire_"+langcode2+"_"+langcode1+".tmx"
+    nomfichier2 = localpath+"/cache_"+langcode2+".php"
+    nomfichier3 = localpath+"/cache_"+langcode1+".php"
+    nomfichier4 = localpath+"/doublons_"+langcode1+".php"
+    nomfichier5 = localpath+"/doublons_unique_"+langcode1+".php"
+
+    fichier1 = open(nomfichier1, "w")
     fichier2 = open(nomfichier2, "w")
     fichier3 = open(nomfichier3, "w")
-    tmxheader(fichier,langcode2)
+    tmxheader(fichier1,langcode2)
     cacheheader(fichier2)
     cacheheader(fichier3)
     total={}
@@ -169,7 +171,7 @@ if __name__ == "__main__":
         chaine2=getchaine(l10nPackage2,directory)
         for entity in chaine:
             if len(chaine[entity])>2:
-                addtu(entity,chaine[entity],chaine2.get(entity,""),fichier,langcode1,langcode2)
+                addtu(entity,chaine[entity],chaine2.get(entity,""),fichier1,langcode1,langcode2)
                 cacheadd(entity,chaine[entity],fichier2)
                 cacheadd(entity,chaine2.get(entity,""),fichier3)
                 total[entity]=chaine.get(entity,"")
@@ -227,7 +229,7 @@ if __name__ == "__main__":
         fichier4.write('$k='+str(i)+';')
         fichier5.write('$k='+str(j)+';')
 
-    tmxclose(fichier)
-    fichier.close()
+    tmxclose(fichier1)
+    fichier1.close()
     fichier2.close()
     fichier3.close()
