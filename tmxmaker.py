@@ -93,9 +93,6 @@ def cacheadd(ent,ch,fichier):
     fichier.write('$tmx[\''+ent.encode('utf-8')+'\']="'+ch.encode('utf-8')+'";')
     fichier.write("\n")
 
-def cacheclose(fichier):
-    fichier.write('?>')
-
 
 if __name__ == "__main__":
     usage = "test"
@@ -229,12 +226,8 @@ if __name__ == "__main__":
 
         fichier4.write('$k='+str(i)+';')
         fichier5.write('$k='+str(j)+';')
-        cacheclose(fichier4)
-        cacheclose(fichier5)
 
     tmxclose(fichier)
-    cacheclose(fichier2)
-    cacheclose(fichier3)
     fichier.close()
     fichier2.close()
     fichier3.close()
