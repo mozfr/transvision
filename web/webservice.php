@@ -22,10 +22,10 @@ require_once'recherche.php';
 
 
 foreach ($keys as $key => $chaine) {
-    $ken[$key][$chaine] = $l_fr[$key];
+    $ken[$key][$chaine] = htmlspecialchars_decode($l_fr[$key], ENT_QUOTES);
 }
 foreach ($keys2 as $key => $chaine) {
-    $kfr[$key][$chaine] = $l_en[$key];
+    $kfr[$key][$chaine] = htmlspecialchars_decode($l_en[$key], ENT_QUOTES);
 }
 
 $json_en = json_encode($ken);
@@ -41,6 +41,6 @@ if (isset($_GET['callback'])) {
     if ($_GET['return_loc'] == 'loc'){
         echo $json_fr;
     } else {
-        echo $json_en;
+        echo htmlspecialchars_decode($json_en, ENT_QUOTES);
     }
 }
