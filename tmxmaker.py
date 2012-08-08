@@ -15,7 +15,7 @@ import silme.io
 
 silme.format.Manager.register('dtd', 'properties')
 
-def getchaine(package, directory):
+def get_string(package, directory):
     for item in package:
         aa = item[0]
         bb = item[1]
@@ -26,7 +26,7 @@ def getchaine(package, directory):
     for pack in package.packages():
         for item in pack:
             if isinstance(item[1], silme.core.Package):
-                getchaine(item[1], directory)
+                get_string(item[1], directory)
             else:
                 aa = item[0]
                 bb = item[1]
@@ -35,7 +35,7 @@ def getchaine(package, directory):
                         chaines[directory + ":" + aa + ":" + id] = bb[id].get_value()
     return chaines
 
-def tmxheader(fichier, sourcelang):
+def tmx_header(fichier, sourcelang):
     from datetime import datetime
     header = '''<?xml version="1.0" encoding="UTF-8"?>
     <tmx version="1.4">
@@ -46,7 +46,7 @@ def tmxheader(fichier, sourcelang):
     fichier.write(header.format(creationdate=str(datetime.now()), sourcelang=sourcelang))
 
 
-def addtu(ent, ch1, ch2, fichier, targetlang, sourcelang):
+def tmx_add_tu(ent, ch1, ch2, fichier, targetlang, sourcelang):
     ch1 = ch1.replace('&', '&amp;')
     ch2 = ch2.replace('&', '&amp;')
     ch1 = ch1.replace('<', '&lt;')
@@ -71,13 +71,13 @@ def addtu(ent, ch1, ch2, fichier, targetlang, sourcelang):
     fichier.write("    </tu>")
     fichier.write("\n")
 
-def tmxclose(fichier):
+def tmx_close(fichier):
     fichier.write("</body>\n</tmx>")
 
-def cacheheader(fichier):
+def php_header(fichier):
     fichier.write("<?php\n")
 
-def cacheadd(ent,ch,fichier):
+def php_add_to_array(ent,ch,fichier):
     ch=ch.replace('&', '&amp;')
     ch=ch.replace('<', '&lt;')
     ch=ch.replace('>', '&gt;')
@@ -148,9 +148,9 @@ if __name__ == "__main__":
     fichier1 = open(nomfichier1, "w")
     fichier2 = open(nomfichier2, "w")
     fichier3 = open(nomfichier3, "w")
-    tmxheader(fichier1, langcode2)
-    cacheheader(fichier2)
-    cacheheader(fichier3)
+    tmx_header(fichier1, langcode2)
+    php_header(fichier2)
+    php_header(fichier3)
     total = {}
     total2 = {}
     for directory in dirs:
@@ -166,21 +166,21 @@ if __name__ == "__main__":
         rcsClient2 = silme.io.Manager.get('file')
         l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
 
-        chaine = getchaine(l10nPackage, directory)
-        chaine2 = getchaine(l10nPackage2, directory)
+        chaine = get_string(l10nPackage, directory)
+        chaine2 = get_string(l10nPackage2, directory)
         for entity in chaine:
             if len(chaine[entity]) > 2:
-                addtu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
-                cacheadd(entity, chaine[entity], fichier2)
-                cacheadd(entity, chaine2.get(entity,""), fichier3)
+                tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
+                php_add_to_array(entity, chaine[entity], fichier2)
+                php_add_to_array(entity, chaine2.get(entity,""), fichier3)
                 total[entity] = chaine.get(entity,"")
                 total2[entity] = chaine2.get(entity,"")
 
     if doublon:
         fichier4 = open(nomfichier4, "w")
         fichier5 = open(nomfichier5, "w")
-        cacheheader(fichier4)
-        cacheheader(fichier5)
+        php_header(fichier4)
+        php_header(fichier5)
         i = 0
         j = 0
         total3 = total.copy()
@@ -228,7 +228,7 @@ if __name__ == "__main__":
         fichier4.write('$k=' + str(i) + ';')
         fichier5.write('$k=' + str(j) + ';')
 
-    tmxclose(fichier1)
+    tmx_close(fichier1)
     fichier1.close()
     fichier2.close()
     fichier3.close()
