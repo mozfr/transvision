@@ -37,16 +37,14 @@ def getchaine(package, directory):
 
 def tmxheader(fichier, sourcelang):
     from datetime import datetime
-    fichier.write('<?xml version="1.0" encoding="UTF-8"?>')
-    fichier.write("\n")
-    fichier.write('<tmx version="1.4">')
-    fichier.write("\n")
-    fichier.write(' <header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="'+str(datetime.now())+'" creationtoolversion="0.1" creationtool="tmxmaker_transvision" srclang="'+sourcelang+'" segtype="sentence" datatype="plaintext">')
-    fichier.write("\n")
-    fichier.write(' </header>')
-    fichier.write("\n")
-    fichier.write(' <body>')
-    fichier.write("\n")
+    header = '''<?xml version="1.0" encoding="UTF-8"?>
+    <tmx version="1.4">
+     <header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="{creationdate}" creationtoolversion="0.1" creationtool="tmxmaker_transvision" srclang="{sourcelang}" segtype="sentence" datatype="plaintext">
+     </header>
+     <body>
+     '''
+    fichier.write(header.format(creationdate=str(datetime.now()), sourcelang=sourcelang))
+
 
 def addtu(ent, ch1, ch2, fichier, targetlang, sourcelang):
     ch1 = ch1.replace('&', '&amp;')
@@ -77,8 +75,7 @@ def tmxclose(fichier):
     fichier.write("</body>\n</tmx>")
 
 def cacheheader(fichier):
-    fichier.write("<?php")
-    fichier.write("\n")
+    fichier.write("<?php\n")
 
 def cacheadd(ent,ch,fichier):
     ch=ch.replace('&', '&amp;')
