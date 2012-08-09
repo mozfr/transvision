@@ -104,10 +104,6 @@ td {
     border: 1px solid black;
 }
 
-a[hreflang]:after {
-        content: "\0000a0(" attr(hreflang) ")";
-}
-
 a.entities {
     color: black;
     font-weight: 600;
@@ -117,16 +113,18 @@ a.entities {
 }
 
 #links {
+    background-color: #3C8FD1;
+    border: 1px solid #005D99;
+    color: #f1f4f9;
+    text-align: center;
+    font-variant: small-caps;
+    text-shadow: 1px 1px 2px #333;
     margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
     padding: 0.5em;
     width: 80%;
     font-size: 1em;
-    background-color: #f3ffcd;
-    border: 3px solid #498504;
-    border-radius: 10px;
-    box-shadow: 0px 10px 5px -5px #888;
 }
 
 #links ul {
@@ -142,10 +140,9 @@ a.entities {
 
 #links ul li a, #links ul li a:visited {
     font-size: 1em;
-    color: #5E9E14 !important;
     text-decoration: none;
-    font-weight: bold;
     padding: .2em 0.5em;
+    color:white;
 }
 
 #links ul li a:hover {

@@ -26,8 +26,9 @@ if ($check['repo'] == 'beta')    $be = 'checked';
 if ($check['repo'] == 'release') $re = 'checked';
 
 ?>
-  <div id="current">You are looking at the <?=$base?> channel (<?=$locale?>)</div>
-    <form method="get" action="./" >
+
+  <div id="current" onclick="javascript:t2t();">You are looking at the <?=$base?> channel (<?=$locale?>)</div>
+    <form name="searchform" method="get" action="./" >
         <fieldset id="main">
             <fieldset>
                 <legend>Locale:</legend>
@@ -62,7 +63,7 @@ if ($check['repo'] == 'release') $re = 'checked';
                 <input type="checkbox" name="alignement" id="alignement" value="alignement" <?=checkboxState($check['alignement'])?> />
                 <label for="alignement">Alignement</label>
                 -->
-                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> />
+                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> onclick="uncheck();"/>
                 <label for="t2t">Glossaire</label>
             </fieldset>
 
@@ -73,3 +74,18 @@ if ($check['repo'] == 'release') $re = 'checked';
             </fieldset>
         </fieldset>
  </form>
+
+ <script>
+function uncheck() {
+    var arr = ['case_sensitive', 'regular', 'wild', 'ent', 'whole_word', 'perfect_match'];
+    for (var i = 0; i < arr.length; i++) {
+        el = document.getElementById(arr[i]);
+        if (el.disabled) {
+            el.removeAttribute('disabled');
+        } else {
+            el.setAttribute('disabled', 'disabled');
+        }
+    }
+}
+
+</script>

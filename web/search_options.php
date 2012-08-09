@@ -17,19 +17,26 @@ if (isset($_GET['recherche'])) {
 $recherche2 = $recherche3 = $recherche;
 
 // helper function to set checkboxes value
-function checkboxState($str) {
-    return ($str) ? ' checked="checked"' : '';
+function checkboxState($str, $disabled='') {
+    if($str == 't2t') {
+        return ($str) ? ' checked="checked"' : '';
+    }
+
+    if(isset($_GET['t2t'])) {
+        return ' disabled="disabled"';
+    } else {
+        return ($str) ? ' checked="checked"' : '';
+    }
 }
 
 
 // checkboxes states
 $check = array();
-$checkboxes = array('case_sensitive', 'regular', 'wild', 'ent', 'whole_word', 'perfect_match', 'alignement', 't2t', 'result_loc', 'regular');
+$checkboxes = array('case_sensitive', 'regular', 'wild', 'ent', 'whole_word', 'perfect_match', 'alignement', 't2t', 'result_loc',);
 // note: result_loc = Return only english or locale in the webservice
 foreach($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
-
 
 $check['repo'] = (isset($_GET['repo'])) ? $_GET['repo'] : 'release';
 $base          = $check['repo'];
@@ -54,14 +61,12 @@ if ($check['wild']) {
 if ($check['perfect_match']) {
     $recherche       = '^' . $recherche . '$';
     $recherche2      = $recherche;
-    $_GET['regular'] = true;
-//    $check['regular'] = 'checked';
+    $_GET['regular'] = 'regular';
+    $check['regular'] = 'checked';
 }
 
 if (!$check['regular']) {
     $recherche = preg_quote($recherche);
 }
 
-//if ($check['perfect_match']) {
- //   $l_en = array_flip($l_en);
-//}
+$recherche = trim($recherche);
