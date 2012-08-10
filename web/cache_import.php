@@ -7,8 +7,6 @@ if (!$valid) {
 // Deduce the memoire.tmx directory name
 $tmxfile = TMX . '/memoire_en-US_' . $locale . '.tmx';
 
-# clearstatcache();
-
 include TMX . $base . '/' . $locale . '/cache_' . $locale . '.php'; // localised
 $tmx_target = $tmx;
 

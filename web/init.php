@@ -21,3 +21,14 @@ $detectedLocale = $l10nDetect->getCompatibleLocale();
 // Defined locale + rtl
 $locale    = (isset($_GET['locale'])) ? $_GET['locale'] : $detectedLocale;
 $direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
+
+// webservice definition
+if($webservice || isset($_GET['json'])) {
+    $webservice = true;
+}
+
+// include the search options.
+require_once 'search_options.php';
+
+// include the cache files.
+require_once 'cache_import.php';
