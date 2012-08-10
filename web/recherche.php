@@ -15,8 +15,8 @@ $aaa = explode(' ', $recherche);
 $b      = ($check['whole_word']) ? '\b' : '';
 $i      = ($check['case_sensitive'])  ? ''   : 'i';
 $search = '/' . $b . $aaa[0] . $b . '/' . $i;
-$keys   = preg_grep($search, $l_en);
-$keys2  = preg_grep($search, $l_fr);
+$keys   = preg_grep($search, $tmx_source);
+$keys2  = preg_grep($search, $tmx_target);
 
 foreach ($aaa as $aa) {
     $keys  = preg_grep('/' . $b . $aa . $b . '/' . $i, $keys);

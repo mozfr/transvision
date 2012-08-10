@@ -22,10 +22,10 @@ require_once'recherche.php';
 
 
 foreach ($keys as $key => $chaine) {
-    $ken[$key][$chaine] = htmlspecialchars_decode($l_fr[$key], ENT_QUOTES);
+    $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
 }
 foreach ($keys2 as $key => $chaine) {
-    $kfr[$key][$chaine] = htmlspecialchars_decode($l_en[$key], ENT_QUOTES);
+    $kfr[$key][$chaine] = htmlspecialchars_decode($tmx_source[$key], ENT_QUOTES);
 }
 
 $json_en = json_encode($ken);

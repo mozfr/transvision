@@ -42,13 +42,13 @@ if (! isset($_GET['recherche'])) {
 
 // Exact Match
 $rech   = "/^[[:space:]]*" . sql_regcase($recherche) . "[[:space:]]*$/";
-$exact  = preg_grep($rech, $l_en);
+$exact  = preg_grep($rech, $tmx_source);
 $rech2  = "*" . sql_regcase($recherche) . "*";
-$exact2 = preg_grep($rech2, $l_en);
+$exact2 = preg_grep($rech2, $tmx_source);
 $exact2 = preg_grep($rech, $exact2, PREG_GREP_INVERT);
 
 $aaa = explode(' ', $recherche);
-$all = preg_grep(sql_regcase('*' . $aaa[0] . '*'), $l_en);
+$all = preg_grep(sql_regcase('*' . $aaa[0] . '*'), $tmx_source);
 foreach($aaa as $aa) {
     $all = preg_grep(sql_regcase("*" . $aa . "*"), $all);
 }
@@ -69,7 +69,7 @@ if ($keys != null) {
         echo "      <tr>\n";
         echo "        <td>$key</td>\n";
         echo "        <td>" . strip_tags($chaine) . "</td>\n";
-        echo "        <td>" . strip_tags($l_fr[$key]) . "</td>\n";
+        echo "        <td>" . strip_tags($tmx_target[$key]) . "</td>\n";
         echo "      </tr>\n\n";
     }
     echo "    </table>\n\n";
@@ -91,7 +91,7 @@ if ($keys != null){
         echo "      <tr>\n";
         echo "        <td>$key</td>\n";
         echo "        <td>" . strip_tags($chaine) . "</td>\n";
-        echo "        <td>" . strip_tags($l_fr[$key]) . "</td>\n";
+        echo "        <td>" . strip_tags($tmx_target[$key]) . "</td>\n";
         echo "      </tr>\n\n";
     }
 
@@ -113,8 +113,8 @@ if ($keys2 != null) {
     foreach ($keys2 as $key => $chaine) {
         echo "      <tr>\n";
         echo "        <td>".$key."</td>\n";
-        echo "        <td>" . strip_tags($l_en[$key]) . "</td>\n";
-        echo "        <td>" . strip_tags($l_fr[$key]) . "</td>\n";
+        echo "        <td>" . strip_tags($tmx_source[$key]) . "</td>\n";
+        echo "        <td>" . strip_tags($tmx_target[$key]) . "</td>\n";
         echo "      </tr>\n\n";
     }
     echo "    </table>\n\n";
@@ -123,7 +123,7 @@ if ($keys2 != null) {
 // aucune distance de trouvée pour le moment
 $shortest = -1;
 
-foreach($l_en as $word){
+foreach($tmx_source as $word){
     // calcule la distance avec le mot mis en entrée,
     // et le mot courant
     #$lev = levenshtein($recherche2, $word);
@@ -178,9 +178,9 @@ if ($shortest > 40) {
 
     foreach($closest as $result) {
         echo "        <tr>\n";
-        echo "          <td>" . array_search($result, $l_en) . "</td>\n";
+        echo "          <td>" . array_search($result, $tmx_source) . "</td>\n";
         echo "          <td>" . strip_tags($result) . "</td>\n";
-        echo "          <td>" . strip_tags($l_fr[array_search($result, $l_en)]) . "</td>\n";
+        echo "          <td>" . strip_tags($tmx_target[array_search($result, $tmx_source)]) . "</td>\n";
         echo "        </tr>\n\n";
     }
 
@@ -193,7 +193,7 @@ if ($shortest > 40) {
 $input    = $recherche2;
 $shortest = 1000;
 $closest  = array();
-foreach($l_en as $word) {
+foreach($tmx_source as $word) {
 
     // calcule la distance avec le mot mis en entrée,
     // et le mot courant
@@ -246,9 +246,9 @@ if ($shortest<30) {
 
         foreach ($closest as $result) {
             echo "        <tr>\n";
-            echo "          <td>" . array_search($result, $l_en) . "</td>\n";
+            echo "          <td>" . array_search($result, $tmx_source) . "</td>\n";
             echo "          <td>" . strip_tags($result) . "</td>\n";
-            echo "          <td>" . strip_tags($l_fr[array_search($result, $l_en)]) . "</td>\n";
+            echo "          <td>" . strip_tags($tmx_target[array_search($result, $tmx_source)]) . "</td>\n";
             echo "        </tr>\n\n";
         }
 

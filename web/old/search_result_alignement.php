@@ -6,7 +6,7 @@ if (!$valid) {
 // aucune distance de trouvée pour le moment
 $shortest = -1;
 
-foreach($l_en as $word) {
+foreach($tmx_source as $word) {
 
     // calcule la distance avec le mot mis en entrée,
     // et le mot courant
@@ -39,7 +39,7 @@ foreach($l_en as $word) {
 
 if ($shortest > 40) {
     foreach ($closest as $result_en) {
-        $result_ent = array_search($result_en, $l_en);
+        $result_ent = array_search($result_en, $tmx_source);
         $keys[$result_ent] = $result_en;
     }
 } else {
@@ -49,7 +49,7 @@ if ($shortest > 40) {
 //In the desired locale
 $shortest = -1;
 
-foreach ($l_fr as $word){
+foreach ($tmx_target as $word){
     // calcule la distance avec le mot mis en entrée,
     // et le mot courant
     #$lev = levenshtein($recherche2, $word);
@@ -81,7 +81,7 @@ foreach ($l_fr as $word){
 }
 if ($shortest > 10) {
     foreach ($closest as $result_fr) {
-        $result_ent = array_search($result_fr, $l_fr);
+        $result_ent = array_search($result_fr, $tmx_target);
         $keys2[$result_ent] = $result_fr;
     }
 } else {

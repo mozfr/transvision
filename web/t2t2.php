@@ -100,3 +100,30 @@ foreach ($imperfect_results as $key => $val){
     echo '</tr>';
 }
 echo "</table>";
+
+
+
+/*
+ * the code below is commented out, this is some investigation work for
+ * getting potential candidates from strings in which we have an imperfect match
+ *
+// we only want imperfect strings that don't use strings we already defined as perfect
+foreach ($imperfect_results as $key => $val) {
+    $str = strip_tags(htmlspecialchars_decode($val));
+    foreach ($perfect_results as $hit) {
+        $hit = strip_tags(htmlspecialchars_decode($hit));
+        if(stristr($str, $hit)) {
+            unset($imperfect_results[$key]);
+        }
+    }
+}
+
+
+echo '<b>Used in</b>';
+echo "<ol dir='$direction'>";
+foreach ($imperfect_results as $key => $val){
+    echo '<li>' . strip_tags(htmlspecialchars_decode($val)) . '</li>';
+}
+echo "</ol>";
+
+*/
