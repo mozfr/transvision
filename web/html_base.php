@@ -64,7 +64,7 @@ if ($check['repo'] == 'release') $re = 'checked';
                 <label for="alignement">Alignement</label>
                 -->
                 <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> onclick="uncheck();"/>
-                <label for="t2t">Glossaire</label>
+                <label for="t2t">Glossary</label>
             </fieldset>
 
             <fieldset>

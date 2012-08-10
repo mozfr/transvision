@@ -51,17 +51,15 @@ foreach ($dirs as $dir) {
 
 // deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {
-    $recherche       = str_replace('*', '.+', $recherche);
-    $recherche2      = $recherche;
-    $_GET['regular'] = true;
- //   $check['regular'] = 'checked';
+    $recherche        = str_replace('*', '.+', $recherche);
+    $recherche2       = $recherche;
+    $check['regular'] = 'checked';
 }
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
-    $recherche       = '^' . $recherche . '$';
-    $recherche2      = $recherche;
-    $_GET['regular'] = 'regular';
+    $recherche        = '^' . $recherche . '$';
+    $recherche2       = $recherche;
     $check['regular'] = 'checked';
 }
 

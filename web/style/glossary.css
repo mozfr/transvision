@@ -1,5 +1,5 @@
 body {
-    color: black;
+    color: #1C1C1C;
     background-color: #f9fafc;
     padding: 1em;
     font-family: sans-serif;
@@ -63,10 +63,9 @@ input[type="text"] {
 h2 {
     font-size: 1.5em;
     font-variant: small-caps;
-    color: black;
+    color: #3C8FD1;
     background-color: #f1f4f9;
-    border-bottom: 2px solid #3C8FD1;
-    border-left: 2px solid #3C8FD1;
+    border: 1px solid #3C8FD1;
     padding-left: 0.5em;
     border-radius-bottomleft: 5px;
 }
@@ -105,7 +104,7 @@ td {
 }
 
 a.entities {
-    color: black;
+    color: #1C1C1C;
     font-weight: 600;
     text-decoration: none;
     border-bottom: 1px dotted black;
@@ -118,7 +117,6 @@ a.entities {
     color: #f1f4f9;
     text-align: center;
     font-variant: small-caps;
-    text-shadow: 1px 1px 2px #333;
     margin-top: 2em;
     margin-left: auto;
     margin-right: auto;

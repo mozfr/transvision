@@ -8,7 +8,12 @@ error_reporting(E_ALL);
 define('APPROOT', '/home/pascalc/transvision');
 define('HG',  APPROOT .'/data/hg/');
 define('TMX', APPROOT .'/TMX/');
-define('VERSION', ' development');
+define('VERSION', '1.2');
+
+$title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
+
+// for the changelog, we just want to include variables used by the template
+if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
 require_once 'classes/ChooseLocale.class.php';

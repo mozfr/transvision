@@ -13,7 +13,6 @@ if($webservice) {
     // fonction de recherche
     require_once'recherche.php';
 
-
     foreach ($keys as $key => $chaine) {
         $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
     }
