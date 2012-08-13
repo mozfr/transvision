@@ -13,7 +13,7 @@ import silme.format
 import silme.io
 
 
-silme.format.Manager.register('dtd', 'properties')
+silme.format.Manager.register('dtd', 'properties', 'ini', 'inc')
 
 def escape(t):
     """HTML-escape the text in `t`."""
