@@ -143,8 +143,7 @@ if __name__ == "__main__":
     tmx_header(fichier1, langcode2)
     php_header(fichier2)
     php_header(fichier3)
-    total = {}
-    total2 = {}
+
     for directory in dirs:
         path1 = en_US + directory
         path2 = fr + directory
@@ -171,9 +170,6 @@ if __name__ == "__main__":
                 tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
                 php_add_to_array(entity, chaine[entity], fichier2)
                 php_add_to_array(entity, chaine2.get(entity,""), fichier3)
-                total[entity] = chaine.get(entity,"")
-                total2[entity] = chaine2.get(entity,"")
-
 
     tmx_close(fichier1)
     fichier1.close()
