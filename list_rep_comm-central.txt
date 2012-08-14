@@ -1,5 +1,4 @@
 ./chat/locales/en-US
-./suite/debugQA/locales/en-US
 ./suite/locales/en-US
 ./other-licenses/branding/sunbird/locales/en-US
 ./other-licenses/branding/thunderbird/locales/en-US
