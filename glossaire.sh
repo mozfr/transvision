@@ -1,17 +1,11 @@
 #!/bin/bash
 
 
-# Variables
+# get server configuration variables
+source ./iniparser.sh
 
-# mozfr location:
-# root=/
-# local_hg=/data/HG
-
-root=~/transvision
-local_hg=$root/data/hg
-glossaire=$root/glossaire
-checkrepo=true
-
+# update hg repositories or not
+checkrepo=false
 
 # List of locales per branch
 trunk_locales=$root/trunk.txt
@@ -53,11 +47,10 @@ then
     done
 fi
 
-cd $glossaire
 for i in `cat $release_locales`
 do
     echo "Create RELEASE TMX for $i"
-    nice -20 python $glossaire/tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
+    nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
 done
 
 # Update BETA
@@ -82,12 +75,10 @@ then
 fi
 
 
-cd $glossaire
-
 for i in `cat $beta_locales`
 do
     echo "Create BETA TMX for $i"
-    nice -20 python $glossaire/tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
+    nice -20 python tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
 done
 
 # Update TRUNK
@@ -111,11 +102,10 @@ then
     done
 fi
 
-cd $glossaire
 for i in `cat $trunk_locales`
 do
     echo "Create TRUNK TMX for $i"
-    nice -20 python $glossaire/tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US trunk
+    nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US trunk
 done
 
 
@@ -141,9 +131,8 @@ then
     done
 fi
 
-cd $glossaire
 for i in `cat $aurora_locales`
 do
     echo "Create AURORA TMX for $i"
-    nice -20 python $glossaire/tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
+    nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
 done

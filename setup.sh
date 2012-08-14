@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Variables
-# mozfr location:
-# root=/
-# local_hg=/data/HG
-root=~/transvision
-local_hg=$root/data/hg
-glossaire=$root/glossaire
+# get server configuration variables
+source ./iniparser.sh
+
+# update hg repositories or not
 checkrepo=false
 
 # List of locations of our local hg repos
@@ -34,9 +31,12 @@ mkdir -p $aurora_l10n
 mkdir -p $trunk_l10n
 mkdir -p $glossaire
 
-# Make sure we have all the glossaire files in the Transvision repo
-cp tmxmaker.py $glossaire
-cp glossaire.sh $glossaire
+# Make sure we have all the glossaire scripting rssources in the Transvision repo
+# setup should always be run from the git source
+#~ cp tmxmaker.py $glossaire
+#~ cp glossaire.sh $glossaire
+#~ cp web/inc/config.ini $glossaire
+#~ cp iniparser.sh $glossaire
 
 # Make sure we have all the list of locales in the Transvision repo
 cp trunk.txt $root

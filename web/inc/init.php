@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 
 $ini_array = parse_ini_file('config.ini');
 define('DATAROOT', $ini_array['root']);
-define('HG',  DATAROOT .'/data/hg/');
+define('HG',  $ini_array['local_hg'] . '/');
 define('TMX', DATAROOT .'/TMX/');
 define('VERSION', '1.3dev');
 

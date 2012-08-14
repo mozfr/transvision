@@ -4,8 +4,15 @@ import os
 import sys
 import datetime
 from optparse import OptionParser
+from ConfigParser import SafeConfigParser
 
-sys.path.append('silme/lib')
+""" here we read the server configuration file """
+parser = SafeConfigParser()
+parser.read('web/inc/config.ini')
+glossaire = parser.get('config', 'glossaire')
+localdir  = parser.get('config', 'root') + '/TMX/'
+
+sys.path.append(glossaire + '/silme/lib')
 
 import silme.diff
 import silme.core
@@ -124,7 +131,7 @@ if __name__ == "__main__":
             "testing", "toolkit"]
     dirs = filter(lambda x:x in dirs1, dirs2)
 
-    localdir    = "/home/pascalc/transvision/TMX/"
+    #~ localdir    = "/home/pascalc/transvision/TMX/"
     localpath   = localdir + depot + "/" + langcode1
     nomfichier1 = localpath + "/memoire_" + langcode2 + "_" + langcode1 + ".tmx"
     nomfichier2 = localpath + "/cache_" + langcode2 + ".php"
