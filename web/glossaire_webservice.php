@@ -4,7 +4,7 @@
 $valid = true;
 
 // Init application
-require_once 'init.php';
+require_once 'inc/init.php';
 
 header('Content-type: application/json; charset=UTF-8');
 

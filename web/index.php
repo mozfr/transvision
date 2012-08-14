@@ -4,7 +4,7 @@
 $valid = true;
 
 // Init application
-require_once 'init.php';
+require_once 'inc/init.php';
 
 // Start output buffering, we will output in a template
 ob_start();

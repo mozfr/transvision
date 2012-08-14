@@ -4,10 +4,17 @@ if (!$valid) return;
 // Force error reporting
 error_reporting(E_ALL);
 
-// These values depend on the server
-define('APPROOT', '/home/pascalc/transvision');
-define('HG',  APPROOT .'/data/hg/');
-define('TMX', APPROOT .'/TMX/');
+/* These values depend on the server.
+ * We store the application and TMX paths on an ini file shared with python
+ */
+
+// PHP >=5.4 syntax
+// define('DATAROOT', parse_ini_file('config.ini')['root']);
+
+$ini_array = parse_ini_file('config.ini');
+define('DATAROOT', $ini_array['root']);
+define('HG',  DATAROOT .'/data/hg/');
+define('TMX', DATAROOT .'/TMX/');
 define('VERSION', '1.3dev');
 
 $title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
@@ -17,7 +24,7 @@ if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
 require_once 'classes/ChooseLocale.class.php';
-$availableLocales = file(APPROOT . '/trunk.txt', FILE_IGNORE_NEW_LINES);
+$availableLocales = file(DATAROOT . '/trunk.txt', FILE_IGNORE_NEW_LINES);
 $l10nDetect = new tinyL10n\ChooseLocale($availableLocales);
 $l10nDetect->setDefaultLocale('fr');
 $l10nDetect->mapLonglocales = true;

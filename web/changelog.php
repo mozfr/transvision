@@ -5,7 +5,7 @@ $valid = true;
 $page = 'changelog';
 
 // Init application
-require_once 'init.php';
+require_once 'inc/init.php';
 
 // page title
 $title = '<a href="/">Transvision</a> changelog';
