@@ -24,14 +24,19 @@ if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
 require_once 'classes/ChooseLocale.class.php';
-$availableLocales = file(DATAROOT . '/trunk.txt', FILE_IGNORE_NEW_LINES);
-$l10nDetect = new tinyL10n\ChooseLocale($availableLocales);
+$allLocales = file(DATAROOT . '/trunk.txt', FILE_IGNORE_NEW_LINES);
+$l10nDetect = new tinyL10n\ChooseLocale($allLocales);
 $l10nDetect->setDefaultLocale('fr');
 $l10nDetect->mapLonglocales = true;
 $detectedLocale = $l10nDetect->getCompatibleLocale();
 
 // Defined locale + rtl
-$locale    = (isset($_GET['locale'])) ? $_GET['locale'] : $detectedLocale;
+
+$locale = $detectedLocale;
+if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
+    $locale = $_GET['locale'];
+}
+
 $direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
 // webservice definition
