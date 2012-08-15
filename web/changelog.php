@@ -18,6 +18,8 @@ ob_start();
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now extracted</li>
+    <li>Non-breakable spaces are now shown with a gray background in search results, this is useful for languages like French that have different punctuation rules from English and for which punctuation signs such as ?!;«» should stick to the previous word but with a spacing and not be merged with it.</li>
+
 </ul>
 
 <h3>Developer visible changes</h3>
@@ -27,7 +29,7 @@ ob_start();
 
 <h3>Other changes</h3>
 <ul>
-    <li></li>
+    <li>The suite/debugQA strings in English are no longer extracted  because they are not meant to be translated (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=782243">bug 782243</a>)</li>
 </ul>
 <hr>
 <h2 id="v1.2">Version 1.2 - 2012-08-10</h2>
