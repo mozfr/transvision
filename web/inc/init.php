@@ -49,3 +49,10 @@ require_once 'search_options.php';
 
 // include the cache files.
 require_once 'cache_import.php';
+
+
+// define colors for results
+$red   = '<span style="color: rgb(200, 0, 0);">';
+$blue  = '<span style="color: rgb(0, 0, 200);">';
+$green = '<span style="color: rgb(0, 0, 0);">';
+$gray  = 'background-color: rgba(0, 0, 0, 0.2);';

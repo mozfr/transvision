@@ -8,18 +8,16 @@ if (!$valid) {
 echo "  <h2><span class=\"searchedTerm\">" . $recherche2 . "</span> is in:</h2>\n\n";
 echo "  <table>\n\n";
 echo "    <tr>\n";
-echo "      <th>Entity FOO</th>\n";
+echo "      <th>Entity</th>\n";
 echo "      <th>en-US</th>\n";
 echo "      <th>" . $locale . "</th>\n";
 echo "    </tr>\n\n";
 
-
-foreach ($keys as $key => $chaine) {
+foreach ($entities as $val) {
     echo "    <tr>\n";
-    echo "      <td>" . preg_replace("/(".$recherche.")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', strip_tags($chaine)) . "</td>\n";
-    // echo "      <td>".strip_tags($chaine)."</td>\n";
-    echo "      <td>" . strip_tags($key) . "</td>\n";
-    echo "      <td dir='$direction'>" . strip_tags($tmx_target[$chaine]) . "</td>\n";
+    echo "      <td>" . preg_replace("/(".$recherche.")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', htmlspecialchars($val)) . "</td>\n";
+    echo "      <td>" . $tmx_source[$val] . "</td>\n";
+    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', $tmx_target[$val]) . "</td>\n";
     echo "    </tr>\n\n";
 }
 

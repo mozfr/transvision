@@ -4,11 +4,6 @@ if (!$valid) {
     die("File can't be called directly");
 }
 
-$red   = '<span style="color: rgb(200, 0, 0);">';
-$blue  = '<span style="color: rgb(0, 0, 200);">';
-$green = '<span style="color: rgb(0, 0, 0);">';
-$gray  = 'background-color: rgba(0, 0, 0, 0.2);';
-
 if ($base == 'trunk') {
     $base2 = 'central';
 } else {
@@ -38,8 +33,8 @@ foreach ($keys as $key => $chaine) {
     $key_link = str_replace(":&", "&", $key_link);
     echo "    <tr>\n";
     echo "      <td>" . $key_link . $base2 . '">' . $key_color . "</a></td>\n";
-    echo "      <td>".preg_replace("/(" . $recherche . ")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', strip_tags($chaine)) . "</td>\n";
-    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', strip_tags($tmx_target[$key])) . "</td>\n";
+    echo "      <td>".preg_replace("/(" . $recherche . ")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', $chaine) . "</td>\n";
+    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', $tmx_target[$key]) . "</td>\n";
     echo "    </tr>\n\n";
 }
 
@@ -59,8 +54,8 @@ foreach ($keys2 as $key => $chaine) {
     $key_link = str_replace(':&', '&', $key_link);
     echo "    <tr>\n";
     echo "      <td>" . $key_link . '">' . $key_color . "</a></td>\n";
-    echo "      <td>" . strip_tags($tmx_source[$key]) . "</td>\n";
-    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', preg_replace("/(".$recherche.")/i", $red . '${1}</span>', strip_tags($chaine))) . "</td>\n";
+    echo "      <td>" . $tmx_source[$key] . "</td>\n";
+    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', preg_replace("/(".$recherche.")/i", $red . '${1}</span>', $chaine)) . "</td>\n";
     echo "    </tr>\n\n";
 }
 echo "  </table>\n\n";

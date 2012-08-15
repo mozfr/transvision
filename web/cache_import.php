@@ -13,7 +13,3 @@ $tmx_target = $tmx;
 include TMX . $base . '/' . $locale . '/cache_en-US.php'; // English
 $tmx_source = $tmx;
 
-// Recherche par entity
-if ($check['ent']) {
-    $tmx_source = array_flip($tmx_source);
-}

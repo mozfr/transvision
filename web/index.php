@@ -47,8 +47,6 @@ if($webservice) {
 // Base html
 require_once 'html_base.php';
 
-
-
 // fonction de recherche
 if ($check['t2t']) {
     require_once 't2t.php';
@@ -57,10 +55,10 @@ if ($check['t2t']) {
 
     // result presentation
     if($recherche != '') {
-        if (!$check['ent']) {
-            require_once 'results.php';
-        } else {
+        if ($check['ent']) {
             require_once 'results_ent.php';
+        } else {
+            require_once 'results.php';
         }
     }
 }
