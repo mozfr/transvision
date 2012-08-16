@@ -9,7 +9,7 @@ require_once 'inc/init.php';
 // Start output buffering, we will output in a template
 ob_start();
 
-if($webservice) {
+if(isset($webservice) && $webservice == true) {
     // fonction de recherche
     require_once'recherche.php';
 
@@ -33,7 +33,7 @@ if($webservice) {
             echo $_GET['callback'] . '(' . $json_en . ');';
         }
     } else {
-        if ($_GET['return_loc'] == 'loc'){
+        if (isset($_GET['return_loc']) && $_GET['return_loc'] == 'loc'){
             echo $json_fr;
         } else {
             echo htmlspecialchars_decode($json_en, ENT_QUOTES);

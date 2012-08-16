@@ -40,7 +40,7 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 $direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
 // webservice definition
-if($webservice || isset($_GET['json'])) {
+if(isset($_GET['json'])) {
     $webservice = true;
 }
 
