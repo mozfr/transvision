@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     padding: 1em;
     padding-top: 50px;
-    font-size: 0.9em;
+    font-size: 1em;
 }
 
 h1, h2, div#current, #links {
@@ -106,9 +106,14 @@ tr:nth-child(even) {
 th {
     background-color: #3C8FD1;
     color: white;
+    text-shadow: 1px 1px 1px #333;
 }
 
 th, td {
     padding: 0.5em;
     border: 1px solid gray;
+}
+
+td {
+    font-size: 0.9em;
 }
