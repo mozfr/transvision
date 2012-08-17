@@ -105,7 +105,7 @@ fi
 for i in `cat $trunk_locales`
 do
     echo "Create TRUNK TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US trunk
+    nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US central
 done
 
 

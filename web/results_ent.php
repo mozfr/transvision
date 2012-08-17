@@ -3,7 +3,7 @@
 if (!valid($valid)) return;
 
 #The search results are displayed into a table (recherche2 is the original searched string before any modification)
-echo "  <h2><span class=\"searchedTerm\">" . $recherche2 . "</span> is in:</h2>\n\n";
+echo "  <h2><span class=\"searchedTerm\">" . $initial_search . "</span> is in:</h2>\n\n";
 echo "  <table>\n\n";
 echo "    <tr>\n";
 echo "      <th>Entity</th>\n";

@@ -13,8 +13,7 @@ if (isset($_GET['recherche'])) {
 }
 
 // cloned values
-$recherche2 = $recherche3 = $recherche;
-
+$initial_search = $recherche;
 
 // checkboxes states
 $check = array();
@@ -25,9 +24,14 @@ foreach($checkboxes as $val) {
 }
 
 $check['repo'] = (isset($_GET['repo'])) ? $_GET['repo'] : 'release';
-$base          = $check['repo'];
 
-$dirs = array_filter(glob(TMX . $base . '/*'), 'is_dir');
+if (isset($_GET['repo']) && in_array($_GET['repo'], array('release','beta','aurora', 'central'))) {
+    $check['repo'] = $_GET['repo'];
+} else {
+    $check['repo'] = 'release';
+}
+
+$dirs = array_filter(glob(TMX . $check['repo'] . '/*'), 'is_dir');
 
 foreach ($dirs as $dir) {
     $locs       = explode('/', $dir);
@@ -38,14 +42,14 @@ foreach ($dirs as $dir) {
 // deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {
     $recherche        = str_replace('*', '.+', $recherche);
-    $recherche2       = $recherche;
+    $initial_search       = $recherche;
     $check['regular'] = 'checked';
 }
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
     $recherche        = '^' . $recherche . '$';
-    $recherche2       = $recherche;
+    $initial_search       = $recherche;
     $check['regular'] = 'checked';
 }
 

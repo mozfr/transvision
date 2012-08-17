@@ -57,14 +57,14 @@ while (list($key, $val) = each($tmx_target)) {
 echo "</ul>\n";
 */
 
-$recherche2 = $recherche;
+$initial_search = $recherche;
 
 //$recherche=$_GET['recherche'];
 if (isset($_GET['recherche'])) {
     $recherche = stripslashes(secureText($_GET['recherche']));
 }
 
-$recherche2 = $recherche;
+$initial_search = $recherche;
 $recherche  = preg_quote($recherche);
 $recherche  = sql_regcase("*" . $recherche . "*");
 

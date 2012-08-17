@@ -5,7 +5,7 @@ if (!isset($valid) || $valid == false) {
 }
 
 // Get the locale list
-$loc_list = scandir(TMX . $base . '/');
+$loc_list = scandir(TMX . $check['repo'] . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));
 
 
@@ -20,14 +20,14 @@ foreach ($loc_list as $loc) {
 
 // select the branch
 $tr = $au = $be = $re = '';
-if ($check['repo'] == 'trunk')   $tr = 'checked';
+if ($check['repo'] == 'central') $tr = 'checked';
 if ($check['repo'] == 'aurora')  $au = 'checked';
 if ($check['repo'] == 'beta')    $be = 'checked';
 if ($check['repo'] == 'release') $re = 'checked';
 
 ?>
 
-  <div id="current" onclick="javascript:t2t();">You are looking at the <?=$base?> channel (<?=$locale?>)</div>
+  <div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel (<?=$locale?>)</div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
             <fieldset>
@@ -39,7 +39,7 @@ if ($check['repo'] == 'release') $re = 'checked';
 
             <fieldset>
                 <legend>Channel</legend>
-                <input type="radio" name="repo" value="trunk"   id="trunk"   <?=$tr?> ><label for="trunk">Central</label>
+                <input type="radio" name="repo" value="central" id="central" <?=$tr?> ><label for="central">Central</label>
                 <input type="radio" name="repo" value="aurora"  id="aurora"  <?=$au?> ><label for="aurora">Aurora</label>
                 <input type="radio" name="repo" value="beta"    id="beta"    <?=$be?> ><label for="beta">Beta</label>
                 <input type="radio" name="repo" value="release" id="release" <?=$re?> ><label for="release">Release</label>
@@ -69,7 +69,7 @@ if ($check['repo'] == 'release') $re = 'checked';
 
             <fieldset>
                 <legend>Start search</legend>
-                    <input type="text" name="recherche" id="recherche" value="<?=$recherche3?>" placeholder="Type your search term here" size="30" />
+                    <input type="text" name="recherche" id="recherche" value="<?=$recherche?>" placeholder="Type your search term here" size="30" />
                     <input type="submit" value="Go" alt="Go" />
             </fieldset>
         </fieldset>

@@ -59,3 +59,71 @@ function checkboxState($str, $disabled='') {
         return ($str) ? ' checked="checked"' : '';
     }
 }
+
+/*
+ * Create an array for search results with this format:
+ * 'entity' => ['locale 1', 'locale 2']
+ */
+
+function results($source_strings, $target_strings) {
+
+    $search_results = array();
+
+    foreach ($source_strings as $key => $string) {
+        $search_results[$key] = array($string, $target_strings[$key]);
+    }
+
+    return $search_results;
+}
+
+/*
+ * Search results in a table
+ */
+
+function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $branch='release') {
+
+    // rtl support
+    $rtl = array('ar', 'fa', 'he');
+    $direction1 = (in_array($locale1, $rtl)) ? 'rtl' : 'ltr';
+    $direction2 = (in_array($locale2, $rtl)) ? 'rtl' : 'ltr';
+
+    // mxr support
+    $prefix = ($branch == 'central') ? $branch : 'mozilla-' . $branch;
+    if ($l10n_repo) {
+        $mxr_url = "http://mxr.mozilla.org/l10n-$prefix/search?find=$locale2/";
+    } else {
+        $mxr_url  = "http://mxr.mozilla.org/comm-$branch/search?find=";
+    }
+
+    $table  = "\n\n  <table>\n\n";
+    $table .= "    <tr>\n";
+    $table .= "      <th>Entity</th>\n";
+    $table .= "      <th>" . $locale1 . "</th>\n";
+    $table .= "      <th>" . $locale2 . "</th>\n";
+    $table .= "    </tr>\n\n";
+    foreach ($search_results as $key => $strings) {
+        // let's analyse the entity for the search string
+        $key = explode(':', $key);
+        $search = $key[0] . '.*' . $key[1] . '&amp;string=' . $key[2];
+
+        // let's format the entity key to look better
+        $key[0] = '<span class="green">' . $key[0] . '</span>';
+        $key[1] = '<span class="blue">' .  $key[1] . '</span>';
+        $key[2] = '<span class="red">' .   $key[2] . '</span>';
+        $key = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $key);
+
+        $mxr_link = '<a href="' . $mxr_url . $search . '">' . $key . '</a>';
+        $source_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
+        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $strings[1]); // nbsp highlight
+        $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
+
+        $table .= "    <tr>\n";
+        $table .= "      <td>" . $mxr_link . "</a></td>\n";
+        $table .= "      <td dir='" . $direction1. "'>". $source_string . "</td>\n";
+        $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
+        $table .= "    </tr>\n\n";
+    }
+
+    $table .= "  </table>\n\n";
+    return $table;
+}
