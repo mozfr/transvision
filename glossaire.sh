@@ -28,6 +28,7 @@ then
     done
 fi
 
+cd $install
 for i in `cat $release_locales`
 do
     echo "Create RELEASE TMX for $i"
@@ -55,7 +56,7 @@ then
     done
 fi
 
-
+cd $install
 for i in `cat $beta_locales`
 do
     echo "Create BETA TMX for $i"
@@ -83,6 +84,7 @@ then
     done
 fi
 
+cd $install
 for i in `cat $trunk_locales`
 do
     echo "Create TRUNK TMX for $i"
@@ -112,6 +114,7 @@ then
     done
 fi
 
+cd $install
 for i in `cat $aurora_locales`
 do
     echo "Create AURORA TMX for $i"

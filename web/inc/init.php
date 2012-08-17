@@ -14,6 +14,7 @@ $ini_array = parse_ini_file('config.ini');
 define('DATAROOT', $ini_array['root']);
 define('HG',  $ini_array['local_hg'] . '/');
 define('TMX', DATAROOT .'/TMX/');
+define('INSTALLROOT', $ini_array['install'] . '/');
 define('VERSION', '1.3');
 
 $title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
@@ -23,7 +24,7 @@ if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
 require_once 'classes/ChooseLocale.class.php';
-$allLocales = file(DATAROOT . '/trunk.txt', FILE_IGNORE_NEW_LINES);
+$allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 $l10nDetect = new tinyL10n\ChooseLocale($allLocales);
 $l10nDetect->setDefaultLocale('fr');
 $l10nDetect->mapLonglocales = true;
