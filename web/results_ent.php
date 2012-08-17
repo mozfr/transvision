@@ -2,21 +2,29 @@
 
 if (!valid($valid)) return;
 
-#The search results are displayed into a table (recherche2 is the original searched string before any modification)
-echo "  <h2><span class=\"searchedTerm\">" . $initial_search . "</span> is in:</h2>\n\n";
-echo "  <table>\n\n";
-echo "    <tr>\n";
-echo "      <th>Entity</th>\n";
-echo "      <th>en-US</th>\n";
-echo "      <th>" . $locale . "</th>\n";
-echo "    </tr>\n\n";
+$table  = "\n\n  <table>\n\n";
+$table .= "    <tr>\n";
+$table .= "      <th>Entity</th>\n";
+$table .= "      <th>en-US</th>\n";
+$table .= "      <th>" . $locale . "</th>\n";
+$table .= "    </tr>\n\n";
 
 foreach ($entities as $val) {
-    echo "    <tr>\n";
-    echo "      <td>" . preg_replace("/(".$recherche.")/i", '<span style="color: rgb(221, 0, 0);">${1}</span>', htmlspecialchars($val)) . "</td>\n";
-    echo "      <td>" . $tmx_source[$val] . "</td>\n";
-    echo "      <td dir='$direction'>" . str_replace(' ', '<span style="' . $gray .'"> </span>', $tmx_target[$val]) . "</td>\n";
-    echo "    </tr>\n\n";
+    // let's analyse the entity for the search string
+    $search = explode(':', $val);
+    $search = $search[0] . '.*' . $search[1] . '&amp;string=' . $search[2];
+    $mxr_url  = "http://mxr.mozilla.org/comm-${check['repo']}/search?find=";
+    $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($val) . '</a>';
+
+    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>',  $tmx_target[$val]); // nbsp highlight
+    $table .= "    <tr>\n";
+    $table .= "      <td>" . $mxr_link . "</a></td>\n";
+    $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "</td>\n";
+    $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
+    $table .= "    </tr>\n\n";
 }
 
-echo "  </table>\n\n";
+$table .= "  </table>\n\n";
+
+echo $table;
+

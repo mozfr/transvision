@@ -103,16 +103,10 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
     $table .= "    </tr>\n\n";
     foreach ($search_results as $key => $strings) {
         // let's analyse the entity for the search string
-        $key = explode(':', $key);
-        $search = $key[0] . '.*' . $key[1] . '&amp;string=' . $key[2];
+        $search = explode(':', $key);
+        $search = $search[0] . '.*' . $search[1] . '&amp;string=' . $search[2];
 
-        // let's format the entity key to look better
-        $key[0] = '<span class="green">' . $key[0] . '</span>';
-        $key[1] = '<span class="blue">' .  $key[1] . '</span>';
-        $key[2] = '<span class="red">' .   $key[2] . '</span>';
-        $key = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $key);
-
-        $mxr_link = '<a href="' . $mxr_url . $search . '">' . $key . '</a>';
+        $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
         $source_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
         $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $strings[1]); // nbsp highlight
         $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
@@ -126,4 +120,20 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
 
     $table .= "  </table>\n\n";
     return $table;
+}
+
+/*
+ * make an entity look nice in tables
+ *
+ */
+
+function formatEntity($entity) {
+    // let's analyse the entity for the search string
+    $chunk = explode(':', $entity);
+    // let's format the entity key to look better
+    $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
+    $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
+    $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
+    $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+    return $entity;
 }

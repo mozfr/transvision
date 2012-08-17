@@ -69,7 +69,7 @@ if ($check['repo'] == 'release') $re = 'checked';
 
             <fieldset>
                 <legend>Start search</legend>
-                    <input type="text" name="recherche" id="recherche" value="<?=$recherche?>" placeholder="Type your search term here" size="30" />
+                    <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search term here" size="30" />
                     <input type="submit" value="Go" alt="Go" />
             </fieldset>
         </fieldset>
