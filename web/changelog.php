@@ -18,14 +18,9 @@ ob_start();
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now also in results</li>
-    <li>Non-breakable spaces are shown with a gray background in search results, this is useful for languages like French that have punctuation rules stating that some puntuation signs (?!;«») should stick to the previous word but with a spacing, not merged with it.</li>
-    <li>Entity search was not searching into all available entities, fixed</li>
-
-</ul>
-
-<h3>Developer visible changes</h3>
-<ul>
-    <li></li>
+    <li>Non-breakable spaces are shown with a gray background in search results, this is useful for languages like French that have punctuation rules stating that some puntuation signs (?!;«») should stick to the previous word but with a spacing.</li>
+    <li>Entity search was not searching into all available entities (only about 60% of them), fixed</li>
+    <li>Visual update of search results</li>
 </ul>
 
 <h3>Other changes</h3>

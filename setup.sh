@@ -3,51 +3,15 @@
 # get server configuration variables
 source ./iniparser.sh
 
-# update hg repositories or not
-checkrepo=false
-
-# List of locations of our local hg repos
-release_l10n=$local_hg/RELEASE_L10N
-beta_l10n=$local_hg/BETA_L10N
-aurora_l10n=$local_hg/AURORA_L10N
-trunk_l10n=$local_hg/TRUNK_L10N
-
-release_source=$local_hg/RELEASE_EN-US
-beta_source=$local_hg/BETA_EN-US
-aurora_source=$local_hg/AURORA_EN-US
-trunk_source=$local_hg/TRUNK_EN-US
-
-
-# List of locales per branch
-trunk_locales=$root/trunk.txt
-aurora_locales=$root/aurora.txt
-beta_locales=$root/beta.txt
-release_locales=$root/release.txt
-
 # Make sure that we have the file structure
 mkdir -p $release_l10n
 mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
-mkdir -p $trunk_l10n
+#~ mkdir -p $trunk_l10n
 mkdir -p $glossaire
 
-# Make sure we have all the glossaire scripting rssources in the Transvision repo
-# setup should always be run from the git source
-#~ cp tmxmaker.py $glossaire
-#~ cp glossaire.sh $glossaire
-#~ cp web/inc/config.ini $glossaire
-#~ cp iniparser.sh $glossaire
-
-# Make sure we have all the list of locales in the Transvision repo
-cp trunk.txt $root
-cp aurora.txt $root
-cp beta.txt $root
-cp release.txt $root
-cp list_rep_mozilla-central.txt $root
-cp list_rep_comm-central.txt $root
-
 # Restructure en-US
-for dir in `cat $root/list_rep_mozilla-central.txt`
+for dir in `cat $install/list_rep_mozilla-central.txt`
 do
     mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
     ln -s  $local_hg/RELEASE_EN-US/mozilla-release/$dir $local_hg/RELEASE_EN-US/COMMUN/$dir
@@ -62,7 +26,7 @@ do
     ln -s  $local_hg/TRUNK_EN-US/mozilla-central/$dir $local_hg/TRUNK_EN-US/COMMUN/$dir
 done
 
-for dir in `cat $root/list_rep_comm-central.txt`
+for dir in `cat $install/list_rep_comm-central.txt`
 do
     mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
     ln -s  $local_hg/RELEASE_EN-US/comm-release/$dir $local_hg/RELEASE_EN-US/COMMUN/$dir
@@ -85,6 +49,7 @@ then
     hg clone http://hg.mozilla.org/l10n/silme
     cd silme
     hg update -C silme-0.8
+    cd $install
 fi
 
 # Make sure we have hg repos in the directories, if not check them out
@@ -104,7 +69,7 @@ initL10nRepo() {
         cd $release_l10n
     fi
 
-    if [ $1 = trunk ]
+    if [ $1 = central ]
     then
         cd $trunk_l10n
     fi
@@ -113,7 +78,7 @@ initL10nRepo() {
     echo $aurora_l10n
     pwd
 
-    for i in `cat $root/$1.txt`
+    for i in `cat $install/$1.txt`
         do
             if [ ! -d $i/.hg ]
             then
@@ -153,7 +118,7 @@ initSourceRepo() {
         target=$release_source
     fi
 
-    if [ $1 = trunk ]
+    if [ $1 = central ]
     then
 
         if [ ! -d $trunk_source/comm-central/.hg ]
@@ -190,12 +155,12 @@ initSourceRepo() {
     fi
 }
 
-initSourceRepo trunk
+initSourceRepo central
 initSourceRepo release
 initSourceRepo beta
 initSourceRepo aurora
 
-initL10nRepo trunk
+initL10nRepo central
 initL10nRepo release
 initL10nRepo beta
 initL10nRepo aurora

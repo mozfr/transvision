@@ -28,3 +28,21 @@ cfg_parser 'web/inc/config.ini'
 # enable section called 'config' for reading
 cfg.section.config
 
+
+# List of locations of our local hg repos
+release_l10n=$local_hg/RELEASE_L10N
+beta_l10n=$local_hg/BETA_L10N
+aurora_l10n=$local_hg/AURORA_L10N
+trunk_l10n=$local_hg/TRUNK_L10N
+
+release_source=$local_hg/RELEASE_EN-US
+beta_source=$local_hg/BETA_EN-US
+aurora_source=$local_hg/AURORA_EN-US
+trunk_source=$local_hg/TRUNK_EN-US
+
+
+# List of locales per branch
+trunk_locales=$install/central.txt
+aurora_locales=$install/aurora.txt
+beta_locales=$install/beta.txt
+release_locales=$install/release.txt

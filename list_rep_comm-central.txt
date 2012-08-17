@@ -9,4 +9,3 @@
 ./editor/ui/locales/en-US
 ./calendar/sunbird/branding/nightly/locales/en-US
 ./calendar/locales/en-US
-./
