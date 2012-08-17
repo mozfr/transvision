@@ -53,13 +53,13 @@ div#current {
     display: inline-block;
 }
 
-#links ul li a, #links ul li a:visited {
+#links a, #links a:visited {
+    color: white;
     padding: .2em 1em;
 }
 
 a, a:visited {
     text-decoration: none;
-    color: white;
 }
 
 a:hover {
