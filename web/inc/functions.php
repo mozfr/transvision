@@ -111,9 +111,15 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
         $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $strings[1]); // nbsp highlight
         $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
 
+        $temp = explode('-', $locale1);
+        $short_locale1 = $temp[0];
+
+        $temp = explode('-', $locale2);
+        $short_locale2 = $temp[0];
+
         $table .= "    <tr>\n";
         $table .= "      <td>" . $mxr_link . "</a></td>\n";
-        $table .= "      <td dir='" . $direction1. "'>". $source_string . "</td>\n";
+        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . strip_tags($source_string) ."'>". $source_string . "</a></td>\n";
         $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
         $table .= "    </tr>\n\n";
     }

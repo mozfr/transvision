@@ -93,6 +93,7 @@ input[type="text"] {
 
 table {
     border-collapse: collapse;
+    margin: 0.5em auto;
 }
 
 tr:nth-child(odd) {

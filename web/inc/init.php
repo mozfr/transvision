@@ -14,7 +14,7 @@ $ini_array = parse_ini_file('config.ini');
 define('DATAROOT', $ini_array['root']);
 define('HG',  $ini_array['local_hg'] . '/');
 define('TMX', DATAROOT .'/TMX/');
-define('VERSION', '1.3dev');
+define('VERSION', '1.3');
 
 $title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
 

@@ -20,6 +20,7 @@ ob_start();
     <li>Strings in .ini and .inc files are now also in results</li>
     <li>Non-breakable spaces are shown with a gray background in search results, this is useful for languages like French that have punctuation rules stating that some puntuation signs (?!;«») should stick to the previous word but with a spacing.</li>
     <li>Entity search was not searching into all available entities (only about 60% of them), fixed</li>
+    <li>Experimental: link English strings to a google translate search</li>
     <li>Visual update of search results</li>
 </ul>
 
