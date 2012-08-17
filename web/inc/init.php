@@ -1,8 +1,7 @@
 <?php
-if (!$valid) return;
+include_once 'functions.php';
+if (!valid($valid)) return;
 
-// Force error reporting
-error_reporting(E_ALL);
 
 /* These values depend on the server.
  * We store the application and TMX paths on an ini file shared with python
@@ -31,17 +30,19 @@ $l10nDetect->mapLonglocales = true;
 $detectedLocale = $l10nDetect->getCompatibleLocale();
 
 // Defined locale + rtl
-
-$locale = $detectedLocale;
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
+} else {
+    $locale = $detectedLocale;
 }
 
 $direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
 // webservice definition
-if(isset($_GET['json'])) {
-    $webservice = true;
+if(isset($_GET['json']) && !isset($web_service)) {
+    $web_service = true;
+} else {
+    $web_service = false;
 }
 
 // include the search options.
@@ -49,7 +50,6 @@ require_once 'search_options.php';
 
 // include the cache files.
 require_once 'cache_import.php';
-
 
 // define colors for results
 $red   = '<span style="color: rgb(200, 0, 0);">';

@@ -1,13 +1,12 @@
 <?php
 
-if (!isset($valid) || $valid == false) return;
+if (!valid($valid)) return;
 
 // default search value
 $recherche = 'Bookmarks';
 
 // recherche is the string to find
 if (isset($_GET['recherche'])) {
-    include_once 'function_clean.php';
     $recherche = stripslashes(secureText($_GET['recherche']));
 } else {
     $recherche = '';
@@ -15,19 +14,6 @@ if (isset($_GET['recherche'])) {
 
 // cloned values
 $recherche2 = $recherche3 = $recherche;
-
-// helper function to set checkboxes value
-function checkboxState($str, $disabled='') {
-    if($str == 't2t') {
-        return ($str) ? ' checked="checked"' : '';
-    }
-
-    if(isset($_GET['t2t'])) {
-        return ' disabled="disabled"';
-    } else {
-        return ($str) ? ' checked="checked"' : '';
-    }
-}
 
 
 // checkboxes states

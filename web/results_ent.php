@@ -1,8 +1,6 @@
 <?php
 
-if (!$valid) {
-    die("File can't be called directly");
-}
+if (!valid($valid)) return;
 
 #The search results are displayed into a table (recherche2 is the original searched string before any modification)
 echo "  <h2><span class=\"searchedTerm\">" . $recherche2 . "</span> is in:</h2>\n\n";

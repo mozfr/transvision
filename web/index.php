@@ -9,7 +9,7 @@ require_once 'inc/init.php';
 // Start output buffering, we will output in a template
 ob_start();
 
-if(isset($webservice) && $webservice == true) {
+if(valid($web_service)) {
     // fonction de recherche
     require_once'recherche.php';
 

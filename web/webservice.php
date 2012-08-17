@@ -1,5 +1,5 @@
 <?php
 
 // Variable allowing includes
-$webservice = true;
+$web_service = true;
 require_once 'index.php';

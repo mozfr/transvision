@@ -1,8 +1,6 @@
 <?php
 
-if (!$valid) {
-    die("File can't be called directly");
-}
+if (!valid($valid)) return;
 
 // Search for the string
 include 'recherche.php';

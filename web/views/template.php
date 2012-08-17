@@ -1,8 +1,5 @@
-<?php
-if (!$valid) {
-    die("File can't be called directly");
-}
-?>
+<?php if (!valid($valid)) return; ?>
+
 <!doctype html>
 
 <html lang="fr" dir="ltr">
