@@ -14,7 +14,7 @@ $title = '<a href="/">Transvision</a> changelog';
 ob_start();
 ?>
 
-<h2 id="v1.3">In development</h2>
+<h2 id="v1.3">Version 1.3 - 2012-08-17</h2>
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now also in results</li>
