@@ -69,11 +69,11 @@ if ($check['repo'] == 'release') $re = 'checked';
                 <input type="checkbox" name="regular" id="regular" value="regular" <?=checkboxState($check['regular'])?> />
                 <label for="regular">Regular Expression</label>
                 <input type="checkbox" name="wild" id="wild" value="wild"          <?=checkboxState($check['wild'])?> />
-                <label for="wild">* wildcard</label>
+                <label for="wild">* Wildcard</label>
                 <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
-                <label for="whole_word">whole word</label>
+                <label for="whole_word">Whole Word</label>
                 <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> />
-                <label for="ent">entity search</label>
+                <label for="ent">Entity Search</label>
                 <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect match</label>
                 <!--

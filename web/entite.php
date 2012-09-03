@@ -74,12 +74,12 @@ $keys2 = preg_grep(sql_regcase("/\&.*;/"), $tmx_target);
 
 //$keys = preg_grep($recherche, l_en);
 //$keys2 = preg_grep($recherche, $tmx_target);
-echo "  <h2>"."English entity list</h2>\n\n";
+echo "  <h2>" . $sourceLocale . " entity list</h2>\n\n";
 echo "  <table>\n\n";
 echo "    <tr>\n";
 echo "      <th>Entity</th>\n";
-echo "      <th>en-US</th>\n";
-echo "      <th>".$locale."</th>\n";
+echo "      <th>" . $sourceLocale . "</th>\n";
+echo "      <th>" . $locale . "</th>\n";
 echo "    </tr>\n\n";
 
 foreach ($keys as $key=>$chaine) {
@@ -107,8 +107,8 @@ echo "  <h2>".$locale." entity list</h2>\n\n";
 echo "  <table>\n\n";
 echo "    <tr>\n";
 echo "      <th>Entity</th>\n";
-echo "      <th>en-US</th>\n";
-echo "      <th>".$locale."</th>\n";
+echo "      <th>" . $sourceLocale . "</th>\n";
+echo "      <th>" . $locale . "</th>\n";
 echo "    </tr>\n\n";
 
 foreach ($keys2 as $key => $chaine) {
