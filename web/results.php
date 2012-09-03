@@ -7,9 +7,9 @@ if (!valid($valid)) return;
 
 $search_results = results(array_flip($keys), $tmx_source, $tmx_target);
 echo '  <h2><span class="searchedTerm">' . $initial_search . '</span> is in English in:</h2>';
-echo resultsTable($search_results, $recherche, 'en-US', $locale, false, $check['repo']);
+echo resultsTable($search_results, $recherche, 'en-US', $locale, false, $check);
 
 $search_results = results(array_flip($keys2), $tmx_source, $tmx_target);
 echo '  <h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $locale . ' in:</h2>';
-echo resultsTable($search_results, $recherche, 'en-US', $locale, true, $check['repo']);
+echo resultsTable($search_results, $recherche, 'en-US', $locale, true, $check);
 

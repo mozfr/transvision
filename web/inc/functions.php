@@ -80,7 +80,7 @@ function results($entities, $locale1_strings, $locale2_strings) {
  * Search results in a table
  */
 
-function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $branch='release') {
+function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options) {
 
     // rtl support
     $rtl = array('ar', 'fa', 'he');
@@ -88,11 +88,13 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
     $direction2 = (in_array($locale2, $rtl)) ? 'rtl' : 'ltr';
 
     // mxr support
-    $prefix = ($branch == 'central') ? $branch : 'mozilla-' . $branch;
+    $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
     if ($l10n_repo) {
         $mxr_url = "http://mxr.mozilla.org/l10n-$prefix/search?find=$locale2/";
+        $mxr_field_limit = 28 - mb_strwidth("$locale2/");
     } else {
-        $mxr_url  = "http://mxr.mozilla.org/comm-$branch/search?find=";
+        $mxr_url  = "http://mxr.mozilla.org/comm-${search_options['repo']}/search?find=";
+        $mxr_field_limit = 27;
     }
 
     $table  = "\n\n  <table>\n\n";
@@ -101,15 +103,25 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
     $table .= "      <th>" . $locale1 . "</th>\n";
     $table .= "      <th>" . $locale2 . "</th>\n";
     $table .= "    </tr>\n\n";
+
     foreach ($search_results as $key => $strings) {
         // let's analyse the entity for the search string
         $search = explode(':', $key);
-        $search = $search[0] . '.*' . $search[1] . '&amp;string=' . $search[2];
+
+        // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
+        $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
 
         $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
-        $source_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
+
+        if($search_options['case_sensitive']) {
+            $source_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
+            $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
+        } else {
+            $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
+            $target_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
+        }
+
         $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $strings[1]); // nbsp highlight
-        $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
 
         $temp = explode('-', $locale1);
         $short_locale1 = $temp[0];
