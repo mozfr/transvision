@@ -15,7 +15,7 @@ define('DATAROOT', $ini_array['root']);
 define('HG',  $ini_array['local_hg'] . '/');
 define('TMX', DATAROOT .'/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
-define('VERSION', '1.3');
+define('VERSION', '1.4');
 
 // Default body ID, can be overriden for CSS styling
 $page = 'default';

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style/glossary.css" type="text/css" media="all" />
   </head>
-<body>
+<body id="<?=$page?>">
   <h1><?=$title?></h1>
     <?=$content?>
 

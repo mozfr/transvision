@@ -14,6 +14,20 @@ $title = '<a href="/">Transvision</a> changelog';
 ob_start();
 ?>
 
+<h2 id="v1.4">Version 1.4 - 2012-09-04</h2>
+<h3>End user visible changes</h3>
+<ul>
+    <li><strong>New feature:</strong> locale to locale comparizon. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
+    <li>Strings in MXR searches are now truncated if they exceed MXR's field length limits, it prevents an MXR error message and usually gives good search results</li>
+    <li>The second table of results was showing the translation in both columns, this regression is fixed.</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>The cron job updating the repositories on MozFR server was not behaving correctly and repos were not updated in the last week, this is now fixed</li>
+</ul>
+
+
 <h2 id="v1.3">Version 1.3 - 2012-08-17</h2>
 <h3>End user visible changes</h3>
 <ul>
@@ -28,7 +42,7 @@ ob_start();
 <ul>
     <li>The suite/debugQA strings in English are no longer extracted  because they are not meant to be translated (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=782243">bug 782243</a>)</li>
 </ul>
-<hr>
+
 <h2 id="v1.2">Version 1.2 - 2012-08-10</h2>
 <h3>End user visible changes</h3>
 <ul>
@@ -48,7 +62,7 @@ ob_start();
     <li>Simplification of the python script creating TMX files</li>
     <li>Overall simplification of the PHP code to remove dead code</li>
 </ul>
-<hr>
+
 <h2 id="v1.1">Version 1.1 - 2012-08-01</h2>
 <h3>End user visible changes</h3>
 <ul>
@@ -70,7 +84,7 @@ ob_start();
 <ul>
     <li>Lots of code clean ups and simplifications</li>
 </ul>
-<hr>
+
 <h2 id="v1.0">Version 1.0 - 2012-07-27</h2>
 <ul>
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>

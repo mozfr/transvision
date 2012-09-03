@@ -141,3 +141,11 @@ td {
     color: gray;
     font-size: 80%;
 }
+
+/* changelog page */
+
+h3, ul {
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+}
