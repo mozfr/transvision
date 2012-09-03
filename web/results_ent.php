@@ -2,10 +2,16 @@
 
 if (!valid($valid)) return;
 
+// rtl support
+$rtl = array('ar', 'fa', 'he');
+$direction1 = (in_array($sourceLocale, $rtl)) ? 'rtl' : 'ltr';
+$direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
+
+
 $table  = "\n\n  <table>\n\n";
 $table .= "    <tr>\n";
 $table .= "      <th>Entity</th>\n";
-$table .= "      <th>en-US</th>\n";
+$table .= "      <th>" . $sourceLocale . "</th>\n";
 $table .= "      <th>" . $locale . "</th>\n";
 $table .= "    </tr>\n\n";
 

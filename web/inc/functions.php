@@ -113,15 +113,15 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
 
         $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
 
-        if($search_options['case_sensitive']) {
-            $source_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
-            $target_string = str_ireplace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
-        } else {
-            $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
-            $target_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $target_string);
-        }
+        $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
+        $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
+        $source_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $source_string);
 
-        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $strings[1]); // nbsp highlight
+        $target_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[1]);
+        $target_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $target_string);
+        $target_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $target_string);
+
+        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string); // nbsp highlight
 
         $temp = explode('-', $locale1);
         $short_locale1 = $temp[0];

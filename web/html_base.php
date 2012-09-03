@@ -9,12 +9,22 @@ $loc_list = scandir(TMX . $check['repo'] . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));
 
 
-// build a locale switcher
-$option_list = '';
+// build the target locale switcher
+$target_locales_list = '';
 
 foreach ($loc_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
-    $option_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
+    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
+}
+
+// build the source locale switcher
+$source_locales_list = '';
+$loc_list[] = 'en-US';
+sort($loc_list);
+
+foreach ($loc_list as $loc) {
+    $ch = ($loc == $sourceLocale) ? ' selected' : '';
+    $source_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
 
@@ -30,10 +40,17 @@ if ($check['repo'] == 'release') $re = 'checked';
   <div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel (<?=$locale?>)</div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
+
             <fieldset>
-                <legend>Locale:</legend>
+                <legend>Source Locale:</legend>
+                <select name='sourcelocale'>
+                <?=$source_locales_list?>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Target Locale:</legend>
                 <select name='locale'>
-                <?=$option_list?>
+                <?=$target_locales_list?>
                 </select>
             </fieldset>
 

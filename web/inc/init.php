@@ -17,7 +17,12 @@ define('TMX', DATAROOT .'/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
 define('VERSION', '1.3');
 
+// Default body ID, can be overriden for CSS styling
+$page = 'default';
+
+// page title
 $title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
+
 
 // for the changelog, we just want to include variables used by the template
 if(isset($page) && $page == 'changelog') return;
@@ -37,6 +42,14 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $detectedLocale;
 }
 
+// optional source locale if we want to compare with another locale
+if (isset($_GET['sourcelocale']) && in_array($_GET['sourcelocale'], $allLocales)) {
+    $sourceLocale = $_GET['sourcelocale'];
+} else {
+    $sourceLocale = 'en-US';
+}
+
+// rtl
 $direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
 // webservice definition
