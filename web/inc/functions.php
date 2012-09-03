@@ -65,12 +65,12 @@ function checkboxState($str, $disabled='') {
  * 'entity' => ['locale 1', 'locale 2']
  */
 
-function results($source_strings, $target_strings) {
+function results($entities, $locale1_strings, $locale2_strings) {
 
     $search_results = array();
 
-    foreach ($source_strings as $key => $string) {
-        $search_results[$key] = array($string, $target_strings[$key]);
+    foreach ($entities as $entity) {
+        $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
     }
 
     return $search_results;
