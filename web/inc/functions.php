@@ -131,7 +131,7 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
 
         $table .= "    <tr>\n";
         $table .= "      <td>" . $mxr_link . "</a></td>\n";
-        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . strip_tags($source_string) ."'>". $source_string . "</a></td>\n";
+        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a></td>\n";
         $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
         $table .= "    </tr>\n\n";
     }
