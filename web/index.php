@@ -45,20 +45,20 @@ if(valid($web_service)) {
 }
 
 // Base html
-require_once 'html_base.php';
+require_once VIEWS . 'search_form.php';
 
 // fonction de recherche
 if ($check['t2t']) {
-    require_once 't2t.php';
+    require_once VIEWS . 't2t.php';
 } else {
-    require_once 'recherche.php';
+    require_once INC . 'recherche.php';
 
     // result presentation
     if($recherche != '') {
         if ($check['ent']) {
-            require_once 'results_ent.php';
+            require_once VIEWS . 'results_ent.php';
         } else {
-            require_once 'results.php';
+            require_once VIEWS . 'results.php';
         }
     }
 }
@@ -67,4 +67,4 @@ $content = ob_get_contents();
 ob_end_clean();
 
 // display the page
-require_once 'views/template.php';
+require_once VIEWS .'template.php';

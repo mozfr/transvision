@@ -1,7 +1,8 @@
 <?php
-include_once 'functions.php';
-if (!valid($valid)) return;
 
+include_once 'functions.php';
+
+if (!valid($valid)) return;
 
 /* These values depend on the server.
  * We store the application and TMX paths on an ini file shared with python
@@ -11,11 +12,14 @@ if (!valid($valid)) return;
 // define('DATAROOT', parse_ini_file('config.ini')['root']);
 
 $ini_array = parse_ini_file('config.ini');
-define('DATAROOT', $ini_array['root']);
-define('HG',  $ini_array['local_hg'] . '/');
-define('TMX', DATAROOT .'/TMX/');
+
+define('DATAROOT',    $ini_array['root']);
+define('HG',          $ini_array['local_hg'] . '/');
+define('TMX',         DATAROOT .'/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
-define('VERSION', '1.5dev');
+define('INC',         INSTALLROOT . 'web/inc/');
+define('VIEWS',       INSTALLROOT . 'web/views/');
+define('VERSION',     '1.5dev');
 
 // Default body ID, can be overriden for CSS styling
 $page = 'default';
@@ -60,7 +64,7 @@ if(isset($_GET['json']) && !isset($web_service)) {
 }
 
 // include the search options.
-require_once 'search_options.php';
+require_once INC . '/search_options.php';
 
 // include the cache files.
-require_once 'cache_import.php';
+require_once INC . 'cache_import.php';

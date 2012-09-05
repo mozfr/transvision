@@ -96,4 +96,4 @@ $content = ob_get_contents();
 ob_end_clean();
 
 // display the page
-require_once 'views/template.php';
+require_once VIEWS .'template.php';
