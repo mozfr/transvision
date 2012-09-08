@@ -3,7 +3,7 @@
 if (!valid($valid)) return;
 
 // Search for the string
-include 'recherche.php';
+include INC . 'recherche.php';
 
 // Get the locale results
 $results = array();
