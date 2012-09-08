@@ -1,6 +1,6 @@
 <?php
 
-include_once 'functions.php';
+require_once 'functions.php';
 
 if (!valid($valid)) return;
 
@@ -17,6 +17,7 @@ define('DATAROOT',    $ini_array['root']);
 define('HG',          $ini_array['local_hg'] . '/');
 define('TMX',         DATAROOT .'/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
+define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
 define('VERSION',     '1.5dev');
@@ -32,7 +33,7 @@ $title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VE
 if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
-require_once 'classes/ChooseLocale.class.php';
+require_once WEBROOT .'classes/ChooseLocale.class.php';
 $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 $l10nDetect = new tinyL10n\ChooseLocale($allLocales);
 $l10nDetect->setDefaultLocale('fr');
