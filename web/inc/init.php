@@ -4,6 +4,9 @@ require_once 'functions.php';
 
 if (!valid($valid)) return;
 
+// perf metrics
+$time_start = getmicrotime();
+
 /* These values depend on the server.
  * We store the application and TMX paths on an ini file shared with python
  */
@@ -21,6 +24,9 @@ define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
 define('VERSION',     '1.5dev');
+
+// variable to activate debug mode
+$debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 
 // Default body ID, can be overriden for CSS styling
 $page = 'default';

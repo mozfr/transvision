@@ -155,3 +155,13 @@ function formatEntity($entity) {
     $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
     return $entity;
 }
+
+/**
+ * get the current microtime for perf measurements
+ *
+ */
+
+function getmicrotime() {
+    list($usec, $sec) = explode (' ', microtime());
+    return ((float)$usec + (float)$sec);
+}
