@@ -11,7 +11,7 @@ ob_start();
 
 if(valid($web_service)) {
     // fonction de recherche
-    require_once 'recherche.php';
+    require_once INC . 'recherche.php';
 
     foreach ($keys as $key => $chaine) {
         $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
