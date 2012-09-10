@@ -125,10 +125,9 @@ if __name__ == "__main__":
         depot = args[4]
 
     dirs1 = os.listdir(fr)
-    dirs2 = ["b2g", "browser", "calendar", "dom", "editor", "embedding",
-            "extensions", "layout", "mail", "mobile", "netwerk",
-            "other-licenses", "security", "services", "suite",
-            "testing", "toolkit"]
+    dirs2 = ["browser", "calendar", "dom", "editor", "embedding",
+            "extensions", "mail", "mobile", "netwerk", "other-licenses",
+             "security", "services", "suite", "toolkit"]
     dirs = filter(lambda x:x in dirs1, dirs2)
 
     #~ localdir    = "/home/pascalc/transvision/TMX/"
