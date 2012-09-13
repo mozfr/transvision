@@ -47,6 +47,7 @@ define('VERSION',     '1.5dev');
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 
 // Default body ID, can be overriden for CSS styling
+if(isset($page)) return;
 $page = 'default';
 
 // page title
