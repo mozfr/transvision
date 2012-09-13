@@ -1,0 +1,5 @@
+# Rewrite all requests to the front controller
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ inc/init.php [PT,L, QSA]
