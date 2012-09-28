@@ -1,0 +1,10 @@
+{
+    "require": {
+        "mageekguy/atoum"        : "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "tinyL10n"       : "classes/"
+        }
+    }
+}
