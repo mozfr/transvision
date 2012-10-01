@@ -1,23 +1,14 @@
 <?php
 
-/* routing */
+$url  = parse_url($_SERVER['REQUEST_URI']);
+$file = pathinfo($url['path']);
 
-// We separate path and query string for the dispatcher
-$path  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-
-// Don't allow direct access to the file
-if ($path == '/inc/init.php') {
-    die('No direct access');
-}
-
-// Don't process non-PHP files
-$file_ext = pathinfo($path);
-if (isset($file_ext['extension']) && $file_ext['extension'] != 'php') {
+// Only process .php files and forbid direct access to router file
+if ((isset($file['extension']) && $file['extension'] != 'php') || $url['path'] == '/inc/init.php') {
     return false;
 }
 
-/* end routing */
+// We can now use a controller and dispatch urls
 
 $valid = true;
 require_once 'functions.php';
