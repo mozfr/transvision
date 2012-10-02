@@ -93,9 +93,12 @@ if(valid($web_service)) {
     // fonction de recherche
     require_once INC . 'recherche.php';
 
+    $ken = array();
+    $kfr = array();
     foreach ($keys as $key => $chaine) {
         $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
     }
+    
     foreach ($keys2 as $key => $chaine) {
         $kfr[$key][$chaine] = htmlspecialchars_decode($tmx_source[$key], ENT_QUOTES);
     }
