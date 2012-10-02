@@ -102,16 +102,20 @@ if __name__ == "__main__":
     en_US_repo = args[1]
     langcode1 = args[2]
     langcode2 = args[3]
-    depot = args[4]
+    repo = args[4]
 
     dirs1 = os.listdir(locale_repo)
-    dirs2 = ["browser", "calendar", "dom", "editor", "embedding",
-            "extensions", "mail", "mobile", "netwerk", "other-licenses",
-             "security", "services", "suite", "toolkit"]
+    if repo == 'gaia':
+        dirs2 = os.listdir(en_US_repo)
+    else:
+        dirs2 = ["browser", "calendar", "dom", "editor", "embedding",
+                "extensions", "mail", "mobile", "netwerk", "other-licenses",
+                "security", "services", "suite", "toolkit"]
+        
     dirs = filter(lambda x:x in dirs1, dirs2)
 
     #~ localdir    = "/home/pascalc/transvision/TMX/"
-    localpath   = localdir + depot + "/" + langcode1
+    localpath   = localdir + repo + "/" + langcode1
     nomfichier1 = localpath + "/memoire_" + langcode2 + "_" + langcode1 + ".tmx"
     nomfichier2 = localpath + "/cache_" + langcode2 + ".php"
     nomfichier3 = localpath + "/cache_" + langcode1 + ".php"
