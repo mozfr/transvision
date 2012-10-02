@@ -108,10 +108,13 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
         // let's analyse the entity for the search string
         $search = explode(':', $key);
 
-        // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
-        $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
-
-        $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
+        if($search[0] == 'apps') {
+            $mxr_link = formatEntity($key);
+        } else {            
+            // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
+            $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
+            $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
+        }
 
         $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
         $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -122,6 +125,9 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
         $target_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $target_string);
 
         $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string); // nbsp highlight
+
+        $target_string = str_replace('…', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
+        $target_string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
 
         $temp = explode('-', $locale1);
         $short_locale1 = $temp[0];
@@ -164,4 +170,46 @@ function formatEntity($entity) {
 function getmicrotime() {
     list($usec, $sec) = explode (' ', microtime());
     return ((float)$usec + (float)$sec);
+}
+
+/**
+ * nicer var_dump()
+ */
+function dump($var) {
+
+    ob_start();
+    print_r($var);
+    $var = ob_get_contents();
+    ob_end_clean();
+    echo '
+    <style>
+        span.dump {
+            display:inline-block;
+            min-width:4em;
+            color:orange;
+        }
+
+        span.dump-arrow {
+            display:inline;
+            min-width:auto;
+            color:lightgray;
+            padding:0 0.5em;
+        }
+        
+        pre.dump {
+            background-color:black;
+            color: lightblue;
+            display:table;
+            font-family:monospace;
+            padding: 0.5em;
+        }
+
+    </style>';
+    echo '<pre class="dump"><code>';
+
+    $var = str_replace('[', '<span class="dump">[', $var);
+    $var = str_replace(']', ']</span>', $var);
+    $var = str_replace(' => ', '<span class="dump-arrow">=></span>', $var);
+    echo $var;
+    echo '</code></pre>';
 }

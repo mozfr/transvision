@@ -37,8 +37,10 @@ define('VERSION',     '1.5dev');
 // variable to activate debug mode
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 
+// if a php file exists, we use it
+if(file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path']) && $url['path'] != '/') return false;
+
 // Default body ID, can be overriden for CSS styling
-if(isset($page)) return;
 $page = 'default';
 
 // page title
@@ -50,6 +52,7 @@ if(isset($page) && $page == 'changelog') return;
 
 // Locale detection
 require_once WEBROOT .'classes/ChooseLocale.class.php';
+require_once WEBROOT .'classes/ShowResults.class.php';
 $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 $l10nDetect = new tinyL10n\ChooseLocale($allLocales);
 $l10nDetect->setDefaultLocale('fr');
