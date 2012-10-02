@@ -4,9 +4,6 @@
 $valid = true;
 $page = 'changelog';
 
-// Init application
-require_once 'inc/init.php';
-
 // page title
 $title = '<a href="/">Transvision</a> changelog';
 
@@ -14,6 +11,22 @@ $title = '<a href="/">Transvision</a> changelog';
 ob_start();
 ?>
 
+<h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
+<h3>End user visible changes</h3>
+<ul>
+    <li><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
+    <li>Results are more accurate, specifically, identical strings between gecko apps are always shown.</li>
+</ul>
+<h3>Developer visible changes</h3>
+<ul>
+    <li>The json api now returns <code>[]</code> instead of <code>null</code> if the search yields no result.</li>
+</ul>
+<h3>Other changes</h3>
+<ul>
+    <li>There is now a Transvision Beta server at <a href="http://transvision-beta.mozfr.org">transvision-beta.mozfr.org</a>, if you find a bug or a regression on Transvision, please check on this beta server that the bug you want to report is not already fixed.</li>
+    <li>Set up a basic url front controller to be able to use the new PHP 5.4 integrated web server for development and also installed the Atoum Unit Test framework.</li>
+    <li>Now with the MozFR favicon :)</li>
+</ul>
 <h2 id="v1.4">Version 1.4 - 2012-09-04</h2>
 <h3>End user visible changes</h3>
 <ul>
