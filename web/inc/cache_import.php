@@ -5,7 +5,9 @@ if (!$valid) die;
 // Deduce the memoire.tmx directory name
 $tmxfile = TMX . '/memoire_en-US_' . $locale . '.tmx';
 
-include TMX . $check['repo'] . '/' . $locale . '/cache_' . $locale . '.php'; // localised
+if($check['repo'] != 'gaia') {
+    include TMX . $check['repo'] . '/' . $locale . '/cache_' . $locale . '.php'; // localised
+}
 
 // Gaia strings
 $gaia_locale = $locale;
@@ -23,12 +25,16 @@ if(file_exists($file)) {
 $tmx_target = $tmx;
 unset($tmx);
 
-if ($sourceLocale == 'en-US') {
-    include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // English
-} else {
-    include TMX . $check['repo'] . "/${sourceLocale}/cache_${sourceLocale}.php"; // localised, for a locale to locale comparizon
-}
 
+
+if($check['repo'] != 'gaia') {
+ 
+    if ($sourceLocale == 'en-US') {
+        include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // English
+    } else {
+        include TMX . $check['repo'] . "/${sourceLocale}/cache_${sourceLocale}.php"; // localised, for a locale to locale comparizon
+    }
+}
 
 // We have only one spanish for Gaia
 if(in_array($sourceLocale, array('es-AR', 'es-CL', 'es-ES', 'es-MX'))) {
