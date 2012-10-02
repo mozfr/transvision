@@ -3,7 +3,8 @@
 // Variable allowing includes
 $valid = true;
 $page = 'changelog';
-
+// Init application
+require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/init.php';
 // page title
 $title = '<a href="/">Transvision</a> changelog';
 
