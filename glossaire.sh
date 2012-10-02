@@ -7,7 +7,8 @@ export PATH=$PATH:$HOME/transvision/web/inc
 source iniparser.sh
 
 # update hg repositories or not
-checkrepo=false
+checkrepo=true
+createTMX=true
 
 # Update RELEASE
 if [ "$checkrepo" = true ]
@@ -32,8 +33,11 @@ fi
 
 cd $install
 
-echo "Create RELEASE TMX for en-US"
-nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/en-US/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
+if [ "$createTMX" = true ]
+then
+    echo "Create RELEASE TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/en-US/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
+fi
 
 # exit
 
@@ -59,11 +63,14 @@ then
 fi
 
 cd $install
-for i in `cat $beta_locales`
-do
-    echo "Create BETA TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
-done
+if [ "$createTMX" = true ]
+then
+    for i in `cat $beta_locales`
+    do
+        echo "Create BETA TMX for $i"
+        nice -20 python tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
+    done
+fi
 
 # Update TRUNK
 if [ "$checkrepo" = true ]
@@ -87,12 +94,14 @@ then
 fi
 
 cd $install
-for i in `cat $trunk_locales`
-do
-    echo "Create TRUNK TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US central
-done
-
+if [ "$createTMX" = true ]
+then
+    for i in `cat $trunk_locales`
+    do
+        echo "Create TRUNK TMX for $i"
+        nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US central
+    done
+fi
 
 # Update AURORA
 if [ "$checkrepo" = true ]
@@ -117,14 +126,19 @@ then
 fi
 
 cd $install
-for i in `cat $aurora_locales`
-do
-    echo "Create AURORA TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
-done
+
+if [ "$createTMX" = true ]
+then
+    for i in `cat $aurora_locales`
+    do
+        echo "Create AURORA TMX for $i"
+        nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
+    done
+fi
+
 
 # Update GAIA
-if [ "$checkrepo" = false ]
+if [ "$checkrepo" = true ]
 then
     cd $gaia
     for i in `cat $gaia_locales`
@@ -137,9 +151,11 @@ then
 fi
 
 cd $install
-for i in `cat $gaia_locales`
-do
-    echo "Create GAIA TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/GAIA/$i/ $local_hg/GAIA/en-US/ $i en-US gaia
-done
-
+if [ "$createTMX" = true ]
+then
+    for i in `cat $gaia_locales`
+    do
+        echo "Create GAIA TMX for $i"
+        nice -20 python tmxmaker.py $local_hg/GAIA/$i/ $local_hg/GAIA/en-US/ $i en-US gaia
+    done
+fi

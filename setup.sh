@@ -7,7 +7,8 @@ source ./iniparser.sh
 mkdir -p $release_l10n
 mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
-#~ mkdir -p $trunk_l10n
+mkdir -p $trunk_l10n
+mkdir -p $gaia
 mkdir -p $glossaire
 
 # Restructure en-US
@@ -53,7 +54,7 @@ then
 fi
 
 # Make sure we have hg repos in the directories, if not check them out
-initL10nRepo() {
+initDesktopL10nRepo() {
     if [ $1 = aurora ]
     then
         cd $aurora_l10n
@@ -101,7 +102,7 @@ initL10nRepo() {
     done
 }
 
-initSourceRepo() {
+initDesktopSourceRepo() {
 
     if [ $1 = aurora ]
     then
@@ -155,12 +156,33 @@ initSourceRepo() {
     fi
 }
 
-initSourceRepo central
-initSourceRepo release
-initSourceRepo beta
-initSourceRepo aurora
+initDesktopSourceRepo central
+initDesktopSourceRepo release
+initDesktopSourceRepo beta
+initDesktopSourceRepo aurora
 
-initL10nRepo central
-initL10nRepo release
-initL10nRepo beta
-initL10nRepo aurora
+initDesktopL10nRepo central
+initDesktopL10nRepo release
+initDesktopL10nRepo beta
+initDesktopL10nRepo aurora
+
+# We now deal with Gaia as a specific case
+echo "Gaia initialization"
+cd $gaia
+for i in `cat $install/gaia.txt`
+    do
+        if [ ! -d $i/.hg ]
+        then
+            echo "Checking out the following repo:"
+            echo $i
+            hg clone http://hg.mozilla.org/gaia-l10n/$i
+        fi
+
+        if [ ! -d $root/TMX/gaia/$i ]
+        then
+            echo "Creating this locale TMX for Gaia:"
+            echo $i
+            mkdir -p $root/TMX/gaia/$i
+        fi
+done
+
