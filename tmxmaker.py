@@ -98,33 +98,13 @@ if __name__ == "__main__":
     parser = OptionParser(usage, version='%prog 0.1')
     (options, args) = parser.parse_args(sys.argv[1:])
 
-    if len(args) < 1:
-        fr = "../fr/"
-        en_US = "../hg.frenchmozilla.fr/"
-    else:
-        if len(args) < 2:
-            fr = args[0]
-            en_US = "../hg.frenchmozilla.fr/"
-        else:
-            fr = args[0]
-            en_US = args[1]
+    locale_repo = args[0]
+    en_US_repo = args[1]
+    langcode1 = args[2]
+    langcode2 = args[3]
+    depot = args[4]
 
-    if len(args) < 3:
-        langcode1 = "fr"
-        langcode2 = "en-US"
-
-    if 4 > len(args) > 2:
-        langcode1 = args[2]
-        langcode2 = "en_US"
-
-    if len(args) > 3:
-        langcode1 = args[2]
-        langcode2 = args[3]
-
-    if len(args) > 4:
-        depot = args[4]
-
-    dirs1 = os.listdir(fr)
+    dirs1 = os.listdir(locale_repo)
     dirs2 = ["browser", "calendar", "dom", "editor", "embedding",
             "extensions", "mail", "mobile", "netwerk", "other-licenses",
              "security", "services", "suite", "toolkit"]
@@ -144,8 +124,8 @@ if __name__ == "__main__":
     php_header(fichier3)
 
     for directory in dirs:
-        path1 = en_US + directory
-        path2 = fr + directory
+        path1 = en_US_repo + directory
+        path2 = locale_repo + directory
 
         rcsClient = silme.io.Manager.get('file')
         l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
