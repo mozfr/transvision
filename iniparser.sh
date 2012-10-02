@@ -40,9 +40,12 @@ beta_source=$local_hg/BETA_EN-US
 aurora_source=$local_hg/AURORA_EN-US
 trunk_source=$local_hg/TRUNK_EN-US
 
+# Location of Gaia source
+gaia=$local_hg/GAIA
 
 # List of locales per branch
 trunk_locales=$install/central.txt
 aurora_locales=$install/aurora.txt
 beta_locales=$install/beta.txt
 release_locales=$install/release.txt
+gaia_locales=$install/gaia.txt

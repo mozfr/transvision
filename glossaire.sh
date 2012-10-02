@@ -2,12 +2,12 @@
 
 
 # get server configuration variables
-export PATH=$PATH:$HOME/transvision
+export PATH=$PATH:$HOME/transvision/web/inc
 export PATH=$PATH:$HOME/transvision/web/inc
 source iniparser.sh
 
 # update hg repositories or not
-checkrepo=true
+checkrepo=false
 
 # Update RELEASE
 if [ "$checkrepo" = true ]
@@ -31,11 +31,11 @@ then
 fi
 
 cd $install
-for i in `cat $release_locales`
-do
-    echo "Create RELEASE TMX for $i"
-    nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
-done
+
+echo "Create RELEASE TMX for en-US"
+nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/en-US/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
+
+# exit
 
 # Update BETA
 if [ "$checkrepo" = true ]
