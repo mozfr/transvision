@@ -7,7 +7,10 @@ if (!isset($valid) || $valid == false) {
 // Get the locale list
 $loc_list = scandir(TMX . $check['repo'] . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));
-
+$spanish = array_search('es', $loc_list);
+if($spanish) {
+    $loc_list[$spanish] = 'es-ES';
+}
 
 // build the target locale switcher
 $target_locales_list = '';
