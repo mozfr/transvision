@@ -137,6 +137,11 @@ td {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.highlight-red {
+    color: black;
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
 .superset {
     color: gray;
     font-size: 80%;
