@@ -29,11 +29,12 @@ foreach ($loc_list as $loc) {
 
 
 // select the branch
-$tr = $au = $be = $re = '';
+$tr = $au = $be = $re = $ga = '';
 if ($check['repo'] == 'central') $tr = 'checked';
 if ($check['repo'] == 'aurora')  $au = 'checked';
 if ($check['repo'] == 'beta')    $be = 'checked';
 if ($check['repo'] == 'release') $re = 'checked';
+if ($check['repo'] == 'gaia')    $ga = 'checked';
 
 ?>
 
@@ -60,6 +61,7 @@ if ($check['repo'] == 'release') $re = 'checked';
                 <input type="radio" name="repo" value="aurora"  id="aurora"  <?=$au?> ><label for="aurora">Aurora</label>
                 <input type="radio" name="repo" value="beta"    id="beta"    <?=$be?> ><label for="beta">Beta</label>
                 <input type="radio" name="repo" value="release" id="release" <?=$re?> ><label for="release">Release</label>
+                <input type="radio" name="repo" value="gaia"    id="gaia"    <?=$ga?> ><label for="gaia">Gaia only</label>
             </fieldset>
 
             <fieldset>

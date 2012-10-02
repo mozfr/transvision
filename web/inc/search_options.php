@@ -25,7 +25,7 @@ foreach($checkboxes as $val) {
 
 $check['repo'] = (isset($_GET['repo'])) ? $_GET['repo'] : 'release';
 
-if (isset($_GET['repo']) && in_array($_GET['repo'], array('release','beta','aurora', 'central'))) {
+if (isset($_GET['repo']) && in_array($_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia'))) {
     $check['repo'] = $_GET['repo'];
 } else {
     $check['repo'] = 'release';
