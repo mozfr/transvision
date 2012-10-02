@@ -122,3 +122,24 @@ do
     echo "Create AURORA TMX for $i"
     nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
 done
+
+# Update GAIA
+if [ "$checkrepo" = false ]
+then
+    cd $gaia
+    for i in `cat $gaia_locales`
+    do
+        cd $i
+        hg pull -r tip
+        hg update -c
+        cd ..
+    done
+fi
+
+cd $install
+for i in `cat $gaia_locales`
+do
+    echo "Create GAIA TMX for $i"
+    nice -20 python tmxmaker.py $local_hg/GAIA/$i/ $local_hg/GAIA/en-US/ $i en-US gaia
+done
+
