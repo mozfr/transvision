@@ -32,7 +32,7 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
-define('VERSION',     '1.5dev');
+define('VERSION',     '1.5');
 
 // variable to activate debug mode
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
@@ -101,7 +101,7 @@ if(valid($web_service)) {
     foreach ($keys as $key => $chaine) {
         $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
     }
-    
+
     foreach ($keys2 as $key => $chaine) {
         $kfr[$key][$chaine] = htmlspecialchars_decode($tmx_source[$key], ENT_QUOTES);
     }

@@ -17,6 +17,7 @@ ob_start();
 <ul>
     <li><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
     <li>Results are more accurate, specifically, identical strings between gecko apps are always shown.</li>
+    <li>Ellipsis are shown with a gray background, thin spaces with a red background, thin spaces and non-breakable spaces have a tooltip to distinguish them (those changes are mostly helpers for French typography rules).</li>
 </ul>
 <h3>Developer visible changes</h3>
 <ul>
