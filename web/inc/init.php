@@ -32,7 +32,7 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
-define('VERSION',     '1.5');
+define('VERSION',     '1.6dev');
 
 // variable to activate debug mode
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
