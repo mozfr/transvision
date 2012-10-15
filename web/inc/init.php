@@ -1,20 +1,5 @@
 <?php
-
-$url  = parse_url($_SERVER['REQUEST_URI']);
-$file = pathinfo($url['path']);
-
-// Only process .php files and forbid direct access to router file
-if ((isset($file['extension']) && $file['extension'] != 'php') || $url['path'] == '/inc/init.php') {
-    return false;
-}
-
-// We can now use a controller and dispatch urls
-
-$valid = true;
 require_once 'functions.php';
-
-// perf metrics
-$time_start = getmicrotime();
 
 /* These values depend on the server.
  * We store the application and TMX paths on an ini file shared with python
@@ -131,8 +116,11 @@ if(valid($web_service)) {
 }
 
 // Base html
-require_once VIEWS . 'search_form.php';
-
+if($url['path'] == '/stats2') {
+    require_once VIEWS . 'stats.php';
+} else {
+    require_once VIEWS . 'search_form.php';
+}
 // fonction de recherche
 if ($check['t2t']) {
     require_once VIEWS . 't2t.php';

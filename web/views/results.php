@@ -1,7 +1,5 @@
 <?php
 
-if (!valid($valid)) return;
-
 // The search results are displayed into a table
 // (initial_search is the original sanitized searched string before any modification)
 

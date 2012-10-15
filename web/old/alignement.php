@@ -1,7 +1,5 @@
 <?php
 
-if (!$valid) die;
-
 include 'function_clean.php';
 
 # Include the locale name finder

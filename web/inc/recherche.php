@@ -1,8 +1,5 @@
 <?php
 
-if (!$valid) die;
-
-
 // If $recherche consits of several words, each are stocked on the $aaa variable
 $aaa = explode(' ', $recherche);
 

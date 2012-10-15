@@ -1,8 +1,4 @@
-<?php
-if (!$valid) {
-    die("File can't be called directly");
-}
-
+<?phps
 
 include '../PAGES/locale_find.php';
 #Include the necessary header

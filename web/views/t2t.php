@@ -1,7 +1,5 @@
 <?php
 
-if (!valid($valid)) return;
-
 // Search for the string
 include INC . 'recherche.php';
 

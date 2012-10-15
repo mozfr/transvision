@@ -1,9 +1,5 @@
 <?php
 
-if (!isset($valid) || $valid == false) {
-    die("File can't be called directly");
-}
-
 // Get the locale list
 $loc_list = scandir(TMX . $check['repo'] . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));

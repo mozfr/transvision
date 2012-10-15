@@ -1,5 +1,3 @@
-<?php if (!valid($valid)) return; ?>
-
 <!doctype html>
 
 <html lang="fr" dir="ltr">
@@ -24,12 +22,3 @@
   </div>
 </body>
 </html>
-<?php
-// insert page load time in debug mode, the $time_start variable is set in inc/init.php
-
-if ($debug) {
-    $time_end = getmicrotime();
-    $time     = $time_end - $time_start;
-    echo '<p><strong>Page generated in ' . $time . ' seconds</strong></p>';
-    echo '<p><strong>Memory Peak: ' . number_format(memory_get_peak_usage(true), 0, '.', ' ') . '</strong></p>';
-}

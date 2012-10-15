@@ -1,7 +1,5 @@
 <?php
 
-if (!$valid) die;
-
 // Deduce the memoire.tmx directory name
 $tmxfile = TMX . '/memoire_en-US_' . $locale . '.tmx';
 
@@ -28,7 +26,7 @@ unset($tmx);
 
 
 if($check['repo'] != 'gaia') {
- 
+
     if ($sourceLocale == 'en-US') {
         include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // English
     } else {

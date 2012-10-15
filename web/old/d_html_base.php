@@ -1,7 +1,4 @@
 <?php
-if (!$valid) {
-    die("File can't be called directly");
-}
 
 require_once '../PAGES/function_clean.php';
 

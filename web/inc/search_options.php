@@ -1,7 +1,5 @@
 <?php
 
-if (!valid($valid)) return;
-
 // default search value
 $recherche = 'Bookmarks';
 
