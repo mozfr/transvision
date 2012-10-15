@@ -18,4 +18,4 @@ if ((isset($file['extension']) && $file['extension'] != 'php')) {
 }
 
 // We can now initialize the application and dispatch urls
-require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/init.php';
+require_once __DIR__ . '/init.php';
