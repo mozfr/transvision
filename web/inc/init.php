@@ -20,57 +20,27 @@ if($debug) {
 }
 
 // Utility functions
-require_once __DIR__ . '/functions.php';
+require_once INC . '/functions.php';
 
-// Bootstrap l10n
-require_once __DIR__ . '/l10n-init.php';
+// include for search only and its json counterpart
+if($url['path'] == '/' || valid($web_service)) {
+    // Bootstrap l10n
+    require_once INC . '/l10n-init.php';
 
-// Include Search Options
-require_once INC . '/search_options.php';
+    // Include Search Options
+    require_once INC . '/search_options.php';
 
-// Import all strings for source and target locales
-require_once INC . '/cache_import.php';
+    // Import all strings for source and target locales
+    require_once INC . '/cache_import.php';
+}
+
+if($url['path'] == '/' && valid($web_service)) {
+    require_once INC . '/webservice.php';
+    exit;
+}
 
 // Start output buffering, we will output in a template
 ob_start();
-
-if(valid($web_service)) {
-    // fonction de recherche
-    require_once INC . 'recherche.php';
-
-    $ken = array();
-    $kfr = array();
-    foreach ($keys as $key => $chaine) {
-        $ken[$key][$chaine] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
-    }
-
-    foreach ($keys2 as $key => $chaine) {
-        $kfr[$key][$chaine] = htmlspecialchars_decode($tmx_source[$key], ENT_QUOTES);
-    }
-
-    $json_en = json_encode($ken);
-    $json_fr = json_encode($kfr);
-
-
-    header('Content-type: application/json; charset=UTF-8');
-
-    if (isset($_GET['callback'])) {
-        if ($_GET['return_loc'] == 'loc') {
-            echo $_GET['callback'] . '(' . $json_fr . ');';
-        } else{
-            echo $_GET['callback'] . '(' . $json_en . ');';
-        }
-    } else {
-        if (isset($_GET['return_loc']) && $_GET['return_loc'] == 'loc'){
-            echo $json_fr;
-        } else {
-            echo htmlspecialchars_decode($json_en, ENT_QUOTES);
-        }
-    }
-    // end of webservice code
-    // XXX: factorize more code with normal display
-    exit;
-}
 
 // HTML body ID
 $page = array_search($url['path'], $urls);
