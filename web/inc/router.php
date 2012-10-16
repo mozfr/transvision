@@ -17,5 +17,18 @@ if ((isset($file['extension']) && $file['extension'] != 'php')) {
     return false;
 }
 
+// check if we process this url or not
+require_once __DIR__ . '/urls.php';
+if ($url['path'] != '/') {
+    // we clean up the path to normalize it before comparing the string to the valid paths
+    $url['path'] = explode('/', $url['path']);
+    $url['path'] = array_filter($url['path']);
+    $url['path'] = implode('/', $url['path']);
+}
+
+if (!in_array($url['path'], $urls)) {
+    return false;
+}
+
 // We can now initialize the application and dispatch urls
 require_once __DIR__ . '/init.php';

@@ -1,7 +1,6 @@
 <?php
-require_once 'functions.php';
 
-// These values depend on the server. We store the application and TMX paths in an ini file shared with python
+// These values depend on the server. We store the application and TMX paths in an ini file shared with Python
 $ini_array = parse_ini_file(__DIR__ . '/config.ini');
 define('DATAROOT',    $ini_array['root']);
 define('HG',          $ini_array['local_hg'] . '/');
@@ -11,31 +10,26 @@ define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
 define('VERSION',     '1.6dev');
-unset($ini_array);
 
-// variable to activate debug mode
+// Global Variables used on the site
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
+$web_service = (isset($_GET['json']) && !isset($web_service)) ? true : false;
 
-// page title
-$title = 'Transvision glossary <a href="./changelog/#v' . VERSION . '">' . VERSION . '</a>';
-
-// Locale detection and rtl support
-require_once __DIR__ . '/l10n-init.php';
-
-require_once WEBROOT .'classes/ShowResults.class.php';
-
-// webservice definition
-if(isset($_GET['json']) && !isset($web_service)) {
-    $web_service = true;
-} else {
-    $web_service = false;
+if($debug) {
+    error_reporting(E_ALL);
 }
 
-// include the search options.
+// Utility functions
+require_once __DIR__ . '/functions.php';
+
+// Bootstrap l10n
+require_once __DIR__ . '/l10n-init.php';
+
+// Include Search Options
 require_once INC . '/search_options.php';
 
-// include the cache files.
-require_once INC . 'cache_import.php';
+// Import all strings for source and target locales
+require_once INC . '/cache_import.php';
 
 // Start output buffering, we will output in a template
 ob_start();
@@ -78,8 +72,14 @@ if(valid($web_service)) {
     exit;
 }
 
+// HTML body ID
+$page = array_search($url['path'], $urls);
+
+// Page title
+$title = 'Transvision glossary <a href="./changelog/#v' . VERSION . '">' . VERSION . '</a>';
+
 // Base html
-if($url['path'] == '/stats2') {
+if($url['path'] == 'stats2') {
     require_once VIEWS . 'stats.php';
 } else {
     require_once VIEWS . 'search_form.php';
@@ -92,6 +92,7 @@ if ($check['t2t']) {
 
     // result presentation
     if($recherche != '') {
+        require_once WEBROOT .'classes/ShowResults.class.php';
         if ($check['ent']) {
             require_once VIEWS . 'results_ent.php';
         } else {
