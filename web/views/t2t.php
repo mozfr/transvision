@@ -13,6 +13,8 @@ foreach ($keys as $key => $chaine) {
 $perfect = $imperfect = array();
 
 // we want to test compound words as well, /ex: 'switch to'
+$compound_search = false;
+
 if(count($aaa) > 1) {
     $aaa[] = implode(" ", $aaa);
     $aaa = array_reverse($aaa);
