@@ -83,9 +83,8 @@ function results($entities, $locale1_strings, $locale2_strings) {
 function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options) {
 
     // rtl support
-    $rtl = array('ar', 'fa', 'he');
-    $direction1 = (in_array($locale1, $rtl)) ? 'rtl' : 'ltr';
-    $direction2 = (in_array($locale2, $rtl)) ? 'rtl' : 'ltr';
+    $direction1 = RTL::getDirection($locale1);
+    $direction2 = RTL::getDirection($locale2);
 
     // mxr support
     $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
@@ -110,7 +109,7 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
 
         if($search[0] == 'apps') {
             $mxr_link = formatEntity($key);
-        } else {            
+        } else {
             // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
             $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
             $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
@@ -196,7 +195,7 @@ function dump($var) {
             color:lightgray;
             padding:0 0.5em;
         }
-        
+
         pre.dump {
             background-color:black;
             color: lightblue;

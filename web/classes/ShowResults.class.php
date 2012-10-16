@@ -9,7 +9,7 @@ class ShowResults {
     {
         $this->rtl = array('ar', 'fa', 'he');
     }
-    
+
     /*
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
@@ -17,7 +17,7 @@ class ShowResults {
     public function TMXResults($entities, $locale1_strings, $locale2_strings)
     {
         $search_results = array();
-        
+
         foreach ($entities as $entity) {
             $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
         }
@@ -28,8 +28,9 @@ class ShowResults {
     public function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options)
     {
 
-        $direction1 = ($this->isRTL($locale1) == true ) ? 'rtl' : 'ltr';
-        $direction2 = ($this->isRTL($locale2) == true ) ? 'rtl' : 'ltr';
+        // rtl support
+        $direction1 = RTL::getDirection($locale1);
+        $direction2 = RTL::getDirection($locale2);
 
         // mxr support
         $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
@@ -101,10 +102,6 @@ class ShowResults {
         $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
         $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
         return $entity;
-    }
-
-    public function isRTL($locale) {
-        return (in_array($locale, $this->rtl)) ? true : false;
     }
 
 }

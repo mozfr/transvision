@@ -78,7 +78,7 @@ $perfect_results = array_unique($perfect_results);
 
 if (count($perfect_results) > 0) {
     echo '<b>Perfect matches</b>';
-    echo "<ol dir='$direction'>";
+    echo "<ol dir='$localeDir'>";
     foreach($perfect_results as $val) {
         echo '<li>' . strip_tags(htmlspecialchars_decode($val)) . '</li>';
     }
@@ -91,8 +91,8 @@ echo '<b>Used in</b>';
 echo "<table>";
 foreach ($imperfect_results as $key => $val){
     echo '<tr>';
-    echo "<td dir='$direction'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
-    echo '<td>' . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';
+    echo "<td dir='$localeDir'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
+    echo "<td dir='$sourceLocaleDir'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';
     echo '</tr>';
 }
 echo "</table>";

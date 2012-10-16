@@ -24,6 +24,7 @@ class ChooseLocale
     protected $detectedLocale;
     protected $defaultLocale;
     public    $mapLonglocales;
+    public    $rtl;
 
     public function __construct($list=array('en-US'))
     {
@@ -32,6 +33,7 @@ class ChooseLocale
         $this->setDefaultLocale('en-US');
         $this->setCompatibleLocale();
         $this->mapLonglocales = true;
+        $this->rtl = array('ar', 'fa', 'he', 'ur');
     }
 
     public function getAcceptLangArray()
@@ -108,5 +110,14 @@ class ChooseLocale
         $locale = trim($locale[0]);
 
         return $locale;
+    }
+
+    public function isRTL($locale) {
+        return (in_array($locale, $this->rtl)) ? true : false;
+    }
+
+    public function getDirection($locale)
+    {
+        return $this->isRTL($locale) ? 'rtl' : 'ltr';
     }
 }

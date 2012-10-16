@@ -1,15 +1,8 @@
 <?php
 require_once 'functions.php';
 
-/* These values depend on the server.
- * We store the application and TMX paths on an ini file shared with python
- */
-
-// PHP >=5.4 syntax
-// define('DATAROOT', parse_ini_file('config.ini')['root']);
-
-$ini_array = parse_ini_file('config.ini');
-
+// These values depend on the server. We store the application and TMX paths in an ini file shared with python
+$ini_array = parse_ini_file(__DIR__ . '/config.ini');
 define('DATAROOT',    $ini_array['root']);
 define('HG',          $ini_array['local_hg'] . '/');
 define('TMX',         DATAROOT .'/TMX/');
@@ -18,48 +11,18 @@ define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
 define('VERSION',     '1.6dev');
+unset($ini_array);
 
 // variable to activate debug mode
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 
-// if a php file exists, we use it
-if(file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path']) && $url['path'] != '/') return false;
-
-// Default body ID, can be overriden for CSS styling
-$page = 'default';
-
 // page title
-$title = 'Transvision glossary <a href="./changelog.php#v' . VERSION . '">' . VERSION . '</a>';
+$title = 'Transvision glossary <a href="./changelog/#v' . VERSION . '">' . VERSION . '</a>';
 
+// Locale detection and rtl support
+require_once __DIR__ . '/l10n-init.php';
 
-// for the changelog, we just want to include variables used by the template
-if(isset($page) && $page == 'changelog') return;
-
-// Locale detection
-require_once WEBROOT .'classes/ChooseLocale.class.php';
 require_once WEBROOT .'classes/ShowResults.class.php';
-$allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
-$l10nDetect = new tinyL10n\ChooseLocale($allLocales);
-$l10nDetect->setDefaultLocale('fr');
-$l10nDetect->mapLonglocales = true;
-$detectedLocale = $l10nDetect->getCompatibleLocale();
-
-// Defined locale + rtl
-if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
-    $locale = $_GET['locale'];
-} else {
-    $locale = $detectedLocale;
-}
-
-// optional source locale if we want to compare with another locale
-if (isset($_GET['sourcelocale']) && in_array($_GET['sourcelocale'], $allLocales)) {
-    $sourceLocale = $_GET['sourcelocale'];
-} else {
-    $sourceLocale = 'en-US';
-}
-
-// rtl
-$direction = (in_array($locale, array('ar', 'fa', 'he'))) ? 'rtl' : 'ltr';
 
 // webservice definition
 if(isset($_GET['json']) && !isset($web_service)) {
