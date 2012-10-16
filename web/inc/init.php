@@ -15,6 +15,7 @@ define('VERSION',     '1.6dev');
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 $web_service = (isset($_GET['json']) && !isset($web_service)) ? true : false;
 
+// We may want to start speed and memory calculations here as well
 if($debug) {
     error_reporting(E_ALL);
 }
@@ -23,7 +24,7 @@ if($debug) {
 require_once INC . '/functions.php';
 
 // include for search only and its json counterpart
-if($url['path'] == '/' || valid($web_service)) {
+if($urls[$url['path']] == 'root' || valid($web_service)) {
     // Bootstrap l10n
     require_once INC . '/l10n-init.php';
 
@@ -34,7 +35,7 @@ if($url['path'] == '/' || valid($web_service)) {
     require_once INC . '/cache_import.php';
 }
 
-if($url['path'] == '/' && valid($web_service)) {
+if($urls[$url['path']] == 'root' && valid($web_service)) {
     require_once INC . '/webservice.php';
     exit;
 }
@@ -43,18 +44,23 @@ if($url['path'] == '/' && valid($web_service)) {
 ob_start();
 
 // HTML body ID
-$page = array_search($url['path'], $urls);
+$page = $urls[$url['path']];
 
 // Page title
-$title = 'Transvision glossary <a href="./changelog/#v' . VERSION . '">' . VERSION . '</a>';
+$title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
 // Base html
-if($url['path'] == 'stats2') {
+if($url['path'] == 'stats') {
+    // Include Search Options
+    require_once INC . '/search_options.php';
+    // Import all strings for source and target locales
+    require_once INC . '/cache_import.php';
     require_once VIEWS . 'stats.php';
 } else {
     require_once VIEWS . 'search_form.php';
 }
-// fonction de recherche
+
+// Search results process
 if ($check['t2t']) {
     require_once VIEWS . 't2t.php';
 } else {

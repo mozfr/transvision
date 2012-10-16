@@ -18,7 +18,7 @@ if ((isset($file['extension']) && $file['extension'] != 'php')) {
 }
 
 // check if we process this url or not
-require_once __DIR__ . '/urls.php';
+
 if ($url['path'] != '/') {
     // we clean up the path to normalize it before comparing the string to the valid paths
     $url['path'] = explode('/', $url['path']);
@@ -26,7 +26,10 @@ if ($url['path'] != '/') {
     $url['path'] = implode('/', $url['path']);
 }
 
-if (!in_array($url['path'], $urls)) {
+// Include all valid urls here
+require_once __DIR__ . '/urls.php';
+
+if (!array_key_exists($url['path'], $urls)) {
     return false;
 }
 

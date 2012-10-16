@@ -1,8 +1,10 @@
 <?php
 
 $urls = array(
-    'root'      => '/',
-    'changelog' => 'news',
-    'stats'     => 'stats2',
+    '/'                 => 'root',
+    'news'              => 'changelog',
+    'changelog.php'     => 'changelog',
+    'webservice.php'    => 'root',
+    'stats'             => 'stats',
 );
 
