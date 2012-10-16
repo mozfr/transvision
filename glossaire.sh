@@ -32,14 +32,14 @@ then
 fi
 
 cd $install
-
 if [ "$createTMX" = true ]
 then
-    echo "Create RELEASE TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/en-US/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
+    for i in `cat $release_locales`
+    do
+        echo "Create RELEASE TMX for $i"
+        nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US central
+    done
 fi
-
-# exit
 
 # Update BETA
 if [ "$checkrepo" = true ]
