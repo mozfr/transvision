@@ -19,16 +19,12 @@ switch ($url['path']) {
         // Search process
         require_once INC . 'recherche.php';
 
-
-        $view  = 'search.php';
+        $view  = 'search_form.php';
 
         if ($web_service) {
             $view = 'webservice.php';
             $use_template = false;
-        } else {
-            require_once VIEWS . 'search_form.php';
         }
-
         break;
 
     case 'news':

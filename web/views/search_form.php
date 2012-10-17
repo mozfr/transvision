@@ -1,5 +1,8 @@
 <?php
 
+// Page title
+$title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
+
 // Get the locale list
 $loc_list = scandir(TMX . $check['repo'] . '/');
 $loc_list = array_diff($loc_list, array('.', '..'));
@@ -102,3 +105,19 @@ function uncheck() {
 }
 
 </script>
+<?php
+
+// Search results process
+if ($check['t2t']) {
+    require_once VIEWS . 't2t.php';
+} else {
+    // result presentation
+    if ($recherche != '') {
+        require_once WEBROOT .'classes/ShowResults.class.php';
+        if ($check['ent']) {
+            require_once VIEWS . 'results_ent.php';
+        } else {
+            require_once VIEWS . 'results.php';
+        }
+    }
+}
