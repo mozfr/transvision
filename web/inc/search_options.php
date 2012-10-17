@@ -15,8 +15,8 @@ $initial_search = $recherche;
 
 // checkboxes states
 $check = array();
-$checkboxes = array('case_sensitive', 'regular', 'wild', 'ent', 'whole_word', 'perfect_match', 'alignement', 't2t', 'result_loc',);
-// note: result_loc = Return only english or locale in the webservice
+$checkboxes = array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t');
+
 foreach($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
@@ -39,18 +39,12 @@ foreach ($dirs as $dir) {
 if ($check['wild']) {
     $recherche        = str_replace('*', '.+', $recherche);
     $initial_search   = $recherche;
-    $check['regular'] = 'checked';
 }
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
     $recherche        = '^' . $recherche . '$';
     $initial_search   = $recherche;
-    $check['regular'] = 'checked';
-}
-
-if (!$check['regular']) {
-    $recherche = preg_quote($recherche);
 }
 
 $recherche = trim($recherche);

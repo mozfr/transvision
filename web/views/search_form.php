@@ -67,8 +67,6 @@ if ($check['repo'] == 'gaia')    $ga = 'checked';
                 <legend>Search options</legend>
                 <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=checkboxState($check['case_sensitive'])?> />
                 <label for="case_sensitive">Case sensitive</label>
-                <input type="checkbox" name="regular" id="regular" value="regular" <?=checkboxState($check['regular'])?> />
-                <label for="regular">Regular Expression</label>
                 <input type="checkbox" name="wild" id="wild" value="wild"          <?=checkboxState($check['wild'])?> />
                 <label for="wild">* Wildcard</label>
                 <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
@@ -77,10 +75,6 @@ if ($check['repo'] == 'gaia')    $ga = 'checked';
                 <label for="ent">Entity Search</label>
                 <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect match</label>
-                <!--
-                <input type="checkbox" name="alignement" id="alignement" value="alignement" <?=checkboxState($check['alignement'])?> />
-                <label for="alignement">Alignement</label>
-                -->
                 <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> onclick="uncheck();"/>
                 <label for="t2t">Glossary</label>
             </fieldset>
@@ -95,7 +89,7 @@ if ($check['repo'] == 'gaia')    $ga = 'checked';
 
  <script>
 function uncheck() {
-    var arr = ['case_sensitive', 'regular', 'wild', 'ent', 'whole_word', 'perfect_match'];
+    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match'];
     for (var i = 0; i < arr.length; i++) {
         el = document.getElementById(arr[i]);
         if (el.disabled) {
