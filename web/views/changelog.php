@@ -6,6 +6,12 @@
     <li>Thunderbird's Chat strings are now included.</li>
     <li>Mozilla Central is now the default repo for searches (instead of Release)</li>
     <li>Removed regular expression searches to unclutter the search panel (Wildcard and case sensitive are still there)</li>
+    <li>Fixed a bug in causing the loss of the source locale for Spanish when switching from a search on Gaia to a search on comm/moz-central repos</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li></li>
 </ul>
 
 <h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
