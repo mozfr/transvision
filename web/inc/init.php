@@ -36,6 +36,7 @@ if ($urls[$url['path']] == 'root' || valid($web_service)) {
 }
 
 if ($urls[$url['path']] == 'root' && valid($web_service)) {
+    require_once INC . 'recherche.php';
     require_once INC . 'webservice.php';
     exit;
 }

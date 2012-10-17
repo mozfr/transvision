@@ -37,14 +37,12 @@ foreach ($dirs as $dir) {
 
 // deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {
-    $recherche        = str_replace('*', '.+', $recherche);
-    $initial_search   = $recherche;
+    $recherche = str_replace('*', '.+', $recherche);
 }
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
-    $recherche        = '^' . $recherche . '$';
-    $initial_search   = $recherche;
+    $recherche = '^' . $recherche . '$';
 }
 
 $recherche = trim($recherche);
