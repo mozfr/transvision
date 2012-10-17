@@ -37,9 +37,12 @@ then
     for i in `cat $release_locales`
     do
         echo "Create RELEASE TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US central
+        nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
     done
+    echo "Create RELEASE TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/RELEASE_EN-US/COMMUN/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
 fi
+exit
 
 # Update BETA
 if [ "$checkrepo" = true ]
@@ -70,6 +73,8 @@ then
         echo "Create BETA TMX for $i"
         nice -20 python tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
     done
+    echo "Create BETA TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/BETA_EN-US/COMMUN/ $local_hg/BETA_EN-US/COMMUN/ en-US en-US beta
 fi
 
 # Update TRUNK
@@ -101,6 +106,8 @@ then
         echo "Create TRUNK TMX for $i"
         nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US central
     done
+    echo "Create TRUNK TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/TRUNK_EN-US/COMMUN/ $local_hg/TRUNK_EN-US/COMMUN/ en-US en-US central
 fi
 
 # Update AURORA
@@ -134,6 +141,8 @@ then
         echo "Create AURORA TMX for $i"
         nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
     done
+    echo "Create AURORA TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/AURORA_EN-US/COMMUN/ $local_hg/AURORA_EN-US/COMMUN/ en-US en-US aurora
 fi
 
 
@@ -158,4 +167,6 @@ then
         echo "Create GAIA TMX for $i"
         nice -20 python tmxmaker.py $local_hg/GAIA/$i/ $local_hg/GAIA/en-US/ $i en-US gaia
     done
+    echo "Create GAIA TMX for en-US"
+    nice -20 python tmxmaker.py $local_hg/GAIA/en-US/ $local_hg/GAIA/en-US/ en-US en-US gaia
 fi
