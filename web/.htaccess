@@ -9,5 +9,5 @@
   # existing files and folders are not redirected
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /inc/init.php [L,QSA]
+  RewriteRule (.*) /inc/router.php [L,QSA]
 </IfModule>
