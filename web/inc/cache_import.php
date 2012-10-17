@@ -35,7 +35,7 @@ if($check['repo'] != 'gaia') {
 }
 
 // We have only one spanish for Gaia
-if(in_array($sourceLocale, array('es-AR', 'es-CL', 'es-ES', 'es-MX'))) {
+if($check['repo'] == 'gaia' && in_array($sourceLocale, array('es-AR', 'es-CL', 'es-ES', 'es-MX'))) {
     $sourceLocale = 'es';
 }
 
