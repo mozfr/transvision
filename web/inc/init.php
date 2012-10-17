@@ -16,27 +16,27 @@ $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
 $web_service = (isset($_GET['json']) && !isset($web_service)) ? true : false;
 
 // We may want to start speed and memory calculations here as well
-if($debug) {
+if ($debug) {
     error_reporting(E_ALL);
 }
 
 // Utility functions
-require_once INC . '/functions.php';
+require_once INC . 'functions.php';
 
 // include for search only and its json counterpart
-if($urls[$url['path']] == 'root' || valid($web_service)) {
+if ($urls[$url['path']] == 'root' || valid($web_service)) {
     // Bootstrap l10n
-    require_once INC . '/l10n-init.php';
+    require_once INC . 'l10n-init.php';
 
     // Include Search Options
-    require_once INC . '/search_options.php';
+    require_once INC . 'search_options.php';
 
     // Import all strings for source and target locales
-    require_once INC . '/cache_import.php';
+    require_once INC . 'cache_import.php';
 }
 
-if($urls[$url['path']] == 'root' && valid($web_service)) {
-    require_once INC . '/webservice.php';
+if ($urls[$url['path']] == 'root' && valid($web_service)) {
+    require_once INC . 'webservice.php';
     exit;
 }
 
@@ -50,11 +50,11 @@ $page = $urls[$url['path']];
 $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
 // Base html
-if($url['path'] == 'stats') {
+if ($url['path'] == 'stats') {
     // Include Search Options
-    require_once INC . '/search_options.php';
+    require_once INC . 'search_options.php';
     // Import all strings for source and target locales
-    require_once INC . '/cache_import.php';
+    require_once INC . 'cache_import.php';
     require_once VIEWS . 'stats.php';
 } else {
     require_once VIEWS . 'search_form.php';
@@ -67,7 +67,7 @@ if ($check['t2t']) {
     require_once INC . 'recherche.php';
 
     // result presentation
-    if($recherche != '') {
+    if ($recherche != '') {
         require_once WEBROOT .'classes/ShowResults.class.php';
         if ($check['ent']) {
             require_once VIEWS . 'results_ent.php';

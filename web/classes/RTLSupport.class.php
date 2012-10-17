@@ -1,6 +1,6 @@
 <?php
 
-//~ namespace tinyL10n;
+namespace tinyL10n;
 
 class RTL
 {

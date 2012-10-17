@@ -6,7 +6,8 @@
  * returns true/false
  */
 
-function valid($var) {
+function valid($var)
+{
     if (isset($var) && $var != false) {
         return true;
     } else {
@@ -19,7 +20,8 @@ function valid($var) {
  * Returns a string or an array, depending on the input
  */
 
-function secureText($var, $tablo = true) {
+function secureText($var, $tablo = true)
+{
     if (!is_array($var)) {
         $var   = array($var);
         $tablo = false;
@@ -48,12 +50,13 @@ function secureText($var, $tablo = true) {
  *  helper function to set checkboxes value
  */
 
-function checkboxState($str, $disabled='') {
-    if($str == 't2t') {
+function checkboxState($str, $disabled='')
+{
+    if ($str == 't2t') {
         return ($str) ? ' checked="checked"' : '';
     }
 
-    if(isset($_GET['t2t'])) {
+    if (isset($_GET['t2t'])) {
         return ' disabled="disabled"';
     } else {
         return ($str) ? ' checked="checked"' : '';
@@ -65,7 +68,8 @@ function checkboxState($str, $disabled='') {
  * 'entity' => ['locale 1', 'locale 2']
  */
 
-function results($entities, $locale1_strings, $locale2_strings) {
+function results($entities, $locale1_strings, $locale2_strings)
+{
 
     $search_results = array();
 
@@ -80,11 +84,12 @@ function results($entities, $locale1_strings, $locale2_strings) {
  * Search results in a table
  */
 
-function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options) {
+function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options)
+{
 
     // rtl support
-    $direction1 = RTL::getDirection($locale1);
-    $direction2 = RTL::getDirection($locale2);
+    $direction1 = tinyL10n\RTL::getDirection($locale1);
+    $direction2 = tinyL10n\RTL::getDirection($locale2);
 
     // mxr support
     $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
@@ -107,7 +112,7 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
         // let's analyse the entity for the search string
         $search = explode(':', $key);
 
-        if($search[0] == 'apps') {
+        if ($search[0] == 'apps') {
             $mxr_link = formatEntity($key);
         } else {
             // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
@@ -151,7 +156,8 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
  *
  */
 
-function formatEntity($entity) {
+function formatEntity($entity)
+{
     // let's analyse the entity for the search string
     $chunk = explode(':', $entity);
     // let's format the entity key to look better
@@ -167,7 +173,8 @@ function formatEntity($entity) {
  *
  */
 
-function getmicrotime() {
+function getmicrotime()
+{
     list($usec, $sec) = explode (' ', microtime());
     return ((float)$usec + (float)$sec);
 }
@@ -175,7 +182,8 @@ function getmicrotime() {
 /**
  * nicer var_dump()
  */
-function dump($var) {
+function dump($var)
+{
 
     ob_start();
     print_r($var);
