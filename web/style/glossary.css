@@ -154,3 +154,10 @@ h3, ul {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* experimetal */
+
+.alert {
+    color:white;
+    background-color:orange;
+}

@@ -109,10 +109,16 @@ class ShowResults {
      *
      */
 
-    public static function highlightFrench($string) {
+    public static function highlight($string, $locale = 'fr') {
+        switch($locale) {
+            case 'fr':
+            default:
+                $string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
+                break;
+        }
+
         $string = str_replace(' ', '<span class="highlight-gray"> </span>', $string); // nbsp highlight
         $string = str_replace('…', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
-        $string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
         return $string;
     }
 

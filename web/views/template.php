@@ -10,7 +10,8 @@
 
 <body id="<?=$page?>">
   <h1><?=$title?></h1>
-    <?=$content?>
+  <?=$extra?>
+  <?=$content?>
 
   <div id="links">
     <ul>

@@ -2,6 +2,7 @@
 
 $use_template = true;
 $page = $urls[$url['path']];
+$extra = null;
 
 
 switch ($url['path']) {
@@ -36,7 +37,8 @@ switch ($url['path']) {
         break;
 
     case 'channelcomparizon':
-        $view = 'channelcomparizon.php';
+        $view  = 'channelcomparizon.php';
+        $extra = '<h2 class="alert">experimental View</h2>';
         break;
 
     default:

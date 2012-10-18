@@ -14,51 +14,52 @@ function getRepoStrings($locale, $repo) {
     return $tmx;
 }
 
-$locale = 'fr';
-$repos  = array('central', 'aurora', 'beta', 'release');
-$canal1 = 'aurora';
-$canal2 = 'beta';
+$repos = array('central', 'aurora', 'beta', 'release');
+$chan1 = 'aurora';
+$chan2 = 'beta';
 
-if(isset($_GET['canal1']) && in_array($_GET['canal1'], $repos)) {
-    $canal1 = $_GET['canal1'];
+if (isset($_GET['chan1']) && in_array($_GET['chan1'], $repos)) {
+    $chan1 = $_GET['chan1'];
 }
 
-if(isset($_GET['canal2']) && in_array($_GET['canal2'], $repos)) {
-    $canal2 = $_GET['canal2'];
+if (isset($_GET['chan2']) && in_array($_GET['chan2'], $repos)) {
+    $chan2 = $_GET['chan2'];
 }
 
-if(isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
+if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
 }
 
-$strings = array();
+foreach ($repos as $repo) {
 
+    if (!isset($strings)) {
+        $strings = array();
+    }
 
-foreach($repos as $repo) {
     $strings[$repo] = getRepoStrings($locale, $repo);
 }
 
-foreach($strings as $key => $val) {
-    echo "$key => " . count($val) . "<br>";
-}
+$temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
+$temp = array_diff($temp, $strings[$chan2]);
 
 
-
-$temp = array_intersect_key($strings[$canal1], $strings[$canal2]);
-$temp = array_diff($temp, $strings[$canal2]);
-
-echo '<table>';
+echo "\n<table>";
 echo '<tr>';
-echo "<th>Key</th><th>$canal1</th><th>$canal2</th>";
+echo "<th colspan='3'>Locale: $locale</th>";
 echo '</tr>';
-foreach($temp as $k => $v) {
+echo '<tr>';
+echo "<th>Key</th><th>$chan1</th><th>$chan2</th>";
+echo '</tr>';
+
+foreach ($temp as $k => $v) {
     echo '<tr>';
-    echo "<td>". TransvisionResults\ShowResults::formatEntity($k) . "</td><td>" . TransvisionResults\ShowResults::highlightFrench($v) . "</td><td>" . TransvisionResults\ShowResults::highlightFrench($strings['release'][$k]) . "</td>";
+    echo "<td>". TransvisionResults\ShowResults::formatEntity($k). "</td>" .
+    "<td>" . TransvisionResults\ShowResults::highlight($v, $locale) . "</td>";
+    //~ if (isset($strings[$chan2][$k])) {
+        echo "<td>" . TransvisionResults\ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
+    //~ } else {
+        //~ echo "<td> <em>Missing String</em> </td>";
+    //~ }
     echo '</tr>';
 }
-
-//~ $result = count(array_diff_key($tmx_target, $tmx_source));
-//~ print_r($result);
-//~ echo '<pre>';
-//~ var_dump(array_diff_key($tmx_source, $tmx_target));
-
+echo '</table>';
