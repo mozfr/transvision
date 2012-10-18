@@ -39,10 +39,15 @@ then
         echo "Create RELEASE TMX for $i"
         nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
     done
+
+    #~ echo "Create RELEASE TMX for fr"
+    #~ nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/fr/ $local_hg/RELEASE_EN-US/COMMUN/ fr en-US release
+    #~ echo "Create RELEASE TMX for es-ES"
+    #~ nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/es-ES/ $local_hg/RELEASE_EN-US/COMMUN/ es-ES en-US release
     echo "Create RELEASE TMX for en-US"
     nice -20 python tmxmaker.py $local_hg/RELEASE_EN-US/COMMUN/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
 fi
-exit
+#~ exit
 
 # Update BETA
 if [ "$checkrepo" = true ]
