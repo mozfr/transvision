@@ -9,7 +9,7 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
-define('VERSION',     '1.6dev');
+define('VERSION',     '1.6');
 
 // Global Variables used on the site
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
