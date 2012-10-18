@@ -24,8 +24,18 @@ foreach($strings as $key => $val) {
     echo "$key => " . count($val) . "<br>";
 }
 //~ dump(array_diff_assoc($strings['central'], $strings['release']));
-$temp = array_intersect_key($strings['central'], $strings['release']);
-dump(array_diff($temp, $strings['release']));
+$temp = array_intersect_key($strings['aurora'], $strings['release']);
+$temp = array_diff($temp, $strings['release']);
+
+echo '<table>';
+echo '<tr>';
+echo "<th>Key</th><th>aurora</th><th>release</th>";
+echo '</tr>';
+foreach($temp as $k => $v) {
+    echo '<tr>';
+    echo "<th>$k</th><td>$v</td><td>{$strings['release'][$k]}</td>";
+    echo '</tr>';
+}
 
 //~ $result = count(array_diff_key($tmx_target, $tmx_source));
 //~ print_r($result);
