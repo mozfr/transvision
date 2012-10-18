@@ -1,8 +1,9 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v1.6">Version 1.6 - 2012-10-??</h2>
+<h2 id="v1.6">Version 1.6 - 2012-10-18</h2>
 <h3>End user visible changes</h3>
 <ul>
+    <li><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparizon/">Channel to Channel differences</a></li>
     <li>Thunderbird's Chat strings are now included.</li>
     <li>Mozilla Central is now the default repo for searches (instead of Release)</li>
     <li>Removed regular expression searches to unclutter the search panel (Wildcard and case sensitive are still there)</li>
@@ -11,7 +12,7 @@
 
 <h3>Other changes</h3>
 <ul>
-    <li></li>
+    <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparizon page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
 </ul>
 
 <h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
