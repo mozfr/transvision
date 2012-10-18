@@ -93,7 +93,7 @@ class ShowResults {
      *
      */
 
-    public function formatEntity($entity) {
+    public static function formatEntity($entity) {
         // let's analyse the entity for the search string
         $chunk = explode(':', $entity);
         // let's format the entity key to look better
@@ -109,7 +109,7 @@ class ShowResults {
      *
      */
 
-    public function highlightFrench($string) {
+    public static function highlightFrench($string) {
         $string = str_replace(' ', '<span class="highlight-gray"> </span>', $string); // nbsp highlight
         $string = str_replace('…', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
         $string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
