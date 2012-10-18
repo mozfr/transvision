@@ -31,6 +31,14 @@ switch ($url['path']) {
         $view = 'changelog.php';
         break;
 
+    case 'repocomparizon':
+        $view = 'repocomparizon.php';
+        break;
+
+    case 'channelcomparizon':
+        $view = 'channelcomparizon.php';
+        break;
+
     default:
         $view  = 'search.php';
         break;
