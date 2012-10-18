@@ -161,3 +161,26 @@ h3, ul {
     color:white;
     background-color:orange;
 }
+
+#channelcomp #main {
+    display:block;
+    width: 500px;
+    margin:auto;
+}
+
+#channelcomp #main fieldset {
+    display:inline-block;
+}
+
+#channelcomp #main fieldset select {
+    display:block;
+    float:left;
+}
+
+#channelcomp #main input[type="submit"]{
+    min-height:3em;
+    font-size:1.2em;
+    display:inline-block;
+    vertical-align: bottom;
+    margin:0;
+}

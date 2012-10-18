@@ -39,9 +39,64 @@ foreach ($repos as $repo) {
     $strings[$repo] = getRepoStrings($locale, $repo);
 }
 
+$chanSelector1 = $chanSelector2 = '';
+
+foreach ($repos as $repo) {
+    $ch1 = ($repo == $chan1) ? ' selected' : '';
+    $ch2 = ($repo == $chan2) ? ' selected' : '';
+    $chanSelector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" . $repo . "</option>\n";
+    $chanSelector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" . $repo . "</option>\n";
+}
+
+// Get the locale list
+$loc_list = scandir(TMX . $repo . '/');
+$loc_list = array_diff($loc_list, array('.', '..'));
+$spanish  = array_search('es', $loc_list);
+
+if ($spanish) {
+    $loc_list[$spanish] = 'es-ES';
+}
+
+// build the target locale switcher
+$target_locales_list = '';
+
+foreach ($loc_list as $loc) {
+    $ch = ($loc == $locale) ? ' selected' : '';
+    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
+}
+
+
+
 $temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $temp = array_diff($temp, $strings[$chan2]);
+?>
+  <form name="searchform" method="get" action="./" >
+        <fieldset id="main">
 
+            <fieldset>
+                <legend>Locale:</legend>
+                <select name='locale'>
+                <?=$target_locales_list?>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Channel 1:</legend>
+                <select name='chan1'>
+                <?=$chanSelector1?>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Channel 2:</legend>
+                <select name='chan2'>
+                <?=$chanSelector2?>
+                </select>
+            </fieldset>
+            <input type="submit" value="Go" alt="Go" />
+
+        </fieldset>
+ </form>
+
+<?php
 
 echo "\n<table>";
 echo '<tr>';
