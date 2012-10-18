@@ -1,7 +1,7 @@
 <?php
 // Page title
 $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
-
+require_once WEBROOT .'classes/ShowResults.class.php';
 //~ include TMX . $repo . '/en-US/cache_en-US.php';
 //~ $tmx_source = $tmx;
 //~ unset($tmx);
@@ -33,7 +33,7 @@ echo "<th>Key</th><th>aurora</th><th>release</th>";
 echo '</tr>';
 foreach($temp as $k => $v) {
     echo '<tr>';
-    echo "<th>$k</th><td>$v</td><td>{$strings['release'][$k]}</td>";
+    echo "<td>". TransvisionResults\ShowResults::formatEntity($k) . "</td><td>" . TransvisionResults\ShowResults::highlightFrench($v) . "</td><td>" . TransvisionResults\ShowResults::highlightFrench($strings['release'][$k]) . "</td>";
     echo '</tr>';
 }
 

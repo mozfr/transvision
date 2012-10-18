@@ -104,4 +104,16 @@ class ShowResults {
         return $entity;
     }
 
+    /*
+     * format string for French cases
+     *
+     */
+
+    public function highlightFrench($string) {
+        $string = str_replace(' ', '<span class="highlight-gray"> </span>', $string); // nbsp highlight
+        $string = str_replace('…', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
+        $string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
+        return $string;
+    }
+
 }
