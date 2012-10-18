@@ -184,10 +184,9 @@ function getmicrotime()
  */
 function dump($var)
 {
-
     ob_start();
     print_r($var);
-    $var = ob_get_contents();
+    $content = ob_get_contents();
     ob_end_clean();
     echo '
     <style>
@@ -212,12 +211,34 @@ function dump($var)
             padding: 0.5em;
         }
 
-    </style>';
-    echo '<pre class="dump"><code>';
+    </style>
+    <script>
+    function showhide(foobar) {
+        if(foobar.innerHTML == "hide") {
+            foobar.parentNode.style.display = "inline-block";
+            foobar.parentNode.style.width = "100px";
+            foobar.parentNode.style.height = "0.9em";
+            foobar.parentNode.style.overflow = "hidden";
+            foobar.innerHTML = "show";
+        } else {
+            foobar.parentNode.style.display = "auto";
+            foobar.parentNode.style.width = "auto";
+            foobar.parentNode.style.height = "auto";
+            foobar.parentNode.style.overflow = "auto";
+            foobar.innerHTML = "hide";
+        }
+    }
+    </script>
+    ';
 
-    $var = str_replace('[', '<span class="dump">[', $var);
-    $var = str_replace(']', ']</span>', $var);
-    $var = str_replace(' => ', '<span class="dump-arrow">=></span>', $var);
-    echo $var;
+    echo '<pre class="dump">';
+    echo '<span class="hide" onclick="showhide(this);">hide</span>';
+    echo "<br>(" . count($var) . " elements)<br>";
+    echo '<code>';
+
+    $content = str_replace('[', '<span class="dump">[', $content);
+    $content = str_replace(']', ']</span>', $content);
+    $content = str_replace(' => ', '<span class="dump-arrow">=></span>', $content);
+    echo $content;
     echo '</code></pre>';
 }
