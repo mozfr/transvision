@@ -27,6 +27,7 @@ def escape(t):
     return (t
         .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
         .replace("'", "&#39;").replace('"', "&quot;")
+        .replace("\\", "&#92;")
         )
 
 def get_string(package, directory):
@@ -149,10 +150,9 @@ if __name__ == "__main__":
         chaine2 = get_string(l10nPackage2, directory)
 
         for entity in chaine:
-            if len(chaine[entity]) > 2:
-                tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
-                php_add_to_array(entity, chaine[entity], fichier2)
-                php_add_to_array(entity, chaine2.get(entity,""), fichier3)
+            tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
+            php_add_to_array(entity, chaine[entity], fichier2)
+            php_add_to_array(entity, chaine2.get(entity,""), fichier3)
 
     tmx_close(fichier1)
     fichier1.close()
