@@ -1,4 +1,7 @@
 <?php
+/*
+ * This view outputs a json or jsonp representation of search results
+ */
 
 $json = array();
 
@@ -7,16 +10,14 @@ foreach ($locale1_strings as $key => $str) {
 }
 
 $json = json_encode($json);
+$mime = 'application/json';
 
-header("access-control-allow-origin: *");
-
-if (!isset($_GET['callback'])) {
-    // JSON if no callback
-    header('Content-type: application/json; charset=UTF-8');
-} else {
+if (isset($_GET['callback'])) {
     // JSONP with the defined callback
-    header('Content-type: application/javascript; charset=UTF-8');
+    $mime = 'application/javascript';
     $json = $_GET['callback'] . '(' . $json . ')';
 }
 
+header("access-control-allow-origin: *");
+header("Content-type: {$mime}; charset=UTF-8");
 exit($json);
