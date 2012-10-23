@@ -3,9 +3,13 @@
 <h2 id="v1.7">Version 1.7 - 2012-??-??</h2>
 <h3>End user visible changes</h3>
 <ul>
-    <li>Access keys are now in search results</li>
+    <li>Access keys are now part of search results</li>
 </ul>
-
+<h3>Developer visible changes</h3>
+<ul>
+    <li>Fixed a regression on the JSON api results (double quotes no longer escaped and breaking JSON format).</li>
+    <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the  application/javascript Mime type.</li>
+</ul>
 <h2 id="v1.6">Version 1.6 - 2012-10-18</h2>
 <h3>End user visible changes</h3>
 <ul>
