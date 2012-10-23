@@ -23,11 +23,18 @@ import silme.io
 silme.format.Manager.register('dtd', 'properties', 'ini', 'inc')
 
 def escape(t):
-    """HTML-escape the text in `t`."""
+    """HTML-escape the text in `t`. We first hide real common entities to avoid double escaping"""
     return (t
+        .replace("&quot;", '@quot;')
+        .replace("&amp;", "@amp;").replace("&lt;", "@lt;").replace("&gt;", "@gt;")
+
         .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
         .replace("'", "&#39;").replace('"', "&quot;")
         .replace("\\", "&#92;")
+
+        .replace("@quot;", '&quot;')
+        .replace("@amp;", "&amp;").replace("@lt;", "&lt;").replace("@gt;", "&gt;")
+
         )
 
 def get_string(package, directory):

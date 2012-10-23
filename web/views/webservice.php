@@ -7,5 +7,5 @@ foreach ($locale1_strings as $key => $str) {
 }
 
 header('Content-type: application/json; charset=UTF-8');
-echo htmlspecialchars_decode(json_encode($json_search_results), ENT_QUOTES);
+echo json_encode($json_search_results);
 exit;
