@@ -11,7 +11,7 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT',     INSTALLROOT . 'web/');
 define('INC',         INSTALLROOT . 'web/inc/');
 define('VIEWS',       INSTALLROOT . 'web/views/');
-define('VERSION',     '1.7dev');
+define('VERSION',     '1.7');
 
 // Global Variables used on the site
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;

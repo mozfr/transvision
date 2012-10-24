@@ -1,10 +1,11 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v1.7">Version 1.7 - 2012-??-??</h2>
+<h2 id="v1.7">Version 1.7 - 2012-10-24</h2>
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a redish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
     <li>Access keys are now part of search results</li>
+    <li>Experimental views are now linked in the footer of the site</li>
 </ul>
 <h3>Developer visible changes</h3>
 <ul>
