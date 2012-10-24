@@ -1,5 +1,7 @@
 <?php
 
+mb_internal_encoding("UTF-8");
+
 // These values depend on the server. We store the application and TMX paths in an ini file shared with Python
 $ini_array = parse_ini_file(__DIR__ . '/config.ini');
 define('DATAROOT',    $ini_array['root']);

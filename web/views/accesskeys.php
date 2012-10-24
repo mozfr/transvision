@@ -58,14 +58,14 @@ $ak_results = array();
 
 foreach($akeys as $akey) {
 
-    $entity         = substr($akey, 0, -10);
-    $akey_value     = $strings[$repo][$akey];
+    $entity     = substr($akey, 0, -10);
+    $akey_value = $strings[$repo][$akey];
 
     foreach ($ak_labels as $ak_label) {
         if ( isset($strings[$repo][$entity . $ak_label])
                     && $strings[$repo][$entity . $ak_label] != ''
                     && $stringsEnglish[$repo][$akey] != '') {
-            if(stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
+            if(mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
                 $ak_results[$akey] = $entity . $ak_label;
             } else {
                 break;
@@ -95,5 +95,5 @@ foreach($akeys as $akey) {
 </form>
 
 <?php
-echo '<h2>' . count($ak_results) . ' potential errors</h2>';
+echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
 printSimpleTable($ak_results, $strings[$repo], array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity') );
