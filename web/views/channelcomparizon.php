@@ -4,16 +4,6 @@ $title = 'Transvision glossary <a href="/news/#v' . VERSION . '">' . VERSION . '
 require_once WEBROOT .'classes/ShowResults.class.php';
 require_once WEBROOT .'inc/l10n-init.php';
 
-//~ include TMX . $repo . '/en-US/cache_en-US.php';
-//~ $tmx_source = $tmx;
-//~ unset($tmx);
-
-function getRepoStrings($locale, $repo) {
-    $tmx = array();
-    include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
-    return $tmx;
-}
-
 $repos = array('central', 'aurora', 'beta', 'release');
 $chan1 = 'aurora';
 $chan2 = 'beta';
