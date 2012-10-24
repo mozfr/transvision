@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Transvision glossary <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+$title = '<a href="/" id="transvision-title">Transvision glossary</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 
 require_once WEBROOT . 'classes/ShowResults.class.php';
 require_once WEBROOT . 'inc/l10n-init.php';
@@ -65,7 +65,9 @@ foreach($akeys as $akey) {
         if ( isset($strings[$repo][$entity . $ak_label])
                     && $strings[$repo][$entity . $ak_label] != ''
                     && $stringsEnglish[$repo][$akey] != '') {
-            if(mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
+            if($akey_value == '') {
+                $ak_results[$akey] = $entity . $ak_label;
+            } elseif (mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
                 $ak_results[$akey] = $entity . $ak_label;
             } else {
                 break;
