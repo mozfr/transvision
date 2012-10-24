@@ -18,7 +18,6 @@ if ((isset($file['extension']) && $file['extension'] != 'php')) {
 }
 
 // check if we process this url or not
-
 if ($url['path'] != '/') {
     // we clean up the path to normalize it before comparing the string to the valid paths
     $url['path'] = explode('/', $url['path']);
@@ -31,6 +30,14 @@ require_once __DIR__ . '/urls.php';
 
 if (!array_key_exists($url['path'], $urls)) {
     return false;
+}
+
+// alway redirect to an url ending with slashes
+$temp_url = parse_url($_SERVER['REQUEST_URI']);
+if ( substr($temp_url['path'], -1) != '/') {
+    unset($temp_url);
+    header('Location:/' . $url['path'] . '/');
+    exit;
 }
 
 // We can now initialize the application and dispatch urls
