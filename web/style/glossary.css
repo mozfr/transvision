@@ -155,7 +155,7 @@ h3, ul {
     margin-right: auto;
 }
 
-/* experimetal */
+/* experimental */
 
 .alert {
     color:white;
@@ -183,4 +183,11 @@ h3, ul {
     display:inline-block;
     vertical-align: bottom;
     margin:0;
+}
+
+
+#keys #main {
+    display:block;
+    width: 280px;
+    margin:auto;
 }

@@ -8,4 +8,5 @@ $urls = array(
     'stats'             => 'stats',
     'repocomparizon'    => 'repocomp',
     'channelcomparizon' => 'channelcomp',
+    'accesskeys'        => 'keys',
 );
