@@ -92,7 +92,7 @@ foreach($akeys as $akey) {
         if ( isset($strings[$repo][$entity . $ak_label])
                     && $strings[$repo][$entity . $ak_label] != ''
                     && $stringsEnglish[$repo][$akey] != '') {
-            if(stripos($strings[$repo][$entity . $ak_label], trim($akey_value)) === false) {
+            if(stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
                 $ak_results[$akey] = $entity . $ak_label;
             } else {
                 break;
