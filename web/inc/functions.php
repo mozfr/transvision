@@ -242,3 +242,38 @@ function dump($var)
     echo $content;
     echo '</code></pre>';
 }
+
+
+function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2', 'Column3', 'Column4') ) {
+    echo "<table>
+          <tr>
+          <th>{$titles[0]}</th><th>{$titles[1]}</th>";
+
+    if($arr2) {
+        echo "<th>{$titles[2]}</th><th>{$titles[3]}</th>";
+    }
+
+    echo '</tr>';
+
+    foreach ($arr as $key => $val) {
+        echo '<tr>';
+        if($arr2) {
+            echo '<td>' . formatEntity($val) . '</td>';
+            echo '<td>' . $arr2[$val] . '</td>';
+            echo '<td>' . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</td>';
+            echo '<td>' . formatEntity($key) . '</td>';
+        } else {
+            echo '<td>' . $val . '</td>';
+            echo '<td>' . $key . '</td>';
+        }
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+
+function getRepoStrings($locale, $repo) {
+    $tmx = array();
+    include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
+    return $tmx;
+}

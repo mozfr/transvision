@@ -1,20 +1,15 @@
 <?php
-// Page title
-$title = 'Transvision glossary <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
-require_once WEBROOT .'classes/ShowResults.class.php';
-require_once WEBROOT .'inc/l10n-init.php';
 
-function getRepoStrings($locale, $repo) {
-    $tmx = array();
-    include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
-    return $tmx;
-}
+$title = 'Transvision glossary <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+
+require_once WEBROOT . 'classes/ShowResults.class.php';
+require_once WEBROOT . 'inc/l10n-init.php';
 
 // let's add en-US to check their errors too
 $allLocales[] = 'en-US';
 
 $repos = array('central', 'aurora', 'beta', 'release');
-$repo = 'central';
+$repo  = 'central';
 
 if (isset($_GET['channel']) && in_array($_GET['channel'], $repos)) {
     $repo = $_GET['channel'];
@@ -24,7 +19,7 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
 }
 
-$strings[$repo] = getRepoStrings($locale, $repo);
+$strings[$repo]        = getRepoStrings($locale, $repo);
 $stringsEnglish[$repo] = getRepoStrings('en-US', $repo);
 
 $channel_selector = '';
@@ -50,28 +45,6 @@ foreach ($loc_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
-
-?>
-
-<form name="searchform" method="get" action="">
-    <fieldset id="main">
-        <fieldset>
-            <legend>Locale</legend>
-            <select name='locale'>
-            <?=$target_locales_list?>
-            </select>
-        </fieldset>
-        <fieldset>
-            <legend>Channel</legend>
-            <select name='channel'>
-            <?=$channel_selector?>
-            </select>
-        </fieldset>
-        <input type="submit" value="Go" alt="Go" />
-    </fieldset>
-</form>
-
-<?php
 
 $akeys = array_filter(
             array_keys($strings[$repo]),
@@ -101,35 +74,26 @@ foreach($akeys as $akey) {
     }
 }
 
+?>
 
-function spit2ColTable($arr, $arr2 = false) {
-    echo '<table>
-          <tr>
-          <th>Column1</th><th>Column2</th>';
+<form name="searchform" method="get" action="">
+    <fieldset id="main">
+        <fieldset>
+            <legend>Locale</legend>
+            <select name='locale'>
+            <?=$target_locales_list?>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Channel</legend>
+            <select name='channel'>
+            <?=$channel_selector?>
+            </select>
+        </fieldset>
+        <input type="submit" value="Go" alt="Go" />
+    </fieldset>
+</form>
 
-    if($arr2) {
-        echo '<th>Column3</th><th>Column4</th>';
-    }
-
-    echo '</tr>';
-
-    foreach ($arr as $key => $val) {
-        echo '<tr>';
-        if($arr2) {
-            echo '<td>' . $val . '</td>';
-            echo '<td>' . $arr2[$val] . '</td>';
-            echo '<td>' . $arr2[$key] . '</td>';
-            echo '<td>' . $key . '</td>';
-        } else {
-            echo '<td>' . $val . '</td>';
-            echo '<td>' . $key . '</td>';
-        }
-        echo '</tr>';
-    }
-    echo '</table>';
-}
-
-
-//~ dump($ak_results);
+<?php
 echo '<h2>' . count($ak_results) . ' potential errors</h2>';
-spit2ColTable($ak_results, $strings[$repo]);
+printSimpleTable($ak_results, $strings[$repo], array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity') );
