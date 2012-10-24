@@ -15,9 +15,12 @@
 
   <div id="links">
     <ul>
-      <li><a href="./" title="Search in the Glossary">Glossary</a></li>
-      <li><a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a></li>
+      <li><a href="/" title="Search in the Glossary">Glossary</a></li>
+      <li><a href="/accesskeys/" title="Search in the Glossary">Access Keys</a></li>
+      <li><a href="/channelcomparizon/" title="Search in the Glossary">Channel Comparizon</a></li>
     </ul>
+    <p><a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">Transvision is a MozFR project</a></p>
   </div>
+
 </body>
 </html>
