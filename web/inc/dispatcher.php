@@ -32,12 +32,14 @@ switch ($url['path']) {
         $view = 'changelog.php';
         break;
 
+    case 'repocomparison':
     case 'repocomparizon':
-        $view = 'repocomparizon.php';
+        $view = 'repocomparison.php';
         break;
 
+    case 'channelcomparison':
     case 'channelcomparizon':
-        $view  = 'channelcomparizon.php';
+        $view  = 'channelcomparison.php';
         $extra = '<h2 class="alert">experimental View</h2>';
         break;
 

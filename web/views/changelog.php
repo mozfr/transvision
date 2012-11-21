@@ -25,7 +25,7 @@
 <h2 id="v1.6">Version 1.6 - 2012-10-18</h2>
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparizon/">Channel to Channel differences</a></li>
+    <li><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparison/">Channel to Channel differences</a></li>
     <li>Thunderbird's Chat strings are now included.</li>
     <li>Mozilla Central is now the default repo for searches (instead of Release)</li>
     <li>Removed regular expression searches to unclutter the search panel (Wildcard and case sensitive are still there)</li>
@@ -34,7 +34,7 @@
 
 <h3>Other changes</h3>
 <ul>
-    <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparizon page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
+    <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparison page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
 </ul>
 
 <h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
@@ -57,7 +57,7 @@
 <h2 id="v1.4">Version 1.4 - 2012-09-04</h2>
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> locale to locale comparizon. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
+    <li><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
     <li>Strings in MXR searches are now truncated if they exceed MXR's field length limits, it prevents an MXR error message and usually gives good search results</li>
     <li>The second table of results was showing the translation in both columns, this regression is fixed.</li>
 </ul>

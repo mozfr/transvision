@@ -1,5 +1,6 @@
 <?php
 $time_start = getmicrotime();
+$time_start = getmicrotime();
 
 $locales = array('ach', 'af', 'ak', 'ar', 'as', 'ast', 'be', 'bg', 'bn-BD', 'bn-IN', 'br', 'bs', 'ca', 'cs', 'csb', 'cy', 'da', 'de', 'el', 'en-GB', 'en-US', 'en-ZA', 'eo', 'es-AR', 'es-CL', 'es-ES', 'es-MX', 'et', 'eu', 'fa', 'ff', 'fi', 'fr', 'fy-NL', 'ga-IE', 'gd', 'gl', 'gu-IN', 'he', 'hi-IN', 'hr', 'hu', 'hy-AM', 'id', 'is', 'it', 'ja', 'ka', 'kk', 'km', 'kn', 'ko', 'ku', 'lg', 'lij', 'lt', 'lv', 'mai', 'mk', 'ml', 'mr', 'ms', 'my', 'nb-NO', 'ne-NP', 'nl', 'nn-NO', 'nr', 'nso', 'or', 'pa-IN', 'pl', 'pt-BR', 'pt-PT', 'rm', 'ro', 'ru', 'rw', 'si', 'sk', 'sl', 'son', 'sq', 'sr', 'ss', 'st', 'sv-SE', 'sw', 'ta', 'ta-LK', 'te', 'th', 'tn', 'tr', 'ts', 'uk', 've', 'vi', 'wo', 'xh', 'zh-CN', 'zh-TW', 'zu');
 //~ $latin_locales = array('ast', 'ca', 'fr',  'es-AR', 'es-CL', 'es-ES', 'es-MX', 'it', 'lij', 'pt-BR', 'pt-PT', 'rm', 'ro',);
@@ -24,7 +25,7 @@ foreach($tmx_source as $string) {
 echo '<table>';
 foreach($locales as $locale) {
 
-    include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // localised, for a locale to locale comparizon
+    include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // localised, for a locale to locale comparison
 
     $tmx_source = $tmx;
 

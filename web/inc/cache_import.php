@@ -30,7 +30,7 @@ if($check['repo'] != 'gaia') {
     if ($sourceLocale == 'en-US') {
         include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // English
     } else {
-        include TMX . $check['repo'] . "/${sourceLocale}/cache_${sourceLocale}.php"; // localised, for a locale to locale comparizon
+        include TMX . $check['repo'] . "/${sourceLocale}/cache_${sourceLocale}.php"; // localised, for a locale to locale comparison
     }
 }
 
