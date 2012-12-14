@@ -88,8 +88,8 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
 {
 
     // rtl support
-    $direction1 = tinyL10n\RTL::getDirection($locale1);
-    $direction2 = tinyL10n\RTL::getDirection($locale2);
+    $direction1 = tinyl10n\RTL::getDirection($locale1);
+    $direction2 = tinyl10n\RTL::getDirection($locale2);
 
     // mxr support
     $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];

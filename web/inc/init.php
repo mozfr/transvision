@@ -22,8 +22,13 @@ if ($debug) {
     error_reporting(E_ALL);
 }
 
+// Autoloading of composer classes
+require_once WEBROOT . 'vendor/autoload.php';
+
 // Utility functions
 require_once INC . 'functions.php';
 
 // Dispatch urls
 require_once INC . 'dispatcher.php';
+
+

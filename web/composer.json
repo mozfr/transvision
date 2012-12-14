@@ -1,10 +1,6 @@
 {
     "require": {
-        "mageekguy/atoum"        : "dev-master"
-    },
-    "autoload": {
-        "psr-0": {
-            "tinyL10n"       : "classes/"
-        }
+        "mageekguy/atoum" : "dev-master",
+        "pascalc/tinyl10n" : "0.6"
     }
 }

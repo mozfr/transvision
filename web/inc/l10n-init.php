@@ -3,11 +3,10 @@
  * This file initializes l10n support: locale detection, rtl/ltr variable
  */
 
-require_once WEBROOT .'classes/ChooseLocale.class.php';
 require_once WEBROOT .'classes/RTLSupport.class.php';
 
 $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
-$l10n = new tinyL10n\ChooseLocale($allLocales);
+$l10n = new tinyl10n\ChooseLocale($allLocales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;
 $locale = $l10n->getCompatibleLocale();
