@@ -1,6 +1,6 @@
 {
     "require": {
-        "mageekguy/atoum" : "dev-master",
+        "atoumo/atoum" : "dev-master",
         "pascalc/tinyl10n" : "0.6"
     }
 }
