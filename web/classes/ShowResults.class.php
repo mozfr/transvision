@@ -14,49 +14,59 @@ class ShowResults {
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
      */
-    public function TMXResults($entities, $locale1_strings, $locale2_strings)
+    public function getTMXResults($entities, $locale1_strings, $locale2_strings)
     {
         $search_results = array();
 
         foreach ($entities as $entity) {
-            $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
+            $search_results[$entity] = array($locale1_strings[$entity],
+                                             $locale2_strings[$entity]);
         }
         return $search_results;
     }
 
-    // XXX : this method is a work in progress (migration from a functional area)
-    public function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options)
+    // XXX: this method is a work in progress (migration from a functional area)
+    public function resultsTable($search_results, $recherche, $locale1,
+                                 $locale2, $l10n_repo, $search_options)
     {
-
         // rtl support
         $direction1 = RTL::getDirection($locale1);
         $direction2 = RTL::getDirection($locale2);
 
         // mxr support
-        $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
+        $prefix = ($search_options['repo'] == 'central') ?
+                        $search_options['repo']
+                        : 'mozilla-' . $search_options['repo'];
+
+        $base_url = "http://mxr.mozilla.org/";
+        
         if ($l10n_repo) {
-            $mxr_url = "http://mxr.mozilla.org/l10n-$prefix/search?find=$locale2/";
-            $mxr_field_limit = 28 - mb_strwidth("$locale2/");
+            $mxr_url = "{$base_url}l10n-{$prefix}/search?find={$locale2}/";
+            $mxr_field_limit = 28 - mb_strwidth("{$locale2}/");
         } else {
-            $mxr_url  = "http://mxr.mozilla.org/comm-${search_options['repo']}/search?find=";
+            $mxr_url = "{$base_url}comm-${search_options['repo']}/search?find=";
             $mxr_field_limit = 27;
         }
 
-        $table  = "\n\n  <table>\n\n";
-        $table .= "    <tr>\n";
-        $table .= "      <th>Entity</th>\n";
-        $table .= "      <th>" . $locale1 . "</th>\n";
-        $table .= "      <th>" . $locale2 . "</th>\n";
-        $table .= "    </tr>\n\n";
+        $table  = "\n\n
+                   <table>\n\n
+                     <tr>\n
+                       <th>Entity</th>\n
+                       <th>{$locale1}</th>\n
+                       <th>{$locale2}</th>\n
+                     </tr>\n\n";
 
         foreach ($search_results as $key => $strings) {
             // let's analyse the entity for the search string
             $search = explode(':', $key);
 
-            // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
-            $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
+            // we chop search strings with mb_strimwidth()
+            // because  of field length limits in mxr)
+            $search = mb_strimwidth($search[0] . '.*' . $search[1], 0,
+                                    $mxr_field_limit) . '&amp;string=' .
+                                    mb_strimwidth($search[2], 0, 29);
 
-            $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
+            $mxr_link = "<a href=\"{$mxr_url}{$search}\">"c . formatEntity($key) . '</a>';
 
             $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
             $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -93,7 +103,8 @@ class ShowResults {
      *
      */
 
-    public static function formatEntity($entity) {
+    public static function formatEntity($entity)
+    {
         // let's analyse the entity for the search string
         $chunk = explode(':', $entity);
         // let's format the entity key to look better
@@ -109,7 +120,8 @@ class ShowResults {
      *
      */
 
-    public static function highlight($string, $locale = 'fr') {
+    public static function highlight($string, $locale = 'fr')
+    {
         switch($locale) {
             case 'fr':
             default:

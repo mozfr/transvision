@@ -19,7 +19,8 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 }
 
 // bypass default source locale for locale to locale comparison
-if (isset($_GET['sourcelocale']) && in_array($_GET['sourcelocale'], $allLocales)) {
+if (isset($_GET['sourcelocale'])
+    && in_array($_GET['sourcelocale'], $allLocales)) {
     $sourceLocale = $_GET['sourcelocale'];
 }
 

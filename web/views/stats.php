@@ -19,13 +19,14 @@ unset($tmx);
 
 $total_source = 0;
 
-foreach($tmx_source as $string) {
+foreach ($tmx_source as $string) {
     $total_source += mb_strlen($string, 'UTF-8');
 }
-echo '<table>';
-foreach($locales as $locale) {
 
-    include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; // localised, for a locale to locale comparison
+echo '<table>';
+foreach ($locales as $locale) {
+    // Localised, for a locale to locale comparison
+    include TMX . $check['repo'] . '/' . $locale . '/cache_en-US.php'; 
 
     $tmx_source = $tmx;
 
@@ -33,7 +34,7 @@ foreach($locales as $locale) {
 
     $total_source = 0;
 
-    foreach($tmx_source as $key => $string) {
+    foreach ($tmx_source as $key => $string) {
         $total_source += mb_strlen($string, 'UTF-8');
         $tmp = explode(':', $key);
         $entity['en-US'][$tmp[0]]['count'] += 1;
@@ -42,7 +43,7 @@ foreach($locales as $locale) {
 
     $target = TMX . $check['repo'] . '/' . $locale . '/cache_' . $locale . '.php';
 
-    if(!is_file($target)) {
+    if (!is_file($target)) {
         echo $target . '<br>';
         continue;
     }
@@ -53,7 +54,7 @@ foreach($locales as $locale) {
 
     $total_target = 0;
 
-    foreach($tmx_target as $key => $string) {
+    foreach ($tmx_target as $key => $string) {
         $total_target += mb_strlen($string, 'UTF-8');
         $tmp = explode(':', $key);
         $entity[$locale][$tmp[0]]['count'] += 1;

@@ -15,18 +15,20 @@ $perfect = $imperfect = array();
 // we want to test compound words as well, /ex: 'switch to'
 $compound_search = false;
 
-if(count($aaa) > 1) {
+if (count($aaa) > 1) {
     $aaa[] = implode(" ", $aaa);
     $aaa = array_reverse($aaa);
     $compound_search = true;
 }
 
-foreach($aaa as $search) {
+foreach ($aaa as $search) {
     // if the word is one or two letters, we skip it
-    if(strlen($search) < 3) continue;
+    if (strlen($search) < 3) {
+        continue;
+    }
 
     // Perfect matches are hits for a single word or a compound word
-    if($compound_search || count($aaa) == 1) {
+    if ($compound_search || count($aaa) == 1) {
         $alternate1 = ucfirst($search);
         $alternate2 = ucwords($search);
         $alternate3 = strtolower($search);
@@ -50,7 +52,7 @@ foreach($aaa as $search) {
     $imperfect = array_keys(array_filter($tmx_source,
                     function ($element) use ($search) {
                         $bingo = (strpos($element, $search)) ? true : false;
-                        if(!$bingo) {
+                        if (!$bingo) {
                             $bingo = (strpos($element, strtolower($search))) ? true : false;
                         }
                         return $bingo;
@@ -63,25 +65,25 @@ $imperfect = array_unique($imperfect); // remove duplicates
 
 $perfect_results = $imperfect_results = array();
 
-foreach ($perfect as $val){
-    if($tmx_target[$val] != '') {
+foreach ($perfect as $val) {
+    if ($tmx_target[$val] != '') {
         $perfect_results[] = $tmx_target[$val];
     }
 }
 
-foreach ($imperfect as $key => $val){
-    if($tmx_target[$val] != '') {
+foreach ($imperfect as $key => $val) {
+    if ($tmx_target[$val] != '') {
         $imperfect_results[$val] = $tmx_target[$val];
     }
 }
 
 $imperfect_results = array_unique($imperfect_results);
-$perfect_results = array_unique($perfect_results);
+$perfect_results   = array_unique($perfect_results);
 
 if (count($perfect_results) > 0) {
     echo '<b>Perfect matches</b>';
     echo "<ol dir='$localeDir'>";
-    foreach($perfect_results as $val) {
+    foreach ($perfect_results as $val) {
         echo '<li>' . strip_tags(htmlspecialchars_decode($val)) . '</li>';
     }
     echo "</ol>";
@@ -91,7 +93,7 @@ if (count($perfect_results) > 0) {
 
 echo '<b>Used in</b>';
 echo "<table>";
-foreach ($imperfect_results as $key => $val){
+foreach ($imperfect_results as $key => $val) {
     echo '<tr>';
     echo "<td dir='$localeDir'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
     echo "<td dir='$sourceLocaleDir'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';

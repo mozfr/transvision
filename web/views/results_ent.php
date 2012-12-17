@@ -20,15 +20,16 @@ foreach ($entities as $val) {
     $search = explode(':', $val);
     $mxr_url  = "http://mxr.mozilla.org/comm-${check['repo']}/search?find=";
 
-    if($search[0] == 'apps') {
+    if ($search[0] == 'apps') {
         $mxr_link = formatEntity($val);
     } else {
-        // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
+        // We chop search strings with mb_strimwidth()
+        // because  of field length limits in mxr)
         $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
         $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($val) . '</a>';
     }
 
-    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>',  $tmx_target[$val]); // nbsp highlight
+    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]); // nbsp highlight
     $table .= "    <tr>\n";
     $table .= "      <td>" . $mxr_link . "</a></td>\n";
     $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "</td>\n";

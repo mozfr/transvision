@@ -2,16 +2,17 @@
 
 mb_internal_encoding("UTF-8");
 
-// These values depend on the server. We store the application and TMX paths in an ini file shared with Python
+// These values depend on the server.
+// We store the application and TMX paths in an ini file shared with Python
 $ini_array = parse_ini_file(__DIR__ . '/config.ini');
-define('DATAROOT',    $ini_array['root']);
-define('HG',          $ini_array['local_hg'] . '/');
-define('TMX',         DATAROOT .'/TMX/');
+define('DATAROOT', $ini_array['root']);
+define('HG', $ini_array['local_hg'] . '/');
+define('TMX', DATAROOT .'/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
-define('WEBROOT',     INSTALLROOT . 'web/');
-define('INC',         INSTALLROOT . 'web/inc/');
-define('VIEWS',       INSTALLROOT . 'web/views/');
-define('VERSION',     '1.8dev');
+define('WEBROOT', INSTALLROOT . 'web/');
+define('INC', INSTALLROOT . 'web/inc/');
+define('VIEWS', INSTALLROOT . 'web/views/');
+define('VERSION', '1.8dev');
 
 // Global Variables used on the site
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;

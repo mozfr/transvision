@@ -14,6 +14,6 @@ $locale2_strings = preg_grep($search, $tmx_target);
 $entities        = preg_grep($search, array_keys($tmx_source));
 
 foreach ($aaa as $aa) {
-    $locale1_strings = preg_grep('/' . $b . $aa . $b . '/' . $i, $locale1_strings);
-    $locale2_strings = preg_grep('/' . $b . $aa . $b . '/' . $i, $locale2_strings);
+    $locale1_strings = preg_grep("/{$b}{$aa}{$b}/{$i}", $locale1_strings);
+    $locale2_strings = preg_grep("/{$b}{$aa}{$b}/{$i}", $locale2_strings);
 }

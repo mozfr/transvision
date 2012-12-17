@@ -15,13 +15,17 @@ $initial_search = $recherche;
 
 // checkboxes states
 $check = array();
-$checkboxes = array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t');
+$checkboxes = array('case_sensitive', 'wild', 'ent',
+                    'whole_word', 'perfect_match', 't2t');
 
-foreach($checkboxes as $val) {
+foreach ($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
 
-if (isset($_GET['repo']) && in_array($_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia'))) {
+if (isset($_GET['repo'])
+    && in_array(
+        $_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia')
+    )) {
     $check['repo'] = $_GET['repo'];
 } else {
     $check['repo'] = 'central';

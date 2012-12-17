@@ -33,11 +33,24 @@ foreach ($loc_list as $loc) {
 
 // select the branch
 $tr = $au = $be = $re = $ga = '';
-if ($check['repo'] == 'central') $tr = 'checked';
-if ($check['repo'] == 'aurora')  $au = 'checked';
-if ($check['repo'] == 'beta')    $be = 'checked';
-if ($check['repo'] == 'release') $re = 'checked';
-if ($check['repo'] == 'gaia')    $ga = 'checked';
+
+switch($check['repo']) {
+    case 'central':
+        $tr = 'checked'
+        break;
+    case 'aurora':
+        $au = 'checked'
+        break;
+    case 'beta':
+        $be = 'checked'
+        break;
+    case 'release':
+        $re = 'checked'
+        break;
+    case 'gaia':
+        $ga = 'checked'
+        break;
+}
 
 ?>
 

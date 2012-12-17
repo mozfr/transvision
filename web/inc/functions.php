@@ -74,7 +74,8 @@ function results($entities, $locale1_strings, $locale2_strings)
     $search_results = array();
 
     foreach ($entities as $entity) {
-        $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
+        $search_results[$entity] = array($locale1_strings[$entity],
+                                         $locale2_strings[$entity]);
     }
 
     return $search_results;
@@ -84,7 +85,8 @@ function results($entities, $locale1_strings, $locale2_strings)
  * Search results in a table
  */
 
-function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_repo, $search_options)
+function resultsTable($search_results, $recherche, $locale1,
+                      $locale2, $l10n_repo, $search_options)
 {
 
     // rtl support
@@ -92,12 +94,14 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
     $direction2 = tinyl10n\RTL::getDirection($locale2);
 
     // mxr support
-    $prefix = ($search_options['repo'] == 'central') ? $search_options['repo'] : 'mozilla-' . $search_options['repo'];
+    $prefix = ($search_options['repo'] == 'central') ?
+               $search_options['repo']
+               : 'mozilla-' . $search_options['repo'];
     if ($l10n_repo) {
         $mxr_url = "http://mxr.mozilla.org/l10n-$prefix/search?find=$locale2/";
         $mxr_field_limit = 28 - mb_strwidth("$locale2/");
     } else {
-        $mxr_url  = "http://mxr.mozilla.org/comm-${search_options['repo']}/search?find=";
+        $mxr_url = "http://mxr.mozilla.org/comm-${search_options['repo']}/search?find=";
         $mxr_field_limit = 27;
     }
 
@@ -115,7 +119,8 @@ function resultsTable($search_results, $recherche, $locale1, $locale2, $l10n_rep
         if ($search[0] == 'apps') {
             $mxr_link = formatEntity($key);
         } else {
-            // we chop search strings with mb_strimwidth() because  of field length limits in mxr)
+            // We chop search strings with mb_strimwidth()
+            // because  of field length limits in mxr)
             $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
             $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
         }
@@ -176,7 +181,7 @@ function formatEntity($entity)
 function getmicrotime()
 {
     list($usec, $sec) = explode (' ', microtime());
-    return ((float)$usec + (float)$sec);
+    return ((float) $usec + (float) $sec);
 }
 
 /**
@@ -244,12 +249,13 @@ function dump($var)
 }
 
 
-function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2', 'Column3', 'Column4') ) {
+function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2', 'Column3', 'Column4') )
+{
     echo "<table>
           <tr>
           <th>{$titles[0]}</th><th>{$titles[1]}</th>";
 
-    if($arr2) {
+    if ($arr2) {
         echo "<th>{$titles[2]}</th><th>{$titles[3]}</th>";
     }
 
@@ -257,7 +263,7 @@ function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2
 
     foreach ($arr as $key => $val) {
         echo '<tr>';
-        if($arr2) {
+        if ($arr2) {
             echo '<td>' . formatEntity($val) . '</td>';
             echo '<td>' . $arr2[$val] . '</td>';
             echo '<td>' . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</td>';
@@ -272,7 +278,8 @@ function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2
 }
 
 
-function getRepoStrings($locale, $repo) {
+function getRepoStrings($locale, $repo)
+{
     $tmx = array();
     include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
     return $tmx;

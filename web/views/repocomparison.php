@@ -16,7 +16,7 @@ $locales = array(
 'ach', 'af', 'ak', 'an', 'ar', 'as', 'ast', 'be', 'bg', 'bn-IN', 'bn-BD', 'br', 'bs', 'ca', 'cs', 'csb', 'cy', 'da', 'de', 'el', 'eo', 'es-AR', 'es-ES', 'es-CL', 'es-MX', 'et', 'eu', 'fa', 'ff', 'fi', 'fr', 'fy-NL', 'ga-IE', 'gd', 'gl', 'gu-IN', 'he', 'hi-IN', 'hr', 'hu', 'hy-AM', 'id', 'is', 'it', 'ja', 'ka', 'kk', 'kn', 'km', 'ko', 'ku', 'lg', 'lij', 'lt', 'lv', 'mai', 'mk', 'ml', 'mn', 'mr', 'ms', 'my', 'nb-NO', 'nl', 'nn-NO', 'nso', 'oc', 'or', 'pa-IN', 'pl', 'pt-BR', 'pt-PT', 'rm', 'ro', 'ru', 'si', 'sk', 'sl', 'son', 'sq', 'sr', 'sv-SE', 'sw', 'ta', 'ta-LK', 'te', 'th', 'tr', 'uk', 'ur', 'vi', 'wo', 'zh-CN', 'zh-TW', 'zu',
 );
 
-foreach($locales as $locale) {
+foreach ($locales as $locale) {
     include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php'; // localised
     $tmx_target = $tmx;
     unset($tmx);

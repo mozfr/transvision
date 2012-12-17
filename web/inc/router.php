@@ -8,7 +8,8 @@ if ($url['path'] == '/inc/router.php') {
 }
 
 // Real files and folders don't get pre-processed
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path']) && $url['path'] != '/') {
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
+    && $url['path'] != '/') {
     return false;
 }
 
@@ -17,9 +18,9 @@ if ((isset($file['extension']) && $file['extension'] != 'php')) {
     return false;
 }
 
-// check if we process this url or not
+// Check if we process this url or not
 if ($url['path'] != '/') {
-    // we clean up the path to normalize it before comparing the string to the valid paths
+    // Normalize path before comparing the string to list of valid paths
     $url['path'] = explode('/', $url['path']);
     $url['path'] = array_filter($url['path']);
     $url['path'] = implode('/', $url['path']);

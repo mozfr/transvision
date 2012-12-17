@@ -1,6 +1,7 @@
 <?php
 
-$title = '<a href="/" id="transvision-title">Transvision glossary</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+$title = '<a href="/" id="transvision-title">Transvision glossary</a>
+          <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 
 require_once WEBROOT . 'classes/ShowResults.class.php';
 require_once WEBROOT . 'inc/l10n-init.php';
@@ -56,7 +57,7 @@ $akeys = array_filter(
 $ak_labels  = array('.label', '.title', '.title2');
 $ak_results = array();
 
-foreach($akeys as $akey) {
+foreach ($akeys as $akey) {
 
     $entity     = substr($akey, 0, -10);
     $akey_value = $strings[$repo][$akey];
@@ -65,7 +66,7 @@ foreach($akeys as $akey) {
         if ( isset($strings[$repo][$entity . $ak_label])
                     && $strings[$repo][$entity . $ak_label] != ''
                     && $stringsEnglish[$repo][$akey] != '') {
-            if($akey_value == '') {
+            if ($akey_value == '') {
                 $ak_results[$akey] = $entity . $ak_label;
             } elseif (mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
                 $ak_results[$akey] = $entity . $ak_label;
@@ -98,4 +99,6 @@ foreach($akeys as $akey) {
 
 <?php
 echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
-printSimpleTable($ak_results, $strings[$repo], array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity') );
+printSimpleTable($ak_results, $strings[$repo],
+                 array('Label entity', 'Label value',
+                       'Access&nbsp;key', 'Access key entity') );

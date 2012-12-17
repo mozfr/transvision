@@ -4,7 +4,7 @@
 // (initial_search is the original sanitized searched string before any modification)
 
 $results = new TransvisionResults\ShowResults();
-$search_results = $results->TMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
+$search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
 
 echo '  <h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $sourceLocale . ' in:</h2>';
 echo resultsTable($search_results, $recherche, $sourceLocale, $locale, false, $check);
