@@ -66,7 +66,7 @@ class ShowResults {
                                     $mxr_field_limit) . '&amp;string=' .
                                     mb_strimwidth($search[2], 0, 29);
 
-            $mxr_link = "<a href=\"{$mxr_url}{$search}\">"c . formatEntity($key) . '</a>';
+            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . formatEntity($key) . '</a>';
 
             $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
             $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);

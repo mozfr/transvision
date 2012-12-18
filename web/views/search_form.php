@@ -36,19 +36,19 @@ $tr = $au = $be = $re = $ga = '';
 
 switch($check['repo']) {
     case 'central':
-        $tr = 'checked'
+        $tr = 'checked';
         break;
     case 'aurora':
-        $au = 'checked'
+        $au = 'checked';
         break;
     case 'beta':
-        $be = 'checked'
+        $be = 'checked';
         break;
     case 'release':
-        $re = 'checked'
+        $re = 'checked';
         break;
     case 'gaia':
-        $ga = 'checked'
+        $ga = 'checked';
         break;
 }
 
