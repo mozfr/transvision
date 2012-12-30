@@ -12,7 +12,9 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT', INSTALLROOT . 'web/');
 define('INC', INSTALLROOT . 'web/inc/');
 define('VIEWS', INSTALLROOT . 'web/views/');
-define('VERSION', '1.8dev');
+
+// Bump this constant with each new release
+const VERSION = '1.8dev';
 
 // Global Variables used on the site
 $debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
