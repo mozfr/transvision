@@ -1,6 +1,7 @@
 {
     "require": {
-        "atoumo/atoum" : "dev-master",
-        "pascalc/tinyl10n" : "0.6"
+        "atoum/atoum" : "dev-master",
+        "pascalc/tinyl10n" : "0.6",
+        "monolog/monolog" : "1.2.1"
     }
 }
