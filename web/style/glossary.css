@@ -2,7 +2,7 @@ body {
     color: #1c1c1c;
     background-color: #f9fafc;
     font-family: Arial, sans-serif;
-    padding: 1em;
+    padding: 0.5em;
     padding-top: 50px;
     font-size: 1em;
 }
@@ -40,8 +40,17 @@ h1 a#transvision-title:visited {
 }
 
 
+
 div#current {
-    font-size: 2em;
+    font-size: 1.8em;
+    padding:0.1em 0;
+}
+
+div#current strong {
+    float: right;
+    padding: 0 0.5em;
+    color: orange;
+    border-left: 1px solid #005D99;
 }
 
 #links {
@@ -75,7 +84,8 @@ a:hover {
 fieldset {
     border: none;
     display: inline;
-    min-height: 1.5em;
+    min-height: 1.8em;
+    margin:0;
 }
 
 fieldset {
@@ -186,20 +196,27 @@ fieldset#main #search input[type=text] {
 }
 
 fieldset#main fieldset {
-    border:1px solid #3C8FD1;
+    border: 1px solid #3C8FD1;
     border-top-width: 25px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
-    margin-right: 1em;
-    margin-bottom:0.5em;
+    margin-bottom: 0.5em;
     background-color: #F1F4F9;
+}
+
+fieldset#main fieldset  * {
+    font-size:0.9em;
 }
 
 fieldset#main fieldset > legend {
     background-color: #3C8FD1;
     line-height:25px;
     color: white;
+    text-shadow: 1px 1px 1px #333333;
+    font-weight:bold;
+    font-size:1em !important;
 }
+
 
 /* changelog page */
 
