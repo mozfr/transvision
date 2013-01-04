@@ -6,11 +6,12 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches need to be at least 2 characters long, single letter searches now return an error message.</li>
+    <li>Various visual changes to maje the search forms clearer.</li>
 </ul>
 
 <h3>Other changes</h3>
 <ul>
-    <li>External dependencies are now all managed through Composer</li>
+    <li>External dependencies are now all managed through <a href="http://getcomposer.org/">Composer</a></li>
     <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually use Transvision)</li>
 </ul>
 

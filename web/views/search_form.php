@@ -59,13 +59,13 @@ switch($check['repo']) {
         <fieldset id="main">
 
             <fieldset>
-                <legend>Source Locale:</legend>
+                <legend>Source Locale</legend>
                 <select name='sourcelocale'>
                 <?=$source_locales_list?>
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Target Locale:</legend>
+                <legend>Target Locale</legend>
                 <select name='locale'>
                 <?=$target_locales_list?>
                 </select>
@@ -96,11 +96,10 @@ switch($check['repo']) {
                 <label for="t2t">Glossary</label>
             </fieldset>
 
-            <fieldset>
-                <legend>Start search</legend>
-                    <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search term here" size="30" />
-                    <input type="submit" value="Go" alt="Go" />
-            </fieldset>
+            <div id="search">
+                <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search here" size="30" />
+                <input type="submit" value="Search" alt="Search" />
+            </div>
         </fieldset>
  </form>
 

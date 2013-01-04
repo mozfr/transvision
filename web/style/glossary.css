@@ -73,10 +73,9 @@ a:hover {
 }
 
 fieldset {
-    border: 1px solid #C9D1DD;
+    border: none;
     display: inline;
-    min-height: 3em;
-    background-color: #F1F4F9;
+    min-height: 1.5em;
 }
 
 fieldset {
@@ -153,6 +152,55 @@ td {
     font-size: 80%;
 }
 
+input[type=submit] {
+    height: 28px;
+    border:1px solid #C9D1DD;
+    background-color: #3C8FD1;
+    color:white;
+}
+
+input[type=submit]:hover {
+    background-color: white;
+    color:#3C8FD1;
+}
+
+fieldset#main select {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+fieldset#main #search {
+    height: 1em;
+    margin-bottom: 1em;
+}
+
+fieldset#main #search input[type=submit] {
+    height: 28px;
+}
+
+fieldset#main #search input[type=text] {
+    height: 25px;
+    padding-left: 5px;
+    border:1px solid #3C8FD1;
+}
+
+fieldset#main fieldset {
+    border:1px solid #3C8FD1;
+    border-top-width: 25px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    margin-right: 1em;
+    margin-bottom:0.5em;
+    background-color: #F1F4F9;
+}
+
+fieldset#main fieldset > legend {
+    background-color: #3C8FD1;
+    line-height:25px;
+    color: white;
+}
+
 /* changelog page */
 
 h3, ul {
@@ -183,17 +231,8 @@ h3, ul {
     float:left;
 }
 
-#channelcomp #main input[type="submit"]{
-    min-height:3em;
-    font-size:1.2em;
-    display:inline-block;
-    vertical-align: bottom;
-    margin:0;
-}
-
-
 #keys #main {
     display:block;
-    width: 280px;
+    width: 380px;
     margin:auto;
 }

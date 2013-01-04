@@ -45,7 +45,6 @@ switch ($url['path']) {
 
     case 'accesskeys':
         $view  = 'accesskeys.php';
-        $extra = '<h2 class="alert">experimental View</h2>';
         break;
 
     default:
