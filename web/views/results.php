@@ -5,6 +5,8 @@ if (strlen(trim($recherche)) < 2) {
     return;
 }
 
+$logger->addInfo($locale, array($initial_search, $check['repo']), array($check['repo']));
+
 // The search results are displayed into a table
 // (initial_search is the original sanitized searched string before any modification)
 

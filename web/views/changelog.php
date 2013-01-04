@@ -1,18 +1,17 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
 <h2 id="v1.8">Version 1.8 - 2013-??-??</h2>
-<p>This should be a transparent release for users, the 1.8 release is mostly about using PHP Composer dependency manager for external dependencies (locale detection, unit testing, logging). </p>
 
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches need to be at least 2 characters long, single letter searches now return an error message.</li>
-    <li>Various visual changes to maje the search forms clearer.</li>
+    <li>Style improvements to search forms and the template for better clarity.</li>
 </ul>
 
 <h3>Other changes</h3>
 <ul>
     <li>External dependencies are now all managed through <a href="http://getcomposer.org/">Composer</a></li>
-    <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually use Transvision)</li>
+    <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually do use Transvision)</li>
 </ul>
 
 <h2 id="v1.7">Version 1.7 - 2012-10-24</h2>

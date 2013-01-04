@@ -31,7 +31,7 @@ require_once WEBROOT . 'vendor/autoload.php';
 // Logging
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-$logger = new Logger('Transvision');
+$logger = new Logger(VERSION);
 $logger->pushHandler(new StreamHandler(__DIR__ . '/transvision.log', Logger::DEBUG));
 
 // Utility functions

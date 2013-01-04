@@ -16,7 +16,6 @@ $sourceLocale = 'en-US';
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $l10n->setDefaultLocale($_GET['locale']);
     $locale = $l10n->getDefaultLocale();
-    $logger->addInfo('Target Locale Chosen: ' . $locale);
 }
 
 // bypass default source locale for locale to locale comparison
