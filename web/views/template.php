@@ -19,8 +19,8 @@
       <li><a href="/accesskeys/" title="Search in the Glossary">Access Keys</a></li>
       <li><a href="/channelcomparison/" title="Search in the Glossary">Channel Comparison</a></li>
     </ul>
-    <p><a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">Transvision is a MozFR project</a></p>
   </div>
+  <footer>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</footer>
 
 </body>
 </html>

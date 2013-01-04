@@ -134,6 +134,14 @@ td {
     font-size: 0.9em;
 }
 
+footer {
+    font-style: italic;
+    text-align:center;
+    font-family:serif;
+    color:#005D99;
+    font-size:0.9em;
+}
+
 /* colors for results */
 .red {
     color: rgb(200, 0, 0);
