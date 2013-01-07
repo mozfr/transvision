@@ -22,7 +22,7 @@ switch ($url['path']) {
 
         $view  = 'search_form.php';
 
-        if ($web_service) {
+        if (WEBSERVICE) {
             $view = 'webservice.php';
             $use_template = false;
         }

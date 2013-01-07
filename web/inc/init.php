@@ -16,12 +16,12 @@ define('VIEWS', INSTALLROOT . 'web/views/');
 // Bump this constant with each new release
 const VERSION = '1.9dev';
 
-// Global Variables used on the site
-$debug = (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false;
-$web_service = (isset($_GET['json']) && !isset($web_service)) ? true : false;
+
+define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
+define('WEBSERVICE', (isset($_GET['json']) && !isset($web_service)) ? true : false);
 
 // We may want to start speed and memory calculations here as well
-if ($debug) {
+if (DEBUG) {
     error_reporting(E_ALL);
 }
 
