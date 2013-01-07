@@ -29,7 +29,7 @@ if ($debug) {
 require_once WEBROOT . 'vendor/autoload.php';
 
 // Load Transvision specific classes
-require_once WEBROOT . 'classes/ShowResults.class.php';
+require_once WEBROOT . 'classes/Transvision/ShowResults.php';
 
 
 // Logging

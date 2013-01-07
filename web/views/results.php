@@ -10,7 +10,7 @@ $logger->addInfo($locale, array($initial_search, $check['repo']), array($check['
 // The search results are displayed into a table
 // (initial_search is the original sanitized searched string before any modification)
 
-$results = new TransvisionResults\ShowResults();
+$results = new Transvision\ShowResults();
 $search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
 
 echo '<h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $sourceLocale . ' in:</h2>';

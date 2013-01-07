@@ -97,10 +97,10 @@ echo '</tr>';
 
 foreach ($temp as $k => $v) {
     echo '<tr>';
-    echo "<td>". TransvisionResults\ShowResults::formatEntity($k). "</td>" .
-    "<td>" . TransvisionResults\ShowResults::highlight($v, $locale) . "</td>";
+    echo "<td>". Transvision\ShowResults::formatEntity($k). "</td>" .
+    "<td>" . Transvision\ShowResults::highlight($v, $locale) . "</td>";
     //~ if (isset($strings[$chan2][$k])) {
-        echo "<td>" . TransvisionResults\ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
+        echo "<td>" . Transvision\ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
     //~ } else {
         //~ echo "<td> <em>Missing String</em> </td>";
     //~ }

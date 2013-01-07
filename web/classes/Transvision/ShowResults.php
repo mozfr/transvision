@@ -1,5 +1,5 @@
 <?php
-namespace TransvisionResults;
+namespace Transvision;
 
 class ShowResults {
 
