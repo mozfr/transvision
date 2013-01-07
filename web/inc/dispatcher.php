@@ -1,9 +1,8 @@
 <?php
 
-$use_template = true;
-$page = $urls[$url['path']];
-$extra = null;
-
+$template = true;
+$page     = $urls[$url['path']];
+$extra    = null;
 
 switch ($url['path']) {
     case '/':
@@ -24,7 +23,7 @@ switch ($url['path']) {
 
         if (WEBSERVICE) {
             $view = 'webservice.php';
-            $use_template = false;
+            $template = false;
         }
         break;
 
@@ -52,7 +51,7 @@ switch ($url['path']) {
         break;
 }
 
-if ($use_template) {
+if ($template) {
     ob_start();
     include VIEWS . $view;
     $content = ob_get_contents();
