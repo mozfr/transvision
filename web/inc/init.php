@@ -28,6 +28,10 @@ if ($debug) {
 // Autoloading of composer classes
 require_once WEBROOT . 'vendor/autoload.php';
 
+// Load Transvision specific classes
+require_once WEBROOT . 'classes/ShowResults.class.php';
+
+
 // Logging
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

@@ -125,7 +125,6 @@ if ($check['t2t']) {
 } else {
     // result presentation
     if ($recherche != '') {
-        require_once WEBROOT .'classes/ShowResults.class.php';
         if ($check['ent']) {
             require_once VIEWS . 'results_ent.php';
         } else {

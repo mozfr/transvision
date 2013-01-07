@@ -3,7 +3,6 @@
 $title = '<a href="/" id="transvision-title">Transvision glossary</a>
           <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 
-require_once WEBROOT . 'classes/ShowResults.class.php';
 require_once WEBROOT . 'inc/l10n-init.php';
 
 // let's add en-US to check their errors too
