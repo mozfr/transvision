@@ -66,6 +66,7 @@ nl
 nn-NO
 nr
 nso
+oc
 or
 pa-IN
 pl
