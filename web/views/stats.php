@@ -5,7 +5,7 @@ $title = '<a href="/">Transvision</a> short usage stats';
 
 // create a json file logging locale/number of requests
 $stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
-krsort($stats);
+arsort($stats);
 
 echo '<table>';
 echo '<tr><th>Locale</th><th>Searches</th></tr>';
