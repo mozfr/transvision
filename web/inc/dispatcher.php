@@ -30,6 +30,10 @@ switch ($url['path']) {
     case 'news':
         $view = 'changelog.php';
         break;
+        
+    case 'stats':
+        $view = 'stats.php';
+        break;
 
     case 'repocomparison':
     case 'repocomparizon':
