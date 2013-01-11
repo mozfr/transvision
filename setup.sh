@@ -186,5 +186,6 @@ for i in `cat $install/gaia.txt`
         fi
 done
 
-echo "add a log file"
+echo "add log files"
 touch $config_path/transvision.log
+touch $install/web/stats.json

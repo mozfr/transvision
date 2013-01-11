@@ -5,7 +5,15 @@ if (strlen(trim($recherche)) < 2) {
     return;
 }
 
+// log requests
 $logger->addInfo($locale, array($initial_search, $check['repo']), array($check['repo']));
+
+// create a json file logging locale/number of requests
+$stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
+$stats[$locale] = (array_key_exists($locale, $stats)) ?  $stats[$locale] += 1 : 1 ;
+file_put_contents(WEBROOT . 'stats.json', json_encode($stats));
+unset($stats);
+
 
 // The search results are displayed into a table
 // (initial_search is the original sanitized searched string before any modification)
