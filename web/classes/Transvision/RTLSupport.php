@@ -4,20 +4,15 @@ namespace Transvision;
 
 class RTLSupport
 {
-    protected $rtl; // array
-
-    public function __construct()
-    {
-        $this->rtl = array('ar', 'fa', 'he', 'ur');
-    }
+    public static $rtl = array('ar', 'fa', 'he', 'ur'); // array
     
     public static function getDirection($locale)
     {
-        return in_array($locale, $self->$rtl) ? 'rtl' : 'ltr';
+        return in_array($locale, self::$rtl) ? 'rtl' : 'ltr';
     }
     
     public static function isRTL($locale)
     {
-        return in_array($locale, $self->$rtl) ? true : false;
+        return in_array($locale, self::$rtl) ? true : false;
     }
 }
