@@ -85,7 +85,7 @@ initDesktopL10nRepo() {
             then
                 echo "Checking out the following repo:"
                 echo $1/$i/
-                if [ $1 = trunk ]
+                if [ $1 = central ]
                 then
                     hg clone http://hg.mozilla.org/l10n-central/$i
                 else
@@ -188,4 +188,3 @@ done
 
 echo "add a log file"
 touch $config_path/transvision.log
-chown www-data:www-data $config_path/transvision.log
