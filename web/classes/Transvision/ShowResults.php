@@ -3,13 +3,6 @@ namespace Transvision;
 
 class ShowResults {
 
-    public $rtl; // array
-
-    public function __construct()
-    {
-        $this->rtl = array('ar', 'fa', 'he');
-    }
-
     /*
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
@@ -132,6 +125,11 @@ class ShowResults {
         $string = str_replace(' ', '<span class="highlight-gray"> </span>', $string); // nbsp highlight
         $string = str_replace('…', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
         return $string;
+    }
+
+    public function foo()
+    {
+        return 'bar';
     }
 
 }

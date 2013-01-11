@@ -9,7 +9,7 @@ namespace tinyl10n\tests\units;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use tinyl10n;
-use mageekguy\atoum;
+use atoum;
 
 class ChooseLocale extends atoum\test
 {

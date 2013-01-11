@@ -30,6 +30,7 @@ require_once WEBROOT . 'vendor/autoload.php';
 
 // Load Transvision specific classes
 require_once WEBROOT . 'classes/Transvision/ShowResults.php';
+require_once WEBROOT . 'classes/Transvision/RTLSupport.php';
 
 
 // Logging

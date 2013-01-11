@@ -90,8 +90,8 @@ function resultsTable($search_results, $recherche, $locale1,
 {
 
     // rtl support
-    $direction1 = tinyl10n\RTL::getDirection($locale1);
-    $direction2 = tinyl10n\RTL::getDirection($locale2);
+    $direction1 = Transvision\RTLSupport::getDirection($locale1);
+    $direction2 = Transvision\RTLSupport::getDirection($locale2);
 
     // mxr support
     $prefix = ($search_options['repo'] == 'central') ?

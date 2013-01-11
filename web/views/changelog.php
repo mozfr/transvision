@@ -12,6 +12,21 @@
     <li></li>
 </ul>
 
+<h2 id="v1.9">Version 1.9 - 2013-??-??</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li>Searches including  special characters such as [, (, { are now possible (useful for plurals in Gaia strings for example) </li>
+    <li>Occitan locale added</li>
+
+</ul>
+
+<h3>Code changes</h3>
+<ul>
+    <li>PHP: Monolog library updated to 1.3.0</li>
+    <li>Python: Silme library updated to 0.8.1</li>
+</ul>
+
 <h2 id="v1.8">Version 1.8 - 2013-01-04</h2>
 
 <h3>End user visible changes</h3>
