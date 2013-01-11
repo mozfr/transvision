@@ -15,7 +15,7 @@
 
   <div id="links">
     <ul>
-      <li><a href="/" title="Search in the Glossary">Glossary</a></li>
+      <li><a href="/stats/" title="Light usage statistics">Statistics</a></li>
       <li><a href="/accesskeys/" title="Search in the Glossary">Access Keys</a></li>
       <li><a href="/channelcomparison/" title="Search in the Glossary">Channel Comparison</a></li>
     </ul>
