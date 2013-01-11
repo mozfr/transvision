@@ -12,5 +12,5 @@ echo '<tr><th>Locale</th><th>Searches</th></tr>';
 foreach ($stats as $k => $v) {
     echo "<tr><th>$k</th><td>$v</td></tr>";
 }
-
+echo '<tr><th>' . count($stats) . '</th><th>' . array_sum($stats) . '</th></tr>';
 echo '</table>';
