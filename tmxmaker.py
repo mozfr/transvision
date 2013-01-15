@@ -39,22 +39,20 @@ def escape(t):
 
 def get_string(package, directory):
     for item in package:
-        aa = item[0]
-        bb = item[1]
-        if (type(bb) is not silme.core.structure.Blob) and not(isinstance(bb, silme.core.Package)):
-            for id in bb:
-                strings[directory + ":" + aa + ":" + id] = bb[id].get_value()
+        if (type(item[1]) is not silme.core.structure.Blob) and not(isinstance(item[1], silme.core.Package)):
+            for id in item[1]:
+                strings[directory + ":" + item[0] + ":" + id] = item[1][id].get_value()
 
     for pack in package.packages():
         for item in pack:
             if isinstance(item[1], silme.core.Package):
                 get_string(item[1], directory)
+                #~ gandalf potential solution for full paths, can't make it work
+                #~ get_string(item[1], os.path.join(directory, item[0]))
             else:
-                aa = item[0]
-                bb = item[1]
-                if type(bb) is not silme.core.structure.Blob:
-                    for id in bb:
-                        strings[directory + ":" + aa + ":" + id] = bb[id].get_value()
+                if type(item[1]) is not silme.core.structure.Blob:
+                    for id in item[1]:
+                        strings[directory + ":" + item[0] + ":" + id] = item[1][id].get_value()
     return strings
 
 def tmx_header(fichier, sourcelang):
