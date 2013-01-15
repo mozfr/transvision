@@ -40,8 +40,8 @@ def escape(t):
 def get_string(package, directory):
     for item in package:
         if (type(item[1]) is not silme.core.structure.Blob) and not(isinstance(item[1], silme.core.Package)):
-            for id in item[1]:
-                strings[directory + ":" + item[0] + ":" + id] = item[1][id].get_value()
+            for entity in item[1]:
+                strings[directory + ":" + item[0] + ":" + entity] = item[1][entity].get_value()
 
     for pack in package.packages():
         for item in pack:
@@ -51,8 +51,8 @@ def get_string(package, directory):
                 #~ get_string(item[1], os.path.join(directory, item[0]))
             else:
                 if type(item[1]) is not silme.core.structure.Blob:
-                    for id in item[1]:
-                        strings[directory + ":" + item[0] + ":" + id] = item[1][id].get_value()
+                    for entity in item[1]:
+                        strings[directory + ":" + item[0] + ":" + entity] = item[1][entity].get_value()
     return strings
 
 def tmx_header(fichier, sourcelang):
