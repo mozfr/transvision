@@ -42,17 +42,9 @@ def get_string(package, directory):
         if (type(item[1]) is not silme.core.structure.Blob) and not(isinstance(item[1], silme.core.Package)):
             for entity in item[1]:
                 strings[directory + ":" + item[0] + ":" + entity] = item[1][entity].get_value()
+        elif (isinstance(item[1], silme.core.Package)):
+            get_string(item[1], directory)
 
-    for pack in package.packages():
-        for item in pack:
-            if isinstance(item[1], silme.core.Package):
-                get_string(item[1], directory)
-                #~ gandalf potential solution for full paths, can't make it work
-                #~ get_string(item[1], os.path.join(directory, item[0]))
-            else:
-                if type(item[1]) is not silme.core.structure.Blob:
-                    for entity in item[1]:
-                        strings[directory + ":" + item[0] + ":" + entity] = item[1][entity].get_value()
     return strings
 
 def tmx_header(fichier, sourcelang):
