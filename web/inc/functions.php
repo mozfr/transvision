@@ -114,7 +114,7 @@ function resultsTable($search_results, $recherche, $locale1,
 
     foreach ($search_results as $key => $strings) {
         // let's analyse the entity for the search string
-        $search = explode(':', $key);
+        $search = explode('/', $key);
 
         if ($search[0] == 'apps') {
             $mxr_link = formatEntity($key);
@@ -164,7 +164,7 @@ function resultsTable($search_results, $recherche, $locale1,
 function formatEntity($entity)
 {
     // let's analyse the entity for the search string
-    $chunk = explode(':', $entity);
+    $chunk = explode('/', $entity);
     // let's format the entity key to look better
     $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
     $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';

@@ -15,9 +15,11 @@ $table .= "    </tr>\n\n";
 // mxr support
 $mxr_url  = "http://mxr.mozilla.org/comm-${check['repo']}/search?find=";
 $mxr_field_limit = 27;
+
 foreach ($entities as $val) {
+
     // let's analyse the entity for the search string
-    $search = explode(':', $val);
+    $search = explode('/', $val);
     $mxr_url  = "http://mxr.mozilla.org/comm-${check['repo']}/search?find=";
 
     if ($search[0] == 'apps') {

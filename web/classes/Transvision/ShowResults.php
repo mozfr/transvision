@@ -51,7 +51,7 @@ class ShowResults {
 
         foreach ($search_results as $key => $strings) {
             // let's analyse the entity for the search string
-            $search = explode(':', $key);
+            $search = explode('/', $key);
 
             // we chop search strings with mb_strimwidth()
             // because  of field length limits in mxr)
@@ -99,7 +99,7 @@ class ShowResults {
     public static function formatEntity($entity)
     {
         // let's analyse the entity for the search string
-        $chunk = explode(':', $entity);
+        $chunk = explode('/', $entity);
         // let's format the entity key to look better
         $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
         $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
