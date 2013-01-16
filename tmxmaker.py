@@ -37,17 +37,21 @@ def escape(t):
 
         )
 
-def get_string(package, directory):
+def get_string(package, localdirectory):
+
     for item in package:
         if (type(item[1]) is not silme.core.structure.Blob) and not(isinstance(item[1], silme.core.Package)):
             for entity in item[1]:
-                strings[directory + ":" + item[0] + ":" + entity] = item[1][entity].get_value()
+                strings[localdirectory + "/" + item[0] + ":" + entity] = item[1][entity].get_value()
         elif (isinstance(item[1], silme.core.Package)):
-            get_string(item[1], directory)
+            if (item[0] != 'en-US') and (item[0] != 'locales'):
+                get_string(item[1], localdirectory + '/' + item[0])
+            else:
+                get_string(item[1], localdirectory)
 
     return strings
 
-def tmx_header(fichier, sourcelang):
+def tmx_header(target_file, sourcelang):
     from datetime import datetime
     header = '''<?xml version="1.0" encoding="UTF-8"?>
     <tmx version="1.4">
@@ -55,10 +59,10 @@ def tmx_header(fichier, sourcelang):
      </header>
      <body>
      '''
-    fichier.write(header.format(creationdate=str(datetime.now()), sourcelang=sourcelang))
+    target_file.write(header.format(creationdate=str(datetime.now()), sourcelang=sourcelang))
 
 
-def tmx_add_tu(ent, ch1, ch2, fichier, targetlang, sourcelang):
+def tmx_add_tu(ent, ch1, ch2, target_file, targetlang, sourcelang):
     ch1 = ch1.replace('&', '&amp;')
     ch2 = ch2.replace('&', '&amp;')
     ch1 = ch1.replace('<', '&lt;')
@@ -70,25 +74,25 @@ def tmx_add_tu(ent, ch1, ch2, fichier, targetlang, sourcelang):
     ch1 = ch1.replace('\\', '')
     ch2 = ch2.replace('\\', '')
 
-    fichier.write('    <tu tuid="' + ent + '" srclang="' + sourcelang + '">')
-    fichier.write("\n")
-    fichier.write("        <tuv xml:lang=\"" + sourcelang + "\"><seg>" + ch1.encode('utf-8') + "</seg></tuv>")
-    fichier.write("\n")
-    fichier.write("        <tuv xml:lang=\"" + targetlang + "\"><seg>" + ch2.encode('utf-8') + "</seg></tuv>")
-    fichier.write("\n")
-    fichier.write("    </tu>")
-    fichier.write("\n")
+    target_file.write('    <tu tuid="' + ent + '" srclang="' + sourcelang + '">')
+    target_file.write("\n")
+    target_file.write("        <tuv xml:lang=\"" + sourcelang + "\"><seg>" + ch1.encode('utf-8') + "</seg></tuv>")
+    target_file.write("\n")
+    target_file.write("        <tuv xml:lang=\"" + targetlang + "\"><seg>" + ch2.encode('utf-8') + "</seg></tuv>")
+    target_file.write("\n")
+    target_file.write("    </tu>")
+    target_file.write("\n")
 
-def tmx_close(fichier):
-    fichier.write("</body>\n</tmx>")
+def tmx_close(target_file):
+    target_file.write("</body>\n</tmx>")
 
-def php_header(fichier):
-    fichier.write("<?php\n")
+def php_header(target_file):
+    target_file.write("<?php\n")
 
-def php_add_to_array(ent,ch,fichier):
+def php_add_to_array(ent,ch,target_file):
     ch = escape(ch)
     ch = ch.encode('utf-8')
-    fichier.write('$tmx[\'' + ent.encode('utf-8') + "\'] = '" + ch + "';\n")
+    target_file.write('$tmx[\'' + ent.encode('utf-8') + "\'] = '" + ch + "';\n")
 
 
 if __name__ == "__main__":
@@ -112,28 +116,28 @@ if __name__ == "__main__":
 
     dirs = filter(lambda x:x in dirs1, dirs2)
 
-    #~ localdir    = "/home/pascalc/transvision/TMX/"
     localpath   = localdir + repo + "/" + langcode1
-    nomfichier1 = localpath + "/memoire_" + langcode2 + "_" + langcode1 + ".tmx"
-    nomfichier2 = localpath + "/cache_" + langcode2 + ".php"
-    nomfichier3 = localpath + "/cache_" + langcode1 + ".php"
+    filename1 = localpath + "/memoire_" + langcode2 + "_" + langcode1 + ".tmx"
+    filename2 = localpath + "/cache_" + langcode2 + ".php"
+    filename3 = localpath + "/cache_" + langcode1 + ".php"
 
-    fichier1 = open(nomfichier1, "w")
-    fichier2 = open(nomfichier2, "w")
-    fichier3 = open(nomfichier3, "w")
-    tmx_header(fichier1, langcode2)
-    php_header(fichier2)
-    php_header(fichier3)
+    target_file1 = open(filename1, "w")
+    target_file2 = open(filename2, "w")
+    target_file3 = open(filename3, "w")
+    tmx_header(target_file1, langcode2)
+    php_header(target_file2)
+    php_header(target_file3)
 
     for directory in dirs:
+
         path1 = en_US_repo + directory
         path2 = locale_repo + directory
 
         rcsClient = silme.io.Manager.get('file')
         l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
+
         rcsClient2 = silme.io.Manager.get('file')
         l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
-
 
         strings = {}
         chaine = get_string(l10nPackage, directory)
@@ -146,12 +150,13 @@ if __name__ == "__main__":
         strings = {}
         chaine2 = get_string(l10nPackage2, directory)
 
-        for entity in chaine:
-            tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), fichier1, langcode1, langcode2)
-            php_add_to_array(entity, chaine[entity], fichier2)
-            php_add_to_array(entity, chaine2.get(entity,""), fichier3)
 
-    tmx_close(fichier1)
-    fichier1.close()
-    fichier2.close()
-    fichier3.close()
+        for entity in chaine:
+            tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), target_file1, langcode1, langcode2)
+            php_add_to_array(entity, chaine[entity], target_file2)
+            php_add_to_array(entity, chaine2.get(entity,""), target_file3)
+
+    tmx_close(target_file1)
+    target_file1.close()
+    target_file2.close()
+    target_file3.close()
