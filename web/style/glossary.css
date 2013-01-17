@@ -134,6 +134,12 @@ td {
     font-size: 0.9em;
 }
 
+td a em {
+    font-size:70%;
+    font-style:normal;
+    color: orange;
+}
+
 footer {
     font-style: italic;
     text-align:center;

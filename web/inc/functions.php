@@ -145,10 +145,13 @@ function resultsTable($search_results, $recherche, $locale1,
         $temp = explode('-', $locale2);
         $short_locale2 = $temp[0];
 
+        $path_locale1 = pathFileInRepo($locale1, $search_options['repo'], $key);
+        $path_locale2 = pathFileInRepo($locale2, $search_options['repo'], $key);
+
         $table .= "    <tr>\n";
         $table .= "      <td>" . $mxr_link . "</a></td>\n";
-        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a></td>\n";
-        $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
+        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
+        $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
         $table .= "    </tr>\n\n";
     }
 
@@ -164,13 +167,15 @@ function resultsTable($search_results, $recherche, $locale1,
 function formatEntity($entity)
 {
     // let's analyse the entity for the search string
-    $chunk = explode('/', $entity);
-    // let's format the entity key to look better
-    $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
-    $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
-    $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
-    $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
-    return $entity;
+    $chunk  = explode(':', $entity);
+    $entity = '<span class="red">' . array_pop($chunk) . '</span>';
+
+    // let's analyse the entity for the search string
+    $chunk  = explode('/', $chunk[0]);
+    $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
+
+    $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+    return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
 }
 
 /**
@@ -283,4 +288,44 @@ function getRepoStrings($locale, $repo)
     $tmx = array();
     include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
     return $tmx;
+}
+
+/*
+ * get the path in our hg repository for a string
+ *
+ */
+
+function pathFileInRepo($locale, $repo, $path) {
+
+    $url = 'http://hg.mozilla.org';
+    // remove entity
+    $path = explode(':',$path);
+    array_splice($path, 1);
+    $path = implode('/',$path);
+
+    if ($repo == 'gaia') {
+        $locale = ($locale == 'es-ES') ? 'es' : $locale;
+        $url   .= '/gaia-l10n/' . $locale . '/file/default/';
+        return $url . $path;
+    }
+
+    // Destop repos
+    if ($locale != 'en-US') {
+        if ($repo == 'central') {
+            $url .= '/l10n-central/' . $locale . '/file/default/';
+        } else {
+            $url .= '/releases/l10n/mozilla-aurora/' . $locale . '/file/default/';
+        }
+    } else {
+        if ($repo == 'central') {
+            $url .= '/l10n-central/' . $locale . '/file/default/';
+        } else {
+            $url .= '/releases/mozilla-aurora/file/default/';
+            $path = explode('/', $path);
+            $categorie = array_shift($path);
+            $path = $categorie . '/locales/en-US/' . implode('/', $path);
+        }
+    }
+
+    return $url . $path;
 }

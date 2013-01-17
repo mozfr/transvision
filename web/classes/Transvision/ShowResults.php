@@ -20,7 +20,7 @@ class ShowResults {
 
     // XXX: this method is a work in progress (migration from a functional area)
     public function resultsTable($search_results, $recherche, $locale1,
-                                 $locale2, $l10n_repo, $search_options)
+                                    $locale2, $l10n_repo, $search_options)
     {
         // rtl support
         $direction1 = RTL::getDirection($locale1);
@@ -59,7 +59,7 @@ class ShowResults {
                                     $mxr_field_limit) . '&amp;string=' .
                                     mb_strimwidth($search[2], 0, 29);
 
-            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . formatEntity($key) . '</a>';
+            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . $this->formatEntity2($key) . '</a>';
 
             $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
             $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -81,7 +81,7 @@ class ShowResults {
             $short_locale2 = $temp[0];
 
             $table .= "    <tr>\n";
-            $table .= "      <td>" . $mxr_link . "</a></td>\n";
+            $table .= "      <td>" . $mxr_link . "</td>\n";
             $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a></td>\n";
             $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
             $table .= "    </tr>\n\n";
@@ -104,6 +104,23 @@ class ShowResults {
         $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
         $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
         $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
+        $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+        return $entity;
+    }
+
+    /*
+     * make an entity look nice in tables, alternate
+     *
+     */
+
+    public static function formatEntity2($entity)
+    {
+        // let's analyse the entity for the search string
+        $chunk = explode('/', $entity);
+        // let's format the entity key to look better
+        $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
+        $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
+        $chunk[2] = '<br><span class="green">' .   $chunk[2] . '</span>';
         $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
         return $entity;
     }

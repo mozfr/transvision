@@ -31,11 +31,14 @@ foreach ($entities as $val) {
         $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($val) . '</a>';
     }
 
+    $path_locale1 = pathFileInRepo($sourceLocale, $check['repo'], $val);
+    $path_locale2 = pathFileInRepo($locale, $check['repo'], $val);
+
     $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]); // nbsp highlight
     $table .= "    <tr>\n";
     $table .= "      <td>" . $mxr_link . "</a></td>\n";
-    $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "</td>\n";
-    $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
+    $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
+    $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
     $table .= "    </tr>\n\n";
 }
 
