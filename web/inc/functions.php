@@ -298,34 +298,116 @@ function getRepoStrings($locale, $repo)
 function pathFileInRepo($locale, $repo, $path) {
 
     $url = 'http://hg.mozilla.org';
-    // remove entity
-    $path = explode(':',$path);
-    array_splice($path, 1);
-    $path = implode('/',$path);
 
-    if ($repo == 'gaia') {
+    // remove entity from path and store it in a variable
+    $path          = explode(':',$path);
+    $path          = $path[0];
+    $path          = explode('/', $path);
+    $entity_file   = array_pop($path);
+    $path          = implode('/', $path);
+    $exploded_path = explode('/', $path);
+    $base_folder   = $exploded_path[0];
+
+    if ($repo == 'gaia' || $base_folder == 'apps') {
         $locale = ($locale == 'es-ES') ? 'es' : $locale;
         $url   .= '/gaia-l10n/' . $locale . '/file/default/';
-        return $url . $path;
+        return $url . $path . '/' . $entity_file;
     }
+
+    $en_US_Folder_Mess = array(
+        'b2g/branding/official/',
+        'b2g/branding/unofficial/',
+        'b2g/',
+        'netwerk/',
+        'embedding/android/',
+        'testing/extensions/community/chrome/',
+        'intl/',
+        'extensions/spellcheck/',
+        'services/sync/',
+        'mobile/android/branding/aurora/',
+        'mobile/android/branding/official/',
+        'mobile/android/branding/nightly/',
+        'mobile/android/branding/unofficial/',
+        'mobile/android/branding/beta/',
+        'mobile/android/base/',
+        'mobile/android/',
+        'mobile/xul/branding/aurora/',
+        'mobile/xul/branding/official/',
+        'mobile/xul/branding/nightly/',
+        'mobile/xul/branding/unofficial/',
+        'mobile/xul/branding/beta/',
+        'mobile/xul/',
+        'mobile/',
+        'security/manager/',
+        'toolkit/content/tests/fennec-tile-testapp/chrome/',
+        'toolkit/',
+        'browser/branding/aurora/',
+        'browser/branding/official/',
+        'browser/branding/nightly/',
+        'browser/branding/unofficial/',
+        'browser/',
+        'layout/tools/layout-debug/ui/',
+        'dom/',
+        'webapprt/',
+        'chat/',
+        'suite/',
+        'other-licenses/branding/sunbird/',
+        'other-licenses/branding/thunderbird/',
+        'mail/branding/aurora/',
+        'mail/branding/nightly/',
+        'mail/',
+        'mail/test/resources/mozmill/mozmill/extension/',
+        'editor/ui/',
+        'calendar/sunbird/branding/nightly/',
+        'calendar/',
+    );
+
 
     // Destop repos
     if ($locale != 'en-US') {
+
         if ($repo == 'central') {
             $url .= '/l10n-central/' . $locale . '/file/default/';
         } else {
             $url .= '/releases/l10n/mozilla-aurora/' . $locale . '/file/default/';
         }
+
     } else {
-        if ($repo == 'central') {
-            $url .= '/l10n-central/' . $locale . '/file/default/';
+
+        if (in_array($base_folder,
+            array('calendar', 'chat', 'editor', 'ldap',
+                    'mail', 'mailnews', 'suite'))) {
+            $repo_base = 'comm';
         } else {
-            $url .= '/releases/mozilla-aurora/file/default/';
+            $repo_base = 'mozilla';
+        }
+
+        if ($repo == 'central') {
+            $url .= "/${repo_base}-central/file/default/";
+        } else {
+            $url .= "/releases/${repo_base}-${repo}/file/default/";
+        }
+
+
+        $loop = true;
+        while ($loop && count($exploded_path) > 0) {
+            if (in_array(implode('/', $exploded_path) . '/', $en_US_Folder_Mess)) {
+                $path_part1 = implode('/', $exploded_path) . '/locales/en-US';
+                $pattern = preg_quote(implode('/', $exploded_path), '/');
+                $path = preg_replace('/' . $pattern . '/', $path_part1, $path, 1, $count);
+                $loop = false;
+                break;
+            } else {
+                array_pop($exploded_path);
+            }
+        }
+
+        if ($loop == true) {
             $path = explode('/', $path);
             $categorie = array_shift($path);
             $path = $categorie . '/locales/en-US/' . implode('/', $path);
         }
     }
 
-    return $url . $path;
+    return $url . $path . '/' . $entity_file;
 }
