@@ -59,7 +59,7 @@ class ShowResults {
                                     $mxr_field_limit) . '&amp;string=' .
                                     mb_strimwidth($search[2], 0, 29);
 
-            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . $this->formatEntity2($key) . '</a>';
+            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . formatEntity($key) . '</a>';
 
             $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
             $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -104,23 +104,6 @@ class ShowResults {
         $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
         $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
         $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
-        $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
-        return $entity;
-    }
-
-    /*
-     * make an entity look nice in tables, alternate
-     *
-     */
-
-    public static function formatEntity2($entity)
-    {
-        // let's analyse the entity for the search string
-        $chunk = explode('/', $entity);
-        // let's format the entity key to look better
-        $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
-        $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
-        $chunk[2] = '<br><span class="green">' .   $chunk[2] . '</span>';
         $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
         return $entity;
     }
