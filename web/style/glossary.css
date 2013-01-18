@@ -149,6 +149,11 @@ footer {
 }
 
 /* colors for results */
+
+table tr td:first-child {
+    color: #3C8FD1;
+}
+
 .red {
     color: rgb(200, 0, 0);
 }
