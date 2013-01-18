@@ -26,21 +26,6 @@ class ShowResults {
         $direction1 = RTL::getDirection($locale1);
         $direction2 = RTL::getDirection($locale2);
 
-        // mxr support
-        $prefix = ($search_options['repo'] == 'central') ?
-                        $search_options['repo']
-                        : 'mozilla-' . $search_options['repo'];
-
-        $base_url = "http://mxr.mozilla.org/";
-        
-        if ($l10n_repo) {
-            $mxr_url = "{$base_url}l10n-{$prefix}/search?find={$locale2}/";
-            $mxr_field_limit = 28 - mb_strwidth("{$locale2}/");
-        } else {
-            $mxr_url = "{$base_url}comm-${search_options['repo']}/search?find=";
-            $mxr_field_limit = 27;
-        }
-
         $table  = "\n\n
                    <table>\n\n
                      <tr>\n
@@ -50,16 +35,6 @@ class ShowResults {
                      </tr>\n\n";
 
         foreach ($search_results as $key => $strings) {
-            // let's analyse the entity for the search string
-            $search = explode('/', $key);
-
-            // we chop search strings with mb_strimwidth()
-            // because  of field length limits in mxr)
-            $search = mb_strimwidth($search[0] . '.*' . $search[1], 0,
-                                    $mxr_field_limit) . '&amp;string=' .
-                                    mb_strimwidth($search[2], 0, 29);
-
-            $mxr_link = "<a href=\"{$mxr_url}{$search}\">" . formatEntity($key) . '</a>';
 
             $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
             $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -81,7 +56,7 @@ class ShowResults {
             $short_locale2 = $temp[0];
 
             $table .= "    <tr>\n";
-            $table .= "      <td>" . $mxr_link . "</td>\n";
+            $table .= "      <td>" . formatEntity($key) . "</td>\n";
             $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a></td>\n";
             $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
             $table .= "    </tr>\n\n";

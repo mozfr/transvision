@@ -88,22 +88,9 @@ function results($entities, $locale1_strings, $locale2_strings)
 function resultsTable($search_results, $recherche, $locale1,
                       $locale2, $l10n_repo, $search_options)
 {
-
     // rtl support
     $direction1 = Transvision\RTLSupport::getDirection($locale1);
     $direction2 = Transvision\RTLSupport::getDirection($locale2);
-
-    // mxr support
-    $prefix = ($search_options['repo'] == 'central') ?
-               $search_options['repo']
-               : 'mozilla-' . $search_options['repo'];
-    if ($l10n_repo) {
-        $mxr_url = "http://mxr.mozilla.org/l10n-$prefix/search?find=$locale2/";
-        $mxr_field_limit = 28 - mb_strwidth("$locale2/");
-    } else {
-        $mxr_url = "http://mxr.mozilla.org/comm-${search_options['repo']}/search?find=";
-        $mxr_field_limit = 27;
-    }
 
     $table  = "\n\n  <table>\n\n";
     $table .= "    <tr>\n";
@@ -113,17 +100,6 @@ function resultsTable($search_results, $recherche, $locale1,
     $table .= "    </tr>\n\n";
 
     foreach ($search_results as $key => $strings) {
-        // let's analyse the entity for the search string
-        $search = explode('/', $key);
-
-        if ($search[0] == 'apps') {
-            $mxr_link = formatEntity($key);
-        } else {
-            // We chop search strings with mb_strimwidth()
-            // because  of field length limits in mxr)
-            $search = mb_strimwidth($search[0] . '.*' . $search[1], 0, $mxr_field_limit) . '&amp;string=' . mb_strimwidth($search[2], 0, 29);
-            $mxr_link = '<a href="' . $mxr_url . $search . '">' . formatEntity($key) . '</a>';
-        }
 
         $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
         $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
@@ -149,7 +125,7 @@ function resultsTable($search_results, $recherche, $locale1,
         $path_locale2 = pathFileInRepo($locale2, $search_options['repo'], $key);
 
         $table .= "    <tr>\n";
-        $table .= "      <td>" . $mxr_link . "</a></td>\n";
+        $table .= "      <td>" . formatEntity($key) . "</a></td>\n";
         $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
         $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
         $table .= "    </tr>\n\n";
