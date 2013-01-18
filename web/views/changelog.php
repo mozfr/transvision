@@ -1,5 +1,22 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
+<h2 id="v2.0">Version 2.0 - 2013-01-18</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
+    <li>The entity names in the first column now longer link to a search for the English file on mxr now that we have proper link support to the source file.</li>
+    <li>Searches containing a slash (/) now have results.</li>
+    <li>Manifest.properties files containing name and description od apps in the Gaia repo are now shown in search results.</li>
+    <li>A regression on the Glossary search is fixed, it is now again yielding results.</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>Transvision jumps from version 1.9 to version 2.0 (and not 1.10), this is partly because the addition of source strings was significant development work which involved data structure changes and partly because I don't want to end up with a version 1.230 at some point ;).</li>
+    <li>The <a href="/stats/">statistics page</a> view added last week now sorts locales per number of requests and gives totals of searches and locales.</li>
+</ul>
+
 <h2 id="v1.9">Version 1.9 - 2013-01-11</h2>
 
 <h3>End user visible changes</h3>
