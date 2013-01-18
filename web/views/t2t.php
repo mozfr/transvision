@@ -6,7 +6,7 @@ include INC . 'recherche.php';
 // Get the locale results
 $results = array();
 
-foreach ($keys as $key => $chaine) {
+foreach ($locale1_strings as $key => $chaine) {
     $results[$key] = $tmx_target[$key];
 }
 
@@ -15,20 +15,20 @@ $perfect = $imperfect = array();
 // we want to test compound words as well, /ex: 'switch to'
 $compound_search = false;
 
-if (count($aaa) > 1) {
-    $aaa[] = implode(" ", $aaa);
-    $aaa = array_reverse($aaa);
+if (count($exploded_search) > 1) {
+    $aaa[] = implode(" ", $exploded_search);
+    $aaa = array_reverse($exploded_search);
     $compound_search = true;
 }
 
-foreach ($aaa as $search) {
+foreach ($exploded_search as $search) {
     // if the word is one or two letters, we skip it
     if (strlen($search) < 3) {
         continue;
     }
 
     // Perfect matches are hits for a single word or a compound word
-    if ($compound_search || count($aaa) == 1) {
+    if ($compound_search || count($exploded_search) == 1) {
         $alternate1 = ucfirst($search);
         $alternate2 = ucwords($search);
         $alternate3 = strtolower($search);
