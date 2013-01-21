@@ -30,7 +30,7 @@ switch ($url['path']) {
     case 'news':
         $view = 'changelog.php';
         break;
-        
+
     case 'stats':
         $view = 'stats.php';
         break;
@@ -48,6 +48,10 @@ switch ($url['path']) {
 
     case 'accesskeys':
         $view  = 'accesskeys.php';
+        break;
+
+    case 'credits':
+        $view  = 'credits.php';
         break;
 
     default:
