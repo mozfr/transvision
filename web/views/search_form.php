@@ -143,7 +143,7 @@ if ($initial_search != '') {
     $stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
     foreach ($check as $k => $v) {
         if (in_array($k,
-            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t'))
+            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t', 'key_val'))
             && $check[$k] == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
             file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats));
