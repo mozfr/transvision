@@ -25,14 +25,14 @@ if (DEBUG) {
     error_reporting(E_ALL);
 }
 
-// Autoloading of composer classes
+// Autoloading of classes (both /vendor and /classes)
 require_once WEBROOT . 'vendor/autoload.php';
 
 // Logging
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-$logger = new Logger(VERSION);
-$logger->pushHandler(new StreamHandler(__DIR__ . '/transvision.log', Logger::DEBUG));
+//~ use Monolog\Logger;
+//~ use Monolog\Handler\StreamHandler;
+//~ $logger = new Logger(VERSION);
+//~ $logger->pushHandler(new StreamHandler(__DIR__ . '/transvision.log', Logger::DEBUG));
 
 // Utility functions
 require_once INC . 'functions.php';
