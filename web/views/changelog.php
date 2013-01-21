@@ -1,5 +1,8 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
+<h2 id="v2.1">Version 2.1 - 2013-01-21</h2>
+<p>This is a minor release which only adds a counter for the use of search options to check if some options are unused and could therefore be removed.</p>
+
 <h2 id="v2.0">Version 2.0 - 2013-01-18</h2>
 
 <h3>End user visible changes</h3>
