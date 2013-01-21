@@ -17,7 +17,7 @@ foreach ($exploded_search as $word) {
     $locale2_strings = preg_grep("/{$whole_word}{$word}{$whole_word}/{$case_sensitive}", $locale2_strings);
 }
 
-if ( isset($_GET['keyval']) && $_GET['keyval'] ==1 ) {
+if ( $check['key_val'] ) {
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
         $locale2_strings[$entity] = $tmx_target[$entity];

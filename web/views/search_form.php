@@ -89,10 +89,16 @@ switch($check['repo']) {
                 <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
                 <label for="whole_word">Whole Word</label>
                 <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> />
-                <label for="ent">Entity</label>
+                <label for="ent">Entities</label>
+
+<?php if ($locale == 'da'): ?>
+                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=checkboxState($check['key_val'])?>  onclick="uncheckEntity();" />
+                <label for="key_val">Entities and strings</label>
+<?php endif; ?>
+
                 <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect Match</label>
-                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'])?> onclick="uncheck();"/>
+                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'], 't2t')?> onclick="uncheck();"/>
                 <label for="t2t">Glossary</label>
             </fieldset>
 
@@ -105,7 +111,7 @@ switch($check['repo']) {
 
  <script>
 function uncheck() {
-    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match'];
+    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 'key_val'];
     for (var i = 0; i < arr.length; i++) {
         el = document.getElementById(arr[i]);
         if (el.disabled) {
@@ -113,6 +119,15 @@ function uncheck() {
         } else {
             el.setAttribute('disabled', 'disabled');
         }
+    }
+}
+function uncheckEntity() {
+    el1 = document.getElementById('ent');
+    el2 = document.getElementById('key_val');
+    if (el2.checked) {
+        el1.setAttribute('disabled', 'disabled');
+    } else {
+        el1.removeAttribute('disabled');
     }
 }
 

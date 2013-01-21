@@ -16,7 +16,7 @@ $initial_search = $recherche;
 // checkboxes states
 $check = array();
 $checkboxes = array('case_sensitive', 'wild', 'ent',
-                    'whole_word', 'perfect_match', 't2t');
+                    'whole_word', 'perfect_match', 't2t', 'key_val');
 
 foreach ($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;

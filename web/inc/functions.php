@@ -50,17 +50,17 @@ function secureText($var, $tablo = true)
  *  helper function to set checkboxes value
  */
 
-function checkboxState($str, $disabled='')
+function checkboxState($str, $extra = '')
 {
-    if ($str == 't2t') {
-        return ($str) ? ' checked="checked"' : '';
+    if (isset($_GET['t2t']) && $extra != 't2t') {
+        return ' disabled="disabled"';
     }
 
-    if (isset($_GET['t2t'])) {
-        return ' disabled="disabled"';
-    } else {
-        return ($str) ? ' checked="checked"' : '';
+    if (isset($_GET['t2t']) && $extra == 't2t') {
+        return ' checked="checked"';
     }
+
+    return ($str) ? ' checked="checked"' : '';
 }
 
 /*
