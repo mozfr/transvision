@@ -119,6 +119,26 @@ function uncheck() {
 </script>
 <?php
 
+
+if ($initial_search != '') {
+    // create a json file logging locale/number of requests
+    $stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
+    $stats[$locale] = (array_key_exists($locale, $stats)) ?  $stats[$locale] += 1 : 1 ;
+    file_put_contents(WEBROOT . 'stats.json', json_encode($stats));
+
+    // create a json file logging search options to determine if some are unused
+    $stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
+    foreach ($check as $k => $v) {
+        if (in_array($k,
+            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t'))
+            && $check[$k] == 1) {
+            $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
+            file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats));
+        }
+    }
+    unset($stats);
+}
+
 // Search results process
 if ($check['t2t']) {
     require_once VIEWS . 't2t.php';
