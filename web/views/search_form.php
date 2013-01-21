@@ -88,17 +88,17 @@ switch($check['repo']) {
                 <label for="wild">Wildcard (*)</label>
                 <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
                 <label for="whole_word">Whole Word</label>
-                <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> />
+                <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> onclick="uncheck('ent', 'key_val');" />
                 <label for="ent">Entities</label>
 
 <?php if ($locale == 'da'): ?>
-                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=checkboxState($check['key_val'])?>  onclick="uncheckEntity();" />
+                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=checkboxState($check['key_val'])?>  onclick="uncheck('key_val', 'ent');" />
                 <label for="key_val">Entities and strings</label>
 <?php endif; ?>
 
                 <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect Match</label>
-                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'], 't2t')?> onclick="uncheck();"/>
+                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
                 <label for="t2t">Glossary</label>
             </fieldset>
 
@@ -110,24 +110,22 @@ switch($check['repo']) {
  </form>
 
  <script>
-function uncheck() {
+function uncheckAll() {
     var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 'key_val'];
     for (var i = 0; i < arr.length; i++) {
         el = document.getElementById(arr[i]);
         if (el.disabled) {
-            el.removeAttribute('disabled');
+            el.removeAttribute('checked');
         } else {
-            el.setAttribute('disabled', 'disabled');
+            el.setAttribute('checked', 'checked');
         }
     }
 }
-function uncheckEntity() {
-    el1 = document.getElementById('ent');
-    el2 = document.getElementById('key_val');
-    if (el2.checked) {
-        el1.setAttribute('disabled', 'disabled');
-    } else {
-        el1.removeAttribute('disabled');
+function uncheck(val1, val2) {
+    source = document.getElementById(val1);
+    target = document.getElementById(val2);
+    if (source.checked == true) {
+        target.checked = false;
     }
 }
 

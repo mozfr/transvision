@@ -20,6 +20,5 @@ foreach ($exploded_search as $word) {
 if ( $check['key_val'] ) {
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
-        $locale2_strings[$entity] = $tmx_target[$entity];
     }
 }
