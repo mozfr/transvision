@@ -135,9 +135,16 @@ td {
 }
 
 td a em {
-    font-size:70%;
+    font-size:75%;
     font-style:normal;
     color: orange;
+}
+
+td a.sourcelink {
+    float:right;
+    position:relative;
+    width:100%;
+    text-align:right;
 }
 
 footer {
