@@ -1,7 +1,20 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v2.1">Version 2.1 - 2013-01-21</h2>
-<p>This is a minor release which only adds a counter for the use of search options to check if some options are unused and could therefore be removed.</p>
+<h2 id="v2.1">Version 2.1 - 2013-01-??</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li>Improved highlighting of search results.</li>
+    <li>Fixed bugs on "perfect match" searches, they now accept punctuation.</li>
+    <li>Search results now limited to 100 strings to avoid hanging the browser if we send back a page which is a 5MB table /ex.</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li><strong>New experimental feature:</strong> New option to search both entities and strings, activated in Danish only</li>
+    <li>Added a <a href="/stats/">credits</a>page.</li>
+    <li>Added a counter for the use of search options to check if some options are unused and could therefore be removed.</li>
+</ul>
 
 <h2 id="v2.0">Version 2.0 - 2013-01-18</h2>
 
