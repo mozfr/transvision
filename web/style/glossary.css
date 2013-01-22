@@ -166,6 +166,14 @@ table tr td:first-child {
     color: rgb(0, 0, 200);
 }
 
+.highlight {
+    /* generic highlight */
+    color: white;
+    background-color: rgba(255, 155, 50, 0.7);
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
 .highlight-gray {
     color: black;
     background-color: rgba(0, 0, 0, 0.2);

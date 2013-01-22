@@ -98,16 +98,15 @@ function resultsTable($search_results, $recherche, $locale1,
     $table .= "      <th>" . $locale1 . "</th>\n";
     $table .= "      <th>" . $locale2 . "</th>\n";
     $table .= "    </tr>\n\n";
-
+    $recherche = explode(' ', $recherche);
     foreach ($search_results as $key => $strings) {
 
-        $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
-        $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
-        $source_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $source_string);
-
-        $target_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[1]);
-        $target_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $target_string);
-        $target_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $target_string);
+        $source_string = $strings[0];
+        $target_string = $strings[1];
+        foreach($recherche as $val) {
+            $source_string = highlightString($val, $source_string);
+            $target_string = highlightString($val, $target_string);
+        }
 
         $target_string = str_replace(' ', '<span class="highlight-gray"  title="Non breakable space"> </span>', $target_string); // nbsp highlight
         $target_string = str_replace(' ', '<span class="highlight-red" title="Thin space"> </span>', $target_string); // thin space highlight
@@ -134,6 +133,16 @@ function resultsTable($search_results, $recherche, $locale1,
     $table .= "  </table>\n\n";
     return $table;
 }
+
+
+function highlightString($needle, $haystack) {
+    $str = str_replace($needle, '<span class="highlight">'  . $needle . '</span>', $haystack);
+    $str = str_replace(ucwords($needle), '<span class="highlight">'  . ucwords($needle) . '</span>', $str);
+    $str = str_replace(strtolower($needle), '<span class="highlight">'  . strtolower($needle) . '</span>', $str);
+    $str = preg_replace('/<span class="highlight"><span class="highlight">(.*)<\/span><\/span>/isU', "<span class=\"highlight\">$1</span>", $str);
+    return $str;
+}
+
 
 /*
  * make an entity look nice in tables
@@ -387,3 +396,4 @@ function pathFileInRepo($locale, $repo, $path) {
 
     return $url . $path . '/' . $entity_file;
 }
+
