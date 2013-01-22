@@ -98,7 +98,13 @@ function resultsTable($search_results, $recherche, $locale1,
     $table .= "      <th>" . $locale1 . "</th>\n";
     $table .= "      <th>" . $locale2 . "</th>\n";
     $table .= "    </tr>\n\n";
-    $recherche = explode(' ', $recherche);
+
+    if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
+        $recherche = explode(' ', $recherche);
+    } else {
+        $recherche = explode('ZORGLUB', $recherche);
+    }
+
     foreach ($search_results as $key => $strings) {
 
         $source_string = $strings[0];
