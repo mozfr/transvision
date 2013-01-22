@@ -15,9 +15,9 @@ $results = new Transvision\ShowResults();
 $search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
 
 echo '<h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $sourceLocale . ' in:</h2>';
-echo resultsTable($search_results, $recherche, $sourceLocale, $locale, false, $check);
+echo resultsTable($search_results, $initial_search, $sourceLocale, $locale, false, $check);
 
 $search_results = results(array_keys($locale2_strings), $tmx_source, $tmx_target);
 
 echo '<h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $locale . ' in:</h2>';
-echo resultsTable($search_results, $recherche, $sourceLocale, $locale, true, $check);
+echo resultsTable($search_results, $initial_search, $sourceLocale, $locale, true, $check);
