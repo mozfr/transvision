@@ -130,7 +130,7 @@ function resultsTable($search_results, $recherche, $locale1,
         $path_locale2 = pathFileInRepo($locale2, $search_options['repo'], $key);
 
         $table .= "    <tr>\n";
-        $table .= "      <td>" . formatEntity($key) . "</a></td>\n";
+        $table .= "      <td>" . formatEntity($key) . "</td>\n";
         $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
         $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
         $table .= "    </tr>\n\n";
