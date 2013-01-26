@@ -109,16 +109,37 @@ function resultsTable($search_results, $recherche, $locale1,
 
         $source_string = $strings[0];
         $target_string = $strings[1];
-        foreach($recherche as $val) {
+        foreach ($recherche as $val) {
             $source_string = highlightString($val, $source_string);
             $target_string = highlightString($val, $target_string);
         }
 
-        $target_string = str_replace(' ', '<span class="highlight-gray"  title="Non breakable space"> </span>', $target_string); // nbsp highlight
-        $target_string = str_replace(' ', '<span class="highlight-red" title="Thin space"> </span>', $target_string); // thin space highlight
+        // nbsp highlight
+        $target_string = str_replace(
+            ' ',
+            '<span class="highlight-gray"  title="Non breakable space"> </span>',
+            $target_string
+        );
+        // thin space highlight
+        $target_string = str_replace(
+            ' ',
+            '<span class="highlight-red" title="Thin space"> </span>',
+            $target_string
+        );
 
-        $target_string = str_replace('…', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
-        $target_string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
+        // right ellipsis highlight
+        $target_string = str_replace(
+            '…',
+            '<span class="highlight-gray">…</span>',
+            $target_string
+        );
+
+        // right ellipsis highlight
+        $target_string = str_replace(
+            '&hellip;',
+            '<span class="highlight-gray">…</span>',
+            $target_string
+        );
 
         $temp = explode('-', $locale1);
         $short_locale1 = $temp[0];
@@ -142,7 +163,8 @@ function resultsTable($search_results, $recherche, $locale1,
 
 
 function highlightString($needle, $haystack) {
-    $str = str_replace($needle, '<span class="highlight">'  . $needle . '</span>', $haystack);
+    $str = str_replace($needle, '<span class="highlight">' . $needle . '</span>', $haystack);
+    $needle = '<span class="highlight">'  . $needle . '</span>';
     $str = str_replace(ucwords($needle), '<span class="highlight">'  . ucwords($needle) . '</span>', $str);
     $str = str_replace(strtolower($needle), '<span class="highlight">'  . strtolower($needle) . '</span>', $str);
     $str = preg_replace('/<span class="highlight"><span class="highlight">(.*)<\/span><\/span>/isU', "<span class=\"highlight\">$1</span>", $str);
@@ -402,4 +424,3 @@ function pathFileInRepo($locale, $repo, $path) {
 
     return $url . $path . '/' . $entity_file;
 }
-
