@@ -47,7 +47,7 @@ switch ($url['path']) {
     case 'credits':
         $view  = 'credits.php';
         break;
-    default
+    default:
         $view  = 'search.php';
         break;
 }
