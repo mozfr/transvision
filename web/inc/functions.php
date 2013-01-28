@@ -152,16 +152,25 @@ function resultsTable($search_results, $recherche, $locale1,
 
         $table .= "    <tr>\n";
         $table .= "      <td>" . formatEntity($key) . "</td>\n";
-        $table .= "      <td dir='" . $direction1. "'>
-                         <a href='http://translate.google.com/#$short_locale1/$short_locale2/"
-                         . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a>
-                         <a href=\"$path_locale1\" class=\"sourcelink\">
+        $table .= "      <td dir='${direction1}'>
+                         <div class='string'>
+                         <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
+                         . urlencode(strip_tags($source_string))
+                         . "'>${source_string}</a>
+                         </div>
+                         <div class='sourcelink'>
+                         <a href='${path_locale1}'>
                          <em>&lt;source&gt;</em></a>
+                         </div>
                          </td>\n";
-        $table .= "      <td dir='" . $direction2. "'>"
-                         . $target_string
-                         . "<a href=\"$path_locale2\" class=\"sourcelink\">
+        $table .= "      <td dir='${direction2}'>
+                         <div class='string'>
+                          ${target_string}
+                         </div>
+                         <div class='sourcelink'>
+                         <a href='${path_locale2}'>
                          <em>&lt;source&gt;</em></a>
+                         </div>
                          </td>\n";
         $table .= "    </tr>\n\n";
     }

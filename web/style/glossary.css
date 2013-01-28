@@ -141,7 +141,7 @@ td a em {
     color: orange;
 }
 
-td a.sourcelink {
+td div.sourcelink a {
     float:right;
     position:relative;
     width:100%;
