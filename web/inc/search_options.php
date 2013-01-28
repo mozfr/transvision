@@ -6,9 +6,6 @@ $recherche = 'Bookmarks';
 // recherche is the string to find
 if (isset($_GET['recherche'])) {
     $recherche = stripslashes(secureText($_GET['recherche']));
-    // Filter out double spaces
-    $recherche = mtrim($recherche);
-
 } else {
     $recherche = '';
 }

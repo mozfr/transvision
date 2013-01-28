@@ -1,20 +1,5 @@
 <?php
 
-
-/*
- * mtrim($str)
- * a simple function that removes extra white space inside a string
- */
-
-
-function mtrim($str)
-{
-    $str = explode(' ', $str);
-    $str = array_filter($str);
-    $str = implode(' ', $str);
-    return $str;
-}
-
 /*
  * Check if a variable exists and is not set to false
  * Useful to check variables in $_GET for example
