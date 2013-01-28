@@ -100,19 +100,17 @@ function results($entities, $locale1_strings, $locale2_strings)
  * Search results in a table
  */
 
-function resultsTable($search_results, $recherche, $locale1,
-                      $locale2, $search_options)
+function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
 {
-    // rtl support
     $direction1 = Transvision\RTLSupport::getDirection($locale1);
     $direction2 = Transvision\RTLSupport::getDirection($locale2);
 
-    $table  = "\n\n  <table>\n\n";
-    $table .= "    <tr>\n";
-    $table .= "      <th>Entity</th>\n";
-    $table .= "      <th>" . $locale1 . "</th>\n";
-    $table .= "      <th>" . $locale2 . "</th>\n";
-    $table .= "    </tr>\n\n";
+    $table  = "<table>
+                  <tr>
+                    <th>Entity</th>
+                    <th>${locale1}</th>
+                    <th>${locale2}</th>
+                  </tr>";
 
     if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
         $recherche = explode(' ', $recherche);
@@ -168,32 +166,27 @@ function resultsTable($search_results, $recherche, $locale1,
         $path_locale1 = pathFileInRepo($locale1, $search_options['repo'], $key);
         $path_locale2 = pathFileInRepo($locale2, $search_options['repo'], $key);
 
-        $table .= "    <tr>\n";
-        $table .= "      <td>" . formatEntity($key) . "</td>\n";
-        $table .= "      <td dir='${direction1}'>
-                         <div class='string'>
-                         <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
-                         . urlencode(strip_tags($source_string))
-                         . "'>${source_string}</a>
-                         </div>
-                         <div class='sourcelink'>
-                         <a href='${path_locale1}'>
-                         <em>&lt;source&gt;</em></a>
-                         </div>
-                         </td>\n";
-        $table .= "      <td dir='${direction2}'>
-                         <div class='string'>
-                          ${target_string}
-                         </div>
-                         <div class='sourcelink'>
-                         <a href='${path_locale2}'>
-                         <em>&lt;source&gt;</em></a>
-                         </div>
-                         </td>\n";
-        $table .= "    </tr>\n\n";
+        $table .= "
+            <tr>
+              <td>" . formatEntity($key) . "</td>
+
+              <td dir='${direction1}'>
+                <div class='string'>
+                  <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
+                  . urlencode(strip_tags($source_string))
+                  . "'>${source_string}</a>
+                 </div>
+                 <div class='sourcelink'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+               </td>
+
+               <td dir='${direction2}'>
+                  <div class='string'>${target_string} </div>
+                  <div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a></div>
+               </td>
+            </tr>";
     }
 
-    $table .= "  </table>\n\n";
+    $table .= "  </table>";
     return $table;
 }
 
