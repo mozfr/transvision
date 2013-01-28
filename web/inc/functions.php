@@ -86,7 +86,7 @@ function results($entities, $locale1_strings, $locale2_strings)
  */
 
 function resultsTable($search_results, $recherche, $locale1,
-                      $locale2, $l10n_repo, $search_options)
+                      $locale2, $search_options)
 {
     // rtl support
     $direction1 = Transvision\RTLSupport::getDirection($locale1);
