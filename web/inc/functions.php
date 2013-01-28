@@ -170,7 +170,6 @@ function resultsTable($search_results, $recherche, $locale1,
     return $table;
 }
 
-
 function highlightString($needle, $haystack)
 {
     $str = str_replace($needle, '<span class="highlight">' . $needle . '</span>', $haystack);
