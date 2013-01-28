@@ -110,9 +110,12 @@ function resultsTable($search_results, $recherche, $locale1,
         $source_string = $strings[0];
         $target_string = $strings[1];
         foreach ($recherche as $val) {
-            $source_string = highlightString($val, $source_string);
-            $target_string = highlightString($val, $target_string);
+            $source_string = markString($val, $source_string);
+            $target_string = markString($val, $target_string);
         }
+
+        $source_string = highlightString($source_string);
+        $target_string = highlightString($target_string);
 
         // nbsp highlight
         $target_string = str_replace(
@@ -179,19 +182,30 @@ function resultsTable($search_results, $recherche, $locale1,
     return $table;
 }
 
-function highlightString($needle, $haystack)
+function markString($needle, $haystack)
 {
-    $str = str_replace($needle, '<span class="highlight">' . $needle . '</span>', $haystack);
-    $needle = '<span class="highlight">' . $needle . '</span>';
-    $str = str_replace(ucwords($needle), '<span class="highlight">' . ucwords($needle) . '</span>', $str);
-    $str = str_replace(strtolower($needle), '<span class="highlight">' . strtolower($needle) . '</span>', $str);
+    $str = str_replace($needle, '←' . $needle . '→', $haystack);
+    $str = str_replace(ucwords($needle), '←' . ucwords($needle) . '→', $str);
+    $str = str_replace(strtolower($needle), '←' . strtolower($needle) . '→', $str);
+    return $str;
+}
+
+function highlightString($str)
+{
     $str = preg_replace(
-        '/<span class="highlight"><span class="highlight">(.*)<\/span><\/span>/isU',
-        "<span class=\"highlight\">$1</span>",
+        '/←←(.*)→→/isU',
+        "<span class='highlight'>$1</span>",
+        $str
+        );
+
+    $str = preg_replace(
+        '/←(.*)→/isU',
+        "<span class='highlight'>$1</span>",
         $str
         );
     return $str;
 }
+
 
 
 /*
