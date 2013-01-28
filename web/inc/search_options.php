@@ -1,31 +1,31 @@
 <?php
 
-// default search value
-$recherche = 'Bookmarks';
+// Default search value
+$recherche = '';
 
-// recherche is the string to find
+// $recherche is the string to find
 if (isset($_GET['recherche'])) {
     $recherche = stripslashes(secureText($_GET['recherche']));
     // Filter out double spaces
     $recherche = mtrim($recherche);
-} else {
-    $recherche = '';
 }
 
-// cloned values
+// Cloned value for reference
 $initial_search = $recherche;
 
-// checkboxes states
+// Checkboxes states
 $check = array();
-$checkboxes = array('case_sensitive', 'wild', 'ent',
-                    'whole_word', 'perfect_match', 't2t', 'key_val');
+$checkboxes = array(
+    'case_sensitive', 'wild', 'ent',
+    'whole_word', 'perfect_match', 't2t', 'key_val'
+);
 
 foreach ($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
 
-
 $check['repo'] = 'central';
+
 if (isset($_GET['repo'])
     && in_array($_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia')
     )) {
@@ -40,7 +40,7 @@ foreach ($dirs as $dir) {
     $loc_list[] = $loc;
 }
 
-// deal with special cases depending on checkboxes ticked on or off
+// Deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {
     $recherche = str_replace('*', '.+', $recherche);
 }
