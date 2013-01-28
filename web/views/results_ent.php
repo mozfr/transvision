@@ -29,4 +29,3 @@ foreach ($entities as $val) {
 $table .= "  </table>\n\n";
 
 echo $table;
-

@@ -22,13 +22,12 @@ foreach ($checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
 
+
+$check['repo'] = 'central';
 if (isset($_GET['repo'])
-    && in_array(
-        $_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia')
+    && in_array($_GET['repo'], array('release', 'beta', 'aurora', 'central', 'gaia')
     )) {
     $check['repo'] = $_GET['repo'];
-} else {
-    $check['repo'] = 'central';
 }
 
 $dirs = array_filter(glob(TMX . $check['repo'] . '/*'), 'is_dir');

@@ -49,15 +49,16 @@ foreach ($exploded_search as $search) {
      * We use a closure here to extract imperfect matches without having to
      * use a loop to search all strings
      */
-    $imperfect = array_keys(array_filter($tmx_source,
-                    function ($element) use ($search) {
-                        $bingo = (strpos($element, $search)) ? true : false;
-                        if (!$bingo) {
-                            $bingo = (strpos($element, strtolower($search))) ? true : false;
-                        }
-                        return $bingo;
-                        })
-                );
+    $imperfect = array_keys(array_filter(
+            $tmx_source,
+            function ($element) use ($search) {
+                $bingo = (strpos($element, $search)) ? true : false;
+                if (!$bingo) {
+                    $bingo = (strpos($element, strtolower($search))) ? true : false;
+                }
+                return $bingo;
+                })
+            );
 }
 
 

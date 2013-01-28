@@ -142,11 +142,13 @@ if ($initial_search != '') {
     // create a json file logging search options to determine if some are unused
     $stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
     foreach ($check as $k => $v) {
-        if (in_array($k,
+        if (in_array(
+            $k,
             array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t', 'key_val'))
             && $check[$k] == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
-            file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats));
+            file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats)
+            );
         }
     }
     unset($stats);

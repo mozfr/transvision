@@ -1,7 +1,8 @@
 <?php
 namespace Transvision;
 
-class ShowResults {
+class ShowResults
+{
 
     /*
      * Create an array for search results with this format:
@@ -19,8 +20,7 @@ class ShowResults {
     }
 
     // XXX: this method is a work in progress (migration from a functional area)
-    public function resultsTable($search_results, $recherche, $locale1,
-                                    $locale2, $l10n_repo, $search_options)
+    public function resultsTable($search_results, $recherche, $locale1, $locale2)
     {
         // rtl support
         $direction1 = RTL::getDirection($locale1);
@@ -106,5 +106,4 @@ class ShowResults {
     {
         return 'bar';
     }
-
 }

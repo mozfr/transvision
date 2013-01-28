@@ -26,35 +26,28 @@ switch ($url['path']) {
             $template = false;
         }
         break;
-
     case 'news':
         $view = 'changelog.php';
         break;
-
     case 'stats':
         $view = 'stats.php';
         break;
-
     case 'repocomparison':
     case 'repocomparizon':
         $view = 'repocomparison.php';
         break;
-
     case 'channelcomparison':
     case 'channelcomparizon':
         $view  = 'channelcomparison.php';
         $extra = '<h2 class="alert">experimental View</h2>';
         break;
-
     case 'accesskeys':
         $view  = 'accesskeys.php';
         break;
-
     case 'credits':
         $view  = 'credits.php';
         break;
-
-    default:
+    default
         $view  = 'search.php';
         break;
 }

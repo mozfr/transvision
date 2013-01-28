@@ -12,7 +12,7 @@
 <h3>Other changes</h3>
 <ul>
     <li><strong>New experimental feature:</strong> New option to search both entities and strings, activated in Danish only</li>
-    <li>Added a <a href="/stats/">credits</a>page.</li>
+    <li>Added a <a href="/credits/">credits</a> page.</li>
     <li>Added a counter for the use of search options to check if some options are unused and could therefore be removed.</li>
 </ul>
 

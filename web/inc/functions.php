@@ -117,7 +117,7 @@ function resultsTable($search_results, $recherche, $locale1,
         // nbsp highlight
         $target_string = str_replace(
             ' ',
-            '<span class="highlight-gray"  title="Non breakable space"> </span>',
+            '<span class="highlight-gray" title="Non breakable space"> </span>',
             $target_string
         );
         // thin space highlight
@@ -152,8 +152,17 @@ function resultsTable($search_results, $recherche, $locale1,
 
         $table .= "    <tr>\n";
         $table .= "      <td>" . formatEntity($key) . "</td>\n";
-        $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a><a href=\"$path_locale1\" class=\"sourcelink\"><em>&lt;source&gt;</em></a></td>\n";
-        $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\"  class=\"sourcelink\"><em>&lt;source&gt;</em></a></td>\n";
+        $table .= "      <td dir='" . $direction1. "'>
+                         <a href='http://translate.google.com/#$short_locale1/$short_locale2/"
+                         . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a>
+                         <a href=\"$path_locale1\" class=\"sourcelink\">
+                         <em>&lt;source&gt;</em></a>
+                         </td>\n";
+        $table .= "      <td dir='" . $direction2. "'>"
+                         . $target_string
+                         . "<a href=\"$path_locale2\" class=\"sourcelink\">
+                         <em>&lt;source&gt;</em></a>
+                         </td>\n";
         $table .= "    </tr>\n\n";
     }
 
@@ -162,12 +171,17 @@ function resultsTable($search_results, $recherche, $locale1,
 }
 
 
-function highlightString($needle, $haystack) {
+function highlightString($needle, $haystack)
+{
     $str = str_replace($needle, '<span class="highlight">' . $needle . '</span>', $haystack);
-    $needle = '<span class="highlight">'  . $needle . '</span>';
-    $str = str_replace(ucwords($needle), '<span class="highlight">'  . ucwords($needle) . '</span>', $str);
-    $str = str_replace(strtolower($needle), '<span class="highlight">'  . strtolower($needle) . '</span>', $str);
-    $str = preg_replace('/<span class="highlight"><span class="highlight">(.*)<\/span><\/span>/isU', "<span class=\"highlight\">$1</span>", $str);
+    $needle = '<span class="highlight">' . $needle . '</span>';
+    $str = str_replace(ucwords($needle), '<span class="highlight">' . ucwords($needle) . '</span>', $str);
+    $str = str_replace(strtolower($needle), '<span class="highlight">' . strtolower($needle) . '</span>', $str);
+    $str = preg_replace(
+        '/<span class="highlight"><span class="highlight">(.*)<\/span><\/span>/isU',
+        "<span class=\"highlight\">$1</span>",
+        $str
+        );
     return $str;
 }
 
@@ -308,12 +322,13 @@ function getRepoStrings($locale, $repo)
  *
  */
 
-function pathFileInRepo($locale, $repo, $path) {
+function pathFileInRepo($locale, $repo, $path)
+{
 
     $url = 'http://hg.mozilla.org';
 
     // remove entity from path and store it in a variable
-    $path          = explode(':',$path);
+    $path          = explode(':', $path);
     $path          = $path[0];
     $path          = explode('/', $path);
     $entity_file   = array_pop($path);

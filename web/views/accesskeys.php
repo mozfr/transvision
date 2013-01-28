@@ -47,10 +47,10 @@ foreach ($loc_list as $loc) {
 }
 
 $akeys = array_filter(
-            array_keys($strings[$repo]),
-            function ($entity) {
-                return substr($entity, -9) == 'accesskey';
-            }
+    array_keys($strings[$repo]),
+    function ($entity) {
+        return substr($entity, -9) == 'accesskey';
+    }
 );
 
 $ak_labels  = array('.label', '.title', '.title2');
@@ -98,6 +98,8 @@ foreach ($akeys as $akey) {
 
 <?php
 echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
-printSimpleTable($ak_results, $strings[$repo],
-                 array('Label entity', 'Label value',
-                       'Access&nbsp;key', 'Access key entity') );
+printSimpleTable(
+    $ak_results,
+    $strings[$repo],
+    array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity')
+);

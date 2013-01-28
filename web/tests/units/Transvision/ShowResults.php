@@ -1,5 +1,6 @@
 <?php
 namespace Transvision\tests\units;
+
 require __DIR__ . '/../../../classes/Transvision/ShowResults.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
