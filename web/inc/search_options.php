@@ -1,13 +1,14 @@
 <?php
+namespace Transvision;
 
 // Default search value
 $recherche = '';
 
 // $recherche is the string to find
 if (isset($_GET['recherche'])) {
-    $recherche = stripslashes(secureText($_GET['recherche']));
+    $recherche = stripslashes(Utils::secureText($_GET['recherche']));
     // Filter out double spaces
-    $recherche = mtrim($recherche);
+    $recherche = Utils::mtrim($recherche);
 }
 
 // Cloned value for reference

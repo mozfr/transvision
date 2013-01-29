@@ -1,5 +1,4 @@
 <?php
-
 mb_internal_encoding("UTF-8");
 
 // We store the application and TMX paths in an ini file shared with Python
@@ -21,9 +20,6 @@ require_once WEBROOT . 'vendor/autoload.php';
 //~ use Monolog\Handler\StreamHandler;
 //~ $logger = new Logger(VERSION);
 //~ $logger->pushHandler(new StreamHandler(__DIR__ . '/transvision.log', Logger::DEBUG));
-
-// Utility functions
-require_once INC . 'functions.php';
 
 // Dispatch urls
 require_once INC . 'dispatcher.php';

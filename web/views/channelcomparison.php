@@ -1,4 +1,6 @@
 <?php
+namespace Transvision;
+
 // Page title
 $title = '<a href="/" id="transvision-title">Transvision glossary</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 require_once WEBROOT .'inc/l10n-init.php';
@@ -25,7 +27,7 @@ foreach ($repos as $repo) {
         $strings = array();
     }
 
-    $strings[$repo] = getRepoStrings($locale, $repo);
+    $strings[$repo] = Utils::getRepoStrings($locale, $repo);
 }
 
 $chanSelector1 = $chanSelector2 = '';
@@ -97,10 +99,10 @@ echo '</tr>';
 
 foreach ($temp as $k => $v) {
     echo '<tr>';
-    echo "<td>". Transvision\ShowResults::formatEntity($k). "</td>" .
-    "<td>" . Transvision\ShowResults::highlight($v, $locale) . "</td>";
+    echo "<td>". Utils::formatEntity($k). "</td>" .
+    "<td>" . ShowResults::highlight($v, $locale) . "</td>";
     //~ if (isset($strings[$chan2][$k])) {
-        echo "<td>" . Transvision\ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
+        echo "<td>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
     //~ } else {
         //~ echo "<td> <em>Missing String</em> </td>";
     //~ }

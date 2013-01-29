@@ -1,4 +1,5 @@
 <?php
+namespace Transvision;
 
 $title = '<a href="/" id="transvision-title">Transvision glossary</a>
           <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
@@ -19,8 +20,8 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
 }
 
-$strings[$repo]        = getRepoStrings($locale, $repo);
-$stringsEnglish[$repo] = getRepoStrings('en-US', $repo);
+$strings[$repo]        = Utils::getRepoStrings($locale, $repo);
+$stringsEnglish[$repo] = Utils::getRepoStrings('en-US', $repo);
 
 $channel_selector = '';
 
@@ -98,7 +99,7 @@ foreach ($akeys as $akey) {
 
 <?php
 echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
-printSimpleTable(
+Utils::printSimpleTable(
     $ak_results,
     $strings[$repo],
     array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity')

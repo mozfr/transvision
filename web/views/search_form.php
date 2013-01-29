@@ -1,5 +1,5 @@
 <?php
-
+namespace Transvision;
 // Page title
 $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
@@ -82,23 +82,23 @@ switch($check['repo']) {
 
             <fieldset>
                 <legend>Search options</legend>
-                <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=checkboxState($check['case_sensitive'])?> />
+                <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=Utils::checkboxState($check['case_sensitive'])?> />
                 <label for="case_sensitive">Case Sensitive</label>
-                <input type="checkbox" name="wild" id="wild" value="wild"          <?=checkboxState($check['wild'])?> />
+                <input type="checkbox" name="wild" id="wild" value="wild"          <?=Utils::checkboxState($check['wild'])?> />
                 <label for="wild">Wildcard (*)</label>
-                <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=checkboxState($check['whole_word'])?> />
+                <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=Utils::checkboxState($check['whole_word'])?> />
                 <label for="whole_word">Whole Word</label>
-                <input type="checkbox" name="ent" id="ent" value="ent" <?=checkboxState($check['ent'])?> onclick="uncheck('ent', 'key_val');" />
+                <input type="checkbox" name="ent" id="ent" value="ent" <?=Utils::checkboxState($check['ent'])?> onclick="uncheck('ent', 'key_val');" />
                 <label for="ent">Entities</label>
 
 <?php if ($locale == 'da'): ?>
-                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=checkboxState($check['key_val'])?>  onclick="uncheck('key_val', 'ent');" />
+                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=Utils::checkboxState($check['key_val'])?>  onclick="uncheck('key_val', 'ent');" />
                 <label for="key_val">Entities and strings</label>
 <?php endif; ?>
 
-                <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=checkboxState($check['perfect_match'])?> />
+                <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=Utils::checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect Match</label>
-                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
+                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
                 <label for="t2t">Glossary</label>
             </fieldset>
 
