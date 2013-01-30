@@ -30,26 +30,11 @@ foreach ($loc_list as $loc) {
     $source_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
-
-// select the branch
-$tr = $au = $be = $re = $ga = '';
-
-switch($check['repo']) {
-    case 'central':
-        $tr = 'checked';
-        break;
-    case 'aurora':
-        $au = 'checked';
-        break;
-    case 'beta':
-        $be = 'checked';
-        break;
-    case 'release':
-        $re = 'checked';
-        break;
-    case 'gaia':
-        $ga = 'checked';
-        break;
+// build the repository switcher
+$repo_list = '';
+foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
+    $ch = ($val == $check['repo']) ? ' selected' : '';
+    $repo_list  .= "\t<option" . $ch . " value=" . $val . ">" . ucfirst($val) . "</option>\n";
 }
 
 ?>
@@ -72,12 +57,10 @@ switch($check['repo']) {
             </fieldset>
 
             <fieldset>
-                <legend>Channel</legend>
-                <input type="radio" name="repo" value="central" id="central" <?=$tr?> ><label for="central">Central</label>
-                <input type="radio" name="repo" value="aurora"  id="aurora"  <?=$au?> ><label for="aurora">Aurora</label>
-                <input type="radio" name="repo" value="beta"    id="beta"    <?=$be?> ><label for="beta">Beta</label>
-                <input type="radio" name="repo" value="release" id="release" <?=$re?> ><label for="release">Release</label>
-                <input type="radio" name="repo" value="gaia"    id="gaia"    <?=$ga?> ><label for="gaia">Gaia</label>
+                <legend>Repository</legend>
+                <select name='repo'>
+                <?=$repo_list?>
+                </select>
             </fieldset>
 
             <fieldset>
