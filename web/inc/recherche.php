@@ -13,7 +13,6 @@ if ($check['perfect_match']) {
     $search = Utils::uniqueWords($initial_search);
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
-    var_dump($search);
     foreach ($search as $word ) {
         $regex = '/' . $whole_word . preg_quote($word, '/') . $whole_word . '/' . $case_sensitive;
         $locale1_strings = preg_grep($regex, $locale1_strings);
@@ -21,13 +20,15 @@ if ($check['perfect_match']) {
     }
 }
 
-if (count($locale1_strings) > 200 ) {
-    array_splice($locale1_strings, 200);
+$results_limit = 200;
+if (count($locale1_strings) > $results_limit ) {
+    array_splice($locale1_strings, $results_limit);
 }
 
-if (count($locale1_strings) > 200 ) {
-    array_splice($locale1_strings, 200);
+if (count($locale2_strings) > $results_limit ) {
+    array_splice($locale2_strings, $results_limit);
 }
+unset($results_limit);
 
 $entities = preg_grep($regex, array_keys($tmx_source));
 
