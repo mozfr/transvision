@@ -5,8 +5,10 @@ namespace Transvision;
 $whole_word     = ($check['whole_word']) ? '\b' : '';
 $case_sensitive = ($check['case_sensitive']) ? '' : 'i';
 
+$regex = '/' . $whole_word . $initial_search . $whole_word . '/' . $case_sensitive;
+$entities = preg_grep($regex, array_keys($tmx_source));
+
 if ($check['perfect_match']) {
-    $regex = '/' . $whole_word . $initial_search . $whole_word . '/' . $case_sensitive;
     $locale1_strings = preg_grep($regex, $tmx_source);
     $locale2_strings = preg_grep($regex, $tmx_target);
 } else {
@@ -29,8 +31,6 @@ if (count($locale2_strings) > $results_limit ) {
     array_splice($locale2_strings, $results_limit);
 }
 unset($results_limit);
-
-$entities = preg_grep($regex, array_keys($tmx_source));
 
 if ( $check['key_val'] ) {
     foreach ($entities as $entity) {

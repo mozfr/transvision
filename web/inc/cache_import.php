@@ -1,5 +1,8 @@
 <?php
 
+// Always make sure we have a $tmx array defined
+$tmx = array();
+
 // Deduce the memoire.tmx directory name
 $tmxfile = TMX . '/memoire_en-US_' . $locale . '.tmx';
 
