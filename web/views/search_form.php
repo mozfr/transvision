@@ -65,7 +65,7 @@ $search_type_list = Utils::getHtmlSelectOptions(
             </fieldset>
 
             <fieldset>
-                <legend>Search options</legend>
+                <legend>Advanced Search options</legend>
                 <input type="checkbox"
                        name="case_sensitive"
                        id="case_sensitive"
