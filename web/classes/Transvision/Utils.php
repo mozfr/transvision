@@ -124,10 +124,9 @@ class Utils
                       </tr>";
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
-            $recherche = explode(' ', $recherche);
-            $recherche = array_unique($recherche);
+            $recherche = Utils::uniqueWords($recherche);
         } else {
-            $recherche = explode('ZORGLUB', $recherche);
+            $recherche = array($recherche);
         }
 
         foreach ($search_results as $key => $strings) {
@@ -487,5 +486,18 @@ class Utils
         }
 
         return $url . $path . '/' . $entity_file;
+    }
+
+    /*
+     * Split a sentence in words
+     *
+     * @param string $sentence
+     * @return array
+     */
+    public static function uniqueWords($sentence) {
+        $words = explode(' ', $sentence);
+        $words = array_filter($words); // filter out extra spaces
+        $words = array_unique($words); // remove duplicate words
+        return $words;
     }
 }
