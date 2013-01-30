@@ -15,8 +15,9 @@
 
   <div id="links">
     <ul>
-      <li><a href="/accesskeys/" title="Search in the Glossary">Access Keys</a></li>
-      <li><a href="/channelcomparison/" title="Search in the Glossary">Channel Comparison</a></li>
+      <li><a href="/?sourcelocale=<?=$sourceLocale?>&locale=<?=$locale?>&repo=<?=$check['repo']?>&t2t=t2t&recherche=<?=$initial_search?>" title="Search in the Glossary">Gloassary</a></li>
+      <li><a href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
+      <li><a href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
       <li><a href="/stats/" title="Light usage statistics">Statistics</a></li>
       <li><a href="/credits/" title="Transvision Credits page">Credits</a></li>
     </ul>

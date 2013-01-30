@@ -81,8 +81,9 @@ foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
 
                 <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=Utils::checkboxState($check['perfect_match'])?> />
                 <label for="perfect_match">Perfect Match</label>
-                <input type="checkbox" name="t2t" id="t2t" value="t2t"  <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
-                <label for="t2t">Glossary</label>
+
+                <input type="hidden" name="t2t" id="t2t" value="t2t"  <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
+
             </fieldset>
 
             <div id="search">
@@ -127,7 +128,8 @@ if ($initial_search != '') {
     foreach ($check as $k => $v) {
         if (in_array(
             $k,
-            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t', 'key_val'))
+            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t', 'key_val')
+        )
             && $check[$k] == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
             file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats)
