@@ -177,6 +177,13 @@ class Utils
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
 
+            if (substr(strip_tags($source_string), -1) == '.'
+                && substr(strip_tags($target_string), -1) != '.') {
+                $missing_dot = '<em class="error">No final dot?</em>';
+            } else {
+                $missing_dot = '';
+            }
+
             $table .= "
                 <tr>
                   <td>" . Utils::formatEntity($key, $recherche[0]) . "</td>
@@ -192,7 +199,7 @@ class Utils
 
                    <td dir='${direction2}'>
                       <div class='string'>${target_string} </div>
-                      <div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a></div>
+                      <div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
                    </td>
                 </tr>";
         }
