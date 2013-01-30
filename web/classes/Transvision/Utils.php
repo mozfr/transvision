@@ -184,6 +184,15 @@ class Utils
                 $missing_dot = '';
             }
 
+            if (!$source_string) {
+                $source_string = '<em class="error">warning: missing string</em>';
+                $missing_dot = '';
+            }
+                        if (!$target_string) {
+                $target_string = '<em class="error">warning: missing string</em>';
+                $missing_dot = '';
+            }
+
             $table .= "
                 <tr>
                   <td>" . Utils::formatEntity($key, $recherche[0]) . "</td>
@@ -194,12 +203,12 @@ class Utils
                       . urlencode(strip_tags($source_string))
                       . "'>${source_string}</a>
                      </div>
-                     <div class='sourcelink'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+                     <div dir='ltr' class='infos'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
                    </td>
 
                    <td dir='${direction2}'>
                       <div class='string'>${target_string} </div>
-                      <div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
+                      <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
                    </td>
                 </tr>";
         }
@@ -236,6 +245,8 @@ class Utils
             "<span class='highlight'>$1</span>",
             $str
             );
+        // remove last ones
+        $str = str_replace(array('←', '→'), '', $str);
         return $str;
     }
 
@@ -503,7 +514,7 @@ class Utils
     }
 
     /*
-     * Split a sentence in words
+     * Split a sentence in words from longest to shortest
      *
      * @param string $sentence
      * @return array
@@ -512,6 +523,10 @@ class Utils
         $words = explode(' ', $sentence);
         $words = array_filter($words); // filter out extra spaces
         $words = array_unique($words); // remove duplicate words
+        // sort words from longest to shortest
+        usort($words, function($a, $b) {
+                return strlen($b) - strlen($a);
+         });
         return $words;
     }
 

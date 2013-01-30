@@ -151,12 +151,12 @@ td em.error {
     float:right;
 }
 
-td div.sourcelink {
+td div.infos {
     font-size: 75%;
     text-align:right;
     margin-top:4px;
 }
-td div.sourcelink a {
+td div.infos a {
     float:left;
 }
 

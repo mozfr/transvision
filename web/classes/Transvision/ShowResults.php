@@ -13,58 +13,13 @@ class ShowResults
         $search_results = array();
 
         foreach ($entities as $entity) {
-            $locale1_strings[$entity] = (isset($locale1_strings[$entity])) ? $locale1_strings[$entity] : '<em>warning: missing string</em>';
-            $locale2_strings[$entity] = (isset($locale2_strings[$entity])) ? $locale2_strings[$entity]: '<em>warning: missing string</em>';
+            $locale1_strings[$entity] = (isset($locale1_strings[$entity]) && $locale1_strings[$entity] !='') ?
+                $locale1_strings[$entity] : false;
+            $locale2_strings[$entity] = (isset($locale2_strings[$entity]) && $locale2_strings[$entity] !='') ?
+                $locale2_strings[$entity]: false;
             $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
         }
         return $search_results;
-    }
-
-    // XXX: this method is a work in progress (migration from a functional area)
-    public function resultsTable($search_results, $recherche, $locale1, $locale2)
-    {
-        // rtl support
-        $direction1 = RTL::getDirection($locale1);
-        $direction2 = RTL::getDirection($locale2);
-
-        $table  = "\n\n
-                   <table>\n\n
-                     <tr>\n
-                       <th>Entity</th>\n
-                       <th>{$locale1}</th>\n
-                       <th>{$locale2}</th>\n
-                     </tr>\n\n";
-
-        foreach ($search_results as $key => $strings) {
-
-            $source_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[0]);
-            $source_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $source_string);
-            $source_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $source_string);
-
-            $target_string = str_replace($recherche, '<span class="red">'  . $recherche . '</span>', $strings[1]);
-            $target_string = str_replace(ucwords($recherche), '<span class="red">'  . ucwords($recherche) . '</span>', $target_string);
-            $target_string = str_replace(strtolower($recherche), '<span class="red">'  . strtolower($recherche) . '</span>', $target_string);
-
-            $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string); // nbsp highlight
-
-            $target_string = str_replace('…', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
-            $target_string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $target_string); // right ellipsis highlight
-
-            $temp = explode('-', $locale1);
-            $short_locale1 = $temp[0];
-
-            $temp = explode('-', $locale2);
-            $short_locale2 = $temp[0];
-
-            $table .= "    <tr>\n";
-            $table .= "      <td>" . formatEntity($key) . "</td>\n";
-            $table .= "      <td dir='" . $direction1. "'><a href='http://translate.google.com/#$short_locale1/$short_locale2/" . urlencode(strip_tags($source_string)) ."'>". $source_string . "</a></td>\n";
-            $table .= "      <td dir='" . $direction2. "'>" . $target_string . "</td>\n";
-            $table .= "    </tr>\n\n";
-        }
-
-        $table .= "  </table>\n\n";
-        return $table;
     }
 
     /*
