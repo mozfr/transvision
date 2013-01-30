@@ -4,16 +4,19 @@
 
 <h3>End user visible changes</h3>
 <ul>
+    <li><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
+    <li>Repositories and search target are now select boxes.</li>
+    <li>Advanced regular expression search options are now separated from other search options.</li>
+    <li>Glossary search is now a separate view linked in the footer.</li>
     <li>Improved highlighting of search results.</li>
-    <li>Fixed bugs on "perfect match" searches, they now accept punctuation.</li>
-    <li>Search results now limited to 100 strings to avoid hanging the browser if we send back a page which is a 5MB table /ex.</li>
+    <li>Fixed some bugs on "perfect match" searches, they now accept some punctuation.</li>
+    <li>Search results now limited to 400 results to avoid hanging the browser if we send back megabytesof data.</li>
 </ul>
 
 <h3>Other changes</h3>
 <ul>
-    <li><strong>New experimental feature:</strong> New option to search both entities and strings, activated in Danish only</li>
     <li>Added a <a href="/credits/">credits</a> page.</li>
-    <li>Added a counter for the use of search options to check if some options are unused and could therefore be removed.</li>
+    <li>Added a counter for the use of search options to check if some options are unused and could be removed.</li>
 </ul>
 
 <h2 id="v2.0">Version 2.0 - 2013-01-18</h2>
