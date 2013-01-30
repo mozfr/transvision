@@ -5,7 +5,7 @@ namespace Transvision;
 $whole_word     = ($check['whole_word']) ? '\b' : '';
 $case_sensitive = ($check['case_sensitive']) ? '' : 'i';
 
-$regex = '/' . $whole_word . $initial_search . $whole_word . '/' . $case_sensitive;
+$regex = '/' . $whole_word . $recherche . $whole_word . '/' . $case_sensitive;
 $entities = preg_grep($regex, array_keys($tmx_source));
 
 if ($check['perfect_match']) {
