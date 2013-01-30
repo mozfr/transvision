@@ -1,4 +1,5 @@
 <?php
+namespace Transvision;
 
 // Search for the string
 include INC . 'recherche.php';
@@ -15,28 +16,28 @@ $perfect = $imperfect = array();
 // we want to test compound words as well, /ex: 'switch to'
 $compound_search = false;
 
-if (count($exploded_search) > 1) {
-    $aaa[] = implode(" ", $exploded_search);
-    $aaa = array_reverse($exploded_search);
+if (count($search) > 1) {
+    $aaa[] = implode(" ", $search);
+    $aaa = array_reverse($search);
     $compound_search = true;
 }
 
-foreach ($exploded_search as $search) {
+foreach ($search as $word) {
     // if the word is one or two letters, we skip it
-    if (strlen($search) < 3) {
+    if (strlen($word) < 3) {
         continue;
     }
 
     // Perfect matches are hits for a single word or a compound word
-    if ($compound_search || count($exploded_search) == 1) {
-        $alternate1 = ucfirst($search);
-        $alternate2 = ucwords($search);
-        $alternate3 = strtolower($search);
-        if (in_array($search, $tmx_source)
+    if ($compound_search || count($search) == 1) {
+        $alternate1 = ucfirst($word);
+        $alternate2 = ucwords($word);
+        $alternate3 = strtolower($word);
+        if (in_array($word, $tmx_source)
             || in_array($alternate1, $tmx_source)
             || in_array($alternate2, $tmx_source)
             || in_array($alternate3, $tmx_source)) {
-            $perfect = array_merge($perfect, array_keys($tmx_source, $search));
+            $perfect = array_merge($perfect, array_keys($tmx_source, $word));
             $perfect = array_merge($perfect, array_keys($tmx_source, $alternate1));
             $perfect = array_merge($perfect, array_keys($tmx_source, $alternate2));
             $perfect = array_merge($perfect, array_keys($tmx_source, $alternate3));
@@ -51,10 +52,10 @@ foreach ($exploded_search as $search) {
      */
     $imperfect = array_keys(array_filter(
             $tmx_source,
-            function ($element) use ($search) {
-                $bingo = (strpos($element, $search)) ? true : false;
+            function ($element) use ($word) {
+                $bingo = (strpos($element, $word)) ? true : false;
                 if (!$bingo) {
-                    $bingo = (strpos($element, strtolower($search))) ? true : false;
+                    $bingo = (strpos($element, strtolower($word))) ? true : false;
                 }
                 return $bingo;
                 })
