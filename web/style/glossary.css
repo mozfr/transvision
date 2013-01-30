@@ -82,6 +82,12 @@ a:hover {
     text-decoration: underline;
 }
 
+
+form[name="searchform"] {
+    width:80%;
+    margin:auto;
+}
+
 fieldset {
     border: none;
     display: inline;
@@ -227,6 +233,8 @@ fieldset#main #search input[type=text] {
     height: 25px;
     padding-left: 5px;
     border:1px solid #3C8FD1;
+    background-color: rgba(255, 165, 0, 0.7);
+    color: black;
 }
 
 fieldset#main fieldset {
