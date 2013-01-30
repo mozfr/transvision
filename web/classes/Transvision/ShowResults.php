@@ -13,8 +13,9 @@ class ShowResults
         $search_results = array();
 
         foreach ($entities as $entity) {
-            $search_results[$entity] = array($locale1_strings[$entity],
-                                             $locale2_strings[$entity]);
+            $locale1_strings[$entity] = (isset($locale1_strings[$entity])) ? $locale1_strings[$entity] : '<em>warning: missing string</em>';
+            $locale2_strings[$entity] = (isset($locale2_strings[$entity])) ? $locale2_strings[$entity]: '<em>warning: missing string</em>';
+            $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
         }
         return $search_results;
     }
