@@ -23,12 +23,7 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 $strings[$repo]        = Utils::getRepoStrings($locale, $repo);
 $stringsEnglish[$repo] = Utils::getRepoStrings('en-US', $repo);
 
-$channel_selector = '';
-
-foreach ($repos as $val) {
-    $ch = ($val == $repo) ? ' selected' : '';
-    $channel_selector .= "\t<option" . $ch . " value=" . $val . ">" . $val . "</option>\n";
-}
+$channel_selector = Utils::getHtmlSelectOptions($repos, $repo);
 
 // Get the locale list
 $loc_list = scandir(TMX . $repo . '/');
@@ -40,12 +35,7 @@ if ($spanish) {
 }
 
 // build the target locale switcher
-$target_locales_list = '';
-
-foreach ($loc_list as $loc) {
-    $ch = ($loc == $locale) ? ' selected' : '';
-    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
-}
+$target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
 
 $akeys = array_filter(
     array_keys($strings[$repo]),

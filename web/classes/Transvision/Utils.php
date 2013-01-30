@@ -507,4 +507,25 @@ class Utils
         $words = array_unique($words); // remove duplicate words
         return $words;
     }
+
+
+    /*
+     * Generate a list of <option> html tags from an array and mark one as selected
+     *
+     * @param       array   $options list of <option>
+     * @param       string  $selected the option which should have the 'selected' html attribute
+     * @nicelabels  boolean $nicelabels, indicates if $options is an associative array
+     *                      with the array value as the text inside the <option> tag
+     * @return string
+     */
+    public static function getHtmlSelectOptions($options, $selected, $nicelabels=false)
+    {
+        $html = '';
+        foreach ($options as $key => $option) {
+            $ch = ($option == $selected) ? ' selected' : '';
+            $value = ($nicelabels) ? $key : $option;
+            $html.= "\t<option" . $ch . " value=" . $value . ">" . $option . "</option>\n";
+        }
+        return $html;
+    }
 }

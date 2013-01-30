@@ -14,35 +14,22 @@ if ($spanish) {
 }
 
 // build the target locale switcher
-$target_locales_list = '';
-
-foreach ($loc_list as $loc) {
-    $ch = ($loc == $locale) ? ' selected' : '';
-    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
-}
+$target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
 
 // build the source locale switcher
-$source_locales_list = '';
 $loc_list[] = 'en-US';
 sort($loc_list);
-
-foreach ($loc_list as $loc) {
-    $ch = ($loc == $sourceLocale) ? ' selected' : '';
-    $source_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
-}
+$source_locales_list = Utils::getHtmlSelectOptions($loc_list, $sourceLocale);
 
 // build the repository switcher
-$repo_list = '';
-foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
-    $ch = ($val == $check['repo']) ? ' selected' : '';
-    $repo_list  .= "\t<option" . $ch . " value=" . $val . ">" . ucfirst($val) . "</option>\n";
-}
+$repo_list = Utils::getHtmlSelectOptions(array('central', 'aurora', 'beta', 'release', 'gaia'), $check['repo']);
+
 // Build the search type switcher
-$search_type_list = '';
-foreach (array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings and Entities') as $key => $val) {
-    $ch = ($key == $check['search_type']) ? ' selected' : '';
-    $search_type_list .= "\t<option" . $ch . " value=" . $key . ">" . $val . "</option>\n";
-}
+$search_type_list = Utils::getHtmlSelectOptions(
+    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings and Entities'),
+    $check['search_type'],
+    true
+);
 
 ?>
 
