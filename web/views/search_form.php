@@ -37,9 +37,8 @@ foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
     $ch = ($val == $check['repo']) ? ' selected' : '';
     $repo_list  .= "\t<option" . $ch . " value=" . $val . ">" . ucfirst($val) . "</option>\n";
 }
-// build the search type switcher
+// Build the search type switcher
 $search_type_list = '';
-var_dump($check);
 foreach (array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings and Entities') as $key => $val) {
     $ch = ($key == $check['search_type']) ? ' selected' : '';
     $search_type_list .= "\t<option" . $ch . " value=" . $key . ">" . $val . "</option>\n";
