@@ -1,5 +1,6 @@
 <?php
 namespace Transvision;
+
 // Page title
 $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
@@ -36,6 +37,13 @@ foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
     $ch = ($val == $check['repo']) ? ' selected' : '';
     $repo_list  .= "\t<option" . $ch . " value=" . $val . ">" . ucfirst($val) . "</option>\n";
 }
+// build the search type switcher
+$search_type_list = '';
+var_dump($check);
+foreach (array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings and Entities') as $key => $val) {
+    $ch = ($key == $check['search_type']) ? ' selected' : '';
+    $search_type_list .= "\t<option" . $ch . " value=" . $key . ">" . $val . "</option>\n";
+}
 
 ?>
 
@@ -64,25 +72,54 @@ foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
             </fieldset>
 
             <fieldset>
+                <legend>Search in</legend>
+                <select name='search_type'>
+                <?=$search_type_list?>
+                </select>
+            </fieldset>
+
+            <fieldset>
                 <legend>Search options</legend>
-                <input type="checkbox" name="case_sensitive" id="case_sensitive" value="case_sensitive" <?=Utils::checkboxState($check['case_sensitive'])?> />
+                <input type="checkbox"
+                       name="case_sensitive"
+                       id="case_sensitive"
+                       value="case_sensitive"
+                       <?=Utils::checkboxState($check['case_sensitive'])?>
+                 />
                 <label for="case_sensitive">Case Sensitive</label>
-                <input type="checkbox" name="wild" id="wild" value="wild"          <?=Utils::checkboxState($check['wild'])?> />
+
+                <input type="checkbox"
+                       name="wild"
+                       id="wild"
+                       value="wild"
+                       <?=Utils::checkboxState($check['wild'])?>
+                 />
                 <label for="wild">Wildcard (*)</label>
-                <input type="checkbox" name="whole_word" id="whole_word" value="whole_word" <?=Utils::checkboxState($check['whole_word'])?> />
+
+                <input type="checkbox"
+                       name="whole_word"
+                       id="whole_word"
+                       value="whole_word"
+                       <?=Utils::checkboxState($check['whole_word'])?>
+                />
                 <label for="whole_word">Whole Word</label>
-                <input type="checkbox" name="ent" id="ent" value="ent" <?=Utils::checkboxState($check['ent'])?> onclick="uncheck('ent', 'key_val');" />
-                <label for="ent">Entities</label>
 
-<?php if ($locale == 'da'): ?>
-                <input type="checkbox" name="key_val" id="key_val" value="key_val" <?=Utils::checkboxState($check['key_val'])?>  onclick="uncheck('key_val', 'ent');" />
-                <label for="key_val">Entities and strings</label>
-<?php endif; ?>
-
-                <input type="checkbox" name="perfect_match" id="perfect_match" value="perfect_match" <?=Utils::checkboxState($check['perfect_match'])?> />
+                <input type="checkbox"
+                       name="perfect_match"
+                       id="perfect_match"
+                       value="perfect_match"
+                       <?=Utils::checkboxState($check['perfect_match'])?>
+                />
                 <label for="perfect_match">Perfect Match</label>
 
-                <input type="hidden" name="t2t" id="t2t" value="t2t"  <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"/>
+                <?php if ($check['t2t'] == 't2t') :?>
+                <input type="hidden"
+                       name="t2t"
+                       id="t2t"
+                       value="t2t"
+                       <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"
+                />
+                <?php endif;?>
 
             </fieldset>
 
@@ -95,7 +132,7 @@ foreach (array('central', 'aurora', 'beta', 'release', 'gaia') as $val) {
 
  <script>
 function uncheckAll() {
-    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 'key_val'];
+    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 'strings_entities'];
     for (var i = 0; i < arr.length; i++) {
         el = document.getElementById(arr[i]);
         if (el.disabled) {
@@ -128,7 +165,7 @@ if ($initial_search != '') {
     foreach ($check as $k => $v) {
         if (in_array(
             $k,
-            array('case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 't2t', 'key_val')
+            array('case_sensitive', 'wild', 'search_type', 'whole_word', 'perfect_match', 't2t')
         )
             && $check[$k] == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
@@ -145,7 +182,7 @@ if ($check['t2t']) {
 } else {
     // result presentation
     if ($recherche != '') {
-        if ($check['ent']) {
+        if ($check['search_type'] == 'entities') {
             require_once VIEWS . 'results_ent.php';
         } else {
             require_once VIEWS . 'results.php';

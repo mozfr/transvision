@@ -32,7 +32,7 @@ if (count($locale2_strings) > $results_limit ) {
 }
 unset($results_limit);
 
-if ( $check['key_val'] ) {
+if ( $check['search_type'] == 'strings_entities') {
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
     }

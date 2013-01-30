@@ -17,8 +17,7 @@ $initial_search = $recherche;
 // Checkboxes states
 $check = array();
 $checkboxes = array(
-    'case_sensitive', 'wild', 'ent',
-    'whole_word', 'perfect_match', 't2t', 'key_val'
+    'case_sensitive', 'wild', 'whole_word', 'perfect_match', 't2t'
 );
 
 foreach ($checkboxes as $val) {
@@ -32,6 +31,16 @@ if (isset($_GET['repo'])
     )) {
     $check['repo'] = $_GET['repo'];
 }
+
+$check['search_type'] = 'strings';
+
+if (isset($_GET['search_type'])
+    && in_array($_GET['search_type'], array('strings', 'entities', 'strings_entities')
+    )) {
+    $check['search_type'] = $_GET['search_type'];
+}
+
+
 
 $dirs = array_filter(glob(TMX . $check['repo'] . '/*'), 'is_dir');
 
