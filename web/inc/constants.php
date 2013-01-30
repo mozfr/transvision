@@ -10,7 +10,7 @@ define('INC', INSTALLROOT . 'web/inc/');
 define('VIEWS', INSTALLROOT . 'web/views/');
 
 // Bump this constant with each new release
-const VERSION = '2.1dev';
+const VERSION = '2.1';
 
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
