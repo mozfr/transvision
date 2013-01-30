@@ -1,6 +1,6 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v2.1">Version 2.1 - 2013-01-??</h2>
+<h2 id="v2.1">Version 2.1 - 2013-01-30</h2>
 
 <h3>End user visible changes</h3>
 <ul>
