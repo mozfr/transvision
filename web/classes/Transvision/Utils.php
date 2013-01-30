@@ -179,7 +179,7 @@ class Utils
 
             $table .= "
                 <tr>
-                  <td>" . Utils::formatEntity($key) . "</td>
+                  <td>" . Utils::formatEntity($key, $recherche[0]) . "</td>
 
                   <td dir='${direction1}'>
                     <div class='string'>
@@ -256,6 +256,7 @@ class Utils
         $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
 
         $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+        
         return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
     }
 

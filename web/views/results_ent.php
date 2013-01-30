@@ -24,11 +24,17 @@ foreach ($entities as $val) {
     } else {
         $target_string = '';
     }
-    $table .= "    <tr>\n";
-    $table .= "      <td>" . Utils::formatEntity($val, $recherche) . "</a></td>\n";
-    $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
-    $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
-    $table .= "    </tr>\n\n";
+    $table .= "<tr>
+                    <td>" . Utils::formatEntity($val, $recherche) . "</a></td>
+                    <td dir='${direction1}'>
+                       <div class='string'>" . $tmx_source[$val] . "</div>
+                       <div class='sourcelink'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+                    </td>
+                     <td dir='${direction2}'>
+                       <div class='string'>${target_string}</div>
+                       <div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a></div>
+                    </td>
+                </tr>";
 }
 
 $table .= "  </table>\n\n";
