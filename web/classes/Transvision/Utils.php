@@ -369,10 +369,10 @@ class Utils
         foreach ($arr as $key => $val) {
             echo '<tr>';
             if ($arr2) {
-                echo '<td>' . formatEntity($val) . '</td>';
+                echo '<td>' . Utils::formatEntity($val) . '</td>';
                 echo '<td>' . $arr2[$val] . '</td>';
                 echo '<td>' . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</td>';
-                echo '<td>' . formatEntity($key) . '</td>';
+                echo '<td>' . Utils::formatEntity($key) . '</td>';
             } else {
                 echo '<td>' . $val . '</td>';
                 echo '<td>' . $key . '</td>';
