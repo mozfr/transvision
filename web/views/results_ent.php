@@ -25,7 +25,7 @@ foreach ($entities as $val) {
         $target_string = '';
     }
     $table .= "    <tr>\n";
-    $table .= "      <td>" . Utils::formatEntity($val) . "</a></td>\n";
+    $table .= "      <td>" . Utils::formatEntity($val, $recherche) . "</a></td>\n";
     $table .= "      <td dir='" . $direction1. "'>". $tmx_source[$val] . "<a href=\"$path_locale1\" style=\"float:right\"><em>source</em></a></td>\n";
     $table .= "      <td dir='" . $direction2. "'>" . $target_string . "<a href=\"$path_locale2\" style=\"float:right\"><em>source</em></a></td>\n";
     $table .= "    </tr>\n\n";

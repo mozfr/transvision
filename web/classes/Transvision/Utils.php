@@ -239,12 +239,18 @@ class Utils
      *
      */
 
-    public static function formatEntity($entity)
+    public static function formatEntity($entity, $highlight=false)
     {
         // let's analyse the entity for the search string
         $chunk  = explode(':', $entity);
-        $entity = '<span class="red">' . array_pop($chunk) . '</span>';
 
+        if($highlight) {
+            $entity = array_pop($chunk);
+            $entity = preg_replace("/($highlight)/i", '<span class="highlight">$1</span>', $entity);
+            $entity = '<span class="red">' . $entity . '</span>';
+        } else {
+            $entity = '<span class="red">' . array_pop($chunk) . '</span>';
+        }
         // let's analyse the entity for the search string
         $chunk  = explode('/', $chunk[0]);
         $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
