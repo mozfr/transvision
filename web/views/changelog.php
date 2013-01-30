@@ -5,14 +5,14 @@
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
-    <li><strong>New feature:</strong> typigraphy hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
+    <li><strong>New feature:</strong> typography hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
     <li>Missing translated strings are marked as such instead of just having an empty cell.</li>
     <li>Repositories and search targets are now select boxes.</li>
     <li>Advanced regular expression search options are now separated from other search options.</li>
     <li>Glossary search is now a separate view linked in the footer.</li>
     <li>Improved highlighting of search results.</li>
-    <li>Fixed some bugs on "perfect match" searches, they now accept some punctuation.</li>
-    <li>Search results now limited to 400 results to avoid hanging the browser if we send back megabytesof data.</li>
+    <li>Fixed some bugs on "perfect match" searches.</li>
+    <li>Search results now limited to 200 results to avoid hanging the browser if we send back megabytesof data.</li>
     <li>Added Aragonese</li>
 </ul>
 
