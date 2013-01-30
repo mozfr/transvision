@@ -125,6 +125,7 @@ class Utils
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
             $recherche = explode(' ', $recherche);
+            $recherche = array_unique($recherche);
         } else {
             $recherche = explode('ZORGLUB', $recherche);
         }
