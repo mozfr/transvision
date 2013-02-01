@@ -16,4 +16,6 @@
 
 <p>Transvision is available on <a href="https://github.com/mozfr/transvision/">Github</a></p>
 
+<p>Statistics about the project can be found on <a href="https://www.ohloh.net/p/transvision">Transvision Oloh page</a>.</p>
+
 <p>Transvision is hosted on the MozFR server which is a community server sponsored by Mozilla, the hosting company is <a href="http://ovh.com/">OVH</a>.</p>
