@@ -26,7 +26,7 @@ $repo_list = Utils::getHtmlSelectOptions(array('central', 'aurora', 'beta', 'rel
 
 // Build the search type switcher
 $search_type_list = Utils::getHtmlSelectOptions(
-    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings and Entities'),
+    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
     $check['search_type'],
     true
 );

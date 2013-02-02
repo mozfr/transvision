@@ -544,8 +544,8 @@ class Utils
     {
         $html = '';
         foreach ($options as $key => $option) {
-            $ch = ($option == $selected) ? ' selected' : '';
             $value = ($nicelabels) ? $key : $option;
+            $ch = ($value == $selected) ? ' selected' : '';
             $html.= "\t<option" . $ch . " value=" . $value . ">" . $option . "</option>\n";
         }
         return $html;
