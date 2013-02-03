@@ -132,4 +132,28 @@ class Utils extends atoum\test
         ;
     }
 
+
+    public function dataProvider_getHtmlSelectOptions()
+    {
+        return array(
+            array(
+                    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
+                    'strings_entities',
+                    true
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataProvider_getHtmlSelectOptions
+     */
+    public function testGetHtmlSelectOptions($a, $b, $c)
+    {
+
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->getHtmlSelectOptions($a, $b, $c))
+                ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>')
+        ;
+    }
 }

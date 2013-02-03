@@ -274,7 +274,7 @@ class Utils
         $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
 
         $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
-        
+
         return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
     }
 
@@ -546,7 +546,7 @@ class Utils
         foreach ($options as $key => $option) {
             $value = ($nicelabels) ? $key : $option;
             $ch = ($value == $selected) ? ' selected' : '';
-            $html.= "\t<option" . $ch . " value=" . $value . ">" . $option . "</option>\n";
+            $html.= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
         }
         return $html;
     }
