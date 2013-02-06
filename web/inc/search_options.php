@@ -60,4 +60,5 @@ if ($check['perfect_match']) {
     $recherche = '^' . $recherche . '$';
 }
 
+$recherche = preg_quote($recherche, '/');
 $recherche = trim($recherche);
