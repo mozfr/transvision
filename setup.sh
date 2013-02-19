@@ -81,15 +81,20 @@ initDesktopL10nRepo() {
 
     for i in `cat $install/$1.txt`
         do
+            if [ ! -d $i ]
+            then
+                mkdir $i
+            fi
+
             if [ ! -d $i/.hg ]
             then
                 echo "Checking out the following repo:"
                 echo $1/$i/
                 if [ $1 = central ]
                 then
-                    hg clone http://hg.mozilla.org/l10n-central/$i
+                    hg clone http://hg.mozilla.org/l10n-central/$i $i
                 else
-                    hg clone http://hg.mozilla.org/releases/l10n/mozilla-$1/$i
+                    hg clone http://hg.mozilla.org/releases/l10n/mozilla-$1/$i $i
                 fi
             fi
 
