@@ -563,7 +563,7 @@ class Utils
     {
         // Get the locale list
         $file_list = scandir($folder);
-        $file_list = array_diff($loc_list, $exclude);
+        $file_list = array_diff($file_list, $exclude);
         return $file_list;
     }
 
