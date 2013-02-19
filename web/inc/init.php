@@ -7,6 +7,9 @@ $ini_array = parse_ini_file(__DIR__ . '/config.ini');
 // Load all constants for the application
 require_once __DIR__ . '/constants.php';
 
+// Load all global variables for the application
+require_once __DIR__ . '/variables.php';
+
 // We may want to start speed and memory calculations here as well
 if (DEBUG) {
     error_reporting(E_ALL);

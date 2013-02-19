@@ -9,10 +9,9 @@ require_once WEBROOT . 'inc/l10n-init.php';
 // let's add en-US to check their errors too
 $allLocales[] = 'en-US';
 
-$repos = array('central', 'aurora', 'beta', 'release');
 $repo  = 'central';
 
-if (isset($_GET['channel']) && in_array($_GET['channel'], $repos)) {
+if (isset($_GET['channel']) && in_array($_GET['channel'], $desktop_repos)) {
     $repo = $_GET['channel'];
 }
 
@@ -23,7 +22,7 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 $strings[$repo]        = Utils::getRepoStrings($locale, $repo);
 $stringsEnglish[$repo] = Utils::getRepoStrings('en-US', $repo);
 
-$channel_selector = Utils::getHtmlSelectOptions($repos, $repo);
+$channel_selector = Utils::getHtmlSelectOptions($desktop_repos, $repo);
 
 // Get the locale list
 $loc_list = scandir(TMX . $repo . '/');

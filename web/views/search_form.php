@@ -22,7 +22,7 @@ sort($loc_list);
 $source_locales_list = Utils::getHtmlSelectOptions($loc_list, $sourceLocale);
 
 // build the repository switcher
-$repo_list = Utils::getHtmlSelectOptions(array('central', 'aurora', 'beta', 'release', 'gaia'), $check['repo']);
+$repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 
 // Build the search type switcher
 $search_type_list = Utils::getHtmlSelectOptions(

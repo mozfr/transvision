@@ -5,15 +5,14 @@ namespace Transvision;
 $title = '<a href="/" id="transvision-title">Transvision glossary</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 require_once WEBROOT .'inc/l10n-init.php';
 
-$repos = array('central', 'aurora', 'beta', 'release');
 $chan1 = 'aurora';
 $chan2 = 'beta';
 
-if (isset($_GET['chan1']) && in_array($_GET['chan1'], $repos)) {
+if (isset($_GET['chan1']) && in_array($_GET['chan1'], $desktop_repos)) {
     $chan1 = $_GET['chan1'];
 }
 
-if (isset($_GET['chan2']) && in_array($_GET['chan2'], $repos)) {
+if (isset($_GET['chan2']) && in_array($_GET['chan2'], $desktop_repos)) {
     $chan2 = $_GET['chan2'];
 }
 
@@ -21,7 +20,7 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
 }
 
-foreach ($repos as $repo) {
+foreach ($desktop_repos as $repo) {
 
     if (!isset($strings)) {
         $strings = array();
@@ -32,7 +31,7 @@ foreach ($repos as $repo) {
 
 $chanSelector1 = $chanSelector2 = '';
 
-foreach ($repos as $repo) {
+foreach ($desktop_repos as $repo) {
     $ch1 = ($repo == $chan1) ? ' selected' : '';
     $ch2 = ($repo == $chan2) ? ' selected' : '';
     $chanSelector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" . $repo . "</option>\n";
