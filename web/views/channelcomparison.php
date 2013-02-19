@@ -40,11 +40,6 @@ foreach ($desktop_repos as $repo) {
 
 // Get the locale list
 $loc_list = Utils::getFilenamesInFolder(TMX . $repo . '/');
-$spanish  = array_search('es', $loc_list);
-
-if ($spanish) {
-    $loc_list[$spanish] = 'es-ES';
-}
 
 // build the target locale switcher
 $target_locales_list = '';

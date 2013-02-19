@@ -6,8 +6,9 @@ $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . 
 
 // Get the locale list
 $loc_list = Utils::getFilenamesInFolder(TMX . $check['repo']. '/');
-$spanish  = array_search('es', $loc_list);
 
+// Gaia hack
+$spanish  = array_search('es', $loc_list);
 if ($spanish) {
     $loc_list[$spanish] = 'es-ES';
 }

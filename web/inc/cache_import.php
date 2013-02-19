@@ -10,15 +10,14 @@ if ($check['repo'] != 'gaia') {
     include TMX . "{$check['repo']}/{$locale}/cache_{$locale}.php"; // localised
 }
 
-// Gaia strings
-$gaia_locale = $locale;
-
+// Add Gaia strings to Desktop strings
 // We have only one spanish for Gaia
-if (in_array($locale, array('es-AR', 'es-CL', 'es-ES', 'es-MX'))) {
-    $gaia_locale = 'es';
+if (in_array($locale, $spanishes)) {
+    $file = TMX . 'gaia/es/cache_es.php';
+} else {
+    $file = TMX . 'gaia/' . $locale . '/cache_' . $locale . '.php';
 }
 
-$file = TMX . 'gaia/' . $gaia_locale . '/cache_' . $gaia_locale . '.php';
 if (file_exists($file)) {
     include $file;
 }
@@ -39,7 +38,7 @@ if ($check['repo'] != 'gaia') {
 
 // We have only one spanish for Gaia
 if ($check['repo'] == 'gaia'
-    && in_array($sourceLocale, array('es-AR', 'es-CL', 'es-ES', 'es-MX'))) {
+    && in_array($sourceLocale, $spanishes)) {
     $sourceLocale = 'es';
 }
 
