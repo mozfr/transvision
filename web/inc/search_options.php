@@ -38,8 +38,6 @@ if (isset($_GET['search_type'])
     $check['search_type'] = $_GET['search_type'];
 }
 
-
-
 $dirs = array_filter(glob(TMX . $check['repo'] . '/*'), 'is_dir');
 
 foreach ($dirs as $dir) {
@@ -55,8 +53,8 @@ if ($check['wild']) {
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
-    $recherche = '^' . $recherche . '$';
+    $recherche = trim('^' . $recherche . '$');
+} else {
+    $recherche = preg_quote($recherche, '/');
 }
 
-$recherche = preg_quote($recherche, '/');
-$recherche = trim($recherche);
