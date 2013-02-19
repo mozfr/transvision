@@ -551,4 +551,20 @@ class Utils
         }
         return $html;
     }
+
+    /*
+     * Return the list of files in a folder as an array
+     *
+     * @param  string  $folder the directory we want to access
+     * @param  array   $exclude files to exclude from results, by default . and ..
+     * @return array
+     */
+    public static function getFilenamesInFolder($folder, $exclude = array('.', '..'))
+    {
+        // Get the locale list
+        $file_list = scandir($folder);
+        $file_list = array_diff($loc_list, $exclude);
+        return $file_list;
+    }
+
 }

@@ -39,8 +39,7 @@ foreach ($desktop_repos as $repo) {
 }
 
 // Get the locale list
-$loc_list = scandir(TMX . $repo . '/');
-$loc_list = array_diff($loc_list, array('.', '..'));
+$loc_list = Utils::getFilenamesInFolder(TMX . $repo . '/');
 $spanish  = array_search('es', $loc_list);
 
 if ($spanish) {

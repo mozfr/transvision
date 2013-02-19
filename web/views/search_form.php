@@ -5,8 +5,7 @@ namespace Transvision;
 $title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
 // Get the locale list
-$loc_list = scandir(TMX . $check['repo'] . '/');
-$loc_list = array_diff($loc_list, array('.', '..'));
+$loc_list = Utils::getFilenamesInFolder(TMX . $check['repo']. '/');
 $spanish  = array_search('es', $loc_list);
 
 if ($spanish) {
