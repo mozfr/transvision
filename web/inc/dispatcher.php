@@ -6,7 +6,6 @@ $extra    = null;
 
 switch ($url['path']) {
     case '/':
-    case 'changelog.php':
         // Bootstrap l10n
         require_once INC . 'l10n-init.php';
 
@@ -27,6 +26,7 @@ switch ($url['path']) {
         }
         break;
     case 'news':
+    case 'changelog.php':
         $view = 'changelog.php';
         break;
     case 'stats':
