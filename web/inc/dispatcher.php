@@ -18,39 +18,38 @@ switch ($url['path']) {
         // Search process
         require_once INC . 'recherche.php';
 
-        $view  = 'search_form.php';
+        $view  = 'search_form';
 
         if (WEBSERVICE) {
-            $view = 'webservice.php';
+            $view = 'webservice';
             $template = false;
         }
         break;
     case 'news':
-    case 'changelog.php':
-        $view = 'changelog.php';
+        $view = 'changelog';
         break;
     case 'stats':
-        $view = 'stats.php';
+        $view = 'stats';
         break;
     case 'repocomparison':
-    case 'repocomparizon':
-        $view = 'repocomparison.php';
+        $view = 'repocomparison';
         break;
     case 'channelcomparison':
-    case 'channelcomparizon':
-        $view  = 'channelcomparison.php';
+        $view  = 'channelcomparison';
         $extra = '<h2 class="alert">experimental View</h2>';
         break;
     case 'accesskeys':
-        $view  = 'accesskeys.php';
+        $view  = 'accesskeys';
         break;
     case 'credits':
-        $view  = 'credits.php';
+        $view  = 'credits';
         break;
     default:
-        $view  = 'search.php';
+        $view  = 'search';
         break;
 }
+
+$view =  $view . '.php';
 
 if ($template) {
     ob_start();
