@@ -118,7 +118,12 @@ $search_type_list = Utils::getHtmlSelectOptions(
 
  <script>
 function uncheckAll() {
-    var arr = ['case_sensitive', 'wild', 'ent', 'whole_word', 'perfect_match', 'strings_entities'];
+    var arr = [<?
+        foreach ($form_checkboxes as $v) {
+            $end  = (next($form_checkboxes) == true) ? ', ' : '';
+            echo "'" . $v . "'" . $end;
+        }
+    ?>];
     for (var i = 0; i < arr.length; i++) {
         el = document.getElementById(arr[i]);
         if (el.disabled) {
@@ -151,7 +156,7 @@ if ($initial_search != '') {
     foreach ($check as $k => $v) {
         if (in_array(
             $k,
-            array('case_sensitive', 'wild', 'search_type', 'whole_word', 'perfect_match', 't2t')
+            $form_checkboxes
         )
             && $check[$k] == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
