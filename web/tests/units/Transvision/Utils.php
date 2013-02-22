@@ -7,13 +7,13 @@ use atoum;
 
 class Utils extends atoum\test
 {
-    public function dataProviderUniqueWords()
+    public function uniqueWordsDataProvider()
     {
         return array('Le système le style du couteau du suisse');
     }
 
     /**
-     * @dataProvider dataProviderUniqueWords
+     * @dataProvider uniqueWordsDataProvider
      */
     public function testUniqueWords($a)
     {
@@ -30,28 +30,26 @@ class Utils extends atoum\test
                         'Le',
                         'du'
                     )
-                )
-        ;
+                );
     }
 
-    public function dataProvider_mtrim()
+    public function mtrimDataProvider()
     {
         return array('Le cheval  blanc ');
     }
 
     /**
-     * @dataProvider dataProvider_mtrim
+     * @dataProvider mtrimDataProvider
      */
-    public function test_mtrim($a)
+    public function testMtrim($a)
     {
         $obj = new \Transvision\Utils();
         $this
             ->string($obj->mtrim($a))
-                ->isEqualTo('Le cheval blanc')
-        ;
+                ->isEqualTo('Le cheval blanc');
     }
 
-    public function dataProvider1_checkBoxState()
+    public function checkBoxStateDataProvider1()
     {
         $_GET['t2t'] = "somedata";
         return array(
@@ -60,7 +58,7 @@ class Utils extends atoum\test
     }
 
     /**
-     * @dataProvider dataProvider1_checkBoxState
+     * @dataProvider checkBoxStateDataProvider1
      */
 
     public function testCheckboxState1($a, $b)
@@ -68,11 +66,10 @@ class Utils extends atoum\test
         $obj = new \Transvision\Utils();
         $this
             ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' disabled="disabled"')
-        ;
+                ->isEqualTo(' disabled="disabled"');
     }
 
-    public function dataProvider2_checkBoxState()
+    public function checkBoxStateDataProvider2()
     {
         $_GET['t2t'] = "somedata";
         return array(
@@ -81,7 +78,7 @@ class Utils extends atoum\test
     }
 
     /**
-     * @dataProvider dataProvider2_checkBoxState
+     * @dataProvider checkBoxStateDataProvider2
      */
 
     public function testCheckboxState2($a, $b)
@@ -89,11 +86,10 @@ class Utils extends atoum\test
         $obj = new \Transvision\Utils();
         $this
             ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' checked="checked"')
-        ;
+                ->isEqualTo(' checked="checked"');
     }
 
-    public function dataProvider3_checkBoxState()
+    public function checkBoxStateDataProvider3()
     {
         return array(
             array('some string', null)
@@ -101,7 +97,7 @@ class Utils extends atoum\test
     }
 
     /**
-     * @dataProvider dataProvider3_checkBoxState
+     * @dataProvider checkBoxStateDataProvider3
      */
 
     public function testCheckboxState3($a, $b)
@@ -109,11 +105,10 @@ class Utils extends atoum\test
         $obj = new \Transvision\Utils();
         $this
             ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' checked="checked"')
-        ;
+                ->isEqualTo(' checked="checked"');
     }
 
-    public function dataProvider_formatEntity()
+    public function formatEntityDataProvider()
     {
         return array(
             array('browser/chrome/browser/browser.dtd:historyHomeCmd.label', false)
@@ -121,7 +116,7 @@ class Utils extends atoum\test
     }
 
     /**
-     * @dataProvider dataProvider_formatEntity
+     * @dataProvider formatEntityDataProvider
      */
     public function testFormatEntity($a, $b)
     {
@@ -133,7 +128,7 @@ class Utils extends atoum\test
     }
 
 
-    public function dataProvider_getHtmlSelectOptions()
+    public function getHtmlSelectOptionsDataProvider()
     {
         return array(
             array(
@@ -145,7 +140,7 @@ class Utils extends atoum\test
     }
 
     /**
-     * @dataProvider dataProvider_getHtmlSelectOptions
+     * @dataProvider getHtmlSelectOptionsDataProvider
      */
     public function testGetHtmlSelectOptions($a, $b, $c)
     {

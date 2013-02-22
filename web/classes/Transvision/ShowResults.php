@@ -58,8 +58,113 @@ class ShowResults
         return $string;
     }
 
-    public function foo()
+    /*
+     * Search results in a table
+     */
+
+    public static function  resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
     {
-        return 'bar';
+        $direction1 = RTLSupport::getDirection($locale1);
+        $direction2 = RTLSupport::getDirection($locale2);
+
+        $table  = "<table>
+                      <tr>
+                        <th>Entity</th>
+                        <th>${locale1}</th>
+                        <th>${locale2}</th>
+                      </tr>";
+
+        if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
+            $recherche = Utils::uniqueWords($recherche);
+        } else {
+            $recherche = array($recherche);
+        }
+
+        foreach ($search_results as $key => $strings) {
+
+            $source_string = $strings[0];
+            $target_string = $strings[1];
+            foreach ($recherche as $val) {
+                $source_string = Utils::markString($val, $source_string);
+                $target_string = Utils::markString($val, $target_string);
+            }
+
+            $source_string = Utils::highlightString($source_string);
+            $target_string = Utils::highlightString($target_string);
+
+            // nbsp highlight
+            $target_string = str_replace(
+                ' ',
+                '<span class="highlight-gray" title="Non breakable space"> </span>',
+                $target_string
+            );
+            // thin space highlight
+            $target_string = str_replace(
+                ' ',
+                '<span class="highlight-red" title="Thin space"> </span>',
+                $target_string
+            );
+
+            // right ellipsis highlight
+            $target_string = str_replace(
+                '…',
+                '<span class="highlight-gray">…</span>',
+                $target_string
+            );
+
+            // right ellipsis highlight
+            $target_string = str_replace(
+                '&hellip;',
+                '<span class="highlight-gray">…</span>',
+                $target_string
+            );
+
+            $temp = explode('-', $locale1);
+            $short_locale1 = $temp[0];
+
+            $temp = explode('-', $locale2);
+            $short_locale2 = $temp[0];
+
+            $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
+            $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
+
+            if (substr(strip_tags($source_string), -1) == '.'
+                && substr(strip_tags($target_string), -1) != '.') {
+                $missing_dot = '<em class="error">No final dot?</em>';
+            } else {
+                $missing_dot = '';
+            }
+
+            if (!$source_string) {
+                $source_string = '<em class="error">warning: missing string</em>';
+                $missing_dot = '';
+            }
+            if (!$target_string) {
+                $target_string = '<em class="error">warning: missing string</em>';
+                $missing_dot = '';
+            }
+
+            $table .= "
+                <tr>
+                  <td>" . Utils::formatEntity($key, $recherche[0]) . "</td>
+
+                  <td dir='${direction1}'>
+                    <div class='string'>
+                      <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
+                . urlencode(strip_tags($source_string))
+                . "'>${source_string}</a>
+                     </div>
+                     <div dir='ltr' class='infos'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+                   </td>
+
+                   <td dir='${direction2}'>
+                      <div class='string'>${target_string} </div>
+                      <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
+                   </td>
+                </tr>";
+        }
+
+        $table .= "  </table>";
+        return $table;
     }
 }

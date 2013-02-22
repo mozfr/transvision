@@ -16,9 +16,9 @@ $results = new ShowResults();
 $search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
 
 echo '<h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $sourceLocale . ' in:</h2>';
-echo Utils::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
+echo ShowResults::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
 
 $search_results = Utils::results(array_keys($locale2_strings), $tmx_source, $tmx_target);
 
 echo '<h2><span class="searchedTerm">' . $initial_search . '</span> is in ' . $locale . ' in:</h2>';
-echo Utils::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
+echo ShowResults::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
