@@ -474,9 +474,10 @@ class Utils
     /*
      * Return an array of strings from our repos
      */
-    public static function getRepoStrings($locale, $check, $spanishes)
+    public static function getRepoStrings($locale, $check)
     {
         $tmx = array();
+        global $spanishes;
 
         if ($check['repo'] != 'gaia') {
 
