@@ -29,7 +29,7 @@ class Utils
      * @return boolean
      */
 
-    public static function  valid($var)
+    public static function valid($var)
     {
         if (isset($var) && $var != false) {
             return true;
@@ -46,7 +46,7 @@ class Utils
      * @return string or array, depending on the input
      */
 
-    public static function  secureText($var, $tablo = true)
+    public static function secureText($var, $tablo = true)
     {
         if (!is_array($var)) {
             $var   = array($var);
@@ -76,7 +76,7 @@ class Utils
      *  helper function to set checkboxes value
      */
 
-    public static function  checkboxState($str, $extra = '')
+    public static function checkboxState($str, $extra = '')
     {
         if (isset($_GET['t2t']) && $extra != 't2t') {
             return ' disabled="disabled"';
@@ -94,7 +94,7 @@ class Utils
      * 'entity' => ['locale 1', 'locale 2']
      */
 
-    public static function  results($entities, $locale1_strings, $locale2_strings)
+    public static function results($entities, $locale1_strings, $locale2_strings)
     {
 
         $search_results = array();
@@ -107,7 +107,7 @@ class Utils
         return $search_results;
     }
 
-    public static function  markString($needle, $haystack)
+    public static function markString($needle, $haystack)
     {
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
@@ -116,25 +116,26 @@ class Utils
         return $str;
     }
 
-    public static function  highlightString($str)
+    public static function highlightString($str)
     {
         $str = preg_replace(
             '/←←←(.*)→→→/isU',
             "<span class='highlight'>$1</span>",
             $str
-            );
+        );
 
         $str = preg_replace(
             '/←←(.*)→→/isU',
             "<span class='highlight'>$1</span>",
             $str
-            );
+        );
 
         $str = preg_replace(
             '/←(.*)→/isU',
             "<span class='highlight'>$1</span>",
             $str
-            );
+        );
+
         // remove last ones
         $str = str_replace(array('←', '→'), '', $str);
         return $str;
@@ -271,14 +272,6 @@ class Utils
             echo '</tr>';
         }
         echo '</table>';
-    }
-
-
-    public static function getRepoStrings($locale, $repo)
-    {
-        $tmx = array();
-        include TMX . $repo . '/' . $locale . '/cache_' . $locale . '.php';
-        return $tmx;
     }
 
     /*
@@ -476,5 +469,38 @@ class Utils
         header("access-control-allow-origin: *");
         header("Content-type: {$mime}; charset=UTF-8");
         return $json;
+    }
+
+    /*
+     * Return an array of strings from our repos
+     */
+    public static function getRepoStrings($locale, $check, $spanishes)
+    {
+        $tmx = array();
+
+        if ($check['repo'] != 'gaia') {
+
+            if ($locale == 'en-US') {
+                // English
+                include TMX . "{$check['repo']}/{$locale}/cache_en-US.php";
+            } else {
+                // Localised, for a locale to locale comparison
+                include TMX . "{$check['repo']}/${locale}/cache_${locale}.php";
+            }
+        }
+
+        // We have only one Spanish for Gaia
+        if ($check['repo'] == 'gaia'
+            && in_array($locale, $spanishes)) {
+            $locale = 'es';
+        }
+
+        $file = TMX . 'gaia/' . $locale . '/cache_' . $locale . '.php';
+
+        if (file_exists($file)) {
+            include $file;
+        }
+
+        return $tmx;
     }
 }

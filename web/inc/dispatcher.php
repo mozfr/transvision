@@ -12,10 +12,7 @@ switch ($url['path']) {
         // Include Search Options
         require_once INC . 'search_options.php';
 
-        // Import all strings for source and target locales
-        require_once INC . 'cache_import.php';
-
-        // Search process
+        // Import all strings for source and target locales + search process
         require_once INC . 'recherche.php';
 
         $view  = 'search_form';

@@ -1,6 +1,12 @@
 <?php
 namespace Transvision;
 
+// Include all strings
+$tmx_source = Utils::getRepoStrings($sourceLocale, $check, $spanishes);
+$tmx_target = Utils::getRepoStrings($locale, $check, $spanishes);
+
+
+
 // Regex options
 $whole_word     = ($check['whole_word']) ? '\b' : '';
 $case_sensitive = ($check['case_sensitive']) ? '' : 'i';
