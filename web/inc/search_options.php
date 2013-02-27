@@ -2,17 +2,10 @@
 namespace Transvision;
 
 // Default search value
-$recherche = '';
-
-// $recherche is the string to find
-if (isset($_GET['recherche'])) {
-    $recherche = stripslashes(Utils::secureText($_GET['recherche']));
-    // Filter out double spaces
-    $recherche = Utils::mtrim($recherche);
-}
+$my_search = Utils::cleanSearch($_GET['recherche']);
 
 // Cloned value for reference
-$initial_search = $recherche;
+$initial_search = $my_search;
 
 // Checkboxes states
 $check = array();
@@ -45,13 +38,13 @@ foreach ($dirs as $dir) {
 
 // Deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {
-    $recherche = str_replace('*', '.+', $recherche);
+    $my_search = str_replace('*', '.+', $my_search);
 }
 
 // Search for perfectMatch
 if ($check['perfect_match']) {
-    $recherche = trim('^' . $recherche . '$');
+    $my_search = trim('^' . $my_search . '$');
 } else {
-    $recherche = preg_quote($recherche, '/');
+    $my_search = preg_quote($my_search, '/');
 }
 

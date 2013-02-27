@@ -172,7 +172,7 @@ if ($check['t2t']) {
     require_once VIEWS . 't2t.php';
 } else {
     // result presentation
-    if ($recherche != '') {
+    if ($my_search != '') {
         if ($check['search_type'] == 'entities') {
             require_once VIEWS . 'results_ent.php';
         } else {

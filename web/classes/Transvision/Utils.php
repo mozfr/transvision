@@ -513,4 +513,19 @@ class Utils
 
         return $tmx;
     }
+
+    /*
+     * cleanSearch
+     * @param $str string to search
+     * @return $str cleaned up string for security and noise
+     */
+    public static function cleanSearch($str)
+    {
+        $str = is_string($str) ? $str : '';
+        $str = Utils::secureText($str);
+        $str = stripslashes($str);
+        // Filter out double spaces
+        $str = Utils::mtrim($str);
+        return $str;
+    }
 }

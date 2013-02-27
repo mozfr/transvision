@@ -9,7 +9,7 @@ $tmx_target = Utils::getRepoStrings($locale, $check);
 $whole_word     = ($check['whole_word']) ? '\b' : '';
 $case_sensitive = ($check['case_sensitive']) ? '' : 'i';
 
-$regex = '/' . $whole_word . $recherche . $whole_word . '/' . $case_sensitive;
+$regex = '/' . $whole_word . $my_search . $whole_word . '/' . $case_sensitive;
 $entities = preg_grep($regex, array_keys($tmx_source));
 
 if ($check['perfect_match']) {
@@ -26,17 +26,11 @@ if ($check['perfect_match']) {
     }
 }
 
-$results_limit = 200;
-if (count($locale1_strings) > $results_limit ) {
-    array_splice($locale1_strings, $results_limit);
-}
+// Limit results to 200 per locale
+array_splice($locale1_strings, 200);
+array_splice($locale2_strings, 200);
 
-if (count($locale2_strings) > $results_limit ) {
-    array_splice($locale2_strings, $results_limit);
-}
-unset($results_limit);
-
-if ( $check['search_type'] == 'strings_entities') {
+if ($check['search_type'] == 'strings_entities') {
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
     }
