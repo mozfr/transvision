@@ -3,7 +3,6 @@ namespace Transvision;
 
 class ShowResults
 {
-
     /*
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
@@ -26,7 +25,6 @@ class ShowResults
      * make an entity look nice in tables
      *
      */
-
     public static function formatEntity($entity)
     {
         // let's analyse the entity for the search string
@@ -43,7 +41,6 @@ class ShowResults
      * format string for French cases
      *
      */
-
     public static function highlight($string, $locale = 'fr')
     {
         switch($locale) {
@@ -61,8 +58,7 @@ class ShowResults
     /*
      * Search results in a table
      */
-
-    public static function  resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
+    public static function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
     {
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);

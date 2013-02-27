@@ -148,12 +148,12 @@ class Utils
      *
      */
 
-    public static function formatEntity($entity, $highlight=false)
+    public static function formatEntity($entity, $highlight = false)
     {
         // let's analyse the entity for the search string
         $chunk  = explode(':', $entity);
 
-        if($highlight) {
+        if ($highlight) {
             $entity = array_pop($chunk);
             $highlight = preg_quote($highlight, '/');
             $entity = preg_replace("/($highlight)/i", '<span class="highlight">$1</span>', $entity);
@@ -177,14 +177,14 @@ class Utils
 
     public static function getmicrotime()
     {
-        list($usec, $sec) = explode (' ', microtime());
+        list($usec, $sec) = explode(' ', microtime());
         return ((float) $usec + (float) $sec);
     }
 
     /**
      * nicer var_dump()
      */
-    public static function  dump($var)
+    public static function dump($var)
     {
         ob_start();
         print_r($var);
@@ -246,8 +246,11 @@ class Utils
     }
 
 
-    public static function printSimpleTable($arr, $arr2 = false, $titles=array('Column1', 'Column2', 'Column3', 'Column4') )
-    {
+    public static function printSimpleTable(
+        $arr,
+        $arr2 = false,
+        $titles = array('Column1', 'Column2', 'Column3', 'Column4')
+    ) {
         echo "<table>
               <tr>
               <th>{$titles[0]}</th><th>{$titles[1]}</th>";
@@ -359,9 +362,10 @@ class Utils
 
         } else {
 
-            if (in_array($base_folder,
-                array('calendar', 'chat', 'editor', 'ldap',
-                        'mail', 'mailnews', 'suite'))) {
+            if (in_array(
+                $base_folder,
+                array('calendar', 'chat', 'editor', 'ldap', 'mail', 'mailnews', 'suite')
+            )) {
                 $repo_base = 'comm';
             } else {
                 $repo_base = 'mozilla';
@@ -403,14 +407,18 @@ class Utils
      * @param string $sentence
      * @return array
      */
-    public static function uniqueWords($sentence) {
+    public static function uniqueWords($sentence)
+    {
         $words = explode(' ', $sentence);
         $words = array_filter($words); // filter out extra spaces
         $words = array_unique($words); // remove duplicate words
         // sort words from longest to shortest
-        usort($words, function($a, $b) {
+        usort(
+            $words,
+            function ($a, $b) {
                 return strlen($b) - strlen($a);
-         });
+            }
+        );
         return $words;
     }
 
@@ -424,7 +432,7 @@ class Utils
      *                      with the array value as the text inside the <option> tag
      * @return string
      */
-    public static function getHtmlSelectOptions($options, $selected, $nicelabels=false)
+    public static function getHtmlSelectOptions($options, $selected, $nicelabels = false)
     {
         $html = '';
         foreach ($options as $key => $option) {
@@ -457,7 +465,8 @@ class Utils
      * @param  string jsonp function name, default to false
      * @return json feed
      */
-    public static function jsonOutput(array $data, $jsonp = false) {
+    public static function jsonOutput(array $data, $jsonp = false)
+    {
         $json = json_encode($data);
         $mime = 'application/json';
 

@@ -19,7 +19,7 @@ if ($check['perfect_match']) {
     $search = Utils::uniqueWords($initial_search);
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
-    foreach ($search as $word ) {
+    foreach ($search as $word) {
         $regex = '/' . $whole_word . preg_quote($word, '/') . $whole_word . '/' . $case_sensitive;
         $locale1_strings = preg_grep($regex, $locale1_strings);
         $locale2_strings = preg_grep($regex, $locale2_strings);

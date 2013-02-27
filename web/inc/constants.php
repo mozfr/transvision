@@ -3,7 +3,7 @@
 // Constants for the project
 define('DATAROOT', $ini_array['root']);
 define('HG', $ini_array['local_hg'] . '/');
-define('TMX', DATAROOT .'/TMX/');
+define('TMX', DATAROOT . '/TMX/');
 define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT', INSTALLROOT . 'web/');
 define('INC', INSTALLROOT . 'web/inc/');
