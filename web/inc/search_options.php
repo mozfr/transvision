@@ -48,4 +48,3 @@ if ($check['perfect_match']) {
 } else {
     $my_search = preg_quote($my_search, '/');
 }
-

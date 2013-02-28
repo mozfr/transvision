@@ -154,15 +154,14 @@ if ($initial_search != '') {
     // create a json file logging search options to determine if some are unused
     $stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
     foreach ($check as $k => $v) {
-        if (in_array(
-            $k,
-            $form_checkboxes
-        )
-            && $check[$k] == 1) {
+        if (in_array($k, $form_checkboxes) && $v == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
-            file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats)
-            );
         }
+        if (in_array($k, array_diff($form_search_options, $form_checkboxes))) {
+            $stats[$v] = (array_key_exists($v, $stats)) ? $stats[$v] += 1 : 1;
+        }
+
+        file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats));
     }
     unset($stats);
 }
