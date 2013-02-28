@@ -1,20 +1,5 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v2.2">Version 2.2 - 2013-??-??</h2>
-
-<h3>End user visible changes</h3>
-<ul>
-    <li></li>
-    <li></li>
-</ul>
-
-<h3>Other changes</h3>
-<ul>
-    <li></li>
-    <li></li>
-</ul>
-
-
 <h2 id="v2.2">Version 2.2 - 2013-02-28</h2>
 
 <h3>End user visible changes</h3>
@@ -22,12 +7,12 @@
     <li>Selected search type value (strings, entities, strings and entities) is kept after a search.</li>
     <li>Searches with slashes in the middle of strings now work</li>
     <li>Fixed a bug in the cron job script that resulted in mozilla-central strings to not be extracted</li>
-    <li>Cron job is now ran twice a day instead of once, at 2AM CET and 2PM CET</li>
 </ul>
 
-<h3>Other <changes></changes></h3>
+<h3>Other changes</h3>
 <ul>
-    <li></li>
+    <li>Cron job is now ran twice a day instead of once, at 2AM CET and 2PM CET</li>
+    <li>Stats page now lists type of string searches and repos. All stats reset to zero.</li>
 </ul>
 
 <h2 id="v2.1">Version 2.1 - 2013-01-30</h2>
