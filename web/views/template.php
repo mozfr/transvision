@@ -2,7 +2,7 @@
 
 <html lang="fr" dir="ltr">
   <head>
-    <title>Transvision/glossaire</title>
+    <title>Transvision</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/style/glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />

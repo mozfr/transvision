@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // Page title
-$title = 'Transvision glossary <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
+$title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
 // Get the locale list
 $loc_list = Utils::getFilenamesInFolder(TMX . $check['repo']. '/');

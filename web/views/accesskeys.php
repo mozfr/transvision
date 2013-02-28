@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-$title = '<a href="/" id="transvision-title">Transvision glossary</a>
+$title = '<a href="/" id="transvision-title">Transvision</a>
           <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 
 require_once WEBROOT . 'inc/l10n-init.php';
