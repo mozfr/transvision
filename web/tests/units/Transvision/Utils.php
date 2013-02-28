@@ -151,4 +151,30 @@ class Utils extends atoum\test
                 ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>')
         ;
     }
+
+    public function cleanSearchDataProvider()
+    {
+        return array(
+            array(
+                'pages web   fréquemment visitées (en cliquant sur « Recharger »,',
+                'pages web fréquemment visitées (en cliquant sur « Recharger »,'
+                ),
+            array(
+                'toto ',
+                'toto'
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider cleanSearchDataProvider
+     */
+    public function testCleanSearch($a, $b)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->cleanSearch($a))
+                ->isEqualTo($b)
+        ;
+    }
 }
