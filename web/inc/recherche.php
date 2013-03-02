@@ -2,8 +2,8 @@
 namespace Transvision;
 
 // Include all strings
-$tmx_source = Utils::getRepoStrings($sourceLocale, $check);
-$tmx_target = Utils::getRepoStrings($locale, $check);
+$tmx_source = Utils::getRepoStrings($sourceLocale, $check['repo']);
+$tmx_target = Utils::getRepoStrings($locale, $check['repo']);
 
 // Regex options
 $whole_word     = ($check['whole_word']) ? '\b' : '';

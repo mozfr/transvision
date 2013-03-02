@@ -487,24 +487,24 @@ class Utils
     /*
      * Return an array of strings from our repos
      */
-    public static function getRepoStrings($locale, $check)
+    public static function getRepoStrings($locale, $repository)
     {
         $tmx = array();
         global $spanishes;
 
-        if ($check['repo'] != 'gaia') {
+        if ($repository != 'gaia') {
 
             if ($locale == 'en-US') {
                 // English
-                include TMX . "{$check['repo']}/{$locale}/cache_en-US.php";
+                include TMX . "{$repository}/{$locale}/cache_en-US.php";
             } else {
                 // Localised, for a locale to locale comparison
-                include TMX . "{$check['repo']}/${locale}/cache_${locale}.php";
+                include TMX . "{$repository}/${locale}/cache_${locale}.php";
             }
         }
 
         // We have only one Spanish for Gaia
-        if ($check['repo'] == 'gaia'
+        if ($repository == 'gaia'
             && in_array($locale, $spanishes)) {
             $locale = 'es';
         }

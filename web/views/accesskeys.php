@@ -9,7 +9,7 @@ require_once WEBROOT . 'inc/l10n-init.php';
 // let's add en-US to check their errors too
 $allLocales[] = 'en-US';
 
-$repo  = 'central';
+$repo = 'central';
 
 if (isset($_GET['channel']) && in_array($_GET['channel'], $desktop_repos)) {
     $repo = $_GET['channel'];
