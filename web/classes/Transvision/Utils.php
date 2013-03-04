@@ -110,7 +110,6 @@ class Utils
     public static function markString($needle, $haystack)
     {
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
-        $str = str_replace($needle, '←' . $needle . '→', $haystack);
         $str = str_replace(ucwords($needle), '←' . ucwords($needle) . '→', $str);
         $str = str_replace(strtolower($needle), '←' . strtolower($needle) . '→', $str);
         return $str;
