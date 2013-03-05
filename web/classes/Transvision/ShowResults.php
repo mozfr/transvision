@@ -78,8 +78,8 @@ class ShowResults
 
         foreach ($search_results as $key => $strings) {
 
-            $source_string = $strings[0];
-            $target_string = $strings[1];
+            $source_string = trim($strings[0]);
+            $target_string = trim($strings[1]);
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
