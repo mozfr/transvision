@@ -88,6 +88,8 @@ class ShowResults
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
+            $lenght_diference = Utils::compareStringLength($source_string, $target_string);
+
             // nbsp highlight
             $target_string = str_replace(
                 ' ',
@@ -154,7 +156,7 @@ class ShowResults
                    </td>
 
                    <td dir='${direction2}'>
-                      <div class='string'>${target_string} </div>
+                      <div class='string'>${target_string} - ${lenght_diference}</div>
                       <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
                    </td>
                 </tr>";

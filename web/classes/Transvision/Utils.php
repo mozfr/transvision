@@ -531,4 +531,21 @@ class Utils
         $str = Utils::mtrim($str);
         return $str;
     }
+
+    /*
+     * Compare original and translated strings to check anormal length
+     *
+     * @param $origin en-US string
+     * @param $translated locale string
+     * @return $diference
+     */
+    public static function compareStringLength($origin, $translated)
+    {
+        $origin_length = strlen(strip_tags($origin));
+        $translated_length = strlen(strip_tags($translated));
+        $diference = ( $translated_length / $origin_length ) * 100;
+        $diference = round($diference);
+        $diference = $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+        return $diference;
+    }
 }
