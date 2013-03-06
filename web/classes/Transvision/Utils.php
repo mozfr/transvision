@@ -537,15 +537,33 @@ class Utils
      *
      * @param $origin en-US string
      * @param $translated locale string
-     * @return $diference
+     * @return $anormalLength true or false
      */
-    public static function compareStringLength($origin, $translated)
+    public static function checkAnormalStringLength($origin, $translated)
     {
         $origin_length = strlen(strip_tags($origin));
         $translated_length = strlen(strip_tags($translated));
-        $diference = ( $translated_length / $origin_length ) * 100;
-        $diference = round($diference);
-        $diference = $origin_length . ' - ' . $translated_length . ' - ' . $diference;
-        return $diference;
+
+        if ($origin_length != 0 && $translated_length != 0) {
+            $diference = ( $translated_length / $origin_length ) * 100;
+            $diference = round($diference);
+
+            if ($origin_length > 100 && $diference > 150) { //origen+100 traduccion muy larga
+                $anormalLength =  'A true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            } elseif ($origin_length > 100 && $diference < 50) { //origen+100 traduccion muy corta
+                $anormalLength =  'B true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            } elseif ($origin_length < 100 && $diference > 200) { //origen-100 traduccion muy larga
+                $anormalLength =  'C true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            } elseif ($origin_length < 100 && $diference < 25) { //origen-100 traduccion muy corta
+                $anormalLength =  'D true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            } else {
+                $anormalLength =  'false' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            }
+        } else {
+            $anormalLength =  'false - 0';
+        }
+        
+        
+        return $anormalLength;
     }
 }

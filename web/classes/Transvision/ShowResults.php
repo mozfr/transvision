@@ -88,8 +88,6 @@ class ShowResults
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
-            $lenght_diference = Utils::compareStringLength($source_string, $target_string);
-
             // nbsp highlight
             $target_string = str_replace(
                 ' ',
@@ -126,6 +124,7 @@ class ShowResults
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
 
+            // check for final dot
             if (substr(strip_tags($source_string), -1) == '.'
                 && substr(strip_tags($target_string), -1) != '.') {
                 $missing_dot = '<em class="error">No final dot?</em>';
@@ -133,6 +132,10 @@ class ShowResults
                 $missing_dot = '';
             }
 
+
+            $lenght_diference = Utils::checkAnormalStringLength($source_string, $target_string);
+
+            // Missing string error
             if (!$source_string) {
                 $source_string = '<em class="error">warning: missing string</em>';
                 $missing_dot = '';
