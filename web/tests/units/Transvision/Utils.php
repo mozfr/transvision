@@ -178,7 +178,7 @@ class Utils extends atoum\test
         ;
     }
 
-    public function checkAnormalStringLengthDataProvider()
+    public function checkAbnormalStringLengthDataProvider()
     {
         return array(
             array(
@@ -200,27 +200,44 @@ class Utils extends atoum\test
                 'pages web',
                 'pa',
                 'small'
-                ),
+                )
+        );
+    }
+    /**
+     * @dataProvider checkAbnormalStringLengthDataProvider
+     */
+    public function testCheckAbnormalStringLength($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->checkAbnormalStringLength($a,$b))
+                ->isEqualTo($c)
+        ;
+    }
+
+    public function checkAbnormalStringLengthDataProvider2()
+    {
+        return array(
             array(
                 'Add Bookmarks',
                 'Ajouter des marque-pages',
-                'false'
+                false
                 ),
             array(
                 'Add Bookmarks',
                 '',
-                'false'
+                false
             )
         );
     }
     /**
-     * @dataProvider checkAnormalStringLengthDataProvider
+     * @dataProvider checkAbnormalStringLengthDataProvider2
      */
-    public function testCheckAnormalStringLength($a, $b, $c)
+    public function testCheckAbnormalStringLength2($a, $b, $c)
     {
         $obj = new \Transvision\Utils();
         $this
-            ->string($obj->checkAnormalStringLength($a,$b))
+            ->boolean($obj->checkAbnormalStringLength($a,$b))
                 ->isEqualTo($c)
         ;
     }

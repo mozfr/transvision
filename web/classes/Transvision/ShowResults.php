@@ -133,14 +133,13 @@ class ShowResults
             }
 
             // check anormal string length
-            $lenght_diference = Utils::checkAnormalStringLength($source_string, $target_string);
-            if ($lenght_diference != "false") {
-                switch ($lenght_diference) 
-                {
-                    case "small":
+            $lenght_diference = Utils::checkAbnormalStringLength ($source_string, $target_string);
+            if ($lenght_diference) {
+                switch ($lenght_diference) {
+                    case 'small':
                         $error_msg = $error_msg . '<em class="error"> Small string?</em>';
                         break;
-                    case "large":
+                    case 'large':
                         $error_msg = $error_msg . '<em class="error"> Large String?</em>';
                         break;
                 }
