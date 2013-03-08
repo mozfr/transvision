@@ -531,4 +531,44 @@ class Utils
         $str = Utils::mtrim($str);
         return $str;
     }
+
+    /*
+     * Compare original and translated strings to check anormal length
+     *
+     * @param $origin en-US string
+     * @param $translated locale string
+     * @return $anormal_length
+     */
+    public static function checkAbnormalStringLength($origin, $translated)
+    {
+        $origin_length = strlen(strip_tags($origin));
+        $translated_length = strlen(strip_tags($translated));
+
+        if ($origin_length != 0 && $translated_length != 0) {
+            $difference = ( $translated_length / $origin_length ) * 100;
+            $difference = round($difference);
+
+            if ($origin_length > 100 && $difference > 150) {
+                //large translation for a large origin
+                $anormal_length =  'large';
+            } elseif ($origin_length > 100 && $difference < 50) {
+                //small translation for a large origin
+                $anormal_length =  'small';
+            } elseif ($origin_length < 100 && $difference > 200 && $translated_length > 100) {
+                //large translation for a small origin
+                $anormal_length =  'large';
+            } elseif ($origin_length < 100 && $difference < 25) {
+                //small translation for a small origin
+                $anormal_length =  'small';
+            } else {
+                //no problems detected
+                $anormal_length =  false;
+            }
+        } else {
+            //missing origin or translated string
+            $anormal_length =  false;
+        }
+        
+        return $anormal_length;
+    }
 }
