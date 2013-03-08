@@ -124,25 +124,36 @@ class ShowResults
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
 
+            $error_msg = '';
+
             // check for final dot
             if (substr(strip_tags($source_string), -1) == '.'
                 && substr(strip_tags($target_string), -1) != '.') {
-                $missing_dot = '<em class="error">No final dot?</em>';
-            } else {
-                $missing_dot = '';
+                $error_msg = '<em class="error"> No final dot?</em>';
             }
 
-
+            // check anormal string length
             $lenght_diference = Utils::checkAnormalStringLength($source_string, $target_string);
+            if ($lenght_diference != "false") {
+                switch ($lenght_diference) 
+                {
+                    case "small":
+                        $error_msg = $error_msg . '<em class="error"> Small string?</em>';
+                        break;
+                    case "large":
+                        $error_msg = $error_msg . '<em class="error"> Large String?</em>';
+                        break;
+                }
+            }
 
             // Missing string error
             if (!$source_string) {
                 $source_string = '<em class="error">warning: missing string</em>';
-                $missing_dot = '';
+                $error_msg = '';
             }
             if (!$target_string) {
                 $target_string = '<em class="error">warning: missing string</em>';
-                $missing_dot = '';
+                $error_msg = '';
             }
 
             $table .= "
@@ -159,8 +170,8 @@ class ShowResults
                    </td>
 
                    <td dir='${direction2}'>
-                      <div class='string'>${target_string} - ${lenght_diference}</div>
-                      <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${missing_dot}</div>
+                      <div class='string'>${target_string}</div>
+                      <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${error_msg}</div>
                    </td>
                 </tr>";
         }

@@ -162,7 +162,7 @@ class Utils extends atoum\test
             array(
                 'toto ',
                 'toto'
-            ),
+            )
         );
     }
 
@@ -175,6 +175,53 @@ class Utils extends atoum\test
         $this
             ->string($obj->cleanSearch($a))
                 ->isEqualTo($b)
+        ;
+    }
+
+    public function checkAnormalStringLengthDataProvider()
+    {
+        return array(
+            array(
+                'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
+                'Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème. Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème.',
+                'large'
+                ),
+            array(
+                'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
+                'Le système de marque-pages et',
+                'small'
+                ),
+            array(
+                'Le système de marque-pages et',
+                'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
+                'large'
+                ),
+            array(
+                'pages web',
+                'pa',
+                'small'
+                ),
+            array(
+                'Add Bookmarks',
+                'Ajouter des marque-pages',
+                'false'
+                ),
+            array(
+                'Add Bookmarks',
+                '',
+                'false'
+            )
+        );
+    }
+    /**
+     * @dataProvider checkAnormalStringLengthDataProvider
+     */
+    public function testCheckAnormalStringLength($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->checkAnormalStringLength($a,$b))
+                ->isEqualTo($c)
         ;
     }
 }

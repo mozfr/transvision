@@ -537,7 +537,7 @@ class Utils
      *
      * @param $origin en-US string
      * @param $translated locale string
-     * @return $anormalLength true or false
+     * @return $anormalLength
      */
     public static function checkAnormalStringLength($origin, $translated)
     {
@@ -548,21 +548,26 @@ class Utils
             $diference = ( $translated_length / $origin_length ) * 100;
             $diference = round($diference);
 
-            if ($origin_length > 100 && $diference > 150) { //origen+100 traduccion muy larga
-                $anormalLength =  'A true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
-            } elseif ($origin_length > 100 && $diference < 50) { //origen+100 traduccion muy corta
-                $anormalLength =  'B true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
-            } elseif ($origin_length < 100 && $diference > 200) { //origen-100 traduccion muy larga
-                $anormalLength =  'C true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
-            } elseif ($origin_length < 100 && $diference < 25) { //origen-100 traduccion muy corta
-                $anormalLength =  'D true' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+            if ($origin_length > 100 && $diference > 150) {
+                //large translation for a large origin
+                $anormalLength =  'large';
+            } elseif ($origin_length > 100 && $diference < 50) {
+                //small translation for a large origin
+                $anormalLength =  'small';
+            } elseif ($origin_length < 100 && $diference > 200 && $translated_length > 100) {
+                //large translation for a small origin
+                $anormalLength =  'large';
+            } elseif ($origin_length < 100 && $diference < 25) {
+                //small translation for a small origin
+                $anormalLength =  'small';
             } else {
-                $anormalLength =  'false' . $origin_length . ' - ' . $translated_length . ' - ' . $diference;
+                //no problems detected
+                $anormalLength =  'false';
             }
         } else {
-            $anormalLength =  'false - 0';
+            //missing origin or translated string
+            $anormalLength =  'false';
         }
-        
         
         return $anormalLength;
     }
