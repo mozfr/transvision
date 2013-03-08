@@ -132,10 +132,10 @@ class ShowResults
                 $error_msg = '<em class="error"> No final dot?</em>';
             }
 
-            // check anormal string length
-            $lenght_diference = Utils::checkAbnormalStringLength ($source_string, $target_string);
-            if ($lenght_diference) {
-                switch ($lenght_diference) {
+            // check abnormal string length
+            $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
+            if ($length_diff) {
+                switch ($length_diff) {
                     case 'small':
                         $error_msg = $error_msg . '<em class="error"> Small string?</em>';
                         break;
