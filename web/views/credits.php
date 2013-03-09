@@ -4,6 +4,13 @@
 
 <p>In 2012, FrenchMozilla localization activities were merged with the wider MozFR organization. As part of this process, Transvision maintenance and developments since 1.0 were transferred to MozFR and the application is currently maintained by Pascal Chevrel.</p>
 
+<p>Here is the list list of code contributors to Transvision:</p>
+<ul>
+    <li>Philippe Dessantes</li>
+    <li>Pascal Chevrel</li>
+    <li>Jésús Perez</li>
+</ul>
+
 <p>Many localizers and in particular localizers from the French team have participated in Transvision by giving feedback and making feature requests.</p>
 
 <p>Transvision was created thanks to the following Open Source Software:</p>
