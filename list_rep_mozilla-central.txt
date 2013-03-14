@@ -14,12 +14,6 @@
 ./mobile/android/branding/beta/locales/en-US
 ./mobile/android/base/locales/en-US
 ./mobile/android/locales/en-US
-./mobile/xul/branding/aurora/locales/en-US
-./mobile/xul/branding/official/locales/en-US
-./mobile/xul/branding/nightly/locales/en-US
-./mobile/xul/branding/unofficial/locales/en-US
-./mobile/xul/branding/beta/locales/en-US
-./mobile/xul/locales/en-US
 ./mobile/locales/en-US
 ./security/manager/locales/en-US
 ./toolkit/content/tests/fennec-tile-testapp/chrome/locale/en-US
