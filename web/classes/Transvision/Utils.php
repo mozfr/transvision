@@ -318,12 +318,6 @@ class Utils
             'mobile/android/branding/beta/',
             'mobile/android/base/',
             'mobile/android/',
-            'mobile/xul/branding/aurora/',
-            'mobile/xul/branding/official/',
-            'mobile/xul/branding/nightly/',
-            'mobile/xul/branding/unofficial/',
-            'mobile/xul/branding/beta/',
-            'mobile/xul/',
             'mobile/',
             'security/manager/',
             'toolkit/content/tests/fennec-tile-testapp/chrome/',
@@ -568,7 +562,6 @@ class Utils
             //missing origin or translated string
             $anormal_length =  false;
         }
-        
         return $anormal_length;
     }
 }
