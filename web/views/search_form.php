@@ -119,9 +119,11 @@ $search_type_list = Utils::getHtmlSelectOptions(
  <script>
 function uncheckAll() {
     var arr = [<?
+        $count_form_checkboxes = 0;
         foreach ($form_checkboxes as $v) {
-            $end  = (next($form_checkboxes) == true) ? ', ' : '';
+            $end  = ($count_form_checkboxes == count($form_checkboxes) - 1) ? '' : ', ';
             echo "'" . $v . "'" . $end;
+            $count_form_checkboxes++;
         }
     ?>];
     for (var i = 0; i < arr.length; i++) {
