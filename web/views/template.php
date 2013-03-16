@@ -1,6 +1,12 @@
+<?php
+$check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
+$sourceLocale = isset($sourceLocal) ? $sourceLocale : 'en-US';
+$locale = isset($locale) ? $locale : 'fr';
+$initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
+?>
 <!doctype html>
 
-<html lang="fr" dir="ltr">
+<html lang="<?=$locale?>" dir="ltr">
   <head>
     <title>Transvision</title>
     <meta charset="utf-8" />
@@ -15,12 +21,6 @@
 
   <div id="links">
     <ul>
-        <?php
-            $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
-            $sourceLocale = isset($sourceLocal) ? $sourceLocale : 'en-US';
-            $locale = isset($locale) ? $locale : 'fr';
-            $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
-        ?>
       <li><a href="/?sourcelocale=<?=$sourceLocale?>&locale=<?=$locale?>&repo=<?=$check['repo']?>&t2t=t2t&recherche=<?=$initial_search?>" title="Search in the Glossary">Glossary</a></li>
       <li><a href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
       <li><a href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
