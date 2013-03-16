@@ -20,14 +20,9 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $locale = $_GET['locale'];
 }
 
-foreach ($desktop_repos as $repo) {
-
-    if (!isset($strings)) {
-        $strings = array();
-    }
-
-    $strings[$repo] = Utils::getRepoStrings($locale, $repo);
-}
+$strings = array();
+$strings[$chan1] = Utils::getRepoStrings($locale, $chan1);
+$strings[$chan2] = Utils::getRepoStrings($locale, $chan2);
 
 $chanSelector1 = $chanSelector2 = '';
 
@@ -48,7 +43,6 @@ foreach ($loc_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
-
 
 
 $temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
@@ -91,14 +85,10 @@ echo "<th>Key</th><th>$chan1</th><th>$chan2</th>";
 echo '</tr>';
 
 foreach ($temp as $k => $v) {
-    echo '<tr>';
-    echo "<td>". Utils::formatEntity($k). "</td>" .
-    "<td>" . ShowResults::highlight($v, $locale) . "</td>";
-    //~ if (isset($strings[$chan2][$k])) {
-        echo "<td>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>";
-    //~ } else {
-        //~ echo "<td> <em>Missing String</em> </td>";
-    //~ }
-    echo '</tr>';
+    echo   "<tr>"
+         . "<td>" . Utils::formatEntity($k) . "</td>"
+         . "<td>" . ShowResults::highlight($v, $locale) . "</td>"
+         . "<td>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>
+           </tr>";
 }
 echo '</table>';
