@@ -1,5 +1,21 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
+<h2 id="v2.3">Version 2.3 - 2013-03-22</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><strong>New feature:</strong> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
+    <li><strong>New feature:</strong> If your string is abnormally long or short compared to the English source, there will be hint message below your translation saying 'String too large/long?' <em>(Jesús)</em></li>
+    <li>The accesskeys and channel comparizon features linked in the footer now work again <em>(pascal)</em></li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>Gaia strings are now listed for Spanishes for searches done on Desktop repos (<em>pascal</em>)</li>
+    <li>Removed Firefox Mobile Xul code and data (<em>pascal</em>)</li>
+    <li>Bug fixes, code cleanups.</li>
+</ul>
+
 <h2 id="v2.2">Version 2.2 - 2013-02-28</h2>
 
 <h3>End user visible changes</h3>
