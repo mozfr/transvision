@@ -49,6 +49,52 @@ class Utils extends atoum\test
                 ->isEqualTo('Le cheval blanc');
     }
 
+    public function checkboxDefaultOptionDataProvider1()
+    {
+        return array(
+            array(
+                'es_ES',
+                'es_ES',
+                ' checked="checked"'
+                )
+        );
+    }
+
+    /**
+     * @dataProvider checkboxDefaultOptionDataProvider1
+     */
+
+    public function testCheckboxDefaultOption1($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->checkboxDefaultOption($a, $b))
+                ->isEqualTo($c);
+    }
+
+    public function checkboxDefaultOptionDataProvider2()
+    {
+        return array(
+            array(
+                'es_ES',
+                'en_US',
+                false
+                )
+        );
+    }
+
+    /**
+     * @dataProvider checkboxDefaultOptionDataProvider2
+     */
+
+    public function testCheckboxDefaultOption2($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->boolean($obj->checkboxDefaultOption($a, $b))
+                ->isEqualTo($c);
+    }
+
     public function checkBoxStateDataProvider1()
     {
         $_GET['t2t'] = "somedata";
