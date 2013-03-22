@@ -516,12 +516,13 @@ class Utils
         }
 
         // We have only one Spanish for Gaia
-        if ($repository == 'gaia'
-            && in_array($locale, $spanishes)) {
-            $locale = 'es';
+        if (in_array($locale, $spanishes)) {
+            $gaialocale = 'es';
+        } else {
+            $gaialocale = $locale;
         }
 
-        $file = TMX . 'gaia/' . $locale . '/cache_' . $locale . '.php';
+        $file = TMX . 'gaia/' . $gaialocale . '/cache_' . $gaialocale . '.php';
 
         if (file_exists($file)) {
             include $file;
