@@ -53,8 +53,8 @@ class Utils extends atoum\test
     {
         return array(
             array(
-                'es_ES',
-                'es_ES',
+                'es-ES',
+                'es-ES',
                 ' checked="checked"'
                 )
         );
@@ -76,8 +76,8 @@ class Utils extends atoum\test
     {
         return array(
             array(
-                'es_ES',
-                'en_US',
+                'es-ES',
+                'en-US',
                 false
                 )
         );
