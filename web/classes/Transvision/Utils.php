@@ -73,6 +73,25 @@ class Utils
     }
 
     /*
+     * Helper function to set checkboxes value for the default option in source locale, target locale and repository
+     *
+     * @param string $option
+     * @param string $cookie
+     * @return string $defaultChecked -> ' checked="checked"' or false
+     */
+
+    public static function checkboxDefaultOption($option, $cookie)
+    {
+        if ($cookie == $option) {
+            $defaultChecked = ' checked="checked"';
+        } else {
+            $defaultChecked = false;
+        }
+
+        return $defaultChecked;
+    }
+
+    /*
      *  helper function to set checkboxes value
      */
 

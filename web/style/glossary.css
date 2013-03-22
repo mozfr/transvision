@@ -91,7 +91,7 @@ form[name="searchform"] {
 fieldset {
     border: none;
     display: inline;
-    min-height: 1.8em;
+    min-height: 3em;
     margin:0;
 }
 
@@ -250,9 +250,10 @@ fieldset#main fieldset {
     border-top-left-radius: 4px;
     margin-bottom: 0.5em;
     background-color: #F1F4F9;
+    vertical-align: top;
 }
 
-fieldset#main fieldset  * {
+fieldset#main fieldset * {
     font-size:0.9em;
 }
 
@@ -265,6 +266,14 @@ fieldset#main fieldset > legend {
     font-size:1em !important;
 }
 
+fieldset#main fieldset label.default_option input {
+    float: left;
+}
+fieldset#main fieldset label.default_option span {
+    float: left;
+    font-size:0.7em;
+    margin: 5px 0;
+}
 
 /* changelog page */
 

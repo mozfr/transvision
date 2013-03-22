@@ -15,7 +15,12 @@ foreach ($form_checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
 }
 
-$check['repo'] = 'central';
+// Check for default_repository cookie, if not set default repo to 'central'
+if (isset($_COOKIE['default_repository'])) {
+    $check['repo'] = $_COOKIE['default_repository'];
+} else {
+    $check['repo'] = 'central';
+}
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $check['repo'] = $_GET['repo'];
