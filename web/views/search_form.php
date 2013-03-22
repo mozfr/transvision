@@ -31,6 +31,20 @@ $search_type_list = Utils::getHtmlSelectOptions(
     true
 );
 
+// Get COOKIES
+$cookieTargetLocale = '';
+if (isset($_COOKIE['default_target_locale'])) {
+    $cookieTargetLocale = $_COOKIE['default_target_locale'];
+}
+$cookieSourceLocale = '';
+if (isset($_COOKIE['default_source_locale'])) {
+    $cookieSourceLocale = $_COOKIE['default_source_locale'];
+}
+$cookieRepository   = '';
+if (isset($_COOKIE['default_repository'])) {
+    $cookieRepository   = $_COOKIE['default_repository'];
+}
+
 ?>
 
   <div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?></strong></div>
@@ -39,22 +53,49 @@ $search_type_list = Utils::getHtmlSelectOptions(
 
             <fieldset>
                 <legend>Source Locale</legend>
-                <select name='sourcelocale'>
+                <select id='source_locale' name='sourcelocale' onchange="changeDefaultSource('source_locale');">
                 <?=$source_locales_list?>
                 </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_source_locale"
+                           value="<?=$sourceLocale?>"
+                           data-cookie="<?=$cookieSourceLocale?>"
+                           onclick="setCookie('default_source_locale',this.value,3650);"
+                           <?=Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale)?>
+                     /> <span>Default</span>
+                 </label>
             </fieldset>
             <fieldset>
                 <legend>Target Locale</legend>
-                <select name='locale'>
+                <select id='target_locale' name='locale' onchange="changeDefaultSource('target_locale');">
                 <?=$target_locales_list?>
                 </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_target_locale"
+                           value="<?=$locale?>"
+                           data-cookie="<?=$cookieTargetLocale?>"
+                           onclick="setCookie('default_target_locale',this.value,3650);"
+                           <?=Utils::checkboxDefaultOption($locale, $cookieTargetLocale)?>
+                     /> <span>Default</span>
+                 </label>
             </fieldset>
 
             <fieldset>
                 <legend>Repository</legend>
-                <select name='repo'>
+                <select id='repository' name='repo'  onchange="changeDefaultSource('repository');">
                 <?=$repo_list?>
                 </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_repository"
+                           value="<?=$check['repo']?>"
+                           data-cookie="<?=$cookieRepository?>"
+                           onclick="setCookie('default_repository',this.value,3650);"
+                           <?=Utils::checkboxDefaultOption($check['repo'], $cookieRepository)?>
+                     /> <span>Default</span>
+                 </label>
             </fieldset>
 
             <fieldset>
@@ -106,7 +147,6 @@ $search_type_list = Utils::getHtmlSelectOptions(
                        <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"
                 />
                 <?php endif;?>
-
             </fieldset>
 
             <div id="search">
@@ -116,7 +156,7 @@ $search_type_list = Utils::getHtmlSelectOptions(
         </fieldset>
  </form>
 
- <script>
+<script>
 function uncheckAll() {
     var arr = [<?
         $count_form_checkboxes = 0;
@@ -142,7 +182,34 @@ function uncheck(val1, val2) {
         target.checked = false;
     }
 }
-
+//Change related imput value and check if default
+function changeDefaultSource(selector) {
+    var selectValue = document.getElementById(selector).value;
+    var defaultInput = document.getElementById('default_' + selector);
+    defaultInput.value = selectValue;
+    if (defaultInput.value == defaultInput.getAttribute('data-cookie')) {
+        defaultInput.checked = true;
+    } else {
+        defaultInput.checked = false;
+    }
+}
+//Set Cookie to store default value
+function setCookie(cookieName,cookieValue,nDays) {
+    var today = new Date();
+    var expire = new Date();
+    var defaultInput = document.getElementById(cookieName);
+    if(!defaultInput.checked) {
+        //Input un-checked -> Delete cookie
+        cookieValue = '';
+        nDays = 0;
+    }
+    expire.setTime(today.getTime() + 3600000*24*nDays);
+    document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toGMTString();
+}
+//Focus on the search field
+window.onload = function() {
+    document.getElementById('recherche').focus();
+}
 </script>
 <?php
 
