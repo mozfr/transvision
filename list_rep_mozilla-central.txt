@@ -2,8 +2,6 @@
 ./b2g/branding/unofficial/locales/en-US
 ./b2g/locales/en-US
 ./netwerk/locales/en-US
-./embedding/android/locales/en-US
-./testing/extensions/community/chrome/locale/en-US
 ./intl/locales/en-US
 ./extensions/spellcheck/locales/en-US
 ./services/sync/locales/en-US
@@ -25,4 +23,3 @@
 ./browser/locales/en-US
 ./layout/tools/layout-debug/ui/locale/en-US
 ./dom/locales/en-US
-./webapprt/locales/en-US

@@ -110,7 +110,7 @@ if __name__ == "__main__":
     if repo == 'gaia':
         dirs2 = os.listdir(en_US_repo)
     else:
-        dirs2 = ["browser", "calendar", "chat", "dom", "editor", "embedding",
+        dirs2 = ["browser", "calendar", "chat", "dom", "editor",
                 "extensions", "mail", "mobile", "netwerk", "other-licenses",
                 "security", "services", "suite", "toolkit"]
 
