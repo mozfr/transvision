@@ -13,7 +13,7 @@ http://transvision.mozfr.org
 Transvision Beta can be found here:
 http://transvision-beta.mozfr.org
 
-Transvision was created by Philippe Dessantes, from the FrenchMozilla team.
+Transvision was created by Philippe Dessante, from the FrenchMozilla team.
 
 Lead developper since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 
