@@ -584,4 +584,39 @@ class Utils
         }
         return $anormal_length;
     }
+
+    /*
+     * Connect to Bugzilla API and get components (languages)
+     *
+     * @return $components_list
+     */
+    public static function getBugzillaComponents()
+    {
+        $json_url = "https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]";
+        $json = file_get_contents($json_url);
+        $data = json_decode($json, TRUE);
+        $components_list = $data['result']['products'][0]['components'];
+        
+        return $components_list;
+    }
+
+    /*
+     * Collect the correct language component for bugzilla URL
+     *
+     * @param $actual_lng string
+     * @param $bugzilla_components_array array
+     * @return $component_string
+     */
+    public static function collectLanguageComponent($actual_lng, $bugzilla_components_array)
+    {
+        $component_string = "Other";
+        foreach ($bugzilla_components_array as $component) {
+            if (strpos($component['name'],$actual_lng) !== false) {
+                $component_string = rawurlencode($component['name']);
+                break;
+            }
+        }
+        return $component_string;
+    }
+
 }

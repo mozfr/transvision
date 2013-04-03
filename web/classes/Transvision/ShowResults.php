@@ -76,6 +76,9 @@ class ShowResults
             $recherche = array($recherche);
         }
 
+        // Connect to Bugzilla API and get components (languages)
+        $bugzilla_components_array = Utils::getBugzillaComponents();
+
         foreach ($search_results as $key => $strings) {
 
             $source_string = trim($strings[0]);
@@ -124,6 +127,10 @@ class ShowResults
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
 
+            // collect the correct language component for bugzilla URL
+            $bugzilla_component = Utils::collectLanguageComponent($locale2, $bugzilla_components_array);
+
+            // errors
             $error_msg = '';
 
             // check for final dot
@@ -162,16 +169,19 @@ class ShowResults
                   <td dir='${direction1}'>
                     <div class='string'>
                       <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
-                . urlencode(strip_tags($source_string))
-                . "'>${source_string}</a>
-                     </div>
-                     <div dir='ltr' class='infos'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
-                   </td>
+                      . urlencode(strip_tags($source_string))
+                      . "'>${source_string}</a>
+                    </div>
+                    <div dir='ltr' class='infos'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+                  </td>
 
-                   <td dir='${direction2}'>
-                      <div class='string'>${target_string}</div>
-                      <div dir='ltr' class='infos'><a href='${path_locale2}'><em>&lt;source&gt;</em></a>${error_msg}</div>
-                   </td>
+                  <td dir='${direction2}'>
+                    <div class='string'>${target_string}</div>
+                    <div dir='ltr' class='infos'>
+                      <a href='${path_locale2}'><em>&lt;source&gt;</em></a>
+                      <a href='https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=${bugzilla_component}&product=Mozilla%20Localizations&short_desc=typos in file ${key}'>report a bug</a>
+                      ${error_msg}</div>
+                  </td>
                 </tr>";
         }
 
