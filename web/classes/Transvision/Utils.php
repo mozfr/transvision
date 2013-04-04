@@ -586,33 +586,38 @@ class Utils
     }
 
     /*
-     * Connect to Bugzilla API and get components (languages)
+     * Check if we have a cache file with the components (languages) and the cache file is not one week old. If not Connect to Bugzilla API and get components list
      *
      * @return $components_list
      */
     public static function getBugzillaComponents()
     {
-        $json_url = "https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]";
-        $json = file_get_contents($json_url);
-        $data = json_decode($json, TRUE);
+
+        if (!file_exists('bugzilla_components.txt') || filemtime('bugzilla_components.txt')+ (7 * 24 * 60 * 60) < time() ) {
+            $json_url = "https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]";
+            $json = file_get_contents($json_url);
+            file_put_contents('bugzilla_components.txt', file_get_contents($json_url));
+        }
+
+        $data = json_decode(file_get_contents('bugzilla_components.txt'), TRUE);
         $components_list = $data['result']['products'][0]['components'];
         
         return $components_list;
     }
-
+    
     /*
      * Collect the correct language component for bugzilla URL
      *
      * @param $actual_lng string
-     * @param $bugzilla_components_array array
+     * @param $components_array array
      * @return $component_string
      */
-    public static function collectLanguageComponent($actual_lng, $bugzilla_components_array)
+    public static function collectLanguageComponent($actual_lng, $components_array)
     {
         $component_string = "Other";
-        foreach ($bugzilla_components_array as $component) {
+        foreach ($components_array as $component) {
             if (strpos($component['name'],$actual_lng) !== false) {
-                $component_string = rawurlencode($component['name']);
+                $component_string = $component['name'];
                 break;
             }
         }

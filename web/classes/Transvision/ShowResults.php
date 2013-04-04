@@ -63,11 +63,18 @@ class ShowResults
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
+        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retreive them
+        $components_array = Utils::getBugzillaComponents();
+
+        // collect the correct language component
+        $source_component_name = Utils::collectLanguageComponent($locale1, $components_array);
+        $target_component_name = Utils::collectLanguageComponent($locale2, $components_array);
+
         $table  = "<table>
                       <tr>
                         <th>Entity</th>
-                        <th>${locale1}</th>
-                        <th>${locale2}</th>
+                        <th>${source_component_name}</th>
+                        <th>${target_component_name}</th>
                       </tr>";
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
@@ -75,9 +82,6 @@ class ShowResults
         } else {
             $recherche = array($recherche);
         }
-
-        // Connect to Bugzilla API and get components (languages)
-        $bugzilla_components_array = Utils::getBugzillaComponents();
 
         foreach ($search_results as $key => $strings) {
 
@@ -127,8 +131,11 @@ class ShowResults
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
 
-            // collect the correct language component for bugzilla URL
-            $bugzilla_component = Utils::collectLanguageComponent($locale2, $bugzilla_components_array);
+            // collect the correct language component
+            $component = rawurlencode($target_component_name);
+            //Bug message
+            $bug_summary = rawurlencode("Typos in ${key}");
+            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand must be\n\n");
 
             // errors
             $error_msg = '';
@@ -172,15 +179,25 @@ class ShowResults
                       . urlencode(strip_tags($source_string))
                       . "'>${source_string}</a>
                     </div>
-                    <div dir='ltr' class='infos'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>
+                    <div dir='ltr' class='infos'>
+                      <a class='source_link' href='${path_locale1}'>
+                        &lt;source&gt;
+                      </a>
+                    </div>
                   </td>
 
                   <td dir='${direction2}'>
                     <div class='string'>${target_string}</div>
                     <div dir='ltr' class='infos'>
-                      <a href='${path_locale2}'><em>&lt;source&gt;</em></a>
-                      <a href='https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=${bugzilla_component}&product=Mozilla%20Localizations&short_desc=typos in file ${key}'>report a bug</a>
-                      ${error_msg}</div>
+                      <a class='source_link' href='${path_locale2}'>
+                        &lt;source&gt;
+                      </a>
+                      &nbsp;
+                      <a class='bug_link' target='_blank' href='https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=${component}&product=Mozilla%20Localizations&short_desc=${bug_summary}&comment=${bug_message}'>
+                        &lt;report a bug&gt;
+                      </a>
+                      ${error_msg}
+                    </div>
                   </td>
                 </tr>";
         }
