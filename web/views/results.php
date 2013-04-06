@@ -15,7 +15,7 @@ if (strlen(trim($my_search)) < 2) {
 $results = new ShowResults();
 $search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
 
-// Get cached bugzilla components (languages list) or connect to Bugzilla API to retreive them
+// Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
 $components_array = Utils::getBugzillaComponents();
 
 $source_component_name = Utils::collectLanguageComponent($sourceLocale, $components_array);
