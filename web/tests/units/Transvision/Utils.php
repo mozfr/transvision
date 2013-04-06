@@ -287,4 +287,33 @@ class Utils extends atoum\test
                 ->isEqualTo($c)
         ;
     }
+
+    public function collectLanguageComponentDataProvider()
+    {
+        $obj = new \Transvision\Utils();
+        $components_list = $obj->getBugzillaComponents();
+        return array(
+            array(
+                'en-GB',
+                $components_list,
+                'en-GB / English (United Kingdom)'
+                ),
+            array(
+                'unknow_LANG',
+                $components_list,
+                'Other'
+            )
+        );
+    }
+    /**
+     * @dataProvider collectLanguageComponentDataProvider
+     */
+    public function testCollectLanguageComponent($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->collectLanguageComponent($a,$b))
+                ->isEqualTo($c)
+        ;
+    }
 }
