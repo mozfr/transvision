@@ -87,6 +87,13 @@ class ShowResults
 
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
+
+            // collect the correct language component for bugzilla link
+            $component = rawurlencode($target_component_name);
+            //Bug message
+            $bug_summary = rawurlencode("Typos in ${key}");
+            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand should be\n\n");
+
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
@@ -130,12 +137,6 @@ class ShowResults
 
             $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
             $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
-
-            // collect the correct language component
-            $component = rawurlencode($target_component_name);
-            //Bug message
-            $bug_summary = rawurlencode("Typos in ${key}");
-            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand should be\n\n");
 
             // errors
             $error_msg = '';
