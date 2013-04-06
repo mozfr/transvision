@@ -144,7 +144,7 @@ td {
 td a em,
 td em.error {
     font-style:normal;
-    color: orange;
+    color: red;
 }
 
 td em.error {
@@ -158,6 +158,13 @@ td div.infos {
 }
 td div.infos a {
     float:left;
+    margin-right: 5px;
+}
+td div.infos a.source_link {
+    color:orange;
+}
+td div.infos a.bug_link {
+    color:#404D6C;
 }
 
 footer {
