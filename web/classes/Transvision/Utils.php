@@ -594,8 +594,7 @@ class Utils
     {
 
         if (!file_exists('bugzilla_components.txt') || filemtime('bugzilla_components.txt')+ (7 * 24 * 60 * 60) < time() ) {
-            $json_url = "https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]";
-            $json = file_get_contents($json_url);
+            $json_url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]';
             file_put_contents('bugzilla_components.txt', file_get_contents($json_url));
         }
 
@@ -614,9 +613,9 @@ class Utils
      */
     public static function collectLanguageComponent($actual_lng, $components_array)
     {
-        $component_string = "Other";
+        $component_string = 'Other';
         foreach ($components_array as $component) {
-            if (strpos($component['name'],$actual_lng) !== false) {
+            if (strpos($component['name'], $actual_lng) !== false) {
                 $component_string = $component['name'];
                 break;
             }

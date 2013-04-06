@@ -63,7 +63,7 @@ class ShowResults
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
-        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retreive them
+        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
         $components_array = Utils::getBugzillaComponents();
 
         // collect the correct language component
@@ -135,7 +135,7 @@ class ShowResults
             $component = rawurlencode($target_component_name);
             //Bug message
             $bug_summary = rawurlencode("Typos in ${key}");
-            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand must be\n\n");
+            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand should be\n\n");
 
             // errors
             $error_msg = '';
