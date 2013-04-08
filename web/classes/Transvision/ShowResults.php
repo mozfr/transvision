@@ -94,9 +94,7 @@ class ShowResults
 
             // Bug message
             $bug_summary = rawurlencode("Translation update proposed for ${key}");
-            $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand should be\n\n");
-            $bug_message = rawurlencode("The string:\n${source_string}\n\nIs translated as:\n${target_string}\n\nAnd should be:\n");
-            $bug_message .= rawurlencode("\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
+            $bug_message = rawurlencode("The string:\n${source_string}\n\nIs translated as:\n${target_string}\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
