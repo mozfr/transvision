@@ -92,9 +92,14 @@ class ShowResults
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
-            // Bug message
+            // Bugzilla GET data
             $bug_summary = rawurlencode("Translation update proposed for ${key}");
-            $bug_message = rawurlencode("The string:\n${source_string}\n\nIs translated as:\n${target_string}\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
+            // We don't rawurlencode() the strings otherwise they are unreadable in the bugzilla comment
+            $bug_message = rawurlencode("The string:\n")
+                           . $source_string
+                           . rawurlencode("\n\nIs translated as:\n")
+                           . $target_string
+                           . rawurlencode("\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
