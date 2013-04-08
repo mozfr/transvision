@@ -592,13 +592,13 @@ class Utils
      */
     public static function getBugzillaComponents()
     {
-
-        if (!file_exists('bugzilla_components.txt') || filemtime('bugzilla_components.txt')+ (7 * 24 * 60 * 60) < time() ) {
+        $cache_file = INSTALLROOT . 'bugzilla_components.txt';
+        if (!file_exists($cache_file) || filemtime('bugzilla_components.txt') + (4 * 7 * 24 * 60 * 60) < time() ) {
             $json_url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]';
-            file_put_contents('bugzilla_components.txt', file_get_contents($json_url));
+            file_put_contents($cache_file, file_get_contents($json_url));
         }
 
-        $data = json_decode(file_get_contents('bugzilla_components.txt'), TRUE);
+        $data = json_decode(file_get_contents($cache_file), true);
         $components_list = $data['result']['products'][0]['components'];
 
         return $components_list;
