@@ -64,17 +64,21 @@ class ShowResults
         $direction2 = RTLSupport::getDirection($locale2);
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-        $components_array = Utils::getBugzillaComponents();
+        $bz_component = rawurlencode(
+                            Utils::collectLanguageComponent(
+                                $locale2,
+                                Utils::getBugzillaComponents()
+        ));
 
-        // collect the correct language component
-        $source_component_name = Utils::collectLanguageComponent($locale1, $components_array);
-        $target_component_name = Utils::collectLanguageComponent($locale2, $components_array);
+        $bz_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+                   . $bz_component
+                   . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
         $table  = "<table>
                       <tr>
                         <th>Entity</th>
-                        <th>${source_component_name}</th>
-                        <th>${target_component_name}</th>
+                        <th>$locale1</th>
+                        <th>$locale2</th>
                       </tr>";
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
@@ -88,11 +92,11 @@ class ShowResults
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
-            // collect the correct language component for bugzilla link
-            $component = rawurlencode($target_component_name);
-            //Bug message
-            $bug_summary = rawurlencode("Typos in ${key}");
+            // Bug message
+            $bug_summary = rawurlencode("Translation update proposed for ${key}");
             $bug_message = rawurlencode("The key '${key}' in '${search_options['repo']}' channel is translated as:\n\n'${target_string}'\n\nand should be\n\n");
+            $bug_message = rawurlencode("The string:\n${source_string}\n\nIs translated as:\n${target_string}\n\nAnd should be:\n");
+            $bug_message .= rawurlencode("\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
@@ -194,7 +198,7 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=${component}&product=Mozilla%20Localizations&short_desc=${bug_summary}&comment=${bug_message}'>
+                      <a class='bug_link' target='_blank' href='${bz_link}&short_desc=${bug_summary}&comment=${bug_message}'>
                         &lt;report a bug&gt;
                       </a>
                       ${error_msg}

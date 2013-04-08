@@ -600,10 +600,39 @@ class Utils
 
         $data = json_decode(file_get_contents('bugzilla_components.txt'), TRUE);
         $components_list = $data['result']['products'][0]['components'];
-        
+
         return $components_list;
     }
-    
+
+    /*
+     * Check if $haystack starts with the $needle string
+     *
+     * @param $haystack string
+     * @param $needle string
+     * @return boolean
+     */
+    public static function startsWith($haystack, $needle)
+    {
+        return !strncmp($haystack, $needle, strlen($needle));
+    }
+
+
+    /*
+     * Check if $haystack ends with the $needle string
+     *
+     * @param $haystack string
+     * @param $needle string
+     * @return boolean
+     */
+    public static function endsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
+    }
     /*
      * Collect the correct language component for bugzilla URL
      *
@@ -614,8 +643,10 @@ class Utils
     public static function collectLanguageComponent($actual_lng, $components_array)
     {
         $component_string = 'Other';
+        $actual_lng = $actual_lng . ' /';
+
         foreach ($components_array as $component) {
-            if (strpos($component['name'], $actual_lng) !== false) {
+            if (Utils::startsWith($component['name'], $actual_lng)) {
                 $component_string = $component['name'];
                 break;
             }
