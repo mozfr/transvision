@@ -99,7 +99,7 @@ class ShowResults
                            . $source_string
                            . rawurlencode("\n\nIs translated as:\n")
                            . $target_string
-                           . rawurlencode("\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
+                           . rawurlencode("\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
