@@ -1,10 +1,10 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v2.4">Version 2.4 - 2013-04-??</h2>
+<h2 id="v2.4">Version 2.4 - 2013-04-10</h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> There is now &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
+    <li><strong>New feature:</strong> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
 </ul>
 
 <h2 id="v2.3">Version 2.3 - 2013-03-22</h2>
