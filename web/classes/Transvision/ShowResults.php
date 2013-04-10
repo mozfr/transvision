@@ -74,7 +74,15 @@ class ShowResults
                    . $bz_component
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
-        $table  = "<table>
+        $table  = "<style>
+                    /* Label for responsive view */
+                    @media only screen and (max-width: 850px)  {
+                    td:nth-of-type(1):after { content: 'Entity'; }
+                    td:nth-of-type(2):after { content: '$locale1'; }
+                    td:nth-of-type(3):after { content: '$locale2'; }
+                    }
+                   </style>
+                   <table>
                       <tr>
                         <th>Entity</th>
                         <th>$locale1</th>
