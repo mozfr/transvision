@@ -399,16 +399,4 @@ h3, ul {
         padding-right: 75px;
     }
 
-    /* Label for responsive view in channelcomparison */
-    
-    #channelcomp td:nth-of-type(1):after { 
-        content: 'key'; 
-    }
-    #channelcomp td:nth-of-type(2):after { 
-        content: '1'; 
-    }
-    #channelcomp td:nth-of-type(3):after { 
-        content: '2'; 
-    }
-
 }
