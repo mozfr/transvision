@@ -10,7 +10,7 @@ $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
   <head>
     <title>Transvision</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/style/glossary.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
   </head>
 
