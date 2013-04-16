@@ -1,0 +1,402 @@
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular") format("svg");
+}
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    src: url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold") format("svg");
+}
+@font-face {
+    font-family: "Open Sans Light";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight") format("svg");
+}
+
+body {
+    background: url("images/bg-gradient-sand.png") repeat-x scroll 0 2px, url("images/bg-sand.png") repeat scroll 0 2px, none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 auto;
+    padding: 50px 0.5em 0.5em 0.5em;
+    position: relative;
+    max-width: 1000px;
+    width: 98%;
+}
+
+a, a:visited {
+    color: #0096DD;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, div#current, #links {
+    font-family: 'Open Sans Light',sans-serif;
+    color: #333333;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0.5em auto;
+    width: 80%;
+}
+
+h1 {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 5px 2em;
+    width: auto;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px -5px #888;
+}
+
+h1 a, h1 a:visited {
+    color: #333333;
+}
+
+h2 {
+    width: 90%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 15px 0;
+}
+
+div#current {
+    font-size: 1.8em;
+    padding:0.1em 0;
+}
+
+div#current strong {
+    display: block;
+    padding: 0 0.5em;
+    color: orange;
+}
+
+#links {
+    padding: 0.5em;
+    font-size: 1em;
+    margin-top: 5em !important;
+}
+
+#links ul {
+    padding: .2em 0;
+    margin: 0 auto;
+    list-style-type: none;
+}
+
+#links ul li {
+    display: inline-block;
+}
+
+#links a, #links a:visited {
+    padding: .2em 1em;
+}
+
+form[name="searchform"] {
+    
+}
+
+fieldset {
+    border: none;
+    display: inline;
+    min-height: 3em;
+    margin:0;
+}
+
+fieldset {
+    margin-top: 0.5em;
+}
+
+input[type="text"] {
+    min-width: 80%;
+}
+
+.searchedTerm {
+    font-style: italic;
+    opacity: 0.8;
+    font-variant: normal;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0.5em auto;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+tr:first-child, #channelcomp tr:nth-child(2) {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+tr:nth-child(even) {
+    background-color: #F9F9F9;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+th {
+    padding: 0.5em;
+}
+
+td, #stats th {
+    padding: 0.5em;
+    border: 1px solid #CCCCCC;
+    font-size: 0.9em;
+    vertical-align: top;
+}
+
+#stats tr:first-child th {
+    border: none;
+}
+
+td a em,
+td em.error {
+    font-style:normal;
+    color: red;
+}
+
+td em.error {
+    float:right;
+}
+
+td div.infos {
+    font-size: 75%;
+    text-align:right;
+    margin-top:4px;
+}
+td div.infos a {
+    float:left;
+    margin-right: 5px;
+}
+td div.infos a.source_link {
+    color:orange;
+}
+td div.infos a.bug_link {
+    color:#404D6C;
+}
+
+footer {
+    font-style: italic;
+    text-align:center;
+    font-family:serif;
+    font-size:0.9em;
+}
+
+/* colors for results */
+
+table tr td:first-child {
+    color: #3C8FD1;
+}
+
+.red {
+    color: rgb(200, 0, 0);
+}
+
+.green {
+    color: rgb(0, 200, 0);
+}
+
+.blue {
+    color: rgb(0, 0, 200);
+}
+
+.highlight {
+    /* generic highlight */
+    color: black;
+    background-color:  rgba(255, 165, 0, 0.77);
+    border-radius: 3px;
+}
+
+.highlight-gray {
+    color: black;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.highlight-red {
+    color: black;
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
+.superset {
+    color: gray;
+    font-size: 80%;
+}
+
+input[type=submit] {
+    background-color: #277AC1;
+    background-image: linear-gradient(#43A6E2, #277AC1);
+    background-repeat: repeat-x;
+    border: 0 none;
+    border-radius: 0.25em 0.25em 0.25em 0.25em;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-top: 31px;
+    min-width: 80px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    transition: all 0.25s linear 0s;
+}
+#root input[type=submit] {
+    margin-top: 0;
+}
+
+input[type=submit]:hover {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38A9ED inset;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.25s linear 0s;
+}
+
+fieldset#main select {
+    display: block;
+    width: 110px;
+}
+
+fieldset#main #search {
+    margin: 0 10px;
+}
+
+fieldset#main #search input[type=text] {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #B2B2B2;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.5);
+    font-family: 'Open Sans',sans-serif;
+    font-size: 12px;
+    height: 20px;
+    padding: 5px 7px;
+    transition: all 0.1s linear 0s;
+}
+
+fieldset#main fieldset {
+    margin-bottom: 0.5em;
+    vertical-align: top;
+}
+
+fieldset#main fieldset * {
+    font-size:0.9em;
+}
+
+fieldset#main fieldset > legend {
+    line-height:25px;
+    font-weight:bold;
+    font-size:1em !important;
+}
+
+fieldset#main fieldset label.default_option input {
+    float: left;
+    margin-left: 0;
+}
+fieldset#main fieldset label.default_option span {
+    float: left;
+    font-size:0.7em;
+    margin: 5px 0;
+}
+
+/* changelog page */
+
+h3, ul {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* experimental */
+
+.alert {
+    color:white;
+    background-color:orange;
+    border-bottom: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+#channelcomp #main {
+    display:block;
+    width: 500px;
+    margin:auto;
+}
+
+#channelcomp #main fieldset {
+    display:inline-block;
+}
+
+#channelcomp #main fieldset select {
+    display:block;
+    float:left;
+}
+
+#keys #main {
+    display:block;
+    width: 380px;
+    margin:auto;
+}
+
+@media only screen and (max-width: 850px)  {
+
+    table, thead, tbody, td, tr { 
+        display: block; 
+        word-wrap: break-word;
+    }
+    table {
+        position: relative;
+    }
+
+    th { 
+        display: none;
+    }
+
+    #stats tr {
+        display: table-row;
+    }
+
+    #stats th, #stats td { 
+        display: table-cell;
+        width: 45%;
+    }
+    
+    td { 
+        border: none;
+        position: relative;
+        clear: both;
+        border-bottom: 1px solid #eee;
+    }
+
+    td div.infos a, td em.error {
+        float: none;
+    }
+
+    td:after { 
+        position: absolute;
+        top: 0px;
+        right: 6px;
+        white-space: nowrap;
+        color: #e1e1e1;
+        font-size: 23px;
+        font-weight: bold;
+    }
+
+    .string, td:nth-of-type(1) {
+        padding-right: 75px;
+    }
+
+}
