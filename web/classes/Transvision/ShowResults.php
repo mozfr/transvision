@@ -89,6 +89,13 @@ class ShowResults
 
         foreach ($search_results as $key => $strings) {
 
+            // Don't highlight search matchs in entities when searching strings
+            if ($search_options['search_type'] == 'strings') {
+                $result_entity = Utils::formatEntity($key);
+            } else {
+                $result_entity = Utils::formatEntity($key, $recherche[0]);
+            }
+            
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
@@ -179,7 +186,7 @@ class ShowResults
 
             $table .= "
                 <tr>
-                  <td>" . Utils::formatEntity($key, $recherche[0]) . "</td>
+                  <td>${result_entity}</td>
 
                   <td dir='${direction1}'>
                     <div class='string'>
