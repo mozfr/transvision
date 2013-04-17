@@ -18,7 +18,7 @@
 }
 
 body {
-    background: url("images/bg-gradient-sand.png") repeat-x scroll 0 2px, url("images/bg-sand.png") repeat scroll 0 2px, none repeat scroll 0 0 #FFFFFF;
+    background-image: linear-gradient(to bottom, #D7D3C8 0%, #F6F4EC 100%);
     color: #333333;
     font-family: 'Open Sans',sans-serif;
     font-size: 14px;
@@ -26,16 +26,16 @@ body {
     margin: 0 auto;
     padding: 50px 0.5em 0.5em 0.5em;
     position: relative;
-    max-width: 1000px;
     width: 98%;
 }
 
 a, a:visited {
-    color: #0096DD;
+    color: #0095DD;
     text-decoration: none;
 }
 
 a:hover {
+    color: #00539F;
     text-decoration: underline;
 }
 
