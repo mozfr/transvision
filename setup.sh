@@ -14,32 +14,66 @@ mkdir -p $glossaire
 # Restructure en-US
 for dir in `cat $install/list_rep_mozilla-central.txt`
 do
-    mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
-    ln -s  $local_hg/RELEASE_EN-US/mozilla-release/$dir $local_hg/RELEASE_EN-US/COMMUN/$dir
+    path=$local_hg/RELEASE_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
+        ln -s  $local_hg/RELEASE_EN-US/mozilla-release/$dir $path
+    fi
 
-    mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
-    ln -s  $local_hg/BETA_EN-US/mozilla-beta/$dir $local_hg/BETA_EN-US/COMMUN/$dir
+    path=$local_hg/BETA_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
+        ln -s  $local_hg/BETA_EN-US/mozilla-beta/$dir $path
+    fi
 
-    mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
-    ln -s  $local_hg/AURORA_EN-US/mozilla-aurora/$dir $local_hg/AURORA_EN-US/COMMUN/$dir
+    path=$local_hg/AURORA_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
+        ln -s  $local_hg/AURORA_EN-US/mozilla-aurora/$dir $path
+    fi
 
-    mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
-    ln -s  $local_hg/TRUNK_EN-US/mozilla-central/$dir $local_hg/TRUNK_EN-US/COMMUN/$dir
+    path=$local_hg/TRUNK_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
+        ln -s  $local_hg/TRUNK_EN-US/mozilla-central/$dir $path
+    fi
+
 done
 
 for dir in `cat $install/list_rep_comm-central.txt`
 do
-    mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
-    ln -s  $local_hg/RELEASE_EN-US/comm-release/$dir $local_hg/RELEASE_EN-US/COMMUN/$dir
+    path=$local_hg/RELEASE_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
+        ln -s  $local_hg/RELEASE_EN-US/comm-release/$dir $path
+    fi
 
-    mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
-    ln -s  $local_hg/BETA_EN-US/comm-beta/$dir $local_hg/BETA_EN-US/COMMUN/$dir
+    path=$local_hg/BETA_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
+        ln -s  $local_hg/BETA_EN-US/comm-beta/$dir $path
+    fi
 
-    mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
-    ln -s  $local_hg/AURORA_EN-US/comm-aurora/$dir $local_hg/AURORA_EN-US/COMMUN/$dir
+    path=$local_hg/AURORA_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
+        ln -s  $local_hg/AURORA_EN-US/comm-aurora/$dir $path
+    fi
 
-    mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
-    ln -s  $local_hg/TRUNK_EN-US/comm-central/$dir $local_hg/TRUNK_EN-US/COMMUN/$dir
+    path=$local_hg/TRUNK_EN-US/COMMUN/$dir
+    if [ ! -L $path/en-US ]
+    then
+        mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
+        ln -s  $local_hg/TRUNK_EN-US/comm-central/$dir $path
+    fi
+
 done
 
 # Check out the SILME library and set it to the latest released version
@@ -55,6 +89,7 @@ fi
 
 # Make sure we have hg repos in the directories, if not check them out
 initDesktopL10nRepo() {
+
     if [ $1 = aurora ]
     then
         cd $aurora_l10n
@@ -75,10 +110,6 @@ initDesktopL10nRepo() {
         cd $trunk_l10n
     fi
 
-    echo $1
-    echo $aurora_l10n
-    pwd
-
     for i in `cat $install/$1.txt`
         do
             if [ ! -d $i ]
@@ -98,7 +129,7 @@ initDesktopL10nRepo() {
                 fi
             fi
 
-            if [ ! -d $3/$i ]
+            if [ ! -d $root/TMX/$1/$i ]
             then
                 echo "Creating this locale TMX for $1:"
                 echo $i
@@ -143,7 +174,6 @@ initDesktopSourceRepo() {
             hg clone http://hg.mozilla.org/mozilla-central/
         fi
     else
-        echo $target
         cd $target;
         if [ ! -d $target/comm-$1/.hg ]
         then
@@ -159,6 +189,14 @@ initDesktopSourceRepo() {
             hg clone http://hg.mozilla.org/releases/mozilla-$1/
         fi
     fi
+
+    if [ ! -d $root/TMX/$1/en-US ]
+    then
+        echo "Creating this locale TMX for $1:"
+        echo en-US
+        mkdir -p $root/TMX/$1/en-US
+    fi
+
 }
 
 initDesktopSourceRepo central
