@@ -112,7 +112,7 @@ if __name__ == "__main__":
     else:
         dirs2 = ["browser", "calendar", "chat", "dom", "editor",
                 "extensions", "mail", "mobile", "netwerk", "other-licenses",
-                "security", "services", "suite", "toolkit"]
+                "security", "services", "suite", "toolkit", "webapprt"]
 
     dirs = filter(lambda x:x in dirs1, dirs2)
 
