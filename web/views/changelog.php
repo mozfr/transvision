@@ -4,9 +4,20 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li></li>
+    <li><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone (Jesús).</li>
+    <li>We no longer highlight string matches in the entities column for the 'string' search type (Jesús).</li>
 </ul>
 
+<h3>Developer visible changes</h3>
+<ul>
+    <li>There is now a Json/JsonP source for searches filtered on entities, the results structure is the same as searches on strings content (Pascal). Append <code>&amp;json</code> to your query for the Json feed and <code>&amp;json&amp;callback=foobar</code> for JsonP.</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>Updated setup.sh script to fix a couple of old bugs in the installer (Pascal).</li>
+    <li></li>
+</ul>
 <h2 id="v2.4">Version 2.4 - 2013-04-10</h2>
 
 <h3>End user visible changes</h3>
