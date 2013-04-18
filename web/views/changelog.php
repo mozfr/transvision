@@ -4,7 +4,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone (Jesús).</li>
+    <li><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
     <li>We no longer highlight string matches in the entities column for the 'string' search type (Jesús).</li>
 </ul>
 
@@ -15,8 +15,9 @@
 
 <h3>Other changes</h3>
 <ul>
-    <li>Updated setup.sh script to fix a couple of old bugs in the installer (Pascal).</li>
-    <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> by Goofy (Babelzilla team) was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard.</li>
+    <li>Updated setup.sh script to fix bugs in the installer and make it easier for potential contributors to installe the application (Pascal).</li>
+    <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard (Goofy and Pascal).</li>
+    <li>Update to track the recent <var>webapprt</var> folder move.</li>
 </ul>
 <h2 id="v2.4">Version 2.4 - 2013-04-10</h2>
 
