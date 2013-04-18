@@ -1,6 +1,6 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
-<h2 id="v2.5">Version 2.5 - 2013-??-??</h2>
+<h2 id="v2.5">Version 2.5 - 2013-04-18</h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -16,7 +16,7 @@
 <h3>Other changes</h3>
 <ul>
     <li>Updated setup.sh script to fix a couple of old bugs in the installer (Pascal).</li>
-    <li></li>
+    <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> by Goofy (Babelzilla team) was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard.</li>
 </ul>
 <h2 id="v2.4">Version 2.4 - 2013-04-10</h2>
 
