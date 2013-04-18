@@ -110,7 +110,7 @@ div#current strong {
 }
 
 form[name="searchform"] {
-    width: 1014px;
+    max-width: 1014px;
     margin: auto;
 }
 
@@ -155,9 +155,7 @@ th {
 
 td, #stats th {
     padding: 0.5em;
-/*
-    border: 1px solid #CCCCCC;
-*/
+    border: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 0.9em;
     vertical-align: top;
 }
@@ -263,7 +261,7 @@ input[type=submit] {
 
 #root input[type=submit] {
     margin-top: 0;
-    width: 150px;
+    min-width: 100px;
 }
 
 input[type=submit]:hover {
@@ -294,7 +292,7 @@ fieldset#main #search input[type=text] {
     height: 20px;
     padding: 5px 7px;
     transition: all 0.1s linear 0s;
-    width: 820px;
+    width: 80%;
 }
 
 #root fieldset#main fieldset {
