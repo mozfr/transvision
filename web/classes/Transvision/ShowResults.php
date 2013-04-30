@@ -7,18 +7,18 @@ class ShowResults
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
      */
-    public function getTMXResults($entities, $locale1_strings, $locale2_strings)
+    public function getTMXResults($entities, $locale1Strings, $locale2Strings)
     {
-        $search_results = array();
+        $searchResults = array();
 
         foreach ($entities as $entity) {
-            $locale1_strings[$entity] = (isset($locale1_strings[$entity]) && $locale1_strings[$entity] !='') ?
-                $locale1_strings[$entity] : false;
-            $locale2_strings[$entity] = (isset($locale2_strings[$entity]) && $locale2_strings[$entity] !='') ?
-                $locale2_strings[$entity]: false;
-            $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity]);
+            $locale1Strings[$entity] = (isset($locale1Strings[$entity]) && $locale1Strings[$entity] !='') ?
+                $locale1Strings[$entity] : false;
+            $locale2Strings[$entity] = (isset($locale2Strings[$entity]) && $locale2Strings[$entity] !='') ?
+                $locale2Strings[$entity]: false;
+            $searchResults[$entity] = array($locale1Strings[$entity], $locale2Strings[$entity]);
         }
-        return $search_results;
+        return $searchResults;
     }
 
     /*
@@ -58,20 +58,20 @@ class ShowResults
     /*
      * Search results in a table
      */
-    public static function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
+    public static function resultsTable($searchResults, $recherche, $locale1, $locale2, $searchOptions)
     {
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-        $bz_component = rawurlencode(
+        $bzComponent = rawurlencode(
                             Utils::collectLanguageComponent(
                                 $locale2,
                                 Utils::getBugzillaComponents()
         ));
 
-        $bz_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-                   . $bz_component
+        $bzLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+                   . $bzComponent
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
         $table  = "<table>
@@ -81,137 +81,137 @@ class ShowResults
                         <th>$locale2</th>
                       </tr>";
 
-        if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
+        if (!$searchOptions['whole_word'] && !$searchOptions['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
         } else {
             $recherche = array($recherche);
         }
 
-        foreach ($search_results as $key => $strings) {
+        foreach ($searchResults as $key => $strings) {
 
             // Don't highlight search matchs in entities when searching strings
-            if ($search_options['search_type'] == 'strings') {
-                $result_entity = Utils::formatEntity($key);
+            if ($searchOptions['search_type'] == 'strings') {
+                $resultEntity = Utils::formatEntity($key);
             } else {
-                $result_entity = Utils::formatEntity($key, $recherche[0]);
+                $resultEntity = Utils::formatEntity($key, $recherche[0]);
             }
-            
-            $source_string = trim($strings[0]);
-            $target_string = trim($strings[1]);
+
+            $sourceString = trim($strings[0]);
+            $targetString = trim($strings[1]);
 
             // Bugzilla GET data
-            $bug_summary = rawurlencode("Translation update proposed for ${key}");
+            $bugSummary = rawurlencode("Translation update proposed for ${key}");
             // We don't rawurlencode() the strings otherwise they are unreadable in the bugzilla comment
-            $bug_message = rawurlencode("The string:\n")
-                           . $source_string
+            $bugMessage = rawurlencode("The string:\n")
+                           . $sourceString
                            . rawurlencode("\n\nIs translated as:\n")
-                           . $target_string
-                           . rawurlencode("\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/?sourcelocale=${locale1}&locale=${locale2}&repo=${search_options['repo']}&search_type=entities&recherche=${key}");
+                           . $targetString
+                           . rawurlencode("\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/?sourcelocale=${locale1}&locale=${locale2}&repo=${searchOptions['repo']}&search_type=entities&recherche=${key}");
 
             foreach ($recherche as $val) {
-                $source_string = Utils::markString($val, $source_string);
-                $target_string = Utils::markString($val, $target_string);
+                $sourceString = Utils::markString($val, $sourceString);
+                $targetString = Utils::markString($val, $targetString);
             }
 
-            $source_string = Utils::highlightString($source_string);
-            $target_string = Utils::highlightString($target_string);
+            $sourceString = Utils::highlightString($sourceString);
+            $targetString = Utils::highlightString($targetString);
 
             // nbsp highlight
-            $target_string = str_replace(
+            $targetString = str_replace(
                 ' ',
                 '<span class="highlight-gray" title="Non breakable space"> </span>',
-                $target_string
+                $targetString
             );
             // thin space highlight
-            $target_string = str_replace(
+            $targetString = str_replace(
                 ' ',
                 '<span class="highlight-red" title="Thin space"> </span>',
-                $target_string
+                $targetString
             );
 
             // right ellipsis highlight
-            $target_string = str_replace(
+            $targetString = str_replace(
                 '…',
                 '<span class="highlight-gray">…</span>',
-                $target_string
+                $targetString
             );
 
             // right ellipsis highlight
-            $target_string = str_replace(
+            $targetString = str_replace(
                 '&hellip;',
                 '<span class="highlight-gray">…</span>',
-                $target_string
+                $targetString
             );
 
             $temp = explode('-', $locale1);
-            $short_locale1 = $temp[0];
+            $locale1ShortCode = $temp[0];
 
             $temp = explode('-', $locale2);
-            $short_locale2 = $temp[0];
+            $locale2ShortCode = $temp[0];
 
-            $path_locale1 = Utils::pathFileInRepo($locale1, $search_options['repo'], $key);
-            $path_locale2 = Utils::pathFileInRepo($locale2, $search_options['repo'], $key);
+            $locale1Path = Utils::pathFileInRepo($locale1, $searchOptions['repo'], $key);
+            $locale2Path = Utils::pathFileInRepo($locale2, $searchOptions['repo'], $key);
 
             // errors
-            $error_msg = '';
+            $errorMessage = '';
 
             // check for final dot
-            if (substr(strip_tags($source_string), -1) == '.'
-                && substr(strip_tags($target_string), -1) != '.') {
-                $error_msg = '<em class="error"> No final dot?</em>';
+            if (substr(strip_tags($sourceString), -1) == '.'
+                && substr(strip_tags($targetString), -1) != '.') {
+                $errorMessage = '<em class="error"> No final dot?</em>';
             }
 
             // check abnormal string length
-            $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
-            if ($length_diff) {
-                switch ($length_diff) {
+            $lengthDiff = Utils::checkAbnormalStringLength($sourceString, $targetString);
+            if ($lengthDiff) {
+                switch ($lengthDiff) {
                     case 'small':
-                        $error_msg = $error_msg . '<em class="error"> Small string?</em>';
+                        $errorMessage = $errorMessage . '<em class="error"> Small string?</em>';
                         break;
                     case 'large':
-                        $error_msg = $error_msg . '<em class="error"> Large String?</em>';
+                        $errorMessage = $errorMessage . '<em class="error"> Large String?</em>';
                         break;
                 }
             }
 
             // Missing string error
-            if (!$source_string) {
-                $source_string = '<em class="error">warning: missing string</em>';
-                $error_msg = '';
+            if (!$sourceString) {
+                $sourceString = '<em class="error">warning: missing string</em>';
+                $errorMessage = '';
             }
-            if (!$target_string) {
-                $target_string = '<em class="error">warning: missing string</em>';
-                $error_msg = '';
+            if (!$targetString) {
+                $targetString = '<em class="error">warning: missing string</em>';
+                $errorMessage = '';
             }
 
             $table .= "
                 <tr>
-                  <td>${result_entity}</td>
+                  <td>{$resultEntity}</td>
 
-                  <td dir='${direction1}'>
+                  <td dir='{$direction1}'>
                     <div class='string'>
-                      <a href='http://translate.google.com/#${short_locale1}/${short_locale2}/"
-                      . urlencode(strip_tags($source_string))
-                      . "'>${source_string}</a>
+                      <a href='http://translate.google.com/#{$locale1ShortCode}/{$locale2ShortCode}/"
+                      . urlencode(strip_tags($sourceString))
+                      . "'>{$sourceString}</a>
                     </div>
                     <div dir='ltr' class='infos'>
-                      <a class='source_link' href='${path_locale1}'>
+                      <a class='source_link' href='{$locale1Path}'>
                         &lt;source&gt;
                       </a>
                     </div>
                   </td>
 
-                  <td dir='${direction2}'>
-                    <div class='string'>${target_string}</div>
+                  <td dir='{$direction2}'>
+                    <div class='string'>{$targetString}</div>
                     <div dir='ltr' class='infos'>
-                      <a class='source_link' href='${path_locale2}'>
+                      <a class='source_link' href='{$locale2Path}'>
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='${bz_link}&short_desc=${bug_summary}&comment=${bug_message}'>
+                      <a class='bug_link' target='_blank' href='{$bzLink}&short_desc={$bugSummary}&comment={$bugMessage}'>
                         &lt;report a bug&gt;
                       </a>
-                      ${error_msg}
+                      {$errorMessage}
                     </div>
                   </td>
                 </tr>";

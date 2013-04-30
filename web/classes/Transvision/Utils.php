@@ -113,17 +113,17 @@ class Utils
      * 'entity' => ['locale 1', 'locale 2']
      */
 
-    public static function results($entities, $locale1_strings, $locale2_strings)
+    public static function results($entities, $locale1Strings, $locale2Strings)
     {
 
-        $search_results = array();
+        $searchResults = array();
 
         foreach ($entities as $entity) {
-            $search_results[$entity] = array($locale1_strings[$entity],
-                                             $locale2_strings[$entity]);
+            $searchResults[$entity] = array($locale1Strings[$entity],
+                                             $locale2Strings[$entity]);
         }
 
-        return $search_results;
+        return $searchResults;
     }
 
     public static function markString($needle, $haystack)
@@ -309,7 +309,7 @@ class Utils
         $path          = explode(':', $path);
         $path          = $path[0];
         $path          = explode('/', $path);
-        $entity_file   = array_pop($path);
+        $entityFile   = array_pop($path);
         $path          = implode('/', $path);
         $exploded_path = explode('/', $path);
         $base_folder   = $exploded_path[0];
@@ -317,7 +317,7 @@ class Utils
         if ($repo == 'gaia' || $base_folder == 'apps') {
             $locale = ($locale == 'es-ES') ? 'es' : $locale;
             $url   .= '/gaia-l10n/' . $locale . '/file/default/';
-            return $url . $path . '/' . $entity_file;
+            return $url . $path . '/' . $entityFile;
         }
 
         $en_US_Folder_Mess = array(
@@ -410,7 +410,7 @@ class Utils
             }
         }
 
-        return $url . $path . '/' . $entity_file;
+        return $url . $path . '/' . $entityFile;
     }
 
     /*
@@ -462,12 +462,12 @@ class Utils
      * @param  array   $exclude files to exclude from results, by default . and ..
      * @return array
      */
-    public static function getFilenamesInFolder($folder, $exclude = array('.', '..'))
+    public static function getFilenamesInFolder($folder, $excludedFiles = array('.', '..'))
     {
         // Get the locale list
-        $file_list = scandir($folder);
-        $file_list = array_diff($file_list, $exclude);
-        return $file_list;
+        $files = scandir($folder);
+        $files = array_diff($files, $excludedFiles);
+        return $files;
     }
 
     /*
