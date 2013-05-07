@@ -4,23 +4,6 @@ namespace Transvision;
 
 class Utils
 {
-
-    /*
-     * Replace contiguous spaces in a string by a single space
-     *
-     * @param $string
-     * @return string
-     */
-
-
-    public static function mtrim($string)
-    {
-        $string = explode(' ', $string);
-        $string = array_filter($string);
-        $string = implode(' ', $string);
-        return $string;
-    }
-
     /*
      * Check if a variable exists and is not set to false
      * Useful to check variables in $_GET for example
@@ -542,7 +525,7 @@ class Utils
         $str = Utils::secureText($str);
         $str = stripslashes($str);
         // Filter out double spaces
-        $str = Utils::mtrim($str);
+        $str = Strings::mtrim($str);
         return $str;
     }
 
@@ -605,35 +588,6 @@ class Utils
     }
 
     /*
-     * Check if $haystack starts with the $needle string
-     *
-     * @param $haystack string
-     * @param $needle string
-     * @return boolean
-     */
-    public static function startsWith($haystack, $needle)
-    {
-        return !strncmp($haystack, $needle, strlen($needle));
-    }
-
-
-    /*
-     * Check if $haystack ends with the $needle string
-     *
-     * @param $haystack string
-     * @param $needle string
-     * @return boolean
-     */
-    public static function endsWith($haystack, $needle)
-    {
-        $length = strlen($needle);
-        if ($length == 0) {
-            return true;
-        }
-
-        return (substr($haystack, -$length) === $needle);
-    }
-    /*
      * Collect the correct language component for bugzilla URL
      *
      * @param $actual_lng string
@@ -646,7 +600,7 @@ class Utils
         $actual_lng = $actual_lng . ' /';
 
         foreach ($components_array as $component) {
-            if (Utils::startsWith($component['name'], $actual_lng)) {
+            if (Strings::startsWith($component['name'], $actual_lng)) {
                 $component_string = $component['name'];
                 break;
             }
