@@ -73,7 +73,35 @@ class Strings extends atoum\test
     {
         $obj = new \Transvision\Strings();
         $this
-            ->boolean($obj->endsWith($a,$b))
+            ->boolean($obj->endsWith($a, $b))
+                ->isEqualTo($c)
+        ;
+    }
+
+    public function multipleStringReplacedataProvider()
+    {
+        return array(
+            array(
+                array(
+                    ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                    ' '        => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
+                    '…'        => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                    '&hellip;' => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                ),
+                '&hellip;  …',
+                '<span class="highlight-gray">…</span><span class="highlight-gray" title="Non breakable space"> </span><span class="highlight-red" title="Thin space"> </span><span class="highlight-gray">…</span>'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider multipleStringReplacedataProvider
+     */
+    public function testmultipleStringReplace($a, $b, $c)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->string($obj->multipleStringReplace($a, $b))
                 ->isEqualTo($c)
         ;
     }

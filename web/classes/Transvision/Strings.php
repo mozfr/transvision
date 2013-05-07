@@ -47,4 +47,17 @@ class Strings
         return (substr($haystack, -$length) === $needle);
     }
 
+    /*
+     * return a string after replacing all the items provided in an array
+     *
+     * @param $needle string
+     * @param $haystack array
+     * @return string
+     */
+    public static function multipleStringReplace($haystack, $needle)
+    {
+        return str_replace(array_keys($haystack), $haystack, $needle);
+    }
+
 }
+

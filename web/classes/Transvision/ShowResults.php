@@ -112,32 +112,14 @@ class ShowResults
             $sourceString = Utils::highlightString($sourceString);
             $targetString = Utils::highlightString($targetString);
 
-            // nbsp highlight
-            $targetString = str_replace(
-                ' ',
-                '<span class="highlight-gray" title="Non breakable space"> </span>',
-                $targetString
-            );
-            // thin space highlight
-            $targetString = str_replace(
-                ' ',
-                '<span class="highlight-red" title="Thin space"> </span>',
-                $targetString
+            $replacements = array(
+                ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                ' '        => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
+                '…'        => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                '&hellip;' => '<span class="highlight-gray">…</span>', // right ellipsis highlight
             );
 
-            // right ellipsis highlight
-            $targetString = str_replace(
-                '…',
-                '<span class="highlight-gray">…</span>',
-                $targetString
-            );
-
-            // right ellipsis highlight
-            $targetString = str_replace(
-                '&hellip;',
-                '<span class="highlight-gray">…</span>',
-                $targetString
-            );
+            $targetString = Strings::multipleStringReplace($replacements, $targetString);
 
             $temp = explode('-', $locale1);
             $locale1ShortCode = $temp[0];
