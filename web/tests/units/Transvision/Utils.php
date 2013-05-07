@@ -294,6 +294,7 @@ class Utils extends atoum\test
             )
         );
     }
+
     /**
      * @dataProvider collectLanguageComponentDataProvider
      */
@@ -305,4 +306,37 @@ class Utils extends atoum\test
                 ->isEqualTo($c)
         ;
     }
+
+
+    /**
+     * @dataProvider pathFileInRepoDataProvider
+     */
+    public function testPathFileInRepo($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->pathFileInRepo($a, $b, $c))
+                ->isEqualTo($d)
+        ;
+    }
+
+    public function pathFileInRepoDataProvider()
+    {
+
+        return array(
+            array(
+                'fr',
+                'beta',
+                'browser/updater/updater.ini:TitleText',
+                'http://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini'
+                ),
+            array(
+                'es-ES',
+                'gaia',
+                'apps/settings/settings.properties:usb-tethering',
+                'http://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties'
+                ),
+        );
+    }
+
 }

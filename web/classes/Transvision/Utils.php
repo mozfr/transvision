@@ -355,7 +355,7 @@ class Utils
             if ($repo == 'central') {
                 $url .= '/l10n-central/' . $locale . '/file/default/';
             } else {
-                $url .= '/releases/l10n/mozilla-aurora/' . $locale . '/file/default/';
+                $url .= '/releases/l10n/mozilla-' . $repo . '/' . $locale . '/file/default/';
             }
 
         } else {
