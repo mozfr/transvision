@@ -43,16 +43,19 @@ class ShowResults
      */
     public static function highlight($string, $locale = 'fr')
     {
+        $replacements = array(
+            ' ' => '<span class="highlight-gray"> </span>',
+            '…' => '<span class="highlight-gray">…</span>',
+        );
+
         switch($locale) {
             case 'fr':
             default:
-                $string = str_replace('&hellip;', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
+                $replacements['&hellip;'] = '<span class="highlight-gray">…</span>'; // right ellipsis highlight
                 break;
         }
 
-        $string = str_replace(' ', '<span class="highlight-gray"> </span>', $string); // nbsp highlight
-        $string = str_replace('…', '<span class="highlight-gray">…</span>', $string); // right ellipsis highlight
-        return $string;
+        return Strings::multipleStringReplace($replacements, $string);
     }
 
     /*

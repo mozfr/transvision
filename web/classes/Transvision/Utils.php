@@ -239,10 +239,13 @@ class Utils
         echo "<br>(" . count($var) . " elements)<br>";
         echo '<code>';
 
-        $content = str_replace('[', '<span class="dump">[', $content);
-        $content = str_replace(']', ']</span>', $content);
-        $content = str_replace(' => ', '<span class="dump-arrow">=></span>', $content);
-        echo $content;
+        $replacements = array(
+            '['     => '<span class="dump">[',
+            ']'     => ']</span>',
+            ' => '  => '<span class="dump-arrow">=></span>'
+        );
+
+        echo Strings::mutipleStringReplace($replacements, $content);
         echo '</code></pre>';
     }
 
