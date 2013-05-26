@@ -183,7 +183,7 @@ td div.infos {
     text-align:right;
     margin-top:4px;
 }
-td div.infos a {
+td div.infos a, td div.infos span {
     float:left;
     margin-right: 5px;
 }
