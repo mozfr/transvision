@@ -17,6 +17,10 @@
     src: url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight") format("svg");
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     color: #333333;
     font-family: 'Open Sans',sans-serif;
