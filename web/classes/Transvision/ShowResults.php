@@ -171,14 +171,19 @@ class ShowResults
 
                   <td dir='{$direction1}'>
                     <div class='string'>
-                      <a href='http://translate.google.com/#{$locale1ShortCode}/{$locale2ShortCode}/"
-                      . urlencode(strip_tags($sourceString))
-                      . "'>{$sourceString}</a>
+                      {$sourceString}
                     </div>
                     <div dir='ltr' class='infos'>
                       <a class='source_link' href='{$locale1Path}'>
                         &lt;source&gt;
                       </a>
+                      <span>Translate with:</span>
+                      <a href='http://translate.google.com/#{$locale1ShortCode}/{$locale2ShortCode}/"
+                      . urlencode(strip_tags($sourceString))
+                      . "' target='_blank'>Google</a>
+                      <a href='http://www.bing.com/translator/?from={$locale1ShortCode}&to={$locale2ShortCode}&text="
+                      . urlencode(strip_tags($sourceString))
+                      . "' target='_blank'>BING</a>
                     </div>
                   </td>
 
