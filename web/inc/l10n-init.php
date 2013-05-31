@@ -11,13 +11,16 @@ $locale = $l10n->getCompatibleLocale();
 $sourceLocale = 'en-US';
 
 // Bypass locale & source locale detection if there are a COOKIES stored with them
-if (isset($_COOKIE['default_target_locale'])) {
-	$locale = $_COOKIE['default_target_locale'];
-}
-if (isset($_COOKIE['default_source_locale'])) {
-	$sourceLocale = $_COOKIE['default_source_locale'];
+if (WEBSERVICE ==  false) {
+    if (isset($_COOKIE['default_target_locale'])) {
+        $locale = $_COOKIE['default_target_locale'];
+    }
+    if (isset($_COOKIE['default_source_locale'])) {
+        $sourceLocale = $_COOKIE['default_source_locale'];
+    }
 }
 
+$allLocales[] = 'en-US';
 // Bypass locale detection if the page sends a valid GET variable
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $l10n->setDefaultLocale($_GET['locale']);
@@ -26,8 +29,8 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 
 // Bypass default source locale for locale to locale comparison
 if (isset($_GET['sourcelocale']) && $_GET['sourcelocale'] == 'en-US') {
-	$sourceLocale = 'en-US';
-}elseif (isset($_GET['sourcelocale']) && in_array($_GET['sourcelocale'], $allLocales)) {
+    $sourceLocale = 'en-US';
+} elseif (isset($_GET['sourcelocale']) && in_array($_GET['sourcelocale'], $allLocales)) {
     $sourceLocale = $_GET['sourcelocale'];
 }
 
