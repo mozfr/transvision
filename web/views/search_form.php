@@ -17,7 +17,6 @@ if ($spanish) {
 $target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
 
 // build the source locale switcher
-$loc_list[] = 'en-US';
 sort($loc_list);
 $source_locales_list = Utils::getHtmlSelectOptions($loc_list, $sourceLocale);
 

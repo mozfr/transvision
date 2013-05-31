@@ -4,6 +4,7 @@
  */
 
 $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+$allLocales[] = 'en-US'; // Add en-US as a regular locale without impacting glossaire.sh
 $l10n = new tinyl10n\ChooseLocale($allLocales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;
@@ -20,7 +21,6 @@ if (WEBSERVICE ==  false) {
     }
 }
 
-$allLocales[] = 'en-US';
 // Bypass locale detection if the page sends a valid GET variable
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $l10n->setDefaultLocale($_GET['locale']);
