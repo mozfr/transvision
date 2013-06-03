@@ -3,7 +3,12 @@
  * This file initializes l10n support: locale detection, rtl/ltr variables
  */
 
-$allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
+    $allLocales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+} else {
+    $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+}
+
 $allLocales[] = 'en-US'; // Add en-US as a regular locale without impacting glossaire.sh
 $l10n = new tinyl10n\ChooseLocale($allLocales);
 $l10n->setDefaultLocale('fr');
