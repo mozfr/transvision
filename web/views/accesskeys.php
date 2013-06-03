@@ -53,8 +53,10 @@ foreach ($akeys as $akey) {
 
     foreach ($ak_labels as $ak_label) {
         if ( isset($strings[$repo][$entity . $ak_label])
-                    && $strings[$repo][$entity . $ak_label] != ''
-                    && $stringsEnglish[$repo][$akey] != '') {
+             && !empty($strings[$repo][$entity . $ak_label])
+             && isset($stringsEnglish[$repo][$akey])
+             && !empty($stringsEnglish[$repo][$akey])
+            ) {
             if ($akey_value == '') {
                 $ak_results[$akey] = $entity . $ak_label;
             } elseif (mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
