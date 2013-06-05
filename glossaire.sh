@@ -2,8 +2,8 @@
 
 
 # get server configuration variables
-export PATH=$PATH:$PWD/transvision/web/inc
-export PATH=$PATH:$PWD/transvision/
+export PATH=$PATH:$PWD/web/inc
+export PATH=$PATH:$PWD/
 source iniparser.sh
 
 # update hg repositories or not
