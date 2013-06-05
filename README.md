@@ -17,6 +17,16 @@ Transvision was created by Philippe Dessante, from the FrenchMozilla team.
 
 Lead developper since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 
+
+Install
+-------
+1. Copy web/inc/config.ini-dist to web/inc/config.ini and adapt the variables to your sistem.
+2. Run setup.sh in Transvision's root folder.
+
+Update
+-------
+1. Run glossaire.sh in Transvision's root folder.
+
 Licence:
 -------
-MPL 2/GPL 2.0/LGPL 2.1 
+MPL 2/GPL 2.0/LGPL 2.1
