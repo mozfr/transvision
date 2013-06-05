@@ -22,7 +22,7 @@ cfg_parser ()
     eval "$(echo "${ini[*]}")" # eval the result
 }
 
-config_path=$HOME/transvision/web/inc
+config_path=$PWD/web/inc
 cfg_parser $config_path/config.ini
 
 # enable section called 'config' for reading
