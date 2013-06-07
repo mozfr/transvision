@@ -229,6 +229,16 @@ for i in `cat $install/gaia.txt`
         fi
 done
 
+# Add .htaccess to TMX folder. Folder should already exists, but check in
+# advance to be sure. I overwrite an existing .htaccess if already present.
+echo "add .htaccess to TMX folder"
+if [ ! -d $root/TMX ]
+    then
+        echo "Creating TMX folder"
+        mkdir -p $root/TMX
+fi
+echo -n "AddType application/xml .tmx" > $root/TMX/.htaccess
+
 echo "add log files"
 touch $config_path/transvision.log
 touch $install/web/stats.json
