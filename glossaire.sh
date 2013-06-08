@@ -1,17 +1,38 @@
 #!/bin/bash
 
+# Syntax:
+# - without parameters: update all locales
+# - one parameter (locale code): update only the requested locale
 
-# get server configuration variables
+all_locales=true
+
+if [ $# -eq 1 ]
+then
+    # I have exactly one parameter, it should be the locale code
+    all_locales=false
+    locale_code=$1
+fi
+
+if [ $# -gt 1 ]
+then
+    # Too many parameters, warn and exit
+    echo "ERROR: too many arguments. Run 'glossaire.sh' without parameters to"
+    echo "update all locales, or add the locale code as the only parameter "
+    echo "(e.g. 'glossaire.sh fr' to update only French)."
+    exit 1
+fi
+
+# Get server configuration variables
 export PATH=$PATH:$PWD/web/inc
 export PATH=$PATH:$PWD/
 source iniparser.sh
 
-# update hg repositories or not
+# Decide if must update hg repositories and create TMX
 checkrepo=true
 createTMX=true
 
 # Update RELEASE
-if [ "$checkrepo" = true ]
+if $checkrepo
 then
     cd $release_source
     cd comm-release
@@ -21,36 +42,56 @@ then
     hg pull -r tip
     hg update -c
 
-    cd $release_l10n
-    for i in `cat $release_locales`
-    do
-        cd $i
-        hg pull -r tip
-        hg update -c
-        cd ..
-    done
+    if $all_locales
+    then
+        cd $release_l10n
+        for i in `cat $release_locales`
+        do
+            cd $i
+            hg pull -r tip
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $release_l10n/$locale_code ]
+        then
+            cd $release_l10n/$locale_code
+            hg pull -r tip
+            hg update -c
+            cd ..
+        else
+            echo "Folder $release_l10n/$locale_code does not exist."
+        fi
+    fi
 fi
 
 cd $install
-if [ "$createTMX" = true ]
+if $createTMX
 then
-    for i in `cat $release_locales`
-    do
-        echo "Create RELEASE TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/$i/ $local_hg/RELEASE_EN-US/COMMUN/ $i en-US release
-    done
+    if $all_locales
+    then
+        for i in `cat $release_locales`
+        do
+            echo "Create RELEASE TMX for $i"
+            nice -20 python tmxmaker.py $release_l10n/$i/ $release_source/COMMUN/ $i en-US release
+        done
+    else
+        if [ -d $release_l10n/$locale_code ]
+        then
+            echo "Create RELEASE TMX for $locale_code"
+            nice -20 python tmxmaker.py $release_l10n/$locale_code/ $release_source/COMMUN/ $locale_code en-US release
+        else
+            echo "Folder $release_l10n/$locale_code does not exist."
+        fi
+    fi
 
-    #~ echo "Create RELEASE TMX for fr"
-    #~ nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/fr/ $local_hg/RELEASE_EN-US/COMMUN/ fr en-US release
-    #~ echo "Create RELEASE TMX for es-ES"
-    #~ nice -20 python tmxmaker.py $local_hg/RELEASE_L10N/es-ES/ $local_hg/RELEASE_EN-US/COMMUN/ es-ES en-US release
     echo "Create RELEASE TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/RELEASE_EN-US/COMMUN/ $local_hg/RELEASE_EN-US/COMMUN/ en-US en-US release
+    nice -20 python tmxmaker.py $release_source/COMMUN/ $release_source/COMMUN/ en-US en-US release
 fi
-#~ exit
+
 
 # Update BETA
-if [ "$checkrepo" = true ]
+if $checkrepo
 then
     cd $beta_source
     cd comm-beta
@@ -60,30 +101,56 @@ then
     hg pull -r tip
     hg update -c
 
-    cd $beta_l10n
-    for i in `cat $beta_locales`
-    do
-        cd $i
-        hg pull -r tip
-        hg update -c
-        cd ..
-    done
+    if $all_locales
+    then
+        cd $beta_l10n
+        for i in `cat $beta_locales`
+        do
+            cd $i
+            hg pull -r tip
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $beta_l10n/$locale_code ]
+        then
+            cd $beta_l10n/$locale_code
+            hg pull -r tip
+            hg update -c
+            cd ..
+        else
+            echo "Folder $beta_l10n/$locale_code does not exist."
+        fi
+    fi
 fi
 
 cd $install
-if [ "$createTMX" = true ]
+if $createTMX
 then
-    for i in `cat $beta_locales`
-    do
-        echo "Create BETA TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/BETA_L10N/$i/ $local_hg/BETA_EN-US/COMMUN/ $i en-US beta
-    done
+    if $all_locales
+    then
+        for i in `cat $beta_locales`
+        do
+            echo "Create BETA TMX for $i"
+            nice -20 python tmxmaker.py $beta_l10n/$i/ $beta_source/COMMUN/ $i en-US beta
+        done
+    else
+        if [ -d $beta_l10n/$locale_code ]
+        then
+            echo "Create BETA TMX for $locale_code"
+            nice -20 python tmxmaker.py $beta_l10n/$locale_code/ $beta_source/COMMUN/ $locale_code en-US beta
+        else
+            echo "Folder $beta_l10n/$locale_code does not exist."
+        fi
+    fi
+
     echo "Create BETA TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/BETA_EN-US/COMMUN/ $local_hg/BETA_EN-US/COMMUN/ en-US en-US beta
+    nice -20 python tmxmaker.py $beta_source/COMMUN/ $beta_source/COMMUN/ en-US en-US beta
 fi
 
+
 # Update TRUNK
-if [ "$checkrepo" = true ]
+if $checkrepo
 then
     cd $trunk_source
     cd comm-central
@@ -93,30 +160,56 @@ then
     hg pull -r tip
     hg update -c
 
-    cd $trunk_l10n
-    for i in `cat $trunk_locales`
-    do
-        cd $i
-        hg pull -r tip
-        hg update -c
-        cd ..
-    done
+    if $all_locales
+    then
+        cd $trunk_l10n
+        for i in `cat $trunk_locales`
+        do
+            cd $i
+            hg pull -r tip
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $trunk_l10n/$locale_code ]
+        then
+            cd $trunk_l10n/$locale_code
+            hg pull -r tip
+            hg update -c
+            cd ..
+        else
+            echo "Folder $trunk_l10n/$locale_code does not exist."
+        fi
+    fi
 fi
 
 cd $install
-if [ "$createTMX" = true ]
+if $createTMX
 then
-    for i in `cat $trunk_locales`
-    do
-        echo "Create TRUNK TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/TRUNK_L10N/$i/ $local_hg/TRUNK_EN-US/COMMUN/ $i en-US central
-    done
+    if $all_locales
+    then
+        for i in `cat $trunk_locales`
+        do
+            echo "Create TRUNK TMX for $i"
+            nice -20 python tmxmaker.py $trunk_l10n/$i/ $trunk_source/COMMUN/ $i en-US central
+        done
+    else
+        if [ -d $trunk_l10n/$locale_code ]
+        then
+            echo "Create TRUNK TMX for $locale_code"
+            nice -20 python tmxmaker.py $trunk_l10n/$locale_code/ $trunk_source/COMMUN/ $locale_code en-US central
+        else
+            echo "Folder $trunk_l10n/$locale_code does not exist."
+        fi
+    fi
+
     echo "Create TRUNK TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/TRUNK_EN-US/COMMUN/ $local_hg/TRUNK_EN-US/COMMUN/ en-US en-US central
+    nice -20 python tmxmaker.py $trunk_source/COMMUN/ $trunk_source/COMMUN/ en-US en-US central
 fi
 
-# Update AURORA
-if [ "$checkrepo" = true ]
+
+# Update aurora
+if $checkrepo
 then
     cd $aurora_source
     cd comm-aurora
@@ -126,52 +219,100 @@ then
     hg pull -r tip
     hg update -c
 
-
-    cd $local_hg/AURORA_L10N/
-    for i in `cat $aurora_locales`
-    do
-        cd $i
-        hg pull -r tip
-        hg update -c
-        cd ..
-    done
+    if $all_locales
+    then
+        cd $aurora_l10n
+        for i in `cat $aurora_locales`
+        do
+            cd $i
+            hg pull -r tip
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $aurora_l10n/$locale_code ]
+        then
+            cd $aurora_l10n/$locale_code
+            hg pull -r tip
+            hg update -c
+            cd ..
+        else
+            echo "Folder $aurora_l10n/$locale_code does not exist."
+        fi
+    fi
 fi
 
 cd $install
-
-if [ "$createTMX" = true ]
+if $createTMX
 then
-    for i in `cat $aurora_locales`
-    do
-        echo "Create AURORA TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/AURORA_L10N/$i/ $local_hg/AURORA_EN-US/COMMUN/ $i en-US aurora
-    done
+    if $all_locales
+    then
+        for i in `cat $aurora_locales`
+        do
+            echo "Create AURORA TMX for $i"
+            nice -20 python tmxmaker.py $aurora_l10n/$i/ $aurora_source/COMMUN/ $i en-US aurora
+        done
+    else
+        if [ -d $aurora_l10n/$locale_code ]
+        then
+            echo "Create AURORA TMX for $locale_code"
+            nice -20 python tmxmaker.py $aurora_l10n/$locale_code/ $aurora_source/COMMUN/ $locale_code en-US aurora
+        else
+            echo "Folder $aurora_l10n/$locale_code does not exist."
+        fi
+    fi
+
     echo "Create AURORA TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/AURORA_EN-US/COMMUN/ $local_hg/AURORA_EN-US/COMMUN/ en-US en-US aurora
+    nice -20 python tmxmaker.py $aurora_source/COMMUN/ $aurora_source/COMMUN/ en-US en-US aurora
 fi
 
 
 # Update GAIA
-if [ "$checkrepo" = true ]
+if $checkrepo
 then
-    cd $gaia
-    for i in `cat $gaia_locales`
-    do
-        cd $i
-        hg pull -r tip
-        hg update -c
-        cd ..
-    done
+    if $all_locales
+    then
+        cd $gaia
+        for i in `cat $gaia_locales`
+        do
+            cd $i
+            hg pull -r tip
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $gaia/$locale_code ]
+        then
+            cd $gaia/$locale_code
+            hg pull -r tip
+            hg update -c
+            cd ..
+        else
+            echo "Folder $gaia/$locale_code does not exist."
+        fi
+    fi
 fi
 
 cd $install
-if [ "$createTMX" = true ]
+if $createTMX
 then
-    for i in `cat $gaia_locales`
-    do
-        echo "Create GAIA TMX for $i"
-        nice -20 python tmxmaker.py $local_hg/GAIA/$i/ $local_hg/GAIA/en-US/ $i en-US gaia
-    done
+    if $all_locales
+    then
+        for i in `cat $gaia_locales`
+        do
+            echo "Create GAIA TMX for $i"
+            nice -20 python tmxmaker.py $gaia/$i/ $gaia/en-US/ $i en-US gaia
+        done
+    else
+        if [ -d $gaia/$locale_code ]
+        then
+            echo "Create GAIA TMX for $locale_code"
+            nice -20 python tmxmaker.py $gaia/$locale_code/ $gaia/en-US/ $locale_code en-US gaia
+        else
+            echo "Folder $gaia/$locale_code does not exist."
+        fi
+    fi
+
     echo "Create GAIA TMX for en-US"
-    nice -20 python tmxmaker.py $local_hg/GAIA/en-US/ $local_hg/GAIA/en-US/ en-US en-US gaia
+    nice -20 python tmxmaker.py $gaia/en-US/ $gaia/en-US/ en-US en-US gaia
 fi
