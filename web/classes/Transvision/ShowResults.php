@@ -113,10 +113,13 @@ class ShowResults
             $sourceString = trim($strings[0]);
             $targetString = trim($strings[1]);
 
+            // Link to entity
+            $entityLink = "?sourcelocale={$locale1}&locale={$locale2}&repo={$searchOptions['repo']}&search_type=entities&recherche={$key}</a>";
+
             // Bugzilla GET data
             $bugSummary = rawurlencode("Translation update proposed for ${key}");
             $bugMessage = rawurlencode(html_entity_decode(
-                "The string:\n{$sourceString}\n\nIs translated as:\n{$targetString}\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/?sourcelocale={$locale1}&locale={$locale2}&repo={$searchOptions['repo']}&search_type=entities&recherche={$key}"));
+                "The string:\n{$sourceString}\n\nIs translated as:\n{$targetString}\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/{$entityLink}"));
 
             foreach ($recherche as $val) {
                 $sourceString = Utils::markString($val, $sourceString);
@@ -178,7 +181,7 @@ class ShowResults
 
             $table .= "
                 <tr>
-                  <td>{$resultEntity}</td>
+                  <td><a href=\"/{$entityLink}\">{$resultEntity}</a></td>
 
                   <td dir='{$direction1}'>
                     <div class='string'>
