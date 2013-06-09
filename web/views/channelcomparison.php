@@ -86,7 +86,7 @@ echo '</tr>';
 
 foreach ($temp as $k => $v) {
     echo   "<tr>"
-         . "<td>" . Utils::formatEntity($k) . "</td>"
+         . "<td>" . ShowResults::formatEntity($k) . "</td>"
          . "<td>" . ShowResults::highlight($v, $locale) . "</td>"
          . "<td>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>
            </tr>";

@@ -25,7 +25,7 @@ foreach ($entities as $val) {
         $target_string = '';
     }
     $table .= "<tr>
-                    <td>" . Utils::formatEntity($val, $my_search) . "</a></td>
+                    <td>" . ShowResults::formatEntity($val, $my_search) . "</a></td>
                     <td dir='${direction1}'>
                        <div class='string'>" . $tmx_source[$val] . "</div>
                        <div class='sourcelink'><a href='${path_locale1}'><em>&lt;source&gt;</em></a></div>

@@ -138,25 +138,6 @@ class Utils extends atoum\test
                 ->isEqualTo(' checked="checked"');
     }
 
-    public function formatEntityDataProvider()
-    {
-        return array(
-            array('browser/chrome/browser/browser.dtd:historyHomeCmd.label', false)
-        );
-    }
-
-    /**
-     * @dataProvider formatEntityDataProvider
-     */
-    public function testFormatEntity($a, $b)
-    {
-        $obj = new \Transvision\Utils();
-        $this
-            ->string($obj->formatEntity($a, $b))
-                ->isEqualTo('<span class="green">browser</span><span class="superset">&nbsp;&sup;&nbsp;</span>chrome<span class="superset">&nbsp;&sup;&nbsp;</span>browser<span class="superset">&nbsp;&sup;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>')
-        ;
-    }
-
 
     public function getHtmlSelectOptionsDataProvider()
     {

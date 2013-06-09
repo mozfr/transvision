@@ -25,16 +25,27 @@ class ShowResults
      * make an entity look nice in tables
      *
      */
-    public static function formatEntity($entity)
+
+    public static function formatEntity($entity, $highlight = false)
     {
         // let's analyse the entity for the search string
-        $chunk = explode('/', $entity);
-        // let's format the entity key to look better
-        $chunk[0] = '<span class="green">' . $chunk[0] . '</span>';
-        $chunk[1] = '<span class="blue">' .  $chunk[1] . '</span>';
-        $chunk[2] = '<span class="red">' .   $chunk[2] . '</span>';
-        $entity = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
-        return $entity;
+        $chunk  = explode(':', $entity);
+
+        if ($highlight) {
+            $entity = array_pop($chunk);
+            $highlight = preg_quote($highlight, '/');
+            $entity = preg_replace("/($highlight)/i", '<span class="highlight">$1</span>', $entity);
+            $entity = '<span class="red">' . $entity . '</span>';
+        } else {
+            $entity = '<span class="red">' . array_pop($chunk) . '</span>';
+        }
+        // let's analyse the entity for the search string
+        $chunk  = explode('/', $chunk[0]);
+        $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
+
+        $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+
+        return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
     }
 
     /*
@@ -94,9 +105,9 @@ class ShowResults
 
             // Don't highlight search matchs in entities when searching strings
             if ($searchOptions['search_type'] == 'strings') {
-                $resultEntity = Utils::formatEntity($key);
+                $resultEntity = ShowResults::formatEntity($key);
             } else {
-                $resultEntity = Utils::formatEntity($key, $recherche[0]);
+                $resultEntity = ShowResults::formatEntity($key, $recherche[0]);
             }
 
             $sourceString = trim($strings[0]);

@@ -142,35 +142,6 @@ class Utils
         return $str;
     }
 
-
-
-    /*
-     * make an entity look nice in tables
-     *
-     */
-
-    public static function formatEntity($entity, $highlight = false)
-    {
-        // let's analyse the entity for the search string
-        $chunk  = explode(':', $entity);
-
-        if ($highlight) {
-            $entity = array_pop($chunk);
-            $highlight = preg_quote($highlight, '/');
-            $entity = preg_replace("/($highlight)/i", '<span class="highlight">$1</span>', $entity);
-            $entity = '<span class="red">' . $entity . '</span>';
-        } else {
-            $entity = '<span class="red">' . array_pop($chunk) . '</span>';
-        }
-        // let's analyse the entity for the search string
-        $chunk  = explode('/', $chunk[0]);
-        $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
-
-        $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
-
-        return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
-    }
-
     /**
      * get the current microtime for perf measurements
      *
@@ -268,10 +239,10 @@ class Utils
         foreach ($arr as $key => $val) {
             echo '<tr>';
             if ($arr2) {
-                echo '<td>' . Utils::formatEntity($val) . '</td>';
+                echo '<td>' . ShowResults::formatEntity($val) . '</td>';
                 echo '<td>' . $arr2[$val] . '</td>';
                 echo '<td>' . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</td>';
-                echo '<td>' . Utils::formatEntity($key) . '</td>';
+                echo '<td>' . ShowResults::formatEntity($key) . '</td>';
             } else {
                 echo '<td>' . $val . '</td>';
                 echo '<td>' . $key . '</td>';
