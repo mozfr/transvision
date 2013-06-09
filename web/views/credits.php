@@ -9,6 +9,7 @@
     <li>Philippe Dessantes</li>
     <li>Pascal Chevrel</li>
     <li>Jésús Perez</li>
+    <li>Francesco Lodolo</li>
 </ul>
 
 <p>Many localizers and in particular localizers from the French team have participated in Transvision by giving feedback and making feature requests.</p>
