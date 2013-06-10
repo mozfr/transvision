@@ -253,42 +253,6 @@ class Utils extends atoum\test
         ;
     }
 
-    public function collectLanguageComponentDataProvider()
-    {
-        $obj = new \Transvision\Utils();
-        $components_list = $obj->getBugzillaComponents();
-        return array(
-            array(
-                'en-GB',
-                $components_list,
-                'en-GB / English (United Kingdom)'
-                ),
-            array(
-                'fr',
-                $components_list,
-                'fr / French'
-                ),
-            array(
-                'unknow_LANG',
-                $components_list,
-                'Other'
-            )
-        );
-    }
-
-    /**
-     * @dataProvider collectLanguageComponentDataProvider
-     */
-    public function testCollectLanguageComponent($a, $b, $c)
-    {
-        $obj = new \Transvision\Utils();
-        $this
-            ->string($obj->collectLanguageComponent($a,$b))
-                ->isEqualTo($c)
-        ;
-    }
-
-
     /**
      * @dataProvider pathFileInRepoDataProvider
      */

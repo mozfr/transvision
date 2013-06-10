@@ -79,9 +79,9 @@ class ShowResults
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
         $bzComponent = rawurlencode(
-                            Utils::collectLanguageComponent(
+                            Bugzilla::collectLanguageComponent(
                                 $locale2,
-                                Utils::getBugzillaComponents()
+                                Bugzilla::getBugzillaComponents()
         ));
 
         $bzLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
