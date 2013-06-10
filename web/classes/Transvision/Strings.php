@@ -48,6 +48,18 @@ class Strings
     }
 
     /*
+     * Check if $needle is in $haystack string string
+     *
+     * @param $haystack string
+     * @param $needle string
+     * @return boolean
+     */
+    public static function inString($haystack, $needle)
+    {
+        return (strpos($haystack, $needle) !== false) ? true : false;
+    }
+
+    /*
      * return a string after replacing all the items provided in an array
      *
      * @param $needle string

@@ -78,6 +78,38 @@ class Strings extends atoum\test
         ;
     }
 
+    public function inStringWithDataProvider()
+    {
+        return array(
+            array(
+                'La maison est blanche',
+                'blanche',
+                true
+                ),
+            array(
+                'Le ciel est bleu',
+                'noir',
+                false
+            ),
+            array(
+                'Le ciel est bleu',
+                'Le',
+                true
+            )
+        );
+    }
+    /**
+     * @dataProvider inStringWithDataProvider
+     */
+    public function testInString($a, $b, $c)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->boolean($obj->inString($a, $b))
+                ->isEqualTo($c)
+        ;
+    }
+
     public function multipleStringReplacedataProvider()
     {
         return array(

@@ -53,9 +53,9 @@ foreach ($search as $word) {
     $imperfect = array_keys(array_filter(
             $tmx_source,
             function ($element) use ($word) {
-                $bingo = (strpos($element, $word)) ? true : false;
+                $bingo = Strings::inString($element, $word);
                 if (!$bingo) {
-                    $bingo = (strpos($element, strtolower($word))) ? true : false;
+                    $bingo = Strings::inString(strtolower($element), strtolower($word));
                 }
                 return $bingo;
                 })
