@@ -237,7 +237,7 @@ if [ ! -d $root/TMX ]
         echo "Creating TMX folder"
         mkdir -p $root/TMX
 fi
-echo -n "AddType application/xml .tmx" > $root/TMX/.htaccess
+echo -n "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
 
 echo "add log files"
 touch $config_path/transvision.log
