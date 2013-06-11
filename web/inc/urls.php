@@ -12,4 +12,5 @@ $urls = array(
     'channelcomparison' => 'channelcomp',
     'accesskeys'        => 'keys',
     'credits'           => 'credits',
+    'downloads'         => 'downloads',
 );
