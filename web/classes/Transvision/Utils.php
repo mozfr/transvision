@@ -528,8 +528,8 @@ class Utils
 
         foreach ($locales as $locale) {
             $cell = function($repo) use ($locale) {
-                $file = TMX . $repo . '/'. $locale . '/memoire_en-US_' . $locale . '.tmx';
-                $str = file_exists($file) ? '<a href="/' . $file . '">Download</a>' : '<span class="red">TMX Not Available</span>';
+                $file = $repo . '/'. $locale . '/memoire_en-US_' . $locale . '.tmx';
+                $str = file_exists(TMX . $file) ? '<a href="/TMX/' . $file . '">Download</a>' : '<span class="red">TMX Not Available</span>';
                 return '<td>' . $str . '</td>';
             };
 
