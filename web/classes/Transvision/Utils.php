@@ -525,36 +525,25 @@ class Utils
     public static function tmxDownloadTable($locales)
     {
         $output = '';
-        foreach ($locales as $key => $locale) {
-            $tmxAurora  = file_exists( TMX . 'aurora/'. $locale . '/memoire_en-US_'. $locale . '.tmx')  ? '<a href="/' . TMX . 'aurora/'. $locale . '/memoire_en-US_'. $locale . '.tmx' . '">Download <strong>Aurora "' . $locale . '"</strong> TMX</a>'    : '<span class="red">Aurora "' . $locale . '" Not Available</span>' ;
-            $tmxBeta    = file_exists( TMX . 'beta/'. $locale . '/memoire_en-US_'. $locale . '.tmx')    ? '<a href="/' . TMX . 'beta/'. $locale . '/memoire_en-US_'. $locale . '.tmx' . '">Download <strong>Beta "' . $locale . '"</strong> TMX</a>'        : '<span class="red">Beta "' . $locale . '" Not Available</span>' ;
-            $tmxCentral = file_exists( TMX . 'central/'. $locale . '/memoire_en-US_'. $locale . '.tmx') ? '<a href="/' . TMX . 'central/'. $locale . '/memoire_en-US_'. $locale . '.tmx' . '">Download <strong>Central "' . $locale . '"</strong> TMX</a>'  : '<span class="red">Central "' . $locale . '" Not Available</span>' ;
-            $tmxGaia    = file_exists( TMX . 'gaia/'. $locale . '/memoire_en-US_'. $locale . '.tmx')    ? '<a href="/' . TMX . 'gaia/'. $locale . '/memoire_en-US_'. $locale . '.tmx' . '">Download <strong>Gaia "' . $locale . '"</strong> TMX</a>'        : '<span class="red">Gaia "' . $locale . '" Not Available</span>' ;
-            $tmxRelease = file_exists( TMX . 'release/'. $locale . '/memoire_en-US_'. $locale . '.tmx') ? '<a href="/' . TMX . 'release/'. $locale . '/memoire_en-US_'. $locale . '.tmx' . '">Download <strong>Release "' . $locale . '"</strong> TMX</a>'  : '<span class="red">Release "' . $locale . '" Not Available</span>' ;
 
-            $tableRow = '<tr>
-            <td>
-                '. $locale . '
-            </td>
-            <td>
-                '. $tmxAurora . '
-            </td>
-            <td>
-                '. $tmxBeta . '
-            </td>
-            <td>
-                '. $tmxCentral . '
-            </td>
-            <td>
-                '. $tmxGaia . '
-            </td>
-            <td>
-                '. $tmxRelease . '
-            </td>
-        </tr>';
-            $output = $output . $tableRow;
+        foreach ($locales as $locale) {
+            $cell = function($repo) use ($locale) {
+                $file = TMX . $repo . '/'. $locale . '/memoire_en-US_' . $locale . '.tmx';
+                $str = file_exists($file) ? '<a href="/' . $file . '">Download</a>' : '<span class="red">TMX Not Available</span>';
+                return '<td>' . $str . '</td>';
+            };
+
+            $output .= '
+            <tr>
+                <th>' . $locale . '</th>'
+                . $cell('central')
+                . $cell('aurora')
+                . $cell('beta')
+                . $cell('release')
+                . $cell('gaia')
+            . '</tr>';
         }
+
         return $output;
-        
     }
 }
