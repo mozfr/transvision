@@ -11,6 +11,7 @@ define('INSTALLROOT', $ini_array['install'] . '/');
 define('WEBROOT', INSTALLROOT . 'web/');
 define('INC', INSTALLROOT . 'web/inc/');
 define('VIEWS', INSTALLROOT . 'web/views/');
+define('CACHE', INSTALLROOT . 'web/cache/');
 
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
