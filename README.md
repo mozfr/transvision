@@ -20,7 +20,7 @@ Lead developer since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 
 Install
 -------
-1. Copy web/inc/config.ini-dist to web/inc/config.ini and adapt the variables to your sistem.
+1. Copy web/inc/config.ini-dist to web/inc/config.ini and adapt the variables to your system.
 2. Run setup.sh in Transvision's root folder.
 3. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
 
