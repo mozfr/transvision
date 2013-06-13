@@ -9,7 +9,7 @@ mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
 mkdir -p $trunk_l10n
 mkdir -p $gaia
-mkdir -p $glossaire
+mkdir -p $libraries
 
 # Restructure en-US
 for dir in `cat $install/list_rep_mozilla-central.txt`
@@ -77,10 +77,10 @@ do
 done
 
 # Check out the SILME library and set it to the latest released version
-if [ ! -d $glossaire/silme/.hg ]
+if [ ! -d $libraries/silme/.hg ]
 then
-    echo "Checking out the SILME library into $glossaire"
-    cd $glossaire
+    echo "Checking out the SILME library into $libraries"
+    cd $libraries
     hg clone http://hg.mozilla.org/l10n/silme
     cd silme
     hg update -C silme-0.8
@@ -238,6 +238,15 @@ if [ ! -d $root/TMX ]
         mkdir -p $root/TMX
 fi
 echo -n "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
+
+# At this point I'm sure TMX exists, adding a symlink inside $install/web
+# Remove broken symlinks in $install/web
+find -L $install/web -type l -delete
+if [ ! -L $install/web/TMX ]
+then
+    echo "add symlink to $root/TMX inside $install/web"
+    ln -s $root/TMX $install/web/TMX
+fi
 
 echo "add log files"
 touch $config_path/transvision.log
