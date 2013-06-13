@@ -240,8 +240,6 @@ fi
 echo -n "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
 
 # At this point I'm sure TMX exists, adding a symlink inside $install/web
-# Remove broken symlinks in $install/web
-find -L $install/web -type l -delete
 if [ ! -L $install/web/TMX ]
 then
     echo "add symlink to $root/TMX inside $install/web"
