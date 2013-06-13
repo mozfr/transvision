@@ -1,5 +1,21 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
 
+<h2 id="v2.6">Version 2.6 - 2013-06-14</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
+    <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
+    <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
+    <li>CSS fixes(Jesús)</li>
+</ul>
+
+<h3>Developer visible changes</h3>
+<ul>
+    <li>en-US can now be queried as any locale, which means that the JSON API can return source strings in English only and does not fallback to French (Pascal, Ricardo).</li>
+    <li>Various improvements to setup process and data update scripts makes first install of Transvision easier for code contributors (Francesco)</li>
+</ul>
+
 <h2 id="v2.5">Version 2.5 - 2013-04-18</h2>
 
 <h3>End user visible changes</h3>
@@ -15,7 +31,7 @@
 
 <h3>Other changes</h3>
 <ul>
-    <li>Updated setup.sh script to fix bugs in the installer and make it easier for potential contributors to installe the application (Pascal).</li>
+    <li>Updated setup.sh script to fix bugs in the installer and make it easier for potential contributors to install the application (Pascal).</li>
     <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard (Goofy and Pascal).</li>
     <li>Update to track the recent <var>webapprt</var> folder move.</li>
 </ul>
