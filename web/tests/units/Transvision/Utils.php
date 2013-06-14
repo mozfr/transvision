@@ -286,7 +286,8 @@ class Utils extends atoum\test
 
     public function tmxDownloadTableDataProvider()
     {
-
+        $ini_array = parse_ini_file(__DIR__ . '/../../../inc/config.ini');
+        define('TMX', $ini_array['root'] . '/TMX/');
         return array(
             array(
                 array('en-US'),

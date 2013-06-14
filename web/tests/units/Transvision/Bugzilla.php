@@ -10,6 +10,9 @@ class Bugzilla extends atoum\test
 
     public function collectLanguageComponentDataProvider()
     {
+        $ini_array = parse_ini_file(__DIR__ . '/../../../inc/config.ini');
+        define('CACHE', $ini_array['install'] . '/web/cache/');
+
         $obj = new \Transvision\Bugzilla();
         $components_list = $obj->getBugzillaComponents();
         return array(
