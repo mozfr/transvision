@@ -1,7 +1,7 @@
 <?php
 
 // Bump this constant with each new release
-const VERSION = '2.6';
+const VERSION = '2.7dev';
 
 // Constants for the project
 define('DATAROOT', $ini_array['root']);
