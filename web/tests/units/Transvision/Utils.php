@@ -284,4 +284,30 @@ class Utils extends atoum\test
         );
     }
 
+    public function tmxDownloadTableDataProvider()
+    {
+        $ini_array = parse_ini_file(__DIR__ . '/../../../inc/config.ini');
+        define('TMX', $ini_array['root'] . '/TMX/');
+        return array(
+            array(
+                array('en-US'),
+                '
+            <tr>
+                <th>en-US</th><td><a href="/TMX/central/en-US/memoire_en-US_en-US.tmx">Download</a></td><td><a href="/TMX/aurora/en-US/memoire_en-US_en-US.tmx">Download</a></td><td><a href="/TMX/beta/en-US/memoire_en-US_en-US.tmx">Download</a></td><td><a href="/TMX/release/en-US/memoire_en-US_en-US.tmx">Download</a></td><td><a href="/TMX/gaia/en-US/memoire_en-US_en-US.tmx">Download</a></td></tr>'
+                )
+        );
+    }
+
+    /**
+     * @dataProvider tmxDownloadTableDataProvider
+     */
+    public function testTmxDownloadTable($a, $b)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->tmxDownloadTable($a))
+                ->isEqualTo($b)
+        ;
+    }
+
 }
