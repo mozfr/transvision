@@ -9,10 +9,10 @@ from ConfigParser import SafeConfigParser
 """ here we read the server configuration file """
 parser = SafeConfigParser()
 parser.read('web/inc/config.ini')
-glossaire = parser.get('config', 'glossaire')
+libraries = parser.get('config', 'libraries')
 localdir  = parser.get('config', 'root') + '/TMX/'
 
-sys.path.append(glossaire + '/silme/lib')
+sys.path.append(libraries + '/silme/lib')
 
 import silme.diff
 import silme.core
