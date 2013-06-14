@@ -4,7 +4,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
+    <li><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes(Jesús)</li>
