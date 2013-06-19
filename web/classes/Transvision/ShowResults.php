@@ -144,8 +144,8 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2ShortCode = $temp[0];
 
-            $locale1Path = Utils::pathFileInRepo($locale1, $searchOptions['repo'], $key);
-            $locale2Path = Utils::pathFileInRepo($locale2, $searchOptions['repo'], $key);
+            $locale1Path = VersionControl::filePath($locale1, $searchOptions['repo'], $key);
+            $locale2Path = VersionControl::filePath($locale2, $searchOptions['repo'], $key);
 
             // errors
             $errorMessage = '';

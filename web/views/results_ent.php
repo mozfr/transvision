@@ -16,8 +16,8 @@ $table  = "<table>
 
 foreach ($entities as $val) {
 
-    $path_locale1 = Utils::pathFileInRepo($sourceLocale, $check['repo'], $val);
-    $path_locale2 = Utils::pathFileInRepo($locale, $check['repo'], $val);
+    $path_locale1 = VersionControl::filePath($sourceLocale, $check['repo'], $val);
+    $path_locale2 = VersionControl::filePath($locale, $check['repo'], $val);
 
     if (isset($tmx_target[$val])) {
         $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]); // nbsp highlight
