@@ -114,7 +114,7 @@ class ShowResults
             $targetString = trim($strings[1]);
 
             // Link to entity
-            $entityLink = "?sourcelocale={$locale1}&locale={$locale2}&repo={$searchOptions['repo']}&search_type=entities&recherche={$key}</a>";
+            $entityLink = "?sourcelocale={$locale1}&locale={$locale2}&repo={$searchOptions['repo']}&search_type=entities&recherche={$key}";
 
             // Bugzilla GET data
             $bugSummary = rawurlencode("Translation update proposed for ${key}");
