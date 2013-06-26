@@ -109,7 +109,7 @@ class VersionControl
                 if (in_array(implode('/', $exploded_path) . '/', $en_US_Folder_Mess)) {
                     $path_part1 = implode('/', $exploded_path) . '/locales/en-US';
                     $pattern = preg_quote(implode('/', $exploded_path), '/');
-                    $path = preg_replace('/' . $pattern . '/', $path_part1, $path, 1, $count);
+                    $path = preg_replace('/' . $pattern . '/', $path_part1, $path, 1);
                     $loop = false;
                     break;
                 } else {
