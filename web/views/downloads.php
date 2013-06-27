@@ -27,10 +27,12 @@ echo '<table id="DownloadsTable">
     ';
 
 // Table content
-
-$loc_list_browser = Utils::getFilenamesInFolder(TMX . 'central/');
-$loc_list_gaia = Utils::getFilenamesInFolder(TMX . 'gaia/');
-$loc_list = array_unique(array_merge($loc_list_browser, $loc_list_gaia));
+$loc_list = array();
+$locales = array("central/", "gaia/", "aurora/", "beta/", "release/");
+foreach ($locales as $loc) {
+    $loc_list = array_merge($loc_list, Utils::getFilenamesInFolder(TMX . $loc));
+}
+$loc_list = array_unique($loc_list);
 sort($loc_list);
 
 echo Utils::tmxDownloadTable($loc_list);
