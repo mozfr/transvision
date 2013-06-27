@@ -28,7 +28,7 @@ echo '<table id="DownloadsTable">
 
 // Table content
 $loc_list = array();
-$locales = array("central/", "gaia/", "aurora/", "beta/", "release/");
+$locales = array('central/', 'gaia/', 'aurora/', 'beta/', 'release/');
 foreach ($locales as $loc) {
     $loc_list = array_merge($loc_list, Utils::getFilenamesInFolder(TMX . $loc));
 }
