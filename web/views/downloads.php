@@ -27,7 +27,12 @@ echo '<table id="DownloadsTable">
     ';
 
 // Table content
-$loc_list = Utils::getFilenamesInFolder(TMX . 'central/');
+
+$loc_list_browser = Utils::getFilenamesInFolder(TMX . 'central/');
+$loc_list_gaia = Utils::getFilenamesInFolder(TMX . 'gaia/');
+$loc_list = array_unique(array_merge($loc_list_browser, $loc_list_gaia));
+sort($loc_list);
+
 echo Utils::tmxDownloadTable($loc_list);
 
 // Close table
