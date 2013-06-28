@@ -4,24 +4,22 @@ namespace Transvision;
 // Page title
 $title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
-// Get the locale list
-$loc_list = Utils::getFilenamesInFolder(TMX . $check['repo']. '/');
-
-// Gaia hack
-$spanish  = array_search('es', $loc_list);
-if ($spanish) {
-    $loc_list[$spanish] = 'es-ES';
-}
-
-// build the target locale switcher
-$target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
-
-// build the source locale switcher
-sort($loc_list);
-$source_locales_list = Utils::getHtmlSelectOptions($loc_list, $sourceLocale);
-
-// build the repository switcher
+// build the repository switcher and 
 $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
+
+// Get the locale list for every repo and build his target/source locale switcher values.
+$loc_list = array();
+$target_locales_list = array();
+$source_locales_list = array();
+$repositories = Utils::getFilenamesInFolder(TMX . '/');
+foreach ($repositories as $repository) {
+  $loc_list[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
+  sort($loc_list[$repository]);
+  // build the target locale switcher
+  $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
+  // build the source locale switcher
+  $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
+}
 
 // Build the search type switcher
 $search_type_list = Utils::getHtmlSelectOptions(
@@ -51,39 +49,8 @@ if (isset($_COOKIE['default_repository'])) {
         <fieldset id="main">
 
             <fieldset>
-                <legend>Source Locale</legend>
-                <select id='source_locale' name='sourcelocale' onchange="changeDefaultSource('source_locale');">
-                <?=$source_locales_list?>
-                </select>
-                <label class="default_option">
-                    <input type="checkbox"
-                           id="default_source_locale"
-                           value="<?=$sourceLocale?>"
-                           data-cookie="<?=$cookieSourceLocale?>"
-                           onclick="setCookie('default_source_locale',this.value,3650);"
-                           <?=Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale)?>
-                     /> <span>Default</span>
-                 </label>
-            </fieldset>
-            <fieldset>
-                <legend>Target Locale</legend>
-                <select id='target_locale' name='locale' onchange="changeDefaultSource('target_locale');">
-                <?=$target_locales_list?>
-                </select>
-                <label class="default_option">
-                    <input type="checkbox"
-                           id="default_target_locale"
-                           value="<?=$locale?>"
-                           data-cookie="<?=$cookieTargetLocale?>"
-                           onclick="setCookie('default_target_locale',this.value,3650);"
-                           <?=Utils::checkboxDefaultOption($locale, $cookieTargetLocale)?>
-                     /> <span>Default</span>
-                 </label>
-            </fieldset>
-
-            <fieldset>
                 <legend>Repository</legend>
-                <select id='repository' name='repo'  onchange="changeDefaultSource('repository');">
+                <select id='repository' name='repo'  onchange="changeSourceTargetValues(this.value);">
                 <?=$repo_list?>
                 </select>
                 <label class="default_option">
@@ -96,7 +63,44 @@ if (isset($_COOKIE['default_repository'])) {
                      /> <span>Default</span>
                  </label>
             </fieldset>
-
+            <fieldset>
+                <legend>Source Locale</legend>
+                <select id='source_locale' name='sourcelocale' onchange="changeDefaultSource('source_locale');">
+                <?=$source_locales_list[$check['repo']]?>
+                </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_source_locale"
+                           value="<?=$sourceLocale?>"
+                           data-cookie="<?=$cookieSourceLocale?>"
+                           onclick="setCookie('default_source_locale',this.value,3650);"
+                           <?php // Mark as default only if the cookieSourceLocale exist in repository array
+                           if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
+                             echo Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale);
+                           }
+                           ?>
+                     /> <span>Default</span>
+                 </label>
+            </fieldset>
+            <fieldset>
+                <legend>Target Locale</legend>
+                <select id='target_locale' name='locale' onchange="changeDefaultSource('target_locale');">
+                <?=$target_locales_list[$check['repo']]?>
+                </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_target_locale"
+                           value="<?=$locale?>"
+                           data-cookie="<?=$cookieTargetLocale?>"
+                           onclick="setCookie('default_target_locale',this.value,3650);"
+                           <?php // Mark as default only if the cookieTargetLocale exist in repository array
+                           if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
+                             echo Utils::checkboxDefaultOption($locale, $cookieTargetLocale);
+                           }
+                           ?>
+                     /> <span>Default</span>
+                 </label>
+            </fieldset>
             <fieldset>
                 <legend>Search in</legend>
                 <select name='search_type'>
@@ -203,7 +207,24 @@ function setCookie(cookieName,cookieValue,nDays) {
         nDays = 0;
     }
     expire.setTime(today.getTime() + 3600000*24*nDays);
-    document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toGMTString();
+    document.cookie = cookieName + '=' + escape(cookieValue) + ';expires=' + expire.toGMTString();
+}
+//Change related imput value and check if default
+function changeSourceTargetValues(repository) {
+    var repo_source = {};
+    var repo_target = {};
+<?php
+foreach ($repositories as $repository) {
+  echo "    repo_source['" . $repository . "'] = '" . $source_locales_list[$repository] . "'; \n";
+  echo "    repo_target['" . $repository . "'] = '" . $target_locales_list[$repository] . "'; \n";
+}
+?> 
+    document.getElementById('source_locale').innerHTML = repo_source[repository];
+    changeDefaultSource('source_locale');
+    document.getElementById('target_locale').innerHTML = repo_target[repository];
+    changeDefaultSource('target_locale');
+
+    changeDefaultSource('repository');
 }
 //Focus on the search field
 window.onload = function() {

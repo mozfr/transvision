@@ -28,9 +28,9 @@ echo '<table id="DownloadsTable">
 
 // Table content
 $loc_list = array();
-$locales = array('central/', 'gaia/', 'aurora/', 'beta/', 'release/');
+$locales = Utils::getFilenamesInFolder(TMX . '/');
 foreach ($locales as $loc) {
-    $loc_list = array_merge($loc_list, Utils::getFilenamesInFolder(TMX . $loc));
+    $loc_list = array_merge($loc_list, Utils::getFilenamesInFolder(TMX . $loc . '/'));
 }
 $loc_list = array_unique($loc_list);
 sort($loc_list);
