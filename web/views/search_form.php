@@ -4,7 +4,7 @@ namespace Transvision;
 // Page title
 $title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
-// build the repository switcher and 
+// build the repository switcher 
 $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
