@@ -323,8 +323,11 @@ class Utils
                 // English
                 include TMX . "{$repository}/{$locale}/cache_en-US.php";
             } else {
-                // Localised, for a locale to locale comparison
-                include TMX . "{$repository}/${locale}/cache_${locale}.php";
+                // Localised, for a locale to locale comparison //HACK: check if file exist to avoid PHP errors with coockie default value
+                $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
+                if (file_exists($file)) {
+                    include $file;
+                }
             }
         }
 
