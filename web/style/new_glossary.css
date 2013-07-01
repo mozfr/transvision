@@ -4,12 +4,14 @@
     font-weight: normal;
     src: url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular") format("svg");
 }
+
 @font-face {
     font-family: "Open Sans";
     font-style: normal;
     font-weight: bold;
     src: url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold") format("svg");
 }
+
 @font-face {
     font-family: "Open Sans Light";
     font-style: normal;
@@ -82,7 +84,7 @@ h2 {
 
 div#current {
     font-size: 1.8em;
-    padding:0.1em 0;
+    padding: 0.1em 0;
 }
 
 div#current strong {
@@ -122,7 +124,7 @@ fieldset {
     border: none;
     display: inline;
     min-height: 3em;
-    margin:0;
+    margin: 0;
 }
 
 fieldset {
@@ -168,37 +170,38 @@ td, #stats th {
     border: none;
 }
 
-td a em,
-td em.error {
-    font-style:normal;
+td a em, td em.error {
+    font-style: normal;
     color: red;
 }
 
 td em.error {
-    float:right;
+    padding-left: 6px;
 }
 
 td div.infos {
     font-size: 75%;
-    text-align:right;
-    margin-top:4px;
+    text-align: left;
+    margin-top: 4px;
 }
-td div.infos a, td div.infos span {
-    float:left;
-    margin-right: 5px;
+
+td div.infos span {
+    padding-left: 6px;
 }
+
 td div.infos a.source_link {
-    color:orange;
+    color: orange;
 }
+
 td div.infos a.bug_link {
-    color:#404D6C;
+    color: #404D6C;
 }
 
 footer {
     font-style: italic;
-    text-align:center;
-    font-family:serif;
-    font-size:0.9em;
+    text-align: center;
+    font-family: serif;
+    font-size: 0.9em;
 }
 
 /* colors for results */
@@ -222,7 +225,7 @@ table tr td:first-child {
 .highlight {
     /* generic highlight */
     color: black;
-    background-color:  rgba(255, 165, 0, 0.77);
+    background-color: rgba(255, 165, 0, 0.77);
     border-radius: 3px;
 }
 
@@ -307,13 +310,13 @@ fieldset#main #search input[type=text] {
 }
 
 fieldset#main fieldset * {
-    font-size:0.9em;
+    font-size: 0.9em;
 }
 
 fieldset#main fieldset > legend {
-    line-height:25px;
-    font-weight:bold;
-    font-size:1em !important;
+    line-height: 25px;
+    font-weight: bold;
+    font-size: 1em !important;
 }
 
 fieldset#main fieldset label.default_option input {
@@ -322,7 +325,7 @@ fieldset#main fieldset label.default_option input {
 }
 fieldset#main fieldset label.default_option span {
     float: left;
-    font-size:0.7em;
+    font-size: 0.7em;
     margin: 5px 0;
 }
 
@@ -337,30 +340,30 @@ h3, ul {
 
 .alert {
     color:white;
-    background-color:orange;
+    background-color: orange;
     border-bottom: none;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 #channelcomp #main {
-    display:block;
+    display: block;
     width: 500px;
-    margin:auto;
+    margin: auto;
 }
 
 #channelcomp #main fieldset {
-    display:inline-block;
+    display: inline-block;
 }
 
 #channelcomp #main fieldset select {
-    display:block;
-    float:left;
+    display: block;
+    float: left;
 }
 
 #keys #main {
-    display:block;
+    display: block;
     width: 380px;
-    margin:auto;
+    margin: auto;
 }
 
 /* Downloads Table */
@@ -370,15 +373,15 @@ h3, ul {
 
 @media only screen and (max-width: 850px)  {
 
-    table, thead, tbody, td, tr { 
-        display: block; 
+    table, thead, tbody, td, tr {
+        display: block;
         word-wrap: break-word;
     }
     table {
         position: relative;
     }
 
-    th { 
+    th {
         display: none;
     }
 
@@ -386,23 +389,19 @@ h3, ul {
         display: table-row;
     }
 
-    #stats th, #stats td { 
+    #stats th, #stats td {
         display: table-cell;
         width: 45%;
     }
-    
-    td { 
+
+    td {
         border: none;
         position: relative;
         clear: both;
         border-bottom: 1px solid #eee;
     }
 
-    td div.infos a, td em.error {
-        float: none;
-    }
-
-    td:after { 
+    td:after {
         position: absolute;
         top: 0px;
         right: 6px;
