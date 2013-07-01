@@ -1,5 +1,13 @@
 <?php $title = '<a href="/">Transvision</a> changelog'; ?>
+<h2 id="v2.7">Version 2.7 - 2013-07-??</h2>
 
+<h3>End user visible changes</h3>
+<ul>
+    <li>The repository select box is now located on the far left of the search page. Switching repositories now dynamically updates the select boxes for locales with the right locales (Jesús)</li>
+    <li>The TMX download page lists downloads per channel more accurately and takes Gaia specific language code (<var>es</var> for common spanish for example) into account (Jesús)</li>
+</ul>
+
+</ul>
 <h2 id="v2.6">Version 2.6 - 2013-06-14</h2>
 
 <h3>End user visible changes</h3>
@@ -8,12 +16,6 @@
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes(Jesús)</li>
-</ul>
-
-<h3>Developer visible changes</h3>
-<ul>
-    <li>en-US can now be queried as any locale, which means that the JSON API can return source strings in English only and does not fallback to French (Pascal, Ricardo).</li>
-    <li>Various improvements to setup process and data update scripts makes first install of Transvision easier for code contributors (Francesco)</li>
 </ul>
 
 <h2 id="v2.5">Version 2.5 - 2013-04-18</h2>
