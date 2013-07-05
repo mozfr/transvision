@@ -9,7 +9,35 @@ require_once WEBROOT .'inc/l10n-init.php';
 $strings = array();
 $repo = 'gaia';
 
-$strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo));
+if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
+    $repo = $_GET['repo'];
+}
+
+$chanSelector = '';
+
+foreach ($repos as $val) {
+    $ch = ($val == $repo) ? ' selected' : '';
+    $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $val . "</option>\n";
+}
+
+?>
+<form name="searchform" method="get" action="">
+    <fieldset id="main">
+        <fieldset>
+            <legend>Repository</legend>
+            <select name='repo'>
+            <?=$chanSelector?>
+            </select>
+        </fieldset>
+        <input type="submit" value="Go" alt="Go" />
+    </fieldset>
+ </form>
+
+<?php
+
+
+// Using a callback with strlen() avoids filtering out numeric strings with a value of 0
+$strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
 $gaiaLocales = Utils::getFilenamesInFolder(TMX . $repo . '/');
 
 // We don't want en-US in the repos
@@ -23,14 +51,16 @@ $stringCount = array();
 $countReference = count($strings['en-US'][$repo]);
 
 foreach ($gaiaLocales as $val) {
-    $strings[$val][$repo] = array_filter(Utils::getRepoStrings($val, $repo));
-    //~ $strings[$val][$repo] = Utils::getRepoStrings($val, $repo);
+    $strings[$val][$repo] = array_filter(Utils::getRepoStrings($val, $repo), 'strlen');
+    $stringCount[$val] = array(
+        'total'     => count($strings[$val][$repo]),
+        'missing'   => count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo])),
+        'identical' => count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo])),
+    );
 
-    $stringCount[$val]['total'] = count($strings[$val][$repo]);
-    $stringCount[$val]['missing'] = count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo]));
-    $stringCount[$val]['identical'] = count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo]));
     unset($strings[$val][$repo]);
 }
+
 echo '<style>td {text-align:right;}</style>';
 echo '<table>';
 echo '<tr>
