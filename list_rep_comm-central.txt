@@ -1,11 +1,8 @@
+./calendar/locales/en-US
 ./chat/locales/en-US
-./suite/locales/en-US
-./other-licenses/branding/sunbird/locales/en-US
-./other-licenses/branding/thunderbird/locales/en-US
+./editor/ui/locales/en-US
 ./mail/branding/aurora/locales/en-US
 ./mail/branding/nightly/locales/en-US
 ./mail/locales/en-US
-./mail/test/resources/mozmill/mozmill/extension/locale/en-US
-./editor/ui/locales/en-US
-./calendar/sunbird/branding/nightly/locales/en-US
-./calendar/locales/en-US
+./other-licenses/branding/thunderbird/locales/en-US
+./suite/locales/en-US

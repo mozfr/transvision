@@ -65,14 +65,12 @@ class VersionControl
             'webapprt/',
             'chat/',
             'suite/',
-            'other-licenses/branding/sunbird/',
             'other-licenses/branding/thunderbird/',
             'mail/branding/aurora/',
             'mail/branding/nightly/',
             'mail/',
             'mail/test/resources/mozmill/mozmill/extension/',
             'editor/ui/',
-            'calendar/sunbird/branding/nightly/',
             'calendar/',
         );
 
