@@ -44,6 +44,9 @@ switch ($url['path']) {
     case 'downloads':
         $view  = 'downloads';
         break;
+    case 'gaia':
+        $view  = 'gaia';
+        break;
     default:
         $view  = 'search';
         break;
