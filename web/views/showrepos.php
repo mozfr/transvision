@@ -2,16 +2,14 @@
 namespace Transvision;
 
 // Page title
-$title = '<a href="/" id="transvision-title">Transvision - GAIA status</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+$title = '<a href="/" id="transvision-title">Transvision - repository global status</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 require_once WEBROOT .'inc/l10n-init.php';
 
-
 $strings = array();
-$repo = 'gaia';
 
-if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
-    $repo = $_GET['repo'];
-}
+$repo = (isset($_GET['repo']) && in_array($_GET['repo'], $repos))
+        ? $_GET['repo']
+        : 'gaia';
 
 $chanSelector = '';
 
@@ -19,7 +17,6 @@ foreach ($repos as $val) {
     $ch = ($val == $repo) ? ' selected' : '';
     $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $val . "</option>\n";
 }
-
 ?>
 <form name="searchform" method="get" action="">
     <fieldset id="main">
@@ -32,9 +29,7 @@ foreach ($repos as $val) {
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
  </form>
-
 <?php
-
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
@@ -57,21 +52,21 @@ foreach ($gaiaLocales as $val) {
         'missing'   => count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo])),
         'identical' => count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo])),
     );
-
     unset($strings[$val][$repo]);
 }
 
-echo '<style>td {text-align:right;}</style>';
-echo '<table>';
-echo '<tr>
+echo '
+<style>td {text-align:right;} form[name="searchform"] { text-align: center; }</style>
+<table>
+<tr>
     <th>Locale</th>
     <th>Total</th>
     <th>Missing</th>
     <th>Translated</th>
     <th>Identical</th>
     <th>Completion</th>
-    <th>Confidence</th>
-    </tr>';
+    <th>Status estimate</th>
+</tr>';
 
 foreach ($stringCount as $locale => $numbers) {
     echo "<tr id=\"{$locale}\">";
