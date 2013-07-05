@@ -13,4 +13,5 @@ $urls = array(
     'accesskeys'        => 'keys',
     'credits'           => 'credits',
     'downloads'         => 'downloads',
+    'showrepos'         => 'showrepos',
 );

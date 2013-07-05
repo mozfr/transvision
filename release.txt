@@ -1,7 +1,6 @@
 ach
 af
 ak
-an
 ar
 as
 ast
@@ -61,7 +60,6 @@ mk
 ml
 mr
 ms
-my
 nb-NO
 ne-NP
 nl
@@ -98,7 +96,6 @@ ts
 uk
 ve
 vi
-wo
 xh
 zh-CN
 zh-TW
