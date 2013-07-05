@@ -44,6 +44,10 @@ switch ($url['path']) {
     case 'downloads':
         $view  = 'downloads';
         break;
+    case 'showrepos':
+        $view  = 'showrepos';
+        $extra = '<h2 class="alert">experimental View</h2>';
+        break;
     default:
         $view  = 'search';
         break;
