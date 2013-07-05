@@ -5,7 +5,28 @@
 <ul>
     <li>The repository select box is now located on the far left of the search page. Switching repositories now dynamically updates the select boxes for locales with the right locales (Jesús)</li>
     <li>The TMX download page lists downloads per channel more accurately and takes Gaia specific language code (<var>es</var> for common spanish for example) into account (Jesús)</li>
+    <li>Gaia locales update: (Pascal)
+        <ul>
+            <li>Added ast, bg, bn-IN, da, gu, hr, km, ne-NP, pa, si, sk, sr-Cyrl, th, ur, vi.</li>
+            <li>Removed as, ga-IE, gl, ml, or.</li>
+        </ul>
+    </li>
+    <li>Desktop locales update: (Pascal)
+        <ul>
+            <li>Central: removed ach, my, wo.</li>
+            <li>Release: removed an, my, wo.</li>
+        </ul>
+    </li>
 </ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>New <a href="/showrepos">experimental view</a> to see the state of all locales per repo (Pascal)</li>
+    <li>CSS and HTML cleanups of views (flodolo)</li>
+    <li>Links to source code sometimes were linking to the wrong repository (Pascal)</li>
+    <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
+</ul>
+
 
 </ul>
 <h2 id="v2.6">Version 2.6 - 2013-06-14</h2>
