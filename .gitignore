@@ -1,2 +1,8 @@
+.idea
+composer.lock
+inc/transvision.log
+stats.json
+stats_requests.json
+vendor
 web/inc/config.ini
 web/TMX
