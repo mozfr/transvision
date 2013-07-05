@@ -106,9 +106,11 @@ if __name__ == "__main__":
     langcode2 = args[3]
     repo = args[4]
 
+    exclusionlist = ['.hgtags', '.hg']
     dirs1 = os.listdir(locale_repo)
     if repo == 'gaia':
         dirs2 = os.listdir(en_US_repo)
+        dirs2 = [x for x in dirs2 if x not in exclusionlist]
     else:
         dirs2 = ["browser", "calendar", "chat", "dom", "editor",
                 "extensions", "mail", "mobile", "netwerk", "other-licenses",
