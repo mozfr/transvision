@@ -68,6 +68,7 @@ fi
 cd $install
 if $createTMX
 then
+    find -L $release_source/COMMUN/ -type l | while read -r file; do echo $file is orphaned;  unlink $file; done
     if $all_locales
     then
         for i in `cat $release_locales`
@@ -127,6 +128,7 @@ fi
 cd $install
 if $createTMX
 then
+    find -L $beta_source/COMMUN/ -type l | while read -r file; do echo $file is orphaned;  unlink $file; done
     if $all_locales
     then
         for i in `cat $beta_locales`
@@ -186,6 +188,7 @@ fi
 cd $install
 if $createTMX
 then
+    find -L $trunk_source/COMMUN/ -type l | while read -r file; do echo $file is orphaned;  unlink $file; done
     if $all_locales
     then
         for i in `cat $trunk_locales`
@@ -245,6 +248,7 @@ fi
 cd $install
 if $createTMX
 then
+    find -L $aurora_source/COMMUN/ -type l | while read -r file; do echo $file is orphaned;  unlink $file; done
     if $all_locales
     then
         for i in `cat $aurora_locales`
