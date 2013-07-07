@@ -52,7 +52,7 @@ foreach ($akeys as $akey) {
     $akey_value = $strings[$repo][$akey];
 
     foreach ($ak_labels as $ak_label) {
-        if ( isset($strings[$repo][$entity . $ak_label])
+        if (isset($strings[$repo][$entity . $ak_label])
              && !empty($strings[$repo][$entity . $ak_label])
              && isset($stringsEnglish[$repo][$akey])
              && !empty($stringsEnglish[$repo][$akey])

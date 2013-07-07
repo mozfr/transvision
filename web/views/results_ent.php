@@ -20,7 +20,8 @@ foreach ($entities as $val) {
     $path_locale2 = VersionControl::filePath($locale, $check['repo'], $val);
 
     if (isset($tmx_target[$val])) {
-        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]); // nbsp highlight
+        // nbsp highlight
+        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]);
     } else {
         $target_string = '';
     }

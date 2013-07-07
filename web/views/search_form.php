@@ -4,7 +4,7 @@ namespace Transvision;
 // Page title
 $title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
-// build the repository switcher 
+// build the repository switcher
 $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
@@ -13,12 +13,12 @@ $target_locales_list = array();
 $source_locales_list = array();
 $repositories = Utils::getFilenamesInFolder(TMX . '/');
 foreach ($repositories as $repository) {
-  $loc_list[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
-  sort($loc_list[$repository]);
-  // build the target locale switcher
-  $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
-  // build the source locale switcher
-  $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
+    $loc_list[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
+    sort($loc_list[$repository]);
+    // build the target locale switcher
+    $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
+    // build the source locale switcher
+    $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
 }
 
 // Build the search type switcher
@@ -74,11 +74,11 @@ if (isset($_COOKIE['default_repository'])) {
                            value="<?=$sourceLocale?>"
                            data-cookie="<?=$cookieSourceLocale?>"
                            onclick="setCookie('default_source_locale',this.value,3650);"
-                           <?php // Mark as default only if the cookieSourceLocale exist in repository array
-                           if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
-                             echo Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale);
-                           }
-                           ?>
+<?php // Mark as default only if the cookieSourceLocale exist in repository array
+if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
+    echo Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale);
+}
+?>
                      /> <span>Default</span>
                  </label>
             </fieldset>
@@ -93,11 +93,11 @@ if (isset($_COOKIE['default_repository'])) {
                            value="<?=$locale?>"
                            data-cookie="<?=$cookieTargetLocale?>"
                            onclick="setCookie('default_target_locale',this.value,3650);"
-                           <?php // Mark as default only if the cookieTargetLocale exist in repository array
-                           if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
-                             echo Utils::checkboxDefaultOption($locale, $cookieTargetLocale);
-                           }
-                           ?>
+<?php // Mark as default only if the cookieTargetLocale exist in repository array
+if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
+    echo Utils::checkboxDefaultOption($locale, $cookieTargetLocale);
+}
+?>
                      /> <span>Default</span>
                  </label>
             </fieldset>
@@ -149,7 +149,7 @@ if (isset($_COOKIE['default_repository'])) {
                        value="t2t"
                        <?=Utils::checkboxState($check['t2t'], 't2t')?> onclick="uncheckAll();"
                 />
-                <?php endif;?>
+                <?php endif; ?>
             </fieldset>
 
             <div id="search">
@@ -161,7 +161,7 @@ if (isset($_COOKIE['default_repository'])) {
 
 <script>
 function uncheckAll() {
-    var arr = [<?
+    var arr = [<?php
         $count_form_checkboxes = 0;
         foreach ($form_checkboxes as $v) {
             $end  = ($count_form_checkboxes == count($form_checkboxes) - 1) ? '' : ', ';
@@ -215,10 +215,10 @@ function changeSourceTargetValues(repository) {
     var repo_target = {};
 <?php
 foreach ($repositories as $repository) {
-  echo "    repo_source['" . $repository . "'] = '" . $source_locales_list[$repository] . "'; \n";
-  echo "    repo_target['" . $repository . "'] = '" . $target_locales_list[$repository] . "'; \n";
+    echo "    repo_source['" . $repository . "'] = '" . $source_locales_list[$repository] . "'; \n";
+    echo "    repo_target['" . $repository . "'] = '" . $target_locales_list[$repository] . "'; \n";
 }
-?> 
+?>
     document.getElementById('source_locale').innerHTML = repo_source[repository];
     changeDefaultSource('source_locale');
     document.getElementById('target_locale').innerHTML = repo_target[repository];

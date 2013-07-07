@@ -50,7 +50,8 @@ foreach ($search as $word) {
      * We use a closure here to extract imperfect matches without having to
      * use a loop to search all strings
      */
-    $imperfect = array_keys(array_filter(
+    $imperfect = array_keys(
+        array_filter(
             $tmx_source,
             function ($element) use ($word) {
                 $bingo = Strings::inString($element, $word);
@@ -58,8 +59,9 @@ foreach ($search as $word) {
                     $bingo = Strings::inString(strtolower($element), strtolower($word));
                 }
                 return $bingo;
-                })
-            );
+            }
+        )
+    );
 }
 
 
