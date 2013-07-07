@@ -25,9 +25,11 @@ class VersionControl
 
         if ($repo == 'gaia'
             || in_array(
-                        $base_folder,
-                        array('apps', 'shared', 'showcase_apps',
-                              'test_apps', 'test_external_apps'))) {
+                $base_folder,
+                array('apps', 'shared', 'showcase_apps',
+                      'test_apps', 'test_external_apps')
+            )
+        ) {
             $locale = ($locale == 'es-ES') ? 'es' : $locale;
             $url   .= '/gaia-l10n/' . $locale . '/file/default/';
 

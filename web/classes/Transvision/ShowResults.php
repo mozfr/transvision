@@ -79,10 +79,11 @@ class ShowResults
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
         $bzComponent = rawurlencode(
-                            Bugzilla::collectLanguageComponent(
-                                $locale2,
-                                Bugzilla::getBugzillaComponents()
-        ));
+            Bugzilla::collectLanguageComponent(
+                $locale2,
+                Bugzilla::getBugzillaComponents()
+            )
+        );
 
         $bzLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                    . $bzComponent
@@ -114,12 +115,22 @@ class ShowResults
             $targetString = trim($strings[1]);
 
             // Link to entity
-            $entityLink = "?sourcelocale={$locale1}&locale={$locale2}&repo={$searchOptions['repo']}&search_type=entities&recherche={$key}";
+            $entityLink = "?sourcelocale={$locale1}"
+                        . "&locale={$locale2}"
+                        . "&repo={$searchOptions['repo']}"
+                        . "&search_type=entities&recherche={$key}";
 
             // Bugzilla GET data
             $bugSummary = rawurlencode("Translation update proposed for ${key}");
-            $bugMessage = rawurlencode(html_entity_decode(
-                "The string:\n{$sourceString}\n\nIs translated as:\n{$targetString}\n\nAnd should be:\n\n\n\nFeedback via Transvision:\nhttp://transvision.mozfr.org/{$entityLink}"));
+            $bugMessage = rawurlencode(
+                html_entity_decode(
+                    "The string:\n{$sourceString}\n\n"
+                    . "Is translated as:\n{$targetString}\n\n"
+                    . "And should be:\n\n\n\n"
+                    . "Feedback via Transvision:\n"
+                    . "http://transvision.mozfr.org/{$entityLink}"
+                )
+            );
 
             foreach ($recherche as $val) {
                 $sourceString = Utils::markString($val, $sourceString);

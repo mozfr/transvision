@@ -70,6 +70,4 @@ class Strings
     {
         return str_replace(array_keys($haystack), $haystack, $needle);
     }
-
 }
-

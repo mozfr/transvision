@@ -323,7 +323,8 @@ class Utils
                 // English
                 include TMX . "{$repository}/{$locale}/cache_en-US.php";
             } else {
-                // Localised, for a locale to locale comparison //HACK: check if file exist to avoid PHP errors with coockie default value
+                // Localised, for a locale to locale comparison
+                // HACK: check if file exist to avoid PHP errors with coockie default value
                 $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
                 if (file_exists($file)) {
                     include $file;
@@ -412,9 +413,11 @@ class Utils
         $output = '';
 
         foreach ($locales as $locale) {
-            $cell = function($repo) use ($locale) {
+            $cell = function ($repo) use ($locale) {
                 $file = $repo . '/'. $locale . '/memoire_en-US_' . $locale . '.tmx';
-                $str = file_exists(TMX . $file) ? '<a href="/TMX/' . $file . '">Download</a>' : '<span class="red">TMX Not Available</span>';
+                $str = file_exists(TMX . $file)
+                        ? '<a href="/TMX/' . $file . '">Download</a>'
+                        : '<span class="red">TMX Not Available</span>';
                 return '<td>' . $str . '</td>';
             };
 
