@@ -1,6 +1,6 @@
 <?php
 $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
-$sourceLocale = isset($sourceLocal) ? $sourceLocale : 'en-US';
+$sourceLocale = isset($sourceLocale) ? $sourceLocale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 ?>
