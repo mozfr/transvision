@@ -301,7 +301,7 @@ class Utils
      * @param  array   $exclude files to exclude from results, by default . and ..
      * @return array
      */
-    public static function getFilenamesInFolder($folder, $excludedFiles = array('.', '..'))
+    public static function getFilenamesInFolder($folder, $excludedFiles = array('.', '..', '.htaccess'))
     {
         // Get the locale list
         $files = scandir($folder);
