@@ -22,8 +22,9 @@ foreach ($repositories as $repository) {
 }
 
 // Build the search type switcher
+$search_type_descriptions = array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities');
 $search_type_list = Utils::getHtmlSelectOptions(
-    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
+    $search_type_descriptions, 
     $check['search_type'],
     true
 );
@@ -103,7 +104,7 @@ if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
             </fieldset>
             <fieldset>
                 <legend>Search in</legend>
-                <select name='search_type'>
+                <select name='search_type' id='search_type' onchange="changeSearchContext(this);">
                 <?=$search_type_list?>
                 </select>
             </fieldset>
@@ -155,6 +156,7 @@ if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
             <div id="search">
                 <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search here" size="30" />
                 <input type="submit" value="Search" alt="Search" />
+                <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
             </div>
         </fieldset>
  </form>
@@ -225,6 +227,10 @@ foreach ($repositories as $repository) {
     changeDefaultSource('target_locale');
 
     changeDefaultSource('repository');
+}
+//Change the label below the search field to reflect the value of "Search in"
+function changeSearchContext(element) {
+    document.getElementById('searchcontextvalue').innerHTML = element.options[element.selectedIndex].text;
 }
 //Focus on the search field
 window.onload = function() {

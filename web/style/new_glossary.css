@@ -283,6 +283,11 @@ fieldset#main select {
     width: 110px;
 }
 
+fieldset#main select#search_type {
+    display: block;
+    width: 140px;
+}
+
 fieldset#main #search {
     margin: 0;
 }
@@ -300,6 +305,16 @@ fieldset#main #search input[type=text] {
     padding: 5px 7px;
     transition: all 0.1s linear 0s;
     width: 80%;
+}
+
+fieldset#main #searchcontext {
+    font-size: 0.8em;
+    margin-top: 2px;
+    padding-left: 9px;
+}
+
+fieldset#main #searchcontext span {
+    font-weight: bold;
 }
 
 #root fieldset#main fieldset {
