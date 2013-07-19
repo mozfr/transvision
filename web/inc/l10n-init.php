@@ -10,6 +10,18 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
 }
 
 $allLocales[] = 'en-US'; // Add en-US as a regular locale without impacting glossaire.sh
+
+// Don't try to guess locales with the Json API as it is used by scripts, not humans
+if (WEBSERVICE) {
+    $locale = isset($_GET['locale'])
+              ? $_GET['locale']
+              : '';
+    $sourceLocale = isset($_GET['sourcelocale'])
+                    ? $_GET['sourcelocale']
+                    : '';
+    return;
+}
+
 $l10n = new tinyl10n\ChooseLocale($allLocales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;
@@ -17,13 +29,12 @@ $locale = $l10n->getCompatibleLocale();
 $sourceLocale = 'en-US';
 
 // Bypass locale & source locale detection if there are a COOKIES stored with them
-if (WEBSERVICE ==  false) {
-    if (isset($_COOKIE['default_target_locale'])) {
-        $locale = $_COOKIE['default_target_locale'];
-    }
-    if (isset($_COOKIE['default_source_locale'])) {
-        $sourceLocale = $_COOKIE['default_source_locale'];
-    }
+
+if (isset($_COOKIE['default_target_locale'])) {
+    $locale = $_COOKIE['default_target_locale'];
+}
+if (isset($_COOKIE['default_source_locale'])) {
+    $sourceLocale = $_COOKIE['default_source_locale'];
 }
 
 // Bypass locale detection if the page sends a valid GET variable
