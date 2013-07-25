@@ -320,3 +320,35 @@ then
     echo "Create GAIA TMX for en-US"
     nice -20 python tmxmaker.py $gaia/en-US/ $gaia/en-US/ en-US en-US gaia
 fi
+
+
+# Update L20N test repo
+if $checkrepo
+then
+    cd $l20n_test/l20ntestdata
+    git pull origin master
+fi
+
+cd $install
+if $createTMX
+then
+    if $all_locales
+    then
+        for i in `cat $l20n_test_locales`
+        do
+            echo "Create L20N test repo TMX for $i"
+            nice -20 python tmxmaker.py $l20n_test/l20ntestdata/$i/ $l20n_test/l20ntestdata/en-US/ $i en-US l20n_test
+        done
+    else
+        if [ -d $l20n_test/l20ntestdata/$locale_code ]
+        then
+            echo "Create L20N test repo TMX for $locale_code"
+            nice -20 python tmxmaker.py $l20n_test/l20ntestdata/$locale_code/ $l20n_test/l20ntestdata/en-US/ $locale_code en-US l20n_test
+        else
+            echo "Folder $l20n_test/$locale_code does not exist."
+        fi
+    fi
+
+    echo "Create L20N test repo TMX for en-US"
+    nice -20 python tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
+fi

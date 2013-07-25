@@ -9,6 +9,7 @@ mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
 mkdir -p $trunk_l10n
 mkdir -p $gaia
+mkdir -p $l20n_test
 mkdir -p $libraries
 
 # Restructure en-US
@@ -226,6 +227,26 @@ for i in `cat $install/gaia.txt`
             echo "Creating this locale TMX for Gaia:"
             echo $i
             mkdir -p $root/TMX/gaia/$i
+        fi
+done
+
+# We now deal with L20n test repo as a specific case
+echo "L20n test repo initialization"
+cd $l20n_test
+if [ ! -d $l20n_test/l20ntestdata/.git ]
+then
+    echo "Checking out the following repo:"
+    echo $i
+    git clone https://github.com/pascalchevrel/l20ntestdata.git
+fi
+
+for i in `cat $install/l20n_test.txt`
+    do
+        if [ ! -d $root/TMX/l20n_test/$i ]
+        then
+            echo "Creating this locale TMX for L20n test:"
+            echo $i
+            mkdir -p $root/TMX/l20n_test/$i
         fi
 done
 

@@ -5,8 +5,12 @@
 root=/home/pascalc/transvision
 
 ; Path to the local Mercurial clones, both en-US and l10n. Could be external
-; to the Git checkout, as long as scripts have access to it.
+; to the Git checkout of Transvision, as long as scripts have access to it.
 local_hg=/home/pascalc/transvision/data/hg
+
+; Path to the local Git clones, both en-US and l10n. Could be external
+; to the Git checkout of Transvision, as long as scripts have access to it.
+local_git=/home/pascalc/transvision/data/git
 
 ; This path is used to store libraries (e.g. silme)
 libraries=/home/pascalc/transvision/libraries
@@ -14,4 +18,3 @@ libraries=/home/pascalc/transvision/libraries
 ; Path to Git checkout of Transvision, it will contain setup/update scripts
 ; and the web folder
 install=/home/pascalc/github/transvision
-
