@@ -190,10 +190,15 @@ class ShowResults
                 $errorMessage = '';
             }
 
+            // Replace / and : in the key name and use it as an anchor name
+            $anchor_name = str_replace(array('/', ':'), '_', $key);
+
             $table .= "
                 <tr>
-                  <td><a href=\"/{$entityLink}\">{$resultEntity}</a></td>
-
+                  <td>
+                    <a class='resultpermalink' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
+                    <a class='linktoentity' href=\"/{$entityLink}\">{$resultEntity}</a>
+                  </td>
                   <td dir='{$direction1}'>
                     <div class='string'>
                       {$sourceString}
