@@ -179,6 +179,24 @@ td em.error {
     padding-left: 6px;
 }
 
+td a.resultpermalink {
+    font-size: 75%;
+    color: #FFF;
+    background-color: #D1CFD0;
+    padding: 0.2em 0.4em;  
+    border-radius: 0.25em;  
+    float: left;
+}
+
+td a.resultpermalink:hover {
+    background-color: #ADACAC;
+}
+
+td a.linktoentity {
+    margin-left: 0.4em;
+    float: left;
+}
+
 td div.infos {
     font-size: 75%;
     text-align: left;
