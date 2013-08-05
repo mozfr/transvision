@@ -27,6 +27,21 @@ class Bugzilla extends atoum\test
                 'fr / French'
                 ),
             array(
+                'sr-Cyrl',
+                $components_list,
+                'sr / Serbian'
+                ),
+            array(
+                'sr-Latn',
+                $components_list,
+                'sr / Serbian'
+                ),
+            array(
+                'es',
+                $components_list,
+                'es-ES / Spanish'
+                ),
+            array(
                 'unknow_LANG',
                 $components_list,
                 'Other'
@@ -43,6 +58,30 @@ class Bugzilla extends atoum\test
         $this
             ->string($obj->collectLanguageComponent($a,$b))
                 ->isEqualTo($c)
+        ;
+    }
+
+    public function bugzillaLocaleCodeDP()
+    {
+        return array(
+            array( 'fr', 'fr'),
+            array( 'es', 'es-ES'),
+            array( 'pa', 'pa-IN'),
+            array( 'sr', 'sr'),
+            array( 'sr-Cyrl', 'sr'),
+            array( 'sr-Latn', 'sr'),
+        );
+    }
+
+    /**
+     * @dataProvider bugzillaLocaleCodeDP
+     */
+    public function testBugzillaLocaleCode($a, $b)
+    {
+        $obj = new \Transvision\Bugzilla();
+        $this
+            ->string($obj->bugzillaLocaleCode($a))
+                ->isEqualTo($b)
         ;
     }
 }
