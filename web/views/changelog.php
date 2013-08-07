@@ -9,6 +9,12 @@
 </ul>
 
 
+<h3>Developer visible changes</h3>
+<ul>
+    <li>The Json API no longer does any locale detection (or utltimately fallbacks to French) if the locale does not exist for the repo (Pascal)</li>
+    <li><strong>Experimental</strong> The searchrepo view can also be output as json for external dashboards (Pascal).</li>
+</ul>
+
 <h3>Other changes</h3>
 <ul>
     <li>Server changes to make Transvision compatible with l20n sources (pascal)</li>
