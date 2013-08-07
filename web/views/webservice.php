@@ -16,7 +16,11 @@ if ($check['search_type'] == 'strings') {
 
 if ($check['search_type'] == 'entities') {
     foreach ($entities as $key) {
-        $json[$key][$tmx_source[$key]] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
+        if (isset($tmx_target[$key])) {
+            $json[$key][$tmx_source[$key]] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
+        } else {
+            $json[$key][$tmx_source[$key]] = '';
+        }
     }
 }
 
