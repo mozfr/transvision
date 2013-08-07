@@ -3,7 +3,6 @@ namespace Transvision;
 
 // Page title
 $title = '<a href="/" id="transvision-title">Transvision - repository global status</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
-require_once WEBROOT .'inc/l10n-init.php';
 
 $strings = array();
 
@@ -17,7 +16,8 @@ foreach ($repos as $val) {
     $ch = ($val == $repo) ? ' selected' : '';
     $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $val . "</option>\n";
 }
-?>
+
+$form = <<<FORM
 <form name="searchform" method="get" action="">
     <fieldset id="main">
         <fieldset>
@@ -29,7 +29,7 @@ foreach ($repos as $val) {
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
  </form>
-<?php
+FORM;
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
@@ -55,7 +55,8 @@ foreach ($gaiaLocales as $val) {
     unset($strings[$val][$repo]);
 }
 
-echo '
+$json = array();
+$table = '
 <style>td {text-align:right;} form[name="searchform"] { text-align: center; }</style>
 <table>
 <tr>
@@ -69,15 +70,10 @@ echo '
 </tr>';
 
 foreach ($stringCount as $locale => $numbers) {
-    echo "<tr id=\"{$locale}\">";
-    echo "<th>{$locale}</th>";
-    echo "<td>{$numbers['total']}</td>";
-    echo "<td>{$numbers['missing']}</td>";
-    echo '<td>' . ($numbers['total'] - $numbers['identical']) . '</td>';
-    echo "<td>{$numbers['identical']}</td>";
+
     $completion = $countReference - $numbers['identical'] - $numbers['missing'];
     $completion = number_format($completion/$countReference*100);
-    echo "<td>{$completion} %</td>";
+
     if ($completion >= 99) {
         $confidence = 'Highest';
     } elseif ($completion >= 95) {
@@ -97,7 +93,36 @@ foreach ($stringCount as $locale => $numbers) {
     } else {
         $confidence = 'No localization';
     }
-    echo "<td>{$confidence}</td>";
-    echo '</tr>';
+
+    $json[$locale] = array(
+        'total'      => $numbers['total'],
+        'missing'    => $numbers['missing'],
+        'translated' => ($numbers['total'] - $numbers['identical']),
+        'identical'  => $numbers['identical'],
+        'completion' => $completion,
+        'confidence' => $confidence,
+    );
+
+    $table .=
+    "<tr id=\"{$locale}\">
+    <th>{$locale}</th>
+    <td>{$numbers['total']}</td>
+    <td>{$numbers['missing']}</td>"
+    . '<td>' . ($numbers['total'] - $numbers['identical']) . '</td>'
+    . "<td>{$numbers['identical']}</td>
+    <td>{$completion} %</td>
+    <td>{$confidence}</td>
+    </tr>";
+
 }
-echo '</table>';
+
+$table .= '</table>';
+
+
+if (isset($_GET['json'])) {
+    $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
+    die(Json::jsonOutput($json, $callback));
+} else {
+    echo $form;
+    echo $table;
+}
