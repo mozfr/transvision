@@ -36,10 +36,10 @@ if $checkrepo
 then
     cd $release_source
     cd comm-release
-    hg pull -r tip
+    hg pull -r default
     hg update -c
     cd ../mozilla-release
-    hg pull -r tip
+    hg pull -r default
     hg update -c
 
     if $all_locales
@@ -48,7 +48,7 @@ then
         for i in `cat $release_locales`
         do
             cd $i
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         done
@@ -56,7 +56,7 @@ then
         if [ -d $release_l10n/$locale_code ]
         then
             cd $release_l10n/$locale_code
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         else
@@ -96,10 +96,10 @@ if $checkrepo
 then
     cd $beta_source
     cd comm-beta
-    hg pull -r tip
+    hg pull -r default
     hg update -c
     cd ../mozilla-beta
-    hg pull -r tip
+    hg pull -r default
     hg update -c
 
     if $all_locales
@@ -108,7 +108,7 @@ then
         for i in `cat $beta_locales`
         do
             cd $i
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         done
@@ -116,7 +116,7 @@ then
         if [ -d $beta_l10n/$locale_code ]
         then
             cd $beta_l10n/$locale_code
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         else
@@ -156,10 +156,10 @@ if $checkrepo
 then
     cd $trunk_source
     cd comm-central
-    hg pull -r tip
+    hg pull -r default
     hg update -c
     cd ../mozilla-central
-    hg pull -r tip
+    hg pull -r default
     hg update -c
 
     if $all_locales
@@ -168,7 +168,7 @@ then
         for i in `cat $trunk_locales`
         do
             cd $i
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         done
@@ -176,7 +176,7 @@ then
         if [ -d $trunk_l10n/$locale_code ]
         then
             cd $trunk_l10n/$locale_code
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         else
@@ -216,10 +216,10 @@ if $checkrepo
 then
     cd $aurora_source
     cd comm-aurora
-    hg pull -r tip
+    hg pull -r default
     hg update -c
     cd ../mozilla-aurora
-    hg pull -r tip
+    hg pull -r default
     hg update -c
 
     if $all_locales
@@ -228,7 +228,7 @@ then
         for i in `cat $aurora_locales`
         do
             cd $i
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         done
@@ -236,7 +236,7 @@ then
         if [ -d $aurora_l10n/$locale_code ]
         then
             cd $aurora_l10n/$locale_code
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         else
@@ -280,7 +280,7 @@ then
         for i in `cat $gaia_locales`
         do
             cd $i
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         done
@@ -288,7 +288,7 @@ then
         if [ -d $gaia/$locale_code ]
         then
             cd $gaia/$locale_code
-            hg pull -r tip
+            hg pull -r default
             hg update -c
             cd ..
         else
