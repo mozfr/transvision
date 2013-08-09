@@ -62,7 +62,7 @@ foreach ($search as $word) {
 $imperfect = array_unique($imperfect);
 
 $getResults = function($arr) use ($tmx_target) {
-    $results = [];
+    $results = array();
     foreach ($arr as $val) {
         if ($tmx_target[$val] != '') {
             $results[$val] = $tmx_target[$val];
