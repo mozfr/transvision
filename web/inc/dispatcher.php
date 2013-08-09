@@ -18,7 +18,9 @@ switch ($url['path']) {
         if (WEBSERVICE) {
             $view = 'webservice';
             $template = false;
+            break;
         }
+        
         $title = '<a href="/" id="transvision-title">Transvision</a> '
                  . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'search_form';
