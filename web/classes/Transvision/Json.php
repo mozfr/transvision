@@ -28,5 +28,17 @@ class Json
         $json = ob_get_contents();
         ob_end_clean();
         return $json;
+}
+
+    /*
+     * Return a array from a local or remote file json file
+     * 
+     * @param  string  uri of the resource
+     * @return array
+     */
+    public static function fetchJson($uri)
+    {
+        $json = json_decode(file_get_contents($uri), true);
+        return $json;
     }
 }

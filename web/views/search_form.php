@@ -239,12 +239,12 @@ window.onload = function() {
 
 if ($initial_search != '') {
     // create a json file logging locale/number of requests
-    $stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
+    $stats = Json::fetchJson(WEBROOT . 'stats.json');
     $stats[$locale] = (array_key_exists($locale, $stats)) ?  $stats[$locale] += 1 : 1 ;
     file_put_contents(WEBROOT . 'stats.json', json_encode($stats));
 
     // create a json file logging search options to determine if some are unused
-    $stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
+    $stats = Json::fetchJson(WEBROOT . 'stats_requests.json');
     foreach ($check as $k => $v) {
         if (in_array($k, $form_checkboxes) && $v == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;

@@ -1,7 +1,7 @@
 <?php
 
 // Get locales/number of requests
-$stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
+$stats = Json::fetchJson(WEBROOT . 'stats.json');
 arsort($stats);
 
 echo '<table>';
@@ -15,7 +15,7 @@ echo '</table>';
 unset($stats);
 
 // Get use of options
-$stats = json_decode(file_get_contents(WEBROOT . 'stats_requests.json'), true);
+$stats = Json::fetchJson(WEBROOT . 'stats_requests.json');
 arsort($stats);
 
 echo '<table>';
