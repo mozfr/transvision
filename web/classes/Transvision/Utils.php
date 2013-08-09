@@ -410,7 +410,7 @@ class Utils
      */
     public static function tmxDownloadTable($locales)
     {
-        $output = '';
+        $output = '<table id="DownloadsTable"><tr><th colspan="6"><abbr title="Translation Memory eXchange">TMX</abbr> Download Page</th></tr><tr><th></th><th colspan="4">Desktop Software</th><th>Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia</th></tr>';
 
         foreach ($locales as $locale) {
             $cell = function ($repo) use ($locale) {
@@ -421,16 +421,17 @@ class Utils
                 return '<td>' . $str . '</td>';
             };
 
-            $output .= '
-            <tr>
-                <th>' . $locale . '</th>'
+            $output .= 
+                '<tr><th>' . $locale . '</th>'
                 . $cell('central')
                 . $cell('aurora')
                 . $cell('beta')
                 . $cell('release')
                 . $cell('gaia')
-            . '</tr>';
+                . '</tr>';
         }
+
+        $output .= '</table>';
 
         return $output;
     }

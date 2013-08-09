@@ -4,38 +4,19 @@ namespace Transvision;
 // Page title
 $title = '<a href="/">Transvision</a> TMX Downloads';
 
-// Table header
-echo '<table id="DownloadsTable">
-    <tr>
-        <th colspan="6">
-            <abbr title="Translation Memory eXchange">TMX</abbr> Download Page
-        </th>
-    </tr>
-    <tr>
-        <th></th>
-        <th colspan="4">Desktop Software</th>
-        <th>Firefox OS</th>
-    </tr>
-    <tr>
-        <th></th>
-        <th>Central</th>
-        <th>Aurora</th>
-        <th>Beta</th>
-        <th>Release</th>
-        <th>Gaia</th>
-    </tr>
-    ';
+// Compute Download table content 
+$downloadTable = function() {
+    $localesList = [];
 
-// Table content
-$loc_list = array();
-$locales = Utils::getFilenamesInFolder(TMX . '/');
-foreach ($locales as $loc) {
-    $loc_list = array_merge($loc_list, Utils::getFilenamesInFolder(TMX . $loc . '/'));
-}
-$loc_list = array_unique($loc_list);
-sort($loc_list);
+    foreach (Utils::getFilenamesInFolder(TMX) as $locale) {
+        $localesList = array_merge($localesList, Utils::getFilenamesInFolder(TMX . $locale . '/'));
+    }
 
-echo Utils::tmxDownloadTable($loc_list);
+    // Clean up table to remove duplicate and sort by locale name
+    $localesList = array_unique($localesList);
+    sort($localesList);
 
-// Close table
-echo '</table>';
+    return Utils::tmxDownloadTable($localesList);
+};
+
+print $downloadTable();
