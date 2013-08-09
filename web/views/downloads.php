@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-// Page title
-$title = '<a href="/">Transvision</a> TMX Downloads';
-
 // Compute Download table content 
 $downloadTable = function() {
     $localesList = [];

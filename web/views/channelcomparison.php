@@ -1,8 +1,6 @@
 <?php
 namespace Transvision;
 
-// Page title
-$title = '<a href="/" id="transvision-title">Transvision</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 require_once WEBROOT .'inc/l10n-init.php';
 
 $chan1 = 'aurora';

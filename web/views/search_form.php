@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-// Page title
-$title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
-
 // build the repository switcher
 $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 

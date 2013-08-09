@@ -1,17 +1,16 @@
-<?php $title = '<a href="/">Transvision</a> changelog'; ?>
 <h2 id="v2.8">Version 2.8 - 2013-08-??</h2>
 
 <h3>End user visible changes</h3>
 <ul>
     <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (Francesco) </li>
     <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="http://transvision.mozfr.org/?repo=central&sourcelocale=en-US&locale=en-US&search_type=strings&recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (Francesco)</li>
-    <li>Fix bugzilla links to fill a bug in the right locale component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr, sr-Cyrl/Latn&hellip;) (Pascal)</li>
+    <li>Fix bugzilla links to file a bug in the right Bugzila component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr vs sr-Cyrl/Latn&hellip;) (Pascal)</li>
 </ul>
 
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li>The Json API no longer does any locale detection (or utltimately fallbacks to French) if the locale does not exist for the repo (Pascal)</li>
+    <li>The Json API no longer does any locale detection or fallbacks to French if the locale does not exist for the repo (Pascal)</li>
     <li><strong>Experimental</strong> The searchrepo view can also be output as json for external dashboards (Pascal).</li>
 </ul>
 

@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-$title = '<a href="/" id="transvision-title">Transvision</a>
-          <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
-
 require_once WEBROOT . 'inc/l10n-init.php';
 
 // let's add en-US to check their errors too

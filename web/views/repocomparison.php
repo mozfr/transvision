@@ -1,8 +1,6 @@
 <?php
 $locale = 'fr';
 $repo = 'release';
-// Page title
-$title = 'Transvision <a href="./news/#v' . VERSION . '">' . VERSION . '</a>';
 
 include TMX . $repo . '/en-US/cache_en-US.php';
 $tmx_source = $tmx;

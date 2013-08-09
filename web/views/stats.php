@@ -1,7 +1,5 @@
 <?php
 
-$title = '<a href="/">Transvision</a> short usage stats';
-
 // Get locales/number of requests
 $stats = json_decode(file_get_contents(WEBROOT . 'stats.json'), true);
 arsort($stats);

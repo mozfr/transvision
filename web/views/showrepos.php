@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-// Page title
-$title = '<a href="/" id="transvision-title">Transvision - repository global status</a> <a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
-
 $strings = array();
 
 $repo = (isset($_GET['repo']) && in_array($_GET['repo'], $repos))
