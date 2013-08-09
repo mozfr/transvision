@@ -24,4 +24,4 @@ if ($check['search_type'] == 'entities') {
     }
 }
 
-echo Json::jsonOutput($json, $callback);
+echo Json::outputJson($json, $callback);

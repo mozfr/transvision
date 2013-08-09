@@ -118,7 +118,7 @@ $table .= '</table>';
 
 if (isset($_GET['json'])) {
     $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::jsonOutput($json, $callback));
+    die(Json::outputJson($json, $callback));
 } else {
     echo $form;
     echo $table;

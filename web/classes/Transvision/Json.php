@@ -11,7 +11,7 @@ class Json
      * @param  string jsonp function name, default to false
      * @return json feed
      */
-    public static function jsonOutput(array $data, $jsonp = false)
+    public static function outputJson(array $data, $jsonp = false)
     {
         $json = json_encode($data);
         $mime = 'application/json';
