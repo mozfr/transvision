@@ -19,6 +19,7 @@ if (WEBSERVICE) {
     $sourceLocale = isset($_GET['sourcelocale'])
                     ? $_GET['sourcelocale']
                     : '';
+
     return;
 }
 

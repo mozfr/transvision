@@ -42,7 +42,6 @@ foreach ($loc_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
-
 $temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $temp = array_diff($temp, $strings[$chan2]);
 ?>

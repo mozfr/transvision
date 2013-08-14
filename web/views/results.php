@@ -3,6 +3,7 @@ namespace Transvision;
 
 if (strlen(trim($my_search)) < 2) {
     echo '<p><strong>Search term should be at least 2 characters long.</strong></p>';
+
     return;
 }
 

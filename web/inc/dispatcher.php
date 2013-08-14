@@ -20,7 +20,7 @@ switch ($url['path']) {
             $template = false;
             break;
         }
-        
+
         $title = '<a href="/" id="transvision-title">Transvision</a> '
                  . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'search_form';

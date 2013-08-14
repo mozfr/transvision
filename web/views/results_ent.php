@@ -6,7 +6,6 @@ $rtl = array('ar', 'fa', 'he');
 $direction1 = (in_array($sourceLocale, $rtl)) ? 'rtl' : 'ltr';
 $direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
 
-
 $table  = "<table>
              <tr>
                <th>Entity</th>\n

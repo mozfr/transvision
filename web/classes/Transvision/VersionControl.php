@@ -76,7 +76,6 @@ class VersionControl
             'calendar/',
         );
 
-
         // Destop repos
         if ($locale != 'en-US') {
 

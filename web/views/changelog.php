@@ -47,7 +47,6 @@
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
 </ul>
 
-
 </ul>
 <h2 id="v2.6">Version 2.6 - 2013-06-14</h2>
 
@@ -248,7 +247,6 @@
     <li>The cron job updating the repositories on MozFR server was not behaving correctly and repos were not updated in the last week, this is now fixed</li>
 </ul>
 
-
 <h2 id="v1.3">Version 1.3 - 2012-08-17</h2>
 <h3>End user visible changes</h3>
 <ul>
@@ -311,5 +309,3 @@
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>
     <li>New URL is <a href="http://transvision.mozfr.org">http://transvision.mozfr.org</a></li>
 </ul>
-
-

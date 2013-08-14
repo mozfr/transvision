@@ -52,6 +52,7 @@ foreach ($search as $word) {
                 if (!$bingo) {
                     $bingo = Strings::inString(strtolower($element), strtolower($word));
                 }
+
                 return $bingo;
             }
         )
@@ -70,6 +71,7 @@ $getResults = function($arr) use ($tmx_target) {
     }
 
     $results = array_unique($results);
+
     return $results;
 };
 

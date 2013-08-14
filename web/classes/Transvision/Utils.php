@@ -58,8 +58,8 @@ class Utils
     /*
      * Helper function to set checkboxes value for the default option in source locale, target locale and repository
      *
-     * @param string $option
-     * @param string $cookie
+     * @param  string $option
+     * @param  string $cookie
      * @return string $defaultChecked -> ' checked="checked"' or false
      */
 
@@ -114,6 +114,7 @@ class Utils
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
         $str = str_replace(ucwords($needle), '←' . ucwords($needle) . '→', $str);
         $str = str_replace(strtolower($needle), '←' . strtolower($needle) . '→', $str);
+
         return $str;
     }
 
@@ -139,6 +140,7 @@ class Utils
 
         // remove last ones
         $str = str_replace(array('←', '→'), '', $str);
+
         return $str;
     }
 
@@ -150,6 +152,7 @@ class Utils
     public static function getmicrotime()
     {
         list($usec, $sec) = explode(' ', microtime());
+
         return ((float) $usec + (float) $sec);
     }
 
@@ -187,8 +190,9 @@ class Utils
 
         </style>
         <script>
-        function showhide(foobar) {
-            if(foobar.innerHTML == "hide") {
+        function showhide(foobar)
+        {
+            if (foobar.innerHTML == "hide") {
                 foobar.parentNode.style.display = "inline-block";
                 foobar.parentNode.style.width = "100px";
                 foobar.parentNode.style.height = "0.9em";
@@ -219,7 +223,6 @@ class Utils
         echo Strings::mutipleStringReplace($replacements, $content);
         echo '</code></pre>';
     }
-
 
     public static function printSimpleTable(
         $arr,
@@ -255,7 +258,7 @@ class Utils
     /*
      * Split a sentence in words from longest to shortest
      *
-     * @param string $sentence
+     * @param  string $sentence
      * @return array
      */
     public static function uniqueWords($sentence)
@@ -270,15 +273,15 @@ class Utils
                 return strlen($b) - strlen($a);
             }
         );
+
         return $words;
     }
-
 
     /*
      * Generate a list of <option> html tags from an array and mark one as selected
      *
-     * @param       array   $options list of <option>
-     * @param       string  $selected the option which should have the 'selected' html attribute
+     * @param array  $options  list of <option>
+     * @param string $selected the option which should have the 'selected' html attribute
      * @nicelabels  boolean $nicelabels, indicates if $options is an associative array
      *                      with the array value as the text inside the <option> tag
      * @return string
@@ -291,14 +294,15 @@ class Utils
             $ch = ($value == $selected) ? ' selected' : '';
             $html.= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
         }
+
         return $html;
     }
 
     /*
      * Return the list of files in a folder as an array
      *
-     * @param  string  $folder the directory we want to access
-     * @param  array   $exclude files to exclude from results, by default . and ..
+     * @param  string $folder  the directory we want to access
+     * @param  array  $exclude files to exclude from results, by default . and ..
      * @return array
      */
     public static function getFilenamesInFolder($folder, $excludedFiles = array('.', '..', '.htaccess'))
@@ -306,6 +310,7 @@ class Utils
         // Get the locale list
         $files = scandir($folder);
         $files = array_diff($files, $excludedFiles);
+
         return $files;
     }
 
@@ -360,6 +365,7 @@ class Utils
         $str = stripslashes($str);
         // Filter out double spaces
         $str = Strings::mtrim($str);
+
         return $str;
     }
 
@@ -399,6 +405,7 @@ class Utils
             //missing origin or translated string
             $anormal_length =  false;
         }
+
         return $anormal_length;
     }
 
@@ -418,10 +425,11 @@ class Utils
                 $str = file_exists(TMX . $file)
                         ? '<a href="/TMX/' . $file . '">Download</a>'
                         : '<span class="red">TMX Not Available</span>';
+
                 return '<td>' . $str . '</td>';
             };
 
-            $output .= 
+            $output .=
                 '<tr><th>' . $locale . '</th>'
                 . $cell('central')
                 . $cell('aurora')

@@ -18,6 +18,7 @@ class ShowResults
                 $locale2Strings[$entity]: false;
             $searchResults[$entity] = array($locale1Strings[$entity], $locale2Strings[$entity]);
         }
+
         return $searchResults;
     }
 
@@ -59,7 +60,7 @@ class ShowResults
             '…' => '<span class="highlight-gray">…</span>',
         );
 
-        switch($locale) {
+        switch ($locale) {
             case 'fr':
             default:
                 $replacements['&hellip;'] = '<span class="highlight-gray">…</span>'; // right ellipsis highlight
@@ -234,6 +235,7 @@ class ShowResults
         }
 
         $table .= "  </table>";
+
         return $table;
     }
 }

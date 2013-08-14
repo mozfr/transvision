@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-// Compute Download table content 
+// Compute Download table content
 $downloadTable = function() {
     $localesList = [];
 

@@ -47,6 +47,7 @@ class Bugzilla
                 break;
             }
         }
+
         return $component_string;
     }
 
@@ -57,7 +58,8 @@ class Bugzilla
      * @param $locale string
      * @return $locale string
      */
-    public static function bugzillaLocaleCode($locale) {
+    public static function bugzillaLocaleCode($locale)
+    {
         $locale = ($locale == 'es') ? 'es-ES' : $locale;
         $locale = ($locale == 'pa') ? 'pa-IN' : $locale;
         $locale = ($locale == 'sr-Cyrl' || $locale == 'sr-Latn') ? 'sr' : $locale;

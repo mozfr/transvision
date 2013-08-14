@@ -15,6 +15,7 @@ class Strings
         $string = explode(' ', $string);
         $string = array_filter($string);
         $string = implode(' ', $string);
+
         return $string;
     }
 
