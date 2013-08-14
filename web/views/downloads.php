@@ -3,7 +3,7 @@ namespace Transvision;
 
 // Compute Download table content
 $downloadTable = function() {
-    $localesList = [];
+    $localesList = array();
 
     foreach (Utils::getFilenamesInFolder(TMX) as $locale) {
         $localesList = array_merge($localesList, Utils::getFilenamesInFolder(TMX . $locale . '/'));
