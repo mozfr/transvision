@@ -1,5 +1,4 @@
 <?php
-
 namespace Transvision;
 
 class Json
@@ -29,7 +28,7 @@ class Json
         ob_end_clean();
 
         return $json;
-}
+    }
 
     /*
      * Return a array from a local or remote file json file

@@ -1,4 +1,5 @@
 <?php
+namespace Transvision;
 
 // Get locales/number of requests
 $stats = Json::fetchJson(WEBROOT . 'stats.json');
