@@ -63,6 +63,11 @@ switch ($url['path']) {
         $view  = 'showrepos';
         $extra = '<h2 class="alert">experimental View</h2>';
         break;
+    default:
+        $title = '<a href="/" id="transvision-title">Transvision</a> '
+                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+        $view  = 'search';
+        break;
 }
 
 $view =  $view . '.php';
@@ -77,3 +82,4 @@ if ($template) {
 } else {
     include VIEWS . $view;
 }
+
