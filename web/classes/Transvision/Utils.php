@@ -108,6 +108,19 @@ class Utils
 
         return $searchResults;
     }
+    public static function results3($entities, $locale1Strings, $locale2Strings,$locale3Strings)
+    {
+
+        $searchResults = array();
+
+        foreach ($entities as $entity) {
+            $searchResults[$entity] = array($locale1Strings[$entity],
+                                             $locale2Strings[$entity],
+                                             $locale3Strings[$entity]);
+        }
+
+        return $searchResults;
+    }
 
     public static function markString($needle, $haystack)
     {
