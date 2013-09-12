@@ -73,11 +73,6 @@ class ShowResults
     /*
      * Search results in a table
      */
-     // 3 way ShowResults
-
-    /*
-     * Search results in a table for 3 way
-     */
     public static function resultsTable($searchResults, $recherche, $locale1, $locale2, $locale3,$searchOptions)
     {
         $direction1 = RTLSupport::getDirection($locale1);
@@ -106,17 +101,14 @@ class ShowResults
         $bzLink2 = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                    . $bzComponent2
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
-	if ($locale2==$locale3)
-	{
+	if ($locale2 == $locale3) {
         	$table  = "<table>
                       <tr>
                         <th>Entity</th>
                         <th>$locale1</th>
                         <th>$locale2</th>
 			</tr>";
-	}
-	else
-	{
+	} else {
         	$table  = "<table>
                       <tr>
                         <th>Entity</th>
@@ -291,12 +283,9 @@ class ShowResults
                     </div>
 		    </td>";
 
-	   if ($locale2==$locale3)
-	   {
+	   if ($locale2 == $locale3) {
 		$table.="</tr>";
-	   }
-	   else
-	   {	   
+	   } else {	   
                  $table.= "<td dir='{$direction3}'>
                     <div class='string'>{$targetString2}</div>
                     <div dir='ltr' class='infos'>
@@ -311,7 +300,8 @@ class ShowResults
                     </div>
                   </td>
                 </tr>";
-        }
+           }
+      }
 
         $table .= "  </table>";
 

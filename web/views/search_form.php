@@ -6,19 +6,16 @@ $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
 $loc_list = array();
-$loc_list2 = array();
 $target_locales_list = array();
 $target_locales_list2 = array();
 $source_locales_list = array();
 $repositories = Utils::getFilenamesInFolder(TMX . '/');
 foreach ($repositories as $repository) {
     $loc_list[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
-    $loc_list2[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
     sort($loc_list[$repository]);
-    sort($loc_list2[$repository]);
     // build the target locale switcher
     $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
-    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions($loc_list2[$repository], $locale2);
+    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale2);
     // build the source locale switcher
     $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
 }
@@ -51,7 +48,7 @@ if (isset($_COOKIE['default_repository'])) {
 
 ?>
 
-	<div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?> <?=$locale2?> <?=$strong?></strong></div>
+	<div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?> <?=$locale2?></strong></div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
 
@@ -120,7 +117,7 @@ if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
                            data-cookie="<?=$cookieTargetLocale2?>"
                            onclick="setCookie('default_target_locale2',this.value,3650);"
 <?php // Mark as default only if the cookieTargetLocale exist in repository array
-if (in_array($cookieTargetLocale2, $loc_list2[$check['repo']])) {
+if (in_array($cookieTargetLocale2, $loc_list[$check['repo']])) {
     echo Utils::checkboxDefaultOption($locale2, $cookieTargetLocale2);
 }
 ?>

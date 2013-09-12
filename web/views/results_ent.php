@@ -7,17 +7,14 @@ $direction1 = (in_array($sourceLocale, $rtl)) ? 'rtl' : 'ltr';
 $direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
 $direction3 = (in_array($locale2, $rtl)) ? 'rtl' : 'ltr';
 
-if ($locale==$locale2)
-{
+if ($locale == $locale2) {
 	$table  = "<table>
         	     <tr>
                	     <th>Entity</th>\n
                      <th>" . $sourceLocale . "</th>
                      <th>" . $locale . "</th>
 		     </tr>";
-}
-else
-{
+} else {
 	$table  = "<table>
         	     <tr>
                	     <th>Entity</th>\n
@@ -46,8 +43,7 @@ foreach ($entities as $val) {
         $target_string2 = '';
     }
 
-	if ($locale==$locale2)
-	{
+	if ($locale == $locale2) {
     	$table .= "<tr>
         	            <td>" . ShowResults::formatEntity($val, $my_search) . "</a></td>
 	        	    <td dir='${direction1}'>
@@ -59,9 +55,7 @@ foreach ($entities as $val) {
                    	 	<div class='sourcelink'><a href='${path_locale2}'><em>&lt;source&gt;</em></a></div>
                    	    </td>
                	 </tr>";
-	}
-	else
-	{
+	} else {
     	$table .= "<tr>
         	            <td>" . ShowResults::formatEntity($val, $my_search) . "</a></td>
 	        	    <td dir='${direction1}'>
@@ -74,7 +68,7 @@ foreach ($entities as $val) {
                    	    </td>
                     	    <td dir='${direction3}'>
                 	       	<div class='string'>${target_string2}</div>
-                   	 	<div class='sourcelink'><a href='${path_locale3}'><em>&lt;source&gt;</em></a></div>
+                  	 	<div class='sourcelink'><a href='${path_locale3}'><em>&lt;source&gt;</em></a></div>
                    	    </td>
                	 </tr>";
 	}
