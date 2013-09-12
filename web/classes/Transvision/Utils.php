@@ -93,17 +93,17 @@ class Utils
 
     /*
      * Create an array for search results with this format:
-     * 'entity' => ['locale 1', 'locale 2']
+     * 'entity' => ['locale 1', 'locale 2', 'locale-3']
      */
 
-    public static function results($entities, $locale1Strings, $locale2Strings)
+    public static function results($entities, $locale1Strings, $locale2Strings, $locale3Strings)
     {
 
         $searchResults = array();
-
         foreach ($entities as $entity) {
             $searchResults[$entity] = array($locale1Strings[$entity],
-                                             $locale2Strings[$entity]);
+                                             $locale2Strings[$entity],
+                                             $locale3Strings[$entity]);
         }
 
         return $searchResults;

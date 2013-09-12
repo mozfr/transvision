@@ -2,6 +2,7 @@
 $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
 $sourceLocale = isset($sourceLocale) ? $sourceLocale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
+$locale2 = isset($locale2) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 ?>
 <!doctype html>

@@ -27,12 +27,16 @@ $l10n = new tinyl10n\ChooseLocale($allLocales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;
 $locale = $l10n->getCompatibleLocale();
+$locale2 = $l10n->getCompatibleLocale();
 $sourceLocale = 'en-US';
 
 // Bypass locale & source locale detection if there are a COOKIES stored with them
 
 if (isset($_COOKIE['default_target_locale'])) {
     $locale = $_COOKIE['default_target_locale'];
+}
+if (isset($_COOKIE['default_target_locale2'])) {
+    $locale2 = $_COOKIE['default_target_locale2'];
 }
 if (isset($_COOKIE['default_source_locale'])) {
     $sourceLocale = $_COOKIE['default_source_locale'];
@@ -42,6 +46,10 @@ if (isset($_COOKIE['default_source_locale'])) {
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
     $l10n->setDefaultLocale($_GET['locale']);
     $locale = $l10n->getDefaultLocale();
+}
+if (isset($_GET['locale2']) && in_array($_GET['locale2'], $allLocales)) {
+    $l10n->setDefaultLocale($_GET['locale2']);
+    $locale2 = $l10n->getDefaultLocale();
 }
 
 // Bypass default source locale for locale to locale comparison

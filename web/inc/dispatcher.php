@@ -82,3 +82,4 @@ if ($template) {
 } else {
     include VIEWS . $view;
 }
+

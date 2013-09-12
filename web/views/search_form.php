@@ -7,6 +7,7 @@ $repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
 // Get the locale list for every repo and build his target/source locale switcher values.
 $loc_list = array();
 $target_locales_list = array();
+$target_locales_list2 = array();
 $source_locales_list = array();
 $repositories = Utils::getFilenamesInFolder(TMX . '/');
 foreach ($repositories as $repository) {
@@ -14,6 +15,7 @@ foreach ($repositories as $repository) {
     sort($loc_list[$repository]);
     // build the target locale switcher
     $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
+    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale2);
     // build the source locale switcher
     $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
 }
@@ -31,6 +33,10 @@ $cookieTargetLocale = '';
 if (isset($_COOKIE['default_target_locale'])) {
     $cookieTargetLocale = $_COOKIE['default_target_locale'];
 }
+$cookieTargetLocale2 = '';
+if (isset($_COOKIE['default_target_locale2'])) {
+    $cookieTargetLocale2 = $_COOKIE['default_target_locale2'];
+}
 $cookieSourceLocale = '';
 if (isset($_COOKIE['default_source_locale'])) {
     $cookieSourceLocale = $_COOKIE['default_source_locale'];
@@ -42,7 +48,7 @@ if (isset($_COOKIE['default_repository'])) {
 
 ?>
 
-  <div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?></strong></div>
+	<div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?> <?=$locale2?></strong></div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
 
@@ -94,6 +100,25 @@ if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
 <?php // Mark as default only if the cookieTargetLocale exist in repository array
 if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
     echo Utils::checkboxDefaultOption($locale, $cookieTargetLocale);
+}
+?>
+                     /> <span>Default</span>
+                 </label>
+            </fieldset>
+            <fieldset>
+                <legend>Target Locale 2 </legend>
+                <select id='target_locale2' name='locale2' onchange="changeDefaultSource('target_locale2');">
+                <?=$target_locales_list2[$check['repo']]?>
+                </select>
+                <label class="default_option">
+                    <input type="checkbox"
+                           id="default_target_locale2"
+                           value="<?=$locale2?>"
+                           data-cookie="<?=$cookieTargetLocale2?>"
+                           onclick="setCookie('default_target_locale2',this.value,3650);"
+<?php // Mark as default only if the cookieTargetLocale exist in repository array
+if (in_array($cookieTargetLocale2, $loc_list[$check['repo']])) {
+    echo Utils::checkboxDefaultOption($locale2, $cookieTargetLocale2);
 }
 ?>
                      /> <span>Default</span>

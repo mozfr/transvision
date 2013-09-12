@@ -7,21 +7,21 @@ class ShowResults
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
      */
-    public function getTMXResults($entities, $locale1Strings, $locale2Strings)
+	public function getTMXResults($entities, $locale1_strings, $locale2_strings, $locale3_strings)
     {
-        $searchResults = array();
+        $search_results = array();
 
         foreach ($entities as $entity) {
-            $locale1Strings[$entity] = (isset($locale1Strings[$entity]) && $locale1Strings[$entity] !='') ?
-                $locale1Strings[$entity] : false;
-            $locale2Strings[$entity] = (isset($locale2Strings[$entity]) && $locale2Strings[$entity] !='') ?
-                $locale2Strings[$entity]: false;
-            $searchResults[$entity] = array($locale1Strings[$entity], $locale2Strings[$entity]);
+            $locale1_strings[$entity] = (isset($locale1_strings[$entity]) && $locale1_strings[$entity] !='') ?
+                $locale1_strings[$entity] : false;
+            $locale2_strings[$entity] = (isset($locale2_strings[$entity]) && $locale2_strings[$entity] !='') ?
+                $locale2_strings[$entity]: false;
+            $locale3_strings[$entity] = (isset($locale3_strings[$entity]) && $locale3_strings[$entity] !='') ?
+                $locale3_strings[$entity]: false;
+            $search_results[$entity] = array($locale1_strings[$entity], $locale2_strings[$entity], $locale3_strings[$entity]);
         }
-
-        return $searchResults;
+        return $search_results;
     }
-
     /*
      * make an entity look nice in tables
      *
@@ -73,10 +73,11 @@ class ShowResults
     /*
      * Search results in a table
      */
-    public static function resultsTable($searchResults, $recherche, $locale1, $locale2, $searchOptions)
+    public static function resultsTable($searchResults, $recherche, $locale1, $locale2, $locale3,$searchOptions)
     {
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
+        $direction3 = RTLSupport::getDirection($locale3);
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
         $bzComponent = rawurlencode(
@@ -90,12 +91,34 @@ class ShowResults
                    . $bzComponent
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
-        $table  = "<table>
+        $bzComponent2 = rawurlencode(
+            Bugzilla::collectLanguageComponent(
+                $locale3,
+                Bugzilla::getBugzillaComponents()
+            )
+        );
+
+        $bzLink2 = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+                   . $bzComponent2
+                   . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
+	if ($locale2 == $locale3) {
+        	$table  = "<table>
                       <tr>
                         <th>Entity</th>
                         <th>$locale1</th>
                         <th>$locale2</th>
-                      </tr>";
+			</tr>";
+	} else {
+        	$table  = "<table>
+                      <tr>
+                        <th>Entity</th>
+                        <th>$locale1</th>
+                        <th>$locale2</th>
+                        <th>$locale3</th>
+			</tr>";
+	}
+
+
 
         if (!$searchOptions['whole_word'] && !$searchOptions['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
@@ -114,6 +137,7 @@ class ShowResults
 
             $sourceString = trim($strings[0]);
             $targetString = trim($strings[1]);
+            $targetString2 = trim($strings[2]);
 
             // Link to entity
             $entityLink = "?sourcelocale={$locale1}"
@@ -136,10 +160,12 @@ class ShowResults
             foreach ($recherche as $val) {
                 $sourceString = Utils::markString($val, $sourceString);
                 $targetString = Utils::markString($val, $targetString);
+                $targetString2 = Utils::markString($val, $targetString2);
             }
 
             $sourceString = Utils::highlightString($sourceString);
             $targetString = Utils::highlightString($targetString);
+            $targetString2 = Utils::highlightString($targetString2);
 
             $replacements = array(
                 ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
@@ -149,6 +175,7 @@ class ShowResults
             );
 
             $targetString = Strings::multipleStringReplace($replacements, $targetString);
+            $targetString2 = Strings::multipleStringReplace($replacements, $targetString2);
 
             $temp = explode('-', $locale1);
             $locale1ShortCode = $temp[0];
@@ -156,16 +183,25 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2ShortCode = $temp[0];
 
+            $temp = explode('-', $locale3);
+            $locale3ShortCode = $temp[0];
+
             $locale1Path = VersionControl::filePath($locale1, $searchOptions['repo'], $key);
             $locale2Path = VersionControl::filePath($locale2, $searchOptions['repo'], $key);
+            $locale3Path = VersionControl::filePath($locale3, $searchOptions['repo'], $key);
 
             // errors
             $errorMessage = '';
+            $errorMessage2 = '';
 
             // check for final dot
             if (substr(strip_tags($sourceString), -1) == '.'
                 && substr(strip_tags($targetString), -1) != '.') {
                 $errorMessage = '<em class="error"> No final dot?</em>';
+            }
+            if (substr(strip_tags($sourceString), -1) == '.'
+                && substr(strip_tags($targetString2), -1) != '.') {
+                $errorMessage2 = '<em class="error"> No final dot?</em>';
             }
 
             // check abnormal string length
@@ -180,6 +216,17 @@ class ShowResults
                         break;
                 }
             }
+            $lengthDiff = Utils::checkAbnormalStringLength($sourceString, $targetString2);
+            if ($lengthDiff) {
+                switch ($lengthDiff) {
+                    case 'small':
+                        $errorMessage2 = $errorMessage2 . '<em class="error"> Small string?</em>';
+                        break;
+                    case 'large':
+                        $errorMessage2 = $errorMessage2 . '<em class="error"> Large String?</em>';
+                        break;
+                }
+            }
 
             // Missing string error
             if (!$sourceString) {
@@ -189,6 +236,10 @@ class ShowResults
             if (!$targetString) {
                 $targetString = '<em class="error">warning: missing string</em>';
                 $errorMessage = '';
+            }
+            if (!$targetString2) {
+                $targetString2 = '<em class="error">warning: missing string</em>';
+                $errorMessage2 = '';
             }
 
             // Replace / and : in the key name and use it as an anchor name
@@ -230,12 +281,31 @@ class ShowResults
                       </a>
                       {$errorMessage}
                     </div>
+		    </td>";
+
+	   if ($locale2 == $locale3) {
+		$table.="</tr>";
+	   } else {	   
+                 $table.= "<td dir='{$direction3}'>
+                    <div class='string'>{$targetString2}</div>
+                    <div dir='ltr' class='infos'>
+                      <a class='source_link' href='{$locale3Path}'>
+                        &lt;source&gt;
+                      </a>
+                      &nbsp;
+                      <a class='bug_link' target='_blank' href='{$bzLink}&short_desc={$bugSummary}&comment={$bugMessage}'>
+                        &lt;report a bug&gt;
+                      </a>
+                      {$errorMessage}
+                    </div>
                   </td>
                 </tr>";
-        }
+           }
+      }
 
         $table .= "  </table>";
 
         return $table;
     }
+
 }
