@@ -17,15 +17,22 @@ Transvision was created by Philippe Dessante, from the FrenchMozilla team.
 
 Lead developer since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 
+## Getting Started
 
-Install
--------
+The Transvision team uses Git and GitHub for all of our development and issue tracking.
+If you'd like to contribute code back to us, please do so using a [Pull Request][].
+If you get stuck and need help, you can find our team on our irc channel #transvision on irc.mozilla.org.
+
+[Pull Request]: https://help.github.com/articles/using-pull-requests
+
+### Install
+
 1. Copy web/inc/config.ini-dist to web/inc/config.ini and adapt the variables to your system.
 2. Run setup.sh in Transvision's root folder.
 3. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
 
-Update
--------
+### Update
+
 1. Run glossaire.sh in Transvision's root folder.
 
 Licence:
