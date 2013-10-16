@@ -17,6 +17,14 @@ Transvision was created by Philippe Dessante, from the FrenchMozilla team.
 
 Lead developer since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 
+## Getting Started
+
+The Transvision team uses Git and GitHub for all of our development and issue tracking.
+If you'd like to contribute code back to us, please do so using a [Pull Request][].
+If you get stuck and need help, you can find our team on our irc channel [#transvision][] on irc.mozilla.org server.
+
+[Pull Request]: https://help.github.com/articles/using-pull-requests
+[#transvision]: irc://irc.mozilla.org/transvision
 
 Install
 -------
