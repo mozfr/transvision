@@ -23,7 +23,7 @@ class VersionControl
         $exploded_path = explode('/', $path);
         $base_folder   = $exploded_path[0];
 
-        if ($repo == 'gaia'
+        if (Strings::startsWith($repo, 'gaia')
             || in_array(
                 $base_folder,
                 array('apps', 'shared', 'showcase_apps',
@@ -31,7 +31,14 @@ class VersionControl
             )
         ) {
             $locale = ($locale == 'es-ES') ? 'es' : $locale;
-            $url   .= '/gaia-l10n/' . $locale . '/file/default/';
+
+            if ($repo == 'gaia_1_1') {
+                $url .= '/releases/gaia-l10n/v1_1/' . $locale . '/file/default/';
+            } elseif ($repo == 'gaia_1_2') {
+                $url .= '/releases/gaia-l10n/v1_2/' . $locale . '/file/default/';
+            } else {
+                $url .= '/gaia-l10n/' . $locale . '/file/default/';
+            }
 
             return $url . $path . '/' . $entityFile;
         }

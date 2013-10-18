@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // build the repository switcher
-$repo_list = Utils::getHtmlSelectOptions($repos, $check['repo']);
+$repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $check['repo'], true);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
 $loc_list = array();
@@ -21,7 +21,7 @@ foreach ($repositories as $repository) {
 // Build the search type switcher
 $search_type_descriptions = array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities');
 $search_type_list = Utils::getHtmlSelectOptions(
-    $search_type_descriptions, 
+    $search_type_descriptions,
     $check['search_type'],
     true
 );
@@ -42,7 +42,7 @@ if (isset($_COOKIE['default_repository'])) {
 
 ?>
 
-  <div id="current" onclick="javascript:t2t();">You are looking at the <?=$check['repo']?> channel <strong><?=$locale?></strong></div>
+  <div id="current" onclick="javascript:t2t();">You are looking at the <i><?=$repos_nice_names[$check['repo']]?></i> channel <strong><?=$locale?></strong></div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
 

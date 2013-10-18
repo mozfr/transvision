@@ -9,6 +9,8 @@ mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
 mkdir -p $trunk_l10n
 mkdir -p $gaia
+mkdir -p $gaia_1_1
+mkdir -p $gaia_1_2
 mkdir -p $l20n_test
 mkdir -p $libraries
 
@@ -227,6 +229,46 @@ for i in `cat $install/gaia.txt`
             echo "Creating this locale TMX for Gaia:"
             echo $i
             mkdir -p $root/TMX/gaia/$i
+        fi
+done
+
+# Gaia 1.1
+echo "Gaia 1.1 initialization"
+cd $gaia_1_1
+for i in `cat $install/gaia_1_1.txt`
+    do
+        if [ ! -d $i/.hg ]
+        then
+            echo "Checking out the following repo:"
+            echo $i
+            hg clone http://hg.mozilla.org/releases/gaia-l10n/v1_1/$i
+        fi
+
+        if [ ! -d $root/TMX/gaia_1_1/$i ]
+        then
+            echo "Creating this locale TMX for Gaia:"
+            echo $i
+            mkdir -p $root/TMX/gaia_1_1/$i
+        fi
+done
+
+# Gaia 1.2
+echo "Gaia 1.2 initialization"
+cd $gaia_1_2
+for i in `cat $install/gaia_1_2.txt`
+    do
+        if [ ! -d $i/.hg ]
+        then
+            echo "Checking out the following repo:"
+            echo $i
+            hg clone http://hg.mozilla.org/releases/gaia-l10n/v1_2/$i
+        fi
+
+        if [ ! -d $root/TMX/gaia_1_2/$i ]
+        then
+            echo "Creating this locale TMX for Gaia:"
+            echo $i
+            mkdir -p $root/TMX/gaia_1_2/$i
         fi
 done
 

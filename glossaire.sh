@@ -336,6 +336,108 @@ then
 fi
 
 
+# Update GAIA 1.1
+if $checkrepo
+then
+    if $all_locales
+    then
+        cd $gaia_1_1
+        for i in `cat $gaia_locales_1_1`
+        do
+            cd $i
+            hg pull -r default
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $gaia_1_1/$locale_code ]
+        then
+            cd $gaia_1_1/$locale_code
+            hg pull -r default
+            hg update -c
+            cd ..
+        else
+            echo "Folder $gaia_1_1/$locale_code does not exist."
+        fi
+    fi
+fi
+
+cd $install
+if $createTMX
+then
+    if $all_locales
+    then
+        for i in `cat $gaia_locales_1_1`
+        do
+            echo "Create GAIA 1.1 TMX for $i"
+            nice -20 python tmxmaker.py $gaia_1_1/$i/ $gaia_1_1/en-US/ $i en-US gaia_1_1
+        done
+    else
+        if [ -d $gaia_1_1/$locale_code ]
+        then
+            echo "Create GAIA 1.1 TMX for $locale_code"
+            nice -20 python tmxmaker.py $gaia_1_1/$locale_code/ $gaia_1_1/en-US/ $locale_code en-US gaia_1_1
+        else
+            echo "Folder $gaia_1_1/$locale_code does not exist."
+        fi
+    fi
+
+    echo "Create GAIA 1.1 TMX for en-US"
+    nice -20 python tmxmaker.py $gaia_1_1/en-US/ $gaia_1_1/en-US/ en-US en-US gaia_1_1
+fi
+
+# Update GAIA 1.2
+if $checkrepo
+then
+    if $all_locales
+    then
+        cd $gaia_1_2
+        for i in `cat $gaia_locales_1_2`
+        do
+            cd $i
+            hg pull -r default
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $gaia_1_2/$locale_code ]
+        then
+            cd $gaia_1_2/$locale_code
+            hg pull -r default
+            hg update -c
+            cd ..
+        else
+            echo "Folder $gaia_1_2/$locale_code does not exist."
+        fi
+    fi
+fi
+
+cd $install
+if $createTMX
+then
+    if $all_locales
+    then
+        for i in `cat $gaia_locales_1_2`
+        do
+            echo "Create GAIA 1.2 TMX for $i"
+            nice -20 python tmxmaker.py $gaia_1_2/$i/ $gaia_1_2/en-US/ $i en-US gaia_1_2
+        done
+    else
+        if [ -d $gaia_1_2/$locale_code ]
+        then
+            echo "Create GAIA 1.2 TMX for $locale_code"
+            nice -20 python tmxmaker.py $gaia_1_2/$locale_code/ $gaia_1_2/en-US/ $locale_code en-US gaia_1_2
+        else
+            echo "Folder $gaia_1_2/$locale_code does not exist."
+        fi
+    fi
+
+    echo "Create GAIA 1.2 TMX for en-US"
+    nice -20 python tmxmaker.py $gaia_1_2/en-US/ $gaia_1_2/en-US/ en-US en-US gaia_1_2
+fi
+
+
+
 # Update L20N test repo
 if $checkrepo
 then

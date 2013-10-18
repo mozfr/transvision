@@ -19,7 +19,13 @@ if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
 $strings[$repo]        = Utils::getRepoStrings($locale, $repo);
 $stringsEnglish[$repo] = Utils::getRepoStrings('en-US', $repo);
 
-$channel_selector = Utils::getHtmlSelectOptions($desktop_repos, $repo);
+$channel_selector = Utils::getHtmlSelectOptions(
+    array_intersect_key(
+        $repos_nice_names,
+        array_flip($desktop_repos)
+    ),
+    $repo,
+    true);
 
 // Get the locale list
 $loc_list = Utils::getFilenamesInFolder(TMX . $repo . '/');
