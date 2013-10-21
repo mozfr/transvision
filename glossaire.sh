@@ -4,6 +4,16 @@
 # - without parameters: update all locales
 # - one parameter (locale code): update only the requested locale
 
+interrupt_code()
+# This code runs if user hits control-c
+{
+  echo -en "\n*** Operation interrupted ***\n"
+  exit $?
+}
+
+# Trap keyboard interrupt (control-c)
+trap interrupt_code SIGINT
+
 all_locales=true
 
 if [ $# -eq 1 ]
