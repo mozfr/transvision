@@ -22,12 +22,12 @@ cfg_parser ()
     eval "$(echo "${ini[*]}")" # eval the result
 }
 
-config_path=$PWD/web/inc
-cfg_parser $config_path/config.ini
+# We need to store the current directory value for the CRON job
+DIR=`dirname "$0"`
+cfg_parser $DIR/web/inc/config.ini
 
 # enable section called 'config' for reading
 cfg.section.config
-
 
 # List of locations of our local hg repos
 release_l10n=$local_hg/RELEASE_L10N
