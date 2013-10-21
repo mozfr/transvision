@@ -25,7 +25,11 @@ fi
 # Get server configuration variables
 export PATH=$PATH:$PWD/web/inc
 export PATH=$PATH:$PWD/
-source iniparser.sh
+
+# We need to store the current directory value for the CRON job
+DIR=`dirname "$0"`
+source $DIR/iniparser.sh
+
 
 # Decide if must update hg repositories and create TMX
 checkrepo=true
