@@ -108,7 +108,7 @@ if __name__ == "__main__":
 
     exclusionlist = ['.hgtags', '.hg', '.git', '.gitignore']
     dirs1 = os.listdir(locale_repo)
-    if repo == 'gaia' or repo == 'l20n_test' :
+    if repo.startswith('gaia') or repo == 'l20n_test' :
         dirs2 = os.listdir(en_US_repo)
         dirs2 = [x for x in dirs2 if x not in exclusionlist]
     else:

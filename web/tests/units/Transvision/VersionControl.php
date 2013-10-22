@@ -7,7 +7,6 @@ use atoum;
 
 class VersionControl extends atoum\test
 {
-
     /**
      * @dataProvider pathFileDataProvider
      */
@@ -22,7 +21,6 @@ class VersionControl extends atoum\test
 
     public function pathFileDataProvider()
     {
-
         return array(
             array(
                 'fr',
@@ -41,6 +39,12 @@ class VersionControl extends atoum\test
                 'gaia',
                 'shared/date/date.properties:month-7-long',
                 'http://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties'
+                ),
+            array(
+                'sr-Cyrl',
+                'gaia_1_2',
+                'shared/date/date.properties:month-7-long',
+                'http://hg.mozilla.org/releases/gaia-l10n/v1_2/sr-Cyrl/file/default/shared/date/date.properties'
                 ),
         );
     }

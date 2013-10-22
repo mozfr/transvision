@@ -11,7 +11,7 @@ $chanSelector = '';
 
 foreach ($repos as $val) {
     $ch = ($val == $repo) ? ' selected' : '';
-    $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $val . "</option>\n";
+    $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $repos_nice_names[$val] . "</option>\n";
 }
 
 $form = <<<FORM

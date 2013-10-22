@@ -42,6 +42,8 @@ trunk_source=$local_hg/TRUNK_EN-US
 
 # Location of Gaia source
 gaia=$local_hg/GAIA
+gaia_1_1=$local_hg/GAIA_1_1
+gaia_1_2=$local_hg/GAIA_1_2
 
 # Location of l20n test repo
 l20n_test=$local_git/L20N_TEST
@@ -53,4 +55,6 @@ aurora_locales=$install/aurora.txt
 beta_locales=$install/beta.txt
 release_locales=$install/release.txt
 gaia_locales=$install/gaia.txt
+gaia_locales_1_1=$install/gaia_1_1.txt
+gaia_locales_1_2=$install/gaia_1_2.txt
 l20n_test_locales=$install/l20n_test.txt

@@ -27,8 +27,8 @@ $chanSelector1 = $chanSelector2 = '';
 foreach ($desktop_repos as $repo) {
     $ch1 = ($repo == $chan1) ? ' selected' : '';
     $ch2 = ($repo == $chan2) ? ' selected' : '';
-    $chanSelector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" . $repo . "</option>\n";
-    $chanSelector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" . $repo . "</option>\n";
+    $chanSelector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
+    $chanSelector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
 }
 
 // Get the locale list
