@@ -28,7 +28,7 @@ class Strings
      */
     public static function startsWith($haystack, $needle)
     {
-        return !strncmp($haystack, $needle, strlen($needle));
+        return !strncmp($haystack, $needle, mb_strlen($needle));
     }
 
     /*
@@ -40,7 +40,7 @@ class Strings
      */
     public static function endsWith($haystack, $needle)
     {
-        $length = strlen($needle);
+        $length = mb_strlen($needle);
         if ($length == 0) {
             return true;
         }
@@ -70,5 +70,16 @@ class Strings
     public static function multipleStringReplace($haystack, $needle)
     {
         return str_replace(array_keys($haystack), $haystack, $needle);
+    }
+
+    /*
+     * get multibyte UTF-8 string length, html tags stripped
+     *
+     * @param $str a multibyte string
+     * @return $number integer
+     */
+    public static function getLength($str)
+    {
+        return mb_strlen(strip_tags($str), 'UTF-8');
     }
 }

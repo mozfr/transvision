@@ -378,8 +378,8 @@ class Utils
      */
     public static function checkAbnormalStringLength($origin, $translated)
     {
-        $origin_length = strlen(strip_tags($origin));
-        $translated_length = strlen(strip_tags($translated));
+        $origin_length = Strings::getLength($origin);
+        $translated_length = Strings::getLength($translated);
 
         if ($origin_length != 0 && $translated_length != 0) {
             $difference = ( $translated_length / $origin_length ) * 100;
