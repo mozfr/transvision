@@ -137,4 +137,23 @@ class Strings extends atoum\test
                 ->isEqualTo($c)
         ;
     }
+
+    public function getLengthDataProvider()
+    {
+        return array(
+            ['Le cheval  blanc ', 17],
+            ['મારુ ઘર પાનું બતાવો', 19],
+        );
+    }
+
+    /**
+     * @dataProvider getLengthDataProvider
+     */
+    public function testGetLength($a, $b)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->integer($obj->getLength($a))
+                ->isEqualTo($b);
+    }
 }
