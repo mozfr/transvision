@@ -14,4 +14,5 @@ $urls = array(
     'credits'           => 'credits',
     'downloads'         => 'downloads',
     'showrepos'         => 'showrepos',
+    'gaia'              => 'gaia',
 );
