@@ -25,6 +25,7 @@ $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
       <li><a href="/?sourcelocale=<?=$sourceLocale?>&locale=<?=$locale?>&repo=<?=$check['repo']?>&t2t=t2t&recherche=<?=$initial_search?>" title="Search in the Glossary">Glossary</a></li>
       <li><a href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
       <li><a href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
+      <li><a href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
       <li><a href="/downloads/" title="Download TMX files">TMX Download</a></li>
       <li><a href="/stats/" title="Light usage statistics">Statistics</a></li>
       <li><a href="/showrepos/" title="Repository status overview">Status Overview</a></li>

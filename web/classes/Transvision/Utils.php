@@ -322,8 +322,7 @@ class Utils
         $tmx = array();
         global $spanishes;
 
-        if ($repository != 'gaia') {
-
+        if (Strings::startsWith($repository, 'gaia') == false) {
             if ($locale == 'en-US') {
                 // English
                 include TMX . "{$repository}/{$locale}/cache_en-US.php";
@@ -344,7 +343,7 @@ class Utils
             $gaialocale = $locale;
         }
 
-        $file = TMX . 'gaia/' . $gaialocale . '/cache_' . $gaialocale . '.php';
+        $file = TMX . $repository . '/' . $gaialocale . '/cache_' . $gaialocale . '.php';
 
         if (file_exists($file)) {
             include $file;

@@ -38,6 +38,14 @@ switch ($url['path']) {
                  . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view = 'repocomparison';
         break;
+    case 'gaia':
+        $title = '<a href="/" id="transvision-title">Transvision</a> '
+                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+        $view = 'gaia';
+        $extra = '<h2 class="alert">experimental View</h2>
+                 <h3>Check the Status of your GAIA strings across repositories</h3>';
+
+        break;
     case 'channelcomparison':
         $title = '<a href="/" id="transvision-title">Transvision</a> '
                  . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';

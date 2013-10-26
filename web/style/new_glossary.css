@@ -82,6 +82,13 @@ h2 {
     padding: 15px 0;
 }
 
+h3 {
+    width: 90%;
+    padding: 15px 0;
+    text-align:center;
+    font-size: 18px;
+}
+
 div#current {
     font-size: 1.8em;
     padding: 0.1em 0;
@@ -183,8 +190,8 @@ td a.resultpermalink {
     font-size: 75%;
     color: #FFF;
     background-color: #D1CFD0;
-    padding: 0.2em 0.4em;  
-    border-radius: 0.25em;  
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
     float: left;
 }
 
@@ -376,6 +383,9 @@ h3, ul {
     background-color: orange;
     border-bottom: none;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+    width: 250px;
+    margin-right:0;
+    margin-left:auto;
 }
 
 #channelcomp #main {
@@ -404,6 +414,12 @@ h3, ul {
     color: gray;
 }
 
+/* Gaia page */
+
+body#gaia form[name="searchform"] {
+
+    text-align: center;
+}
 @media only screen and (max-width: 850px)  {
 
     table, thead, tbody, td, tr {
@@ -449,3 +465,4 @@ h3, ul {
     }
 
 }
+
