@@ -1,3 +1,22 @@
+<h2 id="v2.9">Version 2.9 - 2013-10-26</h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li>Two new repos are added for searches: Gaia 1.1 and Gaia 1.2 (Pascal)</li>
+    <li>New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
+    <li>More accurate comparaison of string length in the main view ('large string' warning no longer has false positives)</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>Data is now updated from hg updated 4 times a day at 04:00, 10:00, 16:00, 22:00 (was twice a day)</li>
+    <li>Data extraction script is now interruptible to make development easier (flod)</li>
+    <li>Cron job issues fixed after our migration to Debian 7 (pascal)</li>
+    <li><a href="irc://irc.mozilla.org/transvision">#transvision</a> IRC channel created and added to our documentation (pascal and chandankumar)</li>
+    <li>Fix broken Statistics link (Jesũs)</li>
+
+</ul>
+
 <h2 id="v2.8">Version 2.8 - 2013-08-09</h2>
 
 <h3>End user visible changes</h3>
