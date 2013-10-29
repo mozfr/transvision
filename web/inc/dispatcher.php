@@ -1,8 +1,12 @@
 <?php
 
-$template = true;
-$page     = $urls[$url['path']];
-$extra    = null;
+$template     = true;
+$page         = $urls[$url['path']];
+$extra        = null;
+$experimental = false;
+$show_title   = true;
+
+$title = '<a href="/" id="transvision-title">Transvision</a> ' . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
 
 switch ($url['path']) {
     case '/':
@@ -20,60 +24,56 @@ switch ($url['path']) {
             $template = false;
             break;
         }
-
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'search_form';
+        $show_title = false;
         break;
     case 'news':
-        $title = '<a href="/">Transvision</a> changelog';
         $view  = 'changelog';
+        $page_title = 'Transvision News. Version Notes';
+        $page_descr = '';
         break;
     case 'stats':
         $view  = 'stats';
-        $title = '<a href="/">Transvision</a> short usage stats';
+        $page_title = 'Statistics';
+        $page_descr = 'Light usage statistics.';
         break;
     case 'repocomparison':
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view = 'repocomparison';
         break;
     case 'gaia':
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view = 'gaia';
-        $extra = '<h2 class="alert">experimental View</h2>
-                 <h3>Check the Status of your GAIA strings across repositories</h3>';
-
+        $experimental = true;
+        $page_title = 'Gaia Comparison';
+        $page_descr = 'Check the Status of your GAIA strings across repositories.';
         break;
     case 'channelcomparison':
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'channelcomparison';
-        $extra = '<h2 class="alert">experimental View</h2>';
+        $experimental = true;
+        $page_title = 'Channel Comparison';
+        $page_descr = 'Compare strings from channel to channel.';
         break;
     case 'accesskeys':
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'accesskeys';
+        $page_title = 'Access Keys';
+        $page_descr = 'Check your access keys.';
         break;
     case 'credits':
-        $title = '<a href="/">Transvision</a> credits';
         $view  = 'credits';
+        $page_title = 'Credits';
+        $page_descr = '';
         break;
     case 'downloads':
-        $title = '<a href="/">Transvision</a> TMX Downloads';
         $view  = 'downloads';
+        $page_title = 'TMX Download';
+        $page_descr = 'Download the <abbr title="Translation Memory eXchange">TMX</abbr> files used in Transvision.';
         break;
     case 'showrepos':
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . 'Repository global status</a>';
         $view  = 'showrepos';
-        $extra = '<h2 class="alert">experimental View</h2>';
+        $experimental = true;
+        $page_title = 'Status Overview';
+        $page_descr = 'Repository status overview.';
         break;
     default:
-        $title = '<a href="/" id="transvision-title">Transvision</a> '
-                 . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
         $view  = 'search';
         break;
 }
