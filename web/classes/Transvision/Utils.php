@@ -416,7 +416,7 @@ class Utils
      */
     public static function tmxDownloadTable($locales)
     {
-        $output = '<table id="DownloadsTable"><tr><th colspan="6"><abbr title="Translation Memory eXchange">TMX</abbr> Download Page</th></tr><tr><th></th><th colspan="4">Desktop Software</th><th colspan="3">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.1</th><th>Gaia 1.2</th></tr>';
+        $output = '<table id="DownloadsTable"><tr><th></th><th colspan="4">Desktop Software</th><th colspan="3">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.1</th><th>Gaia 1.2</th></tr>';
 
         foreach ($locales as $locale) {
             $cell = function ($repo) use ($locale) {

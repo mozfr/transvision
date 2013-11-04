@@ -3,35 +3,48 @@ $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
 $sourceLocale = isset($sourceLocale) ? $sourceLocale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
+$initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
+
+$links = '
+<ul>
+    <li><a href="/" title="Main search">Home</a></li>
+    <li><a ' . (isset($_GET['t2t']) ? 'class="select" ' : '') . 'href="/?sourcelocale=' . $sourceLocale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
+    <li><a ' . ($url['path'] == 'accesskeys' ? 'class="select" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
+    <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="select" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
+    <li><a ' . ($url['path'] == 'gaia' ? 'class="select" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
+    <li><a ' . ($url['path'] == 'downloads' ? 'class="select" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
+    <li><a ' . ($url['path'] == 'stats' ? 'class="select" ' : '') . 'href="/stats/" title="Light usage statistics">Statistics</a></li>
+    <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/showrepos/" title="Repository status overview">Status Overview</a></li>
+    <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
+</ul>
+';
 ?>
 <!doctype html>
 
 <html lang="<?=$locale?>" dir="ltr">
   <head>
-    <title>Transvision</title>
+    <title><?php if($show_title == true){ echo $page_title . ' | '; } ?>Transvision</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
   </head>
 
 <body id="<?=$page?>">
+  <div id="links-top" class="links"><?=$links?></div>
   <h1><?=$title?></h1>
+  <?php if($experimental == true){ ?>
+  <h2 id="experimental" class="alert">experimental View</h2>
+  <?php } ?>
+
+  <?php if($show_title == true){ ?>
+  <h2 id="title-page"><?=$page_title?></h2>
+  <h3 id="descr-page"><?=$page_descr?></h3>
+  <?php } ?>
+
   <?=$extra?>
   <?=$content?>
 
-  <div id="links">
-    <ul>
-      <li><a href="/" title="Main search">Home</a></li>
-      <li><a href="/?sourcelocale=<?=$sourceLocale?>&locale=<?=$locale?>&repo=<?=$check['repo']?>&t2t=t2t&recherche=<?=$initial_search?>" title="Search in the Glossary">Glossary</a></li>
-      <li><a href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
-      <li><a href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
-      <li><a href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
-      <li><a href="/downloads/" title="Download TMX files">TMX Download</a></li>
-      <li><a href="/stats/" title="Light usage statistics">Statistics</a></li>
-      <li><a href="/showrepos/" title="Repository status overview">Status Overview</a></li>
-      <li><a href="/credits/" title="Transvision Credits page">Credits</a></li>
-    </ul>
-  </div>
+  <div id="links-bottom" class="links"><?=$links?></div>
   <footer>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</footer>
 
 </body>

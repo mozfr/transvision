@@ -45,12 +45,12 @@ a, a:visited {
     text-decoration: none;
 }
 
-a:hover {
+a:hover, a.select {
     color: #00539F;
     text-decoration: underline;
 }
 
-h1, h2, div#current, #links {
+h1, h2, #current, .links {
     font-family: 'Open Sans Light',sans-serif;
     color: #333333;
     font-size: 1.5em;
@@ -82,6 +82,13 @@ h2 {
     padding: 15px 0;
 }
 
+#title-page {
+    border-bottom: none;
+    font-size: 1.8em;
+    font-weight: normal;
+    padding-bottom: 0;
+}
+
 h3 {
     width: 90%;
     padding: 15px 0;
@@ -89,12 +96,18 @@ h3 {
     font-size: 18px;
 }
 
-div#current {
+#descr-page{
+    padding: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#current {
     font-size: 1.8em;
     padding: 0.1em 0;
 }
 
-div#current strong {
+#current strong {
     display: inline-block;
     padding: 0 0.5em;
     border-left: 1px solid darkgray;
@@ -102,24 +115,34 @@ div#current strong {
     color: orange;
 }
 
-#links {
+.links {
     padding: 0.5em;
     font-size: 1em;
-    margin-top: 5em !important;
+    margin-top: 5em;
+}
+#links-top.links {
+    margin-top: 0em;
+    position: absolute;
+    top: 0;
+    width: 98%;
 }
 
-#links ul {
+.links ul {
     padding: .2em 0;
     margin: 0 auto;
     list-style-type: none;
 }
 
-#links ul li {
+.links ul li {
     display: inline-block;
 }
 
-#links a, #links a:visited {
+.links a, .links a:visited {
     padding: .2em 1em;
+}
+#experimental {
+    position: absolute;
+    right: 0;
 }
 
 form[name="searchform"] {
