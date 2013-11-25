@@ -7,26 +7,12 @@ $repo = (isset($_GET['repo']) && in_array($_GET['repo'], $repos))
         ? $_GET['repo']
         : 'gaia';
 
-$chanSelector = '';
+$channel_selector = '';
 
 foreach ($repos as $val) {
     $ch = ($val == $repo) ? ' selected' : '';
-    $chanSelector .= "\t<option" . $ch . " value=" . $val . ">" . $repos_nice_names[$val] . "</option>\n";
+    $channel_selector .= "\t<option" . $ch . " value=" . $val . ">" . $repos_nice_names[$val] . "</option>\n";
 }
-
-$form = <<<FORM
-<form name="searchform" method="get" action="">
-    <fieldset id="main">
-        <fieldset>
-            <legend>Repository</legend>
-            <select name='repo'>
-            <?=$chanSelector?>
-            </select>
-        </fieldset>
-        <input type="submit" value="Go" alt="Go" />
-    </fieldset>
- </form>
-FORM;
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
@@ -120,6 +106,8 @@ if (isset($_GET['json'])) {
     $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
     die(Json::outputJson($json, $callback));
 } else {
-    echo $form;
+    // Include the common simple search form
+    include __DIR__ . '/simplesearchform.php';
+
     echo $table;
 }

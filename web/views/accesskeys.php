@@ -8,8 +8,8 @@ $allLocales[] = 'en-US';
 
 $repo = 'central';
 
-if (isset($_GET['channel']) && in_array($_GET['channel'], $desktop_repos)) {
-    $repo = $_GET['channel'];
+if (isset($_GET['repo']) && in_array($_GET['repo'], $desktop_repos)) {
+    $repo = $_GET['repo'];
 }
 
 if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
@@ -70,28 +70,9 @@ foreach ($akeys as $akey) {
         }
     }
 }
+// Include the common simple search form
+include __DIR__ . '/simplesearchform.php';
 
-?>
-
-<form name="searchform" method="get" action="">
-    <fieldset id="main">
-        <fieldset>
-            <legend>Locale</legend>
-            <select name='locale'>
-            <?=$target_locales_list?>
-            </select>
-        </fieldset>
-        <fieldset>
-            <legend>Channel</legend>
-            <select name='channel'>
-            <?=$channel_selector?>
-            </select>
-        </fieldset>
-        <input type="submit" value="Go" alt="Go" />
-    </fieldset>
-</form>
-
-<?php
 echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
 Utils::printSimpleTable(
     $ak_results,

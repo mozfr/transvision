@@ -164,6 +164,7 @@ h3 {
 form[name="searchform"] {
     max-width: 1014px;
     margin: auto;
+    text-align: center;
 }
 
 fieldset {
@@ -454,10 +455,6 @@ h3, ul {
 }
 
 /* Gaia page */
-
-body#gaia form[name="searchform"] {
-    text-align: center;
-}
 
 @media only screen and (max-width: 850px)  {
 

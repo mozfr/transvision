@@ -15,4 +15,5 @@ $urls = array(
     'downloads'         => 'downloads',
     'showrepos'         => 'showrepos',
     'gaia'              => 'gaia',
+    'variables'         => 'checkvariables',
 );
