@@ -5,16 +5,15 @@ namespace Transvision;
 class Bugzilla
 {
     /*
-     * Check if we have a cache file with the components (languages) and
-     * the cache file is not one week old. If not Connect to Bugzilla API
-     * and get components list
+     * Cache file should be created by glossaire.sh (running bugzilla_query.py).
+     * If it doesn't exist, connect to Bugzilla API and get components list.
      *
      * @return $components_list
      */
     public static function getBugzillaComponents()
     {
         $cache_file = CACHE . 'bugzilla_components.json';
-        if (!file_exists($cache_file) || filemtime($cache_file) + (4 * 7 * 24 * 60 * 60) < time()) {
+        if (!file_exists($cache_file)) {
             $json_url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]';
             file_put_contents($cache_file, file_get_contents($json_url));
         }
