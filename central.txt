@@ -25,7 +25,6 @@ es-MX
 et
 eu
 fa
-ff
 fi
 fr
 fy-NL
@@ -50,19 +49,17 @@ kn
 ko
 ku
 lg
-lij
 lt
 lv
 mai
 mk
 ml
+mn
 mr
 ms
 nb-NO
-ne-NP
 nl
 nn-NO
-nr
 nso
 oc
 or
@@ -80,8 +77,6 @@ sl
 son
 sq
 sr
-ss
-st
 sv-SE
 ta
 ta-LK
@@ -89,9 +84,7 @@ te
 th
 tn
 tr
-ts
 uk
-ve
 vi
 xh
 zh-CN
