@@ -437,6 +437,24 @@ then
 fi
 
 
+# Generate cache of bugzilla components if it doesn't exist or it's older than 7 days
+cd $install
+if [ -f web/cache/bugzilla_components.json ]
+then
+    # File exist, check the date
+    if [ `find web/cache/bugzilla_components.json -mtime +6` ]
+    then
+        echo "Generating web/cache/bugzilla_components.json (file older than a week)"
+        nice -20 python bugzilla_query.py
+    else
+        echo "No need to generate Bugzilla components cache"
+    fi
+else
+    # File does not exist
+    echo "Generating web/cache/bugzilla_components.json (file missing)"
+    nice -20 python bugzilla_query.py
+fi
+
 
 # Update L20N test repo
 if $checkrepo
