@@ -18,18 +18,31 @@ $links = '
     <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
 </ul>
 ';
+
+if (strpos(VERSION, 'dev') !== false) {
+  $beta_version = true;
+  $title_productname = 'Transvision Beta';
+} else {
+  $beta_version = false;
+  $title_productname = 'Transvision';
+}
+
 ?>
 <!doctype html>
 
 <html lang="<?=$locale?>" dir="ltr">
   <head>
-    <title><?php if($show_title == true){ echo $page_title . ' | '; } ?>Transvision</title>
+    <title><?php if($show_title == true){ echo $page_title . ' | '; } ?><?=$title_productname?></title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
   </head>
-
 <body id="<?=$page?>">
+  <?php
+  if ($beta_version) {
+    echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
+  }
+  ?>
   <div id="links-top" class="links"><?=$links?></div>
   <h1><?=$title?></h1>
   <?php if($experimental == true){ ?>
