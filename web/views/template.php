@@ -15,6 +15,7 @@ $links = '
     <li><a ' . ($url['path'] == 'downloads' ? 'class="select" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
     <li><a ' . ($url['path'] == 'stats' ? 'class="select" ' : '') . 'href="/stats/" title="Light usage statistics">Statistics</a></li>
     <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/showrepos/" title="Repository status overview">Status Overview</a></li>
+    <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
     <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
 </ul>
 ';

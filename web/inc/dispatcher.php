@@ -73,6 +73,12 @@ switch ($url['path']) {
         $page_title = 'Status Overview';
         $page_descr = 'Repository status overview.';
         break;
+    case 'variables':
+        $view  = 'checkvariables';
+        $experimental = true;
+        $page_title = 'Variables Overview';
+        $page_descr = 'Show potential errors in your strings for the use of variables.';
+        break;
     default:
         $view  = 'search';
         break;

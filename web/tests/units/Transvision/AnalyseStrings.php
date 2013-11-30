@@ -1,0 +1,72 @@
+<?php
+namespace Transvision\tests\units;
+
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use atoum;
+
+class AnalyseStrings extends atoum\test
+{
+    public function cleanUpEntitiesDataProvider()
+    {
+        return array(
+            array(
+                '&#037; &amp; &apos; &percnt; &lt; ',
+                "% & ' % < "
+                ),
+            array(
+                '6&percnt; is not&nbsp;much',
+                '6% is not much' // real nbsp here
+            )
+        );
+    }
+
+    /**
+     * @dataProvider cleanUpEntitiesDataProvider
+     */
+    public function testCleanUpEntities($a, $b)
+    {
+        $obj = new \Transvision\AnalyseStrings();
+        $this
+            ->string($obj->cleanUpEntities($a))
+                ->isEqualTo($b)
+        ;
+    }
+
+    public function differencesDataProvider()
+    {
+        return array(
+            array(
+                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => '&brandShortName; will:'],
+                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => 'Règles de conservation :'],
+                '/&([a-z0-9\.]+);/i',
+                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label']
+            ),
+            array(
+                ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}}, +{{n}} more'],
+                ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}} et un autre'],
+                '/\{\{([a-z0-9]+)\}\}/i',
+                ['apps/settings/settings.properties:bt-status-paired[one]']
+            ),
+            array(
+                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => '$BrandShortName is already running.\n\nPlease close $BrandShortName prior to launching the version you have just installed.'],
+                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => 'El $BrandFullName ja s\'està executant.\n\nTanqueu el $BrandFullName abans d\'executar la versió que acabeu d\'instal·lar.'],
+                ['/\$[a-z0-9\.]+\s/i', '/&([a-z0-9\.]+);/i'],
+                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH','browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH']
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider differencesDataProvider
+     */
+    public function testDifferences($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\AnalyseStrings();
+        $this
+            ->array($obj->differences($a, $b, $c))
+                ->isEqualTo($d)
+        ;
+    }
+
+}
