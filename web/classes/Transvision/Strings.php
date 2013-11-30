@@ -40,7 +40,7 @@ class Strings
      */
     public static function endsWith($haystack, $needle)
     {
-        if mb_strlen($needle) == 0 {
+        if (mb_strlen($needle) == 0) {
             return true;
         }
 
