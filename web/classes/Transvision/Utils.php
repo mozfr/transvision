@@ -24,35 +24,25 @@ class Utils
     /*
      * Sanitize a string or an array of strings.
      *
-     * @param $var string or array of strings
-     * @param $tablo optional parameter to indicate that $var = true
-     * @return string or array, depending on the input
+     * @param $str string or array of strings
+     * @return sanitized string or array of strings
      */
 
-    public static function secureText($var, $tablo = true)
+    public static function secureText($str)
     {
-        if (!is_array($var)) {
-            $var   = array($var);
-            $tablo = false;
-        }
-
-        foreach ($var as $item => $value) {
+        $sanitize = function($v) {
             // CRLF XSS
-            $value = str_replace('%0D', '', $value);
-            $value = str_replace('%0A', '', $value);
-
+            $v = str_replace(['%0D', '%0A'], '', $v);
             // Remove html tags and ASCII characters below 32
-            $value = filter_var(
-                $value,
+            $v = filter_var(
+                $v,
                 FILTER_SANITIZE_STRING,
                 FILTER_FLAG_STRIP_LOW
             );
+            return $v;
+        };
 
-            // Repopulate value
-            $var[$item] = $value;
-        }
-
-        return ($tablo == true) ? $var : $var[0];
+        return is_array($str) ? array_map($sanitize, $str) : $sanitize($str);
     }
 
     /*
