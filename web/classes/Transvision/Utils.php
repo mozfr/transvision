@@ -260,7 +260,7 @@ class Utils
         usort(
             $words,
             function ($a, $b) {
-                return strlen($b) - strlen($a);
+                return mb_strlen($b) - mb_strlen($a);
             }
         );
 

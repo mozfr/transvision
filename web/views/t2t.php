@@ -18,7 +18,7 @@ $compound_search = (count($search) > 1) ? true : false;
 
 foreach ($search as $word) {
     // If the word is one or two letters, we skip it
-    if (strlen($word) < 3) {
+    if (mb_strlen($word) < 3) {
         continue;
     }
 

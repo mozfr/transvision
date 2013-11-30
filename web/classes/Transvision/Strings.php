@@ -57,7 +57,7 @@ class Strings
      */
     public static function inString($haystack, $needle)
     {
-        return (strpos($haystack, $needle) !== false) ? true : false;
+        return mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false ? true : false;
     }
 
     /*
