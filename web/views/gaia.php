@@ -41,22 +41,8 @@ foreach ($loc_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
-?>
-  <form name="searchform" method="get" action="">
-        <fieldset id="main">
-
-            <fieldset>
-                <legend>Locale:</legend>
-                <select name='locale'>
-                <?=$target_locales_list?>
-                </select>
-            </fieldset>
-            <input type="submit" value="Go" alt="Go" />
-
-        </fieldset>
- </form>
-
-<?php
+// Include the common simple search form
+include __DIR__ . '/simplesearchform.php';
 
 $status = [
     ['Gaia l10n', count($strings['gaia']), count($strings['gaia-en-US'])],
@@ -165,6 +151,32 @@ print $table5col(
     'differences'
 );
 
+$common_keys = array_intersect_key($strings['gaia_1_1-en-US'],$strings['gaia_1_2-en-US']);
+
+$table = '<table id="englishchanges">'
+       . '<tr>'
+       . '<th colspan="3">Strings that have changed significantly in English between Gaia 1.1 and 1.2 but for which the entity name didn\'t change</th>'
+       . '</tr>'
+       . '<tr>'
+       . '<th>Key</th>'
+       . '<th>Gaia 1.1</th>'
+       . '<th>Gaia 1.2</th>'
+       . '</tr>';
+
+
+foreach($common_keys as $key =>$val) {
+    if (trim(strtolower($strings['gaia_1_1-en-US'][$key])) != trim(strtolower($strings['gaia_1_2-en-US'][$key]))) {
+            $table .= '<tr>'
+            . '<td>' . ShowResults::formatEntity($key) . '</td>'
+            . '<td>' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '</td>'
+            . '<td>' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '</td>'
+            . '</tr>';
+    }
+}
+$table .= '</table>';
+
+print $table;
+
 $table3col = function($table_title, $column_titles, $strings, $anchor) use ($locale) {
     $strings = array_values($strings);
     $temp = array_diff_key($strings[5], $strings[4]);
@@ -206,4 +218,3 @@ print $table3col(
     $strings,
     'newstrings'
 );
-
