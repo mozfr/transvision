@@ -38,4 +38,4 @@ Update
 
 Licence:
 -------
-MPL 2/GPL 2.0/LGPL 2.1
+MPL 2
