@@ -166,10 +166,11 @@ $table = '<table id="englishchanges">'
 
 foreach($common_keys as $key =>$val) {
     if (trim(strtolower($strings['gaia_1_1-en-US'][$key])) != trim(strtolower($strings['gaia_1_2-en-US'][$key]))) {
-            $table .= '<tr>'
+            $table .=
+              '<tr>'
             . '<td>' . ShowResults::formatEntity($key) . '</td>'
-            . '<td>' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '</td>'
-            . '<td>' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '</td>'
+            . '<td>' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_1'][$key] . '</small></td>'
+            . '<td>' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_2'][$key] . '</small></td>'
             . '</tr>';
     }
 }
