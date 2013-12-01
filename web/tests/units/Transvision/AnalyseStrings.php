@@ -54,6 +54,13 @@ class AnalyseStrings extends atoum\test
                 ['/\$[a-z0-9\.]+\s/i', '/&([a-z0-9\.]+);/i'],
                 ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH','browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH']
             ),
+            array(
+                // not matching test
+                ['foobar' => 'A username and password are being requested by %2$S. The site says: "%1$S"'],
+                ['foobar' => 'Le site %2$S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
+                ['/\s\$[a-z0-9\.]+\s/i'],
+                []
+            ),
         );
     }
 

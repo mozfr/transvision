@@ -58,8 +58,8 @@ if (Strings::startsWith($repo, 'gaia')) {
 } else {
     $regex_pattern = [
         'dtd'         => '/&([a-z0-9\.]+);/i', // &foobar;
-        'properties1' => '/%[0-9]*\$S/i', // %1$S
-        'properties2' => '/\$[a-z0-9\.]+\s/i' // $BranddShortName
+        'properties1' => '/%[0-9]*\$S/', // %1$S
+        'properties2' => '/\s\$[a-z0-9\.]+\s/i' // $BrandShortName
     ];
 }
 
@@ -79,7 +79,7 @@ $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&
 
 
 $table = "<table><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
-
+error_log(count($mismatch));
 foreach ($mismatch as $entity) {
 
     $path_locale1 = VersionControl::filePath('en-US', $repo, $entity);
