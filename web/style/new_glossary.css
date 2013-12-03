@@ -122,8 +122,6 @@ h3 {
 }
 #links-top.links {
     margin-top: 0em;
-    position: absolute;
-    top: 0;
     width: 98%;
 }
 
@@ -141,6 +139,8 @@ h3 {
     padding: .2em 1em;
 }
 #experimental {
+    font-size: 1em;
+    padding: 10px 0px;
     position: absolute;
     right: 0;
 }
@@ -486,6 +486,12 @@ body#gaia form[name="searchform"] {
     .string, td:nth-of-type(1) {
         padding-right: 75px;
     }
+
+    #experimental {
+        position: relative;
+        right: 0;
+    }
+
 
 }
 
