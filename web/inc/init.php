@@ -15,13 +15,17 @@ require_once __DIR__ . '/constants.php';
 // Load all global variables for the application
 require_once __DIR__ . '/variables.php';
 
-// We may want to start speed and memory calculations here as well
-if (DEBUG) {
-    error_reporting(E_ALL);
-}
-
 // Autoloading of classes (both /vendor and /classes)
 require_once WEBROOT . 'vendor/autoload.php';
+
+// For debugging
+use raveren\klint;
+if (DEBUG) {
+    error_reporting(E_ALL);
+    kint::enabled(true);
+} else {
+    kint::enabled(false);
+}
 
 // Logging
 use Monolog\Logger;
