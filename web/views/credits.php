@@ -4,7 +4,7 @@
 
 <p>Here is the list list of code contributors to Transvision:</p>
 <ul>
-    <li>Philippe Dessantes</li>
+    <li>Philippe Dessante</li>
     <li>Pascal Chevrel</li>
     <li>Jésús Perez</li>
     <li>Francesco Lodolo</li>
