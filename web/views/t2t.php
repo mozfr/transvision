@@ -62,7 +62,7 @@ foreach ($search as $word) {
 // remove duplicates
 $imperfect = array_unique($imperfect);
 
-$getResults = function($arr) use ($tmx_target) {
+$get_results = function($arr) use ($tmx_target) {
     $results = array();
     foreach ($arr as $val) {
         if ($tmx_target[$val] != '') {
@@ -75,12 +75,12 @@ $getResults = function($arr) use ($tmx_target) {
     return $results;
 };
 
-$perfect_results = $getResults($perfect);
-$imperfect_results = $getResults($imperfect);
+$perfect_results   = $get_results($perfect);
+$imperfect_results = $get_results($imperfect);
 
 if (count($perfect_results) > 0) {
     echo '<b>Perfect matches</b>';
-    echo "<ol dir='$localeDir'>";
+    echo "<ol dir='$locale_dir'>";
     foreach ($perfect_results as $val) {
         echo '<li>' . strip_tags(htmlspecialchars_decode($val)) . '</li>';
     }
@@ -93,8 +93,8 @@ echo '<b>Used in</b>';
 echo "<table>";
 foreach ($imperfect_results as $key => $val) {
     echo '<tr>';
-    echo "<td dir='$localeDir'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
-    echo "<td dir='$sourceLocaleDir'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';
+    echo "<td dir='$locale_dir'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
+    echo "<td dir='$source_locale_dir'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';
     echo '</tr>';
 }
 echo "</table>";

@@ -1,6 +1,6 @@
 <?php
 $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
-$sourceLocale = isset($sourceLocale) ? $sourceLocale : 'en-US';
+$source_locale = isset($source_locale) ? $source_locale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
@@ -8,7 +8,7 @@ $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 $links = '
 <ul>
     <li><a href="/" title="Main search">Home</a></li>
-    <li><a ' . (isset($_GET['t2t']) ? 'class="select" ' : '') . 'href="/?sourcelocale=' . $sourceLocale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
+    <li><a ' . (isset($_GET['t2t']) ? 'class="select" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="select" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
     <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="select" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
     <li><a ' . ($url['path'] == 'gaia' ? 'class="select" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>

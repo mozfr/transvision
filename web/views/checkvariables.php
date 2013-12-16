@@ -5,10 +5,10 @@ require_once WEBROOT . 'inc/l10n-init.php';
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $repo = $_GET['repo'];
-    $allLocales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+    $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
 } else {
     $repo = 'central';
-    $allLocales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+    $all_locales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 }
 
 if (isset($_GET['locale'])) {
@@ -20,7 +20,7 @@ if (isset($_GET['locale'])) {
         if ($_GET['locale'] == 'sr') {
             $locale = 'sr-Cyrl';
         }
-    } elseif (in_array($_GET['locale'], $allLocales)) {
+    } elseif (in_array($_GET['locale'], $all_locales)) {
         $locale = $_GET['locale'];
     }
 }
@@ -47,7 +47,7 @@ include __DIR__ . '/simplesearchform.php';
 
 // rtl support
 $rtl = array('ar', 'fa', 'he');
-$direction1 = (in_array($sourceLocale, $rtl)) ? 'rtl' : 'ltr';
+$direction1 = (in_array($source_locale, $rtl)) ? 'rtl' : 'ltr';
 $direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
 
 $source = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $source);
@@ -66,7 +66,7 @@ if (Strings::startsWith($repo, 'gaia')) {
 $mismatch = AnalyseStrings::differences($source, $target, $regex_pattern);
 
 // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-$bugzillaComponent = rawurlencode(
+$bugzilla_component = rawurlencode(
     Bugzilla::collectLanguageComponent(
         $locale,
         Bugzilla::getBugzillaComponents()
@@ -74,7 +74,7 @@ $bugzillaComponent = rawurlencode(
 );
 
 $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-               . $bugzillaComponent
+               . $bugzilla_component
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
 

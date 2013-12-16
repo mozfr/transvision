@@ -2,12 +2,12 @@
 namespace Transvision;
 
 // Include all strings
-$tmx_source = Utils::getRepoStrings($sourceLocale, $check['repo']);
+$tmx_source = Utils::getRepoStrings($source_locale, $check['repo']);
 $tmx_target = Utils::getRepoStrings($locale, $check['repo']);
 
 // Regex options
-$whole_word     = ($check['whole_word']) ? '\b' : '';
-$case_sensitive = ($check['case_sensitive']) ? '' : 'i';
+$whole_word     = $check['whole_word']     ? '\b' : '';
+$case_sensitive = $check['case_sensitive'] ? '' : 'i';
 
 $regex = '/' . $whole_word . $my_search . $whole_word . '/' . $case_sensitive;
 $entities = preg_grep($regex, array_keys($tmx_source));
