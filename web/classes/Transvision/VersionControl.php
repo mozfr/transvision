@@ -18,7 +18,7 @@ class VersionControl
         $path          = explode(':', $path);
         $path          = $path[0];
         $path          = explode('/', $path);
-        $entityFile   = array_pop($path);
+        $entity_file   = array_pop($path);
         $path          = implode('/', $path);
         $exploded_path = explode('/', $path);
         $base_folder   = $exploded_path[0];
@@ -40,7 +40,7 @@ class VersionControl
                 $url .= '/gaia-l10n/' . $locale . '/file/default/';
             }
 
-            return $url . $path . '/' . $entityFile;
+            return $url . $path . '/' . $entity_file;
         }
 
         $en_US_Folder_Mess = array(
@@ -125,11 +125,11 @@ class VersionControl
 
             if ($loop == true) {
                 $path = explode('/', $path);
-                $categorie = array_shift($path);
-                $path = $categorie . '/locales/en-US/' . implode('/', $path);
+                $category = array_shift($path);
+                $path = $category . '/locales/en-US/' . implode('/', $path);
             }
         }
 
-        return $url . $path . '/' . $entityFile;
+        return $url . $path . '/' . $entity_file;
     }
 }

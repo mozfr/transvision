@@ -3,60 +3,60 @@ namespace Transvision;
 
 // rtl support
 $rtl = array('ar', 'fa', 'he');
-$direction1 = (in_array($sourceLocale, $rtl)) ? 'rtl' : 'ltr';
+$direction1 = (in_array($source_locale, $rtl)) ? 'rtl' : 'ltr';
 $direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
 
 // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-$bugzillaComponent = rawurlencode(
+$bugzilla_component = rawurlencode(
     Bugzilla::collectLanguageComponent(
         $locale,
         Bugzilla::getBugzillaComponents()
     )
 );
 
-$bugzillaLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-               . $bugzillaComponent
+$bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+               . $bugzilla_component
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
 $table = "<table>
             <tr>
                 <th>Entity</th>\n
-                <th>" . $sourceLocale . "</th>
+                <th>" . $source_locale . "</th>
                 <th>" . $locale . "</th>
             </tr>";
 
 foreach ($entities as $val) {
 
-    $path_locale1 = VersionControl::filePath($sourceLocale, $check['repo'], $val);
+    $path_locale1 = VersionControl::filePath($source_locale, $check['repo'], $val);
     $path_locale2 = VersionControl::filePath($locale, $check['repo'], $val);
 
     if (isset($tmx_target[$val])) {
         // nbsp highlight
-        $targetString = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]);
+        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]);
     } else {
-        $targetString = '';
+        $target_string = '';
     }
 
-    $sourceString = $tmx_source[$val];
+    $source_string = $tmx_source[$val];
 
     // Link to entity
-    $entityLink = "?sourcelocale={$sourceLocale}"
+    $entity_link = "?sourcelocale={$source_locale}"
                  . "&locale={$locale}"
                  . "&repo={$check['repo']}"
                  . "&search_type=entities&recherche={$val}";
 
-    $bugSummary = rawurlencode("Translation update proposed for {$val}");
-    $bugMessage = rawurlencode(
+    $bug_summary = rawurlencode("Translation update proposed for {$val}");
+    $bug_message = rawurlencode(
         html_entity_decode(
-            "The string:\n{$sourceString}\n\n"
-            . "Is translated as:\n{$targetString}\n\n"
+            "The string:\n{$source_string}\n\n"
+            . "Is translated as:\n{$target_string}\n\n"
             . "And should be:\n\n\n\n"
             . "Feedback via Transvision:\n"
-            . "http://transvision.mozfr.org/{$entityLink}"
+            . "http://transvision.mozfr.org/{$entity_link}"
         )
     );
 
-    $complete_link = $bugzillaLink . '&short_desc=' . $bugSummary . '&comment=' . $bugMessage;
+    $complete_link = $bugzilla_link . '&short_desc=' . $bug_summary . '&comment=' . $bug_message;
 
     $table .= "<tr>
                     <td>" . ShowResults::formatEntity($val, $my_search) . "</a></td>
@@ -67,7 +67,7 @@ foreach ($entities as $val) {
                        </div>
                     </td>
                      <td dir='{$direction2}'>
-                       <div class='string'>{$targetString}</div>
+                       <div class='string'>{$target_string}</div>
                        <div class='infos'>
                         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
                         <a class='bug_link' target='_blank' href='{$complete_link}'>

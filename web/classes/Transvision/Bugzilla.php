@@ -31,17 +31,17 @@ class Bugzilla
      * @param $components_array array
      * @return $component_string
      */
-    public static function collectLanguageComponent($actual_lng, $components_array)
+    public static function collectLanguageComponent($actual_lang, $components_array)
     {
-        $actual_lng = ($actual_lng == 'es') ? 'es-ES' : $actual_lng;
-        $actual_lng = ($actual_lng == 'pa') ? 'pa-IN' : $actual_lng;
-        $actual_lng = Bugzilla::bugzillaLocaleCode($actual_lng);
+        $actual_lang = ($actual_lang == 'es') ? 'es-ES' : $actual_lang;
+        $actual_lang = ($actual_lang == 'pa') ? 'pa-IN' : $actual_lang;
+        $actual_lang = Bugzilla::bugzillaLocaleCode($actual_lang);
 
         $component_string = 'Other';
-        $actual_lng = $actual_lng . ' /';
+        $actual_lang = $actual_lang . ' /';
 
         foreach ($components_array as $component) {
-            if (Strings::startsWith($component['name'], $actual_lng)) {
+            if (Strings::startsWith($component['name'], $actual_lang)) {
                 $component_string = $component['name'];
                 break;
             }

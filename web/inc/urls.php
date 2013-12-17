@@ -16,4 +16,5 @@ $urls = array(
     'showrepos'         => 'showrepos',
     'gaia'              => 'gaia',
     'variables'         => 'checkvariables',
+    '3locales'          => '3locales',
 );

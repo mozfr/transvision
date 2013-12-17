@@ -14,7 +14,7 @@ if (isset($_GET['chan2']) && in_array($_GET['chan2'], $desktop_repos)) {
     $chan2 = $_GET['chan2'];
 }
 
-if (isset($_GET['locale']) && in_array($_GET['locale'], $allLocales)) {
+if (isset($_GET['locale']) && in_array($_GET['locale'], $all_locales)) {
     $locale = $_GET['locale'];
 }
 
@@ -22,13 +22,13 @@ $strings = array();
 $strings[$chan1] = Utils::getRepoStrings($locale, $chan1);
 $strings[$chan2] = Utils::getRepoStrings($locale, $chan2);
 
-$chanSelector1 = $chanSelector2 = '';
+$chan_selector1 = $chan_selector2 = '';
 
 foreach ($desktop_repos as $repo) {
     $ch1 = ($repo == $chan1) ? ' selected' : '';
     $ch2 = ($repo == $chan2) ? ' selected' : '';
-    $chanSelector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
-    $chanSelector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
+    $chan_selector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
+    $chan_selector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
 }
 
 // Get the locale list
@@ -57,13 +57,13 @@ $temp = array_diff($temp, $strings[$chan2]);
             <fieldset>
                 <legend>Channel 1:</legend>
                 <select name='chan1'>
-                <?=$chanSelector1?>
+                <?=$chan_selector1?>
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Channel 2:</legend>
                 <select name='chan2'>
-                <?=$chanSelector2?>
+                <?=$chan_selector2?>
                 </select>
             </fieldset>
             <input type="submit" value="Go" alt="Go" />

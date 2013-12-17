@@ -50,18 +50,18 @@ class Utils
      *
      * @param  string $option
      * @param  string $cookie
-     * @return string $defaultChecked -> ' checked="checked"' or false
+     * @return string $default_checked -> ' checked="checked"' or false
      */
 
     public static function checkboxDefaultOption($option, $cookie)
     {
         if ($cookie == $option) {
-            $defaultChecked = ' checked="checked"';
+            $default_checked = ' checked="checked"';
         } else {
-            $defaultChecked = false;
+            $default_checked = false;
         }
 
-        return $defaultChecked;
+        return $default_checked;
     }
 
     /*
@@ -79,24 +79,6 @@ class Utils
         }
 
         return ($str) ? ' checked="checked"' : '';
-    }
-
-    /*
-     * Create an array for search results with this format:
-     * 'entity' => ['locale 1', 'locale 2']
-     */
-
-    public static function results($entities, $locale1Strings, $locale2Strings)
-    {
-
-        $searchResults = array();
-
-        foreach ($entities as $entity) {
-            $searchResults[$entity] = array($locale1Strings[$entity],
-                                             $locale2Strings[$entity]);
-        }
-
-        return $searchResults;
     }
 
     public static function markString($needle, $haystack)
@@ -205,15 +187,15 @@ class Utils
      *
      * @param array  $options  list of <option>
      * @param string $selected the option which should have the 'selected' html attribute
-     * @nicelabels  boolean $nicelabels, indicates if $options is an associative array
+     * @nice_labels  boolean $nice_labels, indicates if $options is an associative array
      *                      with the array value as the text inside the <option> tag
      * @return string
      */
-    public static function getHtmlSelectOptions($options, $selected, $nicelabels = false)
+    public static function getHtmlSelectOptions($options, $selected, $nice_labels = false)
     {
         $html = '';
         foreach ($options as $key => $option) {
-            $value = ($nicelabels) ? $key : $option;
+            $value = ($nice_labels) ? $key : $option;
             $ch = ($value == $selected) ? ' selected' : '';
             $html.= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
         }
@@ -225,14 +207,14 @@ class Utils
      * Return the list of files in a folder as an array
      *
      * @param  string $folder  the directory we want to access
-     * @param  array  $exclude files to exclude from results, by default . and ..
+     * @param  array  $excluded_files to exclude from results, by default . and ..
      * @return array
      */
-    public static function getFilenamesInFolder($folder, $excludedFiles = array('.', '..', '.htaccess'))
+    public static function getFilenamesInFolder($folder, $excluded_files = array('.', '..', '.htaccess'))
     {
         // Get the locale list
         $files = scandir($folder);
-        $files = array_diff($files, $excludedFiles);
+        $files = array_diff($files, $excluded_files);
 
         return $files;
     }
@@ -261,12 +243,12 @@ class Utils
 
         // We have only one Spanish for Gaia
         if (in_array($locale, $spanishes)) {
-            $gaialocale = 'es';
+            $gaia_locale = 'es';
         } else {
-            $gaialocale = $locale;
+            $gaia_locale = $locale;
         }
 
-        $file = TMX . $repository . '/' . $gaialocale . '/cache_' . $gaialocale . '.php';
+        $file = TMX . $repository . '/' . $gaia_locale . '/cache_' . $gaia_locale . '.php';
 
         if (file_exists($file)) {
             include $file;
@@ -292,11 +274,11 @@ class Utils
     }
 
     /*
-     * Compare original and translated strings to check anormal length
+     * Compare original and translated strings to check abnormal length
      *
      * @param $origin en-US string
      * @param $translated locale string
-     * @return $anormal_length
+     * @return $abnormal_length
      */
     public static function checkAbnormalStringLength($origin, $translated)
     {
@@ -309,26 +291,26 @@ class Utils
 
             if ($origin_length > 100 && $difference > 150) {
                 //large translation for a large origin
-                $anormal_length =  'large';
+                $abnormal_length =  'large';
             } elseif ($origin_length > 100 && $difference < 50) {
                 //small translation for a large origin
-                $anormal_length =  'small';
+                $abnormal_length =  'small';
             } elseif ($origin_length < 100 && $difference > 200 && $translated_length > 100) {
                 //large translation for a small origin
-                $anormal_length =  'large';
+                $abnormal_length =  'large';
             } elseif ($origin_length < 100 && $difference < 25) {
                 //small translation for a small origin
-                $anormal_length =  'small';
+                $abnormal_length =  'small';
             } else {
                 //no problems detected
-                $anormal_length =  false;
+                $abnormal_length =  false;
             }
         } else {
             //missing origin or translated string
-            $anormal_length =  false;
+            $abnormal_length =  false;
         }
 
-        return $anormal_length;
+        return $abnormal_length;
     }
 
     /*
