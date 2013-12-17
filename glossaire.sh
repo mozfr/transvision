@@ -436,6 +436,55 @@ then
     nice -20 python tmxmaker.py $gaia_1_2/en-US/ $gaia_1_2/en-US/ en-US en-US gaia_1_2
 fi
 
+# Update GAIA 1.3
+if $checkrepo
+then
+    if $all_locales
+    then
+        cd $gaia_1_3
+        for i in `cat $gaia_locales_1_3`
+        do
+            cd $i
+            hg pull -r default
+            hg update -c
+            cd ..
+        done
+    else
+        if [ -d $gaia_1_3/$locale_code ]
+        then
+            cd $gaia_1_3/$locale_code
+            hg pull -r default
+            hg update -c
+            cd ..
+        else
+            echo "Folder $gaia_1_3/$locale_code does not exist."
+        fi
+    fi
+fi
+
+cd $install
+if $createTMX
+then
+    if $all_locales
+    then
+        for i in `cat $gaia_locales_1_3`
+        do
+            echo "Create GAIA 1.3 TMX for $i"
+            nice -20 python tmxmaker.py $gaia_1_3/$i/ $gaia_1_3/en-US/ $i en-US gaia_1_3
+        done
+    else
+        if [ -d $gaia_1_3/$locale_code ]
+        then
+            echo "Create GAIA 1.3 TMX for $locale_code"
+            nice -20 python tmxmaker.py $gaia_1_3/$locale_code/ $gaia_1_3/en-US/ $locale_code en-US gaia_1_3
+        else
+            echo "Folder $gaia_1_3/$locale_code does not exist."
+        fi
+    fi
+
+    echo "Create GAIA 1.3 TMX for en-US"
+    nice -20 python tmxmaker.py $gaia_1_3/en-US/ $gaia_1_3/en-US/ en-US en-US gaia_1_3
+fi
 
 # Generate cache of bugzilla components if it doesn't exist or it's older than 7 days
 cd $install

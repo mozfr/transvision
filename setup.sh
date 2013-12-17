@@ -11,6 +11,7 @@ mkdir -p $trunk_l10n
 mkdir -p $gaia
 mkdir -p $gaia_1_1
 mkdir -p $gaia_1_2
+mkdir -p $gaia_1_3
 mkdir -p $l20n_test
 mkdir -p $libraries
 
@@ -272,6 +273,26 @@ for i in `cat $install/gaia_1_2.txt`
         fi
 done
 
+# Gaia 1.3
+echo "Gaia 1.3 initialization"
+cd $gaia_1_3
+for i in `cat $install/gaia_1_3.txt`
+    do
+        if [ ! -d $i/.hg ]
+        then
+            echo "Checking out the following repo:"
+            echo $i
+            hg clone http://hg.mozilla.org/releases/gaia-l10n/v1_3/$i
+        fi
+
+        if [ ! -d $root/TMX/gaia_1_3/$i ]
+        then
+            echo "Creating this locale TMX for Gaia:"
+            echo $i
+            mkdir -p $root/TMX/gaia_1_3/$i
+        fi
+done
+
 # We now deal with L20n test repo as a specific case
 echo "L20n test repo initialization"
 cd $l20n_test
@@ -310,5 +331,5 @@ then
 fi
 
 echo "add log files"
-touch $config_path/transvision.log
+touch $install/transvision.log
 touch $install/web/stats.json
