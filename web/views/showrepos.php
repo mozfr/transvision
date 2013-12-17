@@ -16,21 +16,21 @@ foreach ($repos as $val) {
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
-$gaiaLocales = Utils::getFilenamesInFolder(TMX . $repo . '/');
+$gaia_locales = Utils::getFilenamesInFolder(TMX . $repo . '/');
 
 // We don't want en-US in the repos
-if ($key = array_search('en-US', $gaiaLocales)) {
-    unset($gaiaLocales[$key]);
+if ($key = array_search('en-US', $gaia_locales)) {
+    unset($gaia_locales[$key]);
 }
 
-$stringCount = array();
+$string_count = array();
 
-// Reference locale count
-$countReference = count($strings['en-US'][$repo]);
+// Referen_ce locale count
+$count_reference = count($strings['en-US'][$repo]);
 
-foreach ($gaiaLocales as $val) {
+foreach ($gaia_locales as $val) {
     $strings[$val][$repo] = array_filter(Utils::getRepoStrings($val, $repo), 'strlen');
-    $stringCount[$val] = array(
+    $string_count[$val] = array(
         'total'     => count($strings[$val][$repo]),
         'missing'   => count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo])),
         'identical' => count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo])),
@@ -52,10 +52,10 @@ $table = '
     <th>Status estimate</th>
 </tr>';
 
-foreach ($stringCount as $locale => $numbers) {
+foreach ($string_count as $locale => $numbers) {
 
-    $completion = $countReference - $numbers['identical'] - $numbers['missing'];
-    $completion = number_format($completion/$countReference*100);
+    $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
+    $completion = number_format($completion/$count_reference*100);
 
     if ($completion >= 99) {
         $confidence = 'Highest';

@@ -4,8 +4,8 @@ namespace Transvision;
 require_once WEBROOT .'inc/l10n-init.php';
 
 // Serbian hack
-$allLocales[] = 'sr-Cyrl';
-$allLocales[] = 'sr-Latn';
+$all_locales[] = 'sr-Cyrl';
+$all_locales[] = 'sr-Latn';
 
 //~ error_log(print_r($repos,1));
 
@@ -15,7 +15,7 @@ $get_or_set = function($arr, $value, $fallback) {
             : $fallback;
 };
 
-$locale = $get_or_set($allLocales, 'locale', $locale);
+$locale = $get_or_set($all_locales, 'locale', $locale);
 
 $get_repo_strings = function($locale, $repo) {
     return array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
@@ -77,7 +77,7 @@ print "<h2>$locale</h2>";
 print $table('How many strings are translated?', ['repo', $locale, 'en-US'], $status, 'hihi');
 
 
-$table5col = function ($table_title, $column_titles, $strings, $anchor) use ($locale) {
+$table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($locale) {
 
     $english_gaia_keys    = array_fill_keys(array_keys($strings['gaia-en-US']), '');
     $english_gaia1_1_keys = array_fill_keys(array_keys($strings['gaia_1_1-en-US']), '');
@@ -140,7 +140,7 @@ $table5col = function ($table_title, $column_titles, $strings, $anchor) use ($lo
     return $table;
 };
 
-print $table5col(
+print $table_5_col(
     'diverging translations across repositories',
     ['Key',
      $repos_nice_names['gaia'],
@@ -178,7 +178,7 @@ $table .= '</table>';
 
 print $table;
 
-$table3col = function($table_title, $column_titles, $strings, $anchor) use ($locale) {
+$table_3_col = function($table_title, $column_titles, $strings, $anchor) use ($locale) {
     $strings = array_values($strings);
     $temp = array_diff_key($strings[5], $strings[4]);
 
@@ -213,7 +213,7 @@ $table3col = function($table_title, $column_titles, $strings, $anchor) use ($loc
 };
 
 
-print $table3col(
+print $table_3_col(
     'strings added to Gaia 1.2',
     ['Key', 'en-US', $locale],
     $strings,

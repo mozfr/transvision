@@ -7,26 +7,41 @@ class ShowResults
      * Create an array for search results with this format:
      * 'entity' => ['locale 1', 'locale 2']
      */
-    public function getTMXResults($entities, $locale1Strings, $locale2Strings)
+    public static function getTMXResults($entities, $array_strings)
     {
-        $searchResults = array();
+        $search_results = [];
 
         foreach ($entities as $entity) {
-            $locale1Strings[$entity] = (isset($locale1Strings[$entity]) && $locale1Strings[$entity] !='') ?
-                $locale1Strings[$entity] : false;
-            $locale2Strings[$entity] = (isset($locale2Strings[$entity]) && $locale2Strings[$entity] !='') ?
-                $locale2Strings[$entity]: false;
-            $searchResults[$entity] = array($locale1Strings[$entity], $locale2Strings[$entity]);
+
+            $temp = [];
+
+            foreach ($array_strings as $strings) {
+                $temp[] = self::getStringFromEntity($entity, $strings);
+            }
+
+            $search_results[$entity] = $temp;
         }
 
-        return $searchResults;
+        return $search_results;
+    }
+
+    /*
+     * Returns the string from its entity or false
+     * @param $entity string
+     * @param $strings array
+     * @return string or false
+     */
+    public static function getStringFromEntity($entity, $strings)
+    {
+        return isset($strings[$entity]) && $strings[$entity] != ''
+               ? $strings[$entity]
+               : false;
     }
 
     /*
      * make an entity look nice in tables
      *
      */
-
     public static function formatEntity($entity, $highlight = false)
     {
         // let's analyse the entity for the search string
@@ -41,8 +56,8 @@ class ShowResults
             $entity = '<span class="red">' . array_pop($chunk) . '</span>';
         }
         // let's analyse the entity for the search string
-        $chunk  = explode('/', $chunk[0]);
-        $repo   = '<span class="green">' . array_shift($chunk) . '</span>';
+        $chunk = explode('/', $chunk[0]);
+        $repo  = '<span class="green">' . array_shift($chunk) . '</span>';
 
         $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
 
@@ -73,73 +88,73 @@ class ShowResults
     /*
      * Search results in a table
      */
-    public static function resultsTable($searchResults, $recherche, $locale1, $locale2, $searchOptions)
+    public static function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
     {
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
         // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-        $bzComponent = rawurlencode(
+        $bz_component = rawurlencode(
             Bugzilla::collectLanguageComponent(
                 $locale2,
                 Bugzilla::getBugzillaComponents()
             )
         );
 
-        $bzLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-                   . $bzComponent
+        $bz_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+                   . $bz_component
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
         $table  = "<table>
                       <tr>
                         <th>Entity</th>
-                        <th>$locale1</th>
-                        <th>$locale2</th>
+                        <th>{$locale1}</th>
+                        <th>{$locale2}</th>
                       </tr>";
 
-        if (!$searchOptions['whole_word'] && !$searchOptions['perfect_match']) {
+        if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
         } else {
             $recherche = array($recherche);
         }
 
-        foreach ($searchResults as $key => $strings) {
+        foreach ($search_results as $key => $strings) {
 
             // Don't highlight search matchs in entities when searching strings
-            if ($searchOptions['search_type'] == 'strings') {
-                $resultEntity = ShowResults::formatEntity($key);
+            if ($search_options['search_type'] == 'strings') {
+                $result_entity = ShowResults::formatEntity($key);
             } else {
-                $resultEntity = ShowResults::formatEntity($key, $recherche[0]);
+                $result_entity = ShowResults::formatEntity($key, $recherche[0]);
             }
 
-            $sourceString = trim($strings[0]);
-            $targetString = trim($strings[1]);
+            $source_string = trim($strings[0]);
+            $target_string = trim($strings[1]);
 
             // Link to entity
-            $entityLink = "?sourcelocale={$locale1}"
+            $entity_link = "?sourcelocale={$locale1}"
                         . "&locale={$locale2}"
-                        . "&repo={$searchOptions['repo']}"
+                        . "&repo={$search_options['repo']}"
                         . "&search_type=entities&recherche={$key}";
 
             // Bugzilla GET data
-            $bugSummary = rawurlencode("Translation update proposed for ${key}");
-            $bugMessage = rawurlencode(
+            $bug_summary = rawurlencode("Translation update proposed for ${key}");
+            $bug_message = rawurlencode(
                 html_entity_decode(
-                    "The string:\n{$sourceString}\n\n"
-                    . "Is translated as:\n{$targetString}\n\n"
+                    "The string:\n{$source_string}\n\n"
+                    . "Is translated as:\n{$target_string}\n\n"
                     . "And should be:\n\n\n\n"
                     . "Feedback via Transvision:\n"
-                    . "http://transvision.mozfr.org/{$entityLink}"
+                    . "http://transvision.mozfr.org/{$entity_link}"
                 )
             );
 
             foreach ($recherche as $val) {
-                $sourceString = Utils::markString($val, $sourceString);
-                $targetString = Utils::markString($val, $targetString);
+                $source_string = Utils::markString($val, $source_string);
+                $target_string = Utils::markString($val, $target_string);
             }
 
-            $sourceString = Utils::highlightString($sourceString);
-            $targetString = Utils::highlightString($targetString);
+            $source_string = Utils::highlightString($source_string);
+            $target_string = Utils::highlightString($target_string);
 
             $replacements = array(
                 ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
@@ -148,47 +163,47 @@ class ShowResults
                 '&hellip;' => '<span class="highlight-gray">…</span>', // right ellipsis highlight
             );
 
-            $targetString = Strings::multipleStringReplace($replacements, $targetString);
+            $target_string = Strings::multipleStringReplace($replacements, $target_string);
 
             $temp = explode('-', $locale1);
-            $locale1ShortCode = $temp[0];
+            $locale1_short_code = $temp[0];
 
             $temp = explode('-', $locale2);
-            $locale2ShortCode = $temp[0];
+            $locale2_short_code = $temp[0];
 
-            $locale1Path = VersionControl::filePath($locale1, $searchOptions['repo'], $key);
-            $locale2Path = VersionControl::filePath($locale2, $searchOptions['repo'], $key);
+            $locale1_path = VersionControl::filePath($locale1, $search_options['repo'], $key);
+            $locale2_path = VersionControl::filePath($locale2, $search_options['repo'], $key);
 
             // errors
-            $errorMessage = '';
+            $error_message = '';
 
             // check for final dot
-            if (substr(strip_tags($sourceString), -1) == '.'
-                && substr(strip_tags($targetString), -1) != '.') {
-                $errorMessage = '<em class="error"> No final dot?</em>';
+            if (substr(strip_tags($source_string), -1) == '.'
+                && substr(strip_tags($target_string), -1) != '.') {
+                $error_message = '<em class="error"> No final dot?</em>';
             }
 
             // check abnormal string length
-            $lengthDiff = Utils::checkAbnormalStringLength($sourceString, $targetString);
-            if ($lengthDiff) {
-                switch ($lengthDiff) {
+            $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
+            if ($length_diff) {
+                switch ($length_diff) {
                     case 'small':
-                        $errorMessage = $errorMessage . '<em class="error"> Small string?</em>';
+                        $error_message = $error_message . '<em class="error"> Small string?</em>';
                         break;
                     case 'large':
-                        $errorMessage = $errorMessage . '<em class="error"> Large String?</em>';
+                        $error_message = $error_message . '<em class="error"> Large String?</em>';
                         break;
                 }
             }
 
             // Missing string error
-            if (!$sourceString) {
-                $sourceString = '<em class="error">warning: missing string</em>';
-                $errorMessage = '';
+            if (!$source_string) {
+                $source_string = '<em class="error">warning: missing string</em>';
+                $error_message = '';
             }
-            if (!$targetString) {
-                $targetString = '<em class="error">warning: missing string</em>';
-                $errorMessage = '';
+            if (!$target_string) {
+                $target_string = '<em class="error">warning: missing string</em>';
+                $error_message = '';
             }
 
             // Replace / and : in the key name and use it as an anchor name
@@ -198,37 +213,37 @@ class ShowResults
                 <tr>
                   <td>
                     <a class='resultpermalink' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
-                    <a class='linktoentity' href=\"/{$entityLink}\">{$resultEntity}</a>
+                    <a class='linktoentity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
                   <td dir='{$direction1}'>
                     <div class='string'>
-                      {$sourceString}
+                      {$source_string}
                     </div>
                     <div dir='ltr' class='infos'>
-                      <a class='source_link' href='{$locale1Path}'>
+                      <a class='source_link' href='{$locale1_path}'>
                         &lt;source&gt;
                       </a>
                       <span>Translate with:</span>
-                      <a href='http://translate.google.com/#{$locale1ShortCode}/{$locale2ShortCode}/"
-                      . urlencode(strip_tags($sourceString))
+                      <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
+                      . urlencode(strip_tags($source_string))
                       . "' target='_blank'>Google</a>
-                      <a href='http://www.bing.com/translator/?from={$locale1ShortCode}&to={$locale2ShortCode}&text="
-                      . urlencode(strip_tags($sourceString))
+                      <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
+                      . urlencode(strip_tags($source_string))
                       . "' target='_blank'>BING</a>
                     </div>
                   </td>
 
                   <td dir='{$direction2}'>
-                    <div class='string'>{$targetString}</div>
+                    <div class='string'>{$target_string}</div>
                     <div dir='ltr' class='infos'>
-                      <a class='source_link' href='{$locale2Path}'>
+                      <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bzLink}&short_desc={$bugSummary}&comment={$bugMessage}'>
+                      <a class='bug_link' target='_blank' href='{$bz_link}&short_desc={$bug_summary}&comment={$bug_message}'>
                         &lt;report a bug&gt;
                       </a>
-                      {$errorMessage}
+                      {$error_message}
                     </div>
                   </td>
                 </tr>";

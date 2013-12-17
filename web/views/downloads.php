@@ -2,18 +2,18 @@
 namespace Transvision;
 
 // Compute Download table content
-$downloadTable = function() {
-    $localesList = array();
+$download_table = function() {
+    $locales_list = array();
 
     foreach (Utils::getFilenamesInFolder(TMX) as $locale) {
-        $localesList = array_merge($localesList, Utils::getFilenamesInFolder(TMX . $locale . '/'));
+        $locales_list = array_merge($locales_list, Utils::getFilenamesInFolder(TMX . $locale . '/'));
     }
 
     // Clean up table to remove duplicate and sort by locale name
-    $localesList = array_unique($localesList);
-    sort($localesList);
+    $locales_list = array_unique($locales_list);
+    sort($locales_list);
 
-    return Utils::tmxDownloadTable($localesList);
+    return Utils::tmxDownloadTable($locales_list);
 };
 
-print $downloadTable();
+print $download_table();

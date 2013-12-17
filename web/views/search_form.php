@@ -15,7 +15,7 @@ foreach ($repositories as $repository) {
     // build the target locale switcher
     $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
     // build the source locale switcher
-    $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $sourceLocale);
+    $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $source_locale);
 }
 
 // Build the search type switcher
@@ -27,17 +27,19 @@ $search_type_list = Utils::getHtmlSelectOptions(
 );
 
 // Get COOKIES
-$cookieTargetLocale = '';
+$cookie_target_locale = '';
 if (isset($_COOKIE['default_target_locale'])) {
-    $cookieTargetLocale = $_COOKIE['default_target_locale'];
+    $cookie_target_locale = $_COOKIE['default_target_locale'];
 }
-$cookieSourceLocale = '';
+
+$cookie_source_locale = '';
 if (isset($_COOKIE['default_source_locale'])) {
-    $cookieSourceLocale = $_COOKIE['default_source_locale'];
+    $cookie_source_locale = $_COOKIE['default_source_locale'];
 }
-$cookieRepository   = '';
+
+$cookie_repository   = '';
 if (isset($_COOKIE['default_repository'])) {
-    $cookieRepository   = $_COOKIE['default_repository'];
+    $cookie_repository   = $_COOKIE['default_repository'];
 }
 
 ?>
@@ -55,9 +57,9 @@ if (isset($_COOKIE['default_repository'])) {
                     <input type="checkbox"
                            id="default_repository"
                            value="<?=$check['repo']?>"
-                           data-cookie="<?=$cookieRepository?>"
+                           data-cookie="<?=$cookie_repository?>"
                            onclick="setCookie('default_repository',this.value,3650);"
-                           <?=Utils::checkboxDefaultOption($check['repo'], $cookieRepository)?>
+                           <?=Utils::checkboxDefaultOption($check['repo'], $cookie_repository)?>
                      /> <span>Default</span>
                  </label>
             </fieldset>
@@ -69,12 +71,12 @@ if (isset($_COOKIE['default_repository'])) {
                 <label class="default_option">
                     <input type="checkbox"
                            id="default_source_locale"
-                           value="<?=$sourceLocale?>"
-                           data-cookie="<?=$cookieSourceLocale?>"
+                           value="<?=$source_locale?>"
+                           data-cookie="<?=$cookie_source_locale?>"
                            onclick="setCookie('default_source_locale',this.value,3650);"
-<?php // Mark as default only if the cookieSourceLocale exist in repository array
-if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
-    echo Utils::checkboxDefaultOption($sourceLocale, $cookieSourceLocale);
+<?php // Mark as default only if the cookie_source_locale exist in repository array
+if (in_array($cookie_source_locale, $loc_list[$check['repo']])) {
+    echo Utils::checkboxDefaultOption($source_locale, $cookie_source_locale);
 }
 ?>
                      /> <span>Default</span>
@@ -89,11 +91,11 @@ if (in_array($cookieSourceLocale, $loc_list[$check['repo']])) {
                     <input type="checkbox"
                            id="default_target_locale"
                            value="<?=$locale?>"
-                           data-cookie="<?=$cookieTargetLocale?>"
+                           data-cookie="<?=$cookie_target_locale?>"
                            onclick="setCookie('default_target_locale',this.value,3650);"
-<?php // Mark as default only if the cookieTargetLocale exist in repository array
-if (in_array($cookieTargetLocale, $loc_list[$check['repo']])) {
-    echo Utils::checkboxDefaultOption($locale, $cookieTargetLocale);
+<?php // Mark as default only if the cookie_target_locale exist in repository array
+if (in_array($cookie_target_locale, $loc_list[$check['repo']])) {
+    echo Utils::checkboxDefaultOption($locale, $cookie_target_locale);
 }
 ?>
                      /> <span>Default</span>

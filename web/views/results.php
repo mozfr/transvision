@@ -13,13 +13,14 @@ if (mb_strlen(trim($my_search)) < 2) {
 // The search results are displayed into a table
 // (initial_search is the original sanitized searched string before any modification)
 
-$results = new ShowResults();
-$search_results = $results->getTMXResults(array_keys($locale1_strings), $tmx_source, $tmx_target);
+$searches = [
+	$source_locale => $locale1_strings,
+	$locale        => $locale2_strings
+];
 
-echo '<h2><span class="searchedTerm">' . $initial_search . '</span> in ' . $sourceLocale . ':</h2>';
-echo ShowResults::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
+foreach($searches as $key => $value) {
+	$search_results = ShowResults::getTMXResults(array_keys($value), [$tmx_source, $tmx_target]);
 
-$search_results = Utils::results(array_keys($locale2_strings), $tmx_source, $tmx_target);
-
-echo '<h2><span class="searchedTerm">' . $initial_search . '</span> in ' . $locale . ':</h2>';
-echo ShowResults::resultsTable($search_results, $initial_search, $sourceLocale, $locale, $check);
+    print '<h2><span class="searchedTerm">' . $initial_search . '</span> in ' . $key . ':</h2>';
+	print ShowResults::resultsTable($search_results, $initial_search, $source_locale, $locale, $check);
+}
