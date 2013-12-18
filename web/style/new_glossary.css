@@ -66,7 +66,7 @@ a:hover, a.select {
 h1, h2, #current, .links {
     font-family: 'Open Sans Light',sans-serif;
     color: #333333;
-    font-size: 1.5em;
+    font-size: 1.4em;
     text-align: center;
     margin: 0.5em auto;
     width: 80%;
@@ -226,16 +226,30 @@ td em.error {
     padding-left: 6px;
 }
 
-td a.resultpermalink {
+td a.tag {
     font-size: 75%;
-    color: #FFF;
+    color:gray;
     background-color: #D1CFD0;
     padding: 0.2em 0.4em;
     border-radius: 0.25em;
     float: left;
+    margin: 0 1px;
 }
 
-td a.resultpermalink:hover {
+td a.resultpermalink {
+    background-color: lightblue;
+}
+
+td a.tag:hover {
+    color:white;
+    background-color: #ADACAC;
+}
+
+td a.l10n {
+    background-color: lightgreen;
+
+}
+td a.l10n:hover {
     background-color: #ADACAC;
 }
 

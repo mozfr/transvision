@@ -10,6 +10,7 @@ $links = '
     <li><a href="/" title="Main search">Home</a></li>
     <li><a ' . (isset($_GET['t2t']) ? 'class="select" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
     <li><a ' . ($url['path'] == '3locales' ? 'class="select" ' : '') . 'href="/3locales/" title="Search with 3 locales">3 locales</a></li>
+    <li><a ' . ($url['path'] == '3locales' ? 'class="select" ' : '') . 'href="/string/?entity=apps/sms/sms.properties:home&repo=gaia" title="Get all translations available for an entity">Translate String</a></li>
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="select" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
     <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="select" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
     <li><a ' . ($url['path'] == 'gaia' ? 'class="select" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
@@ -18,6 +19,7 @@ $links = '
     <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/showrepos/" title="Repository status overview">Status Overview</a></li>
     <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
     <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
+    <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/news/" title="Changelog">Release Notes</a></li>
 </ul>
 ';
 
@@ -46,14 +48,14 @@ if (strpos(VERSION, 'dev') !== false) {
   }
   ?>
   <h1><?=$title?></h1>
-  <?php if($experimental == true){ ?>
+  <?php if($experimental == true): ?>
   <h2 id="experimental" class="alert">experimental View</h2>
-  <?php } ?>
+  <?php endif; ?>
 
-  <?php if($show_title == true){ ?>
+  <?php if($show_title == true): ?>
   <h2 id="title-page"><?=$page_title?></h2>
   <h3 id="descr-page"><?=$page_descr?></h3>
-  <?php } ?>
+  <?php endif; ?>
 
   <?=$extra?>
   <?=$content?>
