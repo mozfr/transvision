@@ -260,7 +260,6 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link($locale3)}&short_desc={$bug_summary}&comment={$bug_message(true)}'>
                         &lt;report a bug&gt;
                       </a>
-                      {$error_message}
                     </div>
                   </td>
                 </tr>";
