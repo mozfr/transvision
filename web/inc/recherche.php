@@ -10,6 +10,7 @@ $whole_word     = $check['whole_word']     ? '\b' : '';
 $case_sensitive = $check['case_sensitive'] ? '' : 'i';
 
 $regex = '/' . $whole_word . $my_search . $whole_word . '/' . $case_sensitive;
+
 $entities = preg_grep($regex, array_keys($tmx_source));
 
 if ($check['perfect_match']) {
@@ -45,6 +46,7 @@ if ($url['path'] == '3locales') {
     } else {
         $locale3_strings = $tmx_target2;
         foreach ($search as $word) {
+            $regex = '/' . $whole_word . preg_quote($word, '/') . $whole_word . '/' . $case_sensitive;
             $locale3_strings = preg_grep($regex, $locale3_strings);
         }
     }
