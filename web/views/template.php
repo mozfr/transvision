@@ -44,7 +44,6 @@ if (strpos(VERSION, 'dev') !== false) {
     echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
   }
   ?>
-  <div id="links-top" class="links"><?=$links?></div>
   <h1><?=$title?></h1>
   <?php if($experimental == true){ ?>
   <h2 id="experimental" class="alert">experimental View</h2>
