@@ -261,6 +261,12 @@ foreach ($repositories as $repository) {
     document.getElementById('target_locale').innerHTML = repo_target[repository];
     changeDefaultSource('target_locale');
 
+<?php if ($url['path'] == '3locales'):?>
+    document.getElementById('target_locale2').innerHTML = repo_target[repository];
+    changeDefaultSource('target_locale2');
+<?php endif;?>
+
+
     changeDefaultSource('repository');
 }
 //Change the label below the search field to reflect the value of "Search in"
