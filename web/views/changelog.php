@@ -1,4 +1,4 @@
-<h2 id="v3.0">Version 2.10 - 2013-12-??</h2>
+<h2 id="v3.0">Version 3.0 - 2013-12-18</h2>
 
 <h3>End user visible changes</h3>
 <ul>
