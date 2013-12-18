@@ -18,9 +18,23 @@ $searches = [
 	$locale        => $locale2_strings
 ];
 
-foreach($searches as $key => $value) {
-	$search_results = ShowResults::getTMXResults(array_keys($value), [$tmx_source, $tmx_target]);
+$data = [$tmx_source, $tmx_target];
 
-    print '<h2><span class="searchedTerm">' . $initial_search . '</span> in ' . $key . ':</h2>';
-	print ShowResults::resultsTable($search_results, $initial_search, $source_locale, $locale, $check);
+// 3locales view
+if ($url['path'] == '3locales') {
+	$check['extra_locale'] = $locale2;
+	$searches[$locale2] = $locale3_strings;
+	$data[] = $tmx_target2;
+
+}
+// error_log(count($data[0]));
+
+foreach ($searches as $key => $value) {
+	$search_results = ShowResults::getTMXResults(array_keys($value), $data);
+	if (count($value) > 0) {
+	    print '<h2>Matching results for the string <span class="searchedTerm">' . $initial_search . '</span> in ' . $key . ':</h2>';
+		print ShowResults::resultsTable($search_results, $initial_search, $source_locale, $locale, $check);
+	} else {
+		print "<h2>No matching results for the string <span class=\"searchedTerm\">$initial_search</span> for the locale $key</h2>";
+	}
 }

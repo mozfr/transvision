@@ -27,6 +27,20 @@ switch ($url['path']) {
         $view  = 'search_form';
         $show_title = false;
         break;
+    case '3locales':
+        // Bootstrap l10n
+        require_once INC . 'l10n-init.php';
+
+        // Include Search Options
+        require_once INC . 'search_options.php';
+
+        // Import all strings for source and target locales + search process
+        require_once INC . 'recherche.php';
+        $view  = 'search_form';
+        $page_title = '3 locales search';
+        $page_descr = 'One source locale, get search results for two target locales';
+        $show_title = true;
+        break;
     case 'news':
         $view  = 'changelog';
         $page_title = 'Transvision News. Version Notes';

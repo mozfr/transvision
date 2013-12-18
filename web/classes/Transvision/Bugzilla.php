@@ -65,4 +65,38 @@ class Bugzilla
 
         return $locale;
     }
+
+    /*
+     * Get a prefilled url to report a string error for a locale in Bugzilla
+     *
+     * @param $locale string
+     * @return link string
+     */
+    public static function reportErrorLink($locale, $entity, $source_string, $target_string, $entity_link)
+    {
+        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
+        $bz_component = rawurlencode(
+            self::collectLanguageComponent($locale, self::getBugzillaComponents())
+        );
+
+        $bug_summary = rawurlencode("Translation update proposed for {$entity}");
+        $bug_message = rawurlencode(
+            html_entity_decode(
+                "The string:\n{$source_string}\n\n"
+                . "Is translated as:\n{$target_string}\n\n"
+                . "And should be:\n\n\n\n"
+                . "Feedback via Transvision:\n"
+                . "http://transvision.mozfr.org/{$entity_link}"
+            )
+        );
+
+        return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+               . $bz_component
+               . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D'
+               . '&short_desc='
+               . $bug_summary
+               . '&comment='
+               . $bug_message;
+    }
+
 }

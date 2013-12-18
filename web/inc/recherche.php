@@ -35,3 +35,19 @@ if ($check['search_type'] == 'strings_entities') {
         $locale1_strings[$entity] = $tmx_source[$entity];
     }
 }
+
+// 3locales view
+if ($url['path'] == '3locales') {
+    $tmx_target2 = Utils::getRepoStrings($locale2, $check['repo']);
+
+    if ($check['perfect_match']) {
+        $locale3_strings = preg_grep($regex, $tmx_target2);
+    } else {
+        $locale3_strings = $tmx_target2;
+        foreach ($search as $word) {
+            $locale3_strings = preg_grep($regex, $locale3_strings);
+        }
+    }
+
+    array_splice($locale3_strings, 200);
+}
