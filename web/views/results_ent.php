@@ -2,82 +2,107 @@
 namespace Transvision;
 
 // rtl support
-$rtl = array('ar', 'fa', 'he');
-$direction1 = (in_array($source_locale, $rtl)) ? 'rtl' : 'ltr';
-$direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
+$direction1 = RTLSupport::getDirection($source_locale);
+$direction2 = RTLSupport::getDirection($locale);
 
-// Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-$bugzilla_component = rawurlencode(
-    Bugzilla::collectLanguageComponent(
-        $locale,
-        Bugzilla::getBugzillaComponents()
-    )
-);
+if ($url['path'] == '3locales') {
+    $direction3 = RTLSupport::getDirection($locale2);
+    $extra_column_header = "<th>{$locale2}</th>";
+} else {
+    $extra_column_header = '';
+}
 
-$bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-               . $bugzilla_component
-               . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
+$table  = "<table>
+              <tr>
+                <th>Entity</th>
+                <th>{$source_locale}</th>
+                <th>{$locale}</th>
+                {$extra_column_header}
+              </tr>";
 
-$table = "<table>
-            <tr>
-                <th>Entity</th>\n
-                <th>" . $source_locale . "</th>
-                <th>" . $locale . "</th>
-            </tr>";
 
-foreach ($entities as $val) {
+foreach ($entities as $entity) {
 
-    $path_locale1 = VersionControl::filePath($source_locale, $check['repo'], $val);
-    $path_locale2 = VersionControl::filePath($locale, $check['repo'], $val);
+    $path_locale1 = VersionControl::filePath($source_locale, $check['repo'], $entity);
+    $path_locale2 = VersionControl::filePath($locale, $check['repo'], $entity);
+    if ($url['path'] == '3locales') {
+        if (isset($tmx_target2[$entity])) {
+            // nbsp highlight
+            $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target2[$entity]);
+        } else {
+            $target_string2 = '';
+        }
 
-    if (isset($tmx_target[$val])) {
+        $path_locale3 = VersionControl::filePath($locale2, $check['repo'], $entity);
+    }
+
+    if (isset($tmx_target[$entity])) {
         // nbsp highlight
-        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$val]);
+        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$entity]);
     } else {
         $target_string = '';
     }
 
-    $source_string = $tmx_source[$val];
+    $source_string = $tmx_source[$entity];
+
+    // 3locales view
+    if ($url['path'] == '3locales') {
+        // Link to entity
+        $entity_link = "?sourcelocale={$source_locale}"
+                     . "&locale={$locale2}"
+                     . "&repo={$check['repo']}"
+                     . "&search_type=entities&recherche={$entity}";
+
+        $file_bug = '<a class="bug_link" target="_blank" href="'
+                    . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
+                                              $target_string2, $entity_link)
+                  . '">&lt;report a bug&gt;</a>';
+
+        $extra_column_rows = "
+        <td dir='{$direction3}'>
+            <div class='string'>{$target_string2}</div>
+            <div dir='ltr' class='infos'>
+              <a class='source_link' href='{$path_locale3}'>
+                <em>&lt;source&gt;</em>
+              </a>
+              {$file_bug}
+            </div>
+          </td>
+        </tr>";
+
+    } else {
+        $extra_column_rows = '';
+    }
 
     // Link to entity
     $entity_link = "?sourcelocale={$source_locale}"
                  . "&locale={$locale}"
                  . "&repo={$check['repo']}"
-                 . "&search_type=entities&recherche={$val}";
+                 . "&search_type=entities&recherche={$entity}";
 
-    $bug_summary = rawurlencode("Translation update proposed for {$val}");
-    $bug_message = rawurlencode(
-        html_entity_decode(
-            "The string:\n{$source_string}\n\n"
-            . "Is translated as:\n{$target_string}\n\n"
-            . "And should be:\n\n\n\n"
-            . "Feedback via Transvision:\n"
-            . "http://transvision.mozfr.org/{$entity_link}"
-        )
-    );
-
-    $complete_link = $bugzilla_link . '&short_desc=' . $bug_summary . '&comment=' . $bug_message;
-
+    $file_bug = '<a class="bug_link" target="_blank" href="'
+                . Bugzilla::reportErrorLink($locale, $entity, $source_string,
+                                          $target_string, $entity_link)
+              . '">&lt;report a bug&gt;</a>';
     $table .= "<tr>
-                    <td>" . ShowResults::formatEntity($val, $my_search) . "</a></td>
+                    <td>" . ShowResults::formatEntity($entity, $my_search) . "</a></td>
                     <td dir='{$direction1}'>
-                       <div class='string'>{$sourceString}</div>
-                       <div class='infos'>
+                       <div class='string'>{$source_string}</div>
+                       <div dir='ltr' class='infos'>
                         <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
                        </div>
                     </td>
                      <td dir='{$direction2}'>
                        <div class='string'>{$target_string}</div>
-                       <div class='infos'>
+                       <div dir='ltr' class='infos'>
                         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
-                        <a class='bug_link' target='_blank' href='{$complete_link}'>
-                        &lt;report a bug&gt;
-                      </a>
+                        {$file_bug}
                        </div>
                     </td>
+                {$extra_column_rows}
                 </tr>";
 }
 
 $table .= "  </table>\n\n";
 
-echo $table;
+print $table;

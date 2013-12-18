@@ -93,24 +93,38 @@ class ShowResults
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
-        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-        $bz_component = rawurlencode(
-            Bugzilla::collectLanguageComponent(
-                $locale2,
-                Bugzilla::getBugzillaComponents()
-            )
-        );
+        if (isset($search_options['extra_locale'])) {
+            $locale3    = $search_options['extra_locale'];
+            $direction3 = RTLSupport::getDirection($locale3);
+            $extra_column_header = "<th>{$locale3}</th>";
+        } else {
+            $extra_column_header = '';
+        }
 
-        $bz_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
+        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
+
+        $bz_link = function($locale) {
+            $bz_component = rawurlencode(
+               Bugzilla::collectLanguageComponent(
+                    $locale,
+                    Bugzilla::getBugzillaComponents()
+                )
+            );
+
+            return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                    . $bz_component
                    . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
+        };
+
 
         $table  = "<table>
                       <tr>
                         <th>Entity</th>
                         <th>{$locale1}</th>
                         <th>{$locale2}</th>
+                        {$extra_column_header}
                       </tr>";
+
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
@@ -120,7 +134,7 @@ class ShowResults
 
         foreach ($search_results as $key => $strings) {
 
-            // Don't highlight search matchs in entities when searching strings
+            // Don't highlight search matches in entities when searching strings
             if ($search_options['search_type'] == 'strings') {
                 $result_entity = ShowResults::formatEntity($key);
             } else {
@@ -130,6 +144,12 @@ class ShowResults
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
+            if (isset($search_options["extra_locale"])) {
+                $target_string2 = trim($strings[2]);
+            } else {
+                $target_string2 = '';
+            }
+
             // Link to entity
             $entity_link = "?sourcelocale={$locale1}"
                         . "&locale={$locale2}"
@@ -138,23 +158,35 @@ class ShowResults
 
             // Bugzilla GET data
             $bug_summary = rawurlencode("Translation update proposed for ${key}");
-            $bug_message = rawurlencode(
-                html_entity_decode(
-                    "The string:\n{$source_string}\n\n"
-                    . "Is translated as:\n{$target_string}\n\n"
-                    . "And should be:\n\n\n\n"
-                    . "Feedback via Transvision:\n"
-                    . "http://transvision.mozfr.org/{$entity_link}"
-                )
-            );
+
+            $bug_message = function($extra_locale)
+                use ($source_string, $target_string,
+                    $target_string2, $entity_link) {
+                    $target_string = $extra_locale ? $target_string2 : $target_string;
+
+                    return rawurlencode(html_entity_decode(
+                            "The string:\n{$source_string}\n\n"
+                            . "Is translated as:\n{$target_string}\n\n"
+                            . "And should be:\n\n\n\n"
+                            . "Feedback via Transvision:\n"
+                            . "http://transvision.mozfr.org/{$entity_link}"
+                        ));
+            };
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
+                if (isset($search_options["extra_locale"])) {
+                    $target_string2 = Utils::markString($val, $target_string2);
+                }
             }
 
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
+
+            if (isset($search_options["extra_locale"])) {
+                $target_string2 = Utils::highlightString($target_string2);
+            }
 
             $replacements = array(
                 ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
@@ -205,9 +237,37 @@ class ShowResults
                 $target_string = '<em class="error">warning: missing string</em>';
                 $error_message = '';
             }
+            if (!$target_string2) {
+                $target_string2 = '<em class="error">warning: missing string</em>';
+                $error_message = '';
+            }
 
             // Replace / and : in the key name and use it as an anchor name
             $anchor_name = str_replace(array('/', ':'), '_', $key);
+
+            // 3locales view
+            if (isset($search_options["extra_locale"])) {
+                $locale3_path = VersionControl::filePath($locale3, $search_options['repo'], $key);
+
+                $extra_column_rows = "
+                <td dir='{$direction3}'>
+                    <div class='string'>{$target_string2}</div>
+                    <div dir='ltr' class='infos'>
+                      <a class='source_link' href='{$locale3_path}'>
+                        &lt;source&gt;
+                      </a>
+                      &nbsp;
+                      <a class='bug_link' target='_blank' href='{$bz_link($locale3)}&short_desc={$bug_summary}&comment={$bug_message(true)}'>
+                        &lt;report a bug&gt;
+                      </a>
+                      {$error_message}
+                    </div>
+                  </td>
+                </tr>";
+
+            } else {
+                $extra_column_rows = '';
+            }
 
             $table .= "
                 <tr>
@@ -240,12 +300,13 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link}&short_desc={$bug_summary}&comment={$bug_message}'>
+                      <a class='bug_link' target='_blank' href='{$bz_link($locale2)}&short_desc={$bug_summary}&comment={$bug_message(false)}'>
                         &lt;report a bug&gt;
                       </a>
                       {$error_message}
                     </div>
                   </td>
+                {$extra_column_rows}
                 </tr>";
         }
 
