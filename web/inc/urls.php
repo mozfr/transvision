@@ -17,4 +17,5 @@ $urls = array(
     'gaia'              => 'gaia',
     'variables'         => 'checkvariables',
     '3locales'          => '3locales',
+    'string'            => 'onestring',
 );

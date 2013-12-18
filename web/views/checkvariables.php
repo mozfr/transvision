@@ -79,7 +79,7 @@ $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&
 
 
 $table = "<table><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
-error_log(count($mismatch));
+
 foreach ($mismatch as $entity) {
 
     $path_locale1 = VersionControl::filePath('en-US', $repo, $entity);

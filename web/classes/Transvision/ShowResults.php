@@ -271,7 +271,8 @@ class ShowResults
             $table .= "
                 <tr>
                   <td>
-                    <a class='resultpermalink' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
+                    <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
+                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$search_options['repo']}' title='List all translations for this entity'>l10n</a>
                     <a class='linktoentity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
                   <td dir='{$direction1}'>

@@ -6,7 +6,7 @@ $extra        = null;
 $experimental = false;
 $show_title   = true;
 
-$title = '<a href="/" id="transvision-title">Transvision</a> ' . '<a href="/news/#v' . VERSION . '">' . VERSION . '</a>';
+$title = '<a href="/" id="transvision-title">Transvision</a>';
 
 switch ($url['path']) {
     case '/':
@@ -86,6 +86,14 @@ switch ($url['path']) {
         $experimental = true;
         $page_title = 'Status Overview';
         $page_descr = 'Repository status overview.';
+        break;
+    case 'string':
+        $view  = 'onestring';
+        $page_title = 'All translations for this string:';
+        $page_descr = '';
+        if (WEBSERVICE) {
+            $template = false;
+        }
         break;
     case 'variables':
         $view  = 'checkvariables';

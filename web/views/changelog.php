@@ -3,26 +3,28 @@
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
-    <li><strong>New view:</strong> Check the <a href="http://transvision-beta.mozfr.org/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
+    <li><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
+    <li><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code>code> link next to the entity name (pascal)</li>
     <li>On the <a href="/gaia/#englishchanges">Gaia comparizon</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change (pascal)</li>
-    <li>When searching for entities, there is a 'search a bug' link below results just like for searching for strings (flod)</li>
+    <li>When searching for entities, there is a 'search a bug' link below results just like for searching for strings (flod) as well as a permalink (pascal)</li>
     <li>Each view now has a one line description of what it does at the top (Jesus)</li>
     <li>Updated supported locales (flod)</li>
     <li>Added Gaia 1.3 support (flod)</li>
     <li>The <a href="http://transvision-beta.mozfr.org/">beta site</a> now has a Beta ribbon to distinguish it from the main site (flod)</li>
 </ul>
 
-<h3>Other changes</h3>
-<ul>
-    <li>Page load performance with the use of cached reduced json data from Bugzilla (flod)</li>
-</ul>
-
 <h3>Developer visible changes</h3>
 <ul>
     <li>Added Kint debugging library in development mode (pascal)</li>
     <li>Coding guidelines roughly formalized as following PSR recommandations and <a href="https://github.com/mozfr/transvision/wiki/Code-conventions">documented on wiki</a> (pascal)</li>
+    <li>The new view showing all strings for a translation also <a href="/string/?entity=apps/homescreen/homescreen.properties:evme-searchbar-default.placeholder&repo=gaia&json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service</li>
     <li>Various code cleanups (pascal)</li>
+</ul>
+
+<h3>Other changes</h3>
 <ul>
+    <li>Page load performance with the use of cached reduced json data from Bugzilla (flod)</li>
+</ul>
 
 <h2 id="v2.9">Version 2.9 - 2013-10-26</h2>
 

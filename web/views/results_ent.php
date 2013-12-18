@@ -84,8 +84,12 @@ foreach ($entities as $entity) {
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
                                           $target_string, $entity_link)
               . '">&lt;report a bug&gt;</a>';
+    $anchor_name = str_replace(array('/', ':'), '_', $entity);
     $table .= "<tr>
-                    <td>" . ShowResults::formatEntity($entity, $my_search) . "</a></td>
+                    <td>
+                    <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
+                    <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$check['repo']}' title='List all translations for this entity'>l10n</a>
+                    " . ShowResults::formatEntity($entity, $my_search) . "</a></td>
                     <td dir='{$direction1}'>
                        <div class='string'>{$source_string}</div>
                        <div dir='ltr' class='infos'>

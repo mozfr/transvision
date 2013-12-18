@@ -7,8 +7,6 @@ require_once WEBROOT .'inc/l10n-init.php';
 $all_locales[] = 'sr-Cyrl';
 $all_locales[] = 'sr-Latn';
 
-//~ error_log(print_r($repos,1));
-
 $get_or_set = function($arr, $value, $fallback) {
     return isset($_GET[$value]) && in_array($_GET[$value], $arr)
             ? $_GET[$value]
