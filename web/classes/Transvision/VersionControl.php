@@ -36,6 +36,8 @@ class VersionControl
                 $url .= '/releases/gaia-l10n/v1_1/' . $locale . '/file/default/';
             } elseif ($repo == 'gaia_1_2') {
                 $url .= '/releases/gaia-l10n/v1_2/' . $locale . '/file/default/';
+            } elseif ($repo == 'gaia_1_3') {
+                $url .= '/releases/gaia-l10n/v1_3/' . $locale . '/file/default/';
             } else {
                 $url .= '/gaia-l10n/' . $locale . '/file/default/';
             }
