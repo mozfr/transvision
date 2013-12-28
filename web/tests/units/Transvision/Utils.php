@@ -278,4 +278,35 @@ class Utils extends atoum\test
         ;
     }
 
+    public function getRepoStringsDataProvider()
+    {
+        $ini_array = parse_ini_file(__DIR__ . '/../../../inc/config.ini');
+        define('TMX', $ini_array['root'] . '/TMX/');
+        return array(
+            array(
+                'fr',
+                'central',
+                'Ouvrir dans le Finder'
+                ),
+            array(
+                'es-ES',
+                'gaia', // test fallback to es locale for gaia
+                'Hogar'
+                ),
+        );
+    }
+
+    /**
+     * @dataProvider getRepoStringsDataProvider
+     */
+    public function testGetRepoStrings($a, $b, $c)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->array($obj->getRepoStrings($a, $b))
+                ->contains($c)
+        ;
+    }
+
+
 }

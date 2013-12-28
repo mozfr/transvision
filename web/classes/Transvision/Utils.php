@@ -219,42 +219,29 @@ class Utils
         return $files;
     }
 
+
     /*
      * Return an array of strings from our repos
+     * @param $locale locale code queried
+     * @param $repository string repository such as gaia_1_3, central, aurora...
+     * @return array of localized strings or empty array id no match
      */
     public static function getRepoStrings($locale, $repository)
     {
-        $tmx = array();
-        global $spanishes;
 
-        if (Strings::startsWith($repository, 'gaia') == false) {
-            if ($locale == 'en-US') {
-                // English
-                $file = TMX . "{$repository}/${locale}/cache_en-US.php";
-                if (is_file($file)) {
-                    include $file;
-                }
-            } else {
-                // Localised, for a locale to locale comparison
-                // HACK: check if file exist to avoid PHP errors with coockie default value
-                $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
-                if (is_file($file)) {
-                    include $file;
-                }
-            }
+        if (Strings::startsWith($repository, 'gaia')) {
+            $locale = Strings::startsWith($locale, 'es-') ? 'es' : $locale;
         }
 
-        // We have only one Spanish for Gaia
-        $gaia_locale = in_array($locale, $spanishes) ? 'es' : $locale;
-
-        $file = TMX . $repository . '/' . $gaia_locale . '/cache_' . $gaia_locale . '.php';
+        $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
 
         if (is_file($file)) {
             include $file;
         }
 
-        return $tmx;
+        return isset($tmx) ? $tmx : array();
     }
+
 
     /*
      * cleanSearch
