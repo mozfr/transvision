@@ -87,12 +87,15 @@ def tmx_close(target_file):
     target_file.write("</body>\n</tmx>")
 
 def php_header(target_file):
-    target_file.write("<?php\n")
+    target_file.write("<?php\n$tmx = [\n")
 
 def php_add_to_array(ent,ch,target_file):
     ch = escape(ch)
     ch = ch.encode('utf-8')
-    target_file.write('$tmx[\'' + ent.encode('utf-8') + "\'] = '" + ch + "';\n")
+    target_file.write('\'' + ent.encode('utf-8') + "\' => '" + ch + "',\n")
+
+def php_close_array(target_file):
+    target_file.write("];\n")
 
 
 if __name__ == "__main__":
@@ -157,8 +160,9 @@ if __name__ == "__main__":
             tmx_add_tu(entity, chaine[entity], chaine2.get(entity,""), target_file1, langcode1, langcode2)
             php_add_to_array(entity, chaine[entity], target_file2)
             php_add_to_array(entity, chaine2.get(entity,""), target_file3)
-
     tmx_close(target_file1)
+    php_close_array(target_file2)
+    php_close_array(target_file3)
     target_file1.close()
     target_file2.close()
     target_file3.close()
