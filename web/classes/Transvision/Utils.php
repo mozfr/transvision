@@ -230,27 +230,26 @@ class Utils
         if (Strings::startsWith($repository, 'gaia') == false) {
             if ($locale == 'en-US') {
                 // English
-                include TMX . "{$repository}/{$locale}/cache_en-US.php";
+                $file = TMX . "{$repository}/${locale}/cache_en-US.php";
+                if (is_file($file)) {
+                    include $file;
+                }
             } else {
                 // Localised, for a locale to locale comparison
                 // HACK: check if file exist to avoid PHP errors with coockie default value
                 $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
-                if (file_exists($file)) {
+                if (is_file($file)) {
                     include $file;
                 }
             }
         }
 
         // We have only one Spanish for Gaia
-        if (in_array($locale, $spanishes)) {
-            $gaia_locale = 'es';
-        } else {
-            $gaia_locale = $locale;
-        }
+        $gaia_locale = in_array($locale, $spanishes) ? 'es' : $locale;
 
         $file = TMX . $repository . '/' . $gaia_locale . '/cache_' . $gaia_locale . '.php';
 
-        if (file_exists($file)) {
+        if (is_file($file)) {
             include $file;
         }
 
