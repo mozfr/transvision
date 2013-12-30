@@ -5,23 +5,6 @@ namespace Transvision;
 class Utils
 {
     /*
-     * Check if a variable exists and is not set to false
-     * Useful to check variables in $_GET for example
-     *
-     * @param $var variable to process
-     * @return boolean
-     */
-
-    public static function valid($var)
-    {
-        if (isset($var) && $var != false) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /*
      * Sanitize a string or an array of strings.
      *
      * @param $str string or array of strings
@@ -55,13 +38,7 @@ class Utils
 
     public static function checkboxDefaultOption($option, $cookie)
     {
-        if ($cookie == $option) {
-            $default_checked = ' checked="checked"';
-        } else {
-            $default_checked = false;
-        }
-
-        return $default_checked;
+        return $cookie == $option ? ' checked="checked"' : false;
     }
 
     /*
@@ -78,7 +55,7 @@ class Utils
             return ' checked="checked"';
         }
 
-        return ($str) ? ' checked="checked"' : '';
+        return $str ? ' checked="checked"' : '';
     }
 
     public static function markString($needle, $haystack)
@@ -111,23 +88,10 @@ class Utils
         );
 
         // remove last ones
-        $str = str_replace(array('←', '→'), '', $str);
+        $str = str_replace(['←', '→'], '', $str);
 
         return $str;
     }
-
-    /**
-     * get the current microtime for perf measurements
-     *
-     */
-
-    public static function getmicrotime()
-    {
-        list($usec, $sec) = explode(' ', microtime());
-
-        return ((float) $usec + (float) $sec);
-    }
-
 
     public static function printSimpleTable(
         $arr,
@@ -195,9 +159,9 @@ class Utils
     {
         $html = '';
         foreach ($options as $key => $option) {
-            $value = ($nice_labels) ? $key : $option;
-            $ch = ($value == $selected) ? ' selected' : '';
-            $html.= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
+            $value = $nice_labels ? $key : $option;
+            $ch    = ($value == $selected) ? ' selected' : '';
+            $html .= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
         }
 
         return $html;
@@ -210,13 +174,9 @@ class Utils
      * @param  array  $excluded_files to exclude from results, by default . and ..
      * @return array
      */
-    public static function getFilenamesInFolder($folder, $excluded_files = array('.', '..', '.htaccess'))
+    public static function getFilenamesInFolder($folder, $excluded_files = ['.', '..', '.htaccess'])
     {
-        // Get the locale list
-        $files = scandir($folder);
-        $files = array_diff($files, $excluded_files);
-
-        return $files;
+        return array_diff(scandir($folder), $excluded_files);
     }
 
 
@@ -233,7 +193,7 @@ class Utils
             $locale = Strings::startsWith($locale, 'es-') ? 'es' : $locale;
         }
 
-        $file = TMX . "{$repository}/${locale}/cache_${locale}.php";
+        $file = TMX . "{$repository}/{$locale}/cache_{$locale}.php";
 
         if (is_file($file)) {
             include $file;
@@ -250,8 +210,11 @@ class Utils
      */
     public static function cleanSearch($str)
     {
-        $str = is_string($str) ? $str : '';
-        $str = Utils::secureText($str);
+        if (!is_string($str)) {
+            return '';
+        }
+
+        $str = self::secureText($str);
         $str = stripslashes($str);
         // Filter out double spaces
         $str = Strings::mtrim($str);
