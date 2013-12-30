@@ -24,12 +24,12 @@ if ($repo != 'mozilla_org') {
     $translations = ['en-US' => $strings[$entity]];
 }
 
-foreach(Files::getFilenamesInFolder(TMX . $repo . '/', ['ab-CD']) as $locale) {
-    $strings = Utils::getRepoStrings($locale, $repo);
+foreach(Files::getFilenamesInFolder(TMX . $repo . '/', ['ab-CD']) as $localecode) {
+    $strings = Utils::getRepoStrings($localecode, $repo);
     if (array_key_exists($entity, $strings)) {
-        $translations[$locale] = $strings[$entity];
+        $translations[$localecode] = $strings[$entity];
     } else {
-        $translations[$locale] = false;
+        $translations[$localecode] = false;
     }
 }
 unset($strings);

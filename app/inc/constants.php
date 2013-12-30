@@ -20,3 +20,4 @@ define('CACHE',         INSTALL_ROOT . 'cache/');
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
 define('JSON_API', (isset($_GET['json']) && !isset($web_service)) ? true : false);
+define('NOCACHE', (isset($_GET['nocache'])) ? true : false);

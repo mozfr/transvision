@@ -265,6 +265,10 @@ cd $install
 echogreen "Extracting p12n data"
 nice -20 python p12n_extract.py
 
+# Echo UNIX timestamp to file, used to invalidate existing cache
+echo $(date +%s) > web/cache/lastupdate.txt
+
+
 # Update L20N test repo
 if $checkrepo
 then

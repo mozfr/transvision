@@ -32,36 +32,63 @@ class Json extends atoum\test
     public function outputDataProvider()
     {
         return array(
+            // Simple json output
             array(
                 ['foo' => 'bar'],
+                false,
+                false,
+                true,
+                false,
+                '{"foo":"bar"}'
+                ),
+            // Simple json output without conversion
+            array(
+                '{"foo":"bar"}',
+                false,
+                false,
                 false,
                 false,
                 '{"foo":"bar"}'
                 ),
+            // Pretty json output
             array(
                 ['foo' => 'bar'],
                 false,
                 true,
+                true,
+                false,
                 "{\n    " . '"foo": "bar"' . "\n}"
                 ),
+            // Simple jsonp output
             array(
                 ['foo' => 'bar'],
                 'toto',
                 false,
+                true,
+                false,
                 'toto({"foo":"bar"})'
-                )
+                ),
+            // Pretty jsonp output
+            array(
+                ['foo' => 'bar'],
+                'toto',
+                true,
+                true,
+                false,
+                "toto({\n    " . '"foo": "bar"' . "\n})"
+                ),
         );
     }
 
     /**
      * @dataProvider outputDataProvider
      */
-    public function testOutput($a, $b, $c, $d)
+    public function testOutput($a, $b, $c, $d, $e, $f)
     {
         $obj = new \Transvision\Json();
         $this
-            ->string($obj->output($a, $b, $c))
-                ->isEqualTo($d)
+            ->string($obj->output($a, $b, $c, $d, $e))
+                ->isEqualTo($f)
         ;
     }
 

@@ -114,7 +114,7 @@ if (strpos(VERSION, 'dev') !== false) {
 
   <div id="pagecontent">
     <?=$extra?>
-    <?=$content?>
+    <?=$view_content?>
   </div>
 
   <div id="links-bottom" class="links"><?=$links?></div>

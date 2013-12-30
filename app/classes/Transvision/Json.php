@@ -16,24 +16,37 @@ class Json
      * @param array $data The data we want to convert to json
      * @param boolean $jsonp Optional, false by default, true to generate JSONP
      * @param boolean $pretty_print Optional. Output as readable JSON_PRETTY_PRINT
+     * @param boolean $convert_data Determine if file needs conversion (default option) or is already in json/jsonp format
+     * @param boolean $full_output Generate complete output with headers, default to false
      * @return string Json data
      */
-    public static function output(array $data, $jsonp = false, $pretty_print = false)
+    public static function output($data, $jsonp = false, $pretty_print = false, $convert_data = true, $full_output = false)
     {
-        $json = $pretty_print ? json_encode($data, JSON_PRETTY_PRINT) : json_encode($data);
-        $mime = 'application/json';
-
-        if ($jsonp) {
-            $mime = 'application/javascript';
-            $json = $jsonp . '(' . $json . ')';
+        if ($convert_data) {
+            // Convert $data in json/jsonp format
+            $json = $pretty_print ? json_encode($data, JSON_PRETTY_PRINT) : json_encode($data);
+            if ($jsonp) {
+                $json = $jsonp . '(' . $json . ')';
+            }
+        } else {
+            // I don't need any conversion, $data is already in json/jsonp format
+            $json = $data;
         }
 
-        ob_start();
-        header("access-control-allow-origin: *");
-        header("Content-type: {$mime}; charset=UTF-8");
-        echo $json;
-        $json = ob_get_contents();
-        ob_end_clean();
+
+        if ($full_output) {
+            // I need to generate a full output with headers
+            $mime = 'application/json';
+            if ($jsonp) {
+                $mime = 'application/javascript';
+            }
+            ob_start();
+            header("access-control-allow-origin: *");
+            header("Content-type: {$mime}; charset=UTF-8");
+            echo $json;
+            $json = ob_get_contents();
+            ob_end_clean();
+        }
 
         return $json;
     }
