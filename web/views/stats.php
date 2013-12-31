@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // Get locales/number of requests
-$stats = Json::fetchJson(WEBROOT . 'stats.json');
+$stats = Json::fetch(WEBROOT . 'stats.json');
 arsort($stats);
 
 echo '<table>';
@@ -16,7 +16,7 @@ echo '</table>';
 unset($stats);
 
 // Get use of options
-$stats = Json::fetchJson(WEBROOT . 'stats_requests.json');
+$stats = Json::fetch(WEBROOT . 'stats_requests.json');
 arsort($stats);
 
 echo '<table>';

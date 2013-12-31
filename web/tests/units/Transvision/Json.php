@@ -6,7 +6,7 @@ use atoum;
 
 class Json extends atoum\test
 {
-    public function fetchJsonDP()
+    public function fetchDataProvider()
     {
         $local = __DIR__ . '/data/';
         return array(
@@ -16,16 +16,53 @@ class Json extends atoum\test
     }
 
     /**
-     * @dataProvider fetchJsonDP
+     * @dataProvider fetchDataProvider
      */
-    public function testFetchJson($a, $b)
+    public function testFetch($a, $b)
     {
         $obj = new \Transvision\Json();
         $this
-            ->array($obj->fetchJson($a))
+            ->array($obj->fetch($a))
                 ->isEqualTo($b)
         ;
     }
 
+
+
+    public function outputDataProvider()
+    {
+        return array(
+            array(
+                ['foo' => 'bar'],
+                false,
+                false,
+                '{"foo":"bar"}'
+                ),
+            array(
+                ['foo' => 'bar'],
+                false,
+                true,
+                "{\n    " . '"foo": "bar"' . "\n}"
+                ),
+            array(
+                ['foo' => 'bar'],
+                'toto',
+                false,
+                'toto({"foo":"bar"})'
+                )
+        );
+    }
+
+    /**
+     * @dataProvider outputDataProvider
+     */
+    public function testOutput($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\Json();
+        $this
+            ->string($obj->output($a, $b, $c))
+                ->isEqualTo($d)
+        ;
+    }
 
 }

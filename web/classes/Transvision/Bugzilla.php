@@ -18,7 +18,7 @@ class Bugzilla
             file_put_contents($cache_file, file_get_contents($json_url));
         }
 
-        $data = Json::fetchJson($cache_file);
+        $data = Json::fetch($cache_file);
         $components_list = $data['result']['products'][0]['components'];
 
         return $components_list;

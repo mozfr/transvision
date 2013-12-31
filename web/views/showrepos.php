@@ -104,7 +104,7 @@ $table .= '</table>';
 
 if (isset($_GET['json'])) {
     $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::outputJson($json, $callback));
+    die(Json::output($json, $callback));
 } else {
     // Include the common simple search form
     include __DIR__ . '/simplesearchform.php';

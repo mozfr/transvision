@@ -10,12 +10,12 @@ class Json
      * @param  string jsonp function name, default to false
      * @return json feed
      */
-    public static function outputJson(array $data, $jsonp = false)
+    public static function output(array $data, $jsonp = false, $pretty_print = false)
     {
-        $json = json_encode($data);
+        $json = $pretty_print ? json_encode($data, JSON_PRETTY_PRINT) : json_encode($data);
         $mime = 'application/json';
 
-        if ($jsonp && is_string($jsonp)) {
+        if ($jsonp) {
             $mime = 'application/javascript';
             $json = $jsonp . '(' . $json . ')';
         }
@@ -36,10 +36,8 @@ class Json
      * @param  string  uri of the resource
      * @return array
      */
-    public static function fetchJson($uri)
+    public static function fetch($uri)
     {
-        $json = json_decode(file_get_contents($uri), true);
-
-        return $json;
+        return json_decode(file_get_contents($uri), true);
     }
 }

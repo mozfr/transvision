@@ -19,7 +19,7 @@ $page_descr = $entity;
 
 if (WEBSERVICE) {
 	$callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-	die(Json::outputJson($translations, $callback));
+	die(Json::output($translations, $callback));
 }
 
 ?>
