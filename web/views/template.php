@@ -6,21 +6,34 @@ $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
 
 $links = '
-<ul>
+<div class="linkscolumn">
+  <h3>Main Views</h3>
+  <ul>
     <li><a href="/" title="Main search">Home</a></li>
     <li><a ' . (isset($_GET['t2t']) ? 'class="select" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
     <li><a ' . ($url['path'] == '3locales' ? 'class="select" ' : '') . 'href="/3locales/" title="Search with 3 locales">3 locales</a></li>
-    <li><a ' . ($url['path'] == '3locales' ? 'class="select" ' : '') . 'href="/string/?entity=apps/sms/sms.properties:home&repo=gaia" title="Get all translations available for an entity">Translate String</a></li>
+    <li><a ' . ($url['path'] == 'string' ? 'class="select" ' : '') . 'href="/string/?entity=apps/sms/sms.properties:home&repo=gaia" title="Get all translations available for an entity">Translate String</a></li>
+    <li><a ' . ($url['path'] == 'downloads' ? 'class="select" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
+  </ul>
+</div>
+<div class="linkscolumn">
+  <h3>QA Views</h3>
+  <ul>
+    <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/showrepos/" title="Repository status overview">Status Overview</a></li>
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="select" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
     <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="select" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
     <li><a ' . ($url['path'] == 'gaia' ? 'class="select" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
-    <li><a ' . ($url['path'] == 'downloads' ? 'class="select" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
-    <li><a ' . ($url['path'] == 'stats' ? 'class="select" ' : '') . 'href="/stats/" title="Light usage statistics">Statistics</a></li>
-    <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/showrepos/" title="Repository status overview">Status Overview</a></li>
-    <li><a ' . ($url['path'] == 'showrepos' ? 'class="select" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
+    <li><a ' . ($url['path'] == 'variables' ? 'class="select" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
+  </ul>
+</div>
+<div class="linkscolumn">
+  <h3>About Transvision</h3>
+  <ul>
     <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
-    <li><a ' . ($url['path'] == 'credits' ? 'class="select" ' : '') . 'href="/news/" title="Changelog">Release Notes</a></li>
-</ul>
+    <li><a ' . ($url['path'] == 'news' ? 'class="select" ' : '') . 'href="/news/" title="Changelog">Release Notes</a></li>
+    <li><a ' . ($url['path'] == 'stats' ? 'class="select" ' : '') . 'href="/stats/" title="Light usage statistics">Statistics</a></li>
+  </ul>
+</div>
 ';
 
 if (strpos(VERSION, 'dev') !== false) {
@@ -40,8 +53,34 @@ if (strpos(VERSION, 'dev') !== false) {
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        // Make sure the menu is not displayed
+        $('#links-top').hide();
+
+        // Associate code to link to hide/display top menu
+        $('#links-top-button').click(function(e) {
+          e.preventDefault();
+          $('#links-top').slideToggle(400, function(){
+            if ($('#links-top').is(':visible')) {
+              $('#links-top-button').attr('title', 'Hide Transvision Menu');
+              $('#links-top-button').css('background-position', '0 -45px');
+            } else {
+              $('#links-top-button').attr('title', 'Display Transvision Menu');
+              $('#links-top-button').css('background-position', '0 0');
+            }
+          });
+        });
+
+        //Focus on the search field
+        $('#recherche').focus();
+      });
+    </script>
   </head>
 <body id="<?=$page?>">
+  <div id="links-top" class="links"><div class="container"><?=$links?></div></div>
+  <a id="links-top-button" href="" title="Display Transvision Menu"><span>menu</span></a>
   <?php
   if ($beta_version) {
     echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
@@ -57,8 +96,10 @@ if (strpos(VERSION, 'dev') !== false) {
   <h3 id="descr-page"><?=$page_descr?></h3>
   <?php endif; ?>
 
-  <?=$extra?>
-  <?=$content?>
+  <div id="pagecontent">
+    <?=$extra?>
+    <?=$content?>
+  </div>
 
   <div id="links-bottom" class="links"><?=$links?></div>
   <footer>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</footer>
