@@ -29,7 +29,8 @@ body {
     font-size: 14px;
     line-height: 1.5;
     margin: 0 auto;
-    padding: 50px 0.5em 0.5em 0.5em;
+    padding: 0;
+    border-top: 1px solid #FFF;
     position: relative;
     background-color: #CADDED;
     background-image: url("/img/grain.png"), linear-gradient(to bottom, #CADDED 0%, #F6F4EC 100%);
@@ -47,6 +48,10 @@ div#beta-badge {
     top: 0;
     left: 0;
     background: url("/img/beta_ribbon.png") top left no-repeat transparent;
+}
+
+div#pagecontent {
+    padding: 0 5px;
 }
 
 div#beta-badge span {
@@ -70,6 +75,7 @@ h1, h2, #current, .links {
     text-align: center;
     margin: 0.5em auto;
     width: 80%;
+    clear: both;
 }
 
 h1 {
@@ -119,6 +125,7 @@ h3 {
 #current {
     font-size: 1.8em;
     padding: 0.1em 0;
+    margin-top: 30px;
 }
 
 #current strong {
@@ -130,35 +137,56 @@ h3 {
 }
 
 .links {
-    padding: 0.5em;
     font-size: 1em;
-    margin-top: 5em;
+    margin: 4em auto 1em auto;
+    text-align: left;
+    width: 550px;
 }
 
-#links-top.links {
-    margin-top: 0em;
-    width: 98%;
+.links h3 {
+    padding: 0 0 6px 12px;
+    margin: 0;
+    font-size: 14px;
+    text-align: left;
 }
 
 .links ul {
-    padding: .2em 0;
-    margin: 0 auto;
     list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 12px;
 }
 
-.links ul li {
-    display: inline-block;
+.linkscolumn {
+    width: 180px;
+    float: left;
 }
 
-.links a, .links a:visited {
-    padding: .2em 1em;
+#links-top {
+    width: 100%;
+    background: #FFF;
+    display: none;
+    margin: 0;
+    padding: 50px 0 20px;
+    float: left;
 }
 
-#experimental {
-    font-size: 1em;
-    padding: 10px 0px;
-    position: absolute;
-    right: 0;
+#links-top .container {
+    width: 550px;
+    margin: 0 auto;
+}
+
+a#links-top-button span {
+    display: none;
+}
+
+a#links-top-button {
+    clear: both;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 150px;
+    height: 45px;
+    background: url("/img/menu.png") top center no-repeat transparent;
 }
 
 form[name="searchform"] {
@@ -281,6 +309,8 @@ footer {
     text-align: center;
     font-family: serif;
     font-size: 0.9em;
+    clear: both;
+    padding-top: 2em;
 }
 
 /* colors for results */
@@ -432,14 +462,22 @@ h3, ul {
 
 /* experimental */
 
+#experimental {
+    position: relative;
+    margin-right: 5px;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 20px;
+    font-size: 1em;
+    text-align: center;
+    padding: 5px 0;
+}
+
 .alert {
     color:white;
     background-color: orange;
-    border-bottom: none;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
-    width: 250px;
-    margin-right:0;
-    margin-left:auto;
 }
 
 #channelcomp #main {
@@ -471,7 +509,6 @@ h3, ul {
 /* Gaia page */
 
 @media only screen and (max-width: 850px)  {
-
     table, thead, tbody, td, tr {
         display: block;
         word-wrap: break-word;
@@ -514,17 +551,76 @@ h3, ul {
     .string, td:nth-of-type(1) {
         padding-right: 75px;
     }
-
-    #experimental {
-        position: relative;
-        right: 0;
-    }
-
-
 }
 
 @media only screen and (max-width: 640px) {
     h1 {
         padding: 5px 0.3em;
+    }
+
+    #experimental {
+        padding: 5px 10px;
+    }
+
+    #current {
+        font-size: 1.3em;
+    }
+
+    div#search input[type=submit] {
+        margin: 10px 0 10px;
+    }
+
+    .links {
+        font-size: 0.9em;
+        margin: 2em auto 1em auto;
+        text-align: left;
+        width: 460px;
+    }
+
+    #links-top .container {
+        width: 460px;
+    }
+
+    .linkscolumn {
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    div#search input[type=submit] {
+        display: block;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 1em;
+    }
+
+    .links {
+        font-size: 1em;
+        width: 100%;
+    }
+
+    #links-top .container {
+        width: 100%;
+    }
+
+    .links ul {
+        padding: 0;
+        width: 100%;
+    }
+
+    .links h3 {
+        text-align: center;
+        font-size: 1.2em;
+        margin: 1em 0 0.5em;
+        padding: 0;
+        width: 100%;
+    }
+
+    .linkscolumn {
+        width: 100%;
+        float: none;
+        text-align: center;
     }
 }

@@ -273,10 +273,6 @@ foreach ($repositories as $repository) {
 function changeSearchContext(element) {
     document.getElementById('searchcontextvalue').innerHTML = element.options[element.selectedIndex].text;
 }
-//Focus on the search field
-window.onload = function() {
-    document.getElementById('recherche').focus();
-}
 </script>
 <?php
 
