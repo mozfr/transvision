@@ -96,32 +96,37 @@ class Utils
     public static function printSimpleTable(
         $arr,
         $arr2 = false,
-        $titles = array('Column1', 'Column2', 'Column3', 'Column4')
+        $titles = array('Column1', 'Column2', 'Column3', 'Column4'),
+        $cssclass = ''
     ) {
-        echo "<table>
-              <tr>
-              <th>{$titles[0]}</th><th>{$titles[1]}</th>";
+        if ($cssclass != '') {
+            echo "<table class='{$cssclass}'>\n";
+        } else {
+            echo "<table>\n";
+        }
+        echo "  <tr>\n" .
+             "    <th>{$titles[0]}</th><th>{$titles[1]}</th>\n";
 
         if ($arr2) {
-            echo "<th>{$titles[2]}</th><th>{$titles[3]}</th>";
+            echo "    <th>{$titles[2]}</th><th>{$titles[3]}</th>\n";
         }
 
-        echo '</tr>';
+        echo "  </tr>\n";
 
         foreach ($arr as $key => $val) {
-            echo '<tr>';
+            echo "  <tr>\n";
             if ($arr2) {
-                echo '<td>' . ShowResults::formatEntity($val) . '</td>';
-                echo '<td>' . $arr2[$val] . '</td>';
-                echo '<td>' . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</td>';
-                echo '<td>' . ShowResults::formatEntity($key) . '</td>';
+                echo "    <td><span class='celltitle'>{$titles[0]}</span><div class='string'>" . ShowResults::formatEntity($val) . '</div></td>';
+                echo "    <td><span class='celltitle'>{$titles[1]}</span><div class='string'>" . $arr2[$val] . '</div></td>';
+                echo "    <td><span class='celltitle'>{$titles[2]}</span><div class='string'>" . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</div></td>';
+                echo "    <td><span class='celltitle'>{$titles[3]}</span><div class='string'>" . ShowResults::formatEntity($key) . '<div></td>';
             } else {
-                echo '<td>' . $val . '</td>';
-                echo '<td>' . $key . '</td>';
+                echo "    <td>{$val}</td>\n";
+                echo "    <td>{$key}</td>\n";
             }
-            echo '</tr>';
+            echo "  </tr>\n";
         }
-        echo '</table>';
+        echo "</table>";
     }
 
     /*

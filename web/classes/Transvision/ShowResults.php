@@ -117,7 +117,7 @@ class ShowResults
         };
 
 
-        $table  = "<table>
+        $table  = "<table class='collapsable'>
                       <tr>
                         <th>Entity</th>
                         <th>{$locale1}</th>
@@ -251,6 +251,7 @@ class ShowResults
 
                 $extra_column_rows = "
                 <td dir='{$direction3}'>
+                    <span class='celltitle'>{$locale3}</span>
                     <div class='string'>{$target_string2}</div>
                     <div dir='ltr' class='infos'>
                       <a class='source_link' href='{$locale3_path}'>
@@ -271,11 +272,13 @@ class ShowResults
             $table .= "
                 <tr>
                   <td>
+                    <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
                     <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$search_options['repo']}' title='List all translations for this entity'>l10n</a>
                     <a class='linktoentity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
                   <td dir='{$direction1}'>
+                    <span class='celltitle'>{$locale1}</span>
                     <div class='string'>
                       {$source_string}
                     </div>
@@ -294,6 +297,7 @@ class ShowResults
                   </td>
 
                   <td dir='{$direction2}'>
+                    <span class='celltitle'>{$locale2}</span>
                     <div class='string'>{$target_string}</div>
                     <div dir='ltr' class='infos'>
                       <a class='source_link' href='{$locale2_path}'>

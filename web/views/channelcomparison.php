@@ -73,19 +73,21 @@ $temp = array_diff($temp, $strings[$chan2]);
 
 <?php
 
-echo "\n<table>";
-echo '<tr>';
-echo "<th colspan='3'>Locale: $locale</th>";
-echo '</tr>';
-echo '<tr>';
-echo "<th>Key</th><th>$chan1</th><th>$chan2</th>";
-echo '</tr>';
+echo "\n<table class='collapsable'>" .
+     "  <tr>\n" .
+     "    <th colspan='3'>Locale: {$locale}</th>\n" .
+     "  </tr>\n" .
+     "  <tr>\n" .
+     "    <th>Key</th>\n" .
+     "    <th>{$chan1}</th>\n" .
+     "    <th>{$chan2}</th>\n" .
+     "  </tr>\n";
 
 foreach ($temp as $k => $v) {
-    echo   "<tr>"
-         . "<td>" . ShowResults::formatEntity($k) . "</td>"
-         . "<td>" . ShowResults::highlight($v, $locale) . "</td>"
-         . "<td>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</td>
-           </tr>";
+    echo   "  <tr>"
+         . "    <td><span class='celltitle'>Key</span><div class='string'>" . ShowResults::formatEntity($k) . "</div></td>\n"
+         . "    <td><span class='celltitle'>{$chan1}</span><div class='string'>" . ShowResults::highlight($v, $locale) . "</div></td>\n"
+         . "    <td><span class='celltitle'>{$chan2}</span><div class='string'>" . ShowResults::highlight($strings[$chan2][$k], $locale) . "</div></td>\n"
+         . "  </tr>\n";
 }
-echo '</table>';
+echo "</table>\n";

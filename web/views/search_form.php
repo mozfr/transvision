@@ -52,10 +52,14 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
 
 ?>
 
-  <div id="current" onclick="javascript:t2t();">You are looking at the <i><?=$repos_nice_names[$check['repo']]?></i> channel <strong><?=$locale?></strong></div>
+  <div id="current" onclick="javascript:t2t();">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" method="get" action="./" >
         <fieldset id="main">
-
+            <div id="search">
+                <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search here" size="30" />
+                <input type="submit" value="Search" alt="Search" />
+                <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
+            </div>
             <fieldset>
                 <legend>Repository</legend>
                 <select id='repository' name='repo'  onchange="changeSourceTargetValues(this.value);">
@@ -112,7 +116,6 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
                  </label>
             </fieldset>
 
-
 <?php if ($url['path'] == '3locales'): ?>
             <fieldset>
                 <legend>Extra Locale</legend>
@@ -136,7 +139,6 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
             </fieldset>
 <?php endif; ?>
 
-
             <fieldset>
                 <legend>Search in</legend>
                 <select name='search_type' id='search_type' onchange="changeSearchContext(this);">
@@ -144,39 +146,44 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
                 </select>
             </fieldset>
 
-            <fieldset>
+            <fieldset id="fs_advanced">
                 <legend>Advanced Search options</legend>
-                <input type="checkbox"
-                       name="case_sensitive"
-                       id="case_sensitive"
-                       value="case_sensitive"
-                       <?=Utils::checkboxState($check['case_sensitive'])?>
-                 />
-                <label for="case_sensitive">Case Sensitive</label>
-
-                <input type="checkbox"
-                       name="wild"
-                       id="wild"
-                       value="wild"
-                       <?=Utils::checkboxState($check['wild'])?>
-                 />
-                <label for="wild">Wildcard (*)</label>
-
-                <input type="checkbox"
-                       name="whole_word"
-                       id="whole_word"
-                       value="whole_word"
-                       <?=Utils::checkboxState($check['whole_word'])?>
-                />
-                <label for="whole_word">Whole Word</label>
-
-                <input type="checkbox"
-                       name="perfect_match"
-                       id="perfect_match"
-                       value="perfect_match"
-                       <?=Utils::checkboxState($check['perfect_match'])?>
-                />
-                <label for="perfect_match">Perfect Match</label>
+                <span>
+                    <input type="checkbox"
+                           name="case_sensitive"
+                           id="case_sensitive"
+                           value="case_sensitive"
+                           <?=Utils::checkboxState($check['case_sensitive'])?>
+                     />
+                    <label for="case_sensitive">Case Sensitive</label>
+                </span>
+                <span>
+                    <input type="checkbox"
+                           name="wild"
+                           id="wild"
+                           value="wild"
+                           <?=Utils::checkboxState($check['wild'])?>
+                     />
+                    <label for="wild">Wildcard (*)</label>
+                </span>
+                <span>
+                    <input type="checkbox"
+                           name="whole_word"
+                           id="whole_word"
+                           value="whole_word"
+                           <?=Utils::checkboxState($check['whole_word'])?>
+                    />
+                    <label for="whole_word">Whole Word</label>
+                </span>
+                <span>
+                    <input type="checkbox"
+                           name="perfect_match"
+                           id="perfect_match"
+                           value="perfect_match"
+                           <?=Utils::checkboxState($check['perfect_match'])?>
+                    />
+                    <label for="perfect_match">Perfect Match</label>
+                </span>
 
                 <?php if ($check['t2t'] == 't2t') :?>
                 <input type="hidden"
@@ -187,12 +194,6 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
                 />
                 <?php endif; ?>
             </fieldset>
-
-            <div id="search">
-                <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search here" size="30" />
-                <input type="submit" value="Search" alt="Search" />
-                <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
-            </div>
         </fieldset>
  </form>
 

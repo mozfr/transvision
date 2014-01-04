@@ -77,5 +77,6 @@ echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
 Utils::printSimpleTable(
     $ak_results,
     $strings[$repo],
-    array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity')
+    array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity'),
+    'collapsable'
 );

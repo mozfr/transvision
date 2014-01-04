@@ -12,7 +12,7 @@ if ($url['path'] == '3locales') {
     $extra_column_header = '';
 }
 
-$table  = "<table>
+$table  = "<table class='collapsable'>
               <tr>
                 <th>Entity</th>
                 <th>{$source_locale}</th>
@@ -60,6 +60,7 @@ foreach ($entities as $entity) {
 
         $extra_column_rows = "
         <td dir='{$direction3}'>
+            <span class='celltitle'>{$locale3}</span>
             <div class='string'>{$target_string2}</div>
             <div dir='ltr' class='infos'>
               <a class='source_link' href='{$path_locale3}'>
@@ -87,16 +88,19 @@ foreach ($entities as $entity) {
     $anchor_name = str_replace(array('/', ':'), '_', $entity);
     $table .= "<tr>
                     <td>
+                    <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
                     <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$check['repo']}' title='List all translations for this entity'>l10n</a>
-                    " . ShowResults::formatEntity($entity, $my_search) . "</a></td>
+                    <a class='linktoentity' href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $my_search) . "</a></td>
                     <td dir='{$direction1}'>
+                       <span class='celltitle'>{$source_locale}</span>
                        <div class='string'>{$source_string}</div>
                        <div dir='ltr' class='infos'>
                         <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
                        </div>
                     </td>
                      <td dir='{$direction2}'>
+                       <span class='celltitle'>{$locale}</span>
                        <div class='string'>{$target_string}</div>
                        <div dir='ltr' class='infos'>
                         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
