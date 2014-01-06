@@ -89,12 +89,17 @@ if (count($perfect_results) > 0) {
     echo "<p>No perfect match found.</p>";
 }
 
-echo '<b>Used in</b>';
-echo "<table>";
+echo "<b>Used in</b>
+<table class='collapsable'>
+  <tr>
+    <th>Localized string</th>
+    <th>Source string</th>
+  </tr>\n";
+
 foreach ($imperfect_results as $key => $val) {
-    echo '<tr>';
-    echo "<td dir='$locale_dir'>" . strip_tags(htmlspecialchars_decode($val)) . '</td>';
-    echo "<td dir='$source_locale_dir'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . '</td>';
-    echo '</tr>';
+    echo "<tr>\n";
+    echo "  <td dir='$locale_dir'><span class='celltitle'>Localized string</span><div class='string'>" . strip_tags(htmlspecialchars_decode($val)) . "</div></td>\n";
+    echo "  <td dir='$source_locale_dir'><span class='celltitle'>Source string</span><div class='string'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . "</div></td>\n";
+    echo "</tr>\n";
 }
-echo "</table>";
+echo "</table>\n";

@@ -113,7 +113,7 @@ $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($
         $divergences[] = $k;
     }
 
-    $table = '<table id="' . $anchor . '">'
+    $table = '<table id="' . $anchor . '" class="collapsable">'
            . '<tr>'
            . '<th colspan="4">' . count($divergences) . ' ' . $table_title . '</th>'
            . '</tr>'
@@ -126,10 +126,10 @@ $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($
 
     foreach ($divergences as $v) {
         $table .= '<tr>'
-                . '<td>' . ShowResults::formatEntity($v) . '</td>'
-                . '<td>' . ShowResults::highlight($normalized_gaia_locale[$v], $locale) . '</td>'
-                . '<td>' . ShowResults::highlight($normalized_gaia1_1_locale[$v], $locale) . '</td>'
-                . '<td>' . ShowResults::highlight($normalized_gaia1_2_locale[$v], $locale) . '</td>'
+                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>'
+                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia_locale[$v], $locale) . '</div></td>'
+                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_1_locale[$v], $locale) . '</div></td>'
+                . '<td><span class="celltitle">' . $column_titles[3] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_2_locale[$v], $locale) . '</div></td>'
                 . '</tr>';
     }
 
@@ -151,7 +151,7 @@ print $table_5_col(
 
 $common_keys = array_intersect_key($strings['gaia_1_1-en-US'],$strings['gaia_1_2-en-US']);
 
-$table = '<table id="englishchanges">'
+$table = '<table id="englishchanges" class="collapsable">'
        . '<tr>'
        . '<th colspan="3">Strings that have changed significantly in English between Gaia 1.1 and 1.2 but for which the entity name didn\'t change</th>'
        . '</tr>'
@@ -166,9 +166,9 @@ foreach($common_keys as $key =>$val) {
     if (trim(strtolower($strings['gaia_1_1-en-US'][$key])) != trim(strtolower($strings['gaia_1_2-en-US'][$key]))) {
             $table .=
               '<tr>'
-            . '<td>' . ShowResults::formatEntity($key) . '</td>'
-            . '<td>' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_1'][$key] . '</small></td>'
-            . '<td>' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_2'][$key] . '</small></td>'
+            . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
+            . '<td><span class="celltitle">Gaia 1.1</span><div class="string">' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_1'][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia 1.2</span><div class="string">' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_2'][$key] . '</small></div></td>'
             . '</tr>';
     }
 }
@@ -176,13 +176,13 @@ $table .= '</table>';
 
 print $table;
 
-$table_3_col = function($table_title, $column_titles, $strings, $anchor) use ($locale) {
+$table_3_col = function($table_title, $column_titles, $strings, $anchor, $cssclass) use ($locale) {
     $strings = array_values($strings);
     $temp = array_diff_key($strings[5], $strings[4]);
 
     $count = count($temp);
 
-    $table = '<table id="' . $anchor . '">'
+    $table = '<table id="' . $anchor . '" class="' . $cssclass . '">'
            . '<tr>'
            . '<th colspan="3">' . $count . ' ' . $table_title . '</th>'
            . '</tr>'
@@ -199,9 +199,9 @@ $table_3_col = function($table_title, $column_titles, $strings, $anchor) use ($l
                         : '<b>String untranslated</b>';
 
         $table .= '<tr>'
-                . '<td>' . ShowResults::formatEntity($k) . '</td>'
-                . '<td>' . ShowResults::highlight($strings[5][$k], 'en-US') . '</td>'
-                . '<td>' . ShowResults::highlight($translation, $locale) . '</td>'
+                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
+                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($strings[5][$k], 'en-US') . '</td>'
+                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($translation, $locale) . '</td>'
                 . '</tr>';
     }
 
@@ -215,5 +215,6 @@ print $table_3_col(
     'strings added to Gaia 1.2',
     ['Key', 'en-US', $locale],
     $strings,
-    'newstrings'
+    'newstrings',
+    'collapsable'
 );

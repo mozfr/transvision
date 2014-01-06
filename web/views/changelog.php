@@ -2,10 +2,10 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
-    <li><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
-    <li><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code>code> link next to the entity name (pascal)</li>
-    <li>On the <a href="/gaia/#englishchanges">Gaia comparizon</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change (pascal)</li>
+    <li><span class="newfeature">new</span><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
+    <li><span class="newfeature">new</span><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
+    <li><span class="newfeature">new</span><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code>code> link next to the entity name (pascal)</li>
+    <li>On the <a href="/gaia/#englishchanges">Gaia comparison</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change (pascal)</li>
     <li>When searching for entities, there is a 'search a bug' link below results just like for searching for strings (flod) as well as a permalink (pascal)</li>
     <li>Each view now has a one line description of what it does at the top (Jesus)</li>
     <li>Updated supported locales (flod)</li>
@@ -31,7 +31,7 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>Two new repos are added for searches: Gaia 1.1 and Gaia 1.2 (Pascal)</li>
-    <li>New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
+    <li><span class="expfeature">exp</span>New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
     <li>More accurate comparaison of string length in the main view ('large string' warning no longer has false positives)</li>
 </ul>
 
@@ -57,7 +57,7 @@
 <h3>Developer visible changes</h3>
 <ul>
     <li>The Json API no longer does any locale detection or fallbacks to French if the locale does not exist for the repo (Pascal)</li>
-    <li><strong>Experimental</strong> The searchrepo view can also be <a href="/showrepos/?json">output as json</a> for external dashboards (Pascal).</li>
+    <li><span class="expfeature">exp</span><strong>Experimental</strong> The searchrepo view can also be <a href="/showrepos/?json">output as json</a> for external dashboards (Pascal).</li>
 </ul>
 
 <h3>Other changes</h3>
@@ -89,7 +89,7 @@
 <h3>Other changes</h3>
 <ul>
     <li>New <a href="/showrepos">experimental view</a> to see the state of all locales per repo (Pascal)</li>
-    <li>CSS and HTML cleanups of views (flodolo)</li>
+    <li>CSS and HTML cleanups of views (flod)</li>
     <li>Links to source code sometimes were linking to the wrong repository (Pascal)</li>
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
 </ul>
@@ -99,7 +99,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes(Jesús)</li>
@@ -109,7 +109,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
     <li>We no longer highlight string matches in the entities column for the 'string' search type (Jesús).</li>
 </ul>
 
@@ -135,9 +135,9 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
-    <li><strong>New feature:</strong> If your string is abnormally long or short compared to the English source, there will be hint message below your translation saying 'String too large/long?' <em>(Jesús)</em></li>
-    <li>The accesskeys and channel comparizon features linked in the footer now work again <em>(pascal)</em></li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> If your string is abnormally long or short compared to the English source, there will be hint message below your translation saying 'String too large/long?' <em>(Jesús)</em></li>
+    <li>The accesskeys and channel comparison features linked in the footer now work again <em>(pascal)</em></li>
 </ul>
 
 <h3>Other changes</h3>
@@ -166,8 +166,8 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
-    <li><strong>New feature:</strong> typography hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> typography hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
     <li>Missing translated strings are marked as such instead of just having an empty cell.</li>
     <li>Repositories and search targets are now select boxes.</li>
     <li>Advanced regular expression search options are now separated from other search options.</li>
@@ -188,7 +188,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
     <li>The entity names in the first column now longer link to a search for the English file on mxr now that we have proper link support to the source file.</li>
     <li>Searches containing a slash (/) now have results.</li>
     <li>Manifest.properties files containing name and description od apps in the Gaia repo are now shown in search results.</li>
@@ -267,7 +267,7 @@
 <h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
     <li>Results are more accurate, specifically, identical strings between gecko apps are always shown.</li>
     <li>Ellipsis are shown with a gray background, thin spaces with a red background, thin spaces and non-breakable spaces have a tooltip to distinguish them (those changes are mostly helpers for French typography rules).</li>
 </ul>
@@ -284,7 +284,7 @@
 <h2 id="v1.4">Version 1.4 - 2012-09-04</h2>
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
+    <li><span class="newfeature">new</span><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
     <li>Strings in MXR searches are now truncated if they exceed MXR's field length limits, it prevents an MXR error message and usually gives good search results</li>
     <li>The second table of results was showing the translation in both columns, this regression is fixed.</li>
 </ul>

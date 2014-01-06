@@ -65,7 +65,7 @@ if (strpos(VERSION, 'dev') !== false) {
           $('#links-top').slideToggle(400, function(){
             if ($('#links-top').is(':visible')) {
               $('#links-top-button').attr('title', 'Hide Transvision Menu');
-              $('#links-top-button').css('background-position', '0 -45px');
+              $('#links-top-button').css('background-position', '0 -38px');
             } else {
               $('#links-top-button').attr('title', 'Display Transvision Menu');
               $('#links-top-button').css('background-position', '0 0');
@@ -80,7 +80,7 @@ if (strpos(VERSION, 'dev') !== false) {
   </head>
 <body id="<?=$page?>">
   <div id="links-top" class="links"><div class="container"><?=$links?></div></div>
-  <a id="links-top-button" href="" title="Display Transvision Menu"><span>menu</span></a>
+  <div id="links-top-button-container"><a href="" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a></div>
   <?php
   if ($beta_version) {
     echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
@@ -88,7 +88,7 @@ if (strpos(VERSION, 'dev') !== false) {
   ?>
   <h1><?=$title?></h1>
   <?php if($experimental == true): ?>
-  <h2 id="experimental" class="alert">experimental View</h2>
+  <h2 id="experimental" class="alert">Experimental View</h2>
   <?php endif; ?>
 
   <?php if($show_title == true): ?>

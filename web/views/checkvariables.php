@@ -78,7 +78,7 @@ $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
 
-$table = "<table><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
+$table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 
 foreach ($mismatch as $entity) {
 
@@ -104,14 +104,19 @@ foreach ($mismatch as $entity) {
     $complete_link = $bugzilla_link . '&short_desc=' . $bug_summary . '&comment=' . $bug_message;
 
     $table .= "<tr>
-                    <td>" . ShowResults::formatEntity($entity) . "</a></td>
+                    <td>
+                       <span class='celltitle'>Entity</span>
+                       <a class='linktoentity' href=\"/{$entity_link}\">" . ShowResults::formatEntity($entity) . "</a>
+                    </td>
                     <td dir='{$direction1}'>
+                       <span class='celltitle'>en-US</span>
                        <div class='string'>{$source[$entity]}</div>
                        <div class='infos'>
                         <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
                        </div>
                     </td>
                      <td dir='{$direction2}'>
+                       <span class='celltitle'>$locale</span>
                        <div class='string'>{$target[$entity]}</div>
                        <div class='infos'>
                         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>

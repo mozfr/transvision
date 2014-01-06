@@ -82,14 +82,14 @@ h1 {
     background-color: #FFFFFF;
     position: absolute;
     top: 0;
-    right: 0;
-    margin: 0;
-    padding: 5px 2em;
-    width: auto;
+    left: 50%;
+    padding: 5px 10px;
+    letter-spacing: 1px;
+    margin: 0 0 0 -80px;
+    width: 140px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 5px -5px #888;
-    margin-right: 5px;
 }
 
 h1 a, h1 a:visited {
@@ -143,6 +143,10 @@ h3 {
     width: 550px;
 }
 
+div#links-bottom {
+    margin-top: 1em;
+}
+
 .links h3 {
     padding: 0 0 6px 12px;
     margin: 0;
@@ -175,6 +179,11 @@ h3 {
     margin: 0 auto;
 }
 
+div#links-top-button-container {
+    width: 100%;
+    height: 36px;
+}
+
 a#links-top-button span {
     display: none;
 }
@@ -182,10 +191,10 @@ a#links-top-button span {
 a#links-top-button {
     clear: both;
     display: block;
-    position: relative;
-    margin: 0 auto;
-    width: 150px;
-    height: 45px;
+    float: right;
+    margin-right: 5px;
+    width: 125px;
+    height: 36px;
     background: url("/img/menu.png") top center no-repeat transparent;
 }
 
@@ -193,17 +202,6 @@ form[name="searchform"] {
     max-width: 1014px;
     margin: auto;
     text-align: center;
-}
-
-fieldset {
-    border: none;
-    display: inline;
-    min-height: 3em;
-    margin: 0;
-}
-
-fieldset {
-    margin-top: 0.5em;
 }
 
 .searchedTerm {
@@ -243,6 +241,10 @@ td, #stats th {
 
 #stats tr:first-child th {
     border: none;
+}
+
+span.celltitle {
+    display: none;
 }
 
 td a em, td em.error {
@@ -387,6 +389,16 @@ input[type=submit]:hover {
     transition: all 0.25s linear 0s;
 }
 
+/* Search form */
+
+fieldset {
+    border: none;
+    display: inline;
+    min-height: 3em;
+    margin: 0;
+    margin-top: 0.5em;
+}
+
 fieldset#main select {
     display: block;
     width: 110px;
@@ -426,11 +438,10 @@ fieldset#main #searchcontext span {
     font-weight: bold;
 }
 
-#root fieldset#main fieldset {
+fieldset#main fieldset {
     margin-bottom: 0.5em;
     vertical-align: top;
     min-height: 5em;
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 fieldset#main fieldset * {
@@ -453,23 +464,71 @@ fieldset#main fieldset label.default_option span {
     margin: 5px 0;
 }
 
+fieldset#fs_advanced {
+    width: 250px;
+    text-align: left;
+}
+
+fieldset#fs_advanced span {
+    white-space: nowrap;
+    font-size: 1em;
+    display: block;
+    float: left;
+    width: 110px;
+}
+
+
+/* Credits page */
+
+body#credits {
+    padding: 0 25px;
+}
+
 /* changelog page */
 
-h3, ul {
-    margin-left: auto;
-    margin-right: auto;
+body#changelog {
+    padding: 0 25px;
+}
+
+span.newfeature {
+    font-size: 0.6em;
+    display: block;
+    float: left;
+    color: #FFF;
+    background-color: #47AD07;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    margin: 2px 4px 0 0;
+    text-transform: uppercase;
+}
+
+span.expfeature {
+    font-size: 0.6em;
+    display: block;
+    float: left;
+    color: #FFF;
+    background-color: orange;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    margin: 2px 4px 0 0;
+    text-transform: uppercase;
+}
+
+body#changelog h3, body#changelog ul {
+    margin: 0;
+    width: 100%;
 }
 
 /* experimental */
 
 #experimental {
-    position: relative;
-    margin-right: 5px;
+    margin: 10px auto 0;
     top: 0;
     right: 0;
-    width: 180px;
+    width: 160px;
     height: 20px;
     font-size: 1em;
+    letter-spacing: 1px;
     text-align: center;
     padding: 5px 0;
 }
@@ -478,21 +537,6 @@ h3, ul {
     color:white;
     background-color: orange;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
-}
-
-#channelcomp #main {
-    display: block;
-    width: 500px;
-    margin: auto;
-}
-
-#channelcomp #main fieldset {
-    display: inline-block;
-}
-
-#channelcomp #main fieldset select {
-    display: block;
-    float: left;
 }
 
 #keys #main {
@@ -509,16 +553,21 @@ h3, ul {
 /* Gaia page */
 
 @media only screen and (max-width: 850px)  {
-    table, thead, tbody, td, tr {
+    table.collapsable,
+    table.collapsable thead,
+    table.collapsable tbody,
+    table.collapsable td,
+    table.collapsable tr {
         display: block;
         word-wrap: break-word;
+        padding: 0;
     }
 
-    table {
+    table.collapsable {
         position: relative;
     }
 
-    th {
+    table.collapsable th {
         display: none;
     }
 
@@ -531,14 +580,15 @@ h3, ul {
         width: 45%;
     }
 
-    td {
+    table.collapsable td {
         border: none;
         position: relative;
         clear: both;
         border-bottom: 1px solid #eee;
+        padding: 2px 6px;
     }
 
-    td:after {
+    table.collapsable td:after {
         position: absolute;
         top: 0px;
         right: 6px;
@@ -548,18 +598,33 @@ h3, ul {
         font-weight: bold;
     }
 
-    .string, td:nth-of-type(1) {
-        padding-right: 75px;
+    table.collapsable span.celltitle {
+        display: block;
+        float: left;
+        color: #000;
+        font-weight: bold;
+        padding: 2px 6px 2px 0;
+    }
+
+    table.collapsable a.linktoentity,
+    table.collapsable div.string,
+    table.collapsable div.infos {
+        margin-left: 0.5em;
+        clear: both;
+    }
+
+    table.collapsable td a.tag {
+        margin-top: 2px;
     }
 }
 
 @media only screen and (max-width: 640px) {
-    h1 {
-        padding: 5px 0.3em;
+    body {
+        font-size: 12px;
     }
 
-    #experimental {
-        padding: 5px 10px;
+    h2 {
+        font-size: 1.2em;
     }
 
     #current {
@@ -587,13 +652,45 @@ h3, ul {
 }
 
 @media only screen and (max-width: 460px) {
-    div#search input[type=submit] {
+    #current, h2 {
+        font-size: 1.1em;
+    }
+
+    a#links-top-button {
+        width: 100px;
+        background: url("/img/menus.png") top center no-repeat transparent;
+    }
+
+    div#search input[type=submit], input[type=submit] {
         display: block;
         margin: 10px auto;
     }
 
+    fieldset#main fieldset {
+        display: block;
+        background-color: transparent;
+        min-height: 0;
+        text-align: left;
+    }
+
+    fieldset#main fieldset > legend {
+        line-height: 1.1em;
+    }
+
+    fieldset#main fieldset label.default_option input, fieldset#main fieldset label.default_option span {
+        float: none;
+    }
+
+    fieldset#main select {
+        display: inline;
+    }
+
     h1 {
-        font-size: 1em;
+        padding: 5px;
+        font-size: 1.1em;
+        width: 80px;
+        letter-spacing: normal;
+        margin-left: -40px;
     }
 
     .links {
