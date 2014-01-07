@@ -51,6 +51,7 @@ if (strpos(VERSION, 'dev') !== false) {
   <head>
     <title><?php if($show_title == true){ echo $page_title . ' | '; } ?><?=$title_productname?></title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -60,7 +61,7 @@ if (strpos(VERSION, 'dev') !== false) {
         $('#links-top').hide();
 
         // Associate code to link to hide/display top menu
-        $('#links-top-button').click(function(e) {
+        $('.menu-button').click(function(e) {
           e.preventDefault();
           $('#links-top').slideToggle(400, function(){
             if ($('#links-top').is(':visible')) {
@@ -73,6 +74,18 @@ if (strpos(VERSION, 'dev') !== false) {
           });
         });
 
+        // Associate code to toggle search options on small screens
+        $('.toggle-searchoptions-link').click(function(e) {
+          e.preventDefault();
+          $('#searchoptions').slideToggle(400, function(){
+            if ($('#searchoptions').is(':visible')) {
+              $('.toggle-searchoptions-link').text('⇑ Hide search options ⇑');
+            } else {
+              $('.toggle-searchoptions-link').text('⇓ Display search options ⇓');
+            }
+          });
+        });
+
         //Focus on the search field
         $('#recherche').focus();
       });
@@ -80,7 +93,9 @@ if (strpos(VERSION, 'dev') !== false) {
   </head>
 <body id="<?=$page?>">
   <div id="links-top" class="links"><div class="container"><?=$links?></div></div>
-  <div id="links-top-button-container"><a href="" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a></div>
+  <div id="links-top-button-container">
+    <a href="" class="menu-button" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a>
+  </div>
   <?php
   if ($beta_version) {
     echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";

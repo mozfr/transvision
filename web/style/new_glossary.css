@@ -198,10 +198,14 @@ a#links-top-button {
     background: url("/img/menu.png") top center no-repeat transparent;
 }
 
-form[name="searchform"] {
+form#searchform {
     max-width: 1014px;
-    margin: auto;
+    margin: 10px auto;
     text-align: center;
+}
+
+p.smallscreen_notices {
+    display: none;
 }
 
 .searchedTerm {
@@ -478,16 +482,24 @@ fieldset#fs_advanced span {
 }
 
 
-/* Credits page */
+/* Credits and changelog page */
 
-body#credits {
-    padding: 0 25px;
+body#credits div#pagecontent, body#changelog div#pagecontent {
+    margin: 0 10px;
+    width: 85%;
 }
 
-/* changelog page */
+body#credits ul {
+    padding-left: 15px;
+}
 
-body#changelog {
-    padding: 0 25px;
+body#changelog ul {
+    padding-left: 15px;
+}
+
+body#changelog h3, body#changelog ul {
+    margin: 0;
+    width: 100%;
 }
 
 span.newfeature {
@@ -514,11 +526,6 @@ span.expfeature {
     text-transform: uppercase;
 }
 
-body#changelog h3, body#changelog ul {
-    margin: 0;
-    width: 100%;
-}
-
 /* experimental */
 
 #experimental {
@@ -539,18 +546,16 @@ body#changelog h3, body#changelog ul {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
-#keys #main {
+form#simplesearchform {
     display: block;
-    width: 380px;
-    margin: auto;
+    margin: 10px auto;
+    text-align: center;
 }
 
 /* Downloads Table */
 #DownloadsTable a {
     color: gray;
 }
-
-/* Gaia page */
 
 @media only screen and (max-width: 850px)  {
     table.collapsable,
@@ -561,10 +566,6 @@ body#changelog h3, body#changelog ul {
         display: block;
         word-wrap: break-word;
         padding: 0;
-    }
-
-    table.collapsable {
-        position: relative;
     }
 
     table.collapsable th {
@@ -582,17 +583,11 @@ body#changelog h3, body#changelog ul {
 
     table.collapsable td {
         border: none;
-        position: relative;
         clear: both;
-        border-bottom: 1px solid #eee;
-        padding: 2px 6px;
+        padding: 6px;
     }
 
     table.collapsable td:after {
-        position: absolute;
-        top: 0px;
-        right: 6px;
-        white-space: nowrap;
         color: #e1e1e1;
         font-size: 23px;
         font-weight: bold;
@@ -611,6 +606,7 @@ body#changelog h3, body#changelog ul {
     table.collapsable div.infos {
         margin-left: 0.5em;
         clear: both;
+        width: 100%;
     }
 
     table.collapsable td a.tag {
@@ -659,6 +655,20 @@ body#changelog h3, body#changelog ul {
     a#links-top-button {
         width: 100px;
         background: url("/img/menus.png") top center no-repeat transparent;
+    }
+
+    table.collapsable td a.tag {
+        margin: 2px 8px 0 0;
+        padding: 0.2em 1em;
+        font-size: 0.8em;
+    }
+
+    td div.infos a {
+        margin-left: 8px;
+    }
+
+    td div.infos a.source_link {
+        margin-left: 0;
     }
 
     div#search input[type=submit], input[type=submit] {
@@ -719,5 +729,24 @@ body#changelog h3, body#changelog ul {
         width: 100%;
         float: none;
         text-align: center;
+    }
+
+    /* Hide footer links */
+    #links-bottom {
+        display: none;
+    }
+
+    /* Hide search options */
+    div#searchoptions {
+        display: none;
+    }
+
+    p.smallscreen_notices {
+        display: block;
+        font-size: 0.8em;
+    }
+
+    p#displaysearchoptions {
+        font-weight: bold;
     }
 }

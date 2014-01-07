@@ -45,7 +45,7 @@ foreach ($loc_list as $loc) {
 $temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $temp = array_diff($temp, $strings[$chan2]);
 ?>
-  <form name="searchform" method="get" action="">
+  <form id ="searchform" name="searchform" method="get" action="">
         <fieldset id="main">
 
             <fieldset>

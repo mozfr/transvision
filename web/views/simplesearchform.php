@@ -1,5 +1,5 @@
 
-<form name="searchform" method="get" action="">
+<form name="searchform" id="simplesearchform" method="get" action="">
     <fieldset id="main">
 
         <?php if (isset($target_locales_list)) : ?>
