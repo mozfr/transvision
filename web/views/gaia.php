@@ -21,11 +21,11 @@ $get_repo_strings = function($locale, $repo) {
 
 $strings = [
     'gaia'           => $get_repo_strings($locale, 'gaia'),
-    'gaia_1_1'       => $get_repo_strings($locale, 'gaia_1_1'),
     'gaia_1_2'       => $get_repo_strings($locale, 'gaia_1_2'),
+    'gaia_1_3'       => $get_repo_strings($locale, 'gaia_1_3'),
     'gaia-en-US'     => $get_repo_strings('en-US', 'gaia'),
-    'gaia_1_1-en-US' => $get_repo_strings('en-US', 'gaia_1_1'),
     'gaia_1_2-en-US' => $get_repo_strings('en-US', 'gaia_1_2'),
+    'gaia_1_3-en-US' => $get_repo_strings('en-US', 'gaia_1_3'),
 ];
 
 // Get the locale list
@@ -44,8 +44,8 @@ include __DIR__ . '/simplesearchform.php';
 
 $status = [
     ['Gaia l10n', count($strings['gaia']), count($strings['gaia-en-US'])],
-    ['Gaia 1.1',  count($strings['gaia_1_1']), count($strings['gaia_1_1-en-US'])],
     ['Gaia 1.2',  count($strings['gaia_1_2']), count($strings['gaia_1_2-en-US'])],
+    ['Gaia 1.3',  count($strings['gaia_1_3']), count($strings['gaia_1_3-en-US'])],
 ];
 
 $table = function($title, $columns, $rows, $anchor) {
@@ -78,25 +78,25 @@ print $table('How many strings are translated?', ['repo', $locale, 'en-US'], $st
 $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($locale) {
 
     $english_gaia_keys    = array_fill_keys(array_keys($strings['gaia-en-US']), '');
-    $english_gaia1_1_keys = array_fill_keys(array_keys($strings['gaia_1_1-en-US']), '');
     $english_gaia1_2_keys = array_fill_keys(array_keys($strings['gaia_1_2-en-US']), '');
+    $english_gaia1_3_keys = array_fill_keys(array_keys($strings['gaia_1_3-en-US']), '');
 
     $normalized_gaia_locale    = array_merge($english_gaia_keys, $strings['gaia']);
-    $normalized_gaia1_1_locale = array_merge($english_gaia1_1_keys, $strings['gaia_1_1']);
     $normalized_gaia1_2_locale = array_merge($english_gaia1_2_keys, $strings['gaia_1_2']);
+    $normalized_gaia1_3_locale = array_merge($english_gaia1_3_keys, $strings['gaia_1_3']);
 
     $common_strings = array_intersect_key(
-        $normalized_gaia1_2_locale,
+        $normalized_gaia1_3_locale,
         $normalized_gaia_locale,
-        $normalized_gaia1_1_locale
+        $normalized_gaia1_2_locale
     );
 
     $divergences = [];
     foreach ($common_strings as $k => $v) {
         $temp = [
             $normalized_gaia_locale[$k],
-            $normalized_gaia1_1_locale[$k],
-            $normalized_gaia1_2_locale[$k]
+            $normalized_gaia1_2_locale[$k],
+            $normalized_gaia1_3_locale[$k]
         ];
 
         // remove blanks
@@ -128,8 +128,8 @@ $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($
         $table .= '<tr>'
                 . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>'
                 . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia_locale[$v], $locale) . '</div></td>'
-                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_1_locale[$v], $locale) . '</div></td>'
-                . '<td><span class="celltitle">' . $column_titles[3] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_2_locale[$v], $locale) . '</div></td>'
+                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_2_locale[$v], $locale) . '</div></td>'
+                . '<td><span class="celltitle">' . $column_titles[3] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_3_locale[$v], $locale) . '</div></td>'
                 . '</tr>';
     }
 
@@ -142,33 +142,33 @@ print $table_5_col(
     'diverging translations across repositories',
     ['Key',
      $repos_nice_names['gaia'],
-     $repos_nice_names['gaia_1_1'],
-     $repos_nice_names['gaia_1_2']
+     $repos_nice_names['gaia_1_2'],
+     $repos_nice_names['gaia_1_3']
      ],
     $strings,
     'differences'
 );
 
-$common_keys = array_intersect_key($strings['gaia_1_1-en-US'],$strings['gaia_1_2-en-US']);
+$common_keys = array_intersect_key($strings['gaia_1_2-en-US'],$strings['gaia_1_3-en-US']);
 
 $table = '<table id="englishchanges" class="collapsable">'
        . '<tr>'
-       . '<th colspan="3">Strings that have changed significantly in English between Gaia 1.1 and 1.2 but for which the entity name didn\'t change</th>'
+       . '<th colspan="3">Strings that have changed significantly in English between Gaia 1.2 and 1.3 but for which the entity name didn\'t change</th>'
        . '</tr>'
        . '<tr>'
        . '<th>Key</th>'
-       . '<th>Gaia 1.1</th>'
        . '<th>Gaia 1.2</th>'
+       . '<th>Gaia 1.3</th>'
        . '</tr>';
 
 
 foreach($common_keys as $key =>$val) {
-    if (trim(strtolower($strings['gaia_1_1-en-US'][$key])) != trim(strtolower($strings['gaia_1_2-en-US'][$key]))) {
+    if (trim(strtolower($strings['gaia_1_2-en-US'][$key])) != trim(strtolower($strings['gaia_1_3-en-US'][$key]))) {
             $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
-            . '<td><span class="celltitle">Gaia 1.1</span><div class="string">' . ShowResults::highlight($strings['gaia_1_1-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_1'][$key] . '</small></div></td>'
             . '<td><span class="celltitle">Gaia 1.2</span><div class="string">' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_2'][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia 1.3</span><div class="string">' . ShowResults::highlight($strings['gaia_1_3-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_3'][$key] . '</small></div></td>'
             . '</tr>';
     }
 }
@@ -212,7 +212,7 @@ $table_3_col = function($table_title, $column_titles, $strings, $anchor, $csscla
 
 
 print $table_3_col(
-    'strings added to Gaia 1.2',
+    'strings added to Gaia 1.3',
     ['Key', 'en-US', $locale],
     $strings,
     'newstrings',
