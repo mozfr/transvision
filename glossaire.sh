@@ -226,6 +226,10 @@ else
     nice -20 python bugzilla_query.py
 fi
 
+# Generate productization data
+cd $install
+echogreen "Extracting p12n data"
+nice -20 python p12n_extract.py
 
 # Update L20N test repo
 if $checkrepo
