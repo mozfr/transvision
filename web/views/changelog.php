@@ -4,7 +4,7 @@
 <ul>
     <li><span class="newfeature">new</span><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
     <li><span class="newfeature">new</span><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
-    <li><span class="newfeature">new</span><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code>code> link next to the entity name (pascal)</li>
+    <li><span class="newfeature">new</span><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code> link next to the entity name (pascal)</li>
     <li>On the <a href="/gaia/#englishchanges">Gaia comparison</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change (pascal)</li>
     <li>When searching for entities, there is a 'search a bug' link below results just like for searching for strings (flod) as well as a permalink (pascal)</li>
     <li>Each view now has a one line description of what it does at the top (Jesus)</li>
@@ -16,7 +16,7 @@
 <h3>Developer visible changes</h3>
 <ul>
     <li>Added Kint debugging library in development mode (pascal)</li>
-    <li>Coding guidelines roughly formalized as following PSR recommandations and <a href="https://github.com/mozfr/transvision/wiki/Code-conventions">documented on wiki</a> (pascal)</li>
+    <li>Coding guidelines roughly formalized as following PSR recommendations and <a href="https://github.com/mozfr/transvision/wiki/Code-conventions">documented on wiki</a> (pascal)</li>
     <li>The new view showing all strings for a translation also <a href="/string/?entity=apps/homescreen/homescreen.properties:evme-searchbar-default.placeholder&repo=gaia&json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service</li>
     <li>Various code cleanups (pascal)</li>
 </ul>
@@ -32,7 +32,7 @@
 <ul>
     <li>Two new repos are added for searches: Gaia 1.1 and Gaia 1.2 (Pascal)</li>
     <li><span class="expfeature">exp</span>New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
-    <li>More accurate comparaison of string length in the main view ('large string' warning no longer has false positives)</li>
+    <li>More accurate comparison of string length in the main view ('large string' warning no longer has false positives)</li>
 </ul>
 
 <h3>Other changes</h3>
@@ -51,7 +51,7 @@
 <ul>
     <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (Francesco) </li>
     <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="/?repo=central&sourcelocale=en-US&locale=en-US&search_type=strings&recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (Francesco)</li>
-    <li>Fix bugzilla links to file a bug in the right Bugzila component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr vs sr-Cyrl/Latn&hellip;) (Pascal)</li>
+    <li>Fix Bugzilla links to file a bug in the right Bugzilla component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr vs sr-Cyrl/Latn&hellip;) (Pascal)</li>
 </ul>
 
 <h3>Developer visible changes</h3>
@@ -71,7 +71,7 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>The repository select box is now located on the far left of the search page. Switching repositories now dynamically updates the select boxes for locales with the right locales (Jesús)</li>
-    <li>The TMX download page lists downloads per channel more accurately and takes Gaia specific language code (<var>es</var> for common spanish for example) into account (Jesús)</li>
+    <li>The TMX download page lists downloads per channel more accurately and takes Gaia specific language code (<var>es</var> for common Spanish for example) into account (Jesús)</li>
     <li>Gaia locales update: (Pascal)
         <ul>
             <li>Added ast, bg, bn-IN, da, gu, hr, km, ne-NP, pa, si, sk, sr-Cyrl, th, ur, vi.</li>
@@ -101,7 +101,7 @@
     <li><span class="newfeature">new</span><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
-    <li>CSS fixes(Jesús)</li>
+    <li>CSS fixes (Jesús)</li>
 </ul>
 
 <h2 class="relnumber" id="v2.5"><a href="#v2.5">Version 2.5 <span class="reldate">2013-04-18</span></a></h2>
@@ -174,7 +174,7 @@
     <li>Glossary search is now a separate view linked in the footer.</li>
     <li>Improved highlighting of search results.</li>
     <li>Fixed some bugs on "perfect match" searches.</li>
-    <li>Search results now limited to 200 results to avoid hanging the browser if we send back megabytesof data.</li>
+    <li>Search results now limited to 200 results to avoid hanging the browser if we send back megabytes of data.</li>
     <li>Added Aragonese</li>
 </ul>
 
@@ -191,7 +191,7 @@
     <li><span class="newfeature">new</span><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
     <li>The entity names in the first column now longer link to a search for the English file on mxr now that we have proper link support to the source file.</li>
     <li>Searches containing a slash (/) now have results.</li>
-    <li>Manifest.properties files containing name and description od apps in the Gaia repo are now shown in search results.</li>
+    <li>Manifest.properties files containing name and description of apps in the Gaia repo are now shown in search results.</li>
     <li>A regression on the Glossary search is fixed, it is now again yielding results.</li>
 </ul>
 
@@ -214,7 +214,7 @@
 <ul>
     <li>PHP: Monolog library updated to 1.3.0</li>
     <li>Python: Silme library updated to 0.8.1</li>
-    <li>fixed an error in Setup shell script</li>
+    <li>Fixed an error in Setup shell script</li>
     <li>Move classes to a Transvision namespace</li>
 </ul>
 
@@ -241,14 +241,14 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a redish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
+    <li><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a reddish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
     <li>Access keys are now part of search results</li>
     <li>Experimental views are now linked in the footer of the site</li>
 </ul>
 <h3>Developer visible changes</h3>
 <ul>
     <li>Fixed a regression on the JSON api results (double quotes no longer escaped and breaking JSON format).</li>
-    <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the  application/javascript Mime type.</li>
+    <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the application/javascript Mime type.</li>
 </ul>
 
 <h2 class="relnumber" id="v1.6"><a href="#v1.6">Version 1.6 <span class="reldate">2012-10-18</span></a></h2>
@@ -305,9 +305,9 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now also in results</li>
-    <li>Non-breakable spaces are shown with a gray background in search results, this is useful for languages like French that have punctuation rules stating that some puntuation signs (?!;«») should stick to the previous word but with a spacing.</li>
+    <li>Non-breakable spaces are shown with a gray background in search results, this is useful for languages like French that have punctuation rules stating that some punctuation signs (?!;«») should stick to the previous word but with a spacing.</li>
     <li>Entity search was not searching into all available entities (only about 60% of them), fixed</li>
-    <li>Experimental: link English strings to a google translate search</li>
+    <li>Experimental: link English strings to a Google translate search</li>
     <li>Visual update of search results</li>
 </ul>
 
@@ -321,14 +321,14 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches for strings with single and double quotes work ex: <a href="/?locale=fr&amp;repo=release&amp;recherche=Don't">Search for « Don't »</a></li>
-    <li>The <em>Glossary</em> option now yields results that make sense, when you select it all other checkboxes are unselected, ex: <a href="/?locale=fr&amp;repo=release&amp;t2t=t2t&amp;recherche=bookmarks">Search for « Bookmarks »</a>. <br/>That option looks for the closest matches for your locale for a word or a few workd and lists them all. It also lists examples of use. The main use for that is to quickly check how a word is usually translated by your team.</li>
+    <li>The <em>Glossary</em> option now yields results that make sense, when you select it all other checkboxes are unselected, ex: <a href="/?locale=fr&amp;repo=release&amp;t2t=t2t&amp;recherche=bookmarks">Search for « Bookmarks »</a>. <br/>That option looks for the closest matches for your locale for a word or a few words and lists them all. It also lists examples of use. The main use for that is to quickly check how a word is usually translated by your team.</li>
     <li><em>Perfect Match</em> option now actually works</li>
     <li>Changelog page uses the same template as the application</li>
 </ul>
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li>json webservice is now available from a normal search if you add <code>&amp;json</code> to your search query (webservice.php is still available so as to not break API consumers, please udate your script to use <code>index.php?json</code> instead. ex: <a href="/?locale=fr&amp;repo=release&amp;recherche=Don't&amp;json">Search for « Don't »</a></li>
+    <li>json webservice is now available from a normal search if you add <code>&amp;json</code> to your search query (webservice.php is still available so as to not break API consumers, please update your script to use <code>index.php?json</code> instead. ex: <a href="/?locale=fr&amp;repo=release&amp;recherche=Don't&amp;json">Search for « Don't »</a></li>
 </ul>
 
 <h3>Other changes</h3>
@@ -345,7 +345,7 @@
     <li>removed oc, mn locales</li>
     <li>results for rtl locales are now correctly aligned</li>
     <li>added locale detection to populate the default locale on home page</li>
-    <li>Radio buttons are now clickable</li>
+    <li>radio buttons are now clickable</li>
     <li>cleaned up template to hopefully look better and be more readable</li>
 </ul>
 
