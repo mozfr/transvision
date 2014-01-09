@@ -97,7 +97,7 @@ h1 a, h1 a:visited {
 }
 
 h2 {
-    width: 90%;
+    width: 80%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     padding: 15px 0;
 }
@@ -110,7 +110,7 @@ h2 {
 }
 
 h3 {
-    width: 90%;
+    width: 80%;
     padding: 15px 0;
     text-align:center;
     font-size: 18px;
@@ -481,12 +481,11 @@ fieldset#fs_advanced span {
     width: 110px;
 }
 
-
 /* Credits and changelog page */
 
 body#credits div#pagecontent, body#changelog div#pagecontent {
-    margin: 0 10px;
-    width: 85%;
+    margin: 30px auto;
+    width: 80%;
 }
 
 body#credits ul {
@@ -500,6 +499,49 @@ body#changelog ul {
 body#changelog h3, body#changelog ul {
     margin: 0;
     width: 100%;
+}
+
+body#changelog h3 {
+    padding: 10px 0 5px;
+    margin: 0;
+}
+
+body#changelog h3#descr-page {
+    display: none;
+}
+
+h2.relnumber a:hover {
+    text-decoration: none;
+}
+
+h2.relnumber:target a {
+    color: #F00;
+}
+
+h2.relnumber {
+    margin: 60px auto 0;
+    padding: 0 0 5px;
+    border-bottom: none;
+}
+
+h2.relnumber:nth-of-type(1) {
+    margin-top: 10px;
+}
+
+h2.relnumber:target span.reldate {
+    background: #F73434;
+}
+
+span.reldate {
+    display: block;
+    width: 80px;
+    background: #30A4DB;
+    color: white;
+    padding: 8px;
+    font-size: 0.6em;
+    margin: 4px auto;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
 }
 
 span.newfeature {

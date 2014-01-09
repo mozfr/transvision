@@ -1,4 +1,4 @@
-<h2 id="v3.0">Version 3.0 - 2013-12-18</h2>
+<h2 class="relnumber" id="v3.0"><a href="#v3.0">Version 3.0 <span class="reldate">2013-12-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -26,7 +26,7 @@
     <li>Page load performance with the use of cached reduced json data from Bugzilla (flod)</li>
 </ul>
 
-<h2 id="v2.9">Version 2.9 - 2013-10-26</h2>
+<h2 class="relnumber" id="v2.9"><a href="#v2.9">Version 2.9 <span class="reldate">2013-10-26</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -45,7 +45,7 @@
 
 </ul>
 
-<h2 id="v2.8">Version 2.8 - 2013-08-09</h2>
+<h2 class="relnumber" id="v2.8"><a href="#v2.8">Version 2.8 <span class="reldate">2013-08-09</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -66,7 +66,7 @@
     <li>Server changes to pull from <var>hg default</var> instead of <var>hg tip</var> for automatic updates, fixes various result pages problems (flod)</li>
 </ul>
 
-<h2 id="v2.7">Version 2.7 - 2013-07-05</h2>
+<h2 class="relnumber" id="v2.7"><a href="#v2.7">Version 2.7 <span class="reldate">2013-07-05</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -94,8 +94,7 @@
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
 </ul>
 
-</ul>
-<h2 id="v2.6">Version 2.6 - 2013-06-14</h2>
+<h2 class="relnumber" id="v2.6"><a href="#v2.6">Version 2.6 <span class="reldate">2013-06-14</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -105,7 +104,7 @@
     <li>CSS fixes(Jesús)</li>
 </ul>
 
-<h2 id="v2.5">Version 2.5 - 2013-04-18</h2>
+<h2 class="relnumber" id="v2.5"><a href="#v2.5">Version 2.5 <span class="reldate">2013-04-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -124,14 +123,15 @@
     <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard (Goofy and Pascal).</li>
     <li>Update to track the recent <var>webapprt</var> folder move.</li>
 </ul>
-<h2 id="v2.4">Version 2.4 - 2013-04-10</h2>
+
+<h2 class="relnumber" id="v2.4"><a href="#v2.4">Version 2.4 <span class="reldate">2013-04-10</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New feature:</strong> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
 </ul>
 
-<h2 id="v2.3">Version 2.3 - 2013-03-22</h2>
+<h2 class="relnumber" id="v2.3"><a href="#v2.3">Version 2.3 <span class="reldate">2013-03-22</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -147,7 +147,7 @@
     <li>Bug fixes, code cleanups.</li>
 </ul>
 
-<h2 id="v2.2">Version 2.2 - 2013-02-28</h2>
+<h2 class="relnumber" id="v2.2"><a href="#v2.2">Version 2.2 <span class="reldate">2013-02-28</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -162,7 +162,7 @@
     <li>Stats page now lists type of string searches and repos. All stats reset to zero.</li>
 </ul>
 
-<h2 id="v2.1">Version 2.1 - 2013-01-30</h2>
+<h2 class="relnumber" id="v2.1"><a href="#v2.1">Version 2.1 <span class="reldate">2013-01-30</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -184,7 +184,7 @@
     <li>Added a counter for the use of search options to check if some options are unused and could be removed.</li>
 </ul>
 
-<h2 id="v2.0">Version 2.0 - 2013-01-18</h2>
+<h2 class="relnumber" id="v2.0"><a href="#v2.0">Version 2.0 <span class="reldate">2013-01-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -201,7 +201,7 @@
     <li>The <a href="/stats/">statistics page</a> view added last week now sorts locales per number of requests and gives totals of searches and locales.</li>
 </ul>
 
-<h2 id="v1.9">Version 1.9 - 2013-01-11</h2>
+<h2 class="relnumber" id="v1.9"><a href="#v1.9">Version 1.9 <span class="reldate">2013-01-11</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -223,7 +223,7 @@
     <li>New short <a href="/stats/">statistics page</a> showing which locales use Transvision</li>
 </ul>
 
-<h2 id="v1.8">Version 1.8 - 2013-01-04</h2>
+<h2 class="relnumber" id="v1.8"><a href="#v1.8">Version 1.8 <span class="reldate">2013-01-04</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -237,7 +237,8 @@
     <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually do use Transvision)</li>
 </ul>
 
-<h2 id="v1.7">Version 1.7 - 2012-10-24</h2>
+<h2 class="relnumber" id="v1.7"><a href="#v1.7">Version 1.7 <span class="reldate">2012-10-24</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a redish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
@@ -249,7 +250,9 @@
     <li>Fixed a regression on the JSON api results (double quotes no longer escaped and breaking JSON format).</li>
     <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the  application/javascript Mime type.</li>
 </ul>
-<h2 id="v1.6">Version 1.6 - 2012-10-18</h2>
+
+<h2 class="relnumber" id="v1.6"><a href="#v1.6">Version 1.6 <span class="reldate">2012-10-18</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparison/">Channel to Channel differences</a></li>
@@ -264,7 +267,8 @@
     <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparison page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
 </ul>
 
-<h2 id="v1.5">Version 1.5 - 2012-10-02</h2>
+<h2 class="relnumber" id="v1.5"><a href="#v1.5">Version 1.5 <span class="reldate">2012-10-02</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li><span class="newfeature">new</span><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
@@ -281,7 +285,9 @@
     <li>Set up a basic url front controller to be able to use the new PHP 5.4 integrated web server for development and also installed the Atoum Unit Test framework.</li>
     <li>Now with the MozFR favicon :)</li>
 </ul>
-<h2 id="v1.4">Version 1.4 - 2012-09-04</h2>
+
+<h2 class="relnumber" id="v1.4"><a href="#v1.4">Version 1.4 <span class="reldate">2012-09-04</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li><span class="newfeature">new</span><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
@@ -294,7 +300,8 @@
     <li>The cron job updating the repositories on MozFR server was not behaving correctly and repos were not updated in the last week, this is now fixed</li>
 </ul>
 
-<h2 id="v1.3">Version 1.3 - 2012-08-17</h2>
+<h2 class="relnumber" id="v1.3"><a href="#v1.3">Version 1.3 <span class="reldate">2012-08-17</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now also in results</li>
@@ -309,7 +316,8 @@
     <li>The suite/debugQA strings in English are no longer extracted  because they are not meant to be translated (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=782243">bug 782243</a>)</li>
 </ul>
 
-<h2 id="v1.2">Version 1.2 - 2012-08-10</h2>
+<h2 class="relnumber" id="v1.2"><a href="#v1.2">Version 1.2 <span class="reldate">2012-08-10</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches for strings with single and double quotes work ex: <a href="/?locale=fr&amp;repo=release&amp;recherche=Don't">Search for « Don't »</a></li>
@@ -329,7 +337,8 @@
     <li>Overall simplification of the PHP code to remove dead code</li>
 </ul>
 
-<h2 id="v1.1">Version 1.1 - 2012-08-01</h2>
+<h2 class="relnumber" id="v1.1"><a href="#v1.1">Version 1.1 <span class="reldate">2012-08-01</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li>added ach, ff, lij, my, wo locales</li>
@@ -351,7 +360,8 @@
     <li>Lots of code clean ups and simplifications</li>
 </ul>
 
-<h2 id="v1.0">Version 1.0 - 2012-07-27</h2>
+<h2 class="relnumber" id="v1.0"><a href="#v1.0">Version 1.0 <span class="reldate">2012-07-27</span></a></h2>
+
 <ul>
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>
     <li>New URL is <a href="http://transvision.mozfr.org">http://transvision.mozfr.org</a></li>
