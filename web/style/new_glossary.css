@@ -1,3 +1,5 @@
+/* Fonts */
+
 @font-face {
     font-family: "Open Sans";
     font-style: normal;
@@ -19,13 +21,15 @@
     src: url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight") format("svg");
 }
 
+/* General structure */
+
 html {
     min-height: 100%;
 }
 
 body {
     color: #333333;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 1.5;
     margin: 0 auto;
@@ -41,21 +45,8 @@ body {
     min-width: 320px;
 }
 
-div#beta-badge {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    top: 0;
-    left: 0;
-    background: url("/img/beta_ribbon.png") top left no-repeat transparent;
-}
-
 div#pagecontent {
     padding: 0 5px;
-}
-
-div#beta-badge span {
-    display: none;
 }
 
 a, a:visited {
@@ -68,8 +59,23 @@ a:hover, a.select {
     text-decoration: underline;
 }
 
-h1, h2, #current, .links {
-    font-family: 'Open Sans Light',sans-serif;
+div#beta-badge {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 0;
+    left: 0;
+    background: url("/img/beta_ribbon.png") top left no-repeat transparent;
+}
+
+div#beta-badge span {
+    display: none;
+}
+
+/* Titles */
+
+h1, h2, #current {
+    font-family: 'Open Sans Light', sans-serif;
     color: #333333;
     font-size: 1.4em;
     text-align: center;
@@ -102,18 +108,19 @@ h2 {
     padding: 15px 0;
 }
 
+h3 {
+    width: 80%;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 auto;
+}
+
 #title-page {
     border-bottom: none;
     font-size: 1.8em;
     font-weight: normal;
     padding-bottom: 0;
-}
-
-h3 {
-    width: 80%;
-    padding: 15px 0;
-    text-align:center;
-    font-size: 18px;
 }
 
 #descr-page{
@@ -136,15 +143,15 @@ h3 {
     color: orange;
 }
 
+/* Top and bottom links */
+
 .links {
+    clear: both;
+    font-family: 'Open Sans Light', sans-serif;
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
     width: 550px;
-}
-
-div#links-bottom {
-    margin-top: 1em;
 }
 
 .links h3 {
@@ -198,21 +205,11 @@ a#links-top-button {
     background: url("/img/menu.png") top center no-repeat transparent;
 }
 
-form#searchform {
-    max-width: 1014px;
-    margin: 10px auto;
-    text-align: center;
+div#links-bottom {
+    margin-top: 1em;
 }
 
-p.smallscreen_notices {
-    display: none;
-}
-
-.searchedTerm {
-    font-style: italic;
-    opacity: 0.8;
-    font-variant: normal;
-}
+/* Tables */
 
 table {
     border-collapse: collapse;
@@ -310,7 +307,7 @@ td div.infos a.bug_link {
     color: #404D6C;
 }
 
-footer {
+div#footer {
     font-style: italic;
     text-align: center;
     font-family: serif;
@@ -359,6 +356,24 @@ table tr td:first-child {
     font-size: 80%;
 }
 
+/* Search form */
+
+form#searchform {
+    max-width: 1014px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+p.smallscreen_notices {
+    display: none;
+}
+
+.searchedTerm {
+    font-style: italic;
+    opacity: 0.8;
+    font-variant: normal;
+}
+
 input[type=submit] {
     background-color: #277AC1;
     background-image: linear-gradient(#43A6E2, #277AC1);
@@ -369,7 +384,6 @@ input[type=submit] {
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block;
-    font-family: 'Open Sans',sans-serif;
     font-weight: bold;
     line-height: 1.1;
     margin-top: 31px;
@@ -392,8 +406,6 @@ input[type=submit]:hover {
     text-decoration: none;
     transition: all 0.25s linear 0s;
 }
-
-/* Search form */
 
 fieldset {
     border: none;
@@ -424,7 +436,6 @@ fieldset#main #search input[type=text] {
     border-style: solid;
     border-width: 1px;
     box-shadow: 0 1px rgba(255, 255, 255, 0.5);
-    font-family: 'Open Sans',sans-serif;
     font-size: 12px;
     height: 20px;
     padding: 5px 7px;
@@ -479,6 +490,12 @@ fieldset#fs_advanced span {
     display: block;
     float: left;
     width: 110px;
+}
+
+form#simplesearchform {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
 }
 
 /* Credits and changelog page */
@@ -568,7 +585,7 @@ span.expfeature {
     text-transform: uppercase;
 }
 
-/* experimental */
+/* Experimental view */
 
 #experimental {
     margin: 10px auto 0;
@@ -588,16 +605,13 @@ span.expfeature {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
-form#simplesearchform {
-    display: block;
-    margin: 10px auto;
-    text-align: center;
-}
-
 /* Downloads Table */
+
 #DownloadsTable a {
     color: gray;
 }
+
+/* Responsive */
 
 @media only screen and (max-width: 850px)  {
     table.collapsable,
@@ -690,13 +704,58 @@ form#simplesearchform {
 }
 
 @media only screen and (max-width: 460px) {
+    h1 {
+        padding: 5px;
+        font-size: 1.1em;
+        width: 80px;
+        letter-spacing: normal;
+        margin-left: -40px;
+    }
+
     #current, h2 {
         font-size: 1.1em;
+    }
+
+    div#footer {
+        font-size: 0.8em;
     }
 
     a#links-top-button {
         width: 100px;
         background: url("/img/menus.png") top center no-repeat transparent;
+    }
+
+    .links {
+        font-size: 1em;
+        width: 100%;
+    }
+
+    #links-top .container {
+        width: 100%;
+    }
+
+    .links ul {
+        padding: 0;
+        width: 100%;
+    }
+
+    .links h3 {
+        text-align: center;
+        font-size: 1.2em;
+        margin: 1em 0 0.5em;
+        padding: 0;
+        width: 100%;
+    }
+
+    .linkscolumn {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+
+    /* Hide footer links */
+    #links-bottom {
+        display: none;
     }
 
     table.collapsable td a.tag {
@@ -735,47 +794,6 @@ form#simplesearchform {
 
     fieldset#main select {
         display: inline;
-    }
-
-    h1 {
-        padding: 5px;
-        font-size: 1.1em;
-        width: 80px;
-        letter-spacing: normal;
-        margin-left: -40px;
-    }
-
-    .links {
-        font-size: 1em;
-        width: 100%;
-    }
-
-    #links-top .container {
-        width: 100%;
-    }
-
-    .links ul {
-        padding: 0;
-        width: 100%;
-    }
-
-    .links h3 {
-        text-align: center;
-        font-size: 1.2em;
-        margin: 1em 0 0.5em;
-        padding: 0;
-        width: 100%;
-    }
-
-    .linkscolumn {
-        width: 100%;
-        float: none;
-        text-align: center;
-    }
-
-    /* Hide footer links */
-    #links-bottom {
-        display: none;
     }
 
     /* Hide search options */

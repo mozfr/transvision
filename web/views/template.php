@@ -117,7 +117,7 @@ if (strpos(VERSION, 'dev') !== false) {
   </div>
 
   <div id="links-bottom" class="links"><?=$links?></div>
-  <footer>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</footer>
+  <div id="footer">Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</div>
 
 </body>
 </html>
