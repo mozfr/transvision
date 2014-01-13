@@ -585,6 +585,109 @@ span.expfeature {
     text-transform: uppercase;
 }
 
+/* Productization page */
+
+body#productization div#pagecontent {
+    margin: 20px auto;
+    width: 95%;
+}
+
+body#productization div#links-bottom {
+    padding-top: 60px;
+}
+
+body#productization div.product h3 {
+    clear: both;
+    padding-top: 36px;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+body#productization div.product {
+    width: 824px;
+    margin: 0 auto;
+}
+
+body#productization div.product h4 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+body#productization div.channel {
+    width: 200px;
+    float: left;
+    padding: 0 3px;
+}
+
+body#productization div.channel h3 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+body#productization div.searchplugin {
+    background-color: #FAFAFA;
+    min-height: 90px;
+    margin-top: 6px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+body#productization div.searchplugin img {
+    display: block;
+    margin: 5px auto;
+}
+
+body#productization div.image {
+    display: block;
+    text-align: center;
+    width: 100%;
+    float: left;
+    padding: 3px;
+}
+
+body#productization div.info {
+    padding: 3px;
+}
+
+body#productization div.searchplugin p {
+    margin: 2px 6px;
+}
+
+body#productization p.error {
+    color: red;
+}
+
+body#productization p.http {
+    color: #F28D49;
+}
+
+body#productization p.https {
+    color: #35B01C;
+}
+
+body#productization div.searchplugin p.emptysp {
+    margin-top: 24px;
+}
+
+body#productization div.searchorder {
+    background-color: #FAFAFA;
+    min-height: 90px;
+    margin-top: 6px;
+    padding-top: 10px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+body#productization div.searchorder p {
+    margin-left: 10px;
+}
+
+body#productization div.searchorder ol {
+    padding-left: 30px;
+}
+
 /* Experimental view */
 
 #experimental {
@@ -667,6 +770,10 @@ span.expfeature {
 
     table.collapsable td a.tag {
         margin-top: 2px;
+    }
+
+    body#productization div.product {
+        width: 412px;
     }
 }
 
@@ -756,6 +863,10 @@ span.expfeature {
     /* Hide footer links */
     #links-bottom {
         display: none;
+    }
+
+    body#productization div.product {
+        width: 206px;
     }
 
     table.collapsable td a.tag {

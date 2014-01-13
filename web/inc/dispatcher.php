@@ -101,6 +101,12 @@ switch ($url['path']) {
         $page_title = 'Variables Overview';
         $page_descr = 'Show potential errors in your strings for the use of variables.';
         break;
+    case 'productization':
+        $view  = 'productization';
+        $experimental = true;
+        $page_title = 'Productization Overview';
+        $page_descr = 'Show productization aspects for this locale.';
+        break;
     default:
         $view  = 'search';
         break;
