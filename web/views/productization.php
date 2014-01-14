@@ -11,6 +11,10 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
 
     $product = !empty($_REQUEST['product']) ? $_REQUEST['product'] : 'browser';
 
+    if (isset($_GET['locale']) && in_array($_GET['locale'], $all_locales)) {
+       $locale = $_GET['locale'];
+    }
+
     $channels = ['trunk', 'aurora', 'beta', 'release'];
     $products = ['browser', 'metro', 'mobile', 'suite', 'mail'];
     $productnames = ['Firefox Desktop', 'Firefox Metro', 'Firefox Mobile (Android)', 'Seamonkey', 'Thunderbird'];
@@ -24,29 +28,27 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
     $product_selector = Utils::getHtmlSelectOptions($products, $product);
 
     echo '
-    <form name="searchform" id="simplesearchform" method="get" action="">
-        <fieldset id="main">
-            <fieldset>
-                <legend>Locale</legend>
-                <select name="locale">
-                ' . $target_locales_list .'
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Repository</legend>
-                <select name="product">
-                ' .  $product_selector . '
-                </select>
-            </fieldset>
-            <input type="submit" value="Go" alt="Go" />
-        </fieldset>
-    </form>
-    ';
+   <form name="searchform" id="simplesearchform" method="get" action="">
+     <fieldset id="main">
+       <fieldset>
+         <legend>Locale</legend>
+           <select name="locale">
+             ' . $target_locales_list .'
+           </select>
+       </fieldset>
+       <fieldset>
+           <legend>Repository</legend>
+           <select name="product">
+             ' .  $product_selector . '
+           </select>
+       </fieldset>
+       <input type="submit" value="Go" alt="Go" />
+     </fieldset>
+   </form>';
 
     $i = array_search($product, $products);
-    echo "  <div class='product'>\n" .
-         "    <h3>{$productnames[$i]}<br/>\n" .
-         "    Searchplugins</h3>\n";
+    echo "\n\n   <div class='product'>\n" .
+         "    <h3>{$productnames[$i]}<br/>Searchplugins</h3>\n";
     if (array_key_exists($product, $jsonarray[$locale])) {
         # This product exists for locale
         foreach ($channels as $channel) {
@@ -92,7 +94,7 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
             echo "    </div>\n";
         }
 
-        echo "    <h3>Search order</h3>\n";
+        echo "\n    <h3>Search order</h3>\n";
         if (array_key_exists($product, $jsonarray[$locale])) {
             # This product exists for locale
             foreach ($channels as $channel) {
@@ -103,12 +105,12 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
 
                     echo "        <div class='searchorder'>\n";
                     echo "          <p><strong>Default:</strong> " . $p12n['defaultenginename'] . "</p>\n";
-                    echo "            <ol>\n";
+                    echo "          <ol>\n";
                     // Search order starts from 1
                     for ($i=1; $i<=count($p12n['searchorder']); $i++) {
                        echo "            <li>" . $p12n['searchorder'][$i] . "</li>\n";
                     }
-                    echo "            </ol>\n";
+                    echo "          </ol>\n";
                     echo "        </div>\n";
                 } else {
                     # Product exists, but not on this channel
@@ -120,23 +122,23 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
             }
         }
 
-        echo "    <h3>Protocol handlers</h3>\n";
+        echo "\n    <h3>Protocol handlers</h3>\n";
         if (array_key_exists($product, $jsonarray[$locale])) {
             # This product exists for locale
             foreach ($channels as $channel) {
                 echo "    <div class='channel'>\n" .
-                     "    <h4>$channel</h4>\n";
+                     "      <h4>$channel</h4>\n";
                 if (array_key_exists($channel, $jsonarray[$locale][$product])) {
                     $p12n = $jsonarray[$locale][$product][$channel]['p12n'];
                     echo "        <div class='searchorder'>\n";
                     echo "          <p><strong>Feed readers:</strong></p>\n";
-                    echo "            <ol>\n";
+                    echo "          <ol>\n";
                     // Feed handlers start from 0
                     for ($i=0; $i<count($p12n['feedhandlers']); $i++) {
                        echo "            <li><a href='" . $p12n['feedhandlers'][$i]['uri'] . "'>" .
                             $p12n['feedhandlers'][$i]['title'] . "</a></li>\n";
                     }
-                    echo "            </ol>\n";
+                    echo "          </ol>\n";
 
                     echo "          <p><strong>Handlers version:</strong> " . $p12n['handlerversion'] . "</p>\n";
                     foreach ($p12n['contenthandlers'] as $protocol => $handler) {
@@ -148,7 +150,7 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
                         }
                         echo "          </ol>\n";
                     }
-                    echo "       </div>\n";
+                    echo "        </div>\n";
                 } else {
                     # Product exists, but not on this channel
                     echo "        <div class='searchorder'>\n";
@@ -163,4 +165,6 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
     } else {
         echo "    <p>This product is not available for this locale.</p>\n";
     }
+
+    echo "   </div>\n\n";
 }
