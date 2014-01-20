@@ -38,77 +38,72 @@ mkdir -p $gaia_1_3
 mkdir -p $l20n_test
 mkdir -p $libraries
 
-# Restructure en-US
-for dir in $(cat $install/list_rep_mozilla-central.txt)
-do
-    path=$local_hg/RELEASE_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
-        ln -s  $local_hg/RELEASE_EN-US/mozilla-release/$dir $path
-    fi
+function createSymlinks() {
+    branches=( trunk aurora beta release )
 
-    path=$local_hg/BETA_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
-        ln -s  $local_hg/BETA_EN-US/mozilla-beta/$dir $path
-    fi
+    case "$1" in
+        "mozilla" | "comm" )
+        # Restructure en-US mozilla-* and comm-*
+        for dir in $(cat "$install/list_rep_$1-central.txt")
+        do
+            for branch in "${branches[@]}"
+            do
+                if [ "$branch" == "trunk" ]
+                then
+                    # Possible values: mozilla-central, comm-central
+                    local repo_name="$1-central"
+                else
+                    # Possible values: mozilla-aurora, comm-aurora, mozilla-beta, etc.
+                    local repo_name="$1-$branch"
+                fi
 
-    path=$local_hg/AURORA_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
-        ln -s  $local_hg/AURORA_EN-US/mozilla-aurora/$dir $path
-    fi
+                path="$local_hg/${branch^^}_EN-US/COMMUN/$dir"
+                if [ ! -L "$path/en-US" ]
+                then
+                    echored "Missing symlink for ${branch^^}_EN-US/COMMUN/$dir"
+                    mkdir -p "$path"
+                    ln -s "$local_hg/${branch^^}_EN-US/$repo_name/$dir" "$path"
+                fi
+            done
+        done
+        ;;
 
-    path=$local_hg/TRUNK_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
-        ln -s  $local_hg/TRUNK_EN-US/mozilla-central/$dir $path
-    fi
-done
+        "chatzilla" | "venkman")
+        # Restructure chatzilla and venkman
+        for branch in "${branches[@]}"
+        do
+            if [ "$1" == "chatzilla" ]
+            then
+                # Source repo is called "chatzilla", l10n folder is "irc"
+                local dir="extensions/irc/locales/en-US"
+            else
+                local dir="extensions/$1/locales/en-US"
+            fi
+            repo_name="$1/locales/en-US"
+            path="$local_hg/${branch^^}_EN-US/COMMUN/$dir"
+            if [ ! -L "$path/en-US" ]
+            then
+                echored "Missing symlink for ${branch^^}_EN-US/COMMUN/$dir"
+                mkdir -p "$path"
+                # Since these products have only one repo, we always create
+                # symlinks to TRUNK in order to check out source code only once
+                ln -s "$local_hg/TRUNK_EN-US/$repo_name" "$path"
+            fi
+        done
+        ;;
+    esac
+}
 
-for dir in $(cat $install/list_rep_comm-central.txt)
-do
-    path=$local_hg/RELEASE_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
+function checkoutSilme() {
+    # Check out SILME library to a specific version (0.8.0)
+    if [ ! -d $libraries/silme/.hg ]
     then
-        mkdir -p $local_hg/RELEASE_EN-US/COMMUN/$dir
-        ln -s  $local_hg/RELEASE_EN-US/comm-release/$dir $path
+        echogreen "Checking out the SILME library into $libraries"
+        cd $libraries
+        hg clone http://hg.mozilla.org/l10n/silme -u silme-0.8.0
+        cd $install
     fi
-
-    path=$local_hg/BETA_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/BETA_EN-US/COMMUN/$dir
-        ln -s  $local_hg/BETA_EN-US/comm-beta/$dir $path
-    fi
-
-    path=$local_hg/AURORA_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/AURORA_EN-US/COMMUN/$dir
-        ln -s  $local_hg/AURORA_EN-US/comm-aurora/$dir $path
-    fi
-
-    path=$local_hg/TRUNK_EN-US/COMMUN/$dir
-    if [ ! -L $path/en-US ]
-    then
-        mkdir -p $local_hg/TRUNK_EN-US/COMMUN/$dir
-        ln -s  $local_hg/TRUNK_EN-US/comm-central/$dir $path
-    fi
-done
-
-# Check out SILME library to a specific version (0.8.0)
-if [ ! -d $libraries/silme/.hg ]
-then
-    echogreen "Checking out the SILME library into $libraries"
-    cd $libraries
-    hg clone http://hg.mozilla.org/l10n/silme -u silme-0.8.0
-    cd $install
-fi
+}
 
 # Make sure we have hg repos in the directories, if not check them out
 function initDesktopL10nRepo() {
@@ -166,6 +161,21 @@ function initDesktopSourceRepo() {
             cd $trunk_source;
             hg clone http://hg.mozilla.org/mozilla-central/
         fi
+
+        # Checkout chatzilla and venkman only on trunk, since they don't
+        # have branches. Can add other products to array nobranch_products,
+        # as long as their code is located in http://hg.mozilla.org/PRODUCT
+        local nobranch_products=( chatzilla venkman )
+        for product in "${nobranch_products[@]}"
+        do
+            if [ ! -d $trunk_source/$product/.hg ]
+            then
+                echogreen "Checking out the following repo:"
+                echogreen $trunk_source/$product
+                cd $trunk_source;
+                hg clone http://hg.mozilla.org/$product/
+            fi
+        done
     else
         local target="$1_source"
         # If target="aurora_source", ${!target} is equal to $aurora_source
@@ -230,6 +240,8 @@ function initGaiaRepo () {
     done
 }
 
+checkoutSilme
+
 initDesktopSourceRepo "central"
 initDesktopSourceRepo "release"
 initDesktopSourceRepo "beta"
@@ -239,6 +251,12 @@ initDesktopL10nRepo "central"
 initDesktopL10nRepo "release"
 initDesktopL10nRepo "beta"
 initDesktopL10nRepo "aurora"
+
+# Create symlinks (or recreate if missing)
+createSymlinks "mozilla"
+createSymlinks "comm"
+createSymlinks "chatzilla"
+createSymlinks "venkman"
 
 initGaiaRepo "gaia"
 initGaiaRepo "1_1"

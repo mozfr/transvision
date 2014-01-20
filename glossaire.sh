@@ -133,6 +133,18 @@ function updateStandardRepo() {
 }
 
 
+function updateNoBranchRepo() {
+    if $checkrepo
+    then
+        # These repos exist only on trunk
+        cd $trunk_source/$1
+        echogreen "Update $1"
+        hg pull -r default
+        hg update -C
+    fi
+}
+
+
 function updateGaiaRepo() {
     # Update specified Gaia repository. Parameters:
     # $1 = version, could be "trunk" or a version (e.g. 1_1, 1_2, etc)
@@ -197,6 +209,10 @@ function updateGaiaRepo() {
         nice -20 python tmxmaker.py ${!repo_name}/en-US/ ${!repo_name}/en-US/ en-US en-US $repo_name
     fi
 }
+
+# Update repos without branches first (their TMX is created in updateStandardRepo)
+updateNoBranchRepo "chatzilla"
+updateNoBranchRepo "venkman"
 
 updateStandardRepo "release" "release"
 updateStandardRepo "beta" "beta"
