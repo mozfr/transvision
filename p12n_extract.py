@@ -446,11 +446,13 @@ def check_p12nmetro(locale, channel, jsondata, html_output):
                         html_output.append("<p><span class='metro'>Metro:</span> use googlemetrofx.xml instead of google.xml</p>")
                     if (element["file"] == "bing.xml"):
                         html_output.append("<p><span class='metro'>Metro:</span> use bingmetrofx.xml instead of bing.xml</p>")
+                    if ("yahoo" in element["file"]) and (not "metrofx" in element["file"]):
+                        html_output.append("<p><span class='metro'>Metro:</span> use metrofx version of Yahoo for your locale (bug 967388)</p>")
 
                     # Strip .xml from the filename
                     searchplugin_name = element["file"][:-4]
-                    # If it's a Metro version, strip "metro" from the name
-                    if (searchplugin_name in ["googlemetrofx", "bingmetrofx"]):
+                    # If it's a Metro version, strip "metrofx" from the name
+                    if ("metrofx" in searchplugin_name):
                         searchplugin_name = searchplugin_name[:-7]
                     metro_searchplugins.append(searchplugin_name)
             metro_searchplugins.sort()
