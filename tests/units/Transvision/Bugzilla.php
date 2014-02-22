@@ -1,7 +1,7 @@
 <?php
 namespace Transvision\tests\units;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../web/vendor/autoload.php';
 
 use atoum;
 
@@ -10,7 +10,7 @@ class Bugzilla extends atoum\test
 
     public function collectLanguageComponentDataProvider()
     {
-        $ini_array = parse_ini_file(__DIR__ . '/../../../inc/config.ini');
+        $ini_array = parse_ini_file(__DIR__ . '/../../../web/inc/config.ini');
         define('CACHE', $ini_array['install'] . '/web/cache/');
 
         $obj = new \Transvision\Bugzilla();
