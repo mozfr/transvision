@@ -31,8 +31,8 @@ If you want to file a bug [add a new issue on github][] or contact the team.
 Dependencies
 ------------
 - Bash scripting support
-- Phyton
-- Php >= 5.4
+- Python
+- PHP >= 5.4
 - Composer (Dependency Manager for PHP, http://getcomposer.org/)
 
 Install
