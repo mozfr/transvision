@@ -88,7 +88,7 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
             } else {
                 # Product exists, but not on this channel
                 echo "      <div class='searchplugin'>\n";
-                echo "        <p class='emptysp'>Searchplugins not available on this channel.</p>\n";
+                echo "        <p class='emptysp'>Searchplugins not available for this update channel.</p>\n";
                 echo "      </div>\n";
             }
             echo "    </div>\n";
@@ -101,21 +101,27 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
                 echo "    <div class='channel'>\n" .
                      "      <h4>$channel</h4>\n";
                 if (array_key_exists($channel, $jsonarray[$locale][$product])) {
-                    $p12n = $jsonarray[$locale][$product][$channel]['p12n'];
+                    if (array_key_exists('p12n', $jsonarray[$locale][$product][$channel])) {
+                        $p12n = $jsonarray[$locale][$product][$channel]['p12n'];
 
-                    echo "        <div class='searchorder'>\n";
-                    echo "          <p><strong>Default:</strong> " . $p12n['defaultenginename'] . "</p>\n";
-                    echo "          <ol>\n";
-                    // Search order starts from 1
-                    for ($i=1; $i<=count($p12n['searchorder']); $i++) {
-                       echo "            <li>" . $p12n['searchorder'][$i] . "</li>\n";
+                        echo "        <div class='searchorder'>\n";
+                        echo "          <p><strong>Default:</strong> " . $p12n['defaultenginename'] . "</p>\n";
+                        echo "          <ol>\n";
+                        // Search order starts from 1
+                        for ($i=1; $i<=count($p12n['searchorder']); $i++) {
+                           echo "            <li>" . $p12n['searchorder'][$i] . "</li>\n";
+                        }
+                        echo "          </ol>\n";
+                        echo "        </div>\n";
+                    } else {
+                        echo "        <div class='searchorder'>\n";
+                        echo "          <p class='emptysp'>Productization data not available for this update channel.</p>\n";
+                        echo "        </div>\n";
                     }
-                    echo "          </ol>\n";
-                    echo "        </div>\n";
                 } else {
                     # Product exists, but not on this channel
                     echo "        <div class='searchorder'>\n";
-                    echo "          <p class='emptysp'>region.properties not available on this channel.</p>\n";
+                    echo "          <p class='emptysp'>This product is not available for this update channel.</p>\n";
                     echo "        </div>\n";
                 }
                 echo "    </div>\n";
@@ -129,32 +135,38 @@ if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
                 echo "    <div class='channel'>\n" .
                      "      <h4>$channel</h4>\n";
                 if (array_key_exists($channel, $jsonarray[$locale][$product])) {
-                    $p12n = $jsonarray[$locale][$product][$channel]['p12n'];
-                    echo "        <div class='searchorder'>\n";
-                    echo "          <p><strong>Feed readers:</strong></p>\n";
-                    echo "          <ol>\n";
-                    // Feed handlers start from 0
-                    for ($i=0; $i<count($p12n['feedhandlers']); $i++) {
-                       echo "            <li><a href='" . $p12n['feedhandlers'][$i]['uri'] . "'>" .
-                            $p12n['feedhandlers'][$i]['title'] . "</a></li>\n";
-                    }
-                    echo "          </ol>\n";
-
-                    echo "          <p><strong>Handlers version:</strong> " . $p12n['handlerversion'] . "</p>\n";
-                    foreach ($p12n['contenthandlers'] as $protocol => $handler) {
-                        echo "          <p>{$protocol}</p>\n";
+                    if (array_key_exists('p12n', $jsonarray[$locale][$product][$channel])) {
+                        $p12n = $jsonarray[$locale][$product][$channel]['p12n'];
+                        echo "        <div class='searchorder'>\n";
+                        echo "          <p><strong>Feed readers:</strong></p>\n";
                         echo "          <ol>\n";
-                        for ($i=0; $i<count($handler); $i++) {
-                           echo "            <li><a href='" . $handler[$i]['uri'] . "'>" .
-                                $handler[$i]['name'] . "</a></li>\n";
+                        // Feed handlers start from 0
+                        for ($i=0; $i<count($p12n['feedhandlers']); $i++) {
+                           echo "            <li><a href='" . $p12n['feedhandlers'][$i]['uri'] . "'>" .
+                                $p12n['feedhandlers'][$i]['title'] . "</a></li>\n";
                         }
                         echo "          </ol>\n";
+
+                        echo "          <p><strong>Handlers version:</strong> " . $p12n['handlerversion'] . "</p>\n";
+                        foreach ($p12n['contenthandlers'] as $protocol => $handler) {
+                            echo "          <p>{$protocol}</p>\n";
+                            echo "          <ol>\n";
+                            for ($i=0; $i<count($handler); $i++) {
+                               echo "            <li><a href='" . $handler[$i]['uri'] . "'>" .
+                                    $handler[$i]['name'] . "</a></li>\n";
+                            }
+                            echo "          </ol>\n";
+                        }
+                        echo "        </div>\n";
+                    } else {
+                        echo "        <div class='searchorder'>\n";
+                        echo "          <p class='emptysp'>Productization data not available for this update channel.</p>\n";
+                        echo "        </div>\n";
                     }
-                    echo "        </div>\n";
                 } else {
                     # Product exists, but not on this channel
                     echo "        <div class='searchorder'>\n";
-                    echo "          <p class='emptysp'>region.properties not available on this channel.</p>\n";
+                    echo "          <p class='emptysp'>This product is not available for this update channel.</p>\n";
                     echo "        </div>\n";
                 }
                 echo "    </div>\n";
