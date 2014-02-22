@@ -16,7 +16,7 @@ require_once __DIR__ . '/constants.php';
 require_once __DIR__ . '/variables.php';
 
 // Autoloading of classes (both /vendor and /classes)
-require_once WEBROOT . 'vendor/autoload.php';
+require_once INSTALLROOT . 'vendor/autoload.php';
 
 // For debugging
 use raveren\klint;

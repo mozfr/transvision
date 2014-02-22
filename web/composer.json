@@ -1,4 +1,7 @@
 {
+    "config": {
+        "vendor-dir": "../vendor"
+    },
     "require": {
         "atoum/atoum" : "dev-master",
         "pascalc/tinyl10n" : "0.6",
