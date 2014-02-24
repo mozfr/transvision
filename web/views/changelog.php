@@ -1,3 +1,27 @@
+<h2 class="relnumber" id="v3.1"><a href="#v3.1">Version 3.1 <span class="reldate">2014-02-24</span></a></h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><span class="newfeature">new</span><strong>Top menu:</strong> The application now has a top menu summarizing and categorizing the different views in the application (flod)</li>
+    <li><span class="newfeature">new</span><strong>New view:</strong> <a href="/productization/">Productization</a> page listing search plugins, search order and protocol handlers for your locale on an easy to understand page (flod)</li>
+    <li>Improved CSS for responsive mode, credits page and other areas (flod)</li>
+    <li>Switched Gaia comparison view to 1.3 in <a href="/gaia/">QA view</a> (Pike)</li>
+</ul>
+
+<h3>Developer visible changes</h3>
+<ul>
+    <li>Updated <a hred="https://github.com/mozfr/transvision/blob/master/README.md">README</a> page to better explain the installation of Transvision for developers (jesus)</li>
+    <li>Unit tests and external dependencies now outside of the web root (pascal)</li>
+    <li>Server update to Debian 7.4 (ludovic)</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>Various refactoring and speed improvements (pascal &amp; flod)</li>
+    <li>Venkman and Chatzilla strings are now indexd (flod)</li>
+</ul>
+
+
 <h2 class="relnumber" id="v3.0"><a href="#v3.0">Version 3.0 <span class="reldate">2013-12-18</span></a></h2>
 
 <h3>End user visible changes</h3>

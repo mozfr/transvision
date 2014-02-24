@@ -1,7 +1,7 @@
 <?php
 
 // Bump this constant with each new release
-const VERSION = '3.1dev';
+const VERSION = '3.1';
 
 // Constants for the project
 define('DATAROOT', $ini_array['root']);
