@@ -18,7 +18,7 @@
 <h3>Other changes</h3>
 <ul>
     <li>Various refactoring and speed improvements (pascal &amp; flod)</li>
-    <li>Venkman and Chatzilla strings are now indexd (flod)</li>
+    <li>Venkman and Chatzilla strings are now indexed (flod)</li>
 </ul>
 
 
