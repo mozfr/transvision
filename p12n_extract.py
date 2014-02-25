@@ -378,7 +378,7 @@ def extract_p12n_product(source, product, locale, channel, jsondata, html_output
                         ignored_keys = ['mail.addr_book.mapit_url.format', 'mailnews.messageid_browser.url', 'mailnews.localizedRe',
                                         'browser.translation.service', 'browser.search.defaulturl', 'browser.throbber.url',
                                         'startup.homepage_override_url', 'browser.startup.homepage', 'browser.translation.serviceDomain',
-                                        'browser.validate.html.service']
+                                        'browser.validate.html.service', 'app.update.url.details']
                         if key in ignored_keys:
                             lineok = True
 
@@ -446,8 +446,9 @@ def check_p12nmetro(locale, channel, jsondata, html_output):
                         html_output.append("<p><span class='metro'>Metro:</span> use googlemetrofx.xml instead of google.xml</p>")
                     if (element["file"] == "bing.xml"):
                         html_output.append("<p><span class='metro'>Metro:</span> use bingmetrofx.xml instead of bing.xml</p>")
-                    if ("yahoo" in element["file"]) and (not "metrofx" in element["file"]):
-                        html_output.append("<p><span class='metro'>Metro:</span> use metrofx version of Yahoo for your locale (bug 967388)</p>")
+                    if ("yahoo" in element["file"]) and (not "metrofx" in element["file"]) and (locale not in ['ja', 'ja-JP-mac']):
+                        # Ignore Yahoo warning for Japanese
+                        html_output.append("<p><span class='metro'>Metro:</span> (" + element["file"] + ") use metrofx version of Yahoo for your locale (bug 967388)</p>")
 
                     # Strip .xml from the filename
                     searchplugin_name = element["file"][:-4]
