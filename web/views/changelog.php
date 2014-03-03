@@ -1,3 +1,20 @@
+<h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-??-??</span></a></h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li></li>
+</ul>
+
+<h3>Developer visible changes</h3>
+<ul>
+    <li></li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li></li>
+</ul>
+
 <h2 class="relnumber" id="v3.1"><a href="#v3.1">Version 3.1 <span class="reldate">2014-02-24</span></a></h2>
 
 <h3>End user visible changes</h3>
