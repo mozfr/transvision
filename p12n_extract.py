@@ -11,7 +11,7 @@ import re
 import StringIO
 from ConfigParser import SafeConfigParser
 from optparse import OptionParser
-from time import strftime, gmtime
+from time import strftime, localtime
 from xml.dom import minidom
 
 
@@ -670,7 +670,7 @@ def main():
         <body>
             <h1>Productization analysis</h1>
         ''']
-    html_output.append("<p>Last update: " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + "<br/>")
+    html_output.append("<p>Last update: " + strftime("%Y-%m-%d %H:%M:%S", localtime()) + "<br/>")
     html_output.append("Analyzing product: " + clproduct + "<br/>")
     html_output.append("Branch: " + clbranch + "</p>")
 
@@ -713,7 +713,7 @@ def main():
     for index, value in enumerate(images_list):
         image_data[index] = value
     jsondata["images"] = image_data
-    jsondata["creation_date"] = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    jsondata["creation_date"] = strftime("%Y-%m-%d %H:%M:%S", localtime())
 
 
     # Write back updated json data
