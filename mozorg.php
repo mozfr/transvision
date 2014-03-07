@@ -1,0 +1,51 @@
+<?php
+namespace Transvision;
+
+include __DIR__ . '/web/inc/init.php';
+
+error_log('Mozilla.org: extraction of strings');
+
+foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
+    $path = SVN . "mozilla_org/{$locale}/";
+    $mozilla_org_files = Dotlang::getLangFilesList($path);
+
+    $mozilla_org_files = array_map(
+        function($item) use ($path) {
+            return str_replace($path, '', $item);
+        },
+        $mozilla_org_files);
+
+    $out_english = $out_translation = '';
+    $total_strings = 0;
+
+    foreach ($mozilla_org_files as $file) {
+        $strings = Dotlang::getStrings(SVN . "mozilla_org/{$locale}/{$file}");
+        $total_strings += count($strings);
+
+        foreach ($strings as $english => $translation) {
+            $output = function($str1, $str2) use ($file, $english, $translation)
+            {
+                $array_line =
+                    "'"
+                   . Dotlang::generateStringID('mozilla_org/' . $file, $str1)
+                   . "' => '"
+                   . htmlspecialchars($str2, ENT_QUOTES)
+                   . "',"
+                   . "\n";
+
+                return $array_line;
+            };
+
+            $out_english     .= $output($english, $english);
+            $out_translation .= $output($english, $translation);
+        }
+    }
+
+    $out_english     = "<?php\n\$tmx = [\n" . $out_english .  "];\n";
+    $out_translation = "<?php\n\$tmx = [\n" . $out_translation .  "];\n";
+
+    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_{$locale}.php", $out_translation);
+    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_en-US.php", $out_english);
+    error_log("{$locale}: {$total_strings} strings");
+}
+

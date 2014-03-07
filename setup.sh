@@ -37,6 +37,7 @@ mkdir -p $gaia_1_2
 mkdir -p $gaia_1_3
 mkdir -p $l20n_test
 mkdir -p $libraries
+mkdir -p $mozilla_org
 
 function createSymlinks() {
     branches=( trunk aurora beta release )
@@ -262,6 +263,15 @@ initGaiaRepo "gaia"
 initGaiaRepo "1_1"
 initGaiaRepo "1_2"
 initGaiaRepo "1_3"
+
+# Check out svn repos
+echogreen "mozilla.org repo being checked out from subversion"
+cd $mozilla_org
+if [ ! -d $mozilla_org/.svn ]
+then
+    echogreen "Checking out mozilla.org repo"
+    svn co https://svn.mozilla.org/projects/mozilla.com/trunk/locales/ .
+fi
 
 # We now deal with L20n test repo as a specific case
 echogreen "L20n test repo initialization"

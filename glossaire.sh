@@ -210,6 +210,21 @@ function updateGaiaRepo() {
     fi
 }
 
+function updateFromSVN() {
+    if $checkrepo
+    then
+        cd $mozilla_org
+        echogreen "Update subversion repositories"
+        svn up
+    fi
+    if $createTMX
+    then
+        echogreen "Extract strings on svn"
+        cd $install
+        nice -20 php mozorg.php
+    fi
+}
+
 # Update repos without branches first (their TMX is created in updateStandardRepo)
 updateNoBranchRepo "chatzilla"
 updateNoBranchRepo "venkman"
@@ -223,6 +238,9 @@ updateGaiaRepo "gaia"
 updateGaiaRepo "1_1"
 updateGaiaRepo "1_2"
 updateGaiaRepo "1_3"
+
+# mozilla.org has its own extraction script, mozorg.php
+updateFromSVN
 
 # Generate cache of bugzilla components if it doesn't exist or it's older than 7 days
 cd $install

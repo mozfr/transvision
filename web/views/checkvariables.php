@@ -5,7 +5,12 @@ require_once WEBROOT . 'inc/l10n-init.php';
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $repo = $_GET['repo'];
-    $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+
+    if ($repo == 'mozilla_org') {
+        $all_locales = Files::getFilenamesInFolder( SVN . "mozilla_org/");
+    } else {
+        $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+    }
 } else {
     $repo = 'central';
     $all_locales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
@@ -37,7 +42,7 @@ $channel_selector = Utils::getHtmlSelectOptions(
     true);
 
 // Get the locale list
-$loc_list = Utils::getFilenamesInFolder(TMX . $repo . '/');
+$loc_list = Files::getFilenamesInFolder(TMX . $repo . '/');
 
 // build the target locale switcher
 $target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
@@ -82,8 +87,14 @@ $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$loca
 
 foreach ($mismatch as $entity) {
 
-    $path_locale1 = VersionControl::filePath('en-US', $repo, $entity);
-    $path_locale2 = VersionControl::filePath($locale, $repo, $entity);
+    if ($repo == 'mozilla_org') {
+        $path_locale1 = VersionControl::svnPath('en-US', $repo, $entity);
+        $path_locale2 = VersionControl::svnPath($locale, $repo, $entity);
+    } else {
+        $path_locale1 = VersionControl::hgPath('en-US', $repo, $entity);
+        $path_locale2 = VersionControl::hgPath($locale, $repo, $entity);
+    }
+
     // Link to entity
     $entity_link = "?sourcelocale=en-US"
                  . "&locale={$locale}"

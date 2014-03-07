@@ -158,11 +158,12 @@ class Utils
      * @param string $selected the option which should have the 'selected' html attribute
      * @nice_labels  boolean $nice_labels, indicates if $options is an associative array
      *                      with the array value as the text inside the <option> tag
-     * @return string
+     * @return string html snippet
      */
     public static function getHtmlSelectOptions($options, $selected, $nice_labels = false)
     {
         $html = '';
+
         foreach ($options as $key => $option) {
             $value = $nice_labels ? $key : $option;
             $ch    = ($value == $selected) ? ' selected' : '';
@@ -172,24 +173,12 @@ class Utils
         return $html;
     }
 
-    /*
-     * Return the list of files in a folder as an array
-     *
-     * @param  string $folder  the directory we want to access
-     * @param  array  $excluded_files to exclude from results, by default . and ..
-     * @return array
-     */
-    public static function getFilenamesInFolder($folder, $excluded_files = ['.', '..', '.htaccess'])
-    {
-        return array_diff(scandir($folder), $excluded_files);
-    }
-
 
     /*
      * Return an array of strings from our repos
-     * @param $locale locale code queried
-     * @param $repository string repository such as gaia_1_3, central, aurora...
-     * @return array of localized strings or empty array id no match
+     * @param string $locale locale code queried
+     * @param string $repository string repository such as gaia_1_3, central, aurora...
+     * @return array Localized strings or empty array if no match
      */
     public static function getRepoStrings($locale, $repository)
     {
@@ -210,8 +199,8 @@ class Utils
 
     /*
      * cleanSearch
-     * @param $str string to search
-     * @return $str cleaned up string for security and noise
+     * @param string $str string to search
+     * @return string  cleaned up string for security and noise
      */
     public static function cleanSearch($str)
     {
@@ -230,9 +219,9 @@ class Utils
     /*
      * Compare original and translated strings to check abnormal length
      *
-     * @param $origin en-US string
-     * @param $translated locale string
-     * @return $abnormal_length
+     * @param string $origin en-US string
+     * @param string $translated locale string
+     * @return string $abnormal_length returns a string for the length or false if ok
      */
     public static function checkAbnormalStringLength($origin, $translated)
     {
@@ -270,8 +259,8 @@ class Utils
     /*
      * Generate a table with TMX Download links
      *
-     * @param $locales array with locales
-     * @return $output table with download links
+     * @param array $locales array with locales
+     * @return string $output html table with download links
      */
     public static function tmxDownloadTable($locales)
     {

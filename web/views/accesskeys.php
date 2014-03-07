@@ -28,7 +28,7 @@ $channel_selector = Utils::getHtmlSelectOptions(
     true);
 
 // Get the locale list
-$loc_list = Utils::getFilenamesInFolder(TMX . $repo . '/');
+$loc_list = Files::getFilenamesInFolder(TMX . $repo . '/');
 
 // Gaia hack
 $spanish  = array_search('es', $loc_list);

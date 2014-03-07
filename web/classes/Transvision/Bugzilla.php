@@ -72,13 +72,8 @@ class Bugzilla
      * @param $locale string
      * @return link string
      */
-    public static function reportErrorLink($locale, $entity, $source_string, $target_string, $entity_link)
+    public static function reportErrorLink($locale, $entity, $source_string, $target_string, $repo, $entity_link)
     {
-        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-        $bz_component = rawurlencode(
-            self::collectLanguageComponent($locale, self::getBugzillaComponents())
-        );
-
         $bug_summary = rawurlencode("Translation update proposed for {$entity}");
         $bug_message = rawurlencode(
             html_entity_decode(
@@ -87,16 +82,31 @@ class Bugzilla
                 . "And should be:\n\n\n\n"
                 . "Feedback via Transvision:\n"
                 . "http://transvision.mozfr.org/{$entity_link}"
-            )
+            ));
+
+        $bz_locale = rawurlencode(
+            self::collectLanguageComponent($locale, self::getBugzillaComponents())
         );
+        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
+        if ($repo == 'mozilla_org') {
+            $bz_component = 'L10N';
+            $bz_product = 'www.mozilla.org';
+            $bz_extra = '&cf_locale=' . $bz_locale;
+        } else {
+            $bz_component = $bz_locale;
+            $bz_product = 'Mozilla%20Localizations';
+            $bz_extra = '';
+        }
 
         return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                . $bz_component
-               . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D'
+               . '&product='
+               . $bz_product
+               . '&status_whiteboard=%5Btransvision-feedback%5D'
                . '&short_desc='
                . $bug_summary
                . '&comment='
-               . $bug_message;
+               . $bug_message
+               . $bz_extra;
     }
-
 }

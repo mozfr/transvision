@@ -23,9 +23,16 @@ $table  = "<table class='collapsable'>
 
 foreach ($entities as $entity) {
 
-    $path_locale1 = VersionControl::filePath($source_locale, $check['repo'], $entity);
-    $path_locale2 = VersionControl::filePath($locale, $check['repo'], $entity);
+    if ($check['repo'] == 'mozilla_org') {
+      $path_locale1 = VersionControl::svnPath($source_locale, $check['repo'], $entity);
+      $path_locale2 = VersionControl::svnPath($locale, $check['repo'], $entity);
+    } else {
+      $path_locale1 = VersionControl::hgPath($source_locale, $check['repo'], $entity);
+      $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
+    }
+
     if ($url['path'] == '3locales') {
+
         if (isset($tmx_target2[$entity])) {
             // nbsp highlight
             $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target2[$entity]);
@@ -33,7 +40,12 @@ foreach ($entities as $entity) {
             $target_string2 = '';
         }
 
-        $path_locale3 = VersionControl::filePath($locale2, $check['repo'], $entity);
+        if ($check['repo'] == 'mozilla_org') {
+            $path_locale3 = VersionControl::svnPath($locale2, $check['repo'], $entity);
+        } else {
+            $path_locale3 = VersionControl::hgPath($locale2, $check['repo'], $entity);
+        }
+
     }
 
     if (isset($tmx_target[$entity])) {
@@ -55,7 +67,7 @@ foreach ($entities as $entity) {
 
         $file_bug = '<a class="bug_link" target="_blank" href="'
                     . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
-                                              $target_string2, $entity_link)
+                                              $target_string2, $check['repo'], $entity_link)
                   . '">&lt;report a bug&gt;</a>';
 
         $extra_column_rows = "
@@ -83,7 +95,7 @@ foreach ($entities as $entity) {
 
     $file_bug = '<a class="bug_link" target="_blank" href="'
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
-                                          $target_string, $entity_link)
+                                          $target_string, $check['repo'], $entity_link)
               . '">&lt;report a bug&gt;</a>';
     $anchor_name = str_replace(array('/', ':'), '_', $entity);
     $table .= "<tr>

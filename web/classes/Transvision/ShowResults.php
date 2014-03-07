@@ -101,22 +101,6 @@ class ShowResults
             $extra_column_header = '';
         }
 
-        // Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-
-        $bz_link = function($locale) {
-            $bz_component = rawurlencode(
-               Bugzilla::collectLanguageComponent(
-                    $locale,
-                    Bugzilla::getBugzillaComponents()
-                )
-            );
-
-            return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-                   . $bz_component
-                   . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
-        };
-
-
         $table  = "<table class='collapsable'>
                       <tr>
                         <th>Entity</th>
@@ -143,35 +127,27 @@ class ShowResults
 
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
+            $entity_link = "?sourcelocale={$locale1}"
+            . "&locale={$locale2}"
+            . "&repo={$search_options['repo']}"
+            . "&search_type=entities&recherche={$key}";
 
-            if (isset($search_options["extra_locale"])) {
+            $bz_link = [Bugzilla::reportErrorLink(
+                $locale2, $key, $source_string, $target_string, $search_options['repo'], $entity_link
+            )];
+
+            if (isset($search_options['extra_locale'])) {
                 $target_string2 = trim($strings[2]);
+                $entity_link = "?sourcelocale={$locale1}"
+                                . "&locale={$search_options['extra_locale']}"
+                                . "&repo={$search_options['repo']}"
+                                . "&search_type=entities&recherche={$key}";
+                $bz_link[] = Bugzilla::reportErrorLink(
+                    $search_options['extra_locale'], $key, $source_string, $target_string2, $search_options['repo'], $entity_link
+                );
             } else {
                 $target_string2 = '';
             }
-
-            // Link to entity
-            $entity_link = "?sourcelocale={$locale1}"
-                        . "&locale={$locale2}"
-                        . "&repo={$search_options['repo']}"
-                        . "&search_type=entities&recherche={$key}";
-
-            // Bugzilla GET data
-            $bug_summary = rawurlencode("Translation update proposed for ${key}");
-
-            $bug_message = function($extra_locale)
-                use ($source_string, $target_string,
-                    $target_string2, $entity_link) {
-                    $target_string = $extra_locale ? $target_string2 : $target_string;
-
-                    return rawurlencode(html_entity_decode(
-                            "The string:\n{$source_string}\n\n"
-                            . "Is translated as:\n{$target_string}\n\n"
-                            . "And should be:\n\n\n\n"
-                            . "Feedback via Transvision:\n"
-                            . "http://transvision.mozfr.org/{$entity_link}"
-                        ));
-            };
 
             foreach ($recherche as $val) {
                 $source_string = Utils::markString($val, $source_string);
@@ -203,9 +179,13 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2_short_code = $temp[0];
 
-            $locale1_path = VersionControl::filePath($locale1, $search_options['repo'], $key);
-            $locale2_path = VersionControl::filePath($locale2, $search_options['repo'], $key);
-
+            if ($search_options['repo'] == 'mozilla_org') {
+                $locale1_path = VersionControl::svnPath($locale1, $search_options['repo'], $key);
+                $locale2_path = VersionControl::svnPath($locale2, $search_options['repo'], $key);
+            } else {
+                $locale1_path = VersionControl::hgPath($locale1, $search_options['repo'], $key);
+                $locale2_path = VersionControl::hgPath($locale2, $search_options['repo'], $key);
+            }
             // errors
             $error_message = '';
 
@@ -247,7 +227,14 @@ class ShowResults
 
             // 3locales view
             if (isset($search_options["extra_locale"])) {
-                $locale3_path = VersionControl::filePath($locale3, $search_options['repo'], $key);
+
+                if ($search_options['repo'] == 'mozilla_org') {
+                    $locale3_path = VersionControl::svnPath($locale3, $search_options['repo'], $key);
+                } else {
+                    $locale3_path = VersionControl::hgPath($locale3, $search_options['repo'], $key);
+                }
+
+
 
                 $extra_column_rows = "
                 <td dir='{$direction3}'>
@@ -258,7 +245,7 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link($locale3)}&short_desc={$bug_summary}&comment={$bug_message(true)}'>
+                      <a class='bug_link' target='_blank' href='{$bz_link[1]}'>
                         &lt;report a bug&gt;
                       </a>
                     </div>
@@ -304,7 +291,7 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link($locale2)}&short_desc={$bug_summary}&comment={$bug_message(false)}'>
+                      <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
                       </a>
                       {$error_message}
