@@ -139,10 +139,16 @@ if __name__ == "__main__":
         path2 = locale_repo + directory
 
         rcsClient = silme.io.Manager.get('file')
-        l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
+        try:
+            l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
+        except:
+            pass
 
         rcsClient2 = silme.io.Manager.get('file')
-        l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
+        try:
+            l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
+        except:
+            pass
 
         strings = {}
         chaine = get_string(l10nPackage, directory)
