@@ -29,7 +29,7 @@ $strings = [
 ];
 
 // Get the locale list
-$loc_list = Utils::getFilenamesInFolder(TMX . 'gaia' . '/');
+$loc_list = Files::getFilenamesInFolder(TMX . 'gaia' . '/');
 
 // build the target locale switcher
 $target_locales_list = '';

@@ -5,8 +5,8 @@ namespace Transvision;
 $download_table = function() {
     $locales_list = array();
 
-    foreach (Utils::getFilenamesInFolder(TMX) as $locale) {
-        $locales_list = array_merge($locales_list, Utils::getFilenamesInFolder(TMX . $locale . '/'));
+    foreach (Files::getFilenamesInFolder(TMX) as $locale) {
+        $locales_list = array_merge($locales_list, Files::getFilenamesInFolder(TMX . $locale . '/'));
     }
 
     // Clean up table to remove duplicate and sort by locale name

@@ -8,18 +8,18 @@ use atoum;
 class VersionControl extends atoum\test
 {
     /**
-     * @dataProvider pathFileDataProvider
+     * @dataProvider hgFileDataProvider
      */
-    public function testPathFile($a, $b, $c, $d)
+    public function testHgFile($a, $b, $c, $d)
     {
         $obj = new \Transvision\VersionControl();
         $this
-            ->string($obj->filePath($a, $b, $c))
+            ->string($obj->hgPath($a, $b, $c))
                 ->isEqualTo($d)
         ;
     }
 
-    public function pathFileDataProvider()
+    public function hgFileDataProvider()
     {
         return array(
             array(
@@ -46,6 +46,36 @@ class VersionControl extends atoum\test
                 'shared/date/date.properties:month-7-long',
                 'http://hg.mozilla.org/releases/gaia-l10n/v1_2/sr-Cyrl/file/default/shared/date/date.properties'
                 ),
+        );
+    }
+
+    /**
+     * @dataProvider svnFileDataProvider
+     */
+    public function testSvnFile($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\VersionControl();
+        $this
+            ->string($obj->svnPath($a, $b, $c))
+                ->isEqualTo($d)
+        ;
+    }
+
+    public function svnFileDataProvider()
+    {
+        return array(
+            [
+                'sr',
+                'mozilla_org',
+                'mozilla_org/download_button.lang:ab34ff81',
+                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup'
+            ],
+            [
+                'es-ES',
+                'mozilla_org',
+                'mozilla_org/firefox/os/faq.lang:c71a7a50',
+                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup'
+             ],
         );
     }
 }

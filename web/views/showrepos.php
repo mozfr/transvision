@@ -3,6 +3,9 @@ namespace Transvision;
 
 $strings = array();
 
+// We only want software on this view, not websites
+unset($repos[array_search('mozilla_org', $repos)]);
+
 $repo = (isset($_GET['repo']) && in_array($_GET['repo'], $repos))
         ? $_GET['repo']
         : 'gaia';
@@ -16,7 +19,7 @@ foreach ($repos as $val) {
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
-$gaia_locales = Utils::getFilenamesInFolder(TMX . $repo . '/');
+$gaia_locales = Files::getFilenamesInFolder(TMX . $repo . '/');
 
 // We don't want en-US in the repos
 if ($key = array_search('en-US', $gaia_locales)) {

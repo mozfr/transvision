@@ -1,15 +1,21 @@
 <?php
+namespace Transvision;
 /*
  * This file initializes l10n support: locale detection, rtl/ltr variables
  */
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
-    $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+    if ($_GET['repo'] == 'mozilla_org') {
+        $all_locales = Files::getFilenamesInFolder( SVN . 'mozilla_org/');
+    } else {
+        $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+    }
 } else {
     $all_locales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 }
 
-$all_locales[] = 'en-US'; // Add en-US as a regular locale without impacting glossaire.sh
+// Add en-US as a regular locale without impacting glossaire.sh
+$all_locales[] = 'en-US';
 
 // Don't try to guess locales with the Json API as it is used by scripts, not humans
 if (WEBSERVICE) {
@@ -26,16 +32,14 @@ if (WEBSERVICE) {
     return;
 }
 
-$l10n = new tinyl10n\ChooseLocale($all_locales);
+$l10n = new \tinyl10n\ChooseLocale($all_locales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;
 $locale = $l10n->getCompatibleLocale();
 $locale2 = $locale;
 $source_locale = 'en-US';
 
-
 // Bypass locale & source locale detection if there are a COOKIES stored with them
-
 if (isset($_COOKIE['default_source_locale'])) {
     $source_locale = $_COOKIE['default_source_locale'];
 }

@@ -12,10 +12,12 @@ $source_locales_list  = array();
 // 3locales view variables
 $target_locales_list2 = array();
 
-$repositories = Utils::getFilenamesInFolder(TMX . '/');
+$repositories = Files::getFilenamesInFolder(TMX . '/');
 foreach ($repositories as $repository) {
-    $loc_list[$repository] = Utils::getFilenamesInFolder(TMX . $repository . '/');
+    $loc_list[$repository] = Files::getFilenamesInFolder(TMX . $repository . '/', ['ab-CD']);
     sort($loc_list[$repository]);
+
+    $source_locale = ($repository == 'mozilla_org') ? 'en-GB' : 'en-US';
 
     // build the source locale switcher
     $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $source_locale);

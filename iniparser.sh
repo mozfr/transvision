@@ -46,6 +46,9 @@ gaia_1_1=$local_hg/GAIA_1_1
 gaia_1_2=$local_hg/GAIA_1_2
 gaia_1_3=$local_hg/GAIA_1_3
 
+# Location of Dotlang-based repos
+mozilla_org=$local_svn/mozilla_org/
+
 # Location of l20n test repo
 l20n_test=$local_git/L20N_TEST
 

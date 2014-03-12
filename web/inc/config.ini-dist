@@ -12,6 +12,10 @@ local_hg=/home/pascalc/transvision/data/hg
 ; to the Git checkout of Transvision, as long as scripts have access to it.
 local_git=/home/pascalc/transvision/data/git
 
+; Path to the local SVN clones. Could be externalto the SVN checkout
+; of Transvision, as long as scripts have access to it.
+local_svn=/home/pascalc/transvision/data/svn
+
 ; This path is used to store libraries (e.g. silme)
 libraries=/home/pascalc/transvision/libraries
 

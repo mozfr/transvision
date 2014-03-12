@@ -9,7 +9,7 @@ class VersionControl
      *
      */
 
-    public static function filePath($locale, $repo, $path)
+    public static function hgPath($locale, $repo, $path)
     {
 
         $url = 'http://hg.mozilla.org';
@@ -133,5 +133,31 @@ class VersionControl
         }
 
         return $url . $path . '/' . $entity_file;
+    }
+
+    /**
+     * Generate a path to the svn repo for the file
+     *
+     * @param string $locale locale code
+     * @param string $repo repository name
+     * @param string $path Entity name representing the local file
+     * @return string Path to the file in remote subversion repository
+     */
+    public static function svnPath($locale, $repo, $path)
+    {
+        $url = 'http://viewvc.svn.mozilla.org/vc/';
+
+        // remove entity and project name from path
+        $path          = explode(':', $path);
+        $path          = $path[0];
+        $path          = explode('/', $path);
+        array_shift($path);
+        $path          = implode('/', $path);
+
+        if ($repo == 'mozilla_org') {
+            $url .= 'projects/mozilla.com/trunk/locales/' . $locale . '/' . $path;
+        }
+
+        return $url . '?view=markup';
     }
 }

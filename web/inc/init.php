@@ -33,5 +33,7 @@ use Monolog\Handler\StreamHandler;
 $logger = new Logger(VERSION);
 $logger->pushHandler(new StreamHandler(__DIR__ . '/transvision.log', Logger::DEBUG));
 
-// Dispatch urls
-require_once INC . 'dispatcher.php';
+// Dispatch urls, use it only in web context
+if (php_sapi_name() != 'cli') {
+    require_once INC . 'dispatcher.php';
+}
