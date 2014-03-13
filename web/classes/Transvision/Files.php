@@ -1,7 +1,13 @@
 <?php
-
 namespace Transvision;
 
+/**
+ * Files class
+ *
+ * Utility functions for IO
+ *
+ * @package Transvision
+ */
 class Files
 {
     /**
@@ -28,11 +34,12 @@ class Files
         return file_put_contents("{$dir}/{$file}", $contents);
     }
 
-    /*
-     * Return the list of files in a folder as an array
+    /**
+     * Return the list of files in a folder as an array.
+     * Hidden files starting with a dot (.svn, .htaccess...) are ignored.
      *
-     * @param  string $folder  the directory we want to access
-     * @param  array  $excluded_files to exclude from results
+     * @param string $folder the directory we want to scan
+     * @param array $excluded_files Files to exclude from results
      * @return array Files in the folder
      */
     public static function getFilenamesInFolder($folder, $excluded_files = [])

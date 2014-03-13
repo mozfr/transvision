@@ -1,14 +1,20 @@
 <?php
-
 namespace Transvision;
 
+/**
+ * Bugzilla class
+ *
+ * This class is for all the methods we need to work with Bugzilla
+ *
+ * @package Transvision
+ */
 class Bugzilla
 {
-    /*
+    /**
      * Cache file should be created by glossaire.sh (running bugzilla_query.py).
      * If it doesn't exist, connect to Bugzilla API and get components list.
      *
-     * @return $components_list
+     * @return array list of Bugzilla components fetched in cache or from Bugzilla
      */
     public static function getBugzillaComponents()
     {
@@ -24,12 +30,12 @@ class Bugzilla
         return $components_list;
     }
 
-    /*
-     * Collect the correct language component for bugzilla URL
+    /**
+     * Collect the correct language component for bugzilla URL from a locale code
      *
-     * @param $actual_lng string
-     * @param $components_array array
-     * @return $component_string
+     * @param string $actual_lang  Locale code
+     * @param array $components_array List of Bugzilla components
+     * @return string Component name for the locale code such as 'fr / French'
      */
     public static function collectLanguageComponent($actual_lang, $components_array)
     {
@@ -66,11 +72,17 @@ class Bugzilla
         return $locale;
     }
 
-    /*
-     * Get a prefilled url to report a string error for a locale in Bugzilla
+    /**
+     * Generate a prefilled url with the right GET parameters to report a
+     * string error for a locale in Bugzilla
      *
-     * @param $locale string
-     * @return link string
+     * @param string $locale locale code for the wrong translation such as zh-TW
+     * @param string $entity Entity reference in Transvision to the string
+     * @param string $source_string Text of the original string
+     * @param string $target_string Text of the translation
+     * @param string $repo Repository where the string is locales
+     * @param string $entity_link Transvision link for the entity
+     * @return string url to use in a link that will prefill the report
      */
     public static function reportErrorLink($locale, $entity, $source_string, $target_string, $repo, $entity_link)
     {

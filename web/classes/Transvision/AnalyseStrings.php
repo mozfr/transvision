@@ -1,15 +1,20 @@
 <?php
-
 namespace Transvision;
 
+/**
+ * AnalyseStrings class
+ *
+ * This class is for all the methods we use to analyse strings
+ *
+ * @package Transvision
+ */
 class AnalyseStrings
 {
-    /*
-     * Replace common and uncommon html entities by real characters
+    /**
+     * Replace common and uncommon html entities by real letters
      *
-     * @param $string
-     *
-     * @return string
+     * @param string $string the string to process
+     * @return string cleaned up string with entities converted
      */
     public static function cleanUpEntities($string)
     {
@@ -25,22 +30,18 @@ class AnalyseStrings
         return $string;
     }
 
-    /*
-     * Search for strings with differences of variables into it
-     *
-     * @param $source TMX file as reference
-     * @param $target TMX file for the locales to compare
-     * @param $patterns array with regex patterns for the search
-     *
-     * @return array List of entity names
+    /**
+     * Search for strings with variables differences
+     * @param array $tmx_source TMX file as reference
+     * @param array $tmx_target TMX file for the locale to compare
+     * @param array  $patterns  list of regex patterns for the search
+     *               Pattern examples:
+     *               '/&([a-z0-9\.]+);/i'      -> &brandShortName;
+     *               '/\{\{([a-z0-9]+)\}\}/i'  -> {{brandShortName}}
+     * @return array List of entity names not matching source
      */
-    public static function differences($source, $target, $patterns)
+    public static function differences($tmx_source, $tmx_target, $patterns)
     {
-        /*
-         * Pattern examples:
-         * '/&([a-z0-9\.]+);/i'      -> &brandShortName;
-         * '/\{\{([a-z0-9]+)\}\}/i'  -> {{brandShortName}}
-         */
         $pattern_mismatch = [];
 
         if (!is_array($patterns)) {
@@ -48,13 +49,13 @@ class AnalyseStrings
         }
 
         foreach ($patterns as $pattern) {
-            foreach ($source as $key => $value) {
+            foreach ($tmx_source as $key => $value) {
                 preg_match_all($pattern, $value, $matches);
                 if (count($matches[0]) > 0) {
                     foreach ($matches[0] as $val) {
-                        if (isset($target[$key])
-                            && $target[$key] != ''
-                            && strpos(str_replace(' ' , '', $target[$key]),
+                        if (isset($tmx_target[$key])
+                            && $tmx_target[$key] != ''
+                            && strpos(str_replace(' ' , '', $tmx_target[$key]),
                                       str_replace(' ' , '', $val)) === false )
                         {
                             $pattern_mismatch[] = $key;

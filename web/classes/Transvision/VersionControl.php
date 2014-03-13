@@ -1,14 +1,23 @@
 <?php
-
 namespace Transvision;
 
+/**
+ * VersionControl class
+ *
+ * This class is for all the methods we need to relate to our VCS
+ *
+ * @package Transvision
+ */
 class VersionControl
 {
-    /*
-     * get the path in our hg repository for a string
+    /**
+     * Generate a path to the svn repo for the file
      *
+     * @param string $locale locale code
+     * @param string $repo repository name
+     * @param string $path Entity name representing the local file
+     * @return string Path to the file in remote mercurial repository
      */
-
     public static function hgPath($locale, $repo, $path)
     {
 

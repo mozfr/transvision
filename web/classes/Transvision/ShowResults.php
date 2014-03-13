@@ -1,11 +1,21 @@
 <?php
 namespace Transvision;
 
+/**
+ * ShowResults class
+ *
+ * This class is used to get search results and display them
+ *
+ * @package Transvision
+ */
 class ShowResults
 {
-    /*
+    /**
      * Create an array for search results with this format:
-     * 'entity' => ['locale 1', 'locale 2']
+     * 'entity' => ['string_locale 1', 'string_locale 2']
+     * @param array $entities haystack of entities to search in
+     * @param array $array_strings strings to look for
+     * @return array array of entities as keys and translations as values
      */
     public static function getTMXResults($entities, $array_strings)
     {
@@ -25,11 +35,12 @@ class ShowResults
         return $search_results;
     }
 
-    /*
+    /**
      * Returns the string from its entity or false
-     * @param $entity string
-     * @param $strings array
-     * @return string or false
+     *
+     * @param string $entity Entity we are looking for
+     * @param array $strings Haystack of strings to search in
+     * @return string The string for the entity or false if no matching result
      */
     public static function getStringFromEntity($entity, $strings)
     {
@@ -38,9 +49,12 @@ class ShowResults
                : false;
     }
 
-    /*
-     * make an entity look nice in tables
+    /**
+     * Nicely format entities for tables by splitting them in subpaths and styling them
      *
+     * @param string $entity
+     * @param boolean $highlight Optional. Default to false. Use a highlighting style
+     * @return string Entity reformated with html markup and css classes for styling
      */
     public static function formatEntity($entity, $highlight = false)
     {
@@ -64,9 +78,15 @@ class ShowResults
         return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
     }
 
-    /*
-     * format string for French cases
+    /**
+     * Hightlight specific elements in the string for locales.
+     * Can also highlight specific per locale sub-strings.
+     * For example in French non-breaking spaces used in typography
      *
+     * @param string $string Source text
+     * @param string $locale Optional. Locale code. Defaults to French.
+     * @return string Same string with specific sub-strings in span elements
+     *                for styling with CSS (.hightlight-gray class)
      */
     public static function highlight($string, $locale = 'fr')
     {
@@ -85,8 +105,16 @@ class ShowResults
         return Strings::multipleStringReplace($replacements, $string);
     }
 
-    /*
-     * Search results in a table
+    /**
+     * Html table of search results used by the main view (needs a lot of refactoring)
+     *
+     * @param array $search_results list of rows
+     * @param string $recherche The words searched for
+     * @param string $locale1 Reference locale to search in, usually en-US
+     * @param string $locale2 Target locale to search in
+     * @param array $search_options All the search options from the query
+     *
+     * @return string html table to insert in the view
      */
     public static function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
     {

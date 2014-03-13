@@ -1,14 +1,22 @@
 <?php
 namespace Transvision;
 
+/**
+ * Json class
+ *
+ * All the methods we need to work with or generate Json data
+ *
+ * @package Transvision
+ */
 class Json
 {
-    /*
-     * Return a json/jsonp representation of data and exits;
+    /**
+     * Transforms an array into JSON/JSONP
      *
-     * @param  array  data in json field
-     * @param  string jsonp function name, default to false
-     * @return json feed
+     * @param array $data The data we want to convert to json
+     * @param boolean $jsonp Optional, false by default, true to generate JSONP
+     * @param boolean $pretty_print Optional. Output as readable JSON_PRETTY_PRINT
+     * @return string Json data
      */
     public static function output(array $data, $jsonp = false, $pretty_print = false)
     {
@@ -30,11 +38,11 @@ class Json
         return $json;
     }
 
-    /*
-     * Return a array from a local or remote file json file
+    /**
+     * Fetch a local or remote JSON source and returns as a PHP array
      *
-     * @param  string  uri of the resource
-     * @return array
+     * @param string $uri Location of the json file, local or remote
+     * @return array Data converted to an array
      */
     public static function fetch($uri)
     {

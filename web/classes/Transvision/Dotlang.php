@@ -1,6 +1,15 @@
 <?php
 namespace Transvision;
 
+/**
+ * Dotlang class
+ *
+ * This class is used to manipulat translation files in .lang format
+ * used in www.mozilla.org, firefox health report, start.mozilla.org,
+ * surveys and other small projects on svn mostly related to engagement.
+ *
+ * @package Transvision
+ */
 class Dotlang
 {
     /**

@@ -1,17 +1,22 @@
 <?php
-
 namespace Transvision;
 
+/**
+ * Utils class
+ *
+ * Various static methods that don't belong yet to a specialized class
+ *
+ * @package Transvision
+ */
 class Utils
 {
-    /*
-     * Sanitize a string or an array of strings.
+    /**
+     * Sanitize a string or an array of strings for security before template use.
      *
-     * @param $str string or array of strings
-     * @return sanitized string or array of strings
+     * @param string $string The string we want to sanitize
+     * @return string Sanitized string for security
      */
-
-    public static function secureText($str)
+    public static function secureText($string)
     {
         $sanitize = function($v) {
             // CRLF XSS
@@ -25,26 +30,35 @@ class Utils
             return $v;
         };
 
-        return is_array($str) ? array_map($sanitize, $str) : $sanitize($str);
+        return is_array($string) ? array_map($sanitize, $string) : $sanitize($string);
     }
 
-    /*
-     * Helper function to set checkboxes value for the default option in source locale, target locale and repository
+    /**
+     * Helper function to set checkboxes value for the default
+     * option in source locale, target locale and repository
+     * depending on the cookie
      *
-     * @param  string $option
-     * @param  string $cookie
-     * @return string $default_checked -> ' checked="checked"' or false
+     * @param string $cookie Out cookie
+     * @param string $option The checkbox
+     * @return string Checked html attribute if cookie matches $option or false
      */
-
     public static function checkboxDefaultOption($option, $cookie)
     {
         return $cookie == $option ? ' checked="checked"' : false;
     }
 
-    /*
-     *  helper function to set checkboxes value
+    /**
+     *  Helper function to set checkboxes value in <input> on main search form
+     * Example:
+     * <input type="checkbox"
+     *  id="case_sensitive"
+     *  value="case_sensitive"
+     *  <?=Utils::checkboxState($check['case_sensitive'])?>>
+     *                    />
+     * @param string $str Usually the value of a GET/POST parameter setting a box
+     * @param string $extra Optional. Defaults to empty string.
+     * @return string Checked attribute or empty string.
      */
-
     public static function checkboxState($str, $extra = '')
     {
         if (isset($_GET['t2t']) && $extra != 't2t') {
@@ -58,6 +72,14 @@ class Utils
         return $str ? ' checked="checked"' : '';
     }
 
+    /**
+     * This method surrounds a searched term by ←→ so as to nbe used together
+     * with highlightString() and replace those by spans.
+     *
+     * @param string $needle The term we when to find and mark for highlighting
+     * @param string $haystack The string we search in
+     * @return string The original string with the searched term surronded by arrows
+     */
     public static function markString($needle, $haystack)
     {
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
@@ -67,6 +89,13 @@ class Utils
         return $str;
     }
 
+
+    /**
+     * Highlight searched terms in a string that were marked by markString()
+     *
+     * @param string $str String with marked items to highlight
+     * @return string html with searched terms in <span class="hightlight">
+     */
     public static function highlightString($str)
     {
         $str = preg_replace(
@@ -93,6 +122,15 @@ class Utils
         return $str;
     }
 
+    /**
+     * Print a simple table, used in the accesskeys view, needs rework
+     *
+     * @param array $arr First column of data
+     * @param array $arr2 Optional. A second column of data
+     * @param array $titles Column titles, by default 4 columns
+     * @param string $cssclass optional css class to apply to the table
+     * @return string and html table
+     */
     public static function printSimpleTable(
         $arr,
         $arr2 = false,
@@ -129,11 +167,11 @@ class Utils
         echo "</table>";
     }
 
-    /*
+    /**
      * Split a sentence in words from longest to shortest
      *
-     * @param  string $sentence
-     * @return array
+     * @param string $sentence
+     * @return array all the words in the sentence sorted by length
      */
     public static function uniqueWords($sentence)
     {
@@ -151,14 +189,17 @@ class Utils
         return $words;
     }
 
-    /*
+    /**
      * Generate a list of <option> html tags from an array and mark one as selected
      *
-     * @param array  $options  list of <option>
-     * @param string $selected the option which should have the 'selected' html attribute
-     * @nice_labels  boolean $nice_labels, indicates if $options is an associative array
-     *                      with the array value as the text inside the <option> tag
-     * @return string html snippet
+     * @param array $options All the values we want in <option> tags
+     * @param string $selected put selected tag on a specific <option>
+     * @param boolean $nice_labels Optional. Defaults to False.
+     *                             Use nice labels for the option.
+     *                             Indicates if $options is an associative
+     *                             array with the array value as the text
+     *                             inside the <option> tag
+     * @return string html <option> tags
      */
     public static function getHtmlSelectOptions($options, $selected, $nice_labels = false)
     {
@@ -173,11 +214,10 @@ class Utils
         return $html;
     }
 
-
-    /*
-     * Return an array of strings from our repos
-     * @param string $locale locale code queried
-     * @param string $repository string repository such as gaia_1_3, central, aurora...
+    /**
+     * Return an array of strings for a locale from a repository
+     * @param string $locale Locale we want to have strings for
+     * @param string $repository string repository such as gaia_1_3, central...
      * @return array Localized strings or empty array if no match
      */
     public static function getRepoStrings($locale, $repository)
@@ -196,11 +236,11 @@ class Utils
         return isset($tmx) ? $tmx : array();
     }
 
-
-    /*
-     * cleanSearch
-     * @param string $str string to search
-     * @return string  cleaned up string for security and noise
+    /**
+     * Sanitize and clean up for "noise" a string
+     *
+     * @param string $str the string to clean up
+     * @return string the cleaned up string
      */
     public static function cleanSearch($str)
     {
@@ -216,12 +256,14 @@ class Utils
         return $str;
     }
 
-    /*
-     * Compare original and translated strings to check abnormal length
+    /**
+     * Compare original and translated strings to check abnormal length.
+     * This is used in search views to warn of strings that look much wider
+     * or much shorter than English
      *
-     * @param string $origin en-US string
-     * @param string $translated locale string
-     * @return string $abnormal_length returns a string for the length or false if ok
+     * @param string $origin The source string
+     * @param string $translated  The string we want to compare to
+     * @return string 'large' or 'small' or false if it doesn't look abnormal
      */
     public static function checkAbnormalStringLength($origin, $translated)
     {
@@ -256,11 +298,11 @@ class Utils
         return $abnormal_length;
     }
 
-    /*
-     * Generate a table with TMX Download links
+    /**
+     * Generate a table with TMX Download links for the download page
      *
-     * @param array $locales array with locales
-     * @return string $output html table with download links
+     * @param array $locales All the locales we want to show
+     * @return string Html table with all the download links
      */
     public static function tmxDownloadTable($locales)
     {
