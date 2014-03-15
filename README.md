@@ -22,7 +22,7 @@ Lead developer since version 1.0 : Pascal Chevrel (pascalc AT mozfr DOT org).
 The Transvision team uses Git and GitHub for all of our development and issue tracking.
 If you'd like to contribute code back to us, please do so using a [Pull Request][].
 If you get stuck and need help, you can find our team on our irc channel [#transvision][] on irc.mozilla.org server.
-If you want to file a bug [add a new issue on github][] or contact the team. 
+If you want to file a bug [add a new issue on github][] or contact the team.
 
 [Pull Request]: https://help.github.com/articles/using-pull-requests
 [#transvision]: irc://irc.mozilla.org/transvision
@@ -34,6 +34,8 @@ Dependencies
 - Python
 - PHP >= 5.4
 - Composer (Dependency Manager for PHP, http://getcomposer.org/)
+- mercurial, git, svn to check out data sources
+- php5-xsl and GraphViz packages for the generation of documentation with [phpDocumentor](http://phpdoc.org/)
 
 Install
 -------
@@ -52,7 +54,7 @@ Update glossary
 
 Contribution tips
 -----------------
-- Add transvision parent project as remote: 
+- Add transvision parent project as remote:
 "git remote add transvision git@github.com:mozfr/transvision.git"
 - Update your branch to the last version of transvision:
 "git pull transvision master"
