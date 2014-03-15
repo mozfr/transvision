@@ -29,6 +29,7 @@ ja
 km
 ko
 lij
+lt
 ne-NP
 nl
 pa
