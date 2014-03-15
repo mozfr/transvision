@@ -1,9 +1,8 @@
 <?php
 namespace Transvision\tests\units;
-
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
 use atoum;
+
+require_once __DIR__ . '/../bootstrap.php';
 
 class Utils extends atoum\test
 {
@@ -256,8 +255,6 @@ class Utils extends atoum\test
 
     public function tmxDownloadTableDataProvider()
     {
-        $ini_array = parse_ini_file(__DIR__ . '/../../../web/inc/config.ini');
-        define('TMX', $ini_array['root'] . '/TMX/');
         return array(
             array(
                 array('en-US'),
@@ -280,8 +277,6 @@ class Utils extends atoum\test
 
     public function getRepoStringsDataProvider()
     {
-        $ini_array = parse_ini_file(__DIR__ . '/../../../web/inc/config.ini');
-        define('TMX', $ini_array['root'] . '/TMX/');
         return array(
             array(
                 'fr',

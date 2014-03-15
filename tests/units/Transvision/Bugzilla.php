@@ -1,11 +1,8 @@
 <?php
 namespace Transvision\tests\units;
-
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
 use atoum;
-$ini_array = parse_ini_file(__DIR__ . '/../../../web/inc/config.ini');
-define('CACHE', $ini_array['install'] . '/web/cache/');
+
+require_once __DIR__ . '/../bootstrap.php';
 
 class Bugzilla extends atoum\test
 {

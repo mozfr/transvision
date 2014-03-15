@@ -1,9 +1,8 @@
 <?php
 namespace Transvision\tests\units;
-
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
 use atoum;
+
+require_once __DIR__ . '/../bootstrap.php';
 
 class Dotlang extends atoum\test
 {
