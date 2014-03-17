@@ -11,7 +11,7 @@ namespace Transvision;
 class VersionControl
 {
     /**
-     * Generate a path to the svn repo for the file
+     * Generate a path to the mercurial repo for the file
      *
      * @param string $locale locale code
      * @param string $repo repository name
@@ -145,7 +145,7 @@ class VersionControl
     }
 
     /**
-     * Generate a path to the svn repo for the file
+     * Generate a path to the subversion repo for the file
      *
      * @param string $locale locale code
      * @param string $repo repository name
