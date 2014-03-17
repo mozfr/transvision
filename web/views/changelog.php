@@ -1,18 +1,17 @@
-<h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-??-??</span></a></h2>
+<h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-03-17</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li></li>
+    <li><span class="newfeature">new</span><strong>www.mozilla.org support:</strong> Transvision can now extract and index projects using the .lang format, the first repository added is www.mozilla.org and appears as a separate channel. Source links and Bugzilla links are adjusted to point to subversion instead of Mercurial and to file bugs in the www.mozilla.org/L10N component instead of the Mozilla Localization one. This makes Transvision more useful for people working on Web localization (pascal).</li>
+    <li>During extraction time, if a string in the repository was not in UTF-8 (unusual but did happen for a couple of locales), our extraction script would stop and not generate valid xml for the TMX file and a full array of strings for the repo. This was leading to a server error (blank page) on some requests. This is now fixed, if a string is not extractable, the extraction is no longer interrupted, the string is just skipped (pascal).</li>
+    <li>Lithuanian added to Gaia-l10n (pascal).</li>
 </ul>
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li></li>
-</ul>
-
-<h3>Other changes</h3>
-<ul>
-    <li></li>
+    <li><span class="newfeature">new</span><strong>API documentation:</strong> <a href="http://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor. (pascal)</li>
+    <li>All Unit tests now use a <a href="https://github.com/mozfr/transvision/blob/8a9e17e7bfa31414b50f72408b909f46be506bff/tests/units/bootstrap.php">single bootstrap file</a> to define constants or initialize data needed to run the tests. (pascal)</li>
+    <li>Updated our README file to add missing dependencies to install Transvision locally (pascal)</li>
 </ul>
 
 <h2 class="relnumber" id="v3.1"><a href="#v3.1">Version 3.1 <span class="reldate">2014-02-24</span></a></h2>
