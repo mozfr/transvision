@@ -20,15 +20,13 @@ $table  = "<table class='collapsable'>
                 {$extra_column_header}
               </tr>";
 
-
 foreach ($entities as $entity) {
-
     if ($check['repo'] == 'mozilla_org') {
-      $path_locale1 = VersionControl::svnPath($source_locale, $check['repo'], $entity);
-      $path_locale2 = VersionControl::svnPath($locale, $check['repo'], $entity);
+        $path_locale1 = VersionControl::svnPath($source_locale, $check['repo'], $entity);
+        $path_locale2 = VersionControl::svnPath($locale, $check['repo'], $entity);
     } else {
-      $path_locale1 = VersionControl::hgPath($source_locale, $check['repo'], $entity);
-      $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
+        $path_locale1 = VersionControl::hgPath($source_locale, $check['repo'], $entity);
+        $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
     }
 
     if ($url['path'] == '3locales') {
