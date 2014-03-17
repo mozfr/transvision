@@ -27,6 +27,7 @@ If you want to file a bug [add a new issue on github][] or contact the team.
 [Pull Request]: https://help.github.com/articles/using-pull-requests
 [#transvision]: irc://irc.mozilla.org/transvision
 [add a new issue on github]: https://github.com/mozfr/transvision/issues
+[API]: http://transvision.mozfr.org/docs
 
 Dependencies
 ------------
