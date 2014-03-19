@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-require_once WEBROOT .'inc/l10n-init.php';
+require_once INC .'l10n-init.php';
 
 $chan1 = 'aurora';
 $chan2 = 'beta';

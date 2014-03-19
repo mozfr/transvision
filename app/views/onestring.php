@@ -1,7 +1,4 @@
 <?php
-namespace Transvision;
-
-require_once WEBROOT . 'inc/onestring_model.php';
 
 // Error management
 if (isset($error)) {
@@ -16,11 +13,6 @@ if (isset($error)) {
 
 // We have no error, display results
 $page_descr = $entity;
-
-if (WEBSERVICE) {
-	$callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-	die(Json::output($translations, $callback));
-}
 
 ?>
 

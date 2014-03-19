@@ -24,7 +24,7 @@ cfg_parser ()
 
 # We need to store the current directory value for the CRON job
 DIR=`dirname "$0"`
-cfg_parser $DIR/web/inc/config.ini
+cfg_parser $DIR/app/config/config.ini
 
 # enable section called 'config' for reading
 cfg.section.config
@@ -53,12 +53,12 @@ mozilla_org=$local_svn/mozilla_org/
 l20n_test=$local_git/L20N_TEST
 
 # List of locales per branch
-trunk_locales=$install/central.txt
-aurora_locales=$install/aurora.txt
-beta_locales=$install/beta.txt
-release_locales=$install/release.txt
-gaia_locales=$install/gaia.txt
-gaia_locales_1_1=$install/gaia_1_1.txt
-gaia_locales_1_2=$install/gaia_1_2.txt
-gaia_locales_1_3=$install/gaia_1_3.txt
-l20n_test_locales=$install/l20n_test.txt
+trunk_locales=$config/central.txt
+aurora_locales=$config/aurora.txt
+beta_locales=$config/beta.txt
+release_locales=$config/release.txt
+gaia_locales=$config/gaia.txt
+gaia_locales_1_1=$config/gaia_1_1.txt
+gaia_locales_1_2=$config/gaia_1_2.txt
+gaia_locales_1_3=$config/gaia_1_3.txt
+l20n_test_locales=$config/l20n_test.txt

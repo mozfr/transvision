@@ -19,8 +19,8 @@ switch ($url['path']) {
         // Import all strings for source and target locales + search process
         require_once INC . 'recherche.php';
 
-        if (WEBSERVICE) {
-            $view = 'webservice';
+        if (JSON_API) {
+            $view = 'json_api';
             $template = false;
             break;
         }
@@ -88,10 +88,10 @@ switch ($url['path']) {
         $page_descr = 'Repository status overview.';
         break;
     case 'string':
-        $view  = 'onestring';
+        $controller  = 'onestring';
         $page_title = 'All translations for this string:';
         $page_descr = '';
-        if (WEBSERVICE) {
+        if (JSON_API) {
             $template = false;
         }
         break;
@@ -112,15 +112,23 @@ switch ($url['path']) {
         break;
 }
 
-$view =  $view . '.php';
-
 if ($template) {
     ob_start();
-    include VIEWS . $view;
+
+    if (isset($view)) {
+        include VIEWS . $view . '.php';
+    } else {
+        include CONTROLLERS . $controller . '.php';
+    }
+
     $content = ob_get_contents();
     ob_end_clean();
     // display the page
     require_once VIEWS .'template.php';
 } else {
-    include VIEWS . $view;
+    if (isset($view)) {
+        include VIEWS . $view . '.php';
+    } else {
+        include CONTROLLERS . $controller . '.php';
+    }
 }

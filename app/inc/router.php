@@ -2,11 +2,6 @@
 $url  = parse_url($_SERVER['REQUEST_URI']);
 $file = pathinfo($url['path']);
 
-// Forbid direct access to router file
-if ($url['path'] == '/inc/router.php') {
-    return false;
-}
-
 // Real files and folders don't get pre-processed
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
     && $url['path'] != '/') {

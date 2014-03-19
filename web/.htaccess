@@ -3,11 +3,8 @@
   RewriteEngine On
   RewriteBase /
 
-  # redirect home page to not treat it as a valid directory
-  RewriteRule ^$ /inc/router.php [L,QSA]
-
   # existing files and folders are not redirected
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /inc/router.php [L,QSA]
+  RewriteRule (.*) /index.php [L,QSA]
 </IfModule>

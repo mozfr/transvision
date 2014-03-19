@@ -8,17 +8,17 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     if ($_GET['repo'] == 'mozilla_org') {
         $all_locales = Files::getFilenamesInFolder( SVN . 'mozilla_org/');
     } else {
-        $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+        $all_locales = file(APP_ROOT . '/config/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
     }
 } else {
-    $all_locales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+    $all_locales = file(APP_ROOT . '/config/central.txt', FILE_IGNORE_NEW_LINES);
 }
 
 // Add en-US as a regular locale without impacting glossaire.sh
 $all_locales[] = 'en-US';
 
 // Don't try to guess locales with the Json API as it is used by scripts, not humans
-if (WEBSERVICE) {
+if (JSON_API) {
     $locale = isset($_GET['locale'])
               ? $_GET['locale']
               : '';

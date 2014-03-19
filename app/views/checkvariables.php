@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-require_once WEBROOT . 'inc/l10n-init.php';
+require_once INC . 'l10n-init.php';
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $repo = $_GET['repo'];
@@ -9,11 +9,11 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     if ($repo == 'mozilla_org') {
         $all_locales = Files::getFilenamesInFolder( SVN . "mozilla_org/");
     } else {
-        $all_locales = file(INSTALLROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
+        $all_locales = file(INSTALL_ROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
     }
 } else {
     $repo = 'central';
-    $all_locales = file(INSTALLROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
+    $all_locales = file(INSTALL_ROOT . '/central.txt', FILE_IGNORE_NEW_LINES);
 }
 
 if (isset($_GET['locale'])) {

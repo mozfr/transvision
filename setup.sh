@@ -27,17 +27,27 @@ function echogreen() {
 source ./iniparser.sh
 
 # Make sure that we have the file structure
+mkdir -p $release_source
+mkdir -p $beta_source
+mkdir -p $aurora_source
+mkdir -p $trunk_source
+
 mkdir -p $release_l10n
 mkdir -p $beta_l10n
 mkdir -p $aurora_l10n
 mkdir -p $trunk_l10n
+
 mkdir -p $gaia
 mkdir -p $gaia_1_1
 mkdir -p $gaia_1_2
 mkdir -p $gaia_1_3
+
 mkdir -p $l20n_test
+
 mkdir -p $libraries
+
 mkdir -p $mozilla_org
+
 
 function createSymlinks() {
     branches=( trunk aurora beta release )
@@ -45,7 +55,7 @@ function createSymlinks() {
     case "$1" in
         "mozilla" | "comm" )
         # Restructure en-US mozilla-* and comm-*
-        for dir in $(cat "$install/list_rep_$1-central.txt")
+        for dir in $(cat "$config/list_rep_$1-central.txt")
         do
             for branch in "${branches[@]}"
             do
@@ -120,7 +130,7 @@ function initDesktopL10nRepo() {
     # If repo_folder="trunk_l10n", ${!repo_folder} is equal to $trunk_l10n
     cd ${!repo_folder}
 
-    for locale in $(cat $install/$1.txt)
+    for locale in $(cat $config/$1.txt)
         do
             if [ ! -d $locale ]
             then
@@ -223,7 +233,7 @@ function initGaiaRepo () {
     echogreen "$repo_pretty_name initialization"
     # If repo_name="gaia", ${!repo_name} is equal to $gaia
     cd ${!repo_name}
-    for locale in $(cat $install/$repo_name.txt)
+    for locale in $(cat $config/$repo_name.txt)
         do
             if [ ! -d $locale/.hg ]
             then
@@ -282,7 +292,7 @@ then
     git clone https://github.com/pascalchevrel/l20ntestdata.git
 fi
 
-for locale in $(cat $install/l20n_test.txt)
+for locale in $(cat $config/l20n_test.txt)
     do
         if [ ! -d $root/TMX/l20n_test/$locale ]
         then
