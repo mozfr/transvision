@@ -620,9 +620,9 @@ def main():
 
     # Read configuration file
     parser = SafeConfigParser()
-    parser.read("web/inc/config.ini")
+    parser.read("app/config/config.ini")
     local_hg = parser.get("config", "local_hg")
-    install_folder = parser.get("config", "install")
+    config_files = parser.get("config", "config")
 
     # Set Transvision's folders and locale files
     release_l10n = local_hg + "/RELEASE_L10N/"
@@ -635,10 +635,10 @@ def main():
     aurora_source = local_hg + "/AURORA_EN-US/"
     trunk_source = local_hg + "/TRUNK_EN-US/"
 
-    trunk_locales = install_folder + "/central.txt"
-    aurora_locales = install_folder + "/aurora.txt"
-    beta_locales = install_folder + "/beta.txt"
-    release_locales = install_folder + "/release.txt"
+    trunk_locales = config_files + "/central.txt"
+    aurora_locales = config_files + "/aurora.txt"
+    beta_locales = config_files + "/beta.txt"
+    release_locales = config_files + "/release.txt"
 
     if not os.path.exists("web/p12n"):
         os.makedirs("web/p12n")

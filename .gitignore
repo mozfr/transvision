@@ -7,6 +7,6 @@ stats_requests.json
 transvision.log
 vendor
 web/docs
-web/inc/config.ini
+app/config/config.ini
 web/p12n
 web/TMX

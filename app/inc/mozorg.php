@@ -1,7 +1,12 @@
 <?php
 namespace Transvision;
 
-include __DIR__ . '/web/inc/init.php';
+// Script should not be called from the Web
+if (php_sapi_name() != 'cli') {
+    die('Nope');
+}
+
+include __DIR__ . '/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 

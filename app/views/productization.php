@@ -1,12 +1,12 @@
 <?php
 namespace Transvision;
 
-require_once WEBROOT . 'inc/l10n-init.php';
+require_once INC . 'l10n-init.php';
 
-if (!file_exists(WEBROOT . 'p12n/searchplugins.json')) {
+if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     echo "<p>Productization file does not exists. No value to display</p>\n";
 } else {
-    $jsondata = file_get_contents(WEBROOT . 'p12n/searchplugins.json');
+    $jsondata = file_get_contents(WEB_ROOT . 'p12n/searchplugins.json');
     $jsonarray = json_decode($jsondata, true);
 
     $product = !empty($_REQUEST['product']) ? $_REQUEST['product'] : 'browser';

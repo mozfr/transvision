@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-require_once WEBROOT . 'inc/l10n-init.php';
+require_once INC . 'l10n-init.php';
 
 // let's add en-US to check their errors too
 $all_locales[] = 'en-US';

@@ -287,12 +287,12 @@ function changeSearchContext(element) {
 
 if ($initial_search != '') {
     // create a json file logging locale/number of requests
-    $stats = Json::fetch(WEBROOT . 'stats.json');
+    $stats = Json::fetch(WEB_ROOT . 'stats.json');
     $stats[$locale] = (array_key_exists($locale, $stats)) ?  $stats[$locale] += 1 : 1 ;
-    file_put_contents(WEBROOT . 'stats.json', json_encode($stats));
+    file_put_contents(WEB_ROOT . 'stats.json', json_encode($stats));
 
     // create a json file logging search options to determine if some are unused
-    $stats = Json::fetch(WEBROOT . 'stats_requests.json');
+    $stats = Json::fetch(WEB_ROOT . 'stats_requests.json');
     foreach ($check as $k => $v) {
         if (in_array($k, $form_checkboxes) && $v == 1) {
             $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
@@ -301,7 +301,7 @@ if ($initial_search != '') {
             $stats[$v] = (array_key_exists($v, $stats)) ? $stats[$v] += 1 : 1;
         }
 
-        file_put_contents(WEBROOT . 'stats_requests.json', json_encode($stats));
+        file_put_contents(WEB_ROOT . 'stats_requests.json', json_encode($stats));
     }
     unset($stats);
 }

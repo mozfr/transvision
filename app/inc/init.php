@@ -7,7 +7,7 @@ mb_internal_encoding("UTF-8");
 date_default_timezone_set('Europe/Paris');
 
 // We store the application and TMX paths in an ini file shared with Python
-$ini_array = parse_ini_file(__DIR__ . '/config.ini');
+$ini_array = parse_ini_file(__DIR__ . '/../config/config.ini');
 
 // Load all constants for the application
 require_once __DIR__ . '/constants.php';
@@ -16,7 +16,7 @@ require_once __DIR__ . '/constants.php';
 require_once __DIR__ . '/variables.php';
 
 // Autoloading of classes (both /vendor and /classes)
-require_once INSTALLROOT . 'vendor/autoload.php';
+require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // For debugging
 use raveren\klint;

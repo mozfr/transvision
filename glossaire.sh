@@ -46,7 +46,7 @@ then
 fi
 
 # Get server configuration variables
-export PATH=$PATH:$PWD/web/inc
+export PATH=$PATH:$PWD/app/inc
 export PATH=$PATH:$PWD/
 
 # We need to store the current directory value for the CRON job
@@ -54,7 +54,7 @@ DIR=$(dirname "$0")
 source $DIR/iniparser.sh
 
 # Decide if must update hg repositories and create TMX
-checkrepo=true
+checkrepo=false
 createTMX=true
 
 function updateStandardRepo() {
@@ -221,7 +221,7 @@ function updateFromSVN() {
     then
         echogreen "Extract strings on svn"
         cd $install
-        nice -20 php mozorg.php
+        nice -20 php app/inc/mozorg.php
     fi
 }
 
@@ -244,19 +244,19 @@ updateFromSVN
 
 # Generate cache of bugzilla components if it doesn't exist or it's older than 7 days
 cd $install
-if [ -f web/cache/bugzilla_components.json ]
+if [ -f cache/bugzilla_components.json ]
 then
     # File exist, check the date
-    if [ $(find web/cache/bugzilla_components.json -mtime +6) ]
+    if [ $(find cache/bugzilla_components.json -mtime +6) ]
     then
-        echored "Generating web/cache/bugzilla_components.json (file older than a week)"
+        echored "Generating cache/bugzilla_components.json (file older than a week)"
         nice -20 python bugzilla_query.py
     else
         echogreen "No need to generate Bugzilla components cache"
     fi
 else
     # File does not exist
-    echored "Generating web/cache/bugzilla_components.json (file missing)"
+    echored "Generating cache/bugzilla_components.json (file missing)"
     nice -20 python bugzilla_query.py
 fi
 
