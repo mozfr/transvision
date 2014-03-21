@@ -54,7 +54,7 @@ DIR=$(dirname "$0")
 source $DIR/iniparser.sh
 
 # Decide if must update hg repositories and create TMX
-checkrepo=false
+checkrepo=true
 createTMX=true
 
 function updateStandardRepo() {
