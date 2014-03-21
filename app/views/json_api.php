@@ -8,7 +8,8 @@ namespace Transvision;
 $json = array();
 $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
 
-if ($check['search_type'] == 'strings') {
+if ($check['search_type'] == 'strings' ||
+    $check['search_type'] == 'strings_entities') {
     foreach ($locale1_strings as $key => $str) {
         $json[$key][$str] = htmlspecialchars_decode($tmx_target[$key], ENT_QUOTES);
     }
