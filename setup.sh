@@ -27,27 +27,16 @@ function echogreen() {
 source ./iniparser.sh
 
 # Make sure that we have the file structure
-mkdir -p $release_source
-mkdir -p $beta_source
-mkdir -p $aurora_source
-mkdir -p $trunk_source
+folders=( $release_source $beta_source $aurora_source $trunk_source \
+          $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
+          $gaia $gaia_1_1 $gaia_1_2 $gaia_1_3 \
+          $libraries $mozilla_org $l20n_test )
 
-mkdir -p $release_l10n
-mkdir -p $beta_l10n
-mkdir -p $aurora_l10n
-mkdir -p $trunk_l10n
-
-mkdir -p $gaia
-mkdir -p $gaia_1_1
-mkdir -p $gaia_1_2
-mkdir -p $gaia_1_3
-
-mkdir -p $l20n_test
-
-mkdir -p $libraries
-
-mkdir -p $mozilla_org
-
+echogreen "Creating folders..."
+for folder in "${folders[@]}"
+do
+  mkdir -p "$folder"
+done
 
 function createSymlinks() {
     branches=( trunk aurora beta release )
