@@ -1,4 +1,5 @@
 <?php
+namespace Transvision;
 
 $template     = true;
 $page         = $urls[$url['path']];
@@ -8,11 +9,11 @@ $show_title   = true;
 
 $title = '<a href="/" id="transvision-title">Transvision</a>';
 
+// Bootstrap l10n for all views, this way locale is always set
+require_once INC . 'l10n-init.php';
+
 switch ($url['path']) {
     case '/':
-        // Bootstrap l10n
-        require_once INC . 'l10n-init.php';
-
         // Include Search Options
         require_once INC . 'search_options.php';
 
@@ -28,9 +29,6 @@ switch ($url['path']) {
         $show_title = false;
         break;
     case '3locales':
-        // Bootstrap l10n
-        require_once INC . 'l10n-init.php';
-
         // Include Search Options
         require_once INC . 'search_options.php';
 
@@ -45,6 +43,8 @@ switch ($url['path']) {
         $view  = 'changelog';
         $page_title = 'Transvision News. Version Notes';
         $page_descr = '';
+        // Unset $locale for cache purposes (page is identical for all locales)
+        $locale = '';
         break;
     case 'stats':
         $view  = 'stats';
@@ -75,17 +75,26 @@ switch ($url['path']) {
         $view  = 'credits';
         $page_title = 'Credits';
         $page_descr = '';
+        // Unset $locale for cache purposes (page is identical for all locales)
+        $locale = '';
         break;
     case 'downloads':
         $view  = 'downloads';
         $page_title = 'TMX Download';
         $page_descr = 'Download the <abbr title="Translation Memory eXchange">TMX</abbr> files used in Transvision.';
+        // Unset $locale for cache purposes (page is identical for all locales)
+        $locale = '';
         break;
     case 'showrepos':
         $view  = 'showrepos';
         $experimental = true;
         $page_title = 'Status Overview';
         $page_descr = 'Repository status overview.';
+        if (JSON_API) {
+            $template = false;
+        }
+        // Unset $locale for cache purposes (page is identical for all locales)
+        $locale = '';
         break;
     case 'string':
         $controller  = 'onestring';
@@ -112,23 +121,92 @@ switch ($url['path']) {
         break;
 }
 
-if ($template) {
-    ob_start();
+// NOCACHE is defined in constants.php, it's enabled by passing a param
+// "nocache" to the request (value is irrelevant).
 
+// Define type of request
+if ($template) {
+    // There's a template, it's a standard HTML page
+    $type = 'html';
+}  else {
+    if (isset($_GET['callback'])) {
+            // There's a callback, type is jsonp
+            $type = 'jsonp';
+        } else {
+            // No callback, type is json
+            $type = 'json';
+        }
+}
+
+if (NOCACHE) {
+    $cache_id = false;
+} else {
+    $cacheView = new CacheViews;
+    // Store content of $_REQUEST, overwrite locale if is in $_REQUEST, add
+    // name of the current view and type
+    $request_params = $_REQUEST;
+    $request_params['locale'] = $locale;
+    if (isset($view)) {
+        $request_params['viewname'] = $view;
+    } else {
+        $request_params['viewname'] = $controller;
+    }
+    $request_params['type'] = $type;
+    ksort($request_params);
+    // Check if a valid cache entry exists for this request
+    $cache_id = $cacheView->searchCacheEntry(var_export($request_params, true));
+    if ($cache_id) {
+        // Read and display the cache file
+        $cacheView::readCacheFile($cache_id, $type);
+        if (DEBUG && $template) {
+            // Debug info (only for HTML pages)
+            $memory_usage = round(memory_get_usage()/1024, 0);
+            echo "\n<!-- Memory usage: {$memory_usage} kB -->";
+            echo "\n<!-- CACHED - Elapsed time (s): " . round((microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]), 4) . " --> \n";
+        }
+    }
+}
+
+if (! $cache_id) {
+    // I don't have a valid cache entry for this request.
+    // First step: store content generated in the requested view
+    ob_start();
     if (isset($view)) {
         include VIEWS . $view . '.php';
     } else {
         include CONTROLLERS . $controller . '.php';
     }
-
-    $content = ob_get_contents();
+    $view_content = ob_get_contents();
     ob_end_clean();
-    // display the page
-    require_once VIEWS .'template.php';
-} else {
-    if (isset($view)) {
-        include VIEWS . $view . '.php';
+
+    // If it's a HTML page, I need also to include the template
+    if ($template) {
+        ob_start();
+        require_once VIEWS .'template.php';
+        $html_output = ob_get_contents();
+        ob_end_clean();
     } else {
-        include CONTROLLERS . $controller . '.php';
+        // Send view_content to Json:output, requesting a full (with headers)
+        // json/jsonp output without decoding
+        $html_output = Json::output($view_content, ($type == 'jsonp') ? true : false, false, false, true);
+    }
+
+    // Output the complete page
+    print $html_output;
+
+    if (! NOCACHE) {
+        // Cache is enabled, store the cache entry
+        $cache_id = uniqid('', true);
+        $cacheView->createCacheEntry($cache_id, var_export($request_params, true));
+        // Store the generated HTML in a gz compressed file
+        $cacheView::writeCacheFile($cache_id, $html_output);
+    }
+
+    if (DEBUG && $template) {
+        // Debug info (only for HTML pages), I don't want this stored in the
+        // cache file, so just echo without adding it to $html_output
+        $memory_usage = round(memory_get_usage()/1024, 0);
+        echo "\n<!-- Memory usage: {$memory_usage} kB -->";
+        echo "\n<!-- Elapsed time (s): " . round((microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]), 4) . " -->\n\n";
     }
 }

@@ -5,7 +5,7 @@ require_once MODELS . 'onestring.php';
 
 if (JSON_API) {
     $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::output($translations, $callback));
+    print Json::output($translations, $callback);
+} else {
+    include VIEWS . 'onestring.php';
 }
-
-include VIEWS . 'onestring.php';

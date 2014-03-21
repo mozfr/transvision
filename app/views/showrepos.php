@@ -55,7 +55,7 @@ $table = '
     <th>Status estimate</th>
 </tr>';
 
-foreach ($string_count as $locale => $numbers) {
+foreach ($string_count as $localecode => $numbers) {
 
     $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
     $completion = number_format($completion/$count_reference*100);
@@ -80,7 +80,7 @@ foreach ($string_count as $locale => $numbers) {
         $confidence = 'No localization';
     }
 
-    $json[$locale] = array(
+    $json[$localecode] = array(
         'total'      => $numbers['total'],
         'missing'    => $numbers['missing'],
         'translated' => ($numbers['total'] - $numbers['identical']),
@@ -90,8 +90,8 @@ foreach ($string_count as $locale => $numbers) {
     );
 
     $table .=
-    "<tr id=\"{$locale}\">
-    <th>{$locale}</th>
+    "<tr id=\"{$localecode}\">
+    <th>{$localecode}</th>
     <td>{$numbers['total']}</td>
     <td>{$numbers['missing']}</td>"
     . '<td>' . ($numbers['total'] - $numbers['identical']) . '</td>'
@@ -107,7 +107,7 @@ $table .= '</table>';
 
 if (isset($_GET['json'])) {
     $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::output($json, $callback));
+    print Json::output($json, $callback);
 } else {
     // Include the common simple search form
     include __DIR__ . '/simplesearchform.php';
