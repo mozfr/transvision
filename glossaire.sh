@@ -295,3 +295,10 @@ then
     echogreen "Create L20N test repo TMX for en-US"
     nice -20 python tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
 fi
+
+# Create a file to get the timestamp of the last string extraction for caching
+echogreen "Creating extraction timestamp for cache system"
+touch cache/lastdataupdate.txt
+
+echogreen "Deleting all the old cached files"
+rm -f cache/*.cache

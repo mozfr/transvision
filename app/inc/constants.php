@@ -15,7 +15,15 @@ define('INC',           APP_ROOT . 'inc/');
 define('VIEWS',         APP_ROOT . 'views/');
 define('MODELS',        APP_ROOT . 'models/');
 define('CONTROLLERS',   APP_ROOT . 'controllers/');
-define('CACHE',         INSTALL_ROOT . 'cache/');
+define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
+define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
+
+if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
+    define('CACHE_TIME',  time() - filemtime(CACHE_PATH . 'lastdataupdate.txt'));
+} else {
+    // 05h20 cache (because we extract data every 6h and extraction lasts 25mn)
+    define('CACHE_TIME',  19200);
+}
 
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
