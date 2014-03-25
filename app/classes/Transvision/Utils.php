@@ -22,6 +22,7 @@ class Utils
             // CRLF XSS
             $v = str_replace(['%0D', '%0A'], '', $v);
             // Remove html tags and ASCII characters below 32
+            $v = htmlspecialchars($v);
             $v = filter_var(
                 $v,
                 FILTER_SANITIZE_STRING,
