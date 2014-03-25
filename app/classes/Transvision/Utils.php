@@ -21,10 +21,10 @@ class Utils
         $sanitize = function($v) {
             // CRLF XSS
             $v = str_replace(['%0D', '%0A'], '', $v);
-            // Remove html tags and ASCII characters below 32
+            // Escape HTML tags and remove ASCII characters below 32
             $v = filter_var(
                 $v,
-                FILTER_SANITIZE_STRING,
+                FILTER_SANITIZE_SPECIAL_CHARS,
                 FILTER_FLAG_STRIP_LOW
             );
             return $v;
