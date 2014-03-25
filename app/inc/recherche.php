@@ -11,6 +11,8 @@ $case_sensitive = $check['case_sensitive'] ? '' : 'i';
 
 $regex = '/' . $whole_word . $my_search . $whole_word . '/' . $case_sensitive;
 
+// Not ideal, but a single / would break the regexp
+$regex = str_replace($regex, '/', '.');
 $entities = preg_grep($regex, array_keys($tmx_source));
 
 if ($check['perfect_match']) {
