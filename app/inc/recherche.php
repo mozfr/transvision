@@ -9,8 +9,8 @@ $tmx_target = Utils::getRepoStrings($locale, $check['repo']);
 $whole_word     = $check['whole_word']     ? '\b' : '';
 $case_sensitive = $check['case_sensitive'] ? '' : 'i';
 
-$regex = '/' . $whole_word . $my_search . $whole_word . '/' . $case_sensitive;
-
+$delimiter = '~';
+$regex = $delimiter . $whole_word . $my_search . $whole_word . $delimiter . $case_sensitive;
 $entities = preg_grep($regex, array_keys($tmx_source));
 
 if ($check['perfect_match']) {
@@ -21,7 +21,7 @@ if ($check['perfect_match']) {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
     foreach ($search as $word) {
-        $regex = '/' . $whole_word . preg_quote($word, '/') . $whole_word . '/' . $case_sensitive;
+        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
         $locale1_strings = preg_grep($regex, $locale1_strings);
         $locale2_strings = preg_grep($regex, $locale2_strings);
     }
@@ -46,7 +46,7 @@ if ($url['path'] == '3locales') {
     } else {
         $locale3_strings = $tmx_target2;
         foreach ($search as $word) {
-            $regex = '/' . $whole_word . preg_quote($word, '/') . $whole_word . '/' . $case_sensitive;
+            $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
             $locale3_strings = preg_grep($regex, $locale3_strings);
         }
     }

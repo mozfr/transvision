@@ -28,12 +28,12 @@ def escape(t):
         .replace("&quot;", '@quot;')
         .replace("&amp;", "@amp;").replace("&lt;", "@lt;").replace("&gt;", "@gt;")
 
-        .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-        .replace("'", "&#39;").replace('"', "&quot;")
+        .replace("&", "&amp;").replace("<", "&#60;").replace(">", "&#62;")
+        .replace("'", "&#39;").replace('"', "&#34;")
         .replace("\\", "&#92;")
 
-        .replace("@quot;", '&quot;')
-        .replace("@amp;", "&amp;").replace("@lt;", "&lt;").replace("@gt;", "&gt;")
+        .replace("@quot;", '&#34;')
+        .replace("@amp;", "&amp;").replace("@lt;", "&#60;").replace("@gt;", "&#62;")
 
         )
 
