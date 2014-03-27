@@ -205,10 +205,6 @@ a#links-top-button {
     background: url("/img/menu.png") top center no-repeat transparent;
 }
 
-div#links-bottom {
-    margin-top: 1em;
-}
-
 /* Tables */
 
 table {
@@ -592,10 +588,6 @@ body#productization div#pagecontent {
     width: 95%;
 }
 
-body#productization div#links-bottom {
-    padding-top: 60px;
-}
-
 body#productization div.product h3 {
     clear: both;
     padding-top: 36px;
@@ -858,11 +850,6 @@ body#productization div.searchorder ol {
         width: 100%;
         float: none;
         text-align: center;
-    }
-
-    /* Hide footer links */
-    #links-bottom {
-        display: none;
     }
 
     body#productization div.product {
