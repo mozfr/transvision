@@ -18,7 +18,7 @@ class Bugzilla
      */
     public static function getBugzillaComponents()
     {
-        $cache_file = CACHE . 'bugzilla_components.json';
+        $cache_file = CACHE_PATH . 'bugzilla_components.json';
         if (!file_exists($cache_file)) {
             $json_url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]';
             file_put_contents($cache_file, file_get_contents($json_url));
