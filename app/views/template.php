@@ -117,7 +117,6 @@ if (strpos(VERSION, 'dev') !== false) {
     <?=$content?>
   </div>
 
-  <div id="links-bottom" class="links"><?=$links?></div>
   <div id="footer">Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</div>
 
 </body>
