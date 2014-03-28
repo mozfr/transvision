@@ -43,6 +43,7 @@ sl
 sq
 sr-Cyrl
 sv-SE
+ta
 te
 th
 tr
