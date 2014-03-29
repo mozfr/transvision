@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
 $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
 $source_locale = isset($source_locale) ? $source_locale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
@@ -121,3 +123,9 @@ if (strpos(VERSION, 'dev') !== false) {
 
 </body>
 </html>
+
+<?php
+
+$final_output = (new \Gajus\Dindent\Parser())->indent(ob_get_contents());
+ob_end_clean();
+print $final_output;

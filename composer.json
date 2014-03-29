@@ -2,7 +2,8 @@
     "require": {
         "atoum/atoum" : "dev-master",
         "pascalc/tinyl10n" : "0.6",
-        "monolog/monolog" : "1.3.0"
+        "monolog/monolog" : "1.3.0",
+        "gajus/dindent": "dev-master"
     },
 
     "require-dev": {
