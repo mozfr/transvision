@@ -137,7 +137,7 @@ class Cache
      * @param string $id UID of the cached file
      * @return string path for the file
      */
-    public static function getKeyPath($id)
+    private static function getKeyPath($id)
     {
         return self::getCachePath() . sha1($id) . '.cache';
     }
