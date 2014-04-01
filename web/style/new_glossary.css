@@ -494,6 +494,21 @@ form#simplesearchform {
     text-align: center;
 }
 
+/* special results */
+
+.resultsbox {
+    width: 40%;
+    max-width: 800px;
+    font-size: 16px;
+    margin: 0px auto;
+}
+.resultsbox h3,
+.resultsbox ol {
+    text-align: left;
+    margin: 0;
+}
+
+
 /* Credits and changelog page */
 
 body#credits div#pagecontent, body#changelog div#pagecontent {
@@ -810,6 +825,16 @@ span.deleted {
     .linkscolumn {
         width: 150px;
     }
+
+    /* special results */
+    .resultsbox {
+        width: 60%;
+    }
+
+    .resultsbox h3,
+    .resultsbox ol {
+        font-size: 12px;
+    }
 }
 
 @media only screen and (max-width: 460px) {
@@ -916,5 +941,15 @@ span.deleted {
 
     p#displaysearchoptions {
         font-weight: bold;
+    }
+
+    /* special results */
+    .resultsbox {
+        width: 60%;
+    }
+
+    .resultsbox h3,
+    .resultsbox ol {
+        font-size: 10px;
     }
 }

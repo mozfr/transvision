@@ -155,4 +155,34 @@ class Strings extends atoum\test
             ->integer($obj->getLength($a))
                 ->isEqualTo($b);
     }
+
+    public function getSimilarDataProvider()
+    {
+        return array(
+            array(
+                'maison',
+                ['maçon', 'melon', 'blanche', 'navet'],
+                1,
+                ['maçon'],
+                ),
+            array(
+                'toto',
+                ['maçon', 'melon', 'blanche', 'navet'],
+                2,
+                ['navet', 'melon'],
+                )
+        );
+    }
+
+    /**
+     * @dataProvider getSimilarDataProvider
+     */
+    public function testGetSimilar($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->array($obj->getSimilar($a, $b, $c))
+                ->isEqualTo($d);
+    }
+
 }
