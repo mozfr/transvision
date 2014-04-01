@@ -127,7 +127,9 @@ if (strpos(VERSION, 'dev') !== false) {
 <?php
 
 $content = DEBUG
-          ? (new \Gajus\Dindent\Parser())->indent(ob_get_flush())
-          : ob_get_flush();;
+          ? (new \Gajus\Dindent\Parser())->indent(ob_get_contents())
+          : ob_get_contents();
+
 ob_end_clean();
+
 print $content;
