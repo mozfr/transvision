@@ -19,6 +19,14 @@ $get_repo_strings = function($locale, $repo) {
     return array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 };
 
+// Set up which repo we want for the view
+$repos = [
+    'master' => 'gaia',
+    'beta' => 'gaia',
+    'release' => 'gaia_1_3',
+    'old' => 'gaia_1_2'
+];
+
 $strings = [
     'gaia'           => $get_repo_strings($locale, 'gaia'),
     'gaia_1_2'       => $get_repo_strings($locale, 'gaia_1_2'),
@@ -42,62 +50,58 @@ foreach ($loc_list as $loc) {
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';
 
-$status = [
-    ['Gaia l10n', count($strings['gaia']), count($strings['gaia-en-US'])],
-    ['Gaia 1.2',  count($strings['gaia_1_2']), count($strings['gaia_1_2-en-US'])],
-    ['Gaia 1.3',  count($strings['gaia_1_3']), count($strings['gaia_1_3-en-US'])],
-];
+$status = [];
+foreach ($repos as $key => $value) {
+    $status[] = [$repos_nice_names[$value], count($strings[$value]), count($strings[$value . '-en-US'])];
+}
 
-$table = function($title, $columns, $rows, $anchor) {
+// Overview of string count for the locale
+$overview = function($title, $columns, $rows, $anchor) {
+    // Titles
     $html = '<table id="' . $anchor . '">'
        . '<tr>'
        . '<th colspan="3">' . $title . '</th>'
        . '</tr>'
-       . '<tr>'
-       . '<th>' . $columns[0] . '</th>'
-       . '<th>' . $columns[1] . '</th>'
-       . '<th>' . $columns[2] . '</th>'
-       . '</tr>';
+       . '<tr>';
+    foreach ($columns as $key => $value) {
+        $html .= '<th>' . $value . '</th>';
+    }
+    $html .= '</tr>';
 
-
-    $row = function($arr) {
-        return '<tr><th>' . $arr[0] . '</th><td>' . $arr[1] . '</td><td>' . $arr[2] . '</td></tr>';
-    };
-    $html .= $row($rows[0]);
-    $html .= $row($rows[1]);
-    $html .= $row($rows[2]);
+    // Rows
+    foreach ($rows as $key => $row) {
+        $html .= '<tr>';
+        foreach ($row as $key => $value) {
+            $html .= '<th>' . $value . '</th>';
+        }
+        $html .= '</tr>';
+    }
     $html .= '</table>';
 
     return $html;
 };
 
 print "<h2>$locale</h2>";
-print $table('How many strings are translated?', ['repo', $locale, 'en-US'], $status, 'hihi');
+print $overview('How many strings are translated?', ['repo', $locale, 'en-US'], $status, 'overview');
 
+// Diverging strings betweet two repositories
+$diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
 
-$table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($locale) {
+    foreach ($diverging_sources as $key => $repo_name) {
+        $normalized_repo[$repo_name] = array_fill_keys(array_keys($strings[$repo_name . '-en-US']), '');
+        $normalized_repo[$repo_name] = array_merge($normalized_repo[$repo_name], $strings[$repo_name]);
+    }
 
-    $english_gaia_keys    = array_fill_keys(array_keys($strings['gaia-en-US']), '');
-    $english_gaia1_2_keys = array_fill_keys(array_keys($strings['gaia_1_2-en-US']), '');
-    $english_gaia1_3_keys = array_fill_keys(array_keys($strings['gaia_1_3-en-US']), '');
-
-    $normalized_gaia_locale    = array_merge($english_gaia_keys, $strings['gaia']);
-    $normalized_gaia1_2_locale = array_merge($english_gaia1_2_keys, $strings['gaia_1_2']);
-    $normalized_gaia1_3_locale = array_merge($english_gaia1_3_keys, $strings['gaia_1_3']);
-
-    $common_strings = array_intersect_key(
-        $normalized_gaia1_3_locale,
-        $normalized_gaia_locale,
-        $normalized_gaia1_2_locale
-    );
+    // Intersect
+    //$common_strings = array_intersect_key(array_slice($normalized_repo));<- does not work
+    $common_strings = array_intersect_key($normalized_repo['gaia'], $normalized_repo['gaia_1_3'], $normalized_repo['gaia_1_2']);//FIXME
 
     $divergences = [];
     foreach ($common_strings as $k => $v) {
-        $temp = [
-            $normalized_gaia_locale[$k],
-            $normalized_gaia1_2_locale[$k],
-            $normalized_gaia1_3_locale[$k]
-        ];
+        $temp = [];
+        foreach ($normalized_repo as $repo_name => $repo) {
+            $temp[] = $repo[$k];
+        }
 
         // remove blanks
         $temp = array_filter($temp, 'strlen');
@@ -113,24 +117,27 @@ $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($
         $divergences[] = $k;
     }
 
+    $width = 100 / (count($diverging_sources) + 1);
+
     $table = '<table id="' . $anchor . '" class="collapsable">'
            . '<tr>'
-           . '<th colspan="4">' . count($divergences) . ' ' . $table_title . '</th>'
+           . '<th colspan="' . count($diverging_sources) . '">' . count($divergences) . ' diverging translations across repositories</th>'
            . '</tr>'
-           . '<tr>'
-           . '<th style="width:25%">' . $column_titles[0] . '</th>'
-           . '<th style="width:25%">' . $column_titles[1] . '</th>'
-           . '<th style="width:25%">' . $column_titles[2] . '</th>'
-           . '<th style="width:25%">' . $column_titles[3] . '</th>'
-           . '</tr>';
+           . '<tr>';
+    $table .= "<th style=\"width:$width%\">Keys</th>";
+    foreach ($diverging_sources as $key => $repo_name) {
+        $table .= "<th style=\"width:$width%\">" . $repos_nice_names[$repo_name] . '</th>';
+    }
+
+    $table .= '</tr>';
 
     foreach ($divergences as $v) {
         $table .= '<tr>'
-                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>'
-                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia_locale[$v], $locale) . '</div></td>'
-                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_2_locale[$v], $locale) . '</div></td>'
-                . '<td><span class="celltitle">' . $column_titles[3] . '</span><div class="string">' . ShowResults::highlight($normalized_gaia1_3_locale[$v], $locale) . '</div></td>'
-                . '</tr>';
+                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>';
+        foreach ($normalized_repo as $repo_name => $repo) {
+            $table .= '<td><span class="celltitle">' . $repo_name . '</span><div class="string">' . ShowResults::highlight($normalized_repo[$repo_name][$v], $locale) . '</div></td>';
+        }
+        $table .= '</tr>';
     }
 
     $table .= '</table>';
@@ -138,37 +145,40 @@ $table_5_col = function ($table_title, $column_titles, $strings, $anchor) use ($
     return $table;
 };
 
-print $table_5_col(
-    'diverging translations across repositories',
-    ['Key',
-     $repos_nice_names['gaia'],
-     $repos_nice_names['gaia_1_2'],
-     $repos_nice_names['gaia_1_3']
+print $diverging(
+    [
+      $repos['beta'],
+      $repos['release'],
+      $repos['old'],
      ],
     $strings,
-    'differences'
+    'diverging'
 );
 
-$common_keys = array_intersect_key($strings['gaia_1_2-en-US'],$strings['gaia_1_3-en-US']);
+// Changes in en-US
+$englishchanges = [$repos['beta'], $repos['release']];
 
+$common_keys = array_intersect_key($strings[$englishchanges[0] . '-en-US'], $strings[$englishchanges[1] . '-en-US']);
+
+$repo1 = $repos_nice_names[$englishchanges[0]];
+$repo2 = $repos_nice_names[$englishchanges[1]];
 $table = '<table id="englishchanges" class="collapsable">'
        . '<tr>'
-       . '<th colspan="3">Strings that have changed significantly in English between Gaia 1.2 and 1.3 but for which the entity name didn\'t change</th>'
+       . '<th colspan="3">Strings that have changed significantly in English between ' . $repo1 . ' and ' . $repo2 . ' but for which the entity name didn\'t change</th>'
        . '</tr>'
        . '<tr>'
        . '<th>Key</th>'
-       . '<th>Gaia 1.2</th>'
-       . '<th>Gaia 1.3</th>'
+       . '<th>' . $repo1 . '</th>'
+       . '<th>' . $repo2 . '</th>'
        . '</tr>';
 
-
 foreach($common_keys as $key =>$val) {
-    if (trim(strtolower($strings['gaia_1_2-en-US'][$key])) != trim(strtolower($strings['gaia_1_3-en-US'][$key]))) {
+    if (trim(strtolower($strings[$englishchanges[0] . '-en-US'][$key])) != trim(strtolower($strings[$englishchanges[1] . '-en-US'][$key]))) {
             $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
-            . '<td><span class="celltitle">Gaia 1.2</span><div class="string">' . ShowResults::highlight($strings['gaia_1_2-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_2'][$key] . '</small></div></td>'
-            . '<td><span class="celltitle">Gaia 1.3</span><div class="string">' . ShowResults::highlight($strings['gaia_1_3-en-US'][$key], 'en-US') . '<br><small>' . $strings['gaia_1_3'][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo1 . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[0] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[0]][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo2 . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[1] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[1]][$key] . '</small></div></td>'
             . '</tr>';
     }
 }
@@ -176,9 +186,9 @@ $table .= '</table>';
 
 print $table;
 
-$table_3_col = function($table_title, $column_titles, $strings, $anchor, $cssclass) use ($locale) {
-    $strings = array_values($strings);
-    $temp = array_diff_key($strings[5], $strings[4]);
+// String diff between two repositories
+$strings_added = function($table_title, $column_titles, $strings, $repo1, $repo2, $anchor, $cssclass) use ($locale) {
+    $temp = array_diff_key($strings[$repo1 . '-en-US'], $strings[$repo2 . '-en-US']);
 
     $count = count($temp);
 
@@ -192,15 +202,14 @@ $table_3_col = function($table_title, $column_titles, $strings, $anchor, $csscla
            . '<th>' . $column_titles[2] . '</th>'
            . '</tr>';
 
-
     foreach ($temp as $k => $v) {
-        $translation = array_key_exists($k, $strings[2])
-                        ? $strings[2][$k]
+        $translation = array_key_exists($k, $strings[$repo1])
+                        ? $strings[$repo1][$k]
                         : '<b>String untranslated</b>';
 
         $table .= '<tr>'
                 . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
-                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($strings[5][$k], 'en-US') . '</td>'
+                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($strings[$repo1][$k], 'en-US') . '</td>'
                 . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($translation, $locale) . '</td>'
                 . '</tr>';
     }
@@ -210,11 +219,12 @@ $table_3_col = function($table_title, $column_titles, $strings, $anchor, $csscla
     return $table;
 };
 
-
-print $table_3_col(
-    'strings added to Gaia 1.3',
+print $strings_added(
+    'strings added to ',
     ['Key', 'en-US', $locale],
     $strings,
+    $repos['beta'],
+    $repos['release'],
     'newstrings',
     'collapsable'
 );
