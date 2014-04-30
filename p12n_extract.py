@@ -340,7 +340,7 @@ def extract_p12n_product(source, product, locale, channel, jsondata, html_output
                                 feedhandlers[feedhandler_number] = {}
                             feedhandlers[feedhandler_number]["title"] = value
                             # Print warning for Google Reader
-                            if (value.lower() == 'google'):
+                            if ('google' in value.lower()):
                                 html_output.append("<p><span class='warning'>Warning:</span> [" + product + "] Google Reader " +
                                     "has been dismissed, see bug 882093 (<span class='code'>" + key + "</span>)</p>")
                         if key.endswith('.uri'):
@@ -584,7 +584,7 @@ def extract_p12n_channel(clproduct, pathsource, pathl10n, localeslist, channel, 
                     extract_p12n_product(path + "browser/chrome/browser-region/region.properties", "browser", locale, channel, jsondata, html_output)
                     extract_p12n_product(path + "browser/metro/chrome/region.properties", "metro", locale, channel, jsondata, html_output)
                     # Do checks specific for Metro
-                    check_p12nmetro(locale, channel, jsondata, html_output)
+                    # check_p12nmetro(locale, channel, jsondata, html_output)
             if (clproduct=="all") or (clproduct=="mobile"):
                 extract_sp_product(path + "mobile/searchplugins/", "mobile", locale, channel, jsondata, splistenUS_mobile, images_list, html_output)
                 if clp12n:
