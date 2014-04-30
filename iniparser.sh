@@ -45,6 +45,7 @@ gaia=$local_hg/GAIA
 gaia_1_1=$local_hg/GAIA_1_1
 gaia_1_2=$local_hg/GAIA_1_2
 gaia_1_3=$local_hg/GAIA_1_3
+gaia_1_4=$local_hg/GAIA_1_4
 
 # Location of Dotlang-based repos
 mozilla_org=$local_svn/mozilla_org/
@@ -61,4 +62,5 @@ gaia_locales=$config/gaia.txt
 gaia_locales_1_1=$config/gaia_1_1.txt
 gaia_locales_1_2=$config/gaia_1_2.txt
 gaia_locales_1_3=$config/gaia_1_3.txt
+gaia_locales_1_4=$config/gaia_1_4.txt
 l20n_test_locales=$config/l20n_test.txt
