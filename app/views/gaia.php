@@ -22,7 +22,7 @@ $get_repo_strings = function($locale, $repo) {
 // Set up which repo we want for the view
 $repos = [
     'master' => 'gaia',
-    'beta' => 'gaia',
+    'beta' => 'gaia_1_4',
     'release' => 'gaia_1_3',
     'old' => 'gaia_1_2'
 ];
@@ -31,9 +31,11 @@ $strings = [
     'gaia'           => $get_repo_strings($locale, 'gaia'),
     'gaia_1_2'       => $get_repo_strings($locale, 'gaia_1_2'),
     'gaia_1_3'       => $get_repo_strings($locale, 'gaia_1_3'),
+    'gaia_1_4'       => $get_repo_strings($locale, 'gaia_1_4'),
     'gaia-en-US'     => $get_repo_strings('en-US', 'gaia'),
     'gaia_1_2-en-US' => $get_repo_strings('en-US', 'gaia_1_2'),
     'gaia_1_3-en-US' => $get_repo_strings('en-US', 'gaia_1_3'),
+    'gaia_1_4-en-US' => $get_repo_strings('en-US', 'gaia_1_4'),
 ];
 
 // Get the locale list
@@ -85,7 +87,7 @@ print "<h2>$locale</h2>";
 print $overview('How many strings are translated?', ['repo', $locale, 'en-US'], $status, 'overview');
 
 // Diverging strings betweet two repositories
-$diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
+$diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $repos_nice_names) {
 
     foreach ($diverging_sources as $key => $repo_name) {
         $normalized_repo[$repo_name] = array_fill_keys(array_keys($strings[$repo_name . '-en-US']), '');
@@ -94,7 +96,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
 
     // Intersect
     //$common_strings = array_intersect_key(array_slice($normalized_repo));<- does not work
-    $common_strings = array_intersect_key($normalized_repo['gaia'], $normalized_repo['gaia_1_3'], $normalized_repo['gaia_1_2']);//FIXME
+    $common_strings = array_intersect_key($normalized_repo['gaia'], $normalized_repo['gaia_1_4'], $normalized_repo['gaia_1_3']);//FIXME
 
     $divergences = [];
     foreach ($common_strings as $k => $v) {
@@ -116,12 +118,12 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
 
         $divergences[] = $k;
     }
-
-    $width = 100 / (count($diverging_sources) + 1);
+    $nb_sources = count($diverging_sources) + 1;
+    $width = 100 / $nb_sources;
 
     $table = '<table id="' . $anchor . '" class="collapsable">'
            . '<tr>'
-           . '<th colspan="' . count($diverging_sources) . '">' . count($divergences) . ' diverging translations across repositories</th>'
+           . '<th colspan="' . $nb_sources . '">' . count($divergences) . ' diverging translations across repositories</th>'
            . '</tr>'
            . '<tr>';
     $table .= "<th style=\"width:$width%\">Keys</th>";
@@ -133,7 +135,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
 
     foreach ($divergences as $v) {
         $table .= '<tr>'
-                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>';
+                . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>';
         foreach ($normalized_repo as $repo_name => $repo) {
             $table .= '<td><span class="celltitle">' . $repo_name . '</span><div class="string">' . ShowResults::highlight($normalized_repo[$repo_name][$v], $locale) . '</div></td>';
         }
@@ -147,9 +149,9 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale) {
 
 print $diverging(
     [
+      $repos['master'],
       $repos['beta'],
       $repos['release'],
-      $repos['old'],
      ],
     $strings,
     'diverging'
@@ -187,14 +189,14 @@ $table .= '</table>';
 print $table;
 
 // String diff between two repositories
-$strings_added = function($table_title, $column_titles, $strings, $repo1, $repo2, $anchor, $cssclass) use ($locale) {
+$strings_added = function($table_title, $column_titles, $strings, $repo1, $repo2, $anchor, $cssclass) use ($locale, $repos_nice_names) {
     $temp = array_diff_key($strings[$repo1 . '-en-US'], $strings[$repo2 . '-en-US']);
 
     $count = count($temp);
 
     $table = '<table id="' . $anchor . '" class="' . $cssclass . '">'
            . '<tr>'
-           . '<th colspan="3">' . $count . ' ' . $table_title . '</th>'
+           . '<th colspan="3">' . $count . ' ' . $table_title . $repos_nice_names[$repo1] . '</th>'
            . '</tr>'
            . '<tr>'
            . '<th>' . $column_titles[0] . '</th>'

@@ -238,6 +238,7 @@ updateGaiaRepo "gaia"
 updateGaiaRepo "1_1"
 updateGaiaRepo "1_2"
 updateGaiaRepo "1_3"
+updateGaiaRepo "1_4"
 
 # mozilla.org has its own extraction script, mozorg.php
 updateFromSVN
