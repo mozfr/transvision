@@ -300,7 +300,7 @@ if [ ! -d $root/TMX ]
         echogreen "Creating TMX folder"
         mkdir -p $root/TMX
 fi
-echogreen -n "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
+echo "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
 
 # At this point I'm sure TMX exists, adding a symlink inside $install/web
 if [ ! -L $install/web/TMX ]
