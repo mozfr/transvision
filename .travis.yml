@@ -22,3 +22,7 @@ notifications:
     template:
       - "%{repository} ; %{commit} (%{author}) : %{message} "
       - "Build details: %{build_url} ; changes: %{compare_url}"
+
+matrix:
+  allow_failures:
+    - rvm: testTmxDownloadTable
