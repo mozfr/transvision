@@ -620,7 +620,12 @@ def main():
 
     # Read configuration file
     parser = SafeConfigParser()
-    parser.read("app/config/config.ini")
+
+    # Get absolute path of ../config from current script location (not current folder)
+    config_folder = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, 'config'))
+    parser.read(os.path.join(config_folder, "config.ini"))
+
+    local_install = parser.get("config", "install")
     local_hg = parser.get("config", "local_hg")
     config_files = parser.get("config", "config")
 
@@ -640,13 +645,13 @@ def main():
     beta_locales = config_files + "/beta.txt"
     release_locales = config_files + "/release.txt"
 
-    if not os.path.exists("web/p12n"):
-        os.makedirs("web/p12n")
+    if not os.path.exists(local_install + "/web/p12n"):
+        os.makedirs(local_install + "/web/p12n")
 
-    jsonfilename = "web/p12n/searchplugins.json"
+    jsonfilename = local_install + "/web/p12n/searchplugins.json"
     jsondata = {}
 
-    htmlfilename = "web/p12n/index.html"
+    htmlfilename = local_install + "/web/p12n/index.html"
     html_output = ['''<!DOCTYPE html>
         <html lang="en">
         <head>

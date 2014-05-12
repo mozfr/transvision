@@ -46,8 +46,9 @@ then
 fi
 
 # Get server configuration variables
-export PATH=$PATH:$PWD/app/inc
-export PATH=$PATH:$PWD/
+APP_FOLDER=$(dirname $PWD)
+export PATH=$PATH:$APP_FOLDER/app/inc
+export PATH=$PATH:$APP_FOLDER/
 
 # We need to store the current directory value for the CRON job
 DIR=$(dirname "$0")
@@ -115,20 +116,20 @@ function updateStandardRepo() {
             for locale in $(cat ${!locale_list})
             do
                 echogreen "Create ${repo_name^^} TMX for $locale"
-                nice -20 python tmxmaker.py ${!repo_l10n}/$locale/ ${!repo_source}/COMMUN/ $locale en-US $repo_name
+                nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale/ ${!repo_source}/COMMUN/ $locale en-US $repo_name
             done
         else
             if [ -d ${!repo_l10n}/$locale_code ]
             then
                 echogreen "Create ${repo_name^^} TMX for $locale_code"
-                nice -20 python tmxmaker.py ${!repo_l10n}/$locale_code/ ${!repo_source}/COMMUN/ $locale_code en-US $repo_name
+                nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale_code/ ${!repo_source}/COMMUN/ $locale_code en-US $repo_name
             else
                 echored "Folder ${!repo_l10n}/$locale_code does not exist."
             fi
         fi
 
         echogreen "Create ${repo_name^^} TMX for en-US"
-        nice -20 python tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
+        nice -20 python app/scripts/tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
     fi
 }
 
@@ -193,20 +194,20 @@ function updateGaiaRepo() {
             for locale in $(cat ${!locale_list})
             do
                 echogreen "Create ${repo_name^^} TMX for $locale"
-                nice -20 python tmxmaker.py ${!repo_name}/$locale/ ${!repo_name}/en-US/ $locale en-US $repo_name
+                nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale/ ${!repo_name}/en-US/ $locale en-US $repo_name
             done
         else
             if [ -d ${!repo_name}/$locale_code ]
             then
                 echogreen "Create ${repo_name^^} TMX for $locale_code"
-                nice -20 python tmxmaker.py ${!repo_name}/$locale_code/ ${!repo_name}/en-US/ $locale_code en-US $repo_name
+                nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale_code/ ${!repo_name}/en-US/ $locale_code en-US $repo_name
             else
                 echored "Folder ${!repo_name}/$locale_code does not exist."
             fi
         fi
 
         echogreen "Create ${repo_name^^} TMX for en-US"
-        nice -20 python tmxmaker.py ${!repo_name}/en-US/ ${!repo_name}/en-US/ en-US en-US $repo_name
+        nice -20 python app/scripts/tmxmaker.py ${!repo_name}/en-US/ ${!repo_name}/en-US/ en-US en-US $repo_name
     fi
 }
 
@@ -251,20 +252,20 @@ then
     if [ $(find cache/bugzilla_components.json -mtime +6) ]
     then
         echored "Generating cache/bugzilla_components.json (file older than a week)"
-        nice -20 python bugzilla_query.py
+        nice -20 python app/scripts/bugzilla_query.py
     else
         echogreen "No need to generate Bugzilla components cache"
     fi
 else
     # File does not exist
     echored "Generating cache/bugzilla_components.json (file missing)"
-    nice -20 python bugzilla_query.py
+    nice -20 python app/scripts/bugzilla_query.py
 fi
 
 # Generate productization data
 cd $install
 echogreen "Extracting p12n data"
-nice -20 python p12n_extract.py
+nice -20 python app/scripts/p12n_extract.py
 
 # Update L20N test repo
 if $checkrepo
@@ -281,20 +282,20 @@ then
         for locale in $(cat $l20n_test_locales)
         do
             echogreen "Create L20N test repo TMX for $locale"
-            nice -20 python tmxmaker.py $l20n_test/l20ntestdata/$locale/ $l20n_test/l20ntestdata/en-US/ $locale en-US l20n_test
+            nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale/ $l20n_test/l20ntestdata/en-US/ $locale en-US l20n_test
         done
     else
         if [ -d $l20n_test/l20ntestdata/$locale_code ]
         then
             echogreen "Create L20N test repo TMX for $locale_code"
-            nice -20 python tmxmaker.py $l20n_test/l20ntestdata/$locale_code/ $l20n_test/l20ntestdata/en-US/ $locale_code en-US l20n_test
+            nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale_code/ $l20n_test/l20ntestdata/en-US/ $locale_code en-US l20n_test
         else
             echored "Folder $l20n_test/$locale_code does not exist."
         fi
     fi
 
     echogreen "Create L20N test repo TMX for en-US"
-    nice -20 python tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
+    nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
 fi
 
 # Create a file to get the timestamp of the last string extraction for caching
