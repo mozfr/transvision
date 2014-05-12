@@ -2,3 +2,12 @@ language: php
 php:
   - "5.5"
   - "5.4"
+before_script:
+  ## Composer
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install
+  ## Atoum
+  - wget http://downloads.atoum.org/nightly/mageekguy.atoum.phar
+  ## travis configuration
+  - cp app/config/config.ini-travis app/config/config.ini
+script: php mageekguy.atoum.phar -d tests/units/
