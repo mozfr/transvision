@@ -620,7 +620,11 @@ def main():
 
     # Read configuration file
     parser = SafeConfigParser()
-    parser.read("../config/config.ini")
+
+    # Get absolute path of ../config from current script location (not current folder)
+    config_folder = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, 'config'))
+    parser.read(os.path.join(config_folder, "config.ini"))
+
     local_install = parser.get("config", "install")
     local_hg = parser.get("config", "local_hg")
     config_files = parser.get("config", "config")

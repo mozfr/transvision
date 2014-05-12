@@ -24,7 +24,8 @@ function echogreen() {
 }
 
 # Get server configuration variables
-source ./iniparser.sh
+DIR=$(dirname "$0")
+source $DIR/iniparser.sh
 
 # Make sure that we have the file structure
 folders=( $release_source $beta_source $aurora_source $trunk_source \

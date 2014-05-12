@@ -11,11 +11,13 @@ def main():
 	# Read the config file
 	try:
 		parser = SafeConfigParser()
-		parser.read("../config/config.ini")
-		cache_filename = parser.get("config", "install") + "/cache/bugzilla_components.json"
+		# Get absolute path of ../config from current script location (not current folder)
+		config_folder = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, 'config'))
+		parser.read(os.path.join(config_folder, "config.ini"))
+		cache_filename = os.path.join(parser.get("config", "install"), "cache", "bugzilla_components.json")
 		print "Writing cache to " + cache_filename
 	except Exception as e:
-		print "Error reading config file in ../config/config.ini"
+		print "Error reading config file ../config/config.ini"
 		print e
 
 	json_url = "https://bugzilla.mozilla.org/jsonrpc.cgi?method=Product.get&amp;params=[%20{%20%22names%22:%20[%22Mozilla%20Localizations%22]}%20]";
