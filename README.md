@@ -67,4 +67,3 @@ MPL 2
 [Transvision classes]: http://transvision-beta.mozfr.org/docs
 [Transvision Project]: https://github.com/mozfr/transvision
 [phpDocumentor]: http://phpdoc.org/
-

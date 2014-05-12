@@ -2,7 +2,7 @@
 
 ; Path to the data root folder. TMX files will be stored in root/TMX so that
 ; they could be shared between multiple versions of Transvision
-root=/home/travis/build/mozfr/transvision//data/
+root=/home/travis/build/mozfr/transvision/data/
 
 ; Path to the local Mercurial clones, both en-US and l10n. Could be external
 ; to the Git checkout of Transvision, as long as scripts have access to it.
