@@ -8,7 +8,7 @@ from ConfigParser import SafeConfigParser
 
 """ here we read the server configuration file """
 parser = SafeConfigParser()
-parser.read('app/config/config.ini')
+parser.read('../config/config.ini')
 libraries = parser.get('config', 'libraries')
 localdir  = parser.get('config', 'root') + '/TMX/'
 

@@ -24,7 +24,7 @@ cfg_parser ()
 
 # We need to store the current directory value for the CRON job
 DIR=`dirname "$0"`
-cfg_parser $DIR/app/config/config.ini
+cfg_parser $DIR/../config/config.ini
 
 # enable section called 'config' for reading
 cfg.section.config

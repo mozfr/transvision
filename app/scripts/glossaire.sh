@@ -46,8 +46,9 @@ then
 fi
 
 # Get server configuration variables
-export PATH=$PATH:$PWD/app/inc
-export PATH=$PATH:$PWD/
+APP_FOLDER=$(dirname $PWD)
+export PATH=$PATH:$APP_FOLDER/app/inc
+export PATH=$PATH:$APP_FOLDER/
 
 # We need to store the current directory value for the CRON job
 DIR=$(dirname "$0")
