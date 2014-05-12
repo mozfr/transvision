@@ -706,6 +706,16 @@ body#productization div.searchorder ol {
     color: gray;
 }
 
+/* Gaia comparison view */
+
+span.added {
+    color: green;
+}
+
+span.deleted {
+    color: red;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 850px)  {

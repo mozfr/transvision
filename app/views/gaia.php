@@ -1,61 +1,93 @@
 <?php
 namespace Transvision;
 
-require_once INC .'l10n-init.php';
+require_once INC . 'l10n-init.php';
 
 // Serbian hack
 $all_locales[] = 'sr-Cyrl';
 $all_locales[] = 'sr-Latn';
 
+// Functions
 $get_or_set = function($arr, $value, $fallback) {
     return isset($_GET[$value]) && in_array($_GET[$value], $arr)
             ? $_GET[$value]
             : $fallback;
 };
 
-$locale = $get_or_set($all_locales, 'locale', $locale);
-
 $get_repo_strings = function($locale, $repo) {
     return array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 };
 
-// Set up which repo we want for the view
-$repos = [
-    'master' => 'gaia',
-    'beta' => 'gaia_1_4',
-    'release' => 'gaia_1_3',
-    'old' => 'gaia_1_2'
-];
+$build_select = function($array_in, $selected_elm) use ($repos_nice_names) {
+    $string_out = '';
+    foreach ($array_in as $elm) {
+        $ch = ($elm == $selected_elm) ? ' selected' : '';
+        $elm_nice_name = isset($repos_nice_names[$elm]) ? $repos_nice_names[$elm] : $elm;
+        $string_out .= "<option" . $ch . " value=" . $elm . ">" . $elm_nice_name . "</option>\n";
+    }
+    return $string_out;
+};
 
-$strings = [
-    'gaia'           => $get_repo_strings($locale, 'gaia'),
-    'gaia_1_2'       => $get_repo_strings($locale, 'gaia_1_2'),
-    'gaia_1_3'       => $get_repo_strings($locale, 'gaia_1_3'),
-    'gaia_1_4'       => $get_repo_strings($locale, 'gaia_1_4'),
-    'gaia-en-US'     => $get_repo_strings('en-US', 'gaia'),
-    'gaia_1_2-en-US' => $get_repo_strings('en-US', 'gaia_1_2'),
-    'gaia_1_3-en-US' => $get_repo_strings('en-US', 'gaia_1_3'),
-    'gaia_1_4-en-US' => $get_repo_strings('en-US', 'gaia_1_4'),
-];
+// Variables
+$repo1 = 'gaia';
+$repo2 = 'gaia_1_4';
+
+$locale = $get_or_set($all_locales, 'locale', $locale);
+$repo1 = $get_or_set($gaia_repos, 'repo1', $repo1);
+$repo2 = $get_or_set($gaia_repos, 'repo2', $repo2);
 
 // Get the locale list
 $loc_list = Files::getFilenamesInFolder(TMX . 'gaia' . '/');
 
-// build the target locale switcher
+// build the target locale & channels switchers
 $target_locales_list = '';
+$channel_selector1 = '';
+$channel_selector2 = '';
 
-foreach ($loc_list as $loc) {
-    $ch = ($loc == $locale) ? ' selected' : '';
-    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
-}
+$target_locales_list = $build_select($loc_list, $locale);
+$channel_selector1 = $build_select($gaia_repos, $repo1);
+$channel_selector2 = $build_select($gaia_repos, $repo2);
 
-// Include the common simple search form
-include __DIR__ . '/simplesearchform.php';
+// Check if repo1 is a newer branch than repo2
+$reverted_comparison = array_search($repo1, $gaia_repos) < array_search($repo2, $gaia_repos);
 
+// Get strings + status for both channel
 $status = [];
-foreach ($repos as $key => $value) {
-    $status[] = [$repos_nice_names[$value], count($strings[$value]), count($strings[$value . '-en-US'])];
+$strings = [];
+
+foreach ($gaia_repos as $repo) {
+    if ($repo == $repo1 || $repo == $repo2) {
+        $strings[$repo] = $get_repo_strings($locale, $repo);
+        $strings[$repo . '-en-US'] = $get_repo_strings('en-US', $repo);
+        $status[] = [$repos_nice_names[$repo], count($strings[$repo]), count($strings[$repo . '-en-US'])];
+    }
 }
+
+?>
+<form name="searchform" id="simplesearchform" method="get" action="">
+    <fieldset id="main">
+        <fieldset>
+            <legend>Locale</legend>
+            <select name="locale">
+            <?=$target_locales_list?>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Repository 1</legend>
+            <select name="repo1">
+            <?=$channel_selector1?>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Repository 2</legend>
+            <select name="repo2">
+            <?=$channel_selector2?>
+            </select>
+        </fieldset>
+        <input type="submit" value="Go" alt="Go" />
+    </fieldset>
+</form>
+<?php
 
 // Overview of string count for the locale
 $overview = function($title, $columns, $rows, $anchor) {
@@ -95,8 +127,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
     }
 
     // Intersect
-    //$common_strings = array_intersect_key(array_slice($normalized_repo));<- does not work
-    $common_strings = array_intersect_key($normalized_repo['gaia'], $normalized_repo['gaia_1_4'], $normalized_repo['gaia_1_3']);//FIXME
+    $common_strings = array_intersect_key($normalized_repo[$diverging_sources[0]], $normalized_repo[$diverging_sources[1]]);
 
     $divergences = [];
     foreach ($common_strings as $k => $v) {
@@ -149,29 +180,28 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
 
 print $diverging(
     [
-      $repos['master'],
-      $repos['beta'],
-      $repos['release'],
+      $repo1,
+      $repo2
      ],
     $strings,
     'diverging'
 );
 
 // Changes in en-US
-$englishchanges = [$repos['beta'], $repos['release']];
+$englishchanges = [$repo1, $repo2];
 
 $common_keys = array_intersect_key($strings[$englishchanges[0] . '-en-US'], $strings[$englishchanges[1] . '-en-US']);
 
-$repo1 = $repos_nice_names[$englishchanges[0]];
-$repo2 = $repos_nice_names[$englishchanges[1]];
+$repo_one = $repos_nice_names[$englishchanges[0]];
+$repo_two = $repos_nice_names[$englishchanges[1]];
 $table = '<table id="englishchanges" class="collapsable">'
        . '<tr>'
-       . '<th colspan="3">Strings that have changed significantly in English between ' . $repo1 . ' and ' . $repo2 . ' but for which the entity name didn\'t change</th>'
+       . '<th colspan="3">Strings that have changed significantly in English between ' . $repo_one . ' and ' . $repo_two . ' but for which the entity name didn\'t change</th>'
        . '</tr>'
        . '<tr>'
        . '<th>Key</th>'
-       . '<th>' . $repo1 . '</th>'
-       . '<th>' . $repo2 . '</th>'
+       . '<th>' . $repo_one . '</th>'
+       . '<th>' . $repo_two . '</th>'
        . '</tr>';
 
 foreach($common_keys as $key =>$val) {
@@ -179,8 +209,8 @@ foreach($common_keys as $key =>$val) {
             $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
-            . '<td><span class="celltitle">Gaia' . $repo1 . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[0] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[0]][$key] . '</small></div></td>'
-            . '<td><span class="celltitle">Gaia' . $repo2 . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[1] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[1]][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[0] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[0]][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo_two . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[1] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[1]][$key] . '</small></div></td>'
             . '</tr>';
     }
 }
@@ -189,30 +219,32 @@ $table .= '</table>';
 print $table;
 
 // String diff between two repositories
-$strings_added = function($table_title, $column_titles, $strings, $repo1, $repo2, $anchor, $cssclass) use ($locale, $repos_nice_names) {
-    $temp = array_diff_key($strings[$repo1 . '-en-US'], $strings[$repo2 . '-en-US']);
-
+$strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, $anchor, $cssclass) use ($locale, $repos_nice_names) {
+    $temp = array_diff_key($strings[$repo_one . '-en-US'], $strings[$repo_two . '-en-US']);
     $count = count($temp);
+    if ($reverted_comparison) {
+        $comparison_type = '<span class="added">' . $count . ' new strings</span>';
+    } else {
+        $comparison_type = '<span class="deleted">' . $count . ' deleted strings</span>';
+    }
 
     $table = '<table id="' . $anchor . '" class="' . $cssclass . '">'
            . '<tr>'
-           . '<th colspan="3">' . $count . ' ' . $table_title . $repos_nice_names[$repo1] . '</th>'
+           . '<th colspan="3">' . $comparison_type . ' between ' . $repos_nice_names[$repo_one] . ' and ' . $repos_nice_names[$repo_two] . '</th>'
            . '</tr>'
            . '<tr>'
-           . '<th>' . $column_titles[0] . '</th>'
-           . '<th>' . $column_titles[1] . '</th>'
-           . '<th>' . $column_titles[2] . '</th>'
+           . '<th>Key</th>'
+           . '<th>New strings</th>'
            . '</tr>';
 
     foreach ($temp as $k => $v) {
-        $translation = array_key_exists($k, $strings[$repo1])
-                        ? $strings[$repo1][$k]
+        $translation = array_key_exists($k, $strings[$repo_one])
+                        ? $strings[$repo_one][$k]
                         : '<b>String untranslated</b>';
 
         $table .= '<tr>'
-                . '<td><span class="celltitle">' . $column_titles[0] . '</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
-                . '<td><span class="celltitle">' . $column_titles[1] . '</span><div class="string">' . ShowResults::highlight($strings[$repo1][$k], 'en-US') . '</td>'
-                . '<td><span class="celltitle">' . $column_titles[2] . '</span><div class="string">' . ShowResults::highlight($translation, $locale) . '</td>'
+                . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
+                . '<td><span class="celltitle">' . $locale . '</span><div class="string">' . ShowResults::highlight($strings[$repo_one . '-en-US'][$k], 'en-US') . '<br><small>' . ShowResults::highlight($translation, $locale) . '</small></div></td>'
                 . '</tr>';
     }
 
@@ -222,11 +254,10 @@ $strings_added = function($table_title, $column_titles, $strings, $repo1, $repo2
 };
 
 print $strings_added(
-    'strings added to ',
-    ['Key', 'en-US', $locale],
+    $reverted_comparison,
     $strings,
-    $repos['beta'],
-    $repos['release'],
+    $repo1,
+    $repo2,
     'newstrings',
     'collapsable'
 );
