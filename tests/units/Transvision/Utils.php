@@ -262,18 +262,20 @@ class Utils extends atoum\test
                 )
         );
     }
-
     /**
      * @dataProvider tmxDownloadTableDataProvider
      */
     public function testTmxDownloadTable($a, $b)
     {
-        $obj = new \Transvision\Utils();
-        $this
-            ->string($obj->tmxDownloadTable($a))
-                ->isEqualTo($b)
-        ;
+        if (!getenv('TRAVIS')) {
+            $obj = new \Transvision\Utils();
+            $this
+                ->string($obj->tmxDownloadTable($a))
+                    ->isEqualTo($b)
+            ;
+        }
     }
+
 
     public function getRepoStringsDataProvider()
     {
@@ -296,12 +298,12 @@ class Utils extends atoum\test
      */
     public function testGetRepoStrings($a, $b, $c)
     {
-        $obj = new \Transvision\Utils();
-        $this
-            ->array($obj->getRepoStrings($a, $b))
-                ->contains($c)
-        ;
+        if (!getenv('TRAVIS')) {
+            $obj = new \Transvision\Utils();
+            $this
+                ->array($obj->getRepoStrings($a, $b))
+                    ->contains($c)
+            ;
+        }
     }
-
-
 }
