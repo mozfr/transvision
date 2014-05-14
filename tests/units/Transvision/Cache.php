@@ -54,9 +54,6 @@ class Cache extends atoum\test
      */
     public function testGetKey($a, $b, $c)
     {
-        if (getenv('TRAVIS')) {
-            sleep(10);
-        }
         $obj = new \Transvision\Cache();
         $this
             ->variable($obj->getKey($a, $b))
