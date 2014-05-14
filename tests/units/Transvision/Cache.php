@@ -24,9 +24,10 @@ class Cache extends atoum\test
             case 'testGetKey':
                 // Prepare testing environment for testGetKey().
                 $files = new \Transvision\Cache();
-                $files->setKey('this_test', 'foobar');
+                $files->setKey('valid', 'foobar');
+                $files->setKey('expired', 'foobar');
                 // Change the timestamp to 100 seconds in the past so we can test expiration
-                touch(CACHE_PATH . sha1('this_test') . '.cache', time()-100);
+                touch(CACHE_PATH . sha1('expired') . '.cache', time()-100);
                 break;
         }
     }
@@ -35,7 +36,7 @@ class Cache extends atoum\test
     {
         $obj = new \Transvision\Cache();
         $this
-            ->boolean($obj->setKey('this_test', 'foobar'))
+            ->boolean($obj->setKey('test', 'foobar'))
                 ->isEqualTo(true)
         ;
     }
@@ -43,8 +44,8 @@ class Cache extends atoum\test
     public function getKeyDP()
     {
         return array(
-            ['this_test', 0, 'foobar'],         // valid key
-            ['this_test', 2, false],            // expired key
+            ['valid', 0, 'foobar'],         // valid key
+            ['expired', 2, false],            // expired key
             ['id_that_doesnt_exist', 0, false], // non-existing key
         );
     }
@@ -63,13 +64,10 @@ class Cache extends atoum\test
 
     public function testFlush()
     {
-
-        if (! getenv('TRAVIS')) {
-            $obj = new \Transvision\Cache();
-            $this
-                ->boolean($obj->flush())
-                    ->isEqualTo(true)
-            ;
-        }
+        $obj = new \Transvision\Cache();
+        $this
+            ->boolean($obj->flush())
+                ->isEqualTo(true)
+        ;
     }
 }
