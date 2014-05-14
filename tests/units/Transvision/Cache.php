@@ -14,11 +14,11 @@ class Cache extends atoum\test
         {
             case 'testFlush':
                 // Prepare testing environment for testFlush().
-                $files_to_flush = new \Transvision\Cache();
+                $files = new \Transvision\Cache();
                 // create a few files to delete
-                $files_to_flush->setKey('file_1', 'foobar');
-                $files_to_flush->setKey('file_2', 'foobar');
-                $files_to_flush->setKey('file_3', 'foobar');
+                $files->setKey('file_1', 'foobar');
+                $files->setKey('file_2', 'foobar');
+                $files->setKey('file_3', 'foobar');
                 break;
 
             case 'testGetKey':
@@ -54,6 +54,9 @@ class Cache extends atoum\test
      */
     public function testGetKey($a, $b, $c)
     {
+        if (getenv('TRAVIS')) {
+            sleep(10);
+        }
         $obj = new \Transvision\Cache();
         $this
             ->variable($obj->getKey($a, $b))
