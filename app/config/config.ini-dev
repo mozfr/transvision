@@ -1,0 +1,22 @@
+[config]
+
+; Path to the data root folder. Data will be stored in web/TMX
+root=/path/to/your/github/clone/for/transvision/web/
+
+; Path to Git checkout of Transvision
+install=/path/to/your/github/clone/for/transvision/
+
+; Path to configuration files for Transvision
+config=/path/to/your/github/clone/for/transvision/app/config
+
+; Only needed for production setup
+local_hg=/temp
+
+; Only needed for production setup
+local_git=/temp
+
+; Only needed for production setup
+local_svn=/temp
+
+; Only needed for production setup
+libraries=/temp

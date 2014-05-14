@@ -6,7 +6,7 @@ namespace Transvision;
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     if ($_GET['repo'] == 'mozilla_org') {
-        $all_locales = Files::getFilenamesInFolder( SVN . 'mozilla_org/');
+        $all_locales = Files::getFilenamesInFolder( TMX . 'mozilla_org/');
     } else {
         $all_locales = file(APP_ROOT . '/config/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
     }
