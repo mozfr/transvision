@@ -1,33 +1,9 @@
-#!/bin/bash
-
-cfg_parser ()
-{
-    ini="$(<$1)"                # read the file
-    ini="${ini//[/\[}"          # escape [
-    ini="${ini//]/\]}"          # escape ]
-    IFS=$'\n' && ini=( ${ini} ) # convert to line-array
-    ini=( ${ini[*]//;*/} )      # remove comments with ;
-    ini=( ${ini[*]/\    =/=} )  # remove tabs before =
-    ini=( ${ini[*]/=\   /=} )   # remove tabs be =
-    ini=( ${ini[*]/\ =\ /=} )   # remove anything with a space around =
-    ini=( ${ini[*]/#\\[/\}$'\n'cfg.section.} ) # set section prefix
-    ini=( ${ini[*]/%\\]/ \(} )    # convert text2function (1)
-    ini=( ${ini[*]/=/=\( } )    # convert item to array
-    ini=( ${ini[*]/%/ \)} )     # close array parenthesis
-    ini=( ${ini[*]/%\\ \)/ \\} ) # the multiline trick
-    ini=( ${ini[*]/%\( \)/\(\) \{} ) # convert text2function (2)
-    ini=( ${ini[*]/%\} \)/\}} ) # remove extra parenthesis
-    ini[0]="" # remove first element
-    ini[${#ini[*]} + 1]='}'    # add the last brace
-    eval "$(echo "${ini[*]}")" # eval the result
-}
+#! /usr/bin/env bash
 
 # We need to store the current directory value for the CRON job
 DIR=`dirname "$0"`
-cfg_parser $DIR/../config/config.ini
-
-# enable section called 'config' for reading
-cfg.section.config
+# Convert .ini file in bash variables
+eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 
 # List of locations of our local hg repos
 release_l10n=$local_hg/RELEASE_L10N
