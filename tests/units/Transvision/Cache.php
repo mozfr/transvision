@@ -14,11 +14,11 @@ class Cache extends atoum\test
         {
             case 'testFlush':
                 // Prepare testing environment for testFlush().
-                $files = new \Transvision\Cache();
+                $files_to_flush = new \Transvision\Cache();
                 // create a few files to delete
-                $files->setKey('file_1', 'foobar');
-                $files->setKey('file_2', 'foobar');
-                $files->setKey('file_3', 'foobar');
+                $files_to_flush->setKey('file_1', 'foobar');
+                $files_to_flush->setKey('file_2', 'foobar');
+                $files_to_flush->setKey('file_3', 'foobar');
                 break;
 
             case 'testGetKey':
