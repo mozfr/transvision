@@ -4,8 +4,7 @@ php:
   - "5.4"
 before_script:
   ## Composer
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install
+  - composer install
   ## Atoum
   - wget http://downloads.atoum.org/nightly/mageekguy.atoum.phar
   ## travis configuration
