@@ -50,7 +50,7 @@ if (strpos(VERSION, 'dev') !== false) {
 ?>
 <!doctype html>
 
-<html lang="<?=$locale?>" dir="ltr">
+<html lang="en" dir="ltr">
   <head>
     <title><?php if($show_title == true){ echo $page_title . ' | '; } ?><?=$title_productname?></title>
     <meta charset="utf-8" />

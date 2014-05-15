@@ -24,7 +24,7 @@ $page_descr = $entity;
 	<?php foreach($translations as $k => $v): ?>
     <tr>
     	<th><?=$k?></th>
-    	<td><?=$v?></td>
+    	<td lang="<?=$k?>"><?=$v?></td>
     </tr>
 	<?php endforeach; ?>
 </table>
