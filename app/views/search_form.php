@@ -60,17 +60,28 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
         <fieldset id="main">
             <div id="search">
                 <p class="smallscreen_notices">Use the <a href="" class="menu-button">Menu tab</a> in the right top corner to select a different view.<p>
-                <input type="text" name="recherche" id="recherche" value="<?=$initial_search?>" placeholder="Type your search here" size="30" />
+                <input type="text"
+                       name="recherche"
+                       id="recherche"
+                       value="<?=$initial_search?>"
+                       placeholder="Type your search here"
+                       title="Type your search here"
+                       size="30"
+                />
                 <input type="submit" value="Search" alt="Search" />
                 <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
             </div>
             <div id="searchoptions">
                 <fieldset>
                     <legend>Repository</legend>
-                    <select id='repository' name='repo'  onchange="changeSourceTargetValues(this.value);">
+                    <select
+                        id='repository'
+                        name='repo'
+                        onchange="changeSourceTargetValues(this.value);"
+                        title="Repository">
                     <?=$repo_list?>
                     </select>
-                    <label class="default_option">
+                    <label class="default_option" for="default_repository">
                         <input type="checkbox"
                                id="default_repository"
                                value="<?=$check['repo']?>"
@@ -82,10 +93,14 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
                 </fieldset>
                 <fieldset>
                     <legend>Source Locale</legend>
-                    <select id='source_locale' name='sourcelocale' onchange="changeDefaultSource('source_locale');">
+                    <select
+                        id='source_locale'
+                        name='sourcelocale'
+                        onchange="changeDefaultSource('source_locale');"
+                        title="Source Locale">
                     <?=$source_locales_list[$check['repo']]?>
                     </select>
-                    <label class="default_option">
+                    <label class="default_option" for="default_source_locale">
                         <input type="checkbox"
                                id="default_source_locale"
                                value="<?=$source_locale?>"
@@ -102,10 +117,14 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
                 </fieldset>
                 <fieldset>
                     <legend>Target Locale</legend>
-                    <select id='target_locale' name='locale' onchange="changeDefaultSource('target_locale');">
+                    <select
+                        id='target_locale'
+                        name='locale'
+                        onchange="changeDefaultSource('target_locale');"
+                        title="Target Locale">
                     <?=$target_locales_list[$check['repo']]?>
                     </select>
-                    <label class="default_option">
+                    <label class="default_option" for="default_target_locale">
                         <input type="checkbox"
                                id="default_target_locale"
                                value="<?=$locale?>"
@@ -124,10 +143,14 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
     <?php if ($url['path'] == '3locales'): ?>
                 <fieldset>
                     <legend>Extra Locale</legend>
-                    <select id='target_locale2' name='locale2' onchange="changeDefaultSource('target_locale2');">
+                    <select
+                        id='target_locale2'
+                        name='locale2'
+                        onchange="changeDefaultSource('target_locale2');"
+                        title="Extra Locale">
                     <?=$target_locales_list2[$check['repo']]?>
                     </select>
-                    <label class="default_option">
+                    <label class="default_option" for="default_target_locale2">
                         <input type="checkbox"
                                id="default_target_locale2"
                                value="<?=$locale2?>"
@@ -146,7 +169,11 @@ $cookie_target_locale2 = $get_cookie('default_target_locale2');
 
                 <fieldset>
                     <legend>Search in</legend>
-                    <select name='search_type' id='search_type' onchange="changeSearchContext(this);">
+                    <select
+                        name='search_type'
+                        id='search_type'
+                        onchange="changeSearchContext(this);"
+                        title="Search in">
                     <?=$search_type_list?>
                     </select>
                 </fieldset>

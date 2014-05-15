@@ -265,7 +265,7 @@ class ShowResults
 
 
                 $extra_column_rows = "
-                <td dir='{$direction3}'>
+                <td dir='{$direction3}' lang='{$locale3}'>
                     <span class='celltitle'>{$locale3}</span>
                     <div class='string'>{$target_string2}</div>
                     <div dir='ltr' class='infos'>
@@ -292,7 +292,7 @@ class ShowResults
                     <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$search_options['repo']}' title='List all translations for this entity'>l10n</a>
                     <a class='linktoentity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
-                  <td dir='{$direction1}'>
+                  <td dir='{$direction1}' lang='{$locale1}'>
                     <span class='celltitle'>{$locale1}</span>
                     <div class='string'>
                       {$source_string}
@@ -311,7 +311,7 @@ class ShowResults
                     </div>
                   </td>
 
-                  <td dir='{$direction2}'>
+                  <td dir='{$direction2}' lang='{$locale2}'>
                     <span class='celltitle'>{$locale2}</span>
                     <div class='string'>{$target_string}</div>
                     <div dir='ltr' class='infos'>
