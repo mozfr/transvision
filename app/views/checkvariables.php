@@ -7,7 +7,7 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $repo = $_GET['repo'];
 
     if ($repo == 'mozilla_org') {
-        $all_locales = Files::getFilenamesInFolder( SVN . "mozilla_org/");
+        $all_locales = Files::getFilenamesInFolder( TMX . "mozilla_org/");
     } else {
         $all_locales = file(INSTALL_ROOT . '/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
     }

@@ -304,3 +304,15 @@ touch cache/lastdataupdate.txt
 
 echogreen "Deleting all the old cached files"
 rm -f cache/*.cache
+
+# Create a snapshot of all extracted data for download
+if $all_locales
+then
+    cd $root
+    echogreen "Creating a snapshot of extracted strings in web/data.tar.gz"
+    tar --exclude='*.tmx' -zcf datatemp.tar.gz TMX
+
+    echogreen "Snapshot created in the web root for download"
+    mv datatemp.tar.gz $install/web/data.tar.gz
+fi
+

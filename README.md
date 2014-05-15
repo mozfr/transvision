@@ -33,18 +33,26 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 - mercurial, git, svn to check out data sources
 - php5-xsl and GraphViz packages for generating the documentation with [phpDocumentor][]
 
-## Install
+## Full Installation (production or heavy development)
 
 1. Fork the [Transvision Project][] into your GitHub account.
 2. Clone your fork to your machine.
 3. Copy app/config/config.ini-dist to app/config/config.ini and adapt the variables to your system.
-4. Run first "setup.sh", then "glossaire.sh" in Transvision's root folder. This process may take some time as it downloads the source code for all Mozilla products.
+4. Run first "app/scripts/setup.sh", then "app/scripts/glossaire.sh". This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
 5. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
-6. You are set! You can run Transvision in your local machine with "php -S localhost:8080" inside the web folder and opening http://localhost:8080/ with your browser.
+6. You are set! You can run Transvision in your local machine with "php -S localhost:8080" inside the web/ folder and opening http://localhost:8080/ with your browser.
+
+## Snapshot installation (regular development)
+
+1. Fork the [Transvision Project][] into your GitHub account.
+2. Clone your fork to your machine.
+3. Copy app/config/config.ini-dev to app/config/config.ini and adapt the variables to your system.
+4. Run "app/scripts/dev-setup.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed.
+5. You are set! You can run Transvision in your local machine with "php -S localhost:8080" inside the web/ folder and opening http://localhost:8080/ with your browser.
 
 ## Update glossary
 
-- To update Transvision glossary, run "glossaire.sh" in Transvision's root folder.
+- To update Transvision glossary, run "app/scripts/glossaire.sh" (only for full installations) .
 
 ## Contribution tips
 
@@ -67,3 +75,4 @@ MPL 2
 [Transvision classes]: http://transvision-beta.mozfr.org/docs
 [Transvision Project]: https://github.com/mozfr/transvision
 [phpDocumentor]: http://phpdoc.org/
+
