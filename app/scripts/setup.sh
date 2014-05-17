@@ -137,7 +137,7 @@ function initDesktopL10nRepo() {
             if [ ! -d $root/TMX/$1/$locale ]
             then
                 # ${1^^} = uppercase($1)
-                echogreen "Creating this locale TMX for ${1^^}:"
+                echogreen "Creating this locale cache for ${1^^}:"
                 echogreen $locale
                 mkdir -p $root/TMX/$1/$locale
             fi
@@ -198,7 +198,7 @@ function initDesktopSourceRepo() {
 
     if [ ! -d $root/TMX/$1/en-US ]
     then
-        echogreen "Creating this locale TMX for $1:"
+        echogreen "Creating this locale cache for $1:"
         echogreen en-US
         mkdir -p $root/TMX/$1/en-US
     fi
@@ -234,7 +234,7 @@ function initGaiaRepo () {
 
             if [ ! -d $root/TMX/$repo_name/$locale ]
             then
-                echogreen "Creating this locale TMX for $repo_pretty_name:"
+                echogreen "Creating this locale cache for $repo_pretty_name:"
                 echogreen $locale
                 mkdir -p $root/TMX/$repo_name/$locale
             fi
@@ -286,28 +286,21 @@ for locale in $(cat $config/l20n_test.txt)
     do
         if [ ! -d $root/TMX/l20n_test/$locale ]
         then
-            echogreen "Creating this locale TMX for L20n test:"
+            echogreen "Creating this locale cache for L20n test:"
             echogreen $locale
             mkdir -p $root/TMX/l20n_test/$locale
         fi
 done
 
-# Add .htaccess to TMX folder. Folder should already exists, but check in
+# Add .htaccess to download folder. Folder should already exists, but check in
 # advance to be sure. I overwrite an existing .htaccess if already present.
-echogreen "Add .htaccess to TMX folder"
-if [ ! -d $root/TMX ]
+echogreen "Add .htaccess to download folder"
+if [ ! -d $install/web/download ]
     then
-        echogreen "Creating TMX folder"
-        mkdir -p $root/TMX
+        echogreen "Creating download folder"
+        mkdir -p $install/web/download
 fi
-echo "AddType application/octet-stream .tmx" > $root/TMX/.htaccess
-
-# At this point I'm sure TMX exists, adding a symlink inside $install/web
-if [ ! -L $install/web/TMX ]
-then
-    echogreen "Add symlink to $root/TMX inside $install/web"
-    ln -s $root/TMX $install/web/TMX
-fi
+echo "AddType application/octet-stream .tmx" > $install/web/download/.htaccess
 
 echogreen "Add log files"
 touch $install/transvision.log

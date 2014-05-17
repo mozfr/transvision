@@ -4,7 +4,7 @@
 
         <?php if (isset($target_locales_list)) : ?>
         <fieldset>
-            <legend>Locale</legend>
+            <label>Locale</label>
             <select name="locale" title="Locale">
             <?=$target_locales_list?>
             </select>
@@ -13,7 +13,7 @@
 
         <?php if (isset($channel_selector)) : ?>
         <fieldset>
-            <legend>Repository</legend>
+            <label>Repository</label>
             <select name="repo" title="Repository">
             <?=$channel_selector?>
             </select>

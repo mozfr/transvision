@@ -115,20 +115,20 @@ function updateStandardRepo() {
         then
             for locale in $(cat ${!locale_list})
             do
-                echogreen "Create ${repo_name^^} TMX for $locale"
+                echogreen "Create ${repo_name^^} cache for $locale"
                 nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale/ ${!repo_source}/COMMUN/ $locale en-US $repo_name
             done
         else
             if [ -d ${!repo_l10n}/$locale_code ]
             then
-                echogreen "Create ${repo_name^^} TMX for $locale_code"
+                echogreen "Create ${repo_name^^} cache for $locale_code"
                 nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale_code/ ${!repo_source}/COMMUN/ $locale_code en-US $repo_name
             else
                 echored "Folder ${!repo_l10n}/$locale_code does not exist."
             fi
         fi
 
-        echogreen "Create ${repo_name^^} TMX for en-US"
+        echogreen "Create ${repo_name^^} cache for en-US"
         nice -20 python app/scripts/tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
     fi
 }
@@ -193,20 +193,20 @@ function updateGaiaRepo() {
         then
             for locale in $(cat ${!locale_list})
             do
-                echogreen "Create ${repo_name^^} TMX for $locale"
+                echogreen "Create ${repo_name^^} cache for $locale"
                 nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale/ ${!repo_name}/en-US/ $locale en-US $repo_name
             done
         else
             if [ -d ${!repo_name}/$locale_code ]
             then
-                echogreen "Create ${repo_name^^} TMX for $locale_code"
+                echogreen "Create ${repo_name^^} cache for $locale_code"
                 nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale_code/ ${!repo_name}/en-US/ $locale_code en-US $repo_name
             else
                 echored "Folder ${!repo_name}/$locale_code does not exist."
             fi
         fi
 
-        echogreen "Create ${repo_name^^} TMX for en-US"
+        echogreen "Create ${repo_name^^} cache for en-US"
         nice -20 python app/scripts/tmxmaker.py ${!repo_name}/en-US/ ${!repo_name}/en-US/ en-US en-US $repo_name
     fi
 }
@@ -280,20 +280,20 @@ then
     then
         for locale in $(cat $l20n_test_locales)
         do
-            echogreen "Create L20N test repo TMX for $locale"
+            echogreen "Create L20N test repo cache for $locale"
             nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale/ $l20n_test/l20ntestdata/en-US/ $locale en-US l20n_test
         done
     else
         if [ -d $l20n_test/l20ntestdata/$locale_code ]
         then
-            echogreen "Create L20N test repo TMX for $locale_code"
+            echogreen "Create L20N test repo cache for $locale_code"
             nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale_code/ $l20n_test/l20ntestdata/en-US/ $locale_code en-US l20n_test
         else
             echored "Folder $l20n_test/$locale_code does not exist."
         fi
     fi
 
-    echogreen "Create L20N test repo TMX for en-US"
+    echogreen "Create L20N test repo cache for en-US"
     nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
 fi
 
@@ -303,6 +303,9 @@ touch cache/lastdataupdate.txt
 
 echogreen "Deleting all the old cached files"
 rm -f cache/*.cache
+
+echogreen "Deleting custom TMX files"
+rm -f web/download/*.tmx
 
 # Create a snapshot of all extracted data for download
 if $all_locales
@@ -314,4 +317,3 @@ then
     echogreen "Snapshot created in the web root for download"
     mv datatemp.tar.gz $install/web/data.tar.gz
 fi
-

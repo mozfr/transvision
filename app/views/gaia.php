@@ -65,19 +65,19 @@ foreach ($gaia_repos as $repo) {
 <form name="searchform" id="simplesearchform" method="get" action="">
     <fieldset id="main">
         <fieldset>
-            <legend>Locale</legend>
+            <label>Locale</label>
             <select name="locale">
             <?=$target_locales_list?>
             </select>
         </fieldset>
         <fieldset>
-            <legend>Repository 1</legend>
+            <label>Repository 1</label>
             <select name="repo1">
             <?=$channel_selector1?>
             </select>
         </fieldset>
         <fieldset>
-            <legend>Repository 2</legend>
+            <label>Repository 2</label>
             <select name="repo2">
             <?=$channel_selector2?>
             </select>

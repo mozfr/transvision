@@ -33,13 +33,13 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
    <form name="searchform" id="simplesearchform" method="get" action="">
      <fieldset id="main">
        <fieldset>
-         <legend>Locale</legend>
+         <label>Locale</label>
            <select name="locale">
              ' . $target_locales_list .'
            </select>
        </fieldset>
        <fieldset>
-           <legend>Repository</legend>
+           <label>Repository</label>
            <select name="product">
              ' .  $product_selector . '
            </select>

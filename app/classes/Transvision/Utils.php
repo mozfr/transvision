@@ -296,40 +296,16 @@ class Utils
     }
 
     /**
-     * Generate a table with TMX Download links for the download page
+     * Check if a parameter exists, if not, return fallback value
      *
-     * @param array $locales All the locales we want to show
-     * @return string Html table with all the download links
+     * @param array $arr Array in which we want to check $value
+     * @param string $value Parameter we want to check
+     * @param string $fallback Default value
+     * @return string $value if $value into $arr, $fallback otherwise
      */
-    public static function tmxDownloadTable($locales)
-    {
-        $output = '<table id="DownloadsTable"><tr><th></th><th colspan="4">Desktop Software</th><th colspan="4">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.2</th><th>Gaia 1.3</th><th>Gaia 1.4</th></tr>';
-
-        foreach ($locales as $locale) {
-            $cell = function ($repo) use ($locale) {
-                $file = $repo . '/'. $locale . '/memoire_en-US_' . $locale . '.tmx';
-                $str = file_exists(TMX . $file)
-                        ? '<a href="/TMX/' . $file . '">Download</a>'
-                        : '<span class="red">TMX Not Available</span>';
-
-                return '<td>' . $str . '</td>';
-            };
-
-            $output .=
-                '<tr><th>' . $locale . '</th>'
-                . $cell('central')
-                . $cell('aurora')
-                . $cell('beta')
-                . $cell('release')
-                . $cell('gaia')
-                . $cell('gaia_1_2')
-                . $cell('gaia_1_3')
-                . $cell('gaia_1_4')
-                . '</tr>';
-        }
-
-        $output .= '</table>';
-
-        return $output;
+    public static function getOrSet($arr, $value, $fallback) {
+        return isset($value) && in_array($value, $arr)
+                ? $value
+                : $fallback;
     }
 }

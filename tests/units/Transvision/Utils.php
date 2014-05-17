@@ -142,9 +142,9 @@ class Utils extends atoum\test
     {
         return array(
             array(
-                    array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
-                    'strings_entities',
-                    true
+                array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
+                'strings_entities',
+                true
             )
         );
     }
@@ -220,7 +220,7 @@ class Utils extends atoum\test
     {
         $obj = new \Transvision\Utils();
         $this
-            ->string($obj->checkAbnormalStringLength($a,$b))
+            ->string($obj->checkAbnormalStringLength($a, $b))
                 ->isEqualTo($c)
         ;
     }
@@ -247,35 +247,10 @@ class Utils extends atoum\test
     {
         $obj = new \Transvision\Utils();
         $this
-            ->boolean($obj->checkAbnormalStringLength($a,$b))
+            ->boolean($obj->checkAbnormalStringLength($a, $b))
                 ->isEqualTo($c)
         ;
     }
-
-
-    public function tmxDownloadTableDataProvider()
-    {
-        return array(
-            array(
-                array('en-US'),
-                '<table id="DownloadsTable"><tr><th></th><th colspan="4">Desktop Software</th><th colspan="4">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.2</th><th>Gaia 1.3</th><th>Gaia 1.4</th></tr><tr><th>en-US</th><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td></tr></table>'
-                )
-        );
-    }
-    /**
-     * @dataProvider tmxDownloadTableDataProvider
-     */
-    public function testTmxDownloadTable($a, $b)
-    {
-        if (!getenv('TRAVIS')) {
-            $obj = new \Transvision\Utils();
-            $this
-                ->string($obj->tmxDownloadTable($a))
-                    ->isEqualTo($b)
-            ;
-        }
-    }
-
 
     public function getRepoStringsDataProvider()
     {
@@ -305,5 +280,47 @@ class Utils extends atoum\test
                     ->contains($c)
             ;
         }
+    }
+
+    public function getOrSetDataProvider()
+    {
+        return array(
+                array(
+                    array('en-US', 'ar', 'fr'),
+                    'fr',
+                    'en-US',
+                    'fr',
+                    ),
+                array(
+                    array('fa', 'es-ES', 'fr'),
+                    'it',
+                    'en-US',
+                    'en-US',
+                    ),
+                array(
+                    array('fa', 'es-ES', 'FR'),
+                    'fr',
+                    'en-US',
+                    'en-US',
+                    ),
+                array(
+                    array('fa', 'es-ES', 'FR'),
+                    'es',
+                    'en-US',
+                    'en-US',
+                    ),
+            );
+    }
+
+    /**
+     * @dataProvider getOrSetDataProvider
+     */
+    public function testGetOrSet($a, $b, $c, $d)
+    {
+        $obj = new \Transvision\Utils();
+        $this
+            ->string($obj->getOrSet($a, $b, $c))
+                ->isEqualTo($d)
+        ;
     }
 }
