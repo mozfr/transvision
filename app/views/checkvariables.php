@@ -3,6 +3,10 @@ namespace Transvision;
 
 require_once INC . 'l10n-init.php';
 
+// rtl support
+$direction1 = RTLSupport::getDirection($source_locale);
+$direction2 = RTLSupport::getDirection($locale);
+
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $repo = $_GET['repo'];
 
@@ -49,11 +53,6 @@ $target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
 
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';
-
-// rtl support
-$rtl = array('ar', 'fa', 'he');
-$direction1 = (in_array($source_locale, $rtl)) ? 'rtl' : 'ltr';
-$direction2 = (in_array($locale, $rtl)) ? 'rtl' : 'ltr';
 
 $source = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $source);
 $target = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $target);
