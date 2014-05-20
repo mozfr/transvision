@@ -20,6 +20,19 @@ $table  = "<table class='collapsable'>
                 {$extra_column_header}
               </tr>";
 
+// Display a search hint for the closest string we have if we have no search results
+if (count($entities) == 0) {
+
+    $merged_strings = [];
+
+    $best_matches = Strings::getSimilar($initial_search, array_keys($tmx_source), 3);
+
+    include VIEWS . 'results_similar.php';
+    return;
+}
+
+
+// Display results
 foreach ($entities as $entity) {
     if ($check['repo'] == 'mozilla_org') {
         $path_locale1 = VersionControl::svnPath($source_locale, $check['repo'], $entity);

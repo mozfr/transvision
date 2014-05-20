@@ -88,4 +88,41 @@ class Strings
     {
         return mb_strlen(strip_tags($str), 'UTF-8');
     }
+
+    /**
+     * Search for similar strings in an array
+     *
+     * @param  string $needle string to search for
+     * @param  array $haystack array of strings to search into
+     * @param  int $number optional, number of results we want, defaults to 1
+     * @return array closest strings to $needle in $haystack or empty array if no match
+     */
+    public static function getSimilar($needle, $haystack, $number = 1)
+    {
+        $similarity = 0;
+        $matches = [];
+
+        foreach ($haystack as $string) {
+
+            similar_text($needle, $string, $percent);
+
+            if ($percent >= $similarity && ! in_array($string, $matches)) {
+
+                $similarity = $percent;
+
+                if (count($matches) < $number) {
+                    $matches[] = $string;
+                } else {
+                    array_shift($matches);
+                    $matches[] = $string;
+                }
+            } elseif (count($matches) < $number) {
+                // We don't want to return less strings than $number
+                $matches[] = $string;
+            }
+        }
+
+        // We reverse the array to get the best results first
+        return array_reverse($matches);
+    }
 }
