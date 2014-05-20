@@ -1,3 +1,26 @@
+<h2 class="relnumber" id="v3.3"><a href="#v3.3">Version 3.3 <span class="reldate">2014-05-20</span></a></h2>
+
+<h3>End user visible changes</h3>
+    <li><span class="newfeature">new</span><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&repo=central&sourcelocale=en-US&locale=fr&search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
+    <li><span class="newfeature">new</span><strong>Dynamic Gaia comparison view:</strong> allows <a href="/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a> (tchevalier)</li>
+    <li>Gaia 1.4 support (tchevalier)</li>
+    <li>List of views removed from footer to remove visual clutter, all views are reachable via the menu button (tchevalier)</li>
+    <li>Make search possible for special characters (", &lt;, &gt;, etc.) (flod)</li>
+    <li>Tamil added for Gaia (flod)</li>
+    <li>Fixed error 500 error when downloading TMX files (flod)</li>
+    <li>Improved accessibility of our views, suggestions by experts from <a href="http://acs-horizons.fr/">ACS Horizons</a> and <a href="http://temesis.com/">Temesis</a> (pascal)</li>
+<ul>
+</ul>
+
+<h3>Developer visible changes</h3>
+<ul>
+    <li><span class="newfeature">new</span><strong>Rapid installation via data snapshots:</strong> There is now a specific install process for developers willing to help on the PHP/HTML/JS/CSS sides of the application only that doesn't require a full production install, running app/scripts/dev-setup.sh instead of app/scripts/setup.sh will install and launch a working Transvision server in a few minutes and use little hard disk space, compared to the full production install mode that needs several hours of installation because of the downloading of all of the Mozilla code and data repositories (pascal) </li>
+    <li><span class="newfeature">new</span><strong>Continuous integration via Travis CI:</strong> Transvision is now using <a href="https://travis-ci.org/mozfr/transvision">Travis CI</a> so as that all pull requests to the GitHub repository get automatic unit tests launched on PHP 5.4 and 5.5. (pascal)</li>
+    <li>Large reorganization of code: new MVC approach, strict separation of back end and front end code, some of the views ported to MVC, <a href="https://github.com/mozfr/transvision/commit/a7df74cc5462308b2cb2e60a6ead8a9136b7766e">(more details in the commit message</a>), relocated and refactored bash scripts into app/scripts/ folder&hellip; (pascal &amp; flod)</li>
+    <li><a href="/?recherche=bookmark&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings_entities&amp;json">Searches</a> on strings &amp; entities can be loaded as json now (flod)</li>
+    <li>Added file caching library to cache data sets or template. <a href="https://github.com/mozfr/transvision/commit/4515974b566ecf7ebb5b4e6e5bebcefc0927f102">Usage details in commit message</a> (pascal)</li>
+</ul>
+
 <h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-03-17</span></a></h2>
 
 <h3>End user visible changes</h3>
