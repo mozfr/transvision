@@ -17,7 +17,7 @@ $repos_nice_names    = [
 
 // Repos must be sorted in this array (latest master -> older branch, etc)
 $gaia_repos          = ['gaia', 'gaia_1_4', 'gaia_1_3', 'gaia_1_2', 'gaia_1_1'];
-$desktop_repos       = array_diff($gaia_repos, array_diff($repos, ['mozilla_org']));
+$desktop_repos       = array_diff(array_diff($repos, ['mozilla_org']), $gaia_repos);
 $spanishes           = ['es-AR', 'es-CL', 'es-ES', 'es-MX'];
 $form_search_options = ['case_sensitive', 'wild', 'whole_word', 'perfect_match', 't2t', 'repo', 'search_type'];
 $form_checkboxes     = array_diff($form_search_options, ['repo', 'search_type']);
