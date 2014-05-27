@@ -17,21 +17,6 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
 // Add en-US as a regular locale without impacting glossaire.sh
 $all_locales[] = 'en-US';
 
-// Don't try to guess locales with the Json API as it is used by scripts, not humans
-if (JSON_API) {
-    $locale = isset($_GET['locale'])
-              ? $_GET['locale']
-              : '';
-    $locale2 = isset($_GET['locale2'])
-              ? $_GET['locale2']
-              : '';
-    $source_locale = isset($_GET['sourcelocale'])
-                    ? $_GET['sourcelocale']
-                    : '';
-
-    return;
-}
-
 $l10n = new \tinyl10n\ChooseLocale($all_locales);
 $l10n->setDefaultLocale('fr');
 $l10n->mapLonglocales = true;

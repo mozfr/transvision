@@ -9,7 +9,7 @@ $my_search = Utils::cleanSearch($_GET['recherche']);
 $initial_search = $my_search;
 
 // Checkboxes states
-$check = array();
+$check = [];
 
 foreach ($form_checkboxes as $val) {
     $check[$val] = (isset($_GET[$val])) ? true : false;
@@ -34,13 +34,8 @@ if (isset($_GET['search_type'])
     $check['search_type'] = $_GET['search_type'];
 }
 
-$dirs = array_filter(glob(TMX . $check['repo'] . '/*'), 'is_dir');
-
-foreach ($dirs as $dir) {
-    $locs       = explode('/', $dir);
-    $loc        = array_pop($locs);
-    $loc_list[] = $loc;
-}
+// Locales list for the select boxes
+$loc_list = Project::getRepositoryLocales($check['repo']);
 
 // Deal with special cases depending on checkboxes ticked on or off
 if ($check['wild']) {

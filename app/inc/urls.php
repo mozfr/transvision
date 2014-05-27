@@ -4,7 +4,6 @@ $urls = array(
     '/'                 => 'root',
     'news'              => 'changelog',
     'changelog.php'     => 'changelog',
-    'json_api.php'      => 'root',
     'stats'             => 'stats',
     'repocomparizon'    => 'repocomp',
     'repocomparison'    => 'repocomp',
@@ -19,4 +18,5 @@ $urls = array(
     '3locales'          => '3locales',
     'string'            => 'onestring',
     'productization'    => 'productization',
+    'api'               => 'api',
 );

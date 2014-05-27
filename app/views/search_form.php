@@ -1,60 +1,6 @@
 <?php
 namespace Transvision;
-
-// build the repository switcher
-$repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $check['repo'], true);
-
-// Get the locale list for every repo and build his target/source locale switcher values.
-$loc_list = array();
-$target_locales_list  = array();
-$source_locales_list  = array();
-
-// 3locales view variables
-$target_locales_list2 = array();
-
-$repositories = Files::getFilenamesInFolder(TMX . '/');
-
-foreach ($repositories as $repository) {
-    $loc_list[$repository] = Files::getFilenamesInFolder(TMX . $repository . '/', ['ab-CD']);
-    sort($loc_list[$repository]);
-
-    $source_locale_in_loop = ($repository == 'mozilla_org') ? 'en-GB' : 'en-US';
-
-    // build the source locale switcher
-    $source_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $source_locale_in_loop);
-
-    // build the target locale switcher
-    $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
-
-    // 3locales view: build the target locale switcher for a second locale
-    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale2);
-}
-
-// Build the search type switcher
-$search_type_descriptions = [
-    'strings' => 'Strings',
-    'entities'=> 'Entities',
-    'strings_entities' => 'Strings & Entities'
-];
-
-$search_type_list = Utils::getHtmlSelectOptions(
-    $search_type_descriptions,
-    $check['search_type'],
-    true
-);
-
-// Get COOKIES
-$get_cookie = function($var) {
-    return isset($_COOKIE[$var]) ? $_COOKIE[$var] : '';
-};
-
-$cookie_repository     = $get_cookie('default_repository');
-$cookie_source_locale  = $get_cookie('default_source_locale');
-$cookie_target_locale  = $get_cookie('default_target_locale');
-$cookie_target_locale2 = $get_cookie('default_target_locale2');
-
 ?>
-
   <div id="current" onclick="javascript:t2t();">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" id="searchform" method="get" action="./" >
         <fieldset id="main">
@@ -309,40 +255,3 @@ function changeSearchContext(element) {
     document.getElementById('searchcontextvalue').innerHTML = element.options[element.selectedIndex].text;
 }
 </script>
-<?php
-
-
-if ($initial_search != '') {
-    // create a json file logging locale/number of requests
-    $stats = Json::fetch(WEB_ROOT . 'stats.json');
-    $stats[$locale] = (array_key_exists($locale, $stats)) ?  $stats[$locale] += 1 : 1 ;
-    file_put_contents(WEB_ROOT . 'stats.json', json_encode($stats));
-
-    // create a json file logging search options to determine if some are unused
-    $stats = Json::fetch(WEB_ROOT . 'stats_requests.json');
-    foreach ($check as $k => $v) {
-        if (in_array($k, $form_checkboxes) && $v == 1) {
-            $stats[$k] = (array_key_exists($k, $stats)) ? $stats[$k] += 1 : 1;
-        }
-        if (in_array($k, array_diff($form_search_options, $form_checkboxes))) {
-            $stats[$v] = (array_key_exists($v, $stats)) ? $stats[$v] += 1 : 1;
-        }
-
-        file_put_contents(WEB_ROOT . 'stats_requests.json', json_encode($stats));
-    }
-    unset($stats);
-}
-
-// Search results process
-if ($check['t2t']) {
-    require_once VIEWS . 't2t.php';
-} else {
-    // result presentation
-    if ($my_search != '') {
-        if ($check['search_type'] == 'entities') {
-            require_once VIEWS . 'results_ent.php';
-        } else {
-            require_once VIEWS . 'results.php';
-        }
-    }
-}

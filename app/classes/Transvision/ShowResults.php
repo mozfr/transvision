@@ -36,6 +36,73 @@ class ShowResults
     }
 
     /**
+     * Return an array of search results from our Translation Memory API
+     * service with a quality index based on the levenshtein distance.
+     *
+     * @param  array  $entities  The entities we want to analyse
+     * @param  array  $array_strings The strings to look into [locale1 strings, locale2 strings]
+     * @param  string $search The string to search for
+     * @param  int    $max_results Optional, default to 200, the max number of results we return
+     * @param  int    $min_quality Optional, default to 0, The minimal quality index to filter result
+     * @return array  An array of strings as [source => string, target => string, quality=> Levenshtein index]
+     */
+    public static function getTranslationMemoryResults($entities, $array_strings, $search, $max_results=200, $min_quality=0)
+    {
+        $search_results = array_values(self::getTMXResults($entities, $array_strings));
+        $output = [];
+
+        foreach ($search_results as $set) {
+            // We only want results for which we have a translation
+            if ($set[1]) {
+                $quality = Strings::levenshteinQuality($search, $set[0]);
+
+                if ($quality >= $min_quality) {
+                    $output[] = [
+                        'source'  => $set[0],
+                        'target'  => $set[1],
+                        'quality' => $quality
+                    ];
+                }
+            }
+        }
+
+        // We sort by quality to get the best results first
+        usort($output, function ($a, $b) {
+           return $a['quality'] < $b['quality'];
+        });
+
+        if ($max_results > 0) {
+            array_splice($output, $max_results);
+        }
+
+        return $output;
+    }
+
+    /**
+     * Return search results in a repository on strings/entities for the API
+     *
+     * @param  array $entities An array of all the entities we want to return
+     * @param  array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     * @return array An array of strings with the entity as key [entity => [English => French]]
+     */
+    public static function getRepositorySearchResults($entities, $array_strings)
+    {
+        $search_results = self::getTMXResults($entities, $array_strings);
+        $output = [];
+
+        foreach ($search_results as $entity => $set) {
+            // we only want results for which we have a translation
+            if ($set[1]) {
+                $output[$entity] = [
+                    $set[0] => $set[1]
+                ];
+            }
+        }
+
+        return $output;
+    }
+
+    /**
      * Returns the string from its entity or false
      *
      * @param string $entity Entity we are looking for

@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // Search for the string
-include INC . 'recherche.php';
+include MODELS . 'mainsearch.php';
 
 // Get the locale results
 $results = array();

@@ -106,11 +106,9 @@ $table .= '</table>';
 
 
 if (isset($_GET['json'])) {
-    $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::output($json, $callback));
+    include VIEWS . 'json.php';
 } else {
     // Include the common simple search form
     include __DIR__ . '/simplesearchform.php';
-
     echo $table;
 }
