@@ -64,6 +64,7 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 "php vendor/atoum/atoum/bin/atoum -d tests/units/"
 - Update dependencies with composer:
 "php composer.phar update" (or "composer update" if installed globally)
+- Check our [Coding Standards][] before submitting pull requests.
 
 ## Licence:
 
@@ -75,4 +76,4 @@ MPL 2
 [Transvision classes]: http://transvision-beta.mozfr.org/docs
 [Transvision Project]: https://github.com/mozfr/transvision
 [phpDocumentor]: http://phpdoc.org/
-
+[Coding Standards]:https://github.com/mozfr/transvision/wiki/Code-conventions
