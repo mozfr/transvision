@@ -106,7 +106,7 @@ $overview = function($title, $columns, $rows, $anchor) {
     foreach ($rows as $key => $row) {
         $html .= '<tr>';
         foreach ($row as $key => $value) {
-            $html .= '<th>' . $value . '</th>';
+            $html .= '<td>' . $value . '</td>';
         }
         $html .= '</tr>';
     }
@@ -186,6 +186,67 @@ print $diverging(
     $strings,
     'diverging'
 );
+
+// Inconsistent translations in the first repo (repo1)
+$find_duplicates = function ($string_array) {
+    $duplicates = array();
+    asort($string_array);
+    reset($string_array);
+
+    $previous_key = '';
+    $previous_value = '';
+    foreach ($string_array as $key => $value) {
+        if (strcasecmp($previous_value, $value) === 0) {
+            $duplicates[$previous_key] = $previous_value;
+            $duplicates[$key] = $value;
+        }
+        $previous_value = $value;
+        $previous_key = $key;
+    }
+    return $duplicates;
+};
+
+$duplicated_strings_english = $find_duplicates($strings[$repo1 . '-en-US']);
+$duplicated_strings_translation = $find_duplicates($strings[$repo1]);
+
+// Get the strings duplicated in English but not in the localization
+$missing_duplicates = array_diff_key($duplicated_strings_english, $duplicated_strings_translation);
+
+$inconsistent_translation = [];
+foreach ($duplicated_strings_english as $key => $value) {
+    /*
+    I'm interested only in strings with a value that should be duplicated.
+    Ignore plural forms containing [] in the key, too many false positives
+    since English doesn't have plural for adjectives.
+    */
+    if (in_array($value, $missing_duplicates) &&
+        strpos($key, '[') === false &&
+        strpos($key, ']') === false) {
+        $inconsistent_translation[$key]['en-US'] = $value;
+        if (array_key_exists($key, $strings[$repo1])) {
+            $inconsistent_translation[$key]['l10n'] = $strings[$repo1][$key];
+        } else {
+            $inconsistent_translation[$key]['l10n'] = '';
+        }
+    }
+}
+
+if (count($inconsistent_translation) > 0) {
+    $inconsistent_results = "\n<table><tr><th>Label</th><th>English</th><th>Translation</th></tr>";
+    foreach ($inconsistent_translation as $key => $value) {
+        $inconsistent_results .= "<tr>
+            <td>" . ShowResults::formatEntity($key) . "</td>
+            <td>" . $value['en-US'] . "</td>
+            <td>" . $value['l10n'] . "</td>
+        </tr>\n";
+    }
+    $inconsistent_results .= "</table>\n";
+} else {
+    $inconsistent_results = "<p>No inconsistent translations found.</p>";
+}
+
+print "\n<h3>Translation Consistency in {$repos_nice_names[$repo1]}</h3>";
+print $inconsistent_results;
 
 // Changes in en-US
 $englishchanges = [$repo1, $repo2];
