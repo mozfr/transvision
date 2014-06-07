@@ -16,8 +16,8 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     }
 
     $channels = ['trunk', 'aurora', 'beta', 'release'];
-    $products = ['browser', 'metro', 'mobile', 'suite', 'mail'];
-    $productnames = ['Firefox Desktop', 'Firefox Metro', 'Firefox Mobile (Android)', 'Seamonkey', 'Thunderbird'];
+    $products = ['browser', 'mobile', 'suite', 'mail'];
+    $productnames = ['Firefox Desktop', 'Firefox Mobile (Android)', 'Seamonkey', 'Thunderbird'];
 
 
     echo "  <h2>Current locale: $locale</h2>\n";
