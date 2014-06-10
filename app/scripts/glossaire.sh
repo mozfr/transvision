@@ -148,7 +148,7 @@ function updateNoBranchRepo() {
 
 function updateGaiaRepo() {
     # Update specified Gaia repository. Parameters:
-    # $1 = version, could be "trunk" or a version (e.g. 1_1, 1_2, etc)
+    # $1 = version, could be "trunk" or a version (e.g. 1_3, 1_4, etc)
 
     if [ "$1" == "gaia" ]
     then
@@ -236,7 +236,6 @@ updateStandardRepo "aurora" "aurora"
 updateStandardRepo "central" "trunk"
 
 updateGaiaRepo "gaia"
-updateGaiaRepo "1_1"
 updateGaiaRepo "1_2"
 updateGaiaRepo "1_3"
 updateGaiaRepo "1_4"

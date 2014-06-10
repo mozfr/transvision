@@ -41,12 +41,12 @@ class VersionControl
         ) {
             $locale = ($locale == 'es-ES') ? 'es' : $locale;
 
-            if ($repo == 'gaia_1_1') {
-                $url .= '/releases/gaia-l10n/v1_1/' . $locale . '/file/default/';
-            } elseif ($repo == 'gaia_1_2') {
+            if ($repo == 'gaia_1_2') {
                 $url .= '/releases/gaia-l10n/v1_2/' . $locale . '/file/default/';
             } elseif ($repo == 'gaia_1_3') {
                 $url .= '/releases/gaia-l10n/v1_3/' . $locale . '/file/default/';
+            } elseif ($repo == 'gaia_1_4') {
+                $url .= '/releases/gaia-l10n/v1_4/' . $locale . '/file/default/';
             } else {
                 $url .= '/gaia-l10n/' . $locale . '/file/default/';
             }
