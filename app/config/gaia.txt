@@ -37,6 +37,7 @@ kn
 ko
 lij
 lt
+mai
 ml
 mk
 ms
@@ -51,6 +52,7 @@ ru
 si
 sk
 sl
+son
 sq
 sr-Cyrl
 sr-Latn
