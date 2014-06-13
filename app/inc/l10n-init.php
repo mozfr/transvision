@@ -4,15 +4,15 @@ namespace Transvision;
  * This file initializes l10n support: locale detection, rtl/ltr variables
  */
 
-if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
-    if ($_GET['repo'] == 'mozilla_org') {
-        $all_locales = Files::getFilenamesInFolder( TMX . 'mozilla_org/');
-    } else {
-        $all_locales = file(APP_ROOT . '/config/' . $_GET['repo'] . '.txt', FILE_IGNORE_NEW_LINES);
-    }
+if (isset($_GET['repo'])) {
+    $repo = Project::isValidRepository($_GET['repo'])
+            ? $_GET['repo']
+            : 'central';
 } else {
-    $all_locales = file(APP_ROOT . '/config/central.txt', FILE_IGNORE_NEW_LINES);
+    $repo = 'central';
 }
+
+$all_locales = Project::getRepositoryLocales($repo);
 
 // Add en-US as a regular locale without impacting glossaire.sh
 $all_locales[] = 'en-US';

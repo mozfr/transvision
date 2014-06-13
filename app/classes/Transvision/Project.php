@@ -108,4 +108,15 @@ class Project
     {
         return $repository == 'mozilla_org' ? 'en-GB' : 'en-US';
     }
+
+    /**
+     * Check if the specified repository is supported
+     *
+     * @param  string $repository Name of the folder for the repository
+     * @return boolean True if supported repository, False if unknown
+     */
+    public static function isValidRepository($repository)
+    {
+        return in_array($repository, self::getRepositories());
+    }
 }

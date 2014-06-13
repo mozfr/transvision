@@ -72,4 +72,15 @@ class Project extends atoum\test
             ->string($obj->getReferenceLocale('mozilla_org'))
                 ->isEqualTo('en-GB');
     }
+
+    public function testIsValidRepository()
+    {
+        $obj = new \Transvision\Project();
+        $this
+            ->boolean($obj->isValidRepository('central'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isValidRepository('foo'))
+                ->isEqualTo(false);
+    }
 }
