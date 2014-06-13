@@ -1,11 +1,9 @@
 <?php
 namespace Transvision;
 
+// Set $repo to get the correct list of locales for Gaia from l10n-init.php
+$repo = 'gaia';
 require_once INC . 'l10n-init.php';
-
-// Serbian hack
-$all_locales[] = 'sr-Cyrl';
-$all_locales[] = 'sr-Latn';
 
 // Functions
 $get_or_set = function($arr, $value, $fallback) {

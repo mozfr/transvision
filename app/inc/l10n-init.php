@@ -9,7 +9,9 @@ if (isset($_GET['repo'])) {
             ? $_GET['repo']
             : 'central';
 } else {
-    $repo = 'central';
+    if (! isset($repo)) {
+        $repo = 'central';
+    }
 }
 
 $all_locales = Project::getRepositoryLocales($repo);
