@@ -118,7 +118,13 @@ Class API
      */
     public function isValidRequest()
     {
-        // The 'versions' service is special as its URL is not versionned
+        // No parameters passed
+        if (! count($this->parameters)) {
+            $this->log('No service requested');
+            return false;
+        }
+
+        // The 'versions' service is special as its URL is not versioned
         if ($this->parameters[0] == 'versions') {
             return true;
         }
