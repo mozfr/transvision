@@ -30,7 +30,7 @@ source $DIR/iniparser.sh
 # Make sure that we have the file structure
 folders=( $release_source $beta_source $aurora_source $trunk_source \
           $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
-          $gaia $gaia_1_1 $gaia_1_2 $gaia_1_3 $gaia_1_4 \
+          $gaia $gaia_1_2 $gaia_1_3 $gaia_1_4 \
           $libraries $mozilla_org $l20n_test )
 
 echogreen "Creating folders..."
@@ -205,7 +205,7 @@ function initDesktopSourceRepo() {
 }
 
 function initGaiaRepo () {
-    # $1 = version, could be "gaia" or a version number with underscores (e.g. 1_1, 1_2, etc)
+    # $1 = version, could be "gaia" or a version number with underscores (e.g. 1_3, 1_4 etc)
     if [ "$1" == "gaia" ]
     then
         local locale_list="gaia_locales"
@@ -215,7 +215,7 @@ function initGaiaRepo () {
     else
         local locale_list="gaia_locales_$1"
         local repo_name="gaia_$1"
-        # If version is "1_1", repo_pretty_name will be "Gaia 1.1"
+        # If version is "1_4", repo_pretty_name will be "Gaia 1.4"
         local repo_pretty_name="Gaia ${1/_/.}"
         local repo_path="http://hg.mozilla.org/releases/gaia-l10n/v$1"
     fi
@@ -260,7 +260,6 @@ createSymlinks "chatzilla"
 createSymlinks "venkman"
 
 initGaiaRepo "gaia"
-initGaiaRepo "1_1"
 initGaiaRepo "1_2"
 initGaiaRepo "1_3"
 initGaiaRepo "1_4"

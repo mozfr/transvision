@@ -258,7 +258,7 @@ class Utils extends atoum\test
         return array(
             array(
                 array('en-US'),
-                '<table id="DownloadsTable"><tr><th></th><th colspan="4">Desktop Software</th><th colspan="4">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.1</th><th>Gaia 1.2</th><th>Gaia 1.3</th><th>Gaia 1.4</th></tr><tr><th>en-US</th><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td></tr></table>'
+                '<table id="DownloadsTable"><tr><th></th><th colspan="4">Desktop Software</th><th colspan="4">Firefox OS</th></tr><tr><th></th><th>Central</th><th>Aurora</th><th>Beta</th><th>Release</th><th>Gaia central</th><th>Gaia 1.2</th><th>Gaia 1.3</th><th>Gaia 1.4</th></tr><tr><th>en-US</th><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td><td><span class="red">TMX Not Available</span></td></tr></table>'
                 )
         );
     }
