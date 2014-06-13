@@ -4,11 +4,11 @@
 const VERSION = '3.4dev';
 
 // Constants for the project
-define('DATA_ROOT',     $ini_array['root']);
-define('HG',            $ini_array['local_hg'] . '/');
-define('SVN',           $ini_array['local_svn'] . '/');
+define('DATA_ROOT',     $server_config['root']);
+define('HG',            $server_config['local_hg'] . '/');
+define('SVN',           $server_config['local_svn'] . '/');
 define('TMX',           DATA_ROOT . '/TMX/');
-define('INSTALL_ROOT',  $ini_array['install'] . '/');
+define('INSTALL_ROOT',  $server_config['install'] . '/');
 define('WEB_ROOT',      INSTALL_ROOT . 'web/');
 define('APP_ROOT',      INSTALL_ROOT . 'app/');
 define('INC',           APP_ROOT . 'inc/');
@@ -27,4 +27,3 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
-define('JSON_API', (isset($_GET['json']) && !isset($web_service)) ? true : false);

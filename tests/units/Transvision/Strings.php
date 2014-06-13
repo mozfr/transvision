@@ -185,4 +185,53 @@ class Strings extends atoum\test
                 ->isEqualTo($d);
     }
 
+
+    public function getLevenshteinUTF8DP()
+    {
+        return array(
+            ['notre', 'nôtre', 1],
+            ['웹', '으', 1],
+            ['हिस्सा', 'हमारे', 5],
+            ['hello', 'melon', 3],
+            ['കട', 'കടല', 1],
+            ['കട', 'കല', 1],
+            ['കട', 'കടി', 1],
+        );
+    }
+
+    /**
+     * @dataProvider getLevenshteinUTF8DP
+     */
+    public function testLevenshteinUTF8($a, $b, $c)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->integer($obj->LevenshteinUTF8($a, $b))
+                ->isEqualTo($c);
+    }
+
+    public function getLevenshteinQualityDP()
+    {
+        // We use divisions so as to ave real precise numbers for float comparizon
+        return array(
+            ['notre', 'nôtre', (float) 80],
+            ['웹', '으', (float) 0],
+            ['हिस्सा', 'हमारे', (float) 100/6],
+            ['hello', 'melon', (float) 40],
+            ['കട', 'കടല', (float) 100/1.5],
+            ['കട', 'കല', (float) 50],
+            ['കട', 'കടി', (float) 100/1.5],
+        );
+    }
+
+    /**
+     * @dataProvider getLevenshteinQualityDP
+     */
+    public function testLevenshteinQuality($a, $b, $c)
+    {
+        $obj = new \Transvision\Strings();
+        $this
+            ->float($obj->levenshteinQuality($a, $b))
+                ->isNearlyEqualTo($c);
+    }
 }

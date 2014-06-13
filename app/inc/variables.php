@@ -1,23 +1,15 @@
 <?php
+namespace Transvision;
 
-// Global variable used across the project
-$repos               = ['release', 'beta', 'aurora', 'central', 'gaia', 'gaia_1_1', 'gaia_1_2', 'gaia_1_3', 'gaia_1_4', 'mozilla_org'];
-$repos_nice_names    = [
-    'release'     => 'Release',
-    'beta'        => 'Beta',
-    'aurora'      => 'Aurora',
-    'central'     => 'Central',
-    'gaia'        => 'Gaia master',
-    'gaia_1_1'    => 'Gaia 1.1',
-    'gaia_1_2'    => 'Gaia 1.2',
-    'gaia_1_3'    => 'Gaia 1.3',
-    'gaia_1_4'    => 'Gaia 1.4',
-    'mozilla_org' => 'www.mozilla.org',
-];
+/* Global variables used across the project */
 
-// Repos must be sorted in this array (latest master -> older branch, etc)
-$gaia_repos          = ['gaia', 'gaia_1_4', 'gaia_1_3', 'gaia_1_2', 'gaia_1_1'];
-$desktop_repos       = array_diff(array_diff($repos, ['mozilla_org']), $gaia_repos);
-$spanishes           = ['es-AR', 'es-CL', 'es-ES', 'es-MX'];
-$form_search_options = ['case_sensitive', 'wild', 'whole_word', 'perfect_match', 't2t', 'repo', 'search_type'];
-$form_checkboxes     = array_diff($form_search_options, ['repo', 'search_type']);
+// Repositories
+$repos            = Project::getRepositories();
+$repos_nice_names = Project::getRepositoriesNames();
+$gaia_repos       = Project::getGaiaRepositories();
+$desktop_repos    = Project::getDesktopRepositories();
+
+// Search forms
+$form_search_options = ['case_sensitive', 'wild', 'whole_word',
+                        'perfect_match', 't2t', 'repo', 'search_type'];
+$form_checkboxes = array_diff($form_search_options, ['repo', 'search_type']);

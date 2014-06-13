@@ -1,11 +1,20 @@
 <?php
 namespace Transvision;
 
-require_once MODELS . 'onestring.php';
+$repo = isset($_GET['repo']) && in_array($_GET['repo'], $repos)
+        ? $_GET['repo']
+        : 'release';
 
-if (JSON_API) {
-    $callback = isset($_GET['callback']) ? $_GET['callback'] : false;
-    die(Json::output($translations, $callback));
+$entity   = isset($_GET['entity']) ? $_GET['entity'] : '';
+$callback = isset($_GET['callback']) ? '&callback=' . $_GET['callback'] : '';
+
+
+// Redirect old API call to new official API
+if (isset($_GET['json'])) {
+    header('Status: 301 Moved Permanently', false, 301);
+    header("Location: http://{$_SERVER['HTTP_HOST']}/api/v1/entity/{$repo}/?id={$entity}{$callback}");
+    exit;
 }
 
+include MODELS . 'onestring.php';
 include VIEWS . 'onestring.php';
