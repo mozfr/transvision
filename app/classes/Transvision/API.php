@@ -40,6 +40,11 @@ Class API
     public $logging = true;
     public $error;
 
+    /**
+     * The constructor analyzes the URL to extract its parameters
+     *
+     * @param string $url URL representing the request to analyze
+     */
     public function __construct($url)
     {
         $this->parameters = $this->getParameters($url['path']);
