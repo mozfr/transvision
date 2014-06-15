@@ -83,4 +83,39 @@ class Project extends atoum\test
             ->boolean($obj->isValidRepository('foo'))
                 ->isEqualTo(false);
     }
+
+    public function testGetLocaleInContextDP()
+    {
+        return [
+                ['fr', 'bugzilla', 'fr'],
+                ['es', 'bugzilla', 'es-ES'],
+                ['pa', 'bugzilla', 'pa-IN'],
+                ['gu', 'bugzilla', 'gu-IN'],
+                ['sr', 'bugzilla', 'sr'],
+                ['sr-Cyrl', 'bugzilla', 'sr'],
+                ['sr-Latn', 'bugzilla', 'sr'],
+                ['sr-Latn', 'gaia', 'sr-Latn'],
+                ['sr', 'gaia', 'sr-Cyrl'],
+                ['es', 'gaia', 'es'],
+                ['es-CL', 'gaia', 'es'],
+                ['es-ES', 'gaia_1_4', 'es'],
+                ['es', 'mozilla_org', 'es-ES'],
+                ['es-AR', 'mozilla_org', 'es-AR'],
+                ['sr-Cyrl', 'mozilla_org', 'sr'],
+                ['es-ES', 'foobar', 'es-ES'],
+                ['fr', 'foobar', 'fr'],
+               ];
+    }
+
+    /**
+     * @dataProvider testGetLocaleInContextDP
+     */
+    public function testGetLocaleInContext($a, $b, $c)
+    {
+        $obj = new \Transvision\Project();
+        $this
+            ->string($obj->getLocaleInContext($a, $b))
+                ->isEqualTo($c)
+        ;
+    }
 }

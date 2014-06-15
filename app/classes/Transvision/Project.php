@@ -119,4 +119,57 @@ class Project
     {
         return in_array($repository, self::getRepositories());
     }
+
+    /**
+     * Return the correct locale code based on context
+     * For example: given "es", returns "es-ES" for Bugzilla,
+     * "es" for Gaia, "es-ES" for other repos.
+     *
+     * @param  string $locale Name of the current locale
+     * @param  string $context The context we need to use this locale in
+     * @return string Locale code to use in the requested context
+     */
+    public static function getLocaleInContext($locale, $context)
+    {
+        $locale_mappings = [];
+
+        // Bugzilla locales
+        $locale_mappings['bugzilla'] = [
+            'es'      => 'es-ES',
+            'gu'      => 'gu-IN',
+            'pa'      => 'pa-IN',
+            'sr-Cyrl' => 'sr',
+            'sr-Latn' => 'sr',
+        ];
+
+        // Gaia locales
+        $locale_mappings['gaia'] = [
+            'es-AR' => 'es',
+            'es-CL' => 'es',
+            'es-ES' => 'es',
+            'es-MX' => 'es',
+            'gu-in' => 'gu',
+            'pa-in' => 'pa',
+            'sr'    => 'sr-Cyrl',
+        ];
+
+        // Other contexts. At the moment, identical to Bugzilla list
+        $locale_mappings['other'] = $locale_mappings['bugzilla'];
+
+        // Use Gaia mapping for all Gaia repositories
+        if (Strings::startsWith($context, 'gaia')) {
+            $context = 'gaia';
+        }
+
+        // Fallback to 'other' if context doesn't exist in $locale_mappings
+        $context = array_key_exists($context, $locale_mappings)
+                   ? $context
+                   : 'other';
+
+        $locale = array_key_exists($locale, $locale_mappings[$context])
+                  ? $locale_mappings[$context][$locale]
+                  : $locale;
+
+        return $locale;
+    }
 }

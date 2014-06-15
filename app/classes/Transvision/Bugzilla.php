@@ -39,9 +39,7 @@ class Bugzilla
      */
     public static function collectLanguageComponent($actual_lang, $components_array)
     {
-        $actual_lang = ($actual_lang == 'es') ? 'es-ES' : $actual_lang;
-        $actual_lang = ($actual_lang == 'pa') ? 'pa-IN' : $actual_lang;
-        $actual_lang = Bugzilla::bugzillaLocaleCode($actual_lang);
+        $actual_lang = Project::getLocaleInContext($actual_lang, 'bugzilla');
 
         $component_string = 'Other';
         $actual_lang = $actual_lang . ' /';
@@ -54,22 +52,6 @@ class Bugzilla
         }
 
         return $component_string;
-    }
-
-    /*
-     * Get the locale code we use on Bugzilla for components
-     * It can differ from what we have in the products for historical reasons
-     *
-     * @param $locale string
-     * @return $locale string
-     */
-    public static function bugzillaLocaleCode($locale)
-    {
-        $locale = ($locale == 'es') ? 'es-ES' : $locale;
-        $locale = ($locale == 'pa') ? 'pa-IN' : $locale;
-        $locale = ($locale == 'sr-Cyrl' || $locale == 'sr-Latn') ? 'sr' : $locale;
-
-        return $locale;
     }
 
     /**

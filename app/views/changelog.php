@@ -1,6 +1,7 @@
 <h2 class="relnumber" id="v3.3"><a href="#v3.3">Version 3.3 <span class="reldate">2014-05-20</span></a></h2>
 
 <h3>End user visible changes</h3>
+<ul>
     <li><span class="newfeature">new</span><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&repo=central&sourcelocale=en-US&locale=fr&search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
     <li><span class="newfeature">new</span><strong>Dynamic Gaia comparison view:</strong> allows <a href="/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a> (tchevalier)</li>
     <li>Gaia 1.4 support (tchevalier)</li>
@@ -9,7 +10,6 @@
     <li>Tamil added for Gaia (flod)</li>
     <li>Fixed error 500 error when downloading TMX files (flod)</li>
     <li>Improved accessibility of our views, suggestions by experts from <a href="http://acs-horizons.fr/">ACS Horizons</a> and <a href="http://temesis.com/">Temesis</a> (pascal)</li>
-<ul>
 </ul>
 
 <h3>Developer visible changes</h3>

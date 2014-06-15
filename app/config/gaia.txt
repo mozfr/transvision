@@ -12,11 +12,13 @@ cy
 da
 de
 el
+en-GB
 en-US
 eo
 es
 et
 eu
+fa
 ff
 fr
 fy-NL
@@ -38,9 +40,11 @@ ko
 lij
 lt
 mai
-ml
 mk
+ml
+mr
 ms
+nb-NO
 ne-NP
 nl
 or
@@ -57,6 +61,7 @@ sq
 sr-Cyrl
 sr-Latn
 sv-SE
+sw
 ta
 te
 th

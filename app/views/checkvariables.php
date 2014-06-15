@@ -8,16 +8,9 @@ $direction1 = RTLSupport::getDirection($source_locale);
 $direction2 = RTLSupport::getDirection($locale);
 
 if (isset($_GET['locale'])) {
-    if (Strings::startsWith($repo, 'gaia')) {
-        if (Strings::startsWith($_GET['locale'], 'es-')) {
-            $locale = 'es';
-        }
-
-        if ($_GET['locale'] == 'sr') {
-            $locale = 'sr-Cyrl';
-        }
-    } elseif (in_array($_GET['locale'], $all_locales)) {
-        $locale = $_GET['locale'];
+    $requested_locale = Project::getLocaleInContext($_GET['locale'], $repo);
+    if (in_array($requested_locale, $all_locales)) {
+        $locale = $requested_locale;
     }
 }
 

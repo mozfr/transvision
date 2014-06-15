@@ -50,7 +50,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     echo "\n\n   <div class='product'>\n" .
          "    <h3>{$productnames[$i]}<br/>Searchplugins</h3>\n";
     if (array_key_exists($product, $jsonarray[$locale])) {
-        # This product exists for locale
+        // This product exists for locale
         foreach ($channels as $channel) {
             echo "    <div class='channel'>\n" .
                  "      <h4>$channel</h4>\n";
@@ -86,7 +86,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                         echo "        </div>\n";                        }
                 }
             } else {
-                # Product exists, but not on this channel
+                // Product exists, but not on this channel
                 echo "      <div class='searchplugin'>\n";
                 echo "        <p class='emptysp'>Searchplugins not available for this update channel.</p>\n";
                 echo "      </div>\n";
@@ -96,7 +96,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
 
         echo "\n    <h3>Search order</h3>\n";
         if (array_key_exists($product, $jsonarray[$locale])) {
-            # This product exists for locale
+            // This product exists for locale
             foreach ($channels as $channel) {
                 echo "    <div class='channel'>\n" .
                      "      <h4>$channel</h4>\n";
@@ -119,7 +119,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                         echo "        </div>\n";
                     }
                 } else {
-                    # Product exists, but not on this channel
+                    // Product exists, but not on this channel
                     echo "        <div class='searchorder'>\n";
                     echo "          <p class='emptysp'>This product is not available for this update channel.</p>\n";
                     echo "        </div>\n";
@@ -130,7 +130,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
 
         echo "\n    <h3>Protocol handlers</h3>\n";
         if (array_key_exists($product, $jsonarray[$locale])) {
-            # This product exists for locale
+            // This product exists for locale
             foreach ($channels as $channel) {
                 echo "    <div class='channel'>\n" .
                      "      <h4>$channel</h4>\n";
@@ -164,7 +164,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                         echo "        </div>\n";
                     }
                 } else {
-                    # Product exists, but not on this channel
+                    // Product exists, but not on this channel
                     echo "        <div class='searchorder'>\n";
                     echo "          <p class='emptysp'>This product is not available for this update channel.</p>\n";
                     echo "        </div>\n";

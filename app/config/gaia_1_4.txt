@@ -12,11 +12,13 @@ cy
 da
 de
 el
+en-GB
 en-US
 eo
 es
 et
 eu
+fa
 ff
 fr
 fy-NL
@@ -37,9 +39,11 @@ kn
 ko
 lij
 lt
-ml
 mk
+ml
+mr
 ms
+nb-NO
 ne-NP
 nl
 or
