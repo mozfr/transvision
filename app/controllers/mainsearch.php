@@ -40,7 +40,6 @@ if ($url['path'] == '3locales') {
 // The search form is shared by all search views
 require_once VIEWS . 'search_form.php';
 
-
 // Count the number of requests we receive
 if ($initial_search != '') {
     include INC . 'search_counter.php';
@@ -50,11 +49,23 @@ if ($initial_search != '') {
 if ($check['t2t']) {
     require_once VIEWS . 't2t.php';
 } else {
-    if ($my_search != '') {
-        if ($check['search_type'] == 'entities') {
-            require_once VIEWS . 'results_ent.php';
-        } else {
-            require_once VIEWS . 'results.php';
-        }
+
+    // No search
+    if ($my_search == '') {
+        return;
+    }
+
+    // Search not acceptable
+    if (mb_strlen(trim($my_search)) < 2) {
+        print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
+        return;
+    }
+
+    if ($check['search_type'] == 'entities') {
+        require_once MODELS . 'mainsearch_entities.php';
+        require_once VIEWS . 'results_entities.php';
+    } else {
+        require_once MODELS . 'mainsearch_strings.php';
+        require_once VIEWS . 'results_strings.php';
     }
 }
