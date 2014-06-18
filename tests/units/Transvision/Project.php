@@ -84,7 +84,7 @@ class Project extends atoum\test
                 ->isEqualTo(false);
     }
 
-    public function testGetLocaleInContextDP()
+    public function getLocaleInContextDP()
     {
         return [
                 ['fr', 'bugzilla', 'fr'],
@@ -108,7 +108,7 @@ class Project extends atoum\test
     }
 
     /**
-     * @dataProvider testGetLocaleInContextDP
+     * @dataProvider getLocaleInContextDP
      */
     public function testGetLocaleInContext($a, $b, $c)
     {
