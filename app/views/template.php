@@ -5,7 +5,7 @@ $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
 $source_locale = isset($source_locale) ? $source_locale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
-$initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
+$javascript = isset($javascript) ? $javascript : '';
 
 $links = '
 <div class="linkscolumn">
@@ -57,7 +57,7 @@ if (strpos(VERSION, 'dev') !== false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       $(document).ready(function() {
         // Make sure the menu is not displayed
@@ -89,8 +89,11 @@ if (strpos(VERSION, 'dev') !== false) {
           });
         });
 
-        //Focus on the search field
+        // Focus on the search field
         $('#recherche').focus();
+
+        <?=$javascript?>
+
       });
     </script>
   </head>

@@ -220,8 +220,10 @@ class ShowResults
                 $result_entity = ShowResults::formatEntity($key, $recherche[0]);
             }
 
+            $component = explode('/', $key)[0];
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
+
             $entity_link = "?sourcelocale={$locale1}"
             . "&locale={$locale2}"
             . "&repo={$search_options['repo']}"
@@ -329,8 +331,6 @@ class ShowResults
                     $locale3_path = VersionControl::hgPath($locale3, $search_options['repo'], $key);
                 }
 
-
-
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>
                     <span class='celltitle'>{$locale3}</span>
@@ -352,7 +352,7 @@ class ShowResults
             }
 
             $table .= "
-                <tr>
+                <tr class='{$component}'>
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
