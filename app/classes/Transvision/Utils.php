@@ -222,10 +222,7 @@ class Utils
      */
     public static function getRepoStrings($locale, $repository)
     {
-
-        if (Strings::startsWith($repository, 'gaia')) {
-            $locale = Strings::startsWith($locale, 'es-') ? 'es' : $locale;
-        }
+        $locale = Project::getLocaleInContext($locale, $repository);
 
         $file = TMX . "{$repository}/{$locale}/cache_{$locale}.php";
 
@@ -233,7 +230,7 @@ class Utils
             include $file;
         }
 
-        return isset($tmx) ? $tmx : array();
+        return isset($tmx) ? $tmx : [];
     }
 
     /**

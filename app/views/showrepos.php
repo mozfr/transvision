@@ -19,7 +19,7 @@ foreach ($repos as $val) {
 
 // Using a callback with strlen() avoids filtering out numeric strings with a value of 0
 $strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
-$gaia_locales = Files::getFilenamesInFolder(TMX . $repo . '/');
+$gaia_locales = Project::getRepositoryLocales($repo);
 
 // We don't want en-US in the repos
 if ($key = array_search('en-US', $gaia_locales)) {

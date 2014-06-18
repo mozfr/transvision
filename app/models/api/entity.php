@@ -7,7 +7,7 @@ if (! $translations = Cache::getKey($cache_id)) {
 
     $translations = [];
 
-    foreach (Files::getFilenamesInFolder(TMX . $repo . '/', ['ab-CD']) as $locale_code) {
+    foreach (Project::getRepositoryLocales($repo) as $locale_code) {
 
         $strings = Utils::getRepoStrings($locale_code, $repo);
 
@@ -16,14 +16,15 @@ if (! $translations = Cache::getKey($cache_id)) {
             $translations ['en-US'] = $strings[$entity];
         }
 
-        if (array_key_exists($entity, $strings)) {
+        if (isset($strings[$entity])) {
             $translations[$locale_code] = trim(rtrim($strings[$entity], '{ok}'));
         }
+
+        // Releasing memory in the loop saves 15% memory on the script
+        unset($strings);
     }
 
    Cache::setKey($cache_id, $translations);
 }
-
-unset($strings);
 
 return $json = $translations;

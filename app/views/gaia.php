@@ -35,7 +35,7 @@ $repo1 = $get_or_set($gaia_repos, 'repo1', $repo1);
 $repo2 = $get_or_set($gaia_repos, 'repo2', $repo2);
 
 // Get the locale list
-$loc_list = Files::getFilenamesInFolder(TMX . 'gaia' . '/');
+$loc_list = Project::getRepositoryLocales('gaia');
 
 // build the target locale & channels switchers
 $target_locales_list = '';
