@@ -23,13 +23,14 @@ $channel_selector = Utils::getHtmlSelectOptions(
         array_flip($repos)
     ),
     $repo,
-    true);
-
-// Get the locale list
-$loc_list = Files::getFilenamesInFolder(TMX . $repo . '/');
+    true
+);
 
 // build the target locale switcher
-$target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
+$target_locales_list = Utils::getHtmlSelectOptions(
+    Project::getRepositoryLocales($repo),
+    $locale
+);
 
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';

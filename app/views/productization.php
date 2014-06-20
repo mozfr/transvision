@@ -23,8 +23,10 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     echo "  <h2>Current locale: $locale</h2>\n";
 
     // Using Aurora as a reference for simplicity as locale list
-    $loc_list = Files::getFilenamesInFolder(TMX . 'aurora/');
-    $target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
+    $target_locales_list = Utils::getHtmlSelectOptions(
+        Project::getRepositoryLocales('aurora'),
+        $locale
+    );
     $product_selector = Utils::getHtmlSelectOptions($products, $product);
 
     echo '

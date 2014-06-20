@@ -32,7 +32,7 @@ foreach ($desktop_repos as $repo) {
 }
 
 // Get the locale list
-$loc_list = Files::getFilenamesInFolder(TMX . $repo . '/');
+$loc_list = Project::getRepositoryLocales($repo);
 
 // build the target locale switcher
 $target_locales_list = '';

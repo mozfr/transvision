@@ -7,7 +7,7 @@ const VERSION = '3.4dev';
 define('DATA_ROOT',     $server_config['root']);
 define('HG',            $server_config['local_hg'] . '/');
 define('SVN',           $server_config['local_svn'] . '/');
-define('TMX',           DATA_ROOT . '/TMX/');
+define('TMX',           DATA_ROOT . 'TMX/');
 define('INSTALL_ROOT',  $server_config['install'] . '/');
 define('WEB_ROOT',      INSTALL_ROOT . 'web/');
 define('APP_ROOT',      INSTALL_ROOT . 'app/');
