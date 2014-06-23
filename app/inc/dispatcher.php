@@ -56,9 +56,9 @@ switch ($url['path']) {
         $page_descr = '';
         break;
     case 'downloads':
-        $view = 'downloads';
+        $controller = 'tmx_downloads';
         $page_title = 'TMX Download';
-        $page_descr = 'Download the <abbr title="Translation Memory eXchange">TMX</abbr> files used in Transvision.';
+        $page_descr = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
         break;
     case 'showrepos':
         $view = 'showrepos';

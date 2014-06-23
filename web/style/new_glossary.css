@@ -370,7 +370,7 @@ p.smallscreen_notices {
     font-variant: normal;
 }
 
-input[type=submit] {
+input[type=submit], .button {
     background-color: #277AC1;
     background-image: linear-gradient(#43A6E2, #277AC1);
     background-repeat: repeat-x;
@@ -396,7 +396,7 @@ input[type=submit] {
     min-width: 100px;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, .button:hover {
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38A9ED inset;
     color: #FFFFFF;
     text-decoration: none;
@@ -459,7 +459,7 @@ fieldset#main fieldset * {
     font-size: 0.9em;
 }
 
-fieldset#main fieldset > legend {
+fieldset#main fieldset > label {
     line-height: 25px;
     font-weight: bold;
     font-size: 1em !important;
@@ -472,7 +472,7 @@ fieldset#main fieldset label.default_option input {
 fieldset#main fieldset label.default_option span {
     float: left;
     font-size: 0.7em;
-    margin: 5px 0;
+    margin: -2px 0px;
 }
 
 fieldset#fs_advanced {
@@ -784,10 +784,59 @@ body#productization div.searchorder ol {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
-/* Downloads Table */
+/* TMX download page */
+fieldset#main #TMX_locales {
+    min-height: 0;
+}
 
-#DownloadsTable a {
-    color: gray;
+#TMX_locales select {
+    float: right;
+}
+
+#TMX_locales label {
+    float: left;
+    margin-right: 20px;
+}
+
+#TMX_checkboxes {
+    text-align: left;
+    display: block;
+}
+
+#TMX_checkboxes p label {
+    font-size: 1.1em;
+}
+
+#TMX_results {
+    text-align: center;
+    margin: 100px 0;
+}
+
+#TMX_results span {
+    display: block;
+    margin: 30px 0;
+}
+
+#TMX_results #error {
+    color: red;
+    font-weight: bold;
+}
+
+#TMX_results #success {
+    color: green;
+}
+
+#TMX_results .button {
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+#download {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 /* Gaia comparison view */
@@ -986,7 +1035,7 @@ span.deleted {
         text-align: left;
     }
 
-    fieldset#main fieldset > legend {
+    fieldset#main fieldset > label {
         line-height: 1.1em;
     }
 

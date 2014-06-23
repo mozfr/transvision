@@ -19,7 +19,7 @@ namespace Transvision;
             </div>
             <div id="searchoptions">
                 <fieldset>
-                    <legend>Repository</legend>
+                    <label>Repository</label>
                     <select
                         id='repository'
                         name='repo'
@@ -38,7 +38,7 @@ namespace Transvision;
                      </label>
                 </fieldset>
                 <fieldset>
-                    <legend>Source Locale</legend>
+                    <label>Source Locale</label>
                     <select
                         id='source_locale'
                         name='sourcelocale'
@@ -62,7 +62,7 @@ namespace Transvision;
                      </label>
                 </fieldset>
                 <fieldset>
-                    <legend>Target Locale</legend>
+                    <label>Target Locale</label>
                     <select
                         id='target_locale'
                         name='locale'
@@ -88,7 +88,7 @@ namespace Transvision;
 
     <?php if ($url['path'] == '3locales'): ?>
                 <fieldset>
-                    <legend>Extra Locale</legend>
+                    <label>Extra Locale</label>
                     <select
                         id='target_locale2'
                         name='locale2'
@@ -114,7 +114,7 @@ namespace Transvision;
     <?php endif; ?>
 
                 <fieldset>
-                    <legend>Search in</legend>
+                    <label>Search in</label>
                     <select
                         name='search_type'
                         id='search_type'
@@ -125,7 +125,7 @@ namespace Transvision;
                 </fieldset>
 
                 <fieldset id="fs_advanced">
-                    <legend>Advanced Search options</legend>
+                    <label>Advanced Search options</label>
                     <span>
                         <input type="checkbox"
                                name="case_sensitive"

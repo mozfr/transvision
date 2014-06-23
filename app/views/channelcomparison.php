@@ -49,19 +49,19 @@ $temp = array_diff($temp, $strings[$chan2]);
         <fieldset id="main">
 
             <fieldset>
-                <legend>Locale:</legend>
+                <label>Locale:</label>
                 <select name='locale'>
                 <?=$target_locales_list?>
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Channel 1:</legend>
+                <label>Channel 1:</label>
                 <select name='chan1'>
                 <?=$chan_selector1?>
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Channel 2:</legend>
+                <label>Channel 2:</label>
                 <select name='chan2'>
                 <?=$chan_selector2?>
                 </select>
