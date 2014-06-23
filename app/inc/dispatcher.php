@@ -19,7 +19,6 @@ switch ($url['path']) {
         $show_title = true;
         $page_title = '3 locales search';
         $page_descr = 'One source locale, get search results for two target locales';
-
         break;
     case 'news':
         $view = 'changelog';

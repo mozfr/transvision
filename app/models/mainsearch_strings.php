@@ -1,6 +1,30 @@
 <?php
 namespace Transvision;
 
+if ($check['perfect_match']) {
+    $locale1_strings = preg_grep($main_regex, $tmx_source);
+    $locale2_strings = preg_grep($main_regex, $tmx_target);
+} else {
+    $locale1_strings = $tmx_source;
+    $locale2_strings = $tmx_target;
+    foreach (Utils::uniqueWords($initial_search) as $word) {
+        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
+        $locale1_strings = preg_grep($regex, $locale1_strings);
+        $locale2_strings = preg_grep($regex, $locale2_strings);
+    }
+}
+
+if ($check['search_type'] == 'strings_entities') {
+    $entities = preg_grep($main_regex, array_keys($tmx_source));
+    foreach ($entities as $entity) {
+        $locale1_strings[$entity] = $tmx_source[$entity];
+    }
+}
+
+// Limit results to 200 per locale
+array_splice($locale1_strings, 200);
+array_splice($locale2_strings, 200);
+
 $searches = [
     $source_locale => $locale1_strings,
     $locale => $locale2_strings
@@ -47,7 +71,6 @@ foreach ($searches as $key => $value) {
                         . " for the locale {$key}</h2>";
     }
 }
-
 // Display a search hint for the closest string we have if we have no search results
 if (! $search_yields_results) {
     $merged_strings = [];
