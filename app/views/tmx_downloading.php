@@ -11,8 +11,9 @@ if ($empty_TMX) {
     } else {
         $results .= 'The following ' . $missing_repos_count . ' elements couldn\'t be included in the TMX file:';
     }
-    $results .= $missing_repos . '</span>';
-    $results .= 'However, you can still download the TMX file containing the available strings below.';
+    $results .= $missing_repos . '</span>'
+             . '<span id="success">However, you can download the TMX file containing the available strings:'
+             . $available_repos . '</span>';
 } else {
     $results .= '<span id="success">Your TMX file is ready for download, with all the requested strings.</span>';
 }
