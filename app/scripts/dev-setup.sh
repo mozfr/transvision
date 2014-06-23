@@ -37,8 +37,7 @@ echogreen "Installing PHP dependencies with Composer"
 php -r "readfile('https://getcomposer.org/installer');" | php
 php composer.phar install
 
-echogreen "Add log files"
-touch transvision.log
+echogreen "Add stats.json file"
 touch web/stats.json
 
 echogreen "Launching PHP development server (php -S localhost:8080 in the web folder)"

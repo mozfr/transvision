@@ -31,7 +31,7 @@ if (DEBUG) {
 
 // Logging
 $logger = new Logger(VERSION);
-$logger->pushHandler(new StreamHandler(INSTALL_ROOT . 'transvision.log', Logger::DEBUG));
+$logger->pushHandler(new StreamHandler(INSTALL_ROOT . 'logs/transvision.log', Logger::DEBUG));
 
 // Dispatch urls, use it only in web context
 if (php_sapi_name() != 'cli') {
