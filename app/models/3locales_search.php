@@ -7,7 +7,7 @@ if ($check['perfect_match']) {
     $locale3_strings = preg_grep($regex, $tmx_target2);
 } else {
     $locale3_strings = $tmx_target2;
-    foreach ($search as $word) {
+    foreach (Utils::uniqueWords($initial_search) as $word) {
         $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
         $locale3_strings = preg_grep($regex, $locale3_strings);
     }

@@ -1,17 +1,28 @@
 <?php
 namespace Transvision;
 
-// Search for the string
-include MODELS . 'mainsearch.php';
+// Include all strings
+$tmx_source = Utils::getRepoStrings($source_locale, $check['repo']);
+$tmx_target = Utils::getRepoStrings($locale, $check['repo']);
+$locale1_strings = $tmx_source;
+$search = Utils::uniqueWords($initial_search);
+
+foreach ($search as $word) {
+    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
+    $locale1_strings = preg_grep($regex, $locale1_strings);
+}
+
+// Limit results to 200
+array_splice($locale1_strings, 200);
 
 // Get the locale results
-$results = array();
+$results = [];
 
 foreach ($locale1_strings as $key => $str) {
     $results[$key] = $tmx_target[$key];
 }
 
-$perfect = $imperfect = array();
+$perfect = $imperfect = [];
 
 // We want to test compound words as well, /ex: 'switch to'
 $compound_search = (count($search) > 1) ? true : false;
@@ -77,29 +88,3 @@ $get_results = function($arr) use ($tmx_target) {
 
 $perfect_results   = $get_results($perfect);
 $imperfect_results = $get_results($imperfect);
-
-if (count($perfect_results) > 0) {
-    echo '<b>Perfect matches</b>';
-    echo "<ol dir='$locale_dir'>";
-    foreach ($perfect_results as $val) {
-        echo '<li>' . strip_tags(htmlspecialchars_decode($val)) . '</li>';
-    }
-    echo "</ol>";
-} else {
-    echo "<p>No perfect match found.</p>";
-}
-
-echo "<b>Used in</b>
-<table class='collapsable'>
-  <tr>
-    <th>Localized string</th>
-    <th>Source string</th>
-  </tr>\n";
-
-foreach ($imperfect_results as $key => $val) {
-    echo "<tr>\n";
-    echo "  <td dir='$locale_dir'><span class='celltitle'>Localized string</span><div class='string'>" . strip_tags(htmlspecialchars_decode($val)) . "</div></td>\n";
-    echo "  <td dir='$source_locale_dir'><span class='celltitle'>Source string</span><div class='string'>" . strip_tags(htmlspecialchars_decode($tmx_source[$key])) . "</div></td>\n";
-    echo "</tr>\n";
-}
-echo "</table>\n";

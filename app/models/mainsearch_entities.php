@@ -13,6 +13,8 @@ if ($url['path'] == '3locales') {
 }
 
 // Display a search hint for the closest string we have if we have no search results
+$entities = preg_grep($main_regex, array_keys($tmx_source));
+
 if (count($entities) == 0) {
 
     $merged_strings = [];

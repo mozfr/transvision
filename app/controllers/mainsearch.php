@@ -29,9 +29,6 @@ require_once INC . 'l10n-init.php';
 // Include Search Options
 require_once INC . 'search_options.php';
 
-// Import all strings for source and target locales + search process
-require_once MODELS . 'mainsearch.php';
-
 // Prepare extra data for the 3 locales view
 if ($url['path'] == '3locales') {
     require_once MODELS . '3locales_search.php';
@@ -47,7 +44,8 @@ if ($initial_search != '') {
 
 // Search results process
 if ($check['t2t']) {
-    require_once VIEWS . 't2t.php';
+    require_once MODELS . 'mainsearch_glossary.php';
+    require_once VIEWS . 'results_glossary.php';
 } else {
 
     // No search
@@ -60,6 +58,10 @@ if ($check['t2t']) {
         print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
         return;
     }
+
+    // Valid search, we load all the strings
+    $tmx_source = Utils::getRepoStrings($source_locale, $check['repo']);
+    $tmx_target = Utils::getRepoStrings($locale, $check['repo']);
 
     if ($check['search_type'] == 'entities') {
         require_once MODELS . 'mainsearch_entities.php';
