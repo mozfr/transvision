@@ -7,9 +7,9 @@ $missing_repos = $results = '';
 $missing_repos_count = $repos_count = 0;
 
 foreach ($repos as $repo) {
-    $cache_file_en = Utils::getRepoStrings('en-US', $repo);
-    $cache_file_locale = Utils::getRepoStrings($locale, $repo);
     if (isset($_GET[$repo])) {
+        $cache_file_en = Utils::getRepoStrings(Project::getReferenceLocale($repo), $repo);
+        $cache_file_locale = Utils::getRepoStrings($locale, $repo);
         if ($cache_file_en) {
             if ($cache_file_locale) {
                 $repos_count++;
@@ -27,7 +27,7 @@ $empty_TMX = $repos_count == 0;
 // Generate the TMX file
 $target_file = 'mozilla_en-US_' . $locale . '.tmx';
 $target_file_path = WEB_ROOT . 'download/' . $target_file;
-                
+
 $content = TMX::create($strings, $locale, 'en-US');
 $empty_TMX = $created_TMX = false;
 
