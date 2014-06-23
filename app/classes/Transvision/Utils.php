@@ -332,4 +332,25 @@ class Utils
 
         return $output;
     }
+
+    /**
+     * Utility function to log the memory used by a script
+     * and the time needed to generate the page
+     *
+     * @return void
+     */
+    public static function logScriptPerformances()
+    {
+        if (DEBUG && PERF_CHECK) {
+            $memory = 'Memory peak: '
+                      . memory_get_peak_usage(true)
+                      . ' ('
+                      . round((memory_get_peak_usage()/(1024*1024)),2)
+                      . 'MB)';
+            $render_time = 'Elapsed time (s): '
+                           . round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
+            error_log($memory);
+            error_log($render_time);
+        }
+    }
 }

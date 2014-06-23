@@ -27,3 +27,6 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
 // Special modes for the app
 define('DEBUG', (strstr(VERSION, 'dev') || isset($_GET['debug'])) ? true : false);
+
+// Set to True to log page time generation and memory used while in DEBUG mode
+const PERF_CHECK = false;
