@@ -115,3 +115,6 @@ if ($template) {
         include CONTROLLERS . $controller . '.php';
     }
 }
+
+// Log script performance in PHP integrated developement server console
+Utils::logScriptPerformances();
