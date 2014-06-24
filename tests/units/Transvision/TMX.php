@@ -25,17 +25,17 @@ class TMX extends atoum\test
 <tmx version="1.4">
 <header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="'. date('c') . '" creationtoolversion="0.1" creationtool="Transvision" srclang="en-US" segtype="sentence" datatype="plaintext">
 </header>
-<body>
-    <tu tuid="shared/date/date.properties:month-7-genitive" srclang="en-US">
-        <tuv xml:lang="en-US"><seg>August</seg></tuv>
-        <tuv xml:lang="fr"><seg>août</seg></tuv>
-    </tu>
-    <tu tuid="shared/download/download.properties:unsupported_file_type_download_title" srclang="en-US">
-        <tuv xml:lang="en-US"><seg>Unable to open</seg></tuv>
-        <tuv xml:lang="fr"><seg>Ouverture impossible</seg></tuv>
-    </tu>
+<body>'
+. "\n\t" . '<tu tuid="shared/date/date.properties:month-7-genitive" srclang="en-US">'
+. "\n\t\t" . '<tuv xml:lang="en-US"><seg>August</seg></tuv>'
+. "\n\t\t" . '<tuv xml:lang="fr"><seg>août</seg></tuv>'
+. "\n\t" . '</tu>'
+. "\n\t" . '<tu tuid="shared/download/download.properties:unsupported_file_type_download_title" srclang="en-US">'
+. "\n\t\t" . '<tuv xml:lang="en-US"><seg>Unable to open</seg></tuv>'
+. "\n\t\t" . '<tuv xml:lang="fr"><seg>Ouverture impossible</seg></tuv>'
+. "\n\t" . '</tu>
 </body>
-</tmx>'
+</tmx>'. "\n"
             )
         );
     }

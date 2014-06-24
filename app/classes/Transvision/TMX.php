@@ -33,12 +33,12 @@ class TMX
                 $string_source = htmlentities($string_source, ENT_XML1);
                 $string_target = htmlentities($string_target, ENT_XML1);
 
-                $content .= '    <tu tuid="' . $entity . '" srclang="' . $source_lang . '">' . "\n"
-                            .'        <tuv xml:lang="' . $source_lang . '"><seg>' . $string_source . '</seg></tuv>' . "\n"
-                            .'        <tuv xml:lang="' . $target_lang . '"><seg>' . $string_target . '</seg></tuv>' . "\n"
-                            .'    </tu>' . "\n";
+                $content .= "\t".'<tu tuid="' . $entity . '" srclang="' . $source_lang . '">' . "\n"
+                            . "\t\t" . '<tuv xml:lang="' . $source_lang . '"><seg>' . $string_source . '</seg></tuv>' . "\n"
+                            . "\t\t" . '<tuv xml:lang="' . $target_lang . '"><seg>' . $string_target . '</seg></tuv>' . "\n"
+                            . "\t" . '</tu>' . "\n";
             }
-            $content .= "</body>\n</tmx>";
+            $content .= "</body>\n</tmx>\n";
 
             return $content;
         }
