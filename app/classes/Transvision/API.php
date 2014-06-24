@@ -1,6 +1,10 @@
 <?php
 namespace Transvision;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\ErrorLogHandler;
+
 /**
  * API class
  *
@@ -33,20 +37,36 @@ namespace Transvision;
  */
 Class API
 {
+    public $url;
     public $parameters;
     public $extra_parameters;
     public $api_versions = ['v1' => 'stable'];
     public $services = ['entity', 'locales', 'repositories', 'search', 'tm', 'versions'];
-    public $logging = true;
     public $error;
+    public $logging = true;
+    public $logger;
 
     /**
      * The constructor analyzes the URL to extract its parameters
      *
-     * @param string $url URL representing the request to analyze
+     * @param array $url parsed url
      */
     public function __construct($url)
     {
+        $this->url = $url;
+
+        // We use the Monolog library to log our events
+        $this->logger = new Logger('API');
+
+        if ($this->logging) {
+            $this->logger->pushHandler(new StreamHandler(INSTALL_ROOT . 'logs/api-errors.log'));
+        }
+
+        // Also log to error console in Debug mode
+        if (DEBUG) {
+            $this->logger->pushHandler(new ErrorLogHandler());
+        }
+
         $this->parameters = $this->getParameters($url['path']);
         $this->extra_parameters = isset($url['query'])
             ? $this->getExtraParameters($url['query'])
@@ -332,15 +352,16 @@ Class API
 
     /**
      * Utility function to log API call errors.
-     * We may want to use Monolog in the future.
      *
      * @param  string  $message
-     * @return boolean True if we can log, False if we can't
+     * @return boolean True if we logged, False if we didn't log
      */
-    private function log($message, $option=false)
+    private function log($message)
     {
         $this->error = $message;
 
-        return $this->logging ? error_log($message) : true;
+        return $this->logging
+            ? $this->logger->addWarning($message, [$this->url['path']])
+            : false;
     }
 }

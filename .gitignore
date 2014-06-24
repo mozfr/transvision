@@ -4,7 +4,6 @@ composer.phar
 phpDocumentor.phar
 stats.json
 stats_requests.json
-transvision.log
 vendor
 web/docs
 app/config/config.ini
@@ -15,3 +14,4 @@ web/download/*.tmx
 web/download/.htaccess
 cache/*.cache
 cache/lastdataupdate.txt
+logs/*.log

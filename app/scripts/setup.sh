@@ -302,6 +302,5 @@ if [ ! -d $install/web/download ]
 fi
 echo "AddType application/octet-stream .tmx" > $install/web/download/.htaccess
 
-echogreen "Add log files"
-touch $install/transvision.log
+echogreen "Add stats.json file"
 touch $install/web/stats.json
