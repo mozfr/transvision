@@ -90,11 +90,15 @@ class ShowResults
         $search_results = self::getTMXResults($entities, $array_strings);
         $output = [];
 
+        $clean_string = function($string) {
+            return trim(htmlspecialchars_decode($string, ENT_QUOTES));
+        };
+
         foreach ($search_results as $entity => $set) {
             // we only want results for which we have a translation
             if ($set[1]) {
                 $output[$entity] = [
-                    $set[0] => $set[1]
+                    $clean_string($set[0]) => $clean_string($set[1])
                 ];
             }
         }
