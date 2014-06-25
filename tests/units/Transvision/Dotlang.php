@@ -48,6 +48,7 @@ class Dotlang extends atoum\test
                     'Navigateur',
                     ';Mail',
                     'Courrier',
+                    ';Empty string',
                     '# another comment',
                     ';Hello',
                     'Bonjour',
@@ -76,9 +77,10 @@ class Dotlang extends atoum\test
             [
                 $test_file,
                 [
-                    'Browser' => 'Navigateur',
-                    'Mail'    => 'Courrier',
-                    'Hello'   => 'Bonjour',
+                    'Browser'      => 'Navigateur',
+                    'Mail'         => 'Courrier',
+                    'Hello'        => 'Bonjour',
+                    'Empty string' => 'Empty string',
                 ]
             ]
         );
