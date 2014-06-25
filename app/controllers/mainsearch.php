@@ -10,6 +10,9 @@ if (isset($_GET['json'])) {
     $target = Utils::secureText($_GET['locale']);
     $terms  = Utils::secureText($_GET['recherche']);
 
+    // strings_entities search is now called 'all' in API
+    $type = ($type == 'strings_entities') ? 'all' : $type;
+
     $regex = [];
     $regex['whole']   = isset($_GET['whole_word']) ? 'whole_word=1' : '';
     $regex['case']    = isset($_GET['case_sensitive']) ? 'case_sensitive=1' : '';
