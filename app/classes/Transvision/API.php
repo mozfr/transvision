@@ -218,7 +218,7 @@ Class API
                 }
 
                 if (! in_array($this->parameters[2], ['strings', 'entities'])) {
-                    $this->log("'{$this->parameters[2]}'' is not a type of search "
+                    $this->log("'{$this->parameters[2]}' is not a type of search "
                                 . "you can perform, 'strings' and 'entities' are.");
                     return false;
                 }
