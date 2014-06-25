@@ -1,3 +1,32 @@
+<h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-??</span></a></h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><span class="newfeature">new</span><strong>On demand TMX generation:</strong> The static <a href="/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory (tchevalier).</li>
+    <li><span class="newfeature">new</span><strong>Translation Consistency in Gaia view:</strong> The <a href="/gaia/">gaia view</a> has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context (flod).</li>
+    <li><span class="newfeature">new</span><strong>Client-side filtering of search results for Desktop products:</strong> There are now <a href="/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings#editor">filtering buttons on top of search results</a> for any search on central/aurora/beta/release allowing you to filter the results per top folder (browser, mail, calendar, suite…) (pascal).</li>
+    <li>Gaia 1.1 was removed (pascal)</li>
+    <li>Updated locales supported per repository (team)</li>
+</ul>
+
+<h3>External API changes</h3>
+<ul>
+    <li><span class="newfeature">new</span><strong>Brand new JSON API:</strong> The old JSON API was replaced by a brand new one providing more services and which is also easier to extend to provide more services in the future. All the calls to the old API are now redirected to the new one which means that we shouldn't break any current user. The API is <a href="https://github.com/mozfr/transvision/wiki/JSON-API">documented on our Wiki</a> and all users of our old API are invited to update their script and evaluate the new services we propose (pascal).</li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>You can now log the memory peak and generation time of scripts by setting <code>PERF_CHECK</code> to <code>true</code> in <code>app/inc/constants.php</code> (pascal).</li>
+    <li>Logs are now stored at the root of the application in the <code>log/</code> folder (pascal).</li>
+    <li>New Project class centralizing key data such as the list of repositories, locales per repositories, locale code depending on the context… This allows accessing the project data anywhere in the code (pascal & flod).</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li><a href="/productization/">Productization</a> view was updated to remove Metro files (flod)</li>
+    <li>Many refactorings to improve maintainability, page load speed and memory consumption of the views (team)</li>
+</ul>
+
 <h2 class="relnumber" id="v3.3"><a href="#v3.3">Version 3.3 <span class="reldate">2014-05-20</span></a></h2>
 
 <h3>End user visible changes</h3>
