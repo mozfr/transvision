@@ -1,7 +1,8 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
 
 use atoum;
+use Transvision\API as _API;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -9,7 +10,7 @@ class API extends atoum\test
 {
     public function getParametersDP()
     {
-        return array(
+        return [
             [
                 'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/',
                 ["v1", "tm", "release", "en-US", "fr", "Bookmark"]
@@ -22,7 +23,7 @@ class API extends atoum\test
                 'http://foobar.com/api/v1/tm/release/en-US/fr/%20trailing%20spaces%20',
                 ["v1", "tm", "release", "en-US", "fr", "trailing spaces"]
             ],
-        );
+        ];
     }
 
     /**
@@ -31,7 +32,7 @@ class API extends atoum\test
     public function testGetParameters($a, $b)
     {
         $url = parse_url($a);
-        $obj = new \Transvision\API($url);
+        $obj = new _API($url);
         $this
             ->array($obj->getParameters($url['path']))
                 ->isEqualTo($b);
@@ -39,7 +40,7 @@ class API extends atoum\test
 
     public function getExtraParametersDP()
     {
-        return array(
+        return [
             [
                 'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=bar',
                 ['foo' => 'bar']
@@ -60,7 +61,7 @@ class API extends atoum\test
                 'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=bar&foo2=bar2',
                 ['foo' => 'bar', 'foo2' => 'bar2']
             ],
-        );
+        ];
     }
 
     /**
@@ -69,7 +70,7 @@ class API extends atoum\test
     public function testGetExtraParameters($a, $b)
     {
         $url = parse_url($a);
-        $obj = new \Transvision\API($url);
+        $obj = new _API($url);
         $this
             ->array($obj->getExtraParameters($url['query']))
                 ->isEqualTo($b);
@@ -77,7 +78,7 @@ class API extends atoum\test
 
     public function isValidRequestDP()
     {
-        return array(
+        return [
             // General
             ['http://foobar/api/v1/tm/central/en-US/fr/Bookmark/', true],
             ['http://foobar/api/v1/', false], // Not enough parameters
@@ -110,7 +111,7 @@ class API extends atoum\test
 
             // versions service
             ['http://foobar/api/versions/', true],
-        );
+        ];
     }
 
     /**
@@ -119,7 +120,7 @@ class API extends atoum\test
     public function testIsValidRequest($a, $b)
     {
         $url = parse_url($a);
-        $obj = new \Transvision\API($url);
+        $obj = new _API($url);
         $obj->logging = false; // logging interfers with Atoum
         $this
             ->boolean($obj->isValidRequest())
@@ -128,7 +129,7 @@ class API extends atoum\test
 
     public function getServiceDP()
     {
-        return array(
+        return [
             ['http://foobar/api/v1/', 'Invalid service'],
             ['http://foobar/api/v1/wrong_service/central/en-US/fr/hello world', 'Invalid service'],
             ['http://foobar/api/wrong_version/tm/central/en-US/fr/Bookmark/', true],
@@ -137,7 +138,7 @@ class API extends atoum\test
             ['http://foobar/api/v1/search/strings/central/en-US/fr/Add%20%20Bookmarks/', true],
             ['http://foobar/api/v1/tm/central/en-US/fr/', true],
             ['http://foobar/api/versions/', true],
-        );
+        ];
     }
 
     /**
@@ -146,7 +147,7 @@ class API extends atoum\test
     public function testGetService($a, $b)
     {
         $url = parse_url($a);
-        $obj = new \Transvision\API($url);
+        $obj = new _API($url);
         $obj->logging = false; // logging interfers with Atoum
         $this
             ->variable($obj->getService())

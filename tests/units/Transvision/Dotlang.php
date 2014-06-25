@@ -1,6 +1,8 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\Dotlang as _Dotlang;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -8,14 +10,12 @@ class Dotlang extends atoum\test
 {
     public function getLangFilesListDP()
     {
-        $path = realpath(__DIR__ . '/../../../tests/testfiles/');
-
         return array(
             [
-                $path,
+                TEST_FILES,
                 [
-                    $path . '/langfiles/foo/bar/baz.lang',
-                    $path . '/langfiles/toto.lang',
+                    TEST_FILES . 'langfiles/foo/bar/baz.lang',
+                    TEST_FILES . 'langfiles/toto.lang',
                 ]
             ]
         );
@@ -26,7 +26,7 @@ class Dotlang extends atoum\test
      */
     public function testGetLangFilesList($a, $b)
     {
-        $obj = new \Transvision\Dotlang();
+        $obj = new _Dotlang();
         $this
             ->array($obj->getLangFilesList($a))
                 ->isEqualTo($b)
@@ -35,11 +35,9 @@ class Dotlang extends atoum\test
 
     public function getFileDP()
     {
-        $test_file = __DIR__ . '/../../testfiles/langfiles/toto.lang';
-
-        return array(
+        return [
             [
-                $test_file,
+                TEST_FILES . 'langfiles/toto.lang',
                 [
                     '## I am a tag ##',
                     '## NOTE: I am metadata',
@@ -54,7 +52,7 @@ class Dotlang extends atoum\test
                     'Bonjour',
                 ]
             ]
-        );
+        ];
     }
 
     /**
@@ -62,20 +60,17 @@ class Dotlang extends atoum\test
      */
     public function testGetFile($a, $b)
     {
-        $obj = new \Transvision\Dotlang();
+        $obj = new _Dotlang();
         $this
             ->array($obj->getFile($a))
-                ->isEqualTo($b)
-        ;
+                ->isEqualTo($b);
     }
 
     public function getStringsDP()
     {
-        $test_file = __DIR__ . '/../../testfiles/langfiles/toto.lang';
-
-        return array(
+        return [
             [
-                $test_file,
+                TEST_FILES . 'langfiles/toto.lang',
                 [
                     'Browser'      => 'Navigateur',
                     'Mail'         => 'Courrier',
@@ -83,7 +78,7 @@ class Dotlang extends atoum\test
                     'Empty string' => 'Empty string',
                 ]
             ]
-        );
+        ];
     }
 
     /**
@@ -91,21 +86,17 @@ class Dotlang extends atoum\test
      */
     public function testGetStrings($a, $b)
     {
-        $obj = new \Transvision\Dotlang();
+        $obj = new _Dotlang();
         $this
             ->array($obj->getStrings($a))
-                ->isEqualTo($b)
-        ;
+                ->isEqualTo($b);
     }
 
     public function generateStringID_DP()
     {
-
-        return array(
-            [
-                'mozilla_org/main.lang', 'Back to home page', 'mozilla_org/main.lang:8295a9f6'
-            ],
-        );
+        return [
+            ['mozilla_org/main.lang', 'Back to home page', 'mozilla_org/main.lang:8295a9f6'],
+        ];
     }
 
     /**
@@ -113,10 +104,9 @@ class Dotlang extends atoum\test
      */
     public function testGenerateStringID($a, $b, $c)
     {
-        $obj = new \Transvision\Dotlang();
+        $obj = new _Dotlang();
         $this
             ->string($obj->generateStringID($a, $b))
-                ->isEqualTo($c)
-        ;
+                ->isEqualTo($c);
     }
 }

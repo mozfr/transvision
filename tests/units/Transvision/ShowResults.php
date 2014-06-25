@@ -1,12 +1,13 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\ShowResults as _ShowResults;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 class ShowResults extends atoum\test
 {
-
     public function getTMXResultsDP()
     {
         include TMX . 'central/en-US/cache_en-US.php';
@@ -15,15 +16,15 @@ class ShowResults extends atoum\test
         $target = $tmx;
         $data = [$source, $target];
 
-        return array(
-            array(
+        return [
+            [
                 ['browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label'],
                 $data,
                 ['browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label' =>
                     ['Find in Finder', 'Ouvrir dans le Finder']
                 ]
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -31,7 +32,7 @@ class ShowResults extends atoum\test
      */
     public function testGetTMXResults($a, $b, $c)
     {
-        $obj = new \Transvision\ShowResults();
+        $obj = new _ShowResults();
         $this
             ->array($obj->getTMXResults($a, $b))
                 ->isEqualTo($c);
@@ -44,7 +45,8 @@ class ShowResults extends atoum\test
         include TMX . 'central/fr/cache_fr.php';
         $target = $tmx;
         $data = [$source, $target];
-        $results = array(
+        $results = [
+            // We use divisions so as to have real precise numbers for float comparizon
             [
               'source' => 'Bookmark',
               'target' => 'Marquer cette page',
@@ -60,26 +62,24 @@ class ShowResults extends atoum\test
             [
               'source'  => 'Bookmarks',
               'target'  => 'Marque-pages',
-              // 'quality' => (float) 88.888888888889
               'quality' => (float) 100/1.125
             ],
 
             [
               'source'  => 'New Bookmarks',
               'target'  => 'Nouveaux marque-pages',
-              // 'quality' => (float) 61.538461538462
               'quality' => (float) 100/1.625
             ],
-        );
+        ];
 
-        return array(
-            array(
+        return [
+            [
                 array_keys($source),
                 $data,
                 'Bookmark',
                 $results
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -87,8 +87,7 @@ class ShowResults extends atoum\test
      */
     public function testGetTranslationMemoryResults($a, $b, $c, $d)
     {
-        // $entities, $array_strings, $search, $max_results=200, $min_quality=0
-        $obj = new \Transvision\ShowResults();
+        $obj = new _ShowResults();
         $this
             ->array($obj->getTranslationMemoryResults($a, $b, $c, 4))
                 ->isEqualTo($d);
@@ -96,9 +95,9 @@ class ShowResults extends atoum\test
 
     public function formatEntityDP()
     {
-        return array(
-            array('browser/chrome/browser/browser.dtd:historyHomeCmd.label', false)
-        );
+        return [
+            ['browser/chrome/browser/browser.dtd:historyHomeCmd.label', false]
+        ];
     }
 
     /**
@@ -106,7 +105,7 @@ class ShowResults extends atoum\test
      */
     public function testFormatEntity($a, $b)
     {
-        $obj = new \Transvision\ShowResults();
+        $obj = new _ShowResults();
         $this
             ->string($obj->formatEntity($a, $b))
                 ->isEqualTo('<span class="green">browser</span><span class="superset">&nbsp;&sup;&nbsp;</span>chrome<span class="superset">&nbsp;&sup;&nbsp;</span>browser<span class="superset">&nbsp;&sup;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>');
@@ -114,23 +113,23 @@ class ShowResults extends atoum\test
 
     public function getStringFromEntityDP()
     {
-        return array(
-            array(
+        return [
+            [
                 'browser/pdfviewer/viewer.properties:last_page.label',
                 ['browser/pdfviewer/viewer.properties:last_page.label' => 'Aller à la dernière page'],
                 'Aller à la dernière page'
-                ),
-            array(
+            ],
+            [
                 'browser/pdfviewer/viewer.properties:last_page.label',
                 ['entity.is.not.found' => 'Aller à la dernière page'],
                 false
-                ),
-            array(
+            ],
+            [
                 'browser/pdfviewer/viewer.properties:last_page.label',
                 ['browser/pdfviewer/viewer.properties:last_page.label' => ''],
                 false
-                ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -138,7 +137,7 @@ class ShowResults extends atoum\test
      */
     public function testGetStringFromEntity($a, $b, $c)
     {
-        $obj = new \Transvision\ShowResults();
+        $obj = new _ShowResults();
         $this
             ->variable($obj->getStringFromEntity($a, $b))
                 ->isIdenticalTo($c);
@@ -146,19 +145,19 @@ class ShowResults extends atoum\test
 
     public function getRepositorySearchResultsDP()
     {
-        return array(
+        return [
             // simple search
-            array(
+            [
                 ['apps/system/system.properties:softwareHomeButton.ariaLabel', 'apps/settings/settings.properties:homescreens'],
                 [
                     0 => ['apps/system/system.properties:softwareHomeButton.ariaLabel' => 'Home'],
                     1 => ['apps/system/system.properties:softwareHomeButton.ariaLabel' => 'Accueil'],
                 ],
                 ['apps/system/system.properties:softwareHomeButton.ariaLabel' => ['Home' => 'Accueil']]
-            ),
+            ],
 
             // Check escaping
-            array(
+            [
                 ['browser/chrome/browser/safebrowsing/phishing-afterload-warning-message.dtd:safeb.blocked.malwarePage.longDesc'],
                 [
                     0 => [
@@ -192,8 +191,8 @@ class ShowResults extends atoum\test
                       . "propriétaires ou sans qu'ils en aient connaissance.</p>"
                     ]
                 ],
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -201,7 +200,7 @@ class ShowResults extends atoum\test
      */
     public function testGeRepositorySearchResults($a, $b, $c)
     {
-        $obj = new \Transvision\ShowResults();
+        $obj = new _ShowResults();
         $this
             ->array($obj->getRepositorySearchResults($a, $b))
                 ->isIdenticalTo($c);

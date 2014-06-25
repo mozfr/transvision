@@ -1,26 +1,28 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\Utils as _Utils;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 class Utils extends atoum\test
 {
-    public function uniqueWordsDataProvider()
+    public function uniqueWordsDP()
     {
-        return array('Le système le style du couteau du suisse');
+        return ['Le système le style du couteau du suisse'];
     }
 
     /**
-     * @dataProvider uniqueWordsDataProvider
+     * @dataProvider uniqueWordsDP
      */
     public function testUniqueWords($a)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->array($obj->uniqueWords($a))
                 ->isEqualTo(
-                    array(
+                    [
                         'système',
                         'couteau',
                         'suisse',
@@ -28,299 +30,265 @@ class Utils extends atoum\test
                         'le',
                         'Le',
                         'du'
-                    )
+                    ]
                 );
     }
 
-    public function checkboxDefaultOptionDataProvider1()
+    public function checkboxDefaultOption1DP()
     {
-        return array(
-            array(
-                'es-ES',
-                'es-ES',
-                ' checked="checked"'
-                )
-        );
+        return [
+            ['es-ES', 'es-ES', ' checked="checked"']
+        ];
     }
 
     /**
-     * @dataProvider checkboxDefaultOptionDataProvider1
+     * @dataProvider checkboxDefaultOption1DP
      */
-
     public function testCheckboxDefaultOption1($a, $b, $c)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->checkboxDefaultOption($a, $b))
                 ->isEqualTo($c);
     }
 
-    public function checkboxDefaultOptionDataProvider2()
+    public function checkboxDefaultOption2DP()
     {
-        return array(
-            array(
-                'es-ES',
-                'en-US',
-                false
-                )
-        );
+        return [
+            ['es-ES', 'en-US', false]
+        ];
     }
 
     /**
-     * @dataProvider checkboxDefaultOptionDataProvider2
+     * @dataProvider checkboxDefaultOption2DP
      */
-
     public function testCheckboxDefaultOption2($a, $b, $c)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->boolean($obj->checkboxDefaultOption($a, $b))
                 ->isEqualTo($c);
     }
 
-    public function checkBoxStateDataProvider1()
+    public function checkBoxState1DP()
     {
-        $_GET['t2t'] = "somedata";
-        return array(
-            array($_GET['t2t'], '')
-        );
+        $_GET['t2t'] = 'somedata';
+        return [
+            [$_GET['t2t'], '']
+        ];
     }
 
     /**
-     * @dataProvider checkBoxStateDataProvider1
+     * @dataProvider checkBoxState1DP
      */
-
     public function testCheckboxState1($a, $b)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->checkboxState($a, $b))
                 ->isEqualTo(' disabled="disabled"');
     }
 
-    public function checkBoxStateDataProvider2()
+    public function checkBoxState2DP()
     {
-        $_GET['t2t'] = "somedata";
-        return array(
-            array($_GET['t2t'], 't2t')
-        );
+        $_GET['t2t'] = 'somedata';
+        return [
+            [$_GET['t2t'], 't2t']
+        ];
     }
 
     /**
-     * @dataProvider checkBoxStateDataProvider2
+     * @dataProvider checkBoxState2DP
      */
-
     public function testCheckboxState2($a, $b)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->checkboxState($a, $b))
                 ->isEqualTo(' checked="checked"');
     }
 
-    public function checkBoxStateDataProvider3()
+    public function checkBoxState3DP()
     {
-        return array(
-            array('some string', null)
-        );
+        return [
+            ['some string', null]
+        ];
     }
 
     /**
-     * @dataProvider checkBoxStateDataProvider3
+     * @dataProvider checkBoxState3DP
      */
 
     public function testCheckboxState3($a, $b)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->checkboxState($a, $b))
                 ->isEqualTo(' checked="checked"');
     }
 
-
-    public function getHtmlSelectOptionsDataProvider()
+    public function getHtmlSelectOptionsDP()
     {
-        return array(
-            array(
-                array('strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'),
+        return [
+            [
+                ['strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'],
                 'strings_entities',
                 true
-            )
-        );
+            ]
+        ];
     }
 
     /**
-     * @dataProvider getHtmlSelectOptionsDataProvider
+     * @dataProvider getHtmlSelectOptionsDP
      */
     public function testGetHtmlSelectOptions($a, $b, $c)
     {
-
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->getHtmlSelectOptions($a, $b, $c))
-                ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>')
-        ;
+                ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>');
     }
 
-    public function cleanSearchDataProvider()
+    public function cleanSearchDP()
     {
-        return array(
-            array(
+        return [
+            [
                 'pages web   fréquemment visitées (en cliquant sur « Recharger »,',
                 'pages web fréquemment visitées (en cliquant sur « Recharger »,'
-                ),
-            array(
+            ],
+            [
                 'toto ',
                 'toto'
-            )
-        );
+            ]
+        ];
     }
 
     /**
-     * @dataProvider cleanSearchDataProvider
+     * @dataProvider cleanSearchDP
      */
     public function testCleanSearch($a, $b)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->cleanSearch($a))
-                ->isEqualTo($b)
-        ;
+                ->isEqualTo($b);
     }
 
-    public function checkAbnormalStringLengthDataProvider()
+    public function checkAbnormalStringLengthDP()
     {
-        return array(
-            array(
+        return [
+            [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème. Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème.',
                 'large'
-                ),
-            array(
+            ],
+            [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et',
                 'small'
-                ),
-            array(
+            ],
+            [
                 'Le système de marque-pages et',
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'large'
-                ),
-            array(
+            ],
+            [
                 'pages web',
                 'pa',
                 'small'
-                )
-        );
+            ]
+        ];
     }
+
     /**
-     * @dataProvider checkAbnormalStringLengthDataProvider
+     * @dataProvider checkAbnormalStringLengthDP
      */
     public function testCheckAbnormalStringLength($a, $b, $c)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->checkAbnormalStringLength($a, $b))
-                ->isEqualTo($c)
-        ;
+                ->isEqualTo($c);
     }
 
-    public function checkAbnormalStringLengthDataProvider2()
+    public function checkAbnormalStringLength2DP()
     {
-        return array(
-            array(
-                'Add Bookmarks',
-                'Ajouter des marque-pages',
-                false
-                ),
-            array(
-                'Add Bookmarks',
-                '',
-                false
-            )
-        );
+        return [
+            ['Add Bookmarks', 'Ajouter des marque-pages', false],
+            ['Add Bookmarks', '', false]
+        ];
     }
+
     /**
-     * @dataProvider checkAbnormalStringLengthDataProvider2
+     * @dataProvider checkAbnormalStringLength2DP
      */
     public function testCheckAbnormalStringLength2($a, $b, $c)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->boolean($obj->checkAbnormalStringLength($a, $b))
-                ->isEqualTo($c)
-        ;
+                ->isEqualTo($c);
     }
 
-    public function getRepoStringsDataProvider()
+    public function getRepoStringsDP()
     {
-        return array(
-            array(
-                'fr',
-                'central',
-                'Ouvrir dans le Finder'
-                ),
-            array(
-                'es-ES',
-                'gaia', // test fallback to es locale for gaia
-                'Hogar'
-                ),
-        );
+        return [
+            ['fr', 'central', 'Ouvrir dans le Finder'],
+            ['es-ES','gaia', 'Hogar'], // test fallback to es locale for gaia
+        ];
     }
 
     /**
-     * @dataProvider getRepoStringsDataProvider
+     * @dataProvider getRepoStringsDP
      */
     public function testGetRepoStrings($a, $b, $c)
     {
-        if (!getenv('TRAVIS')) {
-            $obj = new \Transvision\Utils();
+        if (! getenv('TRAVIS')) {
+            $obj = new _Utils();
             $this
                 ->array($obj->getRepoStrings($a, $b))
-                    ->contains($c)
-            ;
+                    ->contains($c);
         }
     }
 
-    public function getOrSetDataProvider()
+    public function getOrSetDP()
     {
-        return array(
-                array(
-                    array('en-US', 'ar', 'fr'),
-                    'fr',
-                    'en-US',
-                    'fr',
-                    ),
-                array(
-                    array('fa', 'es-ES', 'fr'),
-                    'it',
-                    'en-US',
-                    'en-US',
-                    ),
-                array(
-                    array('fa', 'es-ES', 'FR'),
-                    'fr',
-                    'en-US',
-                    'en-US',
-                    ),
-                array(
-                    array('fa', 'es-ES', 'FR'),
-                    'es',
-                    'en-US',
-                    'en-US',
-                    ),
-            );
+        return [
+            [
+                ['en-US', 'ar', 'fr'],
+                'fr',
+                'en-US',
+                'fr',
+                ],
+            [
+                ['fa', 'es-ES', 'fr'],
+                'it',
+                'en-US',
+                'en-US',
+                ],
+            [
+                ['fa', 'es-ES', 'FR'],
+                'fr',
+                'en-US',
+                'en-US',
+                ],
+            [
+                ['fa', 'es-ES', 'FR'],
+                'es',
+                'en-US',
+                'en-US',
+                ],
+        ];
     }
 
     /**
-     * @dataProvider getOrSetDataProvider
+     * @dataProvider getOrSetDP
      */
     public function testGetOrSet($a, $b, $c, $d)
     {
-        $obj = new \Transvision\Utils();
+        $obj = new _Utils();
         $this
             ->string($obj->getOrSet($a, $b, $c))
-                ->isEqualTo($d)
-        ;
+                ->isEqualTo($d);
     }
 }

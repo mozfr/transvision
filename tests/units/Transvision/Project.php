@@ -1,7 +1,8 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
 
 use atoum;
+use Transvision\Project as _Project;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -9,7 +10,7 @@ class Project extends atoum\test
 {
     public function testGetRepositories()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $repos = ['release', 'beta', 'aurora', 'central', 'gaia', 'gaia_1_2',
                   'gaia_1_3', 'gaia_1_4', 'mozilla_org'];
         $this
@@ -19,18 +20,18 @@ class Project extends atoum\test
 
     public function testGetRepositoriesNames()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $repos = [
-                'release'     => 'Release',
-                'beta'        => 'Beta',
-                'aurora'      => 'Aurora',
-                'central'     => 'Central',
-                'gaia'        => 'Gaia master',
-                'gaia_1_2'    => 'Gaia 1.2',
-                'gaia_1_3'    => 'Gaia 1.3',
-                'gaia_1_4'    => 'Gaia 1.4',
-                'mozilla_org' => 'mozilla.org',
-            ];
+            'release'     => 'Release',
+            'beta'        => 'Beta',
+            'aurora'      => 'Aurora',
+            'central'     => 'Central',
+            'gaia'        => 'Gaia master',
+            'gaia_1_2'    => 'Gaia 1.2',
+            'gaia_1_3'    => 'Gaia 1.3',
+            'gaia_1_4'    => 'Gaia 1.4',
+            'mozilla_org' => 'mozilla.org',
+        ];
         $this
             ->array($obj->getRepositoriesNames())
                 ->isEqualTo($repos);
@@ -38,7 +39,7 @@ class Project extends atoum\test
 
     public function testGetGaiaRepositories()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $repos = ['gaia', 'gaia_1_4', 'gaia_1_3', 'gaia_1_2'];
         $this
             ->array($obj->getGaiaRepositories())
@@ -47,7 +48,7 @@ class Project extends atoum\test
 
     public function testGetDesktopRepositories()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $repos = ['release', 'beta', 'aurora', 'central'];
         $this
             ->array($obj->getDesktopRepositories())
@@ -56,7 +57,7 @@ class Project extends atoum\test
 
     public function testGetRepositoryLocales()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $this
             ->array($obj->getRepositoryLocales('central'))
                 ->isEqualTo(['en-US', 'fr']);
@@ -64,7 +65,7 @@ class Project extends atoum\test
 
     public function testGetReferenceLocale()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $this
             ->string($obj->getReferenceLocale('central'))
                 ->isEqualTo('en-US');
@@ -75,7 +76,7 @@ class Project extends atoum\test
 
     public function testIsValidRepository()
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $this
             ->boolean($obj->isValidRepository('central'))
                 ->isEqualTo(true);
@@ -87,24 +88,24 @@ class Project extends atoum\test
     public function getLocaleInContextDP()
     {
         return [
-                ['fr', 'bugzilla', 'fr'],
-                ['es', 'bugzilla', 'es-ES'],
-                ['pa', 'bugzilla', 'pa-IN'],
-                ['gu', 'bugzilla', 'gu-IN'],
-                ['sr', 'bugzilla', 'sr'],
-                ['sr-Cyrl', 'bugzilla', 'sr'],
-                ['sr-Latn', 'bugzilla', 'sr'],
-                ['sr-Latn', 'gaia', 'sr-Latn'],
-                ['sr', 'gaia', 'sr-Cyrl'],
-                ['es', 'gaia', 'es'],
-                ['es-CL', 'gaia', 'es'],
-                ['es-ES', 'gaia_1_4', 'es'],
-                ['es', 'mozilla_org', 'es-ES'],
-                ['es-AR', 'mozilla_org', 'es-AR'],
-                ['sr-Cyrl', 'mozilla_org', 'sr'],
-                ['es-ES', 'foobar', 'es-ES'],
-                ['fr', 'foobar', 'fr'],
-               ];
+            ['fr', 'bugzilla', 'fr'],
+            ['es', 'bugzilla', 'es-ES'],
+            ['pa', 'bugzilla', 'pa-IN'],
+            ['gu', 'bugzilla', 'gu-IN'],
+            ['sr', 'bugzilla', 'sr'],
+            ['sr-Cyrl', 'bugzilla', 'sr'],
+            ['sr-Latn', 'bugzilla', 'sr'],
+            ['sr-Latn', 'gaia', 'sr-Latn'],
+            ['sr', 'gaia', 'sr-Cyrl'],
+            ['es', 'gaia', 'es'],
+            ['es-CL', 'gaia', 'es'],
+            ['es-ES', 'gaia_1_4', 'es'],
+            ['es', 'mozilla_org', 'es-ES'],
+            ['es-AR', 'mozilla_org', 'es-AR'],
+            ['sr-Cyrl', 'mozilla_org', 'sr'],
+            ['es-ES', 'foobar', 'es-ES'],
+            ['fr', 'foobar', 'fr'],
+        ];
     }
 
     /**
@@ -112,10 +113,9 @@ class Project extends atoum\test
      */
     public function testGetLocaleInContext($a, $b, $c)
     {
-        $obj = new \Transvision\Project();
+        $obj = new _Project();
         $this
             ->string($obj->getLocaleInContext($a, $b))
-                ->isEqualTo($c)
-        ;
+                ->isEqualTo($c);
     }
 }
