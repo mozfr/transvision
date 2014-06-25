@@ -1,68 +1,64 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\Json as _Json;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 class Json extends atoum\test
 {
-    public function fetchDataProvider()
+    public function fetchDP()
     {
-        $local = __DIR__ . '/data/';
-        return array(
-            array($local . '/empty.json', array()),
-            array($local . '/test1.json', array('user_name' => 'Pascal'))
-        );
+        return [
+            [TEST_FILES . 'json/empty.json', array()],
+            [TEST_FILES . 'json/test1.json', array('user_name' => 'Pascal')]
+        ];
     }
 
     /**
-     * @dataProvider fetchDataProvider
+     * @dataProvider fetchDP
      */
     public function testFetch($a, $b)
     {
-        $obj = new \Transvision\Json();
+        $obj = new _Json();
         $this
             ->array($obj->fetch($a))
-                ->isEqualTo($b)
-        ;
+                ->isEqualTo($b);
     }
 
-
-
-    public function outputDataProvider()
+    public function outputDP()
     {
-        return array(
-            array(
+        return [
+            [
                 ['foo' => 'bar'],
                 false,
                 false,
                 '{"foo":"bar"}'
-                ),
-            array(
+            ],
+            [
                 ['foo' => 'bar'],
                 false,
                 true,
                 "{\n    " . '"foo": "bar"' . "\n}"
-                ),
-            array(
+            ],
+            [
                 ['foo' => 'bar'],
                 'toto',
                 false,
                 'toto({"foo":"bar"})'
-                )
-        );
+            ]
+        ];
     }
 
     /**
-     * @dataProvider outputDataProvider
+     * @dataProvider outputDP
      */
     public function testOutput($a, $b, $c, $d)
     {
-        $obj = new \Transvision\Json();
+        $obj = new _Json();
         $this
             ->string($obj->output($a, $b, $c))
-                ->isEqualTo($d)
-        ;
+                ->isEqualTo($d);
     }
-
 }

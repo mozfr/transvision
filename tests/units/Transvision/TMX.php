@@ -1,6 +1,8 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\TMX as _TMX;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -8,17 +10,18 @@ class TMX extends atoum\test
 {
     public function dataProviderCreate()
     {
-        return array(
-            array(
-                array('fr' => array(
+        return [
+            [
+                [
+                    'fr' => [
                             'shared/date/date.properties:month-7-genitive' => 'août',
                             'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible'
-                        ),
-                      'en-US' => array(
+                    ],
+                    'en-US' => [
                             'shared/date/date.properties:month-7-genitive' => 'August',
                             'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open'
-                        )
-                    ),
+                    ]
+                ],
                 'fr',
                 'en-US',
                 '<?xml version="1.0" encoding="UTF-8"?>
@@ -36,16 +39,15 @@ class TMX extends atoum\test
 . "\n\t" . '</tu>
 </body>
 </tmx>'. "\n"
-            )
-        );
+            ]
+        ];
     }
-
 
     /**
      * @dataProvider dataProviderCreate
      */
     public function testCreate($a, $b, $c, $d) {
-        $obj = new \Transvision\TMX();
+        $obj = new _TMX();
         $this->string($obj->create($a, $b, $c))
                 ->isEqualTo($d);
     }

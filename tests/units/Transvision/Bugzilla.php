@@ -1,65 +1,41 @@
 <?php
-namespace Transvision\tests\units;
+namespace tests\units\Transvision;
+
 use atoum;
+use Transvision\Bugzilla as _Bugzilla;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 class Bugzilla extends atoum\test
 {
-
-    public function collectLanguageComponentDataProvider()
+    public function collectLanguageComponentDP()
     {
-        $obj = new \Transvision\Bugzilla();
+        $obj = new _Bugzilla();
         $components_list = $obj->getBugzillaComponents();
-        return array(
-            array(
-                'en-GB',
-                $components_list,
-                'en-GB / English (United Kingdom)'
-                ),
-            array(
-                'fr',
-                $components_list,
-                'fr / French'
-                ),
-            array(
-                'sr-Cyrl',
-                $components_list,
-                'sr / Serbian'
-                ),
-            array(
-                'sr-Latn',
-                $components_list,
-                'sr / Serbian'
-                ),
-            array(
-                'es',
-                $components_list,
-                'es-ES / Spanish'
-                ),
-            array(
-                'unknow_LANG',
-                $components_list,
-                'Other'
-            )
-        );
+        return [
+            ['en-GB', $components_list, 'en-GB / English (United Kingdom)'],
+            ['fr', $components_list, 'fr / French'],
+            ['sr-Cyrl', $components_list, 'sr / Serbian'],
+            ['sr-Latn', $components_list, 'sr / Serbian'],
+            ['es', $components_list, 'es-ES / Spanish'],
+            ['unknow_LANG', $components_list, 'Other']
+        ];
     }
 
     /**
-     * @dataProvider collectLanguageComponentDataProvider
+     * @dataProvider collectLanguageComponentDP
      */
     public function testCollectLanguageComponent($a, $b, $c)
     {
-        $obj = new \Transvision\Bugzilla();
+        $obj = new _Bugzilla();
         $this
             ->string($obj->collectLanguageComponent($a,$b))
-                ->isEqualTo($c)
-        ;
+                ->isEqualTo($c);
     }
 
     public function reportErrorLinkDP()
     {
-        return array(
+        return [
             [
                 'zh-TW',
                 'browser/chrome/browser/preferences/main.dtd:startupHomePage.label',
@@ -78,7 +54,7 @@ class Bugzilla extends atoum\test
                 '?sourcelocale=en-GB&locale=fr&repo=mozilla_org&search_type=entities&recherche=mozilla_org/firefox/whatsnew.lang:c9ecbf83',
                 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=L10N&product=www.mozilla.org&status_whiteboard=%5Btransvision-feedback%5D&short_desc=Translation%20update%20proposed%20for%20mozilla_org%2Ffirefox%2Fwhatsnew.lang%3Ac9ecbf83&comment=The%20string%3A%0ALearn%20more%20about%20our%20%3Ca%20href%3D%22%7Burl%7D%22%3Eredesigned%20home%20page%20%C2%BB%3C%2Fa%3E%0A%0AIs%20translated%20as%3A%0AD%C3%A9couvrez%20notre%20nouvelle%20%3Ca%20href%3D%22%7Burl%7D%22%3Epage%20d%26%23039%3Baccueil%20%C2%BB%3C%2Fa%3E%0A%0AAnd%20should%20be%3A%0A%0A%0A%0AFeedback%20via%20Transvision%3A%0Ahttp%3A%2F%2Ftransvision.mozfr.org%2F%3Fsourcelocale%3Den-GB%26locale%3Dfr%26repo%3Dmozilla_org%26search_type%3Dentities%26recherche%3Dmozilla_org%2Ffirefox%2Fwhatsnew.lang%3Ac9ecbf83&cf_locale=fr%20%2F%20French'
             ]
-        );
+        ];
     }
 
     /**
@@ -86,10 +62,9 @@ class Bugzilla extends atoum\test
      */
     public function testReportErrorLink($a, $b, $c, $d, $e, $f, $g)
     {
-        $obj = new \Transvision\Bugzilla();
+        $obj = new _Bugzilla();
         $this
             ->string($obj->reportErrorLink($a, $b, $c, $d, $e, $f))
-                ->isEqualTo($g)
-        ;
+                ->isEqualTo($g);
     }
 }
