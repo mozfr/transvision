@@ -13,9 +13,9 @@ class ShowResults
     /**
      * Create an array for search results with this format:
      * 'entity' => ['string_locale 1', 'string_locale 2']
-     * @param array $entities haystack of entities to search in
-     * @param array $array_strings strings to look for
-     * @return array array of entities as keys and translations as values
+     * @param  array $entities      Haystack of entities to search in
+     * @param  array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     * @return array Results with entities as keys and translations as values
      */
     public static function getTMXResults($entities, $array_strings)
     {
