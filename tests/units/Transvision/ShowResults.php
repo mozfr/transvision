@@ -6,6 +6,94 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class ShowResults extends atoum\test
 {
+
+    public function getTMXResultsDP()
+    {
+        include TMX . 'central/en-US/cache_en-US.php';
+        $source = $tmx;
+        include TMX . 'central/fr/cache_fr.php';
+        $target = $tmx;
+        $data = [$source, $target];
+
+        return array(
+            array(
+                ['browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label'],
+                $data,
+                ['browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label' =>
+                    ['Find in Finder', 'Ouvrir dans le Finder']
+                ]
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider getTMXResultsDP
+     */
+    public function testGetTMXResults($a, $b, $c)
+    {
+        $obj = new \Transvision\ShowResults();
+        $this
+            ->array($obj->getTMXResults($a, $b))
+                ->isEqualTo($c);
+    }
+
+    public function getTranslationMemoryResultsDP()
+    {
+        include TMX . 'central/en-US/cache_en-US.php';
+        $source = $tmx;
+        include TMX . 'central/fr/cache_fr.php';
+        $target = $tmx;
+        $data = [$source, $target];
+        $results = array(
+            [
+              'source' => 'Bookmark',
+              'target' => 'Marquer cette page',
+              'quality'=> (float) 100
+            ],
+
+            [
+              'source'  => 'Bookmark',
+              'target'  => 'Marque-page',
+              'quality' => (float) 100
+            ],
+
+            [
+              'source'  => 'Bookmarks',
+              'target'  => 'Marque-pages',
+              // 'quality' => (float) 88.888888888889
+              'quality' => (float) 100/1.125
+            ],
+
+            [
+              'source'  => 'New Bookmarks',
+              'target'  => 'Nouveaux marque-pages',
+              // 'quality' => (float) 61.538461538462
+              'quality' => (float) 100/1.625
+            ],
+        );
+
+        return array(
+            array(
+                array_keys($source),
+                $data,
+                'Bookmark',
+                $results
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider getTranslationMemoryResultsDP
+     */
+    public function testGetTranslationMemoryResults($a, $b, $c, $d)
+    {
+        // $entities, $array_strings, $search, $max_results=200, $min_quality=0
+        $obj = new \Transvision\ShowResults();
+        $this
+            ->array($obj->getTranslationMemoryResults($a, $b, $c, 4))
+                ->isEqualTo($d);
+    }
+
     public function formatEntityDP()
     {
         return array(
