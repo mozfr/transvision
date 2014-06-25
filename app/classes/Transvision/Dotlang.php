@@ -92,7 +92,16 @@ class Dotlang
 
             if (Strings::startsWith($f[$i], ';') && !empty($f[$i+1])) {
                 $english = trim(substr($f[$i], 1));
-                $translation = trim($f[$i+1]);
+                if (Strings::startsWith($f[$i+1], '#') ||
+                    Strings::startsWith($f[$i+1], ';')) {
+                    /* String is not translated, next line is a comment or
+                     * the next source string. I consider the string untranslated
+                     */
+                    $translation = $english;
+                } else {
+                    // Next line is an actual translation
+                    $translation = trim($f[$i+1]);
+                }
                 $strings[$english] = $translation;
                 $i++;
             }
