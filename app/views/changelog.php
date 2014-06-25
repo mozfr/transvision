@@ -1,4 +1,4 @@
-<h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-??</span></a></h2>
+<h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-25</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
