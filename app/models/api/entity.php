@@ -13,11 +13,15 @@ if (! $translations = Cache::getKey($cache_id)) {
 
         // We always want to have an en-US locale for the Json API
         if ($repo == 'mozilla_org' && $locale_code == 'en-GB' && isset($strings[$entity])) {
-            $translations ['en-US'] = $strings[$entity];
+            $translations['en-US'] = trim($strings[$entity]);
         }
 
         if (isset($strings[$entity])) {
-            $translations[$locale_code] = trim(rtrim($strings[$entity], '{ok}'));
+            $strings[$entity] = trim($strings[$entity]);
+            if (Strings::endsWith($strings[$entity], '{ok}')) {
+                $strings[$entity] = trim(substr($strings[$entity], 0, -4));
+            }
+            $translations[$locale_code] = $strings[$entity];
         }
 
         // Releasing memory in the loop saves 15% memory on the script
