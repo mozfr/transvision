@@ -226,8 +226,11 @@ class Utils
 
         $file = TMX . "{$repository}/{$locale}/cache_{$locale}.php";
 
-        if (is_file($file)) {
-            include $file;
+        if (! $tmx = Cache::getKey($file)) {
+            if (is_file($file)) {
+                include $file;
+                Cache::setKey($file, $tmx);
+            }
         }
 
         return isset($tmx) ? $tmx : [];
