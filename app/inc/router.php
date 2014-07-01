@@ -9,13 +9,13 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
     return false;
 }
 
+// Define if an url is for the API or the site
+$api_url = (boolean) ! strncmp($url['path'], '/api/', strlen('/api/'));
+
 // Don't process non-PHP files, even if they don't exist on the server
-if ((isset($file['extension']) && $file['extension'] != 'php')) {
+if (isset($file['extension']) && $file['extension'] != 'php' && ! $api_url) {
     return false;
 }
-
-// Define if an url is for The API or the site
-$api_url = (boolean) !strncmp($url['path'], '/api/', strlen('/api/'));
 
 if ($url['path'] != '/') {
     // Normalize path before comparing the string to list of valid paths

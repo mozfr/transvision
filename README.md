@@ -48,7 +48,7 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 2. Clone your fork to your machine.
 3. Copy app/config/config.ini-dev to app/config/config.ini and adapt the variables to your system.
 4. Run "app/scripts/dev-setup.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed.
-5. You are set! You can run Transvision in your local machine with "php -S localhost:8080" inside the web/ folder and opening http://localhost:8080/ with your browser.
+5. You are set! You can run Transvision in your local machine with "php -S localhost:8082 -t web/ app/inc/router.php" in your install folder and opening http://localhost:8082/ with your browser.
 
 ## Update glossary
 

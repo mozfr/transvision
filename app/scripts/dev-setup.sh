@@ -40,6 +40,6 @@ php composer.phar install
 echogreen "Add stats.json file"
 touch web/stats.json
 
-echogreen "Launching PHP development server (php -S localhost:8080 in the web folder)"
-cd $root
-php -S localhost:8080
+echogreen "Launching PHP development server (php -S localhost:8082 -t web/ app/inc/router.php)"
+cd $install
+php -S localhost:8082 -t web/ app/inc/router.php
