@@ -10,7 +10,7 @@ $get_option = function($option) use ($request) {
 };
 
 // Get all strings
-$initial_search = Utils::cleanSearch($request->parameters[6]);
+$initial_search = urldecode(Utils::cleanSearch($request->parameters[6]));
 $source_strings = Utils::getRepoStrings($request->parameters[4], $request->parameters[3]);
 $target_strings = Utils::getRepoStrings($request->parameters[5], $request->parameters[3]);
 
@@ -24,6 +24,7 @@ if ($get_option('perfect_match')) {
         $entities = preg_grep($regex, array_keys($source_strings));
     } else {
         $source_strings = preg_grep($regex, $source_strings);
+        $entities = array_keys($source_strings);
     }
 } else {
     foreach (Utils::uniqueWords($initial_search) as $word) {

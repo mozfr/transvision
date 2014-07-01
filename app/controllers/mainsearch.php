@@ -4,14 +4,28 @@ namespace Transvision;
 // Redirect old JSON API calls to new API
 if (isset($_GET['json'])) {
 
-    $repo   = Utils::secureText($_GET['repo']);
-    $type   = Utils::secureText($_GET['search_type']);
-    $source = Utils::secureText($_GET['sourcelocale']);
-    $target = Utils::secureText($_GET['locale']);
-    $terms  = Utils::secureText($_GET['recherche']);
+    // Define sane fallback values to redirect old API calls to new API calls
+    $get_value = function($value, $fallback) {
+        if (isset($_GET[$value])) {
+            // 'strings_entities' search is now called 'all' in new API
+            return $_GET[$value] == 'strings_entities'
+                ? 'all'
+                : Utils::secureText($_GET[$value]);
+        }
+        return $fallback;
+    };
 
-    // strings_entities search is now called 'all' in API
-    $type = ($type == 'strings_entities') ? 'all' : $type;
+    $repo   = $get_value('repo', 'release');
+    $type   = $get_value('search_type', 'strings');
+    $source = $get_value('sourcelocale', Project::getReferenceLocale($repo));
+    $target = $get_value('locale', 'fr');
+
+    /*
+        We need to urlencode() twice because Apache doesn't allow urls with
+        escaped slashes, it gives a 404 instead of going through mod_rewrite
+        see: http://www.leakon.com/archives/865
+     */
+    $terms = urlencode(urlencode(Utils::secureText($_GET['recherche'])));
 
     $regex = [];
     $regex['whole']   = isset($_GET['whole_word']) ? 'whole_word=1' : '';
