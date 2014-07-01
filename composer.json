@@ -1,8 +1,13 @@
 {
+    "config": {
+        "component-dir": "web/assets"
+    },
+
     "require": {
         "atoum/atoum" : "dev-master",
-        "pascalc/tinyl10n" : "0.6",
-        "monolog/monolog" : "1.10.0"
+        "components/jquery": "1.11.*",
+        "monolog/monolog" : "1.10.0",
+        "pascalc/tinyl10n" : "0.6"
     },
 
     "require-dev": {
