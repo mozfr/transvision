@@ -57,7 +57,7 @@ if (strpos(VERSION, 'dev') !== false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/assets/jquery/jquery.min.js"></script>
     <script>
       $(document).ready(function() {
         // Make sure the menu is not displayed
