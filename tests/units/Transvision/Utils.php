@@ -3,6 +3,7 @@ namespace tests\units\Transvision;
 
 use atoum;
 use Transvision\Utils as _Utils;
+use Transvision\Cache as _Cache;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -290,5 +291,17 @@ class Utils extends atoum\test
         $this
             ->string($obj->getOrSet($a, $b, $c))
                 ->isEqualTo($d);
+    }
+
+    public function afterTestMethod($method)
+    {
+        switch ($method)
+        {
+            case 'testGetRepoStrings':
+                // Destroy cached files created by getRepoStrings()
+                $obj = new _Cache();
+                $obj->flush();
+            break;
+        }
     }
 }
