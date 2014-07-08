@@ -43,8 +43,8 @@ if (Strings::startsWith($repo, 'gaia')) {
 } else {
     $regex_pattern = [
         'dtd'         => '/&([a-z0-9\.]+);/i', // &foobar;
-        'properties1' => '/%[0-9]*\$S/', // %1$S
-        'properties2' => '/\s\$[a-z0-9\.]+\s/i' // $BrandShortName
+        'properties1' => '/%([0-9]+\$){0,1}S/i', // %1$S or %S, case insensitive
+        'properties2' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i' // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
     ];
 }
 
