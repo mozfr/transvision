@@ -61,6 +61,14 @@ foreach ($gaia_repos as $repo) {
     }
 }
 
+$sections = [
+    'translation_status'      => 'Translation Status',
+    'diverging_strings'       => 'Diverging Strings',
+    'translation_consistency' => 'Translation Consistency',
+    'changed_english'         => 'String Changes in English',
+    'new_strings'             => 'New Strings',
+];
+
 ?>
 <form name="searchform" id="simplesearchform" method="get" action="">
     <fieldset id="main">
@@ -113,7 +121,19 @@ $overview = function($title, $columns, $rows, $anchor) {
     return $html;
 };
 
-print "<h2>$locale</h2>";
+$anchor_title = function($name) use ($sections) {
+    return "<h3 id='{$name}'><a href='#{$name}'>{$sections[$name]}</a></h3>\n";
+};
+
+print "<h2>$locale</h2>\n";
+print "<p class='subtitle'>Available views:</p>\n";
+print "<ul id='views_list'>\n";
+foreach ($sections as $anchor_name => $title) {
+    print "  <li><a href='#{$anchor_name}'>{$title}</a></li>\n";
+}
+print "</ul>\n";
+
+print $anchor_title('translation_status');
 print $overview('How many strings are translated?', ['repo', $locale, 'en-US'], $status, 'overview');
 
 // Diverging strings betweet two repositories
@@ -176,6 +196,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
     return $table;
 };
 
+print $anchor_title('diverging_strings');
 print $diverging(
     [
       $repo1,
@@ -243,7 +264,9 @@ if (count($inconsistent_translation) > 0) {
     $inconsistent_results = "<p>No inconsistent translations found.</p>";
 }
 
-print "\n<h3>Translation Consistency in {$repos_nice_names[$repo1]}</h3>";
+
+print $anchor_title('translation_consistency');
+print "<p class='subtitle'>Analysis of translation consistency in {$repos_nice_names[$repo1]}.</p>";
 print $inconsistent_results;
 
 // Changes in en-US
@@ -275,6 +298,7 @@ foreach($common_keys as $key =>$val) {
 }
 $table .= '</table>';
 
+print $anchor_title('changed_english');
 print $table;
 
 // String diff between two repositories
@@ -312,6 +336,7 @@ $strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, 
     return $table;
 };
 
+print $anchor_title('new_strings');
 print $strings_added(
     $reverted_comparison,
     $strings,

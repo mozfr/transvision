@@ -55,7 +55,7 @@ if (strpos(VERSION, 'dev') !== false) {
     <title><?php if($show_title == true){ echo $page_title . ' | '; } ?><?=$title_productname?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/new_glossary.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/transvision.css" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
     <script src="/assets/jquery/jquery.min.js"></script>
     <script>
