@@ -849,6 +849,19 @@ span.deleted {
     color: red;
 }
 
+ul#views_list {
+    margin: 10px auto;
+    width: 200px;
+}
+
+body#gaia h3 {
+    margin-top: 30px;
+}
+
+p.subtitle {
+    text-align: center;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 850px) {
