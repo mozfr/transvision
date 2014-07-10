@@ -333,4 +333,57 @@ class Utils
             error_log($render_time);
         }
     }
+
+    /**
+     * Generate a red to green color from a numeric value
+     *
+     * @return the RGB values separated by a comma
+     */
+    public static function redYellowGreen($number) {
+        // work with 0-99 values
+        $number--;
+
+        if ($number < 50) {
+            // red to yellow
+            $r = 255;
+            $g = floor(255 * ($number / 50));
+        } else {
+            // yellow to red
+            $r = floor(255 * ((50 - $number % 50) / 50));
+            $g = 255;
+        }
+        $b = 0;
+
+        return "$r,$g,$b";
+    }
+
+    /**
+     * Lazy function to handle English plural form
+     *
+     * @param int $count The value to check
+     * @param string $text The word to pluralize
+     * @return the value concatenated with the word properly pluralized
+     */
+    public static function pluralize($count, $text)
+    {
+        return $count . (($count == 1) ? (" $text") : (" ${text}s"));
+    }
+
+    /**
+     * Get the elapsed/remaining time from a DateTime vs. now
+     *
+     * @param DateTime $datetime The DateTime object to check against current time
+     * @return a string containing the value concatenated with the pluralized unit
+     */
+    public static function ago($datetime)
+    {
+        $interval = (new \DateTime('now'))->diff($datetime);
+        $suffix = ($interval->invert ? ' ago' : '');
+        if ($interval->y >= 1) return self::pluralize($interval->y, 'year') . $suffix;
+        if ($interval->m >= 1) return self::pluralize($interval->m, 'month') . $suffix;
+        if ($interval->d >= 1) return self::pluralize($interval->d, 'day') . $suffix;
+        if ($interval->h >= 1) return self::pluralize($interval->h, 'hour') . $suffix;
+        if ($interval->i >= 1) return self::pluralize($interval->i, 'minute') . $suffix;
+        return self::pluralize($interval->s, 'second') . $suffix;
+    }
 }
