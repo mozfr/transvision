@@ -1,24 +1,33 @@
 /* Fonts */
 
 @font-face {
-    font-family: "Open Sans";
+    font-family: 'Open Sans';
     font-style: normal;
     font-weight: normal;
-    src: url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular") format("svg");
+    src: url(https://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.eot?#iefix) format('embedded-opentype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.woff) format('woff'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.ttf) format('truetype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular) format('svg');
 }
 
 @font-face {
-    font-family: "Open Sans";
+    font-family: 'Open Sans';
     font-style: normal;
     font-weight: bold;
-    src: url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold") format("svg");
+    src: url(https://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.eot?#iefix) format('embedded-opentype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.woff) format('woff'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.ttf) format('truetype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold) format('svg');
 }
 
 @font-face {
-    font-family: "Open Sans Light";
+    font-family: 'Open Sans Light';
     font-style: normal;
     font-weight: normal;
-    src: url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.woff") format("woff"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("http://www.mozilla.org/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight") format("svg");
+    src: url(https://www.mozilla.org/media/fonts/OpenSans-Light-webfont.eot?#iefix) format('embedded-opentype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Light-webfont.woff) format('woff'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Light-webfont.ttf) format('truetype'),
+         url(https://www.mozilla.org/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight) format('svg');
 }
 
 /* General structure */
@@ -28,18 +37,18 @@ html {
 }
 
 body {
-    color: #333333;
-    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
     margin: 0 auto;
     padding: 0;
-    border-top: 1px solid #FFF;
+    border-top: 1px solid #fff;
     position: relative;
-    background-color: #CADDED;
-    background-image: url("/img/grain.png"), linear-gradient(to bottom, #CADDED 0%, #F6F4EC 100%);
+    background-color: #cadded;
+    background-image: url(/img/grain.png), linear-gradient(to bottom, #cadded 0%, #f6f4ec 100%);
     background-origin: padding-box, padding-box;
-    background-position: 0 0px, 0 0px, 0 0;
+    background-position: 0 0, 0 0, 0 0;
     background-repeat: repeat;
     background-size: auto auto, auto auto, auto auto;
     min-width: 320px;
@@ -49,13 +58,15 @@ div#pagecontent {
     padding: 0 5px;
 }
 
-a, a:visited {
-    color: #0095DD;
+a,
+a:visited {
+    color: #0095dd;
     text-decoration: none;
 }
 
-a:hover, a.select {
-    color: #00539F;
+a:hover,
+a.select {
+    color: #00539f;
     text-decoration: underline;
 }
 
@@ -65,7 +76,7 @@ div#beta-badge {
     height: 80px;
     top: 0;
     left: 0;
-    background: url("/img/beta_ribbon.png") top left no-repeat transparent;
+    background: url(/img/beta_ribbon.png) top left no-repeat transparent;
 }
 
 div#beta-badge span {
@@ -74,9 +85,11 @@ div#beta-badge span {
 
 /* Titles */
 
-h1, h2, #current {
-    font-family: 'Open Sans Light', sans-serif;
-    color: #333333;
+h1,
+h2,
+#current {
+    font-family: 'Open Sans Light', Arial, sans-serif;
+    color: #333;
     font-size: 1.4em;
     text-align: center;
     margin: 0.5em auto;
@@ -85,7 +98,7 @@ h1, h2, #current {
 }
 
 h1 {
-    background-color: #FFFFFF;
+    background-color: #fff;
     position: absolute;
     top: 0;
     left: 50%;
@@ -98,8 +111,9 @@ h1 {
     box-shadow: 0px 5px 5px -5px #888;
 }
 
-h1 a, h1 a:visited {
-    color: #333333;
+h1 a,
+h1 a:visited {
+    color: #333;
 }
 
 h2 {
@@ -123,7 +137,7 @@ h3 {
     padding-bottom: 0;
 }
 
-#descr-page{
+#descr-page {
     padding: 0;
     font-size: 14px;
     font-weight: normal;
@@ -138,16 +152,16 @@ h3 {
 #current strong {
     display: inline-block;
     padding: 0 0.5em;
-    border-left: 1px solid darkgray;
+    border-left: 1px solid #a9a9a9;
     margin-left: 0.5em;
-    color: orange;
+    color: #ffa500;
 }
 
 /* Top and bottom links */
 
 .links {
     clear: both;
-    font-family: 'Open Sans Light', sans-serif;
+    font-family: 'Open Sans Light', Arial, sans-serif;
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
@@ -174,7 +188,7 @@ h3 {
 
 #links-top {
     width: 100%;
-    background: #FFF;
+    background: #fff;
     display: none;
     margin: 0;
     padding: 50px 0 20px;
@@ -202,7 +216,7 @@ a#links-top-button {
     margin-right: 5px;
     width: 125px;
     height: 36px;
-    background: url("/img/menu.png") top center no-repeat transparent;
+    background: url(/img/menu.png) top center no-repeat transparent;
 }
 
 /* Tables */
@@ -213,14 +227,15 @@ table {
 }
 
 tr:nth-child(odd) {
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 tr:nth-child(even) {
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
-tr:first-child, #channelcomp tr:nth-child(2) {
+tr:first-child,
+#channelcomp tr:nth-child(2) {
     background-color: transparent;
     box-shadow: none;
 }
@@ -229,7 +244,8 @@ th {
     padding: 0.5em;
 }
 
-td, #stats th {
+td,
+#stats th {
     padding: 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 0.9em;
@@ -244,9 +260,10 @@ span.celltitle {
     display: none;
 }
 
-td a em, td em.error {
+td a em,
+td em.error {
     font-style: normal;
-    color: red;
+    color: #f00;
 }
 
 td em.error {
@@ -255,8 +272,8 @@ td em.error {
 
 td a.tag {
     font-size: 75%;
-    color:gray;
-    background-color: #D1CFD0;
+    color: #808080;
+    background-color: #d1cfd0;
     padding: 0.2em 0.4em;
     border-radius: 0.25em;
     float: left;
@@ -264,20 +281,20 @@ td a.tag {
 }
 
 td a.resultpermalink {
-    background-color: lightblue;
+    background-color: #add8e6;
 }
 
 td a.tag:hover {
-    color:white;
-    background-color: #ADACAC;
+    color: #fff;
+    background-color: #adacac;
 }
 
 td a.l10n {
-    background-color: lightgreen;
+    background-color: #32cd32;
 
 }
 td a.l10n:hover {
-    background-color: #ADACAC;
+    background-color: #adacac;
 }
 
 td a.linktoentity {
@@ -296,17 +313,17 @@ td div.infos span {
 }
 
 td div.infos a.source_link {
-    color: orange;
+    color: #ffa500;
 }
 
 td div.infos a.bug_link {
-    color: #404D6C;
+    color: #404d6c;
 }
 
 div#footer {
     font-style: italic;
     text-align: center;
-    font-family: serif;
+    font-family: 'Times New Roman', serif;
     font-size: 0.9em;
     clear: both;
     padding-top: 2em;
@@ -315,7 +332,7 @@ div#footer {
 /* colors for results */
 
 table tr td:first-child {
-    color: #3C8FD1;
+    color: #3c8fd1;
 }
 
 .red {
@@ -332,23 +349,23 @@ table tr td:first-child {
 
 .highlight {
     /* generic highlight */
-    color: black;
+    color: #000;
     background-color: rgba(255, 165, 0, 0.77);
     border-radius: 3px;
 }
 
 .highlight-gray {
-    color: black;
+    color: #000;
     background-color: rgba(0, 0, 0, 0.2);
 }
 
 .highlight-red {
-    color: black;
+    color: #000;
     background-color: rgba(255, 0, 0, 0.4);
 }
 
 .superset {
-    color: gray;
+    color: #808080;
     font-size: 80%;
 }
 
@@ -370,14 +387,15 @@ p.smallscreen_notices {
     font-variant: normal;
 }
 
-input[type=submit], .button {
-    background-color: #277AC1;
-    background-image: linear-gradient(#43A6E2, #277AC1);
+input[type='submit'],
+.button {
+    background-color: #277ac1;
+    background-image: linear-gradient(#43a6e2, #277ac1);
     background-repeat: repeat-x;
     border: 0 none;
     border-radius: 0.25em 0.25em 0.25em 0.25em;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
-    color: #FFFFFF;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     font-weight: bold;
@@ -391,14 +409,15 @@ input[type=submit], .button {
     transition: all 0.25s linear 0s;
 }
 
-#root input[type=submit] {
+#root input[type='submit'] {
     margin-top: 0;
     min-width: 100px;
 }
 
-input[type=submit]:hover, .button:hover {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38A9ED inset;
-    color: #FFFFFF;
+input[type='submit']:hover,
+.button:hover {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38a9ed inset;
+    color: #fff;
     text-decoration: none;
     transition: all 0.25s linear 0s;
 }
@@ -425,9 +444,9 @@ fieldset#main #search {
     margin: 0;
 }
 
-fieldset#main #search input[type=text] {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-color: #B2B2B2;
+fieldset#main #search input[type='text'] {
+    background: none repeat scroll 0 0 #fff;
+    border-color: #b2b2b2;
     border-radius: 3px 3px 3px 3px;
     border-style: solid;
     border-width: 1px;
@@ -509,7 +528,7 @@ div#filters h4 {
 div#filters a.filter {
     display: inline-block;
     background-color: rgba(255, 255, 255, 0.6);
-    color: #333333;
+    color: #333;
     border: 1px solid rgb(180, 180, 180);
     padding: 5px 10px;
     margin: 2px;
@@ -524,10 +543,10 @@ div#filters a.filter {
 div#filters a.filter.selected {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     font-weight: bold;
-    background-color: #277AC1;
-    background-image: linear-gradient(#43A6E2, #277AC1);
+    background-color: #277ac1;
+    background-image: linear-gradient(#43a6e2, #277ac1);
     background-repeat: repeat-x;
-    color: white;
+    color: #fff;
 }
 
 div#filters a.filter:hover {
@@ -560,9 +579,8 @@ div#filters a.filter:hover {
         padding: 2px 4px;
         margin: 1px;
     }
-
-
 }
+
 /* special results */
 
 .resultsbox {
@@ -571,16 +589,17 @@ div#filters a.filter:hover {
     font-size: 16px;
     margin: 0px auto;
 }
+
 .resultsbox h3,
 .resultsbox ol {
     text-align: left;
     margin: 0;
 }
 
-
 /* Credits and changelog page */
 
-body#credits div#pagecontent, body#changelog div#pagecontent {
+body#credits div#pagecontent,
+body#changelog div#pagecontent {
     margin: 30px auto;
     width: 80%;
 }
@@ -593,7 +612,8 @@ body#changelog ul {
     padding-left: 15px;
 }
 
-body#changelog h3, body#changelog ul {
+body#changelog h3,
+body#changelog ul {
     margin: 0;
     width: 100%;
 }
@@ -612,7 +632,7 @@ h2.relnumber a:hover {
 }
 
 h2.relnumber:target a {
-    color: #F00;
+    color: #f00;
 }
 
 h2.relnumber {
@@ -626,14 +646,14 @@ h2.relnumber:nth-of-type(1) {
 }
 
 h2.relnumber:target span.reldate {
-    background: #F73434;
+    background: #f73434;
 }
 
 span.reldate {
     display: block;
     width: 80px;
-    background: #30A4DB;
-    color: white;
+    background: #30a4db;
+    color: #fff;
     padding: 8px;
     font-size: 0.6em;
     margin: 4px auto;
@@ -645,8 +665,8 @@ span.newfeature {
     font-size: 0.6em;
     display: block;
     float: left;
-    color: #FFF;
-    background-color: #47AD07;
+    color: #fff;
+    background-color: #47ad07;
     padding: 0.2em 0.4em;
     border-radius: 0.25em;
     margin: 2px 4px 0 0;
@@ -657,8 +677,8 @@ span.expfeature {
     font-size: 0.6em;
     display: block;
     float: left;
-    color: #FFF;
-    background-color: orange;
+    color: #fff;
+    background-color: #ffa500;
     padding: 0.2em 0.4em;
     border-radius: 0.25em;
     margin: 2px 4px 0 0;
@@ -701,7 +721,7 @@ body#productization div.channel h3 {
 }
 
 body#productization div.searchplugin {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     min-height: 90px;
     margin-top: 6px;
     border: 1px solid #555;
@@ -731,15 +751,15 @@ body#productization div.searchplugin p {
 }
 
 body#productization p.error {
-    color: red;
+    color: #f00;
 }
 
 body#productization p.http {
-    color: #F28D49;
+    color: #f28d49;
 }
 
 body#productization p.https {
-    color: #35B01C;
+    color: #35b01c;
 }
 
 body#productization div.searchplugin p.emptysp {
@@ -747,7 +767,7 @@ body#productization div.searchplugin p.emptysp {
 }
 
 body#productization div.searchorder {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     min-height: 90px;
     margin-top: 6px;
     padding-top: 10px;
@@ -779,8 +799,8 @@ body#productization div.searchorder ol {
 }
 
 .alert {
-    color:white;
-    background-color: orange;
+    color: #fff;
+    background-color: #ffa500;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
@@ -818,19 +838,19 @@ fieldset#main #TMX_locales {
 }
 
 #TMX_results #error {
-    color: red;
+    color: #f00;
     font-weight: bold;
 }
 
 #TMX_results #success {
-    color: green;
+    color: #008000;
 }
 
 #TMX_results .button {
-    font-family: "Open Sans";
+    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
-    color: white;
+    color: #fff;
 }
 
 #download {
@@ -842,11 +862,11 @@ fieldset#main #TMX_locales {
 /* Gaia comparison view */
 
 span.added {
-    color: green;
+    color: #008000;
 }
 
 span.deleted {
-    color: red;
+    color: #f00;
 }
 
 ul#views_list {
@@ -883,7 +903,8 @@ p.subtitle {
         display: table-row;
     }
 
-    #stats th, #stats td {
+    #stats th,
+    #stats td {
         display: table-cell;
         width: 45%;
     }
@@ -938,7 +959,7 @@ p.subtitle {
         font-size: 1.3em;
     }
 
-    div#search input[type=submit] {
+    div#search input[type='submit'] {
         margin: 10px 0 10px;
     }
 
@@ -977,7 +998,8 @@ p.subtitle {
         margin-left: -40px;
     }
 
-    #current, h2 {
+    #current,
+    h2 {
         font-size: 1.1em;
     }
 
@@ -987,7 +1009,7 @@ p.subtitle {
 
     a#links-top-button {
         width: 100px;
-        background: url("/img/menus.png") top center no-repeat transparent;
+        background: url(/img/menus.png) top center no-repeat transparent;
     }
 
     .links {
@@ -1036,7 +1058,8 @@ p.subtitle {
         margin-left: 0;
     }
 
-    div#search input[type=submit], input[type=submit] {
+    div#search input[type='submit'],
+    input[type='submit'] {
         display: block;
         margin: 10px auto;
     }
@@ -1052,7 +1075,8 @@ p.subtitle {
         line-height: 1.1em;
     }
 
-    fieldset#main fieldset label.default_option input, fieldset#main fieldset label.default_option span {
+    fieldset#main fieldset label.default_option input,
+    fieldset#main fieldset label.default_option span {
         float: none;
     }
 
