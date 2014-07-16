@@ -1,3 +1,4 @@
+af
 ar
 as
 ast
@@ -18,7 +19,6 @@ eo
 es
 et
 eu
-fa
 ff
 fr
 fy-NL
@@ -71,3 +71,4 @@ vi
 xh
 zh-CN
 zh-TW
+zu
