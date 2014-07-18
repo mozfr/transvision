@@ -47,6 +47,14 @@ if (strpos(VERSION, 'dev') !== false) {
   $title_productname = 'Transvision';
 }
 
+if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
+  $last_update = "<p>Data last updated: " .
+                 date ('F d, Y \a\t H:i (e)', filemtime(CACHE_PATH . 'lastdataupdate.txt')) .
+                 ".</p>\n";
+} else {
+  $last_update = "<p>Data last updated: not available.</p>\n";
+}
+
 ?>
 <!doctype html>
 
@@ -122,7 +130,10 @@ if (strpos(VERSION, 'dev') !== false) {
     <?=$content?>
   </div>
 
-  <div id="footer">Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</div>
+  <div id="footer">
+    <p>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
+    <?php echo $last_update; ?>
+  </div>
 
 </body>
 </html>
