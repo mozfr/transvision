@@ -39,16 +39,14 @@ class VersionControl
                       'test_apps', 'test_external_apps')
             )
         ) {
-            $locale = ($locale == 'es-ES') ? 'es' : $locale;
+            $locale = Project::getLocaleInContext($locale, $repo);
 
-            if ($repo == 'gaia_1_2') {
-                $url .= '/releases/gaia-l10n/v1_2/' . $locale . '/file/default/';
-            } elseif ($repo == 'gaia_1_3') {
-                $url .= '/releases/gaia-l10n/v1_3/' . $locale . '/file/default/';
-            } elseif ($repo == 'gaia_1_4') {
-                $url .= '/releases/gaia-l10n/v1_4/' . $locale . '/file/default/';
-            } else {
+            if ($repo == 'gaia') {
                 $url .= '/gaia-l10n/' . $locale . '/file/default/';
+            }
+            else {
+                $version = str_replace('gaia_', '', $repo);
+                $url .= '/releases/gaia-l10n/v' . $version . '/' . $locale . '/file/default/';
             }
 
             return $url . $path . '/' . $entity_file;

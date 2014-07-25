@@ -30,7 +30,7 @@ source $DIR/iniparser.sh
 # Make sure that we have the file structure
 folders=( $release_source $beta_source $aurora_source $trunk_source \
           $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
-          $gaia $gaia_1_2 $gaia_1_3 $gaia_1_4 \
+          $gaia $gaia_1_2 $gaia_1_3 $gaia_1_4 $gaia_2_0 \
           $libraries $mozilla_org $l20n_test )
 
 echogreen "Creating folders..."
@@ -151,7 +151,7 @@ function initDesktopSourceRepo() {
         then
             echogreen "Checking out the following repo:"
             echogreen $trunk_source/comm-central/
-            cd $trunk_source;
+            cd $trunk_source
             hg clone http://hg.mozilla.org/comm-central/
         fi
 
@@ -159,7 +159,7 @@ function initDesktopSourceRepo() {
         then
             echogreen "Checking out the following repo:"
             echogreen $trunk_source/mozilla-central/
-            cd $trunk_source;
+            cd $trunk_source
             hg clone http://hg.mozilla.org/mozilla-central/
         fi
 
@@ -173,14 +173,14 @@ function initDesktopSourceRepo() {
             then
                 echogreen "Checking out the following repo:"
                 echogreen $trunk_source/$product
-                cd $trunk_source;
+                cd $trunk_source
                 hg clone http://hg.mozilla.org/$product/
             fi
         done
     else
         local target="$1_source"
         # If target="aurora_source", ${!target} is equal to $aurora_source
-        cd ${!target};
+        cd ${!target}
         if [ ! -d ${!target}/comm-$1/.hg ]
         then
             echogreen "Checking out the following repo:"
@@ -221,24 +221,30 @@ function initGaiaRepo () {
     fi
 
     echogreen "$repo_pretty_name initialization"
+    # Initialize repo only if folder exists
     # If repo_name="gaia", ${!repo_name} is equal to $gaia
-    cd ${!repo_name}
-    for locale in $(cat $config/$repo_name.txt)
-        do
-            if [ ! -d $locale/.hg ]
-            then
-                echogreen "Checking out the following repo:"
-                echogreen $locale
-                hg clone $repo_path/$locale
-            fi
+    if [ ! -d ${!repo_name} ]
+    then
+        echored "$repo_pretty_name folder does not exist"
+    else
+        cd ${!repo_name}
+        for locale in $(cat $config/$repo_name.txt)
+            do
+                if [ ! -d $locale/.hg ]
+                then
+                    echogreen "Checking out the following repo:"
+                    echogreen $locale
+                    hg clone $repo_path/$locale
+                fi
 
-            if [ ! -d $root/TMX/$repo_name/$locale ]
-            then
-                echogreen "Creating this locale cache for $repo_pretty_name:"
-                echogreen $locale
-                mkdir -p $root/TMX/$repo_name/$locale
-            fi
-    done
+                if [ ! -d $root/TMX/$repo_name/$locale ]
+                then
+                    echogreen "Creating this locale cache for $repo_pretty_name:"
+                    echogreen $locale
+                    mkdir -p $root/TMX/$repo_name/$locale
+                fi
+        done
+    fi
 }
 
 checkoutSilme
@@ -263,6 +269,7 @@ initGaiaRepo "gaia"
 initGaiaRepo "1_2"
 initGaiaRepo "1_3"
 initGaiaRepo "1_4"
+initGaiaRepo "2_0"
 
 # Check out svn repos
 echogreen "mozilla.org repo being checked out from subversion"

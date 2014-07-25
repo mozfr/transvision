@@ -28,7 +28,7 @@ $build_select = function($array_in, $selected_elm) use ($repos_nice_names) {
 
 // Variables
 $repo1 = 'gaia';
-$repo2 = 'gaia_1_4';
+$repo2 = 'gaia_2_0';
 
 $locale = $get_or_set($all_locales, 'locale', $locale);
 $repo1 = $get_or_set($gaia_repos, 'repo1', $repo1);

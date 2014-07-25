@@ -23,6 +23,7 @@ class Project
         'gaia_1_2'    => 'Gaia 1.2',
         'gaia_1_3'    => 'Gaia 1.3',
         'gaia_1_4'    => 'Gaia 1.4',
+        'gaia_2_0'    => 'Gaia 2.0',
         'mozilla_org' => 'mozilla.org',
     ];
 
