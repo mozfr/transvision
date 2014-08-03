@@ -96,11 +96,11 @@ $sections = [
 <?php
 
 // Overview of string count for the locale
-$overview = function($title, $columns, $rows, $anchor) {
+$overview = function($section_title, $columns, $rows, $anchor) {
     // Titles
     $html = '<table id="' . $anchor . '">'
        . '<tr>'
-       . '<th colspan="3">' . $title . '</th>'
+       . '<th colspan="3">' . $section_title . '</th>'
        . '</tr>'
        . '<tr>';
     foreach ($columns as $key => $value) {
@@ -128,8 +128,8 @@ $anchor_title = function($name) use ($sections) {
 print "<h2>$locale</h2>\n";
 print "<p class='subtitle'>Available views:</p>\n";
 print "<ul id='views_list'>\n";
-foreach ($sections as $anchor_name => $title) {
-    print "  <li><a href='#{$anchor_name}'>{$title}</a></li>\n";
+foreach ($sections as $anchor_name => $section_title) {
+    print "  <li><a href='#{$anchor_name}'>{$section_title}</a></li>\n";
 }
 print "</ul>\n";
 
