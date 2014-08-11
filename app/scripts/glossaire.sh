@@ -236,7 +236,6 @@ updateStandardRepo "aurora" "aurora"
 updateStandardRepo "central" "trunk"
 
 updateGaiaRepo "gaia"
-updateGaiaRepo "1_2"
 updateGaiaRepo "1_3"
 updateGaiaRepo "1_4"
 updateGaiaRepo "2_0"

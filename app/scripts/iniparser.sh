@@ -18,7 +18,6 @@ trunk_source=$local_hg/TRUNK_EN-US
 
 # Location of Gaia source
 gaia=$local_hg/GAIA
-gaia_1_2=$local_hg/GAIA_1_2
 gaia_1_3=$local_hg/GAIA_1_3
 gaia_1_4=$local_hg/GAIA_1_4
 gaia_2_0=$local_hg/GAIA_2_0
@@ -35,7 +34,6 @@ aurora_locales=$config/aurora.txt
 beta_locales=$config/beta.txt
 release_locales=$config/release.txt
 gaia_locales=$config/gaia.txt
-gaia_locales_1_2=$config/gaia_1_2.txt
 gaia_locales_1_3=$config/gaia_1_3.txt
 gaia_locales_1_4=$config/gaia_1_4.txt
 gaia_locales_2_0=$config/gaia_2_0.txt
