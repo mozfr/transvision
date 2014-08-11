@@ -208,7 +208,20 @@ print $diverging(
 
 // Inconsistent translations in the first repo (repo1)
 $find_duplicates = function ($string_array) {
-    $duplicates = array();
+    $duplicates = [];
+    // Ignore case
+    $string_array = array_map(
+        function ($str) {
+            // Ignore date modifiers like %b, %B
+            $matches = preg_grep('/%[a-z]{1}/i', [$str]);
+            if (! count($matches)) {
+                $str = mb_strtolower($str, 'UTF-8');
+            }
+
+            return $str;
+        },
+        $string_array
+    );
     asort($string_array);
     reset($string_array);
 
@@ -235,12 +248,18 @@ $inconsistent_translation = [];
 foreach ($duplicated_strings_english as $key => $value) {
     /*
     I'm interested only in strings with a value that should be duplicated.
-    Ignore plural forms containing [] in the key, too many false positives
-    since English doesn't have plural for adjectives.
+    1) Ignore plural forms containing [] in the key, too many false positives
+       since English doesn't have plural for adjectives.
+    2) Ignore single character strings.
+    3) Ignore strings in accessibility.properties. It contains both normal and
+       abbreviated strings, which are often identical in English, so there are
+       too many false positives.
     */
     if (in_array($value, $missing_duplicates) &&
         strpos($key, '[') === false &&
-        strpos($key, ']') === false) {
+        strpos($key, ']') === false &&
+        strlen($value) > 1 &&
+        strpos($key, 'accessibility.properties') === false) {
         $inconsistent_translation[$key]['en-US'] = $value;
         if (array_key_exists($key, $strings[$repo1])) {
             $inconsistent_translation[$key]['l10n'] = $strings[$repo1][$key];
