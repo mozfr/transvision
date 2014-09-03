@@ -324,7 +324,7 @@ class Utils
             $memory = 'Memory peak: '
                       . memory_get_peak_usage(true)
                       . ' ('
-                      . round((memory_get_peak_usage()/(1024*1024)),2)
+                      . round((memory_get_peak_usage(true)/(1024*1024)),2)
                       . 'MB)';
             $render_time = 'Elapsed time (s): '
                            . round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
