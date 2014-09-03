@@ -30,7 +30,7 @@ source $DIR/iniparser.sh
 # Make sure that we have the file structure
 folders=( $release_source $beta_source $aurora_source $trunk_source \
           $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
-          $gaia $gaia_1_2 $gaia_1_3 $gaia_1_4 $gaia_2_0 \
+          $gaia $gaia_1_3 $gaia_1_4 $gaia_2_0 \
           $libraries $mozilla_org $l20n_test )
 
 echogreen "Creating folders..."
@@ -266,7 +266,6 @@ createSymlinks "chatzilla"
 createSymlinks "venkman"
 
 initGaiaRepo "gaia"
-initGaiaRepo "1_2"
 initGaiaRepo "1_3"
 initGaiaRepo "1_4"
 initGaiaRepo "2_0"

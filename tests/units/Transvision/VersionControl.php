@@ -31,9 +31,9 @@ class VersionControl extends atoum\test
                 ],
             [
                 'sr-Cyrl',
-                'gaia_1_2',
+                'gaia_2_0',
                 'shared/date/date.properties:month-7-long',
-                'http://hg.mozilla.org/releases/gaia-l10n/v1_2/sr-Cyrl/file/default/shared/date/date.properties'
+                'http://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties'
                 ],
         ];
     }

@@ -11,7 +11,7 @@ class Project extends atoum\test
     public function testGetRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'aurora', 'central', 'gaia', 'gaia_1_2',
+        $repos = ['release', 'beta', 'aurora', 'central', 'gaia',
                   'gaia_1_3', 'gaia_1_4', 'gaia_2_0', 'mozilla_org'];
         $this
             ->array($obj->getRepositories())
@@ -27,7 +27,6 @@ class Project extends atoum\test
             'aurora'      => 'Aurora',
             'central'     => 'Central',
             'gaia'        => 'Gaia master',
-            'gaia_1_2'    => 'Gaia 1.2',
             'gaia_1_3'    => 'Gaia 1.3',
             'gaia_1_4'    => 'Gaia 1.4',
             'gaia_2_0'    => 'Gaia 2.0',
@@ -41,7 +40,7 @@ class Project extends atoum\test
     public function testGetGaiaRepositories()
     {
         $obj = new _Project();
-        $repos = ['gaia', 'gaia_2_0', 'gaia_1_4', 'gaia_1_3', 'gaia_1_2'];
+        $repos = ['gaia', 'gaia_2_0', 'gaia_1_4', 'gaia_1_3'];
         $this
             ->array($obj->getGaiaRepositories())
                 ->isEqualTo($repos);
