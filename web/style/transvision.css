@@ -883,6 +883,12 @@ p.subtitle {
     text-align: center;
 }
 
+/* string view */
+
+body#onestring tr:target {
+    background-color: #90ee90;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 850px) {
