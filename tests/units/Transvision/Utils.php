@@ -24,8 +24,8 @@ class Utils extends atoum\test
             ->array($obj->uniqueWords($a))
                 ->isEqualTo(
                     [
-                        'système',
                         'couteau',
+                        'système',
                         'suisse',
                         'style',
                         'le',
