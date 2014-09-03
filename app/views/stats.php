@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // Get locales/number of requests
-$stats = Json::fetch(WEB_ROOT . 'stats.json');
+$stats = Json::fetch(WEB_ROOT . 'stats_locales.json');
 arsort($stats);
 
 echo '<table>';

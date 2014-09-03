@@ -25,3 +25,6 @@ install=//home/travis/build/mozfr/transvision/github/
 
 ; Path to configuration files for Transvision
 config=/home/travis/build/mozfr/transvision/app/config
+
+; Flag to know if we are working in production more or development mode
+dev=true

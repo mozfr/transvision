@@ -2,9 +2,9 @@
 namespace Transvision;
 
 // Create a JSON file logging locale/number of requests
-$stats = Json::fetch(WEB_ROOT . 'stats.json');
-$stats[$locale] = array_key_exists($locale, $stats) ?  $stats[$locale] += 1 : 1;
-file_put_contents(WEB_ROOT . 'stats.json', json_encode($stats));
+$stats = Json::fetch(WEB_ROOT . 'stats_locales.json');
+$stats[$locale] = array_key_exists($locale, $stats) ? $stats[$locale] += 1 : 1;
+file_put_contents(WEB_ROOT . 'stats_locales.json', json_encode($stats));
 
 // Create a JSON file logging search options to determine if some are unused
 $stats = Json::fetch(WEB_ROOT . 'stats_requests.json');

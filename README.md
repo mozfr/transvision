@@ -40,15 +40,16 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 3. Copy app/config/config.ini-dist to app/config/config.ini and adapt the variables to your system.
 4. Run first "app/scripts/setup.sh", then "app/scripts/glossaire.sh". This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
 5. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
-6. You are set! You can run Transvision in your local machine with "php -S localhost:8080" inside the web/ folder and opening http://localhost:8080/ with your browser.
+6. You can run Transvision in your local machine either with the start.sh script or with "php -S localhost:8082 -t web/ app/inc/router.php" and opening http://localhost:8082/ with your browser.
 
 ## Snapshot installation (regular development)
 
 1. Fork the [Transvision Project][] into your GitHub account.
 2. Clone your fork to your machine.
 3. Copy app/config/config.ini-dev to app/config/config.ini and adapt the variables to your system.
-4. Run "app/scripts/dev-setup.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed.
-5. You are set! You can run Transvision in your local machine with "php -S localhost:8082 -t web/ app/inc/router.php" in your install folder and opening http://localhost:8082/ with your browser.
+4. Run "start.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed. Once this is done, PHP development server will be launched and you can visit http://localhost:8082/ with your browser.
+
+Note that if you launch start.sh again after the installation, it will not download again all the data, composer and dependencies, it will only launch the development server.
 
 ## Update glossary
 
