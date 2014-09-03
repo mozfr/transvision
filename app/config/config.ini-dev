@@ -20,3 +20,6 @@ local_svn=/temp
 
 ; Only needed for production setup
 libraries=/temp
+
+; Flag to know if we are working in production more or development mode
+dev=true

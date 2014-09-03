@@ -6,7 +6,7 @@ composer.lock
 composer.phar
 logs/*.log
 phpDocumentor.phar
-stats.json
+stats_locales.json
 stats_requests.json
 vendor
 web/assets
