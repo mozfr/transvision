@@ -57,9 +57,8 @@ fi
 
 cd $install
 
-# Install Composer if missing
-if [ ! -f composer.phar ]
-then
+# Install Composer if not installed
+if ! command -v composer >/dev/null 2>&1; then
     echogreen "Installing Composer (PHP dependency manager)"
     php -r "readfile('https://getcomposer.org/installer');" | php
 fi
