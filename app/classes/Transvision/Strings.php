@@ -26,31 +26,41 @@ class Strings
     }
 
     /**
-     * Check if $haystack starts with the $needle string
+     * Check if $haystack starts with a string in $needles.
+     * $needles can be a string or an array of strings.
      *
      * @param  string  $haystack String to analyse
-     * @param  string  $needle The string to look for
-     * @return boolean True if the strings starts with $needle
+     * @param  array   $needles  The string to look for
+     * @return boolean True if the $haystack string starts with a string in $needles
      */
-    public static function startsWith($haystack, $needle)
+    public static function startsWith($haystack, $needles)
     {
-        return !strncmp($haystack, $needle, mb_strlen($needle));
+        foreach((array) $needles as $prefix) {
+            if (! strncmp($haystack, $prefix, mb_strlen($prefix))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
-     * Check if $haystack ends with the $needle string
+     * Check if $haystack ends with a string in $needles.
+     * $needles can be a string or an array of strings.
      *
      * @param  string  $haystack String to analyse
-     * @param  string  $needle The string to look for
-     * @return boolean True if the strings ends with $needle
+     * @param  array   $needles The strings to look for
+     * @return boolean True if the $haystack string ends with a string in $needles
      */
-    public static function endsWith($haystack, $needle)
+    public static function endsWith($haystack, $needles)
     {
-        if (mb_strlen($needle) == 0) {
-            return true;
+        foreach((array) $needles as $suffix) {
+            if (mb_substr($haystack, -mb_strlen($suffix)) === $suffix) {
+                return true;
+            }
         }
 
-        return mb_substr($haystack, -mb_strlen($needle)) === $needle;
+        return false;
     }
 
     /**
