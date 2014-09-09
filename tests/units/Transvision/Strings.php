@@ -28,7 +28,9 @@ class Strings extends atoum\test
     {
         return [
             ['it is raining', 'it', true],
-            [' foobar starts with a nasty space', 'foobar', false]
+            [' foobar starts with a nasty space', 'foobar', false],
+            ['multiple matches test', ['horse', 'multiple'], true],
+            ['multiple matches test', ['not', 'there'], false],
         ];
     }
 
@@ -47,7 +49,9 @@ class Strings extends atoum\test
     {
         return [
             ['it is raining', 'ing', true],
-            ['foobar ends with a nasty space ', 'space', false]
+            ['foobar ends with a nasty space ', 'space', false],
+            ['multiple matches test', ['horse', 'test'], true],
+            ['multiple matches test', ['not', 'there'], false],
         ];
     }
 

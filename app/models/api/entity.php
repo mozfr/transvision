@@ -18,7 +18,7 @@ if (! $translations = Cache::getKey($cache_id)) {
 
         if (isset($strings[$entity])) {
             $strings[$entity] = trim($strings[$entity]);
-            if (Strings::endsWith($strings[$entity], '{ok}')) {
+            if (Strings::endsWith(strtolower($strings[$entity]), '{ok}')) {
                 $strings[$entity] = trim(substr($strings[$entity], 0, -4));
             }
             $translations[$locale_code] = $strings[$entity];
@@ -30,5 +30,4 @@ if (! $translations = Cache::getKey($cache_id)) {
 
    Cache::setKey($cache_id, $translations);
 }
-
 return $json = $translations;
