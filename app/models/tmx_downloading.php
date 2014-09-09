@@ -49,10 +49,17 @@ $strings = [
 $empty_TMX = $repos_count == 0;
 
 // Generate the TMX file
-$target_file = 'mozilla_en-US_' . $locale . '.tmx';
+
+if ($check['tmx_format'] == 'normal') {
+    $content = TMX::create($strings, $locale, 'en-US');
+    $target_file = 'mozilla_en-US_' . $locale . '.tmx';
+} else {
+    $content = TMX::createOmegat($strings, $locale, 'en-US');
+    $target_file = 'mozilla_en-US_' . $locale . '_forOmegaT.tmx';
+}
+
 $target_file_path = WEB_ROOT . 'download/' . $target_file;
 
-$content = TMX::create($strings, $locale, 'en-US');
 unset($strings);
 
 $empty_TMX = $created_TMX = false;
@@ -64,4 +71,3 @@ if ($content) {
 } else {
     $empty_TMX = true;
 }
-

@@ -11,6 +11,9 @@ foreach (Project::getRepositories() as $repo) {
 $locales_list = array_unique($locales_list);
 sort($locales_list);
 
+// Include TMX Options
+require_once INC . 'tmx_options.php';
+
 if (isset($_GET['locale'])) {
     $locale = Utils::getOrSet($locales_list, $_GET['locale'], 'en-US');
     include MODELS . 'tmx_downloading.php';

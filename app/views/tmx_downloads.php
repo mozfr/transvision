@@ -40,6 +40,7 @@ $(document).ready(function() {
         }
     });
 });
+
 </script>
 
 <form name="tmxform" id="simplesearchform" method="get" action="">
@@ -48,6 +49,15 @@ $(document).ready(function() {
             <label>Locale</label>
             <select name="locale">
             <?=$target_locales_list?>
+            </select>
+        </fieldset>
+        <fieldset id="TMX_format">
+            <label>Format</label>
+            <select
+                name="tmx_format"
+                id="tmx_format"
+                title="Format">
+            <?=$tmx_format_list?>
             </select>
         </fieldset>
         <fieldset id="TMX_checkboxes">
