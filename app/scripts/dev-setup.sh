@@ -29,8 +29,8 @@ DIR=$(dirname "$0")
 # Check that we have a config.ini file
 if [ ! -f $DIR/../config/config.ini ]
 then
-    echo "ERROR: There is no app/config/config.ini file, please create it based on app/config/config.ini-dev before launching the dev-setup.sh script"
-    exit
+    echored "ERROR: There is no app/config/config.ini file, please create it based on app/config/config.ini-dev before launching the dev-setup.sh script"
+    exit 1
 fi
 
 # Get server configuration variables
@@ -39,8 +39,16 @@ source $DIR/iniparser.sh
 # Check that $install variable points to a git repo
 if [ ! -d $install/.git ]
 then
-    echo "ERROR: The 'install' variable in your config.ini file is probably wrong as there is no git repository at the location you provided."
-    exit
+    echored "ERROR: The 'install' variable in your config.ini file is probably wrong as there is no git repository at the location you provided."
+    exit 1
+fi
+
+# Check that we have PHP installed on this machine
+if ! command -v php >/dev/null 2>&1
+then
+    echored "ERROR: PHP is not installed on your machine, PHP >=5.4 is required to run Transvision."
+    echo "If you are on Debian/Ubuntu you can install it with 'sudo apt-get install php5'."
+    exit 1
 fi
 
 # Check if we have a web/TMX folder in dev mode, if not download a data snapshot
@@ -50,15 +58,23 @@ then
     then
         cd $root
         echogreen "Downloading a snapshot of data from Transvision Web site"
-        wget http://transvision.mozfr.org/data.tar.gz -O - | tar -xz
+        if ! command -v curl >/dev/null 2>&1
+        then
+            wget http://transvision.mozfr.org/data.tar.gz -O - | tar -xz
+        else
+            curl http://transvision.mozfr.org/data.tar.gz | tar -xz
+        fi
         echogreen "Data is now extracted in your web/TMX/ folder"
     fi
 fi
 
+
+
 cd $install
 
 # Install Composer if not installed
-if ! command -v composer >/dev/null 2>&1; then
+if ! command -v composer >/dev/null 2>&1
+then
     echogreen "Installing Composer (PHP dependency manager)"
     php -r "readfile('https://getcomposer.org/installer');" | php
 fi
