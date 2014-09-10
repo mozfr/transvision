@@ -87,11 +87,16 @@ function updateStandardRepo() {
             cd ${!repo_l10n}            # value of variable called repo_l10n, e.g. value of $release_l10n
             for locale in $(cat ${!locale_list})
             do
-                echogreen "Update $repo_name/$locale"
-                cd $locale
-                hg pull -r default
-                hg update -C
-                cd ..
+                if [ -d ${!repo_l10n}/$locale ]
+                then
+                    echogreen "Update $repo_name/$locale"
+                    cd $locale
+                    hg pull -r default
+                    hg update -C
+                    cd ..
+                else
+                    echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
+                fi
             done
         else
             if [ -d ${!repo_l10n}/$locale_code ]
@@ -166,11 +171,16 @@ function updateGaiaRepo() {
             cd ${!repo_name}
             for locale in $(cat ${!locale_list})
             do
-                echogreen "Update $repo_name/$locale"
-                cd $locale
-                hg pull -r default
-                hg update -C
-                cd ..
+                if [ -d ${!repo_l10n}/$locale ]
+                then
+                    echogreen "Update $repo_name/$locale"
+                    cd $locale
+                    hg pull -r default
+                    hg update -C
+                    cd ..
+                else
+                    echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
+                fi
             done
         else
             if [ -d ${!repo_name}/$locale_code ]

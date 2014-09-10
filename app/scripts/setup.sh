@@ -36,7 +36,7 @@ folders=( $release_source $beta_source $aurora_source $trunk_source \
 echogreen "Creating folders..."
 for folder in "${folders[@]}"
 do
-  mkdir -p "$folder"
+    mkdir -p "$folder"
 done
 
 function createSymlinks() {
@@ -309,17 +309,14 @@ fi
 echo "AddType application/octet-stream .tmx" > $install/web/download/.htaccess
 
 # Create json files used for stats
-stats_file1=web/stats_locales.json
-stats_file2=web/stats_requests.json
+stats_files=( $install/web/stats_locales.json
+              $install/web/stats_requests.json )
 
-if [ ! -f $stats_file1 ]
-then
-    echogreen "Add $stats_file1 file"
-    echo '{}' > $stats_file1
-fi
-
-if [ ! -f $stats_file2 ]
-then
-    echogreen "Add $stats_file2 file"
-    echo '{}' > $stats_file2
-fi
+for stats_file in "${stats_files[@]}"
+do
+    if [ ! -f $stats_file ]
+    then
+        echogreen "Add $stats_file file"
+        echo '{}' > $stats_file
+    fi
+done
