@@ -25,18 +25,12 @@ import silme.io
 silme.format.Manager.register('dtd', 'properties', 'ini', 'inc')
 
 def escape(t):
-    """HTML-escape the text in `t`. We first hide real common entities to avoid double escaping"""
-    return (t
-        .replace("&quot;", '@quot;')
-        .replace("&amp;", "@amp;").replace("&lt;", "@lt;").replace("&gt;", "@gt;")
-
-        .replace("&", "&amp;").replace("<", "&#60;").replace(">", "&#62;")
-        .replace("'", "&#39;").replace('"', "&#34;")
-        .replace("\\", "&#92;")
-
-        .replace("@quot;", '&#34;')
-        .replace("@amp;", "&amp;").replace("@lt;", "&#60;").replace("@gt;", "&#62;")
-
+    """Escape quotes in `t`. Complicated replacements because some strings are already escaped in the repo"""
+    return (t.replace("\\'", '_qu0te_')
+        .replace("\\", "_sl@sh_")
+        .replace("'", "\\'")
+        .replace('_qu0te_', "\\'")
+        .replace('_sl@sh_', '\\\\')
         )
 
 def get_string(package, localdirectory):

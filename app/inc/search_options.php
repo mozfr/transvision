@@ -3,7 +3,7 @@ namespace Transvision;
 
 // Default search value
 $_GET['recherche'] = isset($_GET['recherche']) ? $_GET['recherche'] : '';
-$my_search = Utils::cleanSearch($_GET['recherche']);
+$my_search = Utils::cleanString($_GET['recherche']);
 
 // Cloned value for reference
 $initial_search = $my_search;

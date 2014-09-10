@@ -237,23 +237,24 @@ class Utils
     }
 
     /**
-     * Sanitize and clean up for "noise" a string
+     * Clean up for "noise" a string
      *
-     * @param string $str the string to clean up
-     * @return string the cleaned up string
+     * @param  string $string the string to clean up
+     * @return string The cleaned up string
      */
-    public static function cleanSearch($str)
+    public static function cleanString($string)
     {
-        if (!is_string($str)) {
+        if (! is_string($string)) {
             return '';
         }
 
-        $str = self::secureText($str);
-        $str = stripslashes($str);
-        // Filter out double spaces
-        $str = Strings::mtrim($str);
+        // Remove escaped characters (quotes)
+        $string = stripslashes($string);
 
-        return $str;
+        // Filter out double spaces
+        $string = Strings::mtrim($string);
+
+        return $string;
     }
 
     /**

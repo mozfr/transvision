@@ -150,7 +150,7 @@ class Utils extends atoum\test
                 ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>');
     }
 
-    public function cleanSearchDP()
+    public function cleanStringDP()
     {
         return [
             [
@@ -160,18 +160,22 @@ class Utils extends atoum\test
             [
                 'toto ',
                 'toto'
-            ]
+            ],
+            [
+                'don\'t escape',
+                "don't escape"
+            ],
         ];
     }
 
     /**
-     * @dataProvider cleanSearchDP
+     * @dataProvider cleanStringDP
      */
-    public function testCleanSearch($a, $b)
+    public function testCleanString($a, $b)
     {
         $obj = new _Utils();
         $this
-            ->string($obj->cleanSearch($a))
+            ->string($obj->cleanString($a))
                 ->isEqualTo($b);
     }
 

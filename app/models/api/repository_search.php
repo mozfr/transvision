@@ -10,7 +10,7 @@ $get_option = function($option) use ($request) {
 };
 
 // Get all strings
-$initial_search = urldecode(Utils::cleanSearch($request->parameters[6]));
+$initial_search = urldecode(Utils::cleanString($request->parameters[6]));
 $source_strings = Utils::getRepoStrings($request->parameters[4], $request->parameters[3]);
 
 // Regex options
