@@ -34,7 +34,7 @@ foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
                     "'"
                    . Dotlang::generateStringID('mozilla_org/' . $file, $str1)
                    . "' => '"
-                   . Utils::secureText($str2)
+                   . str_replace("'", "\\'", $str2)
                    . "',"
                    . "\n";
 

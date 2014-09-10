@@ -258,10 +258,14 @@ class ShowResults
                 }
             }
 
+            // Escape HTML before highlighing search terms
+            $source_string = htmlspecialchars($source_string);
+            $target_string = htmlspecialchars($target_string);
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
             if (isset($search_options["extra_locale"])) {
+                $target_string2 = htmlspecialchars($target_string2);
                 $target_string2 = Utils::highlightString($target_string2);
             }
 
@@ -354,7 +358,6 @@ class ShowResults
             } else {
                 $extra_column_rows = '';
             }
-
             $table .= "
                 <tr class='{$component}'>
                   <td>
@@ -374,10 +377,11 @@ class ShowResults
                       </a>
                       <span>Translate with:</span>
                       <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
-                      . urlencode(strip_tags($source_string))
+                      // We use html_entity_decode twice because we can have strings as &amp;amp; stored
+                      . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
                       . "' target='_blank'>Google</a>
                       <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
-                      . urlencode(strip_tags($source_string))
+                      . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
                       . "' target='_blank'>BING</a>
                     </div>
                   </td>

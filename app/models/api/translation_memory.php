@@ -6,7 +6,7 @@ $source_strings = Utils::getRepoStrings($request->parameters[3], $request->param
 $target_strings = Utils::getRepoStrings($request->parameters[4], $request->parameters[2]);
 
 // The search
-$initial_search = Utils::cleanSearch($request->parameters[5]);
+$initial_search = Utils::cleanString($request->parameters[5]);
 $terms = Utils::uniqueWords($initial_search);
 
 // Regex options (not currenty used)
