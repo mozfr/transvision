@@ -8,9 +8,8 @@ foreach (Project::getRepositories() as $repo) {
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
 
-    // Skip repo if Desktop en-US
-    if (in_array($repo, Project::getDesktopRepositories())
-        && $locale == 'en-US') {
+    // We don't care about en-US
+    if ($locale == 'en-US') {
         continue;
     }
 
@@ -275,6 +274,9 @@ $active_projects .= '</ul>';
 // Build locales select
 $target_locales_list = '';
 foreach ($locales_list as $loc) {
+    if ($loc == 'en-US') {
+        continue;
+    }
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option{$ch} value={$loc}>{$loc}</option>\n";
 }
