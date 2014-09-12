@@ -5,7 +5,6 @@ use VCS\Mercurial;
 use VCS\Subversion;
 
 foreach (Project::getRepositories() as $repo) {
-// foreach (['release'] as $repo) {
 
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
