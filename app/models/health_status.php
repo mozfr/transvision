@@ -49,10 +49,7 @@ foreach (Project::getRepositories() as $repo) {
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
 
-            // List components
-            $locale_components = Project::getComponents($strings[$locale][$repo]);
-
-            foreach ($locale_components as $key => $component) {
+            foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
 
                 $filter_pattern = function($locale_code) use($component, $repo, $strings) {
                     return array_filter(
@@ -100,7 +97,7 @@ foreach (Project::getRepositories() as $repo) {
                 unset($path);
 
                 // Map the values
-                foreach ($english_entities as $k => $v) {
+                foreach ($english_entities as $v) {
                     if (! empty($strings[$locale][$repo][$v])) {
                         $locale_strings[$v] = $strings[$locale][$repo][$v];
                     }
@@ -118,24 +115,23 @@ foreach (Project::getRepositories() as $repo) {
                 // current repo.
                 $projects[$repo]['stats'] = $stats;
                 $projects[$repo]['repos'][$component] = Health::getStatus(
-                                                            $name,
-                                                            $english_strings,
-                                                            $locale_strings
-                                                        );
+                    $name,
+                    $english_strings,
+                    $locale_strings
+                );
                 unset($english_strings);
                 unset($locale_strings);
             }
-
         } else {
             $strings[$ref_locale][$repo] = array_filter($strings[$ref_locale][$repo], 'strlen');
             $strings[$locale][$repo] = array_filter($strings[$locale][$repo], 'strlen');
 
             $name = Project::getRepositoriesNames()[$repo];
             $status = Health::getStatus(
-                                $name,
-                                $strings[$ref_locale][$repo],
-                                $strings[$locale][$repo]
-                            );
+                $name,
+                $strings[$ref_locale][$repo],
+                $strings[$locale][$repo]
+            );
 
             // Define if grouped repos in the view then store the data in the
             // same place
