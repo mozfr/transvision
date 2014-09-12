@@ -10,6 +10,56 @@ namespace Transvision;
  */
 class VersionControl
 {
+
+    /**
+     * Get the right VCS for a given repository
+     *
+     * @param string $repo repository name
+     * @return string Name of the VCS or false if the repo does not exist
+     */
+    public static function getVCS($repo)
+    {
+        $vcs = [
+            'hg' => [],
+            'svn' => ['mozilla_org']
+        ];
+        $vcs['hg'] = array_merge(
+            Project::getDesktopRepositories(),
+            Project::getGaiaRepositories(),
+            $vcs['hg']
+        );
+        foreach ($vcs as $system => $repos) {
+            if (in_array($repo, $repos)) {
+
+                return $system;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the repo name used for VCS from the folder name used in Transvision
+     *
+     * @param string $repo repository name
+     * @return string Name of the VCS or unchanged $repo by default
+     */
+    public static function VCSRepoName($repo)
+    {
+        // Desktop
+        if (in_array($repo, Project::getDesktopRepositories())) {
+            $repo = strtoupper($repo == 'central' ? 'trunk' : $repo) . '_L10N';
+        }
+
+        // Gaia
+        if (substr($repo, 0, 4) == 'gaia') {
+            $repo = strtoupper($repo);
+        }
+
+        return $repo;
+    }
+
+
     /**
      * Generate a path to the mercurial repo for the file
      *

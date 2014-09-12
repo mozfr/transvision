@@ -11,18 +11,31 @@ namespace Transvision;
  */
 class Project
 {
+
+    /**
+     * This array maps different subfolders name for Desktop products
+     * with their display name
+     */
+    public static $components_names = [
+        'browser'  => 'Firefox Desktop',
+        'mobile'   => 'Firefox for Android',
+        'mail'     => 'Thunderbird',
+        'suite'    => 'SeaMonkey',
+        'calendar' => 'Lightning'
+    ];
+
     /**
      * This array stores all the repositories we support in Transvision
      */
     public static $repositories = [
-        'release'     => 'Release',
-        'beta'        => 'Beta',
-        'aurora'      => 'Aurora',
         'central'     => 'Central',
+        'aurora'      => 'Aurora',
+        'beta'        => 'Beta',
+        'release'     => 'Release',
         'gaia'        => 'Gaia master',
-        'gaia_1_3'    => 'Gaia 1.3',
-        'gaia_1_4'    => 'Gaia 1.4',
         'gaia_2_0'    => 'Gaia 2.0',
+        'gaia_1_4'    => 'Gaia 1.4',
+        'gaia_1_3'    => 'Gaia 1.3',
         'mozilla_org' => 'mozilla.org',
     ];
 
@@ -171,5 +184,25 @@ class Project
                   : $locale;
 
         return $locale;
+    }
+
+    /**
+     * Return the list of components by parsing a set of entities.
+     * Components are folders at the root of desktop repos ("desktop", "mobile", etc.)
+     *
+     * @param array containing entities associated with strings,
+     * like "path/to/properties:entity" => "a string".
+     * @return array List of components
+     */
+    public static function getComponents($strings) {
+        $reference_components = array_keys($strings);
+        $reference_components = array_map(
+            function($row) {
+                return explode('/', $row)[0];
+            },
+            $reference_components
+        );
+
+        return array_unique($reference_components);
     }
 }

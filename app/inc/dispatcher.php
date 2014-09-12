@@ -26,9 +26,10 @@ switch ($url['path']) {
         $page_descr = '';
         break;
     case 'stats':
-        $view = 'stats';
-        $page_title = 'Statistics';
-        $page_descr = 'Light usage statistics.';
+        $view = 'showrepos';
+        $experimental = true;
+        $page_title = 'Status Overview';
+        $page_descr = 'Repository status overview.';
         break;
     case 'repocomparison':
         $view = 'repocomparison';
@@ -61,10 +62,10 @@ switch ($url['path']) {
         $page_descr = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
         break;
     case 'showrepos':
-        $view = 'showrepos';
         $experimental = true;
-        $page_title = 'Status Overview';
-        $page_descr = 'Repository status overview.';
+        $controller = 'health_status';
+        $page_title = 'Health status';
+        $page_descr = 'Check the health status of locales.';
         break;
     case 'string':
         $controller = 'onestring';
