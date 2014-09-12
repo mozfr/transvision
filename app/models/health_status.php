@@ -4,8 +4,6 @@ namespace Transvision;
 use VCS\Mercurial;
 use VCS\Subversion;
 
-$components_names = Project::$components_names;
-
 foreach (Project::getRepositories() as $repo) {
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
@@ -113,8 +111,8 @@ foreach (Project::getRepositories() as $repo) {
                 unset($english_entities);
 
                 // Get pretty name for component or fallback to folder name
-                $name = (in_array($component, array_keys($components_names)))
-                        ? $components_names[$component]
+                $name = (in_array($component, array_keys(Project::$components_names)))
+                        ? Project::$components_names[$component]
                         : $component;
 
                 // Store stats and status data for the current conponent of
@@ -250,8 +248,8 @@ $active_projects = '<h4>Active projects:</h4><ul>';
 if (isset($projects['release']['repos'])) {
     $active_projects .= '<li><b>Desktop:</b> ';
     foreach (array_keys($projects['release']['repos']) as $repo) {
-        if (in_array($repo, array_keys($components_names))) {
-            $active_projects .= $components_names[$repo] . ', ';
+        if (in_array($repo, array_keys(Project::$components_names))) {
+            $active_projects .= Project::$components_names[$repo] . ', ';
         }
     }
     $active_projects .= '</li>';
