@@ -1,6 +1,9 @@
 <?php
 namespace Transvision;
 
+use VCS\Mercurial;
+use VCS\Subversion;
+
 $components_names = Project::$components_names;
 
 foreach (Project::getRepositories() as $repo) {
@@ -21,10 +24,10 @@ foreach (Project::getRepositories() as $repo) {
 
         switch (VersionControl::getVCS($repo)) {
             case 'hg':
-                $vcs = new \VCS\Mercurial(HG . $repo_vcs . '/' . $locale);
+                $vcs = new Mercurial(HG . $repo_vcs . '/' . $locale);
                 break;
             case 'svn':
-                $vcs = new \VCS\Subversion(SVN . $repo_vcs . '/' . $locale);
+                $vcs = new Subversion(SVN . $repo_vcs . '/' . $locale);
                 break;
         }
 
