@@ -46,7 +46,17 @@ $components = [];
 
 foreach ($searches as $key => $value) {
     $search_results = ShowResults::getTMXResults(array_keys($value), $data);
-    $components = Project::getComponents($search_results);
+
+    $current_components = array_keys($search_results);
+    $current_components = array_map(
+        function($row) {
+            return explode('/', $row)[0];
+        },
+        $current_components
+    );
+
+    $components = array_merge($components, $current_components);
+    $components = array_unique($components);
 
     if (count($value) > 0) {
         // We have results, we won't display search suggestions but search results
