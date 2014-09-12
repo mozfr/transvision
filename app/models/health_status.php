@@ -5,6 +5,7 @@ use VCS\Mercurial;
 use VCS\Subversion;
 
 foreach (Project::getRepositories() as $repo) {
+
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
 
@@ -129,15 +130,13 @@ foreach (Project::getRepositories() as $repo) {
             $strings[$ref_locale][$repo] = array_filter($strings[$ref_locale][$repo], 'strlen');
             $strings[$locale][$repo] = array_filter($strings[$locale][$repo], 'strlen');
 
-            $name = Project::getRepositoriesNames()[$repo];
             $status = Health::getStatus(
-                $name,
+                Project::getRepositoriesNames()[$repo],
                 $strings[$ref_locale][$repo],
                 $strings[$locale][$repo]
             );
 
-            // Define if grouped repos in the view then store the data in the
-            // same place
+            // Define if grouped repos in the view then store the data in the same place
             $grouped_repos = in_array($repo, Project::getGaiaRepositories())
                              ? 'gaia'
                              : 'others';
@@ -149,7 +148,6 @@ foreach (Project::getRepositories() as $repo) {
         unset($strings[$locale][$repo], $strings[$ref_locale][$repo]);
     }
 }
-
 
 // Build content
 
@@ -278,7 +276,3 @@ foreach ($locales_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option{$ch} value={$loc}>{$loc}</option>\n";
 }
-
-// Free memory
-unset($projects);
-unset($html);
