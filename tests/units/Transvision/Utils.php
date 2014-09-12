@@ -308,4 +308,78 @@ class Utils extends atoum\test
             break;
         }
     }
+
+    public function redYellowGreenDP()
+    {
+        return [
+            ['99.92', '10,255,0'],
+        ];
+    }
+
+    /**
+     * @dataProvider redYellowGreenDP
+     */
+    public function testRedYellowGreen($a, $b)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->redYellowGreen($a))
+                ->contains($b);
+    }
+
+    public function pluralizeDP()
+    {
+        return [
+            ['42', 'test', '42 tests'],
+            ['1', 'test', '1 test'],
+        ];
+    }
+
+    /**
+     * @dataProvider pluralizeDP
+     */
+    public function testPluralize($a, $b, $c)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->pluralize($a, $b))
+                ->contains($c);
+    }
+
+    public function agoDP()
+    {
+        return [
+            [
+                (new \DateTime('now'))->modify('-1 day'),
+                '1 day ago'
+            ],
+            [
+                (new \DateTime('now'))->modify('-2 seconds'),
+                '2 seconds ago'
+            ],
+            [
+                (new \DateTime('now'))->modify('+2 months'),
+                '2 months'
+            ],
+            [
+                (new \DateTime('now'))->modify('+1 year'),
+                '1 year'
+            ],
+            [
+                (new \DateTime('now'))->modify('-10 hours'),
+                '10 hours ago'
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider agoDP
+     */
+    public function testAgo($a, $b)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->ago($a))
+                ->contains($b);
+    }
 }
