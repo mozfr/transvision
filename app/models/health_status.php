@@ -5,6 +5,7 @@ use VCS\Mercurial;
 use VCS\Subversion;
 
 foreach (Project::getRepositories() as $repo) {
+// foreach (['release'] as $repo) {
 
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
@@ -79,6 +80,7 @@ foreach (Project::getRepositories() as $repo) {
                         break;
                     case 'mail':
                         $path[] = $component . '/branding';
+                        $path[] = $component . '/test/';
                         break;
                     case 'mobile':
                         $path[] = $component . '/android/branding';
@@ -88,6 +90,9 @@ foreach (Project::getRepositories() as $repo) {
                     case 'suite':
                         $path[] = $component . '/chrome/browser/region.properties';
                         $path[] = $component . '/chrome/common/region.properties';
+                        break;
+                    case 'toolkit':
+                        $path[] = $component . '/content/tests/';
                         break;
                 }
 
@@ -100,12 +105,11 @@ foreach (Project::getRepositories() as $repo) {
                 // Map the values
                 foreach ($english_entities as $v) {
 
+                    $english_strings[$v] = $strings[$ref_locale][$repo][$v];
 
-
-                    if (! empty($strings[$locale][$repo][$v])) {
+                    if (isset($strings[$locale][$repo][$v])) {
                         $locale_strings[$v] = $strings[$locale][$repo][$v];
                     }
-                    $english_strings[$v] = $strings[$ref_locale][$repo][$v];
                 }
 
                 // Get pretty name for component or fallback to folder name
