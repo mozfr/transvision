@@ -7,8 +7,7 @@
         "atoum/atoum" : "dev-master",
         "components/jquery": "1.11.*",
         "monolog/monolog" : "1.10.0",
-        "pascalc/tinyl10n" : "0.6",
-        "pascalc/vcs": "0.3"
+        "pascalc/tinyl10n" : "0.6"
     },
 
     "require-dev": {
