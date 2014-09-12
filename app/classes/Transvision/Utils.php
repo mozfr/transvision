@@ -237,6 +237,25 @@ class Utils
     }
 
     /**
+     * Return an array of entities for a locale from a repository
+     * @param string $locale Locale we want to have entities for
+     * @param string $repository string repository such as gaia_1_3, central...
+     * @return array Entities or empty array if no match
+     */
+    public static function getRepoEntities($locale, $repository)
+    {
+        $key = $locale . $repository . 'entities';
+
+        if (! $entities = Cache::getKey($key)) {
+            if ($entities = array_keys(self::getRepoStrings($locale, $repository))) {
+                Cache::setKey($key, $entities);
+            }
+        }
+
+        return isset($entities) ? $entities : [];
+    }
+
+    /**
      * Clean up for "noise" a string
      *
      * @param  string $string the string to clean up

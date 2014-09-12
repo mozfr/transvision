@@ -16,11 +16,6 @@ foreach (Project::getRepositories() as $repo) {
     if (in_array($locale, Project::getRepositoryLocales($repo))) {
         $ref_locale = Project::getReferenceLocale($repo);
 
-        // Get all the strings (reference and locale)
-        $strings[$ref_locale][$repo] = Utils::getRepoStrings($ref_locale, $repo);
-
-        $strings[$locale][$repo] = Utils::getRepoStrings($locale, $repo);
-
         // Get VCS data
         $repo_vcs = VersionControl::VCSRepoName($repo);
 
@@ -47,11 +42,12 @@ foreach (Project::getRepositories() as $repo) {
             Cache::setKey($cache_id, $stats);
         }
 
-
+        // Get all the strings (reference and locale)
+        $strings[$ref_locale][$repo] = Utils::getRepoStrings($ref_locale, $repo);
+        $strings[$locale][$repo] = Utils::getRepoStrings($locale, $repo);
 
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
-
 
             // List components
             $locale_components = Project::getComponents($strings[$locale][$repo]);
@@ -59,15 +55,16 @@ foreach (Project::getRepositories() as $repo) {
             foreach ($locale_components as $key => $component) {
                 $pattern = '#^' . $component . '/.*#';
 
-                $component_strings = preg_grep(
+                $locale_entities = array_filter(preg_grep(
                                         $pattern,
                                         array_keys($strings[$locale][$repo])
-                                    );
+                                    ), 'strlen');
 
-                $ref_strings = preg_grep(
+                $english_entities = array_filter(preg_grep(
                                     $pattern,
                                     array_keys($strings[$ref_locale][$repo])
-                                );
+                                ), 'strlen');
+
 
                 // Skip some special cases (mostly optional strings)
                 $path = [];
@@ -98,23 +95,19 @@ foreach (Project::getRepositories() as $repo) {
                 foreach ($path as $case) {
                     // Only keep strings that do not match the pattern
                     $pattern = '#^(?!' . $case . ').*#';
-                    $ref_strings = preg_grep($pattern, $ref_strings);
+                    $english_entities = preg_grep($pattern, $english_entities);
                 }
                 unset($path);
 
-                $component_strings = array_filter($component_strings, 'strlen');
-                $ref_strings = array_filter($ref_strings, 'strlen');
-
                 // Map the values
-                foreach ($component_strings as $k => $v) {
-                    $c_strings[$v] = $strings[$locale][$repo][$v];
+                foreach ($english_entities as $k => $v) {
+                    if (! empty($strings[$locale][$repo][$v])) {
+                        $locale_strings[$v] = $strings[$locale][$repo][$v];
+                    }
+                    $english_strings[$v] = $strings[$ref_locale][$repo][$v];
                 }
-                unset($component_strings);
-
-                foreach ($ref_strings as $k => $v) {
-                    $r_strings[$v] = $strings[$ref_locale][$repo][$v];
-                }
-                unset($ref_strings);
+                unset($locale_entities);
+                unset($english_entities);
 
                 // Get pretty name for component or fallback to folder name
                 $name = (in_array($component, array_keys($components_names)))
@@ -126,11 +119,11 @@ foreach (Project::getRepositories() as $repo) {
                 $projects[$repo]['stats'] = $stats;
                 $projects[$repo]['repos'][$component] = Health::getStatus(
                                                             $name,
-                                                            $r_strings,
-                                                            $c_strings
+                                                            $english_strings,
+                                                            $locale_strings
                                                         );
-                unset($c_strings);
-                unset($r_strings);
+                unset($english_strings);
+                unset($locale_strings);
             }
 
         } else {
@@ -164,7 +157,7 @@ foreach (Project::getRepositories() as $repo) {
 
 // Titles
 $table_header = '<table class="stats-table"><tr>';
-foreach (Health::getColumnsName() as $name) {
+foreach (Health::getColumnsNames() as $name) {
     $table_header .= '<th>' . $name . '</th>';
 }
 $table_header .= '</tr>';
@@ -214,13 +207,13 @@ foreach ($projects as $project => $repos) {
         if (! isset($status['translated'])) {
             foreach ($status as $repo => $component) {
                 $html[$project]['repos'] .= Health::addRow(
-                                                    Health::getColumnsId(),
+                                                    Health::getColumnsKeys(),
                                                     $component
                                                 );
             }
         } else {
             $html[$project]['repos'] .= Health::addRow(
-                                                    Health::getColumnsId(),
+                                                    Health::getColumnsKeys(),
                                                     $status
                                                 );
         }

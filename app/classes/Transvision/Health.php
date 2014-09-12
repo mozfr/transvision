@@ -2,21 +2,19 @@
 namespace Transvision;
 
 /**
- * Project class
+ * Health class
  *
  * Helper functions for the Health view
  *
  * @package Transvision
  */
-
 class Health
 {
-
     /**
      * This array stores all the different columns we display in the table for
      * products health with the associated display name
      */
-    private static $columns = [
+    protected static $columns = [
         'name'       => 'Repository name',
         'total'      => 'Total',
         'translated' => 'Translated',
@@ -29,7 +27,7 @@ class Health
      *
      * @return array list of column ids
      */
-    public static function getColumnsId()
+    public static function getColumnsKeys()
     {
         return array_keys(self::$columns);
     }
@@ -39,7 +37,7 @@ class Health
      *
      * @return array list of column names
      */
-    public static function getColumnsName()
+    public static function getColumnsNames()
     {
         return array_values(self::$columns);
     }
@@ -54,7 +52,7 @@ class Health
      * the repo ('entity_name' => 'Content.')
      * @param array $loc_strings Array containing all the strings of the repo
      * for a given locale ('entity_name' => 'Localized content.')
-     * @return array list of local repositories and their Display names
+     * @return array Status for a repository of a locale
      */
     public static function getStatus($name, $ref_strings, $loc_strings)
     {

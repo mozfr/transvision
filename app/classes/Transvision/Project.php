@@ -28,14 +28,14 @@ class Project
      * This array stores all the repositories we support in Transvision
      */
     public static $repositories = [
-        'release'     => 'Release',
-        'beta'        => 'Beta',
-        'aurora'      => 'Aurora',
         'central'     => 'Central',
-        'gaia_1_3'    => 'Gaia 1.3',
-        'gaia_1_4'    => 'Gaia 1.4',
-        'gaia_2_0'    => 'Gaia 2.0',
+        'aurora'      => 'Aurora',
+        'beta'        => 'Beta',
+        'release'     => 'Release',
         'gaia'        => 'Gaia master',
+        'gaia_2_0'    => 'Gaia 2.0',
+        'gaia_1_4'    => 'Gaia 1.4',
+        'gaia_1_3'    => 'Gaia 1.3',
         'mozilla_org' => 'mozilla.org',
     ];
 
