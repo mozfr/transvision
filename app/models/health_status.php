@@ -43,9 +43,10 @@ foreach (Project::getRepositories() as $repo) {
             Cache::setKey($cache_id, $stats);
         }
 
-        // Get all the strings (reference and locale)
-        $strings[$ref_locale][$repo] = Utils::getRepoStrings($ref_locale, $repo);
-        $strings[$locale][$repo] = Utils::getRepoStrings($locale, $repo);
+        // Get all the strings (English and locale), ignore empty entities
+        $filter_empty = function($arr) {return array_filter($arr, 'strlen');};
+        $strings[$ref_locale][$repo] = $filter_empty(Utils::getRepoStrings($ref_locale, $repo));
+        $strings[$locale][$repo]     = $filter_empty(Utils::getRepoStrings($locale, $repo));
 
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
@@ -99,11 +100,7 @@ foreach (Project::getRepositories() as $repo) {
                 // Map the values
                 foreach ($english_entities as $v) {
 
-                    // If the entity is empty in both en-US and the locale, ignore it
-                    if (empty($strings[$ref_locale][$repo][$v])
-                        && empty($strings[$locale][$repo][$v])) {
-                        continue;
-                    }
+
 
                     if (! empty($strings[$locale][$repo][$v])) {
                         $locale_strings[$v] = $strings[$locale][$repo][$v];
@@ -127,9 +124,6 @@ foreach (Project::getRepositories() as $repo) {
                 unset($locale_entities, $english_entities, $english_strings, $locale_strings);
             }
         } else {
-            $strings[$ref_locale][$repo] = array_filter($strings[$ref_locale][$repo], 'strlen');
-            $strings[$locale][$repo] = array_filter($strings[$locale][$repo], 'strlen');
-
             $status = Health::getStatus(
                 Project::getRepositoriesNames()[$repo],
                 $strings[$ref_locale][$repo],
