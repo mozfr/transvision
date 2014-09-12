@@ -53,18 +53,18 @@ foreach (Project::getRepositories() as $repo) {
             $locale_components = Project::getComponents($strings[$locale][$repo]);
 
             foreach ($locale_components as $key => $component) {
-                $pattern = '#^' . $component . '/.*#';
 
-                $locale_entities = array_filter(preg_grep(
-                                        $pattern,
-                                        array_keys($strings[$locale][$repo])
-                                    ), 'strlen');
+                $filter_pattern = function($locale_code) use($component, $repo, $strings) {
+                    return array_filter(
+                        preg_grep(
+                            '#^' . $component . '/.*#',
+                            array_keys($strings[$locale_code][$repo])
+                        ),
+                        'strlen');
+                };
 
-                $english_entities = array_filter(preg_grep(
-                                    $pattern,
-                                    array_keys($strings[$ref_locale][$repo])
-                                ), 'strlen');
-
+                $locale_entities  = $filter_pattern($locale);
+                $english_entities = $filter_pattern($ref_locale);
 
                 // Skip some special cases (mostly optional strings)
                 $path = [];
