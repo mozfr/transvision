@@ -13,7 +13,7 @@ class Health extends atoum\test
         $obj = new _Health();
         $col = ['name', 'total', 'translated', 'missing', 'identical'];
         $this
-            ->array($obj->getColumnsId())
+            ->array($obj->getColumnsKeys())
                 ->isEqualTo($col);
     }
 
