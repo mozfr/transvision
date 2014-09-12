@@ -1,15 +1,16 @@
 <?php
 namespace Transvision;
 
-$components_names = Project::$components_names;
+use VCS\Mercurial;
+use VCS\Subversion;
 
 foreach (Project::getRepositories() as $repo) {
+
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
 
-    // Skip repo if Desktop en-US
-    if (in_array($repo, Project::getDesktopRepositories())
-        && $locale == 'en-US') {
+    // We don't care about en-US
+    if ($locale == 'en-US') {
         continue;
     }
 
@@ -21,10 +22,10 @@ foreach (Project::getRepositories() as $repo) {
 
         switch (VersionControl::getVCS($repo)) {
             case 'hg':
-                $vcs = new \VCS\Mercurial(HG . $repo_vcs . '/' . $locale);
+                $vcs = new Mercurial(HG . $repo_vcs . '/' . $locale);
                 break;
             case 'svn':
-                $vcs = new \VCS\Subversion(SVN . $repo_vcs . '/' . $locale);
+                $vcs = new Subversion(SVN . $repo_vcs . '/' . $locale);
                 break;
         }
 
@@ -42,29 +43,27 @@ foreach (Project::getRepositories() as $repo) {
             Cache::setKey($cache_id, $stats);
         }
 
-        // Get all the strings (reference and locale)
-        $strings[$ref_locale][$repo] = Utils::getRepoStrings($ref_locale, $repo);
-        $strings[$locale][$repo] = Utils::getRepoStrings($locale, $repo);
+        // Get all the strings (English and locale), ignore empty entities
+        $filter_empty = function($arr) {return array_filter($arr, 'strlen');};
+        $strings[$ref_locale][$repo] = $filter_empty(Utils::getRepoStrings($ref_locale, $repo));
+        $strings[$locale][$repo]     = $filter_empty(Utils::getRepoStrings($locale, $repo));
 
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
 
-            // List components
-            $locale_components = Project::getComponents($strings[$locale][$repo]);
+            foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
 
-            foreach ($locale_components as $key => $component) {
-                $pattern = '#^' . $component . '/.*#';
+                $filter_pattern = function($locale_code) use($component, $repo, $strings) {
+                    return array_filter(
+                        preg_grep(
+                            '#^' . $component . '/.*#',
+                            array_keys($strings[$locale_code][$repo])
+                        ),
+                        'strlen');
+                };
 
-                $locale_entities = array_filter(preg_grep(
-                                        $pattern,
-                                        array_keys($strings[$locale][$repo])
-                                    ), 'strlen');
-
-                $english_entities = array_filter(preg_grep(
-                                    $pattern,
-                                    array_keys($strings[$ref_locale][$repo])
-                                ), 'strlen');
-
+                $locale_entities  = $filter_pattern($locale);
+                $english_entities = $filter_pattern($ref_locale);
 
                 // Skip some special cases (mostly optional strings)
                 $path = [];
@@ -97,61 +96,49 @@ foreach (Project::getRepositories() as $repo) {
                     $pattern = '#^(?!' . $case . ').*#';
                     $english_entities = preg_grep($pattern, $english_entities);
                 }
-                unset($path);
 
                 // Map the values
-                foreach ($english_entities as $k => $v) {
+                foreach ($english_entities as $v) {
+
+
+
                     if (! empty($strings[$locale][$repo][$v])) {
                         $locale_strings[$v] = $strings[$locale][$repo][$v];
                     }
                     $english_strings[$v] = $strings[$ref_locale][$repo][$v];
                 }
-                unset($locale_entities);
-                unset($english_entities);
 
                 // Get pretty name for component or fallback to folder name
-                $name = (in_array($component, array_keys($components_names)))
-                        ? $components_names[$component]
+                $name = in_array($component, array_keys(Project::$components_names))
+                        ? Project::$components_names[$component]
                         : $component;
 
-                // Store stats and status data for the current conponent of
-                // current repo.
+                // Store stats and status data for current component and repo.
                 $projects[$repo]['stats'] = $stats;
                 $projects[$repo]['repos'][$component] = Health::getStatus(
-                                                            $name,
-                                                            $english_strings,
-                                                            $locale_strings
-                                                        );
-                unset($english_strings);
-                unset($locale_strings);
+                    $name,
+                    $english_strings,
+                    $locale_strings
+                );
+
+                unset($locale_entities, $english_entities, $english_strings, $locale_strings);
             }
-
         } else {
-            $strings[$ref_locale][$repo] = array_filter($strings[$ref_locale][$repo], 'strlen');
-            $strings[$locale][$repo] = array_filter($strings[$locale][$repo], 'strlen');
+            // Define if grouped repos in the view then store the data in the same place
+            $grouped_repos = in_array($repo, Project::getGaiaRepositories()) ? 'gaia' : 'others';
 
-            $name = Project::getRepositoriesNames()[$repo];
-            $status = Health::getStatus(
-                                $name,
-                                $strings[$ref_locale][$repo],
-                                $strings[$locale][$repo]
-                            );
+            $projects[$grouped_repos][$repo] = Health::getStatus(
+                Project::getRepositoriesNames()[$repo],
+                $strings[$ref_locale][$repo],
+                $strings[$locale][$repo]
+            );
 
-            // Define if grouped repos in the view then store the data in the
-            // same place
-            $grouped_repos = in_array($repo, Project::getGaiaRepositories())
-                             ? 'gaia'
-                             : 'others';
-
-            $projects[$grouped_repos][$repo] = $status;
             $projects[$grouped_repos][$repo]['stats'] = $stats;
         }
 
-        unset($strings[$locale][$repo]);
-        unset($strings[$ref_locale][$repo]);
+        unset($strings[$locale][$repo], $strings[$ref_locale][$repo]);
     }
 }
-
 
 // Build content
 
@@ -247,8 +234,8 @@ $active_projects = '<h4>Active projects:</h4><ul>';
 if (isset($projects['release']['repos'])) {
     $active_projects .= '<li><b>Desktop:</b> ';
     foreach (array_keys($projects['release']['repos']) as $repo) {
-        if (in_array($repo, array_keys($components_names))) {
-            $active_projects .= $components_names[$repo] . ', ';
+        if (in_array($repo, array_keys(Project::$components_names))) {
+            $active_projects .= Project::$components_names[$repo] . ', ';
         }
     }
     $active_projects .= '</li>';
@@ -274,10 +261,9 @@ $active_projects .= '</ul>';
 // Build locales select
 $target_locales_list = '';
 foreach ($locales_list as $loc) {
+    if ($loc == 'en-US') {
+        continue;
+    }
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option{$ch} value={$loc}>{$loc}</option>\n";
 }
-
-// Free memory
-unset($projects);
-unset($html);
