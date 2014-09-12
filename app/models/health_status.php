@@ -124,18 +124,15 @@ foreach (Project::getRepositories() as $repo) {
                 unset($locale_entities, $english_entities, $english_strings, $locale_strings);
             }
         } else {
-            $status = Health::getStatus(
+            // Define if grouped repos in the view then store the data in the same place
+            $grouped_repos = in_array($repo, Project::getGaiaRepositories()) ? 'gaia' : 'others';
+
+            $projects[$grouped_repos][$repo] = Health::getStatus(
                 Project::getRepositoriesNames()[$repo],
                 $strings[$ref_locale][$repo],
                 $strings[$locale][$repo]
             );
 
-            // Define if grouped repos in the view then store the data in the same place
-            $grouped_repos = in_array($repo, Project::getGaiaRepositories())
-                             ? 'gaia'
-                             : 'others';
-
-            $projects[$grouped_repos][$repo] = $status;
             $projects[$grouped_repos][$repo]['stats'] = $stats;
         }
 
