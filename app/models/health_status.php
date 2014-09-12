@@ -98,6 +98,13 @@ foreach (Project::getRepositories() as $repo) {
 
                 // Map the values
                 foreach ($english_entities as $v) {
+
+                    // If the entity is empty in both en-US and the locale, ignore it
+                    if (empty($strings[$ref_locale][$repo][$v])
+                        && empty($strings[$locale][$repo][$v])) {
+                        continue;
+                    }
+
                     if (! empty($strings[$locale][$repo][$v])) {
                         $locale_strings[$v] = $strings[$locale][$repo][$v];
                     }
