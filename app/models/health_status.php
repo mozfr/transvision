@@ -94,7 +94,6 @@ foreach (Project::getRepositories() as $repo) {
                     $pattern = '#^(?!' . $case . ').*#';
                     $english_entities = preg_grep($pattern, $english_entities);
                 }
-                unset($path);
 
                 // Map the values
                 foreach ($english_entities as $v) {
@@ -110,24 +109,21 @@ foreach (Project::getRepositories() as $repo) {
                     }
                     $english_strings[$v] = $strings[$ref_locale][$repo][$v];
                 }
-                unset($locale_entities);
-                unset($english_entities);
 
                 // Get pretty name for component or fallback to folder name
-                $name = (in_array($component, array_keys(Project::$components_names)))
+                $name = in_array($component, array_keys(Project::$components_names))
                         ? Project::$components_names[$component]
                         : $component;
 
-                // Store stats and status data for the current conponent of
-                // current repo.
+                // Store stats and status data for current component and repo.
                 $projects[$repo]['stats'] = $stats;
                 $projects[$repo]['repos'][$component] = Health::getStatus(
                     $name,
                     $english_strings,
                     $locale_strings
                 );
-                unset($english_strings);
-                unset($locale_strings);
+
+                unset($locale_entities, $english_entities, $english_strings, $locale_strings);
             }
         } else {
             $strings[$ref_locale][$repo] = array_filter($strings[$ref_locale][$repo], 'strlen');
@@ -150,8 +146,7 @@ foreach (Project::getRepositories() as $repo) {
             $projects[$grouped_repos][$repo]['stats'] = $stats;
         }
 
-        unset($strings[$locale][$repo]);
-        unset($strings[$ref_locale][$repo]);
+        unset($strings[$locale][$repo], $strings[$ref_locale][$repo]);
     }
 }
 
