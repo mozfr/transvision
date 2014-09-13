@@ -43,10 +43,27 @@ foreach (Project::getRepositories() as $repo) {
             Cache::setKey($cache_id, $stats);
         }
 
-        // Get all the strings (English and locale), ignore empty entities
-        $filter_empty = function($arr) {return array_filter($arr, 'strlen');};
-        $strings[$ref_locale][$repo] = $filter_empty(Utils::getRepoStrings($ref_locale, $repo));
-        $strings[$locale][$repo]     = $filter_empty(Utils::getRepoStrings($locale, $repo));
+        // Utility closure to create a cache file of filtered strings
+        $cache_filtered_strings = function($lang, $cache_id) use($repo) {
+            // Get all the strings (English and locale), ignore empty entities
+            $filter_empty = function($arr) {
+                // return $arr;
+                return array_filter($arr, 'strlen');
+            };
+
+            if ($cache = Cache::getKey($cache_id)) {
+                return $cache;
+            } else {
+                Cache::setKey(
+                    $cache_id,
+                    $filter_empty(Utils::getRepoStrings($lang, $repo))
+                );
+                return Cache::getKey($cache_id);
+            }
+        };
+
+        $strings[$locale][$repo] = $cache_filtered_strings($locale, $locale . $repo . 'filteredstrings');
+        $strings[$ref_locale][$repo] = $cache_filtered_strings($ref_locale, $ref_locale . $repo . 'filteredstrings');
 
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
