@@ -37,24 +37,6 @@ class Project extends atoum\test
                 ->isEqualTo($repos);
     }
 
-    public function testGetGaiaRepositories()
-    {
-        $obj = new _Project();
-        $repos = ['gaia', 'gaia_2_0', 'gaia_1_4', 'gaia_1_3'];
-        $this
-            ->array($obj->getGaiaRepositories())
-                ->isEqualTo($repos);
-    }
-
-    public function testGetDesktopRepositories()
-    {
-        $obj = new _Project();
-        $repos = ['central', 'aurora', 'beta', 'release'];
-        $this
-            ->array($obj->getDesktopRepositories())
-                ->isEqualTo($repos);
-    }
-
     public function testGetRepositoryLocales()
     {
         $obj = new _Project();

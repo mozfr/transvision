@@ -62,44 +62,6 @@ class Project
     }
 
     /**
-     * Get the list of repositories for Gaia.
-     * The list is sorted by age (latest master -> older branch)
-     *
-     * @return array list of local repositories for Gaia
-     */
-    public static function getGaiaRepositories()
-    {
-        $gaia_repos = array_filter(
-            self::getRepositories(),
-            function($value) {
-                if (Strings::startsWith($value, 'gaia_')) {
-                    return $value;
-                }
-            }
-        );
-
-        // Sort repos from latest branch to oldest branch
-        rsort($gaia_repos);
-        // gaia repo is the latest master branch, always first
-        array_unshift($gaia_repos, 'gaia');
-
-        return $gaia_repos;
-    }
-
-    /**
-     * Get the list of repositories for Desktop Applications
-     *
-     * @return array list of local repositories folder names
-     */
-    public static function getDesktopRepositories()
-    {
-        return array_diff(
-            array_diff(self::getRepositories(), ['mozilla_org']),
-            self::getGaiaRepositories()
-        );
-    }
-
-    /**
      * Get the list of locales available for a repository
      *
      * @param  string $repository Name of the folder for the repository
@@ -184,25 +146,5 @@ class Project
                   : $locale;
 
         return $locale;
-    }
-
-    /**
-     * Return the list of components by parsing a set of entities.
-     * Components are folders at the root of desktop repos ("desktop", "mobile", etc.)
-     *
-     * @param array containing entities associated with strings,
-     * like "path/to/properties:entity" => "a string".
-     * @return array List of components
-     */
-    public static function getComponents($strings) {
-        $reference_components = array_keys($strings);
-        $reference_components = array_map(
-            function($row) {
-                return explode('/', $row)[0];
-            },
-            $reference_components
-        );
-
-        return array_unique($reference_components);
     }
 }

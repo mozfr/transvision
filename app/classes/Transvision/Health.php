@@ -56,6 +56,14 @@ class Health
      */
     public static function getStatus($name, $ref_strings, $loc_strings)
     {
+        // $diff = array_diff_key($ref_strings, $loc_strings);
+
+        // if (count($diff) > 0) {
+        //     if ($name == 'Firefox Desktop') {
+        //         error_log($name);
+        //         error_log(print_r($diff, true));
+        //     }
+        // }
         return [
             'name'       => $name,
             'total'      => count($ref_strings),

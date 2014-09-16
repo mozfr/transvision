@@ -6,8 +6,8 @@ namespace Transvision;
 // Repositories
 $repos            = Project::getRepositories();
 $repos_nice_names = Project::getRepositoriesNames();
-$gaia_repos       = Project::getGaiaRepositories();
-$desktop_repos    = Project::getDesktopRepositories();
+$gaia_repos       = Gaia::getRepositories();
+$desktop_repos    = Desktop::getRepositories();
 
 // Search forms
 $form_search_options = ['case_sensitive', 'wild', 'whole_word',
