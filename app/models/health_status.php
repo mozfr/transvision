@@ -54,11 +54,12 @@ foreach (Project::getRepositories() as $repo) {
             if ($cache = Cache::getKey($cache_id)) {
                 return $cache;
             } else {
+                $filtered_strings = $filter_empty(Utils::getRepoStrings($lang, $repo));
                 Cache::setKey(
                     $cache_id,
-                    $filter_empty(Utils::getRepoStrings($lang, $repo))
+                    $filtered_strings
                 );
-                return Cache::getKey($cache_id);
+                return $filtered_strings;
             }
         };
 
@@ -67,7 +68,6 @@ foreach (Project::getRepositories() as $repo) {
 
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
-
             foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
 
                 $filter_pattern = function($locale_code) use($component, $repo, $strings) {
@@ -112,19 +112,20 @@ foreach (Project::getRepositories() as $repo) {
                         break;
                 }
 
-                foreach ($path as $case) {
-                    // Only keep strings that do not match the pattern
-                    $pattern = '#^(?!' . $case . ').*#';
-                    $english_entities = preg_grep($pattern, $english_entities);
-                }
+                $english_entities = array_filter(
+                    $english_entities,
+                    function($entity) use ($path) {
+                        return ! Strings::startsWith($entity, $path);
+                    }
+                );
 
                 // Map the values
-                foreach ($english_entities as $v) {
+                foreach ($english_entities as $entity) {
 
-                    $english_strings[$v] = $strings[$ref_locale][$repo][$v];
+                    $english_strings[$entity] = $strings[$ref_locale][$repo][$entity];
 
-                    if (isset($strings[$locale][$repo][$v])) {
-                        $locale_strings[$v] = $strings[$locale][$repo][$v];
+                    if (isset($strings[$locale][$repo][$entity])) {
+                        $locale_strings[$entity] = $strings[$locale][$repo][$entity];
                     }
                 }
 
@@ -156,7 +157,7 @@ foreach (Project::getRepositories() as $repo) {
             $projects[$grouped_repos][$repo]['stats'] = $stats;
         }
 
-        unset($strings[$locale][$repo], $strings[$ref_locale][$repo]);
+        unset($strings);
     }
 }
 
