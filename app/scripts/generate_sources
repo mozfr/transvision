@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+if (php_sapi_name() != 'cli') {
+    die('This command can only be used in CLI mode.');
+}
+
+if (count($argv) < 2) {
+    die("This command needs more parameters, please check generate_sources --help.\n");
+}
+if (isset($argv[1])) {
+    if (in_array($argv[1], ['-h', '--help'])) {
+        $command_help = "generate_sources - Create .txt sources files (supported locales, gaia versions)\n" .
+                "Usage: generate_sources [config_folder]\n\n" .
+                "Example: generate_sources app/config\n";
+        die($command_help);
+    }
+}
+
+$config_folder = realpath($argv[1]);
+$server_config = parse_ini_file("{$config_folder}/config.ini");
+
+if (! isset($server_config['l10nwebservice'])) {
+    error_log('Missing l10nwebservice parameter in config.ini');
+    exit(1);
+}
+
+$uri = $server_config['l10nwebservice'];
+if (! $repositories = json_decode(file_get_contents($uri), true)) {
+    error_log('JSON source is not valid or not reachable.');
+    exit(1);
+}
+
+$gaia_versions = [];
+foreach ($repositories as $repository) {
+    if (strpos($repository['id'], 'gaia') !== false) {
+        # Store supported Gaia versions
+        if ($repository["id"] == 'gaia') {
+            $gaia_version = 'gaia';
+        } else {
+            $gaia_version = substr($repository['id'], strlen('gaia_'));
+        }
+        $gaia_versions[] = $gaia_version;
+    }
+
+    # Save supported locales for each repository
+    echo "* Saving list of locales for {$repository["id"]}\n";
+    $file_name =  "{$config_folder}/sources/{$repository["id"]}.txt";
+    file_put_contents($file_name, implode("\n", $repository['locales']) . "\n");
+}
+
+if ($gaia_versions) {
+    # Save Gaia versions
+    echo "* Saving list of supported Gaia versions\n";
+    $file_name =  "{$config_folder}/sources/gaia_versions.txt";
+    file_put_contents($file_name, implode("\n", $gaia_versions) . "\n");
+}

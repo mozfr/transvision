@@ -700,7 +700,7 @@ def main():
 
     local_install = parser.get("config", "install")
     local_hg      = parser.get("config", "local_hg")
-    config_files  = parser.get("config", "config")
+    config_files  = os.path.join(parser.get("config", "config"), "sources")
 
     # Set Transvision's folders and locale files
     release_l10n = os.path.join(local_hg, "RELEASE_L10N") + os.sep

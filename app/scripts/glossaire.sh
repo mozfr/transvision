@@ -50,9 +50,22 @@ APP_FOLDER=$(dirname $PWD)
 export PATH=$PATH:$APP_FOLDER/app/inc
 export PATH=$PATH:$APP_FOLDER/
 
-# We need to store the current directory value for the CRON job
+# Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
-source $DIR/iniparser.sh
+# Convert .ini file in bash variables
+eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+
+# Check if we have sources
+echogreen "Checking if Transvision sources are available..."
+if ! $(ls $config/sources/*.txt &> /dev/null)
+then
+    echored "CRITICAL ERROR: no sources available, aborting."
+    echored "Check the value for l10nwebservice in your config.ini and run setup.sh"
+    exit
+fi
+
+# Create all bash variables
+source $DIR/bash_variables.sh
 
 # Decide if must update hg repositories and create TMX
 checkrepo=true
