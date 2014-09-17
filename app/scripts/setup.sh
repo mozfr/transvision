@@ -27,16 +27,15 @@ function echogreen() {
 DIR=$(dirname "$0")
 source $DIR/iniparser.sh
 
-# Make sure that we have the file structure
-folders=( $release_source $beta_source $aurora_source $trunk_source \
-          $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
-          $gaia $gaia_1_3 $gaia_1_4 $gaia_2_0 \
-          $libraries $mozilla_org $l20n_test )
-
-echogreen "Creating folders..."
+# Make sure that we have the file structure ($folders is defined in iniparser.sh)
+echogreen "Checking folders..."
 for folder in "${folders[@]}"
 do
-    mkdir -p "$folder"
+    if [ ! -d $folder ]
+    then
+        echogreen "Creating folder: $folder"
+        mkdir -p "$folder"
+    fi
 done
 
 function createSymlinks() {
@@ -265,10 +264,11 @@ createSymlinks "comm"
 createSymlinks "chatzilla"
 createSymlinks "venkman"
 
-initGaiaRepo "gaia"
-initGaiaRepo "1_3"
-initGaiaRepo "1_4"
-initGaiaRepo "2_0"
+# Set up all Gaia versions
+for gaia_version in $(cat ${gaia_versions})
+do
+    initGaiaRepo ${gaia_version}
+done
 
 # Check out svn repos
 echogreen "mozilla.org repo being checked out from subversion"

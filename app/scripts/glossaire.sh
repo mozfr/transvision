@@ -171,7 +171,7 @@ function updateGaiaRepo() {
             cd ${!repo_name}
             for locale in $(cat ${!locale_list})
             do
-                if [ -d ${!repo_l10n}/$locale ]
+                if [ -d ${!repo_name}/$locale ]
                 then
                     echogreen "Update $repo_name/$locale"
                     cd $locale
@@ -179,7 +179,7 @@ function updateGaiaRepo() {
                     hg update -C
                     cd ..
                 else
-                    echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
+                    echored "Folder ${!repo_name}/$locale does not exist. Run setup.sh to fix the issue."
                 fi
             done
         else
@@ -245,10 +245,10 @@ updateStandardRepo "beta" "beta"
 updateStandardRepo "aurora" "aurora"
 updateStandardRepo "central" "trunk"
 
-updateGaiaRepo "gaia"
-updateGaiaRepo "1_3"
-updateGaiaRepo "1_4"
-updateGaiaRepo "2_0"
+for gaia_version in $(cat ${gaia_versions})
+do
+    updateGaiaRepo ${gaia_version}
+done
 
 # mozilla.org has its own extraction script, mozorg.php
 updateFromSVN
