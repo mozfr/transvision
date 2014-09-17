@@ -8,11 +8,34 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class Project extends atoum\test
 {
+    public function testGetSupportedGaiaVersions()
+    {
+        $obj = new _Project();
+        $repos = [
+            'gaia'        => 'Gaia master',
+            'gaia_1_3'    => 'Gaia 1.3',
+            'gaia_1_4'    => 'Gaia 1.4',
+            'gaia_2_0'    => 'Gaia 2.0',
+            'gaia_2_1'    => 'Gaia 2.1',
+        ];
+        $this
+            ->array($obj->getSupportedGaiaVersions())
+                ->isEqualTo($repos);
+    }
+
+    public function testGetLastGaiaBranch() {
+        $obj = new _Project();
+        $this
+            ->string($obj->getLastGaiaBranch())
+                ->isEqualTo('gaia_2_1');
+    }
+
     public function testGetRepositories()
     {
         $obj = new _Project();
         $repos = ['release', 'beta', 'aurora', 'central', 'gaia',
-                  'gaia_1_3', 'gaia_1_4', 'gaia_2_0', 'mozilla_org'];
+                  'gaia_1_3', 'gaia_1_4', 'gaia_2_0', 'gaia_2_1',
+                  'mozilla_org'];
         $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);
@@ -30,6 +53,7 @@ class Project extends atoum\test
             'gaia_1_3'    => 'Gaia 1.3',
             'gaia_1_4'    => 'Gaia 1.4',
             'gaia_2_0'    => 'Gaia 2.0',
+            'gaia_2_1'    => 'Gaia 2.1',
             'mozilla_org' => 'mozilla.org',
         ];
         $this
@@ -40,7 +64,7 @@ class Project extends atoum\test
     public function testGetGaiaRepositories()
     {
         $obj = new _Project();
-        $repos = ['gaia', 'gaia_2_0', 'gaia_1_4', 'gaia_1_3'];
+        $repos = ['gaia', 'gaia_2_1', 'gaia_2_0', 'gaia_1_4', 'gaia_1_3'];
         $this
             ->array($obj->getGaiaRepositories())
                 ->isEqualTo($repos);
