@@ -24,8 +24,8 @@ class VersionControl
             'svn' => ['mozilla_org']
         ];
         $vcs['hg'] = array_merge(
-            Desktop::getRepositories(),
-            Gaia::getRepositories(),
+            Project::getDesktopRepositories(),
+            Project::getGaiaRepositories(),
             $vcs['hg']
         );
         foreach ($vcs as $system => $repos) {
@@ -47,7 +47,7 @@ class VersionControl
     public static function VCSRepoName($repo)
     {
         // Desktop
-        if (in_array($repo, Desktop::getRepositories())) {
+        if (in_array($repo, Project::getDesktopRepositories())) {
             $repo = strtoupper($repo == 'central' ? 'trunk' : $repo) . '_L10N';
         }
 

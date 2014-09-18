@@ -147,4 +147,43 @@ class Project
 
         return $locale;
     }
+
+    /**
+     * Get the list of repositories for Gaia.
+     * The list is sorted by age (latest master -> older branch)
+     *
+     * @return array list of local repositories for Gaia
+     */
+    public static function getGaiaRepositories()
+    {
+        $gaia_repos = array_filter(
+            self::getRepositories(),
+            function($value) {
+                if (Strings::startsWith($value, 'gaia_')) {
+                    return $value;
+                }
+            }
+        );
+
+        // Sort repos from latest branch to oldest branch
+        rsort($gaia_repos);
+        // gaia repo is the latest master branch, always first
+        array_unshift($gaia_repos, 'gaia');
+
+        return $gaia_repos;
+    }
+
+    /**
+     * Get the list of repositories for Desktop Applications
+     *
+     * @return array list of local repositories folder names
+     */
+    public static function getDesktopRepositories()
+    {
+        return array_diff(
+            array_diff(self::getRepositories(), ['mozilla_org']),
+            self::getGaiaRepositories()
+        );
+    }
+
 }
