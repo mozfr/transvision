@@ -93,13 +93,17 @@ if ! command -v composer >/dev/null 2>&1
 then
     echogreen "Installing Composer (PHP dependency manager)"
     php -r "readfile('https://getcomposer.org/installer');" | php
-fi
-
-# Install PHP dependencies if not done yet
-if [ ! -d vendor ]
-then
-    echogreen "Installing PHP dependencies with Composer"
-    php composer.phar install
+    if [ ! -d vendor ]
+    then
+        echogreen "Installing PHP dependencies with Composer (locally installed)"
+        php composer.phar install
+    fi
+else
+    if [ ! -d vendor ]
+    then
+        echogreen "Installing PHP dependencies with Composer (globally installed)"
+        composer install
+    fi
 fi
 
 # Create json files used for stats
