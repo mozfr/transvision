@@ -810,11 +810,11 @@ fieldset#main #TMX_locales {
     min-height: 0;
 }
 
-#TMX_locales select {
+#TMX_locales #TMX_format select {
     float: right;
 }
 
-#TMX_locales label {
+#TMX_locales #TMX_format label {
     float: left;
     margin-right: 20px;
 }
