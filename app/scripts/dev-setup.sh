@@ -23,7 +23,7 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
-# Store current directory path to be able to call the script from anywhere
+# Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 
 # Check that we have a config.ini file
@@ -33,8 +33,26 @@ then
     exit 1
 fi
 
-# Get server configuration variables
-source $DIR/iniparser.sh
+# Convert config.ini to bash variables
+eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+
+# If there are no .txt files in /sources, try to retrieve them online
+echogreen "Checking if Transvision sources are available..."
+if ! $(ls $config/sources/*.txt &> /dev/null)
+then
+    echogreen "Generate list of locales and supported Gaia versions"
+    php $DIR/generate_sources $config
+    # Check if we actually have sources at this point
+    if ! $(ls $config/sources/*.txt &> /dev/null)
+    then
+        echored "CRITICAL ERROR: no sources available, aborting."
+        echored "Check the value for l10nwebservice in your config.ini"
+        exit
+    fi
+fi
+
+# Create all bash variables
+source $DIR/bash_variables.sh
 
 # Check that $install variable points to a git repo
 if [ ! -d $install/.git ]
@@ -67,8 +85,6 @@ then
         echogreen "Data is now extracted in your web/TMX/ folder"
     fi
 fi
-
-
 
 cd $install
 

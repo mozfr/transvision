@@ -9,7 +9,7 @@ define('HG',            $server_config['local_hg'] . '/');
 define('SVN',           $server_config['local_svn'] . '/');
 define('TMX',           DATA_ROOT . '/TMX/');
 define('INSTALL_ROOT',  $server_config['install'] . '/');
-define('APP_SOURCES',   $server_config['config'] . '/');
+define('APP_SOURCES',   $server_config['config'] . '/sources/');
 define('WEB_ROOT',      INSTALL_ROOT . 'web/');
 define('APP_ROOT',      INSTALL_ROOT . 'app/');
 define('INC',           APP_ROOT . 'inc/');

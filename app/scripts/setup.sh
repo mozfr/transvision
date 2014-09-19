@@ -23,11 +23,28 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
-# Get server configuration variables
+# Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
-source $DIR/iniparser.sh
+# Convert .ini file in bash variables
+eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 
-# Make sure that we have the file structure ($folders is defined in iniparser.sh)
+# Generate sources (gaia versions, supported locales)
+echogreen "Generate list of locales and supported Gaia versions"
+php $DIR/generate_sources $config
+
+# Check if we have sources
+echogreen "Checking if Transvision sources are available..."
+if ! $(ls $config/sources/*.txt &> /dev/null)
+then
+    echored "CRITICAL ERROR: no sources available, aborting."
+    echored "Check the value for l10nwebservice in your config.ini"
+    exit
+fi
+
+# Create all bash variables
+source $DIR/bash_variables.sh
+
+# Make sure that we have the file structure ($folders is defined in bash_variables.sh)
 echogreen "Checking folders..."
 for folder in "${folders[@]}"
 do
@@ -111,15 +128,17 @@ function initDesktopL10nRepo() {
     then
         local repo_folder="trunk_l10n"
         local repo_path="http://hg.mozilla.org/l10n-central"
+        local locale_list="trunk_locales"
     else
         local repo_folder="${1}_l10n"
         local repo_path="http://hg.mozilla.org/releases/l10n/mozilla-$1"
+        local locale_list="${1}_locales"
     fi
 
     # If repo_folder="trunk_l10n", ${!repo_folder} is equal to $trunk_l10n
     cd ${!repo_folder}
 
-    for locale in $(cat $config/$1.txt)
+    for locale in $(cat ${!locale_list})
         do
             if [ ! -d $locale ]
             then
@@ -227,7 +246,7 @@ function initGaiaRepo () {
         echored "$repo_pretty_name folder does not exist"
     else
         cd ${!repo_name}
-        for locale in $(cat $config/$repo_name.txt)
+        for locale in $(cat ${!locale_list})
             do
                 if [ ! -d $locale/.hg ]
                 then
@@ -288,7 +307,7 @@ then
     git clone https://github.com/pascalchevrel/l20ntestdata.git
 fi
 
-for locale in $(cat $config/l20n_test.txt)
+for locale in $(cat $l20n_test_locales)
     do
         if [ ! -d $root/TMX/l20n_test/$locale ]
         then
