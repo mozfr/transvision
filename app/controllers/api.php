@@ -10,19 +10,27 @@ if (! $request->isValidRequest()) {
     include VIEWS . 'json.php';
 }
 
-switch ($request->getService()) {
-    case 'entity':
+// the array stores each function so we can access it
+// in log time instead of linear time, just performance
+// tweak
+
+$getServiceCB = array(
+    'entity' => function() {
         $repo = $request->parameters[2];
         $entity = $request->extra_parameters['id'];
+        
         include MODELS . 'api/entity.php';
+        
         if (empty($json)) {
             $json = ['Invalid service'];
         }
-        break;
-    case 'locales':
+    } ,
+
+    'locales' => function() {
         include MODELS . 'api/repository_locales.php';
-        break;
-    case 'search':
+    } ,
+
+    'search' => function () {
         // We chain 2 queries to match both strings and entities
         if ($request->parameters[2] == 'all') {
 
@@ -38,18 +46,22 @@ switch ($request->getService()) {
         } else {
             include MODELS . 'api/repository_search.php';
         }
-        break;
-    case 'tm':
+    } ,
+    
+    'tm' => function () {
         include MODELS . 'api/translation_memory.php';
-        break;
-    case 'repositories':
+    } ,
+
+    'repositories' => function () {
         include MODELS . 'api/repositories_list.php';
-        break;
-    case 'versions':
+    } ,
+
+    'versions' => function () {
         include MODELS . 'api/versions.php';
-        break;
-    default:
-        return false;
-}
+    }
+ );
+
+// here comes the magic
+call_user_func($getServiceCB[$request->getService()]);
 
 include VIEWS . 'json.php';
