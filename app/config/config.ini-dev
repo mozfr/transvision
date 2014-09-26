@@ -1,16 +1,16 @@
 [config]
 
 ; Path to the data root folder. Data will be stored in web/TMX
-root=/path/to/your/github/clone/for/transvision/web/
+root=${TRANSVISIONDIR}/web/
 
 ; Path to Git checkout of Transvision
-install=/path/to/your/github/clone/for/transvision/
+install=${TRANSVISIONDIR}/
 
 ; Path to configuration files for Transvision
-config=/path/to/your/github/clone/for/transvision/app/config
+config=${TRANSVISIONDIR}/app/config
 
 ; URL to l10n web service. Wrap the value between quotes if the URL contains special characters like ~
-l10nwebservice = "https://l10n.mozilla-community.org/~flod/mozilla-l10n-query/"
+l10nwebservice='https://l10n.mozilla-community.org/~flod/mozilla-l10n-query/'
 
 ; Only needed for production setup
 local_hg=/temp

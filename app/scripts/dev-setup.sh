@@ -26,20 +26,26 @@ function echogreen() {
 # Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 
+# Store transvision install path to use that to generate a config.ini file automatically
+TRANSVISIONDIR="$(cd "${DIR}/../../";pwd)"
+
 # Check that we have a config.ini file
 if [ ! -f $DIR/../config/config.ini ]
 then
-    echored "ERROR: There is no app/config/config.ini file, please create it based on app/config/config.ini-dev before launching the dev-setup.sh script"
-    exit 1
+    echogreen "WARNING: There is no app/config/config.ini file. Creating one based based on app/config/config.ini-dev template."
+    function render_template() {
+      eval "echo \"$(cat $1)\""
+    }
+    render_template $DIR/../config/config.ini-dev > $DIR/../config/config.ini
 fi
 
 # Convert config.ini to bash variables
 eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 
 # If there are no .txt files in /sources, try to retrieve them online
-echogreen "Checking if Transvision sources are available..."
 if ! $(ls $config/sources/*.txt &> /dev/null)
 then
+    echogreen "Checking if Transvision sources are available..."
     echogreen "Generate list of locales and supported Gaia versions"
     php $DIR/generate_sources $config
     # Check if we actually have sources at this point
