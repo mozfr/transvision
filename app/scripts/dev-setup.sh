@@ -23,6 +23,24 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
+# IP used to run PHP internal web server
+ip_server="localhost"
+
+if [ $# -eq 1 ]
+then
+    # I have exactly one parameter
+    if [ $1 == "-remote" ]
+    then
+        echogreen "PHP server will listen to 0.0.0.0"
+        ip_server="0.0.0.0"
+    else
+        echored "Unknown parameter ${1}."
+        echo "Usage: dev-setup.sh (PHP web server will be listening to localhost)"
+        echo "Usage: dev-setup.sh -remote (PHP web server will be listening to 0.0.0.0 and accessible from the outside)"
+        echo "Additional parameter will be ignored."
+    fi
+fi
+
 # Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 
@@ -129,4 +147,4 @@ then
 fi
 
 echogreen "Launching PHP development server (php -S localhost:8082 -t web/ app/inc/router.php)"
-php -S localhost:8082 -t web/ app/inc/router.php
+php -S ${ip_server}:8082 -t web/ app/inc/router.php
