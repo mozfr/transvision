@@ -127,6 +127,3 @@ then
     echogreen "Add $stats_file2 file"
     echo '{}' > $stats_file2
 fi
-
-echogreen "Launching PHP development server (php -S localhost:8082 -t web/ app/inc/router.php)"
-php -S localhost:8082 -t web/ app/inc/router.php
