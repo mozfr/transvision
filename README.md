@@ -40,7 +40,7 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 3. Copy app/config/config.ini-dist to app/config/config.ini and adapt the variables to your system.
 4. Run first "app/scripts/setup.sh", then "app/scripts/glossaire.sh". This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
 5. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
-6. You can run Transvision in your local machine either with the start.sh script or with "php -S localhost:8082 -t web/ app/inc/router.php" and opening http://localhost:8082/ with your browser.
+6. You can run Transvision in your local machine either with the ```start.sh``` script or with ```php -S localhost:8082 -t web/ app/inc/router.php``` and opening http://localhost:8082/ with your browser. To bound PHP internal web server to 0.0.0.0 use ```start.sh -remote```: server will be accessible from other devices in the LAN, or from the host machine in case Transvision is running inside a Virtual Machine.
 
 ## Snapshot installation (regular development)
 
