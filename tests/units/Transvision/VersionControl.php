@@ -8,6 +8,67 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class VersionControl extends atoum\test
 {
+    public function getVCSDP()
+    {
+        return [
+            [
+                'mozilla_org', 'svn'
+            ],
+            [
+                'gaia_1_4', 'hg'
+            ],
+            [
+                'central', 'hg'
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getVCSDP
+     */
+    public function testGetVCS($a, $b)
+    {
+        $obj = new _VersionControl();
+        $this
+            ->string($obj->getVCS($a))
+                ->isEqualTo($b);
+    }
+
+    public function VCSRepoNameDP()
+    {
+        return [
+            [
+                'gaia', 'GAIA'
+            ],
+            [
+                'gaia_42_0', 'GAIA_42_0'
+            ],
+            [
+                'central', 'TRUNK_L10N'
+            ],
+            [
+                'release', 'RELEASE_L10N'
+            ],
+            [
+                'mozilla_org', 'mozilla_org'
+            ],
+            [
+                'foobar', 'foobar'
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider VCSRepoNameDP
+     */
+    public function testVCSRepoName($a, $b)
+    {
+        $obj = new _VersionControl();
+        $this
+            ->string($obj->VCSRepoName($a))
+                ->isEqualTo($b);
+    }
+
     public function hgFileDP()
     {
         return [
@@ -16,19 +77,19 @@ class VersionControl extends atoum\test
                 'beta',
                 'browser/updater/updater.ini:TitleText',
                 'http://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini'
-                ],
+            ],
             [
                 'es-ES',
                 'gaia',
                 'apps/settings/settings.properties:usb-tethering',
                 'http://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties'
-                ],
+            ],
             [
                 'de',
                 'gaia',
                 'shared/date/date.properties:month-7-long',
                 'http://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties'
-                ],
+            ],
             [
                 'sr-Cyrl',
                 'gaia_2_0',
@@ -63,7 +124,7 @@ class VersionControl extends atoum\test
                 'mozilla_org',
                 'mozilla_org/firefox/os/faq.lang:c71a7a50',
                 'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup'
-             ],
+            ],
         ];
     }
 
