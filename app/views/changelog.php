@@ -1,17 +1,83 @@
+<?php
+// Throw away function to generate tags
+$relnotes = function($tag) {
+    switch($tag) {
+        case 'better':
+            $type = 'better';
+            $text = 'Improvement';
+            break;
+        case 'new':
+            $type = 'newfeature';
+            $text = 'New feature';
+            break;
+        case 'bug':
+            $type = 'bugfix';
+            $text = 'Bug fix';
+            break;
+        case 'experimental':
+            $type = 'expfeature';
+            $text = 'Experimental';
+            break;
+        default:
+            $type = '';
+            $text = 'Other';
+            break;
+    }
+    return "<span class=\"tag ${type}\">${text}</span> ";
+};
+?>
+<h2 class="relnumber" id="v3.5"><a href="#v3.5">Version 3.5 <span class="reldate">2014-09-29</span></a></h2>
+
+<h3>End user visible changes</h3>
+<ul>
+    <li><?=$relnotes('new')?> Starting with this release, adding a locale to a repository (mostly Gaia) no longer requires releasing a new version of Transvision as the list of locales per repositories is now fetched from a web service maintained by flod, which means that adding new locales to Transvision can now be done at any time (flod)</li>
+    <li><?=$relnotes('new')?><a href="/downloads/">OmegaT export</a> It is now possible to export all the translation memory to a TMX file using the specific syntax that OmegaT uses (keko)</li>
+    <li><?=$relnotes('experimental')?><a href="/showrepos/">'health status' view </a> We now provide an overview of all the repositories and projects indexed for a locale by Transvision  with basic metrics on the status of Translation as seen by Transvision (tchevalier)</li>
+    <li><?=$relnotes('bug')?><a href="https://github.com/mozfr/transvision/issues/301">issue 301</a>: String view cuts the last letter of en-US string (pascal)</li>
+    <li><?=$relnotes('bug')?>Fixed Open Sans web font not loading and falling back to a default font (flod)</li>
+    <li><?=$relnotes('better')?><a href="https://github.com/mozfr/transvision/issues/316">issue 316</a>: Improved variable detection in variables view (flod)</li>
+    <li><?=$relnotes('better')?><a href="/gaia/">Gaia view</a> now has url anchors for subsections and less false positives in translation consistencey table (flod)</li>
+    <li><?=$relnotes('better')?>Age of data mentioned in the footer "Data last updated XXX" (flod)</li>
+    <li><?=$relnotes('better')?>Added gaia 2.0 support (tchevalier)</li>
+    <li><?=$relnotes('better')?>One string view now has <a href="/string/?entity=browser/chrome/browser/devtools/netmonitor.properties:paramsEmptyText&repo=central#da">per locale anchors</a> (pascal) </li>
+    <li><?=$relnotes('better')?>Data storage no longer agressively escape HTML tags, quotes and special characters such as &amp; and /, which makes searching for html tags or things like &amp;BrandShortName; or \n possible now (pascal)</li>
+</ul>
+
+<h3>External API changes</h3>
+<ul>
+    <li><?=$relnotes('better')?><a href="https://github.com/mozfr/transvision/issues/303">issue 303</a>: Faster API response (3x on average) by serializing our datasets with PHP before using them (pascal)</li>
+    <li><span class="tag bugfix">Bug fix</span><a href="https://github.com/mozfr/transvision/issues/303">issue 303</a>:Fixed various API regressions and bugs reported by Keko (pascal)</li>
+    <li><span class="tag change">Change</span>Gaia 1.2 (gaia_1_2) is no longer a supported repository source, replaced by Gaia 2.0 (gaia_2_0) (team)</li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li><?=$relnotes('new')?>New <code>start.sh</code> script at the root of the repository, launches dev mode, checks system dependencies and generates a working default config.ini file if it doesn't exist, making getting started in developement mode error free and even easier. Script entirey compatible Mac/Linux (but not yet Windows) (pascal)</li>
+    <li><?=$relnotes('new')?><code>start.sh -remote</code> allows launching the webserver with 0.0.0.0 IP to make it accessible to the host OS if you develop in a VM</li>
+    <li><?=$relnotes('bug')?><code>Utils::logScriptPerformances()</code> now returns correct rounded values (pascal)</li>
+    <li><?=$relnotes('better')?>Check if Composer (PHP dependency manager) is not installed globally before downloading it (Julien Itard)</li>
+    <li><?=$relnotes('better')?><code>Strings::endsWith()<code> and </code>Strings::startsWith()</code> now accept arrays of strings for checking, ex: <code>Strings::startsWith('hello!', ['!', '?', '.'])</code> (pascal)</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li><?=$relnotes('better')?>MPL2 licence file now included in the repository root (Anthony Maton)</li>
+</ul>
+
 <h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-25</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>On demand TMX generation:</strong> The static <a href="/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory (tchevalier).</li>
-    <li><span class="newfeature">new</span><strong>Translation Consistency in Gaia view:</strong> The <a href="/gaia/">gaia view</a> has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context (flod).</li>
-    <li><span class="newfeature">new</span><strong>Client-side filtering of search results for Desktop products:</strong> There are now <a href="/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings#editor">filtering buttons on top of search results</a> for any search on central/aurora/beta/release allowing you to filter the results per top folder (browser, mail, calendar, suite…) (pascal).</li>
+    <li><?=$relnotes('new')?><strong>On demand TMX generation:</strong> The static <a href="/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory (tchevalier).</li>
+    <li><?=$relnotes('new')?><strong>Translation Consistency in Gaia view:</strong> The <a href="/gaia/">gaia view</a> has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context (flod).</li>
+    <li><?=$relnotes('new')?><strong>Client-side filtering of search results for Desktop products:</strong> There are now <a href="/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings#editor">filtering buttons on top of search results</a> for any search on central/aurora/beta/release allowing you to filter the results per top folder (browser, mail, calendar, suite…) (pascal).</li>
     <li>Gaia 1.1 was removed (pascal)</li>
     <li>Updated locales supported per repository (team)</li>
 </ul>
 
 <h3>External API changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>Brand new JSON API:</strong> The old JSON API was replaced by a brand new one providing more services and which is also easier to extend to provide more services in the future. All the calls to the old API are now redirected to the new one which means that we shouldn't break any current user. The API is <a href="https://github.com/mozfr/transvision/wiki/JSON-API">documented on our Wiki</a> and all users of our old API are invited to update their script and evaluate the new services we propose (pascal).</li>
+    <li><?=$relnotes('new')?><strong>Brand new JSON API:</strong> The old JSON API was replaced by a brand new one providing more services and which is also easier to extend to provide more services in the future. All the calls to the old API are now redirected to the new one which means that we shouldn't break any current user. The API is <a href="https://github.com/mozfr/transvision/wiki/JSON-API">documented on our Wiki</a> and all users of our old API are invited to update their script and evaluate the new services we propose (pascal).</li>
 </ul>
 
 <h3>Changes for Transvision developers</h3>
@@ -31,8 +97,8 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&repo=central&sourcelocale=en-US&locale=fr&search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
-    <li><span class="newfeature">new</span><strong>Dynamic Gaia comparison view:</strong> allows <a href="/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a> (tchevalier)</li>
+    <li><?=$relnotes('new')?><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&repo=central&sourcelocale=en-US&locale=fr&search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
+    <li><?=$relnotes('new')?><strong>Dynamic Gaia comparison view:</strong> allows <a href="/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a> (tchevalier)</li>
     <li>Gaia 1.4 support (tchevalier)</li>
     <li>List of views removed from footer to remove visual clutter, all views are reachable via the menu button (tchevalier)</li>
     <li>Make search possible for special characters (", &lt;, &gt;, etc.) (flod)</li>
@@ -43,8 +109,8 @@
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>Rapid installation via data snapshots:</strong> There is now a specific install process for developers willing to help on the PHP/HTML/JS/CSS sides of the application only that doesn't require a full production install, running app/scripts/dev-setup.sh instead of app/scripts/setup.sh will install and launch a working Transvision server in a few minutes and use little hard disk space, compared to the full production install mode that needs several hours of installation because of the downloading of all of the Mozilla code and data repositories (pascal) </li>
-    <li><span class="newfeature">new</span><strong>Continuous integration via Travis CI:</strong> Transvision is now using <a href="https://travis-ci.org/mozfr/transvision">Travis CI</a> so as that all pull requests to the GitHub repository get automatic unit tests launched on PHP 5.4 and 5.5. (pascal)</li>
+    <li><?=$relnotes('new')?><strong>Rapid installation via data snapshots:</strong> There is now a specific install process for developers willing to help on the PHP/HTML/JS/CSS sides of the application only that doesn't require a full production install, running app/scripts/dev-setup.sh instead of app/scripts/setup.sh will install and launch a working Transvision server in a few minutes and use little hard disk space, compared to the full production install mode that needs several hours of installation because of the downloading of all of the Mozilla code and data repositories (pascal) </li>
+    <li><?=$relnotes('new')?><strong>Continuous integration via Travis CI:</strong> Transvision is now using <a href="https://travis-ci.org/mozfr/transvision">Travis CI</a> so as that all pull requests to the GitHub repository get automatic unit tests launched on PHP 5.4 and 5.5. (pascal)</li>
     <li>Large reorganization of code: new MVC approach, strict separation of back end and front end code, some of the views ported to MVC, <a href="https://github.com/mozfr/transvision/commit/a7df74cc5462308b2cb2e60a6ead8a9136b7766e">(more details in the commit message</a>), relocated and refactored bash scripts into app/scripts/ folder&hellip; (pascal &amp; flod)</li>
     <li><a href="/?recherche=bookmark&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings_entities&amp;json">Searches</a> on strings &amp; entities can be loaded as json now (flod)</li>
     <li>Added file caching library to cache data sets or template. <a href="https://github.com/mozfr/transvision/commit/4515974b566ecf7ebb5b4e6e5bebcefc0927f102">Usage details in commit message</a> (pascal)</li>
@@ -54,14 +120,14 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>www.mozilla.org support:</strong> Transvision can now extract and index projects using the .lang format, the first repository added is www.mozilla.org and appears as a separate channel. Source links and Bugzilla links are adjusted to point to subversion instead of Mercurial and to file bugs in the www.mozilla.org/L10N component instead of the Mozilla Localization one. This makes Transvision more useful for people working on Web localization (pascal).</li>
+    <li><?=$relnotes('new')?><strong>www.mozilla.org support:</strong> Transvision can now extract and index projects using the .lang format, the first repository added is www.mozilla.org and appears as a separate channel. Source links and Bugzilla links are adjusted to point to subversion instead of Mercurial and to file bugs in the www.mozilla.org/L10N component instead of the Mozilla Localization one. This makes Transvision more useful for people working on Web localization (pascal).</li>
     <li>During extraction time, if a string in the repository was not in UTF-8 (unusual but did happen for a couple of locales), our extraction script would stop and not generate valid xml for the TMX file and a full array of strings for the repo. This was leading to a server error (blank page) on some requests. This is now fixed, if a string is not extractable, the extraction is no longer interrupted, the string is just skipped (pascal).</li>
     <li>Lithuanian added to Gaia-l10n (pascal).</li>
 </ul>
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>API documentation:</strong> <a href="http://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor. (pascal)</li>
+    <li><?=$relnotes('new')?><strong>API documentation:</strong> <a href="http://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor. (pascal)</li>
     <li>All Unit tests now use a <a href="https://github.com/mozfr/transvision/blob/8a9e17e7bfa31414b50f72408b909f46be506bff/tests/units/bootstrap.php">single bootstrap file</a> to define constants or initialize data needed to run the tests. (pascal)</li>
     <li>Updated our README file to add missing dependencies to install Transvision locally (pascal)</li>
 </ul>
@@ -70,8 +136,8 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>Top menu:</strong> The application now has a top menu summarizing and categorizing the different views in the application (flod)</li>
-    <li><span class="newfeature">new</span><strong>New view:</strong> <a href="/productization/">Productization</a> page listing search plugins, search order and protocol handlers for your locale on an easy to understand page (flod)</li>
+    <li><?=$relnotes('new')?><strong>Top menu:</strong> The application now has a top menu summarizing and categorizing the different views in the application (flod)</li>
+    <li><?=$relnotes('new')?><strong>New view:</strong> <a href="/productization/">Productization</a> page listing search plugins, search order and protocol handlers for your locale on an easy to understand page (flod)</li>
     <li>Improved CSS for responsive mode, credits page and other areas (flod)</li>
     <li>Switched Gaia comparison view to 1.3 in <a href="/gaia/">QA view</a> (Pike)</li>
 </ul>
@@ -94,9 +160,9 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
-    <li><span class="newfeature">new</span><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
-    <li><span class="newfeature">new</span><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code> link next to the entity name (pascal)</li>
+    <li><?=$relnotes('new')?><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
+    <li><?=$relnotes('new')?><strong>New view:</strong> Check the <a href="/variables/">use of variables</a> in your strings for potential errors (pascal)</li>
+    <li><?=$relnotes('new')?><strong>New view:</strong> Check <a href="/variables/">all existing translations</a> for a string by clicking the <code>l10n</code> link next to the entity name (pascal)</li>
     <li>On the <a href="/gaia/#englishchanges">Gaia comparison</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change (pascal)</li>
     <li>When searching for entities, there is a 'search a bug' link below results just like for searching for strings (flod) as well as a permalink (pascal)</li>
     <li>Each view now has a one line description of what it does at the top (Jesus)</li>
@@ -123,7 +189,7 @@
 <h3>End user visible changes</h3>
 <ul>
     <li>Two new repos are added for searches: Gaia 1.1 and Gaia 1.2 (Pascal)</li>
-    <li><span class="expfeature">exp</span>New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
+    <li><?=$relnotes('experimental')?> New (experimental) <a href="/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention (Pascal)</li>
     <li>More accurate comparison of string length in the main view ('large string' warning no longer has false positives)</li>
 </ul>
 
@@ -149,7 +215,7 @@
 <h3>Developer visible changes</h3>
 <ul>
     <li>The Json API no longer does any locale detection or fallbacks to French if the locale does not exist for the repo (Pascal)</li>
-    <li><span class="expfeature">exp</span><strong>Experimental</strong> The searchrepo view can also be <a href="/showrepos/?json">output as json</a> for external dashboards (Pascal).</li>
+    <li><?=$relnotes('experimental')?> The searchrepo view can also be <a href="/showrepos/?json">output as json</a> for external dashboards (Pascal).</li>
 </ul>
 
 <h3>Other changes</h3>
@@ -180,7 +246,7 @@
 
 <h3>Other changes</h3>
 <ul>
-    <li>New <a href="/showrepos">experimental view</a> to see the state of all locales per repo (Pascal)</li>
+    <li><?=$relnotes('experimental')?> New <a href="/showrepos">experimental view</a> to see the state of all locales per repo (Pascal)</li>
     <li>CSS and HTML cleanups of views (flod)</li>
     <li>Links to source code sometimes were linking to the wrong repository (Pascal)</li>
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
@@ -190,7 +256,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
+    <li><?=$relnotes('new')?> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes (Jesús)</li>
@@ -200,7 +266,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
+    <li><?=$relnotes('new')?> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
     <li>We no longer highlight string matches in the entities column for the 'string' search type (Jesús).</li>
 </ul>
 
@@ -220,15 +286,15 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New feature:</strong> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
+    <li><?=$relnotes('new')?> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
 </ul>
 
 <h2 class="relnumber" id="v2.3"><a href="#v2.3">Version 2.3 <span class="reldate">2013-03-22</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> If your string is abnormally long or short compared to the English source, there will be hint message below your translation saying 'String too large/long?' <em>(Jesús)</em></li>
+    <li><?=$relnotes('new')?> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
+    <li><?=$relnotes('new')?> If your string is abnormally long or short compared to the English source, there will be hint message below your translation saying 'String too large/long?' <em>(Jesús)</em></li>
     <li>The accesskeys and channel comparison features linked in the footer now work again <em>(pascal)</em></li>
 </ul>
 
@@ -258,8 +324,8 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> typography hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
+    <li><?=$relnotes('new')?><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
+    <li><?=$relnotes('new')?><strong>New feature:</strong> typography hint, if a sentence ends with a dot and your translation doesn't, there is a small "No final dot?" warning below the string.</li>
     <li>Missing translated strings are marked as such instead of just having an empty cell.</li>
     <li>Repositories and search targets are now select boxes.</li>
     <li>Advanced regular expression search options are now separated from other search options.</li>
@@ -280,7 +346,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
+    <li><?=$relnotes('new')?><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
     <li>The entity names in the first column now longer link to a search for the English file on mxr now that we have proper link support to the source file.</li>
     <li>Searches containing a slash (/) now have results.</li>
     <li>Manifest.properties files containing name and description of apps in the Gaia repo are now shown in search results.</li>
@@ -333,7 +399,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a reddish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
+    <li><?=$relnotes('new')?><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a reddish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
     <li>Access keys are now part of search results</li>
     <li>Experimental views are now linked in the footer of the site</li>
 </ul>
@@ -347,7 +413,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparison/">Channel to Channel differences</a></li>
+    <li><?=$relnotes('new')?><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparison/">Channel to Channel differences</a></li>
     <li>Thunderbird's Chat strings are now included.</li>
     <li>Mozilla Central is now the default repo for searches (instead of Release)</li>
     <li>Removed regular expression searches to unclutter the search panel (Wildcard and case sensitive are still there)</li>
@@ -363,7 +429,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
+    <li><?=$relnotes('new')?><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
     <li>Results are more accurate, specifically, identical strings between gecko apps are always shown.</li>
     <li>Ellipsis are shown with a gray background, thin spaces with a red background, thin spaces and non-breakable spaces have a tooltip to distinguish them (those changes are mostly helpers for French typography rules).</li>
 </ul>
@@ -382,7 +448,7 @@
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><span class="newfeature">new</span><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
+    <li><?=$relnotes('new')?><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
     <li>Strings in MXR searches are now truncated if they exceed MXR's field length limits, it prevents an MXR error message and usually gives good search results</li>
     <li>The second table of results was showing the translation in both columns, this regression is fixed.</li>
 </ul>
