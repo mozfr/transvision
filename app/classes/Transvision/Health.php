@@ -96,6 +96,9 @@ class Health
                 } else {
                     // Project with multiples statuses
                     foreach ($status as $component => $status_component) {
+                        if (! isset($status_component['total'])) {
+                            continue;
+                        }
                         $ref_total += $status_component['total'];
                         $loc_translated += $status_component['translated'];
                     }
