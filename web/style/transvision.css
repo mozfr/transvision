@@ -662,28 +662,44 @@ span.reldate {
     border-radius: 0.25em;
 }
 
-span.newfeature {
-    font-size: 0.6em;
-    display: block;
-    float: left;
-    color: #fff;
-    background-color: #47ad07;
-    padding: 0.2em 0.4em;
-    border-radius: 0.25em;
-    margin: 2px 4px 0 0;
+span.tag {
+    border-right: 3px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+    color: #333;
+    display: inline-block;
+    font-size: 11px;
+    font-style: normal;
+    left: 0;
+    line-height: 12px;
+    padding: 4px 2px 4px 13px;
+    text-shadow: 1px 1px 0 #fff;
     text-transform: uppercase;
+    width: 92px;
+    margin-right:4px;
+}
+
+span.newfeature {
+    background-color: #ffedcf;
+    border-color: #f90;
 }
 
 span.expfeature {
-    font-size: 0.6em;
-    display: block;
-    float: left;
-    color: #fff;
-    background-color: #ffa500;
-    padding: 0.2em 0.4em;
-    border-radius: 0.25em;
-    margin: 2px 4px 0 0;
-    text-transform: uppercase;
+    background-color: #ffedcf;
+    border-color: #f90;
+}
+
+span.bugfix {
+    background-color: #f0ffe1;
+    border-color: #5ba622;
+}
+span.better {
+    background-color: #f8dfd8;
+    border-color: #d85027;
+}
+
+span.change {
+    background-color: #e9cfff;
+    border-color: #8106e0;
 }
 
 /* Productization page */
