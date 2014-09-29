@@ -11,74 +11,33 @@ namespace Transvision;
  */
 class Project
 {
-    /**
-     * Read all supported Gaia versions.
-     *
-     * @return array list of supported Gaia versions
-     */
-    public static function getSupportedGaiaVersions()
-    {
-        // Gaia versions are dynamically read from gaia_versions.txt
-        $file_name = APP_SOURCES . 'gaia_versions.txt';
-
-        $supported_versions = [];
-        if (file_exists($file_name)) {
-            $gaia_versions = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            foreach ($gaia_versions as $gaia_version) {
-                if ($gaia_version == 'gaia') {
-                    $supported_versions += [
-                        'gaia' => 'Gaia master'
-                    ];
-                } else {
-                    $repo_name = "gaia_{$gaia_version}";
-                    $repo_description = 'Gaia ' . str_replace('_', '.', $gaia_version);
-                    $supported_versions += [
-                        $repo_name => $repo_description
-                    ];
-                }
-            }
-        }
-
-        return $supported_versions;
-    }
 
     /**
-     * Return the most updated Gaia branch besides master
-     *
-     * @return string name of the most updated Gaia branch
+     * This array maps different subfolders name for Desktop products
+     * with their display name
      */
-    public static function getLastGaiaBranch()
-    {
-        $gaia_repos = array_keys(self::getSupportedGaiaVersions());
-        rsort($gaia_repos);
-
-        return reset($gaia_repos);
-    }
+    public static $components_names = [
+        'browser'  => 'Firefox Desktop',
+        'mobile'   => 'Firefox for Android',
+        'mail'     => 'Thunderbird',
+        'suite'    => 'SeaMonkey',
+        'calendar' => 'Lightning'
+    ];
 
     /**
-     * Create a list of all supported repositories.
-     *
-     * @return array list of supported repositories
+     * This array stores all the repositories we support in Transvision
      */
-    public static function getSupportedRepositories()
-    {
-        $repositories = [
-            'release'     => 'Release',
-            'beta'        => 'Beta',
-            'aurora'      => 'Aurora',
-            'central'     => 'Central',
-        ];
-
-        // Gaia versions are dynamically read from gaia_versions.txt
-        $repositories += self::getSupportedGaiaVersions();
-
-        // Add mozilla.org
-        $repositories += [
-            'mozilla_org' => 'mozilla.org'
-        ];
-
-        return $repositories;
-    }
+    public static $repositories = [
+        'central'     => 'Central',
+        'aurora'      => 'Aurora',
+        'beta'        => 'Beta',
+        'release'     => 'Release',
+        'gaia'        => 'Gaia master',
+        'gaia_2_0'    => 'Gaia 2.0',
+        'gaia_1_4'    => 'Gaia 1.4',
+        'gaia_1_3'    => 'Gaia 1.3',
+        'mozilla_org' => 'mozilla.org',
+    ];
 
     /**
      * Get the list of repositories.
@@ -87,7 +46,7 @@ class Project
      */
     public static function getRepositories()
     {
-        return array_keys(self::getSupportedRepositories());
+        return array_keys(self::$repositories);
     }
 
     /**
@@ -99,7 +58,7 @@ class Project
      */
     public static function getRepositoriesNames()
     {
-        return self::getSupportedRepositories();
+        return self::$repositories;
     }
 
     /**
@@ -110,11 +69,18 @@ class Project
      */
     public static function getGaiaRepositories()
     {
-        $gaia_repos = array_keys(self::getSupportedGaiaVersions());
-        rsort($gaia_repos);
+        $gaia_repos = array_filter(
+            self::getRepositories(),
+            function($value) {
+                if (Strings::startsWith($value, 'gaia_')) {
+                    return $value;
+                }
+            }
+        );
 
+        // Sort repos from latest branch to oldest branch
+        rsort($gaia_repos);
         // gaia repo is the latest master branch, always first
-        array_pop($gaia_repos);
         array_unshift($gaia_repos, 'gaia');
 
         return $gaia_repos;
@@ -218,5 +184,25 @@ class Project
                   : $locale;
 
         return $locale;
+    }
+
+    /**
+     * Return the list of components by parsing a set of entities.
+     * Components are folders at the root of desktop repos ("desktop", "mobile", etc.)
+     *
+     * @param array containing entities associated with strings,
+     * like "path/to/properties:entity" => "a string".
+     * @return array List of components
+     */
+    public static function getComponents($strings) {
+        $reference_components = array_keys($strings);
+        $reference_components = array_map(
+            function($row) {
+                return explode('/', $row)[0];
+            },
+            $reference_components
+        );
+
+        return array_unique($reference_components);
     }
 }

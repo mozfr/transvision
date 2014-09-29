@@ -1,6 +1,5 @@
 .idea
 app/config/config.ini
-app/config/sources/*.txt
 cache/*.cache
 cache/lastdataupdate.txt
 composer.lock
