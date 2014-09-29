@@ -46,7 +46,7 @@ $components = [];
 
 foreach ($searches as $key => $value) {
     $search_results = ShowResults::getTMXResults(array_keys($value), $data);
-    $components = Desktop::getComponents($search_results);
+    $components = Project::getComponents($search_results);
 
     if (count($value) > 0) {
         // We have results, we won't display search suggestions but search results
