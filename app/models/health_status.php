@@ -67,9 +67,8 @@ foreach (Project::getRepositories() as $repo) {
         $strings[$ref_locale][$repo] = $cache_filtered_strings($ref_locale, $ref_locale . $repo . 'filteredstrings');
 
         // If Desktop, parse the strings to get components
-        if (in_array($repo, Desktop::getRepositories())) {
-            foreach (Desktop::getComponents() as $component) {
-
+        if (in_array($repo, Project::getDesktopRepositories())) {
+            foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
                 $filter_pattern = function($locale_code) use($component, $repo, $strings) {
                     return array_filter(
                         preg_grep(
@@ -146,7 +145,7 @@ foreach (Project::getRepositories() as $repo) {
             }
         } else {
             // Define if grouped repos in the view then store the data in the same place
-            $grouped_repos = in_array($repo, Gaia::getRepositories()) ? 'gaia' : 'others';
+            $grouped_repos = in_array($repo, Project::getGaiaRepositories()) ? 'gaia' : 'others';
 
             $projects[$grouped_repos][$repo] = Health::getStatus(
                 Project::getRepositoriesNames()[$repo],

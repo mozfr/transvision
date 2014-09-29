@@ -62,6 +62,19 @@ class Project
     }
 
     /**
+     * Get the list of repositories for Desktop Applications
+     *
+     * @return array list of local repositories folder names
+     */
+    public static function getDesktopRepositories()
+    {
+        return array_diff(
+            array_diff(self::getRepositories(), ['mozilla_org']),
+            self::getGaiaRepositories()
+        );
+    }
+
+    /**
      * Get the list of locales available for a repository
      *
      * @param  string $repository Name of the folder for the repository
@@ -174,16 +187,22 @@ class Project
     }
 
     /**
-     * Get the list of repositories for Desktop Applications
+     * Return the list of components by parsing a set of entities.
+     * Components are folders at the root of desktop repos ("desktop", "mobile", etc.)
      *
-     * @return array list of local repositories folder names
+     * @param array containing entities associated with strings,
+     * like "path/to/properties:entity" => "a string".
+     * @return array List of components
      */
-    public static function getDesktopRepositories()
-    {
-        return array_diff(
-            array_diff(self::getRepositories(), ['mozilla_org']),
-            self::getGaiaRepositories()
+    public static function getComponents($strings) {
+        $reference_components = array_keys($strings);
+        $reference_components = array_map(
+            function($row) {
+                return explode('/', $row)[0];
+            },
+            $reference_components
         );
-    }
 
+        return array_unique($reference_components);
+    }
 }
