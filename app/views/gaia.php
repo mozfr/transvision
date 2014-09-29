@@ -27,8 +27,12 @@ $build_select = function($array_in, $selected_elm) use ($repos_nice_names) {
 };
 
 // Variables
-$repo1 = 'gaia';
-$repo2 = Project::getLastGaiaBranch();
+
+// Project::getGaiaRepositories() returns ordered repos from newest to oldest
+// Gaia Master is always the first entry
+$repo1 = Project::getGaiaRepositories()[0];
+// We want to compare master with the most recent Gaia branch available
+$repo2 = Project::getGaiaRepositories()[1];
 
 $locale = $get_or_set($all_locales, 'locale', $locale);
 $repo1 = $get_or_set($gaia_repos, 'repo1', $repo1);
