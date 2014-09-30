@@ -6,57 +6,61 @@ $relnotes = function($tag) {
             $type = 'better';
             $text = 'Improvement';
             break;
-        case 'new':
-            $type = 'newfeature';
-            $text = 'New feature';
-            break;
         case 'bug':
             $type = 'bugfix';
             $text = 'Bug fix';
             break;
+        case 'change':
+            $type = 'change';
+            $text = 'Change';
+            break;
         case 'experimental':
             $type = 'expfeature';
             $text = 'Experimental';
+            break;
+        case 'new':
+            $type = 'newfeature';
+            $text = 'New feature';
             break;
         default:
             $type = '';
             $text = 'Other';
             break;
     }
-    return "<span class=\"tag ${type}\">${text}</span> ";
+    return "<span class=\"tag {$type}\">{$text}</span> ";
 };
 ?>
 <h2 class="relnumber" id="v3.5"><a href="#v3.5">Version 3.5 <span class="reldate">2014-09-29</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><?=$relnotes('new')?> Starting with this release, adding a locale to a repository (mostly Gaia) no longer requires releasing a new version of Transvision as the list of locales per repositories is now fetched from a web service maintained by flod, which means that adding new locales to Transvision can now be done at any time (flod)</li>
-    <li><?=$relnotes('new')?><a href="/downloads/">OmegaT export</a> It is now possible to export all the translation memory to a TMX file using the specific syntax that OmegaT uses (keko)</li>
-    <li><?=$relnotes('experimental')?><a href="/showrepos/">'health status' view </a> We now provide an overview of all the repositories and projects indexed for a locale by Transvision  with basic metrics on the status of Translation as seen by Transvision (tchevalier)</li>
-    <li><?=$relnotes('bug')?><a href="https://github.com/mozfr/transvision/issues/301">issue 301</a>: String view cuts the last letter of en-US string (pascal)</li>
-    <li><?=$relnotes('bug')?>Fixed Open Sans web font not loading and falling back to a default font (flod)</li>
+    <li><?=$relnotes('new')?>Starting with this release, adding a locale to a repository (mostly Gaia) no longer requires releasing a new version of Transvision as the list of locales per repositories is now fetched from a web service maintained by flod, which means that adding new locales to Transvision can now be done at any time (flod)</li>
+    <li><?=$relnotes('new')?><a href="/downloads/">OmegaT export</a>: It is now possible to export all the translation memory to a TMX file using the specific syntax used by OmegaT (keko)</li>
+    <li><?=$relnotes('experimental')?><a href="/showrepos/">'health status' view</a>: We now provide an overview of all the repositories and projects indexed for a locale by Transvision with basic metrics on the status of translation as seen by Transvision (tchevalier)</li>
+    <li><?=$relnotes('bug')?><a href="https://github.com/mozfr/transvision/issues/301">issue 301</a>: String view cuts the last letter of en-US strings (pascal)</li>
+    <li><?=$relnotes('bug')?>Fixed Open Sans web font not loading and falling back to a better default font (flod)</li>
     <li><?=$relnotes('better')?><a href="https://github.com/mozfr/transvision/issues/316">issue 316</a>: Improved variable detection in variables view (flod)</li>
-    <li><?=$relnotes('better')?><a href="/gaia/">Gaia view</a> now has url anchors for subsections and less false positives in translation consistencey table (flod)</li>
+    <li><?=$relnotes('better')?><a href="/gaia/">Gaia view</a> now has url anchors for subsections and less false positives in translation consistency table (flod)</li>
     <li><?=$relnotes('better')?>Age of data mentioned in the footer "Data last updated XXX" (flod)</li>
     <li><?=$relnotes('better')?>Added gaia 2.0 support (tchevalier)</li>
-    <li><?=$relnotes('better')?>One string view now has <a href="/string/?entity=browser/chrome/browser/devtools/netmonitor.properties:paramsEmptyText&repo=central#da">per locale anchors</a> (pascal) </li>
+    <li><?=$relnotes('better')?>One string view now has <a href="/string/?entity=browser/chrome/browser/devtools/netmonitor.properties:paramsEmptyText&amp;repo=central#da">per locale anchors</a> (pascal) </li>
     <li><?=$relnotes('better')?>Data storage no longer agressively escape HTML tags, quotes and special characters such as &amp; and /, which makes searching for html tags or things like &amp;BrandShortName; or \n possible now (pascal)</li>
 </ul>
 
 <h3>External API changes</h3>
 <ul>
     <li><?=$relnotes('better')?><a href="https://github.com/mozfr/transvision/issues/303">issue 303</a>: Faster API response (3x on average) by serializing our datasets with PHP before using them (pascal)</li>
-    <li><span class="tag bugfix">Bug fix</span><a href="https://github.com/mozfr/transvision/issues/303">issue 303</a>:Fixed various API regressions and bugs reported by Keko (pascal)</li>
-    <li><span class="tag change">Change</span>Gaia 1.2 (gaia_1_2) is no longer a supported repository source, replaced by Gaia 2.0 (gaia_2_0) (team)</li>
+    <li><?=$relnotes('bug')?><a href="https://github.com/mozfr/transvision/issues/303">issue 303</a>:Fixed various API regressions and bugs reported by Keko (pascal)</li>
+    <li><?=$relnotes('change')?>Gaia 1.2 (gaia_1_2) is no longer a supported repository source, replaced by Gaia 2.0 (gaia_2_0) (team)</li>
 </ul>
 
 <h3>Changes for Transvision developers</h3>
 <ul>
-    <li><?=$relnotes('new')?>New <code>start.sh</code> script at the root of the repository, launches dev mode, checks system dependencies and generates a working default config.ini file if it doesn't exist, making getting started in developement mode error free and even easier. Script entirey compatible Mac/Linux (but not yet Windows) (pascal)</li>
+    <li><?=$relnotes('new')?>New <code>start.sh</code> script at the root of the repository, launches dev mode, checks system dependencies and generates a working default config.ini file if it doesn't exist, making getting started in development mode error free and even easier. Script entirey compatible with Mac/Linux (but not Windows yet) (pascal)</li>
     <li><?=$relnotes('new')?><code>start.sh -remote</code> allows launching the webserver with 0.0.0.0 IP to make it accessible to the host OS if you develop in a VM</li>
     <li><?=$relnotes('bug')?><code>Utils::logScriptPerformances()</code> now returns correct rounded values (pascal)</li>
     <li><?=$relnotes('better')?>Check if Composer (PHP dependency manager) is not installed globally before downloading it (Julien Itard)</li>
-    <li><?=$relnotes('better')?><code>Strings::endsWith()<code> and </code>Strings::startsWith()</code> now accept arrays of strings for checking, ex: <code>Strings::startsWith('hello!', ['!', '?', '.'])</code> (pascal)</li>
+    <li><?=$relnotes('better')?><code>Strings::endsWith()<code> and </code>Strings::startsWith()</code> now accept arrays of strings for checking, e.g. <code>Strings::startsWith('hello!', ['!', '?', '.'])</code> (pascal)</li>
 </ul>
 
 <h3>Other changes</h3>
@@ -70,7 +74,7 @@ $relnotes = function($tag) {
 <ul>
     <li><?=$relnotes('new')?><strong>On demand TMX generation:</strong> The static <a href="/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory (tchevalier).</li>
     <li><?=$relnotes('new')?><strong>Translation Consistency in Gaia view:</strong> The <a href="/gaia/">gaia view</a> has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context (flod).</li>
-    <li><?=$relnotes('new')?><strong>Client-side filtering of search results for Desktop products:</strong> There are now <a href="/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings#editor">filtering buttons on top of search results</a> for any search on central/aurora/beta/release allowing you to filter the results per top folder (browser, mail, calendar, suite…) (pascal).</li>
+    <li><?=$relnotes('new')?><strong>Client-side filtering of search results for Desktop products:</strong> There are now <a href="/?recherche=home&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings#editor">filtering buttons on top of search results</a> for any search on central/aurora/beta/release allowing you to filter the results per top folder (browser, mail, calendar, suite…) (pascal).</li>
     <li>Gaia 1.1 was removed (pascal)</li>
     <li>Updated locales supported per repository (team)</li>
 </ul>
@@ -84,7 +88,7 @@ $relnotes = function($tag) {
 <ul>
     <li>You can now log the memory peak and generation time of scripts by setting <code>PERF_CHECK</code> to <code>true</code> in <code>app/inc/constants.php</code> (pascal).</li>
     <li>Logs are now stored at the root of the application in the <code>log/</code> folder (pascal).</li>
-    <li>New Project class centralizing key data such as the list of repositories, locales per repositories, locale code depending on the context… This allows accessing the project data anywhere in the code (pascal & flod).</li>
+    <li>New Project class centralizing key data such as the list of repositories, locales per repositories, locale code depending on the context… This allows accessing the project data anywhere in the code (pascal &amp; flod).</li>
 </ul>
 
 <h3>Other changes</h3>
@@ -97,7 +101,7 @@ $relnotes = function($tag) {
 
 <h3>End user visible changes</h3>
 <ul>
-    <li><?=$relnotes('new')?><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&repo=central&sourcelocale=en-US&locale=fr&search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
+    <li><?=$relnotes('new')?><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
     <li><?=$relnotes('new')?><strong>Dynamic Gaia comparison view:</strong> allows <a href="/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a> (tchevalier)</li>
     <li>Gaia 1.4 support (tchevalier)</li>
     <li>List of views removed from footer to remove visual clutter, all views are reachable via the menu button (tchevalier)</li>
@@ -175,7 +179,7 @@ $relnotes = function($tag) {
 <ul>
     <li>Added Kint debugging library in development mode (pascal)</li>
     <li>Coding guidelines roughly formalized as following PSR recommendations and <a href="https://github.com/mozfr/transvision/wiki/Code-conventions">documented on wiki</a> (pascal)</li>
-    <li>The new view showing all strings for a translation also <a href="/string/?entity=apps/homescreen/homescreen.properties:evme-searchbar-default.placeholder&repo=gaia&json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service</li>
+    <li>The new view showing all strings for a translation also <a href="/string/?entity=apps/homescreen/homescreen.properties:evme-searchbar-default.placeholder&amp;repo=gaia&amp;json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service</li>
     <li>Various code cleanups (pascal)</li>
 </ul>
 
@@ -208,7 +212,7 @@ $relnotes = function($tag) {
 <h3>End user visible changes</h3>
 <ul>
     <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (Francesco) </li>
-    <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="/?repo=central&sourcelocale=en-US&locale=en-US&search_type=strings&recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (Francesco)</li>
+    <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="/?repo=central&amp;sourcelocale=en-US&amp;locale=en-US&amp;search_type=strings&amp;recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (Francesco)</li>
     <li>Fix Bugzilla links to file a bug in the right Bugzilla component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr vs sr-Cyrl/Latn&hellip;) (Pascal)</li>
 </ul>
 
