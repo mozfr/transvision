@@ -30,6 +30,12 @@ $relnotes = function($tag) {
     return "<span class=\"tag {$type}\">{$text}</span> ";
 };
 ?>
+<h2 class="relnumber" id="v3.5.1"><a href="#v3.5.1">Version 3.5.1 <span class="reldate">2014-10-07</span></a></h2>
+<h3>End user visible changes</h3>
+<ul>
+    <li><?=$relnotes('bug')?>Fixed a bug that prevented new Gaia repositories – fetched from external web service – to appear in the list of available repositories when performing a search (flod)</li>
+</ul>
+
 <h2 class="relnumber" id="v3.5"><a href="#v3.5">Version 3.5 <span class="reldate">2014-09-29</span></a></h2>
 
 <h3>End user visible changes</h3>
