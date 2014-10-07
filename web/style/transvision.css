@@ -628,6 +628,14 @@ body#changelog h3#descr-page {
     display: none;
 }
 
+.github_link {
+    padding-left: 30px;
+    display: block;
+    height: 28px;
+    background: url(/img/github.png) top left no-repeat transparent;
+    padding-top: 3px;
+}
+
 h2.relnumber a:hover {
     text-decoration: none;
 }
