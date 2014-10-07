@@ -29,12 +29,19 @@ $relnotes = function($tag) {
     }
     return "<span class=\"tag {$type}\">{$text}</span> ";
 };
+
+$github_link = function($start, $end) {
+    return "<p class=\"github_link\">See the complete list of <a href=\"https://github.com/mozfr/transvision/compare/v{$start}...v{$end}\">code changes from version {$start} on Github</a>.</p>\n";
+}
 ?>
 <h2 class="relnumber" id="v3.5.1"><a href="#v3.5.1">Version 3.5.1 <span class="reldate">2014-10-07</span></a></h2>
+
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('bug')?>Fixed a bug that prevented new Gaia repositories – fetched from external web service – to appear in the list of available repositories when performing a search (flod)</li>
 </ul>
+
+<?=$github_link('3.5', '3.5.1');?>
 
 <h2 class="relnumber" id="v3.5"><a href="#v3.5">Version 3.5 <span class="reldate">2014-09-29</span></a></h2>
 
@@ -74,6 +81,8 @@ $relnotes = function($tag) {
     <li><?=$relnotes('better')?>MPL2 licence file now included in the repository root (Anthony Maton)</li>
 </ul>
 
+<?=$github_link('3.4', '3.5');?>
+
 <h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-25</span></a></h2>
 
 <h3>End user visible changes</h3>
@@ -103,6 +112,8 @@ $relnotes = function($tag) {
     <li>Many refactorings to improve maintainability, page load speed and memory consumption of the views (team)</li>
 </ul>
 
+<?=$github_link('3.3', '3.4');?>
+
 <h2 class="relnumber" id="v3.3"><a href="#v3.3">Version 3.3 <span class="reldate">2014-05-20</span></a></h2>
 
 <h3>End user visible changes</h3>
@@ -126,6 +137,8 @@ $relnotes = function($tag) {
     <li>Added file caching library to cache data sets or template. <a href="https://github.com/mozfr/transvision/commit/4515974b566ecf7ebb5b4e6e5bebcefc0927f102">Usage details in commit message</a> (pascal)</li>
 </ul>
 
+<?=$github_link('3.2', '3.3');?>
+
 <h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-03-17</span></a></h2>
 
 <h3>End user visible changes</h3>
@@ -141,6 +154,8 @@ $relnotes = function($tag) {
     <li>All Unit tests now use a <a href="https://github.com/mozfr/transvision/blob/8a9e17e7bfa31414b50f72408b909f46be506bff/tests/units/bootstrap.php">single bootstrap file</a> to define constants or initialize data needed to run the tests. (pascal)</li>
     <li>Updated our README file to add missing dependencies to install Transvision locally (pascal)</li>
 </ul>
+
+<?=$github_link('3.1', '3.2');?>
 
 <h2 class="relnumber" id="v3.1"><a href="#v3.1">Version 3.1 <span class="reldate">2014-02-24</span></a></h2>
 
@@ -165,6 +180,7 @@ $relnotes = function($tag) {
     <li>Venkman and Chatzilla strings are now indexed (flod)</li>
 </ul>
 
+<?=$github_link('3.0', '3.1');?>
 
 <h2 class="relnumber" id="v3.0"><a href="#v3.0">Version 3.0 <span class="reldate">2013-12-18</span></a></h2>
 
