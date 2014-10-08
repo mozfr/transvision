@@ -352,9 +352,7 @@ class ShowResults
                         &lt;report a bug&gt;
                       </a>
                     </div>
-                  </td>
-                </tr>";
-
+                  </td>";
             } else {
                 $extra_column_rows = '';
             }
