@@ -1,5 +1,5 @@
 <?php
-use \Transvision\RTLSupport;
+namespace Transvision;
 
 // Error management
 if (isset($error)) {
@@ -21,12 +21,13 @@ $page_descr = $entity;
         <th>Locale</th>
         <th>Translation</th>
     </tr>
-
-    <?php foreach($translations as $k => $v): ?>
-    <tr id="<?=$k?>">
-        <th><a href="#<?=$k?>"><?=$k?></a></th>
-        <td lang="<?=$k?>" <?=RTLSupport::isRTL($k) ? 'dir="rtl"' : '';?>><?=$v?></td>
-    </tr>
-    <?php endforeach; ?>
-
+    <?php
+    foreach ($translations as $locale => $translation) {
+        $rtl_support = RTLSupport::isRTL($locale) ? 'dir="rtl"' : '';
+        echo "<tr id='{$locale}''>\n" .
+             "  <th><a href='#{$locale}'>{$locale}</a></th>\n" .
+             "  <td lang='#{$locale}' {$rtl_support} >" . Utils::secureText($translation) . "</td>\n" .
+             "</tr>\n";
+    }
+    ?>
 </table>
