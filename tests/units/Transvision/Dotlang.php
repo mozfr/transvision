@@ -75,7 +75,7 @@ class Dotlang extends atoum\test
                     'Browser'      => 'Navigateur',
                     'Mail'         => 'Courrier',
                     'Hello'        => 'Bonjour',
-                    'Empty string' => 'Empty string',
+                    'Empty string' => '',
                 ]
             ]
         ];
