@@ -1,6 +1,6 @@
 <?php
 
-$urls = array(
+$urls = [
     '/'                 => 'root',
     'news'              => 'changelog',
     'changelog.php'     => 'changelog',
@@ -14,9 +14,10 @@ $urls = array(
     'downloads'         => 'downloads',
     'showrepos'         => 'showrepos',
     'gaia'              => 'gaia',
+    'unchanged'         => 'unchangedstrings',
     'variables'         => 'checkvariables',
     '3locales'          => '3locales',
     'string'            => 'onestring',
     'productization'    => 'productization',
     'api'               => 'api',
-);
+];
