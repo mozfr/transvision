@@ -16,7 +16,8 @@ switch ($request->getService()) {
         $entity = $request->extra_parameters['id'];
         include MODELS . 'api/entity.php';
         if (empty($json)) {
-            $json = ['Invalid service'];
+            $request->error = 'Entity not available';
+            $json = $request->invalidAPICall();
         }
         break;
     case 'locales':
