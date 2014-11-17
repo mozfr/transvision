@@ -5,7 +5,7 @@ $check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
 $source_locale = isset($source_locale) ? $source_locale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
-$javascript = isset($javascript) ? $javascript : '';
+$javascript_include = isset($javascript_include) ? $javascript_include : [];
 
 $links = '
 <div class="linkscolumn">
@@ -26,6 +26,7 @@ $links = '
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="select" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
     <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="select" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
     <li><a ' . ($url['path'] == 'gaia' ? 'class="select" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
+    <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="select" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged strings</a></li>
     <li><a ' . ($url['path'] == 'variables' ? 'class="select" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
   </ul>
 </div>
@@ -66,44 +67,12 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     <link rel="stylesheet" href="/style/transvision.css?<?php echo VERSION; ?>"  type="text/css" media="all" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
     <script src="/assets/jquery/jquery.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        // Make sure the menu is not displayed
-        $('#links-top').hide();
-
-        // Associate code to link to hide/display top menu
-        $('.menu-button').click(function(e) {
-          e.preventDefault();
-          $('#links-top').slideToggle(400, function(){
-            if ($('#links-top').is(':visible')) {
-              $('#links-top-button').attr('title', 'Hide Transvision Menu');
-              $('#links-top-button').css('background-position', '0 -38px');
-            } else {
-              $('#links-top-button').attr('title', 'Display Transvision Menu');
-              $('#links-top-button').css('background-position', '0 0');
-            }
-          });
-        });
-
-        // Associate code to toggle search options on small screens
-        $('.toggle-searchoptions-link').click(function(e) {
-          e.preventDefault();
-          $('#searchoptions').slideToggle(400, function(){
-            if ($('#searchoptions').is(':visible')) {
-              $('.toggle-searchoptions-link').text('⇑ Hide search options ⇑');
-            } else {
-              $('.toggle-searchoptions-link').text('⇓ Display search options ⇓');
-            }
-          });
-        });
-
-        // Focus on the search field
-        $('#recherche').focus();
-
-        <?=$javascript?>
-
-      });
-    </script>
+    <script src="/js/base.js"></script>
+    <?php
+    foreach ($javascript_include as $js_file) {
+        echo "    <script src=\"/js/{$js_file}\"></script>\n";
+    }
+    ?>
   </head>
 <body id="<?=$page?>">
   <div id="links-top" class="links"><div class="container"><?=$links?></div></div>

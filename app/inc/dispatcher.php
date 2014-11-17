@@ -72,6 +72,11 @@ switch ($url['path']) {
         $page_title = 'All translations for this string:';
         $page_descr = '';
         break;
+    case 'unchanged':
+        $controller = 'unchanged_strings';
+        $page_title = 'Unchanged Strings';
+        $page_descr = 'Display a list of strings identical to English';
+        break;
     case 'variables':
         $view = 'checkvariables';
         $experimental = true;

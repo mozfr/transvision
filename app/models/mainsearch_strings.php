@@ -75,32 +75,8 @@ if (! $search_yields_results) {
     return;
 } else {
     if (in_array($check['repo'], $desktop_repos)) {
-        // We build the filters logic with JQuery that we will inject in template
-        $javascript = <<<JS
-
-        $('.filter').click(function(e) {
-            e.preventDefault();
-            $('#filters a').removeClass('selected');
-            if (e.target.id == 'showall') {
-                $('tr').show();
-                $('#showall').addClass('selected');
-            } else {
-                $('tr').hide();
-                $('.' + e.target.id).show();
-                $('#' + e.target.id).addClass('selected');
-            }
-        });
-
-        // We want URL anchors to also work as filters
-        var anchor = location.hash.substring(1);
-        if (anchor != '') {
-            $('#' + anchor).click();
-        } else {
-            $('#filters a').removeClass('selected');
-            $('#showall').addClass('selected');
-        }
-
-JS;
+        // Build logic to filter components
+        $javascript_include = ['component_filter.js'];
         $filter_block = '';
         foreach ($components as $value) {
             $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
