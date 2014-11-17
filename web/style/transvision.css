@@ -514,6 +514,14 @@ form#simplesearchform {
     text-align: center;
 }
 
+form#simplesearchform #locale_select {
+    width: 80px;
+}
+
+form#simplesearchform #product_select {
+    width: 150px;
+}
+
 /* Filter buttons on search results */
 
 div#filters {
