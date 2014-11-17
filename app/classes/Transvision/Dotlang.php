@@ -102,7 +102,10 @@ class Dotlang
                     // Next line is an actual translation
                     $translation = trim($f[$i+1]);
                 }
-                $strings[$english] = $translation;
+
+                // If untranslated, I need to store an empty string as translation
+                $strings[$english] = ($translation == $english) ? '' : $translation;
+
                 $i++;
             }
         }
