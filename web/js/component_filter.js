@@ -8,6 +8,8 @@ $(document).ready(function() {
         } else {
             $('tr').hide();
             $('.' + e.target.id).show();
+            // Always show column headers
+            $('.column_headers').show();
             $('#' + e.target.id).addClass('selected');
         }
     });

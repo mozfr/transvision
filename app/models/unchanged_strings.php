@@ -33,8 +33,11 @@ foreach ($strings_reference as $string_id => $string_value) {
 // Find strings identical to English
 $unchanged_strings = [];
 foreach ($strings_reference as $string_id => $string_value) {
-    if ($strings_locale[$string_id] == $string_value) {
-        $unchanged_strings[$string_id] = $string_value;
+    if (isset($strings_locale[$string_id])) {
+        // Compare only if the localized string exists
+        if ($strings_locale[$string_id] == $string_value) {
+            $unchanged_strings[$string_id] = $string_value;
+        }
     }
 }
 

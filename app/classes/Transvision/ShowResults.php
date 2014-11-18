@@ -201,7 +201,7 @@ class ShowResults
         }
 
         $table  = "<table class='collapsable'>
-                      <tr>
+                      <tr class='column_headers'>
                         <th>Entity</th>
                         <th>{$locale1}</th>
                         <th>{$locale2}</th>

@@ -15,22 +15,30 @@ if(isset($filter_block)) {
 }
 
 $content .= "<table class='collapsable'>\n";
-$content .= "  <thead>\n" .
-            "    <tr>\n" .
-            "      <th>String ID</th>\n" .
-            "      <th>English</th>\n" .
-            "      <th>Translation</th>\n" .
-            "    </tr>\n" .
-            "  </thead>\n" .
-            "  <tbody>\n";
+$content .= "  <tr class='column_headers'>\n" .
+            "    <th>String ID</th>\n" .
+            "    <th>English</th>\n" .
+            "    <th>Translation</th>\n" .
+            "  </tr>\n";
 foreach ($unchanged_strings as $string_id => $string_value) {
     $component = explode('/', $string_id)[0];
-    $content .= "    <tr class='{$component}'>\n" .
-                "      <td>{$string_id}</td>\n" .
-                "      <td>{$string_value}</td>\n" .
-                "      <td>" . $strings_locale[$string_id] ."</td>\n" .
-                "    </tr>\n";
+
+    $entity_link = "/?sourcelocale={$source_locale}"
+            . "&locale={$locale}"
+            . "&repo={$repo}"
+            . "&search_type=entities&recherche={$string_id}";
+
+    /* Since this view displays strings identical to source locale, I'll use the same
+     * direction, not the locale's default (for example I'll use LTR for English+Arabic).
+     */
+    $direction = RTLSupport::getDirection($source_locale);
+
+    $content .= "  <tr class='{$component}'>\n" .
+                "    <td dir='ltr'><a href='{$entity_link}'>{$string_id}</a></td>\n" .
+                "    <td dir='{$direction}' lang='{$source_locale}'>{$string_value}</td>\n" .
+                "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] ."</td>\n" .
+                "  </tr>\n";
 }
-$content .= "  </tbody>\n</table>\n";
+$content .= "</table>\n";
 
 echo $content;

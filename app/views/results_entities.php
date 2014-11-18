@@ -20,12 +20,11 @@ foreach ($entities as $entity) {
         $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
     }
 
+    $target_string2 = '';
     if ($url['path'] == '3locales') {
         if (isset($tmx_target2[$entity])) {
             // nbsp highlight
             $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target2[$entity]);
-        } else {
-            $target_string2 = '';
         }
 
         if ($check['repo'] == 'mozilla_org') {
