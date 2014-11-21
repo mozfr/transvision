@@ -118,6 +118,8 @@ def extract_sp_product(searchpath, product, locale, channel, json_data,
                                     % searchplugin_info
                                 )
                         else:
+                            # XML is broken
+                            xmldoc = []
                             errors.append(
                                     "error parsing XML %s <code>%s</code>"
                                     % (searchplugin_info, str(e))
@@ -202,7 +204,8 @@ def extract_sp_product(searchpath, product, locale, channel, json_data,
                             "error extracting image %s"
                             % searchplugin_info
                         )
-                        images.append(images_list[0])
+                        # Add error image
+                        images.append(0)
 
                     # No images in the searchplugin
                     if len(images) == 0:
