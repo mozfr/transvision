@@ -31,3 +31,6 @@ l10nwebservice = "https://l10n.mozilla-community.org/~flod/mozilla-l10n-query/"
 
 ; Flag to know if we are working in production more or development mode
 dev=false
+
+; Github secret key for continuous integration on Beta site
+github_key=putsecretkeyhere
