@@ -156,6 +156,12 @@ class Project
         if (file_exists($file_name)) {
             $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         }
+
+        // Make sure that the reference locale is included
+        $reference_locale = self::getReferenceLocale($repository);
+        if (! in_array($reference_locale, $supported_locales)) {
+            $supported_locales[] = $reference_locale;
+        }
         asort($supported_locales);
 
         return $supported_locales;
