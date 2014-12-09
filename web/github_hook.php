@@ -63,6 +63,9 @@ if (isset($_SERVER[$header])) {
         // Delete cache
         exec("rm {$app_root}/cache/*.cache > /dev/null 2>&1");
 
+        // Execute setup.sh to update potential project structure changes
+        exec("{$app_root}/app/scripts/setup.sh > /dev/null 2>&1");
+
         logHookResult('Last update: ' . date('d-m-Y H:i:s'), true);
     } else {
         logHookResult('Invalid GitHub secret');
