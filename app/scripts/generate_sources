@@ -33,8 +33,8 @@ if (! $repositories = json_decode(file_get_contents($uri), true)) {
 
 $gaia_versions = [];
 foreach ($repositories as $repository) {
-    if (strpos($repository['id'], 'gaia') !== false) {
-        # Store supported Gaia versions
+    if ($repository['type'] == 'gaia') {
+        // Store supported Gaia versions
         if ($repository["id"] == 'gaia') {
             $gaia_version = 'gaia';
         } else {
@@ -43,15 +43,30 @@ foreach ($repositories as $repository) {
         $gaia_versions[] = $gaia_version;
     }
 
-    # Save supported locales for each repository
+    // Save supported locales for each repository
     echo "* Saving list of locales for {$repository["id"]}\n";
-    $file_name =  "{$config_folder}/sources/{$repository["id"]}.txt";
+    $file_name = "{$config_folder}/sources/{$repository["id"]}.txt";
     file_put_contents($file_name, implode("\n", $repository['locales']) . "\n");
 }
 
 if ($gaia_versions) {
-    # Save Gaia versions
+    // Save Gaia versions
     echo "* Saving list of supported Gaia versions\n";
-    $file_name =  "{$config_folder}/sources/gaia_versions.txt";
+    $file_name = "{$config_folder}/sources/gaia_versions.txt";
     file_put_contents($file_name, implode("\n", $gaia_versions) . "\n");
 }
+
+// Create a JSON file with the list of all supported repositories in the correct order
+$json_repositories = [];
+foreach ($repositories as $repository) {
+    if ($repository['type'] != 'test') {
+        $json_repositories[intval($repository['display_order'])] = [
+            'id'   => $repository['id'],
+            'name' => $repository['name']
+        ];
+    }
+}
+ksort($json_repositories);
+echo "* Saving JSON record of all supported repositories\n";
+$file_name = "{$config_folder}/sources/supported_repositories.json";
+file_put_contents($file_name, json_encode($json_repositories));

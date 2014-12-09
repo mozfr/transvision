@@ -20,7 +20,7 @@ foreach ($form_checkboxes as $val) {
 if (isset($_COOKIE['default_repository'])) {
     $check['repo'] = $_COOKIE['default_repository'];
 } else {
-    $check['repo'] = 'central';
+    $check['repo'] = 'aurora';
 }
 
 if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {

@@ -74,20 +74,18 @@ class Project
      */
     public static function getSupportedRepositories()
     {
-        $repositories = [
-            'release'     => 'Release',
-            'beta'        => 'Beta',
-            'aurora'      => 'Aurora',
-            'central'     => 'Central',
-        ];
+        // Read list of repositories from supported_repositories.json
+        $file_name = APP_SOURCES . 'supported_repositories.json';
+        if (file_exists($file_name)) {
+            $json_repositories = json_decode(file_get_contents($file_name), true);
+        } else {
+            die("ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.");
+        }
 
-        // Gaia versions are dynamically read from gaia_versions.txt
-        $repositories += self::getSupportedGaiaVersions();
-
-        // Add mozilla.org
-        $repositories += [
-            'mozilla_org' => 'mozilla.org'
-        ];
+        $repositories = [];
+        foreach ($json_repositories as $repository) {
+            $repositories[$repository['id']] = $repository['name'];
+        }
 
         return $repositories;
     }
@@ -148,13 +146,19 @@ class Project
     /**
      * Get the list of locales available for a repository
      *
-     * @param  string $repository Name of the folder for the repository
+     * @param  string $repository ID of the repository
      * @return array  A sorted list of locales
      */
     public static function getRepositoryLocales($repository)
     {
-        $locales = Files::getFilenamesInFolder(TMX . $repository . '/', ['ab-CD']);
-        return array_values($locales);
+        $file_name = APP_SOURCES . "{$repository}.txt";
+        $supported_locales = [];
+        if (file_exists($file_name)) {
+            $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        asort($supported_locales);
+
+        return $supported_locales;
     }
 
     /**
