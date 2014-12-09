@@ -52,12 +52,12 @@ foreach ($searches as $key => $value) {
         // We have results, we won't display search suggestions but search results
         $search_yields_results = true;
         $output[$key]  = '<h2>Matching results for the string <span class="searchedTerm">'
-                         . $initial_search . '</span> in ' . $key . ':</h2>';
+                         . $initial_search_decoded . '</span> in ' . $key . ':</h2>';
         $output[$key] .=  ShowResults::resultsTable($search_results, $initial_search,
                                                     $source_locale, $locale, $check);
     } else {
         $output[$key]  =  "<h2>No matching results for the string "
-                        . "<span class=\"searchedTerm\">{$initial_search}</span>"
+                        . "<span class=\"searchedTerm\">{$initial_search_decoded}</span>"
                         . " for the locale {$key}</h2>";
     }
 }

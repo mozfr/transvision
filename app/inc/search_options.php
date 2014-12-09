@@ -7,6 +7,7 @@ $my_search = Utils::cleanString($_GET['recherche']);
 
 // Cloned value for reference
 $initial_search = $my_search;
+$initial_search_decoded = htmlentities($initial_search);
 
 // Checkboxes states
 $check = [];
