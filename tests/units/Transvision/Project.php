@@ -33,8 +33,8 @@ class Project extends atoum\test
     public function testGetRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'aurora', 'central', 'gaia',
-                  'gaia_1_3', 'gaia_1_4', 'gaia_2_0', 'gaia_2_1',
+        $repos = ['release', 'beta', 'aurora', 'central', 'gaia_1_3',
+                  'gaia_1_4', 'gaia_2_0', 'gaia_2_1', 'gaia',
                   'mozilla_org'];
         $this
             ->array($obj->getRepositories())
@@ -49,11 +49,11 @@ class Project extends atoum\test
             'beta'        => 'Beta',
             'aurora'      => 'Aurora',
             'central'     => 'Central',
-            'gaia'        => 'Gaia master',
             'gaia_1_3'    => 'Gaia 1.3',
             'gaia_1_4'    => 'Gaia 1.4',
             'gaia_2_0'    => 'Gaia 2.0',
             'gaia_2_1'    => 'Gaia 2.1',
+            'gaia'        => 'Gaia Master',
             'mozilla_org' => 'mozilla.org',
         ];
         $this
