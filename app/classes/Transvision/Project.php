@@ -217,8 +217,8 @@ class Project
             'es-CL' => 'es',
             'es-ES' => 'es',
             'es-MX' => 'es',
-            'gu-in' => 'gu',
-            'pa-in' => 'pa',
+            'gu-IN' => 'gu',
+            'pa-IN' => 'pa',
             'sr'    => 'sr-Cyrl',
         ];
 

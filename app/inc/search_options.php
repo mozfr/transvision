@@ -70,14 +70,20 @@ foreach ($repositories as $repository) {
     // build the source locale switcher
     $source_locales_list[$repository] = Utils::getHtmlSelectOptions(
         $loc_list[$repository],
-        Project::getReferenceLocale($repository)
+        Project::getLocaleInContext($source_locale, $repository)
     );
 
     // build the target locale switcher
-    $target_locales_list[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale);
+    $target_locales_list[$repository] = Utils::getHtmlSelectOptions(
+        $loc_list[$repository],
+        Project::getLocaleInContext($locale, $repository)
+    );
 
     // 3locales view: build the target locale switcher for a second locale
-    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions($loc_list[$repository], $locale2);
+    $target_locales_list2[$repository] = Utils::getHtmlSelectOptions(
+        $loc_list[$repository],
+        Project::getLocaleInContext($locale2, $repository)
+    );
 }
 
 // Build the search type switcher
