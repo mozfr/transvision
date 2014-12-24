@@ -1,0 +1,76 @@
+/* TMX download page */
+
+#TMX_locales,
+#TMX_format {
+    display: block;
+}
+
+#main_search fieldset {
+    min-height: 0;
+    padding: 0;
+    margin: 0 0 1em;
+}
+
+#main_search fieldset > label {
+    line-height: 1.5;
+}
+
+#TMX_locales label,
+#TMX_format label {
+    float: left;
+    min-width: 70px;
+    text-align: left;
+}
+
+#TMX_locales select,
+#TMX_format select {
+    float: left;
+}
+
+#TMX_checkboxes {
+    text-align: left;
+    display: block;
+}
+
+#TMX_checkboxes p {
+    margin: 0.3em 0 0.6em;
+}
+
+#TMX_checkboxes p label {
+    font-size: 1em;
+}
+
+#TMX_results {
+    text-align: center;
+    margin: 100px 0;
+}
+
+#TMX_results span {
+    display: block;
+    margin: 30px 0;
+}
+
+#TMX_results #error {
+    color: #f00;
+    font-weight: bold;
+}
+
+#TMX_results #success {
+    color: #008000;
+}
+
+#TMX_results .button {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: bold;
+    color: #fff;
+}
+
+#download {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#select {
+    font-size: 0.9em;
+}

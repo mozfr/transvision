@@ -1,0 +1,107 @@
+/* Rules specific for /news (changelog) */
+
+#changelog #pagecontent {
+    margin: 30px auto;
+    width: 80%;
+}
+
+#changelog ul {
+    padding-left: 15px;
+}
+
+#changelog h3,
+#changelog ul {
+    margin: 0;
+    width: 100%;
+}
+
+#changelog h3 {
+    padding: 10px 0 5px;
+    margin: 0;
+}
+
+#changelog #page_descrition {
+    display: none;
+}
+
+.github_link {
+    padding-left: 30px;
+    display: block;
+    height: 28px;
+    background: url(/img/github.png) top left no-repeat transparent;
+    padding-top: 3px;
+}
+
+.release_number a:hover {
+    text-decoration: none;
+}
+
+.release_number:target a {
+    color: #f00;
+}
+
+.release_number {
+    margin: 60px auto 0;
+    padding: 0 0 5px;
+    border-bottom: none;
+}
+
+.release_number:nth-of-type(1) {
+    margin-top: 10px;
+}
+
+.release_number:target .release_date {
+    background: #f73434;
+}
+
+.release_date {
+    display: block;
+    width: 80px;
+    background: #30a4db;
+    color: #fff;
+    font-size: 0.6em;
+    margin: 4px auto;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+}
+
+.release_tag {
+    border-right: 3px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+    color: #333;
+    display: inline-block;
+    font-size: 11px;
+    font-style: normal;
+    left: 0;
+    line-height: 1.1;
+    padding: 4px 2px 4px 13px;
+    text-shadow: 1px 1px 0 #fff;
+    text-transform: uppercase;
+    width: 92px;
+    margin-right:4px;
+}
+
+.new_feature {
+    background-color: #ffedcf;
+    border-color: #f90;
+}
+
+.exp_feature {
+    background-color: #ffedcf;
+    border-color: #f90;
+}
+
+.bugfix {
+    background-color: #f0ffe1;
+    border-color: #5ba622;
+}
+
+.improvement {
+    background-color: #f8dfd8;
+    border-color: #d85027;
+}
+
+.change {
+    background-color: #e9cfff;
+    border-color: #8106e0;
+}

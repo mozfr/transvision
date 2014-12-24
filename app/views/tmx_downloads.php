@@ -44,7 +44,7 @@ $(document).ready(function() {
 </script>
 
 <form name="tmxform" id="simplesearchform" method="get" action="">
-    <fieldset id="main">
+    <fieldset id="main_search">
         <fieldset id="TMX_locales">
             <label>Locale</label>
             <select name="locale">

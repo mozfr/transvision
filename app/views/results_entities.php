@@ -63,7 +63,7 @@ foreach ($entities as $entity) {
     <td dir='{$direction3}'>
       <span class='celltitle'>{$locale2}</span>
       <div class='string'>{$target_string2}</div>
-      <div dir='ltr' class='infos'>
+      <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale3}'><em>&lt;source&gt;</em></a>
         {$file_bug}
       </div>
@@ -90,19 +90,19 @@ foreach ($entities as $entity) {
       <span class='celltitle'>Entity</span>
       <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
       <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$check['repo']}' title='List all translations for this entity'>l10n</a>
-      <a class='linktoentity' href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $my_search) . "</a>
+      <a class='link_to_entity' href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $my_search) . "</a>
     </td>
     <td dir='{$direction1}'>
       <span class='celltitle'>{$source_locale}</span>
       <div class='string'>{$source_string}</div>
-      <div dir='ltr' class='infos'>
+      <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
       </div>
     </td>
     <td dir='{$direction2}'>
       <span class='celltitle'>{$locale}</span>
       <div class='string'>{$target_string}</div>
-      <div dir='ltr' class='infos'>
+      <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
         {$file_bug}
       </div>

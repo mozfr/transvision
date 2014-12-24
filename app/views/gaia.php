@@ -73,7 +73,7 @@ $sections = [
 
 ?>
 <form name="searchform" id="simplesearchform" method="get" action="">
-    <fieldset id="main">
+    <fieldset id="main_search">
         <fieldset>
             <label>Locale</label>
             <select name="locale">
@@ -129,7 +129,7 @@ $anchor_title = function($name) use ($sections) {
 
 print "<h2>$locale</h2>\n";
 print "<p class='subtitle'>Available views:</p>\n";
-print "<ul id='views_list'>\n";
+print "<ul id='gaia_views_list'>\n";
 foreach ($sections as $anchor_name => $section_title) {
     print "  <li><a href='#{$anchor_name}'>{$section_title}</a></li>\n";
 }
@@ -276,8 +276,8 @@ if (count($inconsistent_translation) > 0) {
     foreach ($inconsistent_translation as $key => $value) {
         $inconsistent_results .= "<tr>
             <td>" . ShowResults::formatEntity($key) . "</td>
-            <td>" . $value['en-US'] . "</td>
-            <td>" . $value['l10n'] . "</td>
+            <td>" . Utils::secureText($value['en-US']) . "</td>
+            <td>" . Utils::secureText($value['l10n']) . "</td>
         </tr>\n";
     }
     $inconsistent_results .= "</table>\n";
@@ -312,8 +312,12 @@ foreach($common_keys as $key =>$val) {
             $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
-            . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[0] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[0]][$key] . '</small></div></td>'
-            . '<td><span class="celltitle">Gaia' . $repo_two . '</span><div class="string">' . ShowResults::highlight($strings[$englishchanges[1] . '-en-US'][$key], 'en-US') . '<br><small>' . $strings[$englishchanges[1]][$key] . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">'
+            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[0] . '-en-US'][$key]), 'en-US')
+            . '<br><small>' . Utils::secureText($strings[$englishchanges[0]][$key]) . '</small></div></td>'
+            . '<td><span class="celltitle">Gaia' . $repo_two . '</span><div class="string">'
+            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[1] . '-en-US'][$key]), 'en-US')
+            . '<br><small>' . Utils::secureText($strings[$englishchanges[1]][$key]) . '</small></div></td>'
             . '</tr>';
     }
 }
@@ -327,9 +331,9 @@ $strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, 
     $temp = array_diff_key($strings[$repo_one . '-en-US'], $strings[$repo_two . '-en-US']);
     $count = count($temp);
     if ($reverted_comparison) {
-        $comparison_type = '<span class="added">' . $count . ' new strings</span>';
+        $comparison_type = '<span class="added_string">' . $count . ' new strings</span>';
     } else {
-        $comparison_type = '<span class="deleted">' . $count . ' deleted strings</span>';
+        $comparison_type = '<span class="deleted_string">' . $count . ' deleted strings</span>';
     }
 
     $table = '<table id="' . $anchor . '" class="' . $cssclass . '">'
@@ -348,7 +352,10 @@ $strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, 
 
         $table .= '<tr>'
                 . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
-                . '<td><span class="celltitle">' . $locale . '</span><div class="string">' . ShowResults::highlight($strings[$repo_one . '-en-US'][$k], 'en-US') . '<br><small>' . ShowResults::highlight($translation, $locale) . '</small></div></td>'
+                . '<td><span class="celltitle">' . $locale . '</span><div class="string">'
+                . ShowResults::highlight(Utils::secureText($strings[$repo_one. '-en-US'][$k]), 'en-US')
+                . '<br><small>' . ShowResults::highlight(Utils::secureText($translation), $locale)
+                . '</small></div></td>'
                 . '</tr>';
     }
 

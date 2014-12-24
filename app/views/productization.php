@@ -41,7 +41,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
 
     $html_output .= '
    <form name="searchform" id="simplesearchform" method="get" action="">
-     <fieldset id="main">
+     <fieldset id="main_search">
        <fieldset>
          <label>Locale</label>
            <select name="locale" id="locale_select">

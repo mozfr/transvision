@@ -46,7 +46,7 @@ $temp = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $temp = array_diff($temp, $strings[$chan2]);
 ?>
   <form id ="searchform" name="searchform" method="get" action="">
-        <fieldset id="main">
+        <fieldset id="main_search">
 
             <fieldset>
                 <label>Locale:</label>
