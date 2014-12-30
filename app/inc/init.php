@@ -1,5 +1,5 @@
 <?php
-use raveren\klint;
+use Symfony\VarDumper;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -24,9 +24,6 @@ require_once __DIR__ . '/variables.php';
 // For debugging
 if (DEBUG) {
     error_reporting(E_ALL);
-    kint::enabled(true);
-} else {
-    kint::enabled(false);
 }
 
 // Logging

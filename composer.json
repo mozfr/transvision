@@ -8,14 +8,12 @@
         "components/jquery": "1.11.*",
         "monolog/monolog" : "1.10.0",
         "pascalc/tinyl10n" : "0.6",
-        "pascalc/vcs": "0.4"
-    },
-
-    "require-dev": {
-        "raveren/kint" : "dev-1.0.0-wip"
+        "pascalc/vcs": "0.4",
+        "symfony/var-dumper": "~2.6"
     },
 
     "autoload": {
-        "psr-0": {"Transvision": "app/classes/"}
+        "psr-0": {"Transvision": "app/classes/"},
+        "files": ["app/helpers/debug.php"]
     }
 }
