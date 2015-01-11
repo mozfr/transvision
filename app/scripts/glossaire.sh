@@ -266,24 +266,6 @@ done
 # mozilla.org has its own extraction script, mozorg.php
 updateFromSVN
 
-# Generate cache of bugzilla components if it doesn't exist or it's older than 7 days
-cd $install
-if [ -f cache/bugzilla_components.json ]
-then
-    # File exist, check the date
-    if [ $(find cache/bugzilla_components.json -mtime +6) ]
-    then
-        echored "Generating cache/bugzilla_components.json (file older than a week)"
-        nice -20 python app/scripts/bugzilla_query.py
-    else
-        echogreen "No need to generate Bugzilla components cache"
-    fi
-else
-    # File does not exist
-    echored "Generating cache/bugzilla_components.json (file missing)"
-    nice -20 python app/scripts/bugzilla_query.py
-fi
-
 # Generate productization data
 cd $install
 echogreen "Extracting p12n data"

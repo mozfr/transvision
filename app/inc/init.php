@@ -2,6 +2,7 @@
 use Symfony\VarDumper;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Cache\Cache;
 
 // We always work with UTF8 encoding
 mb_internal_encoding('UTF-8');

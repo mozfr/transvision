@@ -3,7 +3,7 @@ namespace tests\units\Transvision;
 
 use atoum;
 use Transvision\Utils as _Utils;
-use Transvision\Cache as _Cache;
+use Cache\Cache as _Cache;
 
 require_once __DIR__ . '/../bootstrap.php';
 
