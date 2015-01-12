@@ -1,4 +1,15 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mozilla-l10n/phpclass-bugzilla"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mozilla-l10n/phpclass-cache"
+        }
+    ],
+
     "config": {
         "component-dir": "web/assets"
     },
@@ -7,6 +18,8 @@
         "atoum/atoum" : "dev-master",
         "components/jquery": "1.11.*",
         "monolog/monolog" : "1.10.0",
+        "mozillal10n/bugzilla": "0.*",
+        "mozillal10n/cache": "0.*",
         "pascalc/tinyl10n" : "0.6",
         "pascalc/vcs": "0.4",
         "symfony/var-dumper": "~2.6"

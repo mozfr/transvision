@@ -3,7 +3,7 @@ namespace Transvision;
 
 require_once INC . 'l10n-init.php';
 
-// rtl support
+// RTL support
 $direction1 = RTLSupport::getDirection($source_locale);
 $direction2 = RTLSupport::getDirection($locale);
 
@@ -14,19 +14,15 @@ if (isset($_GET['locale'])) {
     }
 }
 
-$source = Utils::getRepoStrings('en-US', $repo);
+$source = Utils::getRepoStrings(Project::getReferenceLocale($repo), $repo);
 $target = Utils::getRepoStrings($locale, $repo);
 
-$channel_selector = Utils::getHtmlSelectOptions(
-    array_intersect_key(
-        $repos_nice_names,
-        array_flip($repos)
-    ),
-    $repo,
-    true
-);
+// Set up channel selector, ignore mozilla.org
+$channels = Project::getSupportedRepositories();
+unset($channels['mozilla_org']);
+$channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
 
-// build the target locale switcher
+// Build the target locale switcher
 $target_locales_list = Utils::getHtmlSelectOptions(
     Project::getRepositoryLocales($repo),
     $locale
@@ -40,18 +36,9 @@ $target = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $target);
 
 $mismatch = AnalyseStrings::differences($source, $target, $repo);
 
-// Get cached bugzilla components (languages list) or connect to Bugzilla API to retrieve them
-$bugzilla_component = rawurlencode(
-    Bugzilla::collectLanguageComponent(
-        $locale,
-        Bugzilla::getBugzillaComponents()
-    )
-);
-
 $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-               . $bugzilla_component
+               . Bugzilla::getURLencodedBugzillaLocale($locale, 'products')
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
-
 
 $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 

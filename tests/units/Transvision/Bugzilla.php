@@ -6,33 +6,23 @@ use Transvision\Bugzilla as _Bugzilla;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+class _BugzillaTest extends _Bugzilla
+{
+    public static function getURLencodedBugzillaLocale($locale, $type)
+    {
+        // Override default function to use a local file instead of query remote service
+        if ($type == 'www') {
+            $local_json = TEST_FILES . 'cache/www.json';
+        } else {
+            $local_json = TEST_FILES . 'cache/desktop.json';
+        }
+
+        return rawurlencode(self::getBugzillaLocaleField($locale, $type, false, $local_json));
+    }
+}
+
 class Bugzilla extends atoum\test
 {
-    public function collectLanguageComponentDP()
-    {
-        $obj = new _Bugzilla();
-        $components_list = $obj->getBugzillaComponents();
-        return [
-            ['en-GB', $components_list, 'en-GB / English (United Kingdom)'],
-            ['fr', $components_list, 'fr / French'],
-            ['sr-Cyrl', $components_list, 'sr / Serbian'],
-            ['sr-Latn', $components_list, 'sr / Serbian'],
-            ['es', $components_list, 'es-ES / Spanish'],
-            ['unknow_LANG', $components_list, 'Other']
-        ];
-    }
-
-    /**
-     * @dataProvider collectLanguageComponentDP
-     */
-    public function testCollectLanguageComponent($a, $b, $c)
-    {
-        $obj = new _Bugzilla();
-        $this
-            ->string($obj->collectLanguageComponent($a,$b))
-                ->isEqualTo($c);
-    }
-
     public function reportErrorLinkDP()
     {
         return [
@@ -62,7 +52,7 @@ class Bugzilla extends atoum\test
      */
     public function testReportErrorLink($a, $b, $c, $d, $e, $f, $g)
     {
-        $obj = new _Bugzilla();
+        $obj = new _BugzillaTest();
         $this
             ->string($obj->reportErrorLink($a, $b, $c, $d, $e, $f))
                 ->isEqualTo($g);
