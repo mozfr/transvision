@@ -106,7 +106,7 @@ class Project extends atoum\test
                 ->isEqualTo('en-US');
         $this
             ->string($obj->getReferenceLocale('mozilla_org'))
-                ->isEqualTo('en-GB');
+                ->isEqualTo('en-US');
     }
 
     public function testIsValidRepository()

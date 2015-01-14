@@ -50,7 +50,7 @@ foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
     $out_translation = "<?php\n\$tmx = [\n" . $out_translation .  "];\n";
 
     Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_{$locale}.php", $out_translation);
-    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_en-GB.php", $out_english);
+    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_en-US.php", $out_english);
     error_log("{$locale}: {$total_strings} strings");
 }
 
