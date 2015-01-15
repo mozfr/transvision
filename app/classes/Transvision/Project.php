@@ -169,13 +169,15 @@ class Project
 
     /**
      * Return the reference locale for a repository
+     * We used to have en-GB as reference locale for mozilla.org
+     * Now all projects use en-US but we may need this method in the future
      *
      * @param  string $repository Name of the folder for the repository
      * @return string Name of the reference locale
      */
     public static function getReferenceLocale($repository)
     {
-        return $repository == 'mozilla_org' ? 'en-GB' : 'en-US';
+        return 'en-US';
     }
 
     /**
