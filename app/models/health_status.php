@@ -1,6 +1,7 @@
 <?php
 namespace Transvision;
 
+use Cache\Cache;
 use VCS\Mercurial;
 use VCS\Subversion;
 

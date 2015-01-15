@@ -1,6 +1,8 @@
 <?php
 namespace Transvision;
 
+use Cache\Cache;
+
 $cache_id = $repo . $entity . 'alllocales';
 
 if (! $translations = Cache::getKey($cache_id)) {
