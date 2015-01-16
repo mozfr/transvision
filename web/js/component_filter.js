@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('.filter').click(function(e) {
         e.preventDefault();
         $('#filters a').removeClass('selected');
-        if (e.target.id == 'showall') {
+        if (e.target.id === 'showall') {
             $('tr').show();
             $('#showall').addClass('selected');
         } else {

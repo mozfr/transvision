@@ -1,0 +1,107 @@
+/* Rules specific for /productization */
+
+#productization #pagecontent {
+    margin: 20px auto;
+    width: 95%;
+}
+
+#productization .product h3 {
+    clear: both;
+    padding-top: 36px;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+#productization .product {
+    width: 824px;
+    margin: 0 auto;
+}
+
+#productization .product h4 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#productization .channel {
+    width: 200px;
+    float: left;
+    padding: 0 3px;
+}
+
+#productization .searchplugin {
+    background-color: #fafafa;
+    min-height: 90px;
+    margin-top: 6px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+#productization .searchplugin img {
+    display: block;
+    margin: 5px auto;
+}
+
+#productization .image {
+    display: block;
+    text-align: center;
+    width: 100%;
+    float: left;
+    padding: 3px;
+}
+
+#productization .info {
+    padding: 3px;
+}
+
+#productization .searchplugin p {
+    margin: 2px 6px;
+}
+
+#productization .error {
+    color: #f00;
+}
+
+#productization .http {
+    color: #f28d49;
+}
+
+#productization .https {
+    color: #35b01c;
+}
+
+#productization .searchplugin .emptysp {
+    margin-top: 24px;
+}
+
+#productization .searchorder {
+    background-color: #fafafa;
+    min-height: 90px;
+    margin-top: 6px;
+    padding-top: 10px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+#productization .searchorder p {
+    margin-left: 10px;
+}
+
+#productization .searchorder ol {
+    padding-left: 30px;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 850px) {
+    #productization .product {
+        width: 412px;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    #productization .product {
+        width: 206px;
+    }
+}

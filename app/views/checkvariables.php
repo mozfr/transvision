@@ -74,19 +74,19 @@ foreach ($mismatch as $entity) {
     $table .= "<tr>
                     <td>
                        <span class='celltitle'>Entity</span>
-                       <a class='linktoentity' href=\"/{$entity_link}\">" . ShowResults::formatEntity($entity) . "</a>
+                       <a class='link_to_entity' href=\"/{$entity_link}\">" . ShowResults::formatEntity($entity) . "</a>
                     </td>
                     <td dir='{$direction1}'>
                        <span class='celltitle'>en-US</span>
-                       <div class='string'>{$source[$entity]}</div>
-                       <div class='infos'>
+                       <div class='string'>" . Utils::secureText($source[$entity]) . "</div>
+                       <div class='result_meta_link'>
                         <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
                        </div>
                     </td>
                      <td dir='{$direction2}'>
                        <span class='celltitle'>$locale</span>
-                       <div class='string'>{$target[$entity]}</div>
-                       <div class='infos'>
+                       <div class='string'>" . Utils::secureText($target[$entity]) . "</div>
+                       <div class='result_meta_link'>
                         <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
                         <a class='bug_link' target='_blank' href='{$complete_link}'>
                         &lt;report a bug&gt;

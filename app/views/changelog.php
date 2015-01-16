@@ -3,7 +3,7 @@
 $relnotes = function($tag) {
     switch($tag) {
         case 'better':
-            $type = 'better';
+            $type = 'improvement';
             $text = 'Improvement';
             break;
         case 'bug':
@@ -15,11 +15,11 @@ $relnotes = function($tag) {
             $text = 'Change';
             break;
         case 'experimental':
-            $type = 'expfeature';
+            $type = 'exp_feature';
             $text = 'Experimental';
             break;
         case 'new':
-            $type = 'newfeature';
+            $type = 'new_feature';
             $text = 'New feature';
             break;
         default:
@@ -27,14 +27,14 @@ $relnotes = function($tag) {
             $text = 'Other';
             break;
     }
-    return "<span class=\"tag {$type}\">{$text}</span> ";
+    return "<span class=\"release_tag {$type}\">{$text}</span> ";
 };
 
 $github_link = function($start, $end) {
     return "<p class=\"github_link\">See the complete list of <a href=\"https://github.com/mozfr/transvision/compare/v{$start}...v{$end}\">code changes from version {$start} on Github</a>.</p>\n";
 }
 ?>
-<h2 class="relnumber" id="v3.5.1"><a href="#v3.5.1">Version 3.5.1 <span class="reldate">2014-10-07</span></a></h2>
+<h2 class="release_number" id="v3.5.1"><a href="#v3.5.1">Version 3.5.1 <span class="release_date">2014-10-07</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -43,7 +43,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.5', '3.5.1');?>
 
-<h2 class="relnumber" id="v3.5"><a href="#v3.5">Version 3.5 <span class="reldate">2014-09-29</span></a></h2>
+<h2 class="release_number" id="v3.5"><a href="#v3.5">Version 3.5 <span class="release_date">2014-09-29</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -83,7 +83,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.4', '3.5');?>
 
-<h2 class="relnumber" id="v3.4"><a href="#v3.4">Version 3.4 <span class="reldate">2014-06-25</span></a></h2>
+<h2 class="release_number" id="v3.4"><a href="#v3.4">Version 3.4 <span class="release_date">2014-06-25</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -114,7 +114,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.3', '3.4');?>
 
-<h2 class="relnumber" id="v3.3"><a href="#v3.3">Version 3.3 <span class="reldate">2014-05-20</span></a></h2>
+<h2 class="release_number" id="v3.3"><a href="#v3.3">Version 3.3 <span class="release_date">2014-05-20</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -139,7 +139,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.2', '3.3');?>
 
-<h2 class="relnumber" id="v3.2"><a href="#v3.2">Version 3.2 <span class="reldate">2014-03-17</span></a></h2>
+<h2 class="release_number" id="v3.2"><a href="#v3.2">Version 3.2 <span class="release_date">2014-03-17</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -157,7 +157,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.1', '3.2');?>
 
-<h2 class="relnumber" id="v3.1"><a href="#v3.1">Version 3.1 <span class="reldate">2014-02-24</span></a></h2>
+<h2 class="release_number" id="v3.1"><a href="#v3.1">Version 3.1 <span class="release_date">2014-02-24</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -182,7 +182,7 @@ $github_link = function($start, $end) {
 
 <?=$github_link('3.0', '3.1');?>
 
-<h2 class="relnumber" id="v3.0"><a href="#v3.0">Version 3.0 <span class="reldate">2013-12-18</span></a></h2>
+<h2 class="release_number" id="v3.0"><a href="#v3.0">Version 3.0 <span class="release_date">2013-12-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -210,7 +210,7 @@ $github_link = function($start, $end) {
     <li>Page load performance with the use of cached reduced json data from Bugzilla (flod)</li>
 </ul>
 
-<h2 class="relnumber" id="v2.9"><a href="#v2.9">Version 2.9 <span class="reldate">2013-10-26</span></a></h2>
+<h2 class="release_number" id="v2.9"><a href="#v2.9">Version 2.9 <span class="release_date">2013-10-26</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -229,12 +229,12 @@ $github_link = function($start, $end) {
 
 </ul>
 
-<h2 class="relnumber" id="v2.8"><a href="#v2.8">Version 2.8 <span class="reldate">2013-08-09</span></a></h2>
+<h2 class="release_number" id="v2.8"><a href="#v2.8">Version 2.8 <span class="release_date">2013-08-09</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
-    <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (Francesco) </li>
-    <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="/?repo=central&amp;sourcelocale=en-US&amp;locale=en-US&amp;search_type=strings&amp;recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (Francesco)</li>
+    <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (flod) </li>
+    <li>Add anchors to search results so as to be able to give a link pointing to a specific entity in a search result page (<a href="/?repo=central&amp;sourcelocale=en-US&amp;locale=en-US&amp;search_type=strings&amp;recherche=bookmarks#browser_chrome_browser_aboutPrivateBrowsing.dtd_privatebrowsingpage.perwindow.description">example</a> (flod)</li>
     <li>Fix Bugzilla links to file a bug in the right Bugzilla component for locales that have a specific locale code in Gaia that differs from Desktop (es vs es-ES, sr vs sr-Cyrl/Latn&hellip;) (Pascal)</li>
 </ul>
 
@@ -250,7 +250,7 @@ $github_link = function($start, $end) {
     <li>Server changes to pull from <var>hg default</var> instead of <var>hg tip</var> for automatic updates, fixes various result pages problems (flod)</li>
 </ul>
 
-<h2 class="relnumber" id="v2.7"><a href="#v2.7">Version 2.7 <span class="reldate">2013-07-05</span></a></h2>
+<h2 class="release_number" id="v2.7"><a href="#v2.7">Version 2.7 <span class="release_date">2013-07-05</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -278,7 +278,7 @@ $github_link = function($start, $end) {
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
 </ul>
 
-<h2 class="relnumber" id="v2.6"><a href="#v2.6">Version 2.6 <span class="reldate">2013-06-14</span></a></h2>
+<h2 class="release_number" id="v2.6"><a href="#v2.6">Version 2.6 <span class="release_date">2013-06-14</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -288,7 +288,7 @@ $github_link = function($start, $end) {
     <li>CSS fixes (Jesús)</li>
 </ul>
 
-<h2 class="relnumber" id="v2.5"><a href="#v2.5">Version 2.5 <span class="reldate">2013-04-18</span></a></h2>
+<h2 class="release_number" id="v2.5"><a href="#v2.5">Version 2.5 <span class="release_date">2013-04-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -308,14 +308,14 @@ $github_link = function($start, $end) {
     <li>Update to track the recent <var>webapprt</var> folder move.</li>
 </ul>
 
-<h2 class="relnumber" id="v2.4"><a href="#v2.4">Version 2.4 <span class="reldate">2013-04-10</span></a></h2>
+<h2 class="release_number" id="v2.4"><a href="#v2.4">Version 2.4 <span class="release_date">2013-04-10</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
 </ul>
 
-<h2 class="relnumber" id="v2.3"><a href="#v2.3">Version 2.3 <span class="reldate">2013-03-22</span></a></h2>
+<h2 class="release_number" id="v2.3"><a href="#v2.3">Version 2.3 <span class="release_date">2013-03-22</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -331,7 +331,7 @@ $github_link = function($start, $end) {
     <li>Bug fixes, code cleanups.</li>
 </ul>
 
-<h2 class="relnumber" id="v2.2"><a href="#v2.2">Version 2.2 <span class="reldate">2013-02-28</span></a></h2>
+<h2 class="release_number" id="v2.2"><a href="#v2.2">Version 2.2 <span class="release_date">2013-02-28</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -346,7 +346,7 @@ $github_link = function($start, $end) {
     <li>Stats page now lists type of string searches and repos. All stats reset to zero.</li>
 </ul>
 
-<h2 class="relnumber" id="v2.1"><a href="#v2.1">Version 2.1 <span class="reldate">2013-01-30</span></a></h2>
+<h2 class="release_number" id="v2.1"><a href="#v2.1">Version 2.1 <span class="release_date">2013-01-30</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -368,7 +368,7 @@ $github_link = function($start, $end) {
     <li>Added a counter for the use of search options to check if some options are unused and could be removed.</li>
 </ul>
 
-<h2 class="relnumber" id="v2.0"><a href="#v2.0">Version 2.0 <span class="reldate">2013-01-18</span></a></h2>
+<h2 class="release_number" id="v2.0"><a href="#v2.0">Version 2.0 <span class="release_date">2013-01-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -385,7 +385,7 @@ $github_link = function($start, $end) {
     <li>The <a href="/stats/">statistics page</a> view added last week now sorts locales per number of requests and gives totals of searches and locales.</li>
 </ul>
 
-<h2 class="relnumber" id="v1.9"><a href="#v1.9">Version 1.9 <span class="reldate">2013-01-11</span></a></h2>
+<h2 class="release_number" id="v1.9"><a href="#v1.9">Version 1.9 <span class="release_date">2013-01-11</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -407,7 +407,7 @@ $github_link = function($start, $end) {
     <li>New short <a href="/stats/">statistics page</a> showing which locales use Transvision</li>
 </ul>
 
-<h2 class="relnumber" id="v1.8"><a href="#v1.8">Version 1.8 <span class="reldate">2013-01-04</span></a></h2>
+<h2 class="release_number" id="v1.8"><a href="#v1.8">Version 1.8 <span class="release_date">2013-01-04</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -421,7 +421,7 @@ $github_link = function($start, $end) {
     <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually do use Transvision)</li>
 </ul>
 
-<h2 class="relnumber" id="v1.7"><a href="#v1.7">Version 1.7 <span class="reldate">2012-10-24</span></a></h2>
+<h2 class="release_number" id="v1.7"><a href="#v1.7">Version 1.7 <span class="release_date">2012-10-24</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -435,7 +435,7 @@ $github_link = function($start, $end) {
     <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the application/javascript Mime type.</li>
 </ul>
 
-<h2 class="relnumber" id="v1.6"><a href="#v1.6">Version 1.6 <span class="reldate">2012-10-18</span></a></h2>
+<h2 class="release_number" id="v1.6"><a href="#v1.6">Version 1.6 <span class="release_date">2012-10-18</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -451,7 +451,7 @@ $github_link = function($start, $end) {
     <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparison page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
 </ul>
 
-<h2 class="relnumber" id="v1.5"><a href="#v1.5">Version 1.5 <span class="reldate">2012-10-02</span></a></h2>
+<h2 class="release_number" id="v1.5"><a href="#v1.5">Version 1.5 <span class="release_date">2012-10-02</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -470,7 +470,7 @@ $github_link = function($start, $end) {
     <li>Now with the MozFR favicon :)</li>
 </ul>
 
-<h2 class="relnumber" id="v1.4"><a href="#v1.4">Version 1.4 <span class="reldate">2012-09-04</span></a></h2>
+<h2 class="release_number" id="v1.4"><a href="#v1.4">Version 1.4 <span class="release_date">2012-09-04</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -484,7 +484,7 @@ $github_link = function($start, $end) {
     <li>The cron job updating the repositories on MozFR server was not behaving correctly and repos were not updated in the last week, this is now fixed</li>
 </ul>
 
-<h2 class="relnumber" id="v1.3"><a href="#v1.3">Version 1.3 <span class="reldate">2012-08-17</span></a></h2>
+<h2 class="release_number" id="v1.3"><a href="#v1.3">Version 1.3 <span class="release_date">2012-08-17</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -500,7 +500,7 @@ $github_link = function($start, $end) {
     <li>The suite/debugQA strings in English are no longer extracted  because they are not meant to be translated (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=782243">bug 782243</a>)</li>
 </ul>
 
-<h2 class="relnumber" id="v1.2"><a href="#v1.2">Version 1.2 <span class="reldate">2012-08-10</span></a></h2>
+<h2 class="release_number" id="v1.2"><a href="#v1.2">Version 1.2 <span class="release_date">2012-08-10</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -521,7 +521,7 @@ $github_link = function($start, $end) {
     <li>Overall simplification of the PHP code to remove dead code</li>
 </ul>
 
-<h2 class="relnumber" id="v1.1"><a href="#v1.1">Version 1.1 <span class="reldate">2012-08-01</span></a></h2>
+<h2 class="release_number" id="v1.1"><a href="#v1.1">Version 1.1 <span class="release_date">2012-08-01</span></a></h2>
 
 <h3>End user visible changes</h3>
 <ul>
@@ -544,7 +544,7 @@ $github_link = function($start, $end) {
     <li>Lots of code clean ups and simplifications</li>
 </ul>
 
-<h2 class="relnumber" id="v1.0"><a href="#v1.0">Version 1.0 <span class="reldate">2012-07-27</span></a></h2>
+<h2 class="release_number" id="v1.0"><a href="#v1.0">Version 1.0 <span class="release_date">2012-07-27</span></a></h2>
 
 <ul>
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>

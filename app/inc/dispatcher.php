@@ -24,6 +24,7 @@ switch ($url['path']) {
         $view = 'changelog';
         $page_title = 'Transvision News. Version Notes';
         $page_descr = '';
+        $css_include = ['changelog.css'];
         break;
     case 'stats':
         $view = 'showrepos';
@@ -60,12 +61,14 @@ switch ($url['path']) {
         $controller = 'tmx_downloads';
         $page_title = 'TMX Download';
         $page_descr = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
+        $css_include = ['tmx.css'];
         break;
     case 'showrepos':
         $experimental = true;
         $controller = 'health_status';
         $page_title = 'Health status';
         $page_descr = 'Check the health status of locales.';
+        $css_include = ['health.css'];
         break;
     case 'string':
         $controller = 'onestring';
@@ -88,6 +91,7 @@ switch ($url['path']) {
         $experimental = true;
         $page_title = 'Productization Overview';
         $page_descr = 'Show productization aspects for this locale.';
+        $css_include = ['productization.css'];
         break;
     case Strings::StartsWith($url['path'], 'api'):
         $controller = 'api';

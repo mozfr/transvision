@@ -1,9 +1,9 @@
 <?php
 namespace Transvision;
 ?>
-  <div id="current" onclick="javascript:t2t();">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>
+  <div id="current">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" id="searchform" method="get" action="./" >
-        <fieldset id="main">
+        <fieldset id="main_search">
             <div id="search">
                 <p class="smallscreen_notices">Use the <a href="" class="menu-button">Menu tab</a> in the right top corner to select a different view.<p>
                 <input type="text"
@@ -124,7 +124,7 @@ namespace Transvision;
                     </select>
                 </fieldset>
 
-                <fieldset id="fs_advanced">
+                <fieldset id="advanced_search">
                     <label>Advanced Search options</label>
                     <span>
                         <input type="checkbox"

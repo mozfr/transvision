@@ -1,5 +1,5 @@
 <form name="searchform" id="simplesearchform" method="get" action="">
-    <fieldset id="main">
+    <fieldset id="main_search">
         <fieldset>
             <label>Locale</label>
             <select name="locale" title="Locale">
