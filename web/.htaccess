@@ -1,10 +1,23 @@
 # Rewrite all requests to the front controller
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
+    RewriteEngine On
+    RewriteBase /
 
-  # existing files and folders are not redirected
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /index.php [L,QSA]
+    # Existing files and folders are not redirected
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule (.*) /index.php [L,QSA]
+</IfModule>
+
+# Leverage browser cache
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresDefault                        "access plus 1 week"
+    ExpiresByType application/json        "access plus 0 seconds"
+    ExpiresByType application/javascript  "access plus 1 year"
+    ExpiresByType application/font-woff   "access plus 1 month"
+    ExpiresByType image/gif               "access plus 1 month"
+    ExpiresByType image/jpeg              "access plus 1 month"
+    ExpiresByType image/png               "access plus 1 month"
+    ExpiresByType text/css                "access plus 1 year"
 </IfModule>
