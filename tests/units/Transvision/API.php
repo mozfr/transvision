@@ -109,6 +109,12 @@ class API extends atoum\test
             ['http://foobar/api/v1/tm/central/wrong_source/fr/hello world', false],
             ['http://foobar/api/v1/tm/central/en-US/wrong_target/hello world', false],
 
+            // repositories service
+            ['http://foobar/api/v1/repositories/', true],
+            ['http://foobar/api/v1/repositories/fr/', true],
+            ['http://foobar/api/v1/repositories/foobar/', false],
+            ['http://foobar/api/v1/repositories/en-US/', true],
+
             // versions service
             ['http://foobar/api/versions/', true],
         ];

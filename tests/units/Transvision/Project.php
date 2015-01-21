@@ -99,6 +99,25 @@ class Project extends atoum\test
                 ->isEqualTo($b);
     }
 
+    public function getLocaleRepositoriesDP()
+    {
+        return [
+            ['fr', ['central', 'mozilla_org']],
+            ['foobar', []],
+        ];
+    }
+
+    /**
+     * @dataProvider getLocaleRepositoriesDP
+     */
+    public function testGetLocaleRepositories($a, $b)
+    {
+        $obj = new _Project();
+        $this
+            ->array($obj->getLocaleRepositories($a))
+                ->isEqualTo($b);
+    }
+
     public function testGetReferenceLocale()
     {
         $obj = new _Project();
@@ -141,6 +160,8 @@ class Project extends atoum\test
             ['sr-Cyrl', 'mozilla_org', 'sr'],
             ['es-ES', 'foobar', 'es-ES'],
             ['fr', 'foobar', 'fr'],
+            ['es-ES', 'firefox_ios', 'es'],
+            ['es', 'firefox_ios', 'es'],
         ];
     }
 

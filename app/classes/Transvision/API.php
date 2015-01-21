@@ -45,7 +45,7 @@ class API
     public $error;
     public $logging = true;
     public $logger;
-
+    public $valid_repositories;
     /**
      * The constructor analyzes the URL to extract its parameters
      *
@@ -227,7 +227,7 @@ class API
                     return false;
                 }
 
-                if (! $this->verifyRepositoryExists($this->parameters[3])) {
+                if (! $this->verifyRepositoryExists($this->parameters[3], true)) {
                     return false;
                 }
 
@@ -246,7 +246,7 @@ class API
                     return false;
                 }
 
-                if (! $this->verifyRepositoryExists($this->parameters[2])) {
+                if (! $this->verifyRepositoryExists($this->parameters[2], true)) {
                     return false;
                 }
 
@@ -261,7 +261,26 @@ class API
                 break;
             case 'repositories':
                 // ex: api/repositories/
-                // Generated from Project class, no user-defined variables = nothing to check
+                // ex: api/repositories/fr/
+                // Generated from Project class
+                // There is one optional parameter, a locale code
+                if (isset($this->parameters[2])) {
+                    $match = false;
+
+                    foreach (Project::getRepositories() as $repository) {
+                        if ($this->verifyLocaleExists($this->parameters[2], $repository)) {
+                            $match = true;
+                            break;
+                        }
+                    }
+
+                    if (! $match) {
+                        $this->log("The locale queried ({$this->parameters[2]}) is not supported");
+
+                        return false;
+                    }
+                }
+
                 break;
             case 'versions':
                 // ex: api/versions/
@@ -302,11 +321,17 @@ class API
      * Check that the repository asked for is one we support
      *
      * @param  string  $repository Name of the repository
+     * @param  boolean $alias      Do we allow aliases for repository names,
+     *                             ex: 'global', to query all repositories. Default to False
      * @return boolean True if we support this repository, False if we don't
      */
-    private function verifyRepositoryExists($repository)
+    private function verifyRepositoryExists($repository, $alias = false)
     {
-        if (! in_array($repository, Project::getRepositories())) {
+        $this->valid_repositories = $alias
+            ? array_merge(Project::getRepositories(), ['global'])
+            : Project::getRepositories();
+
+        if (! in_array($repository, $this->valid_repositories)) {
             $this->log("The repo queried ({$repository}) doesn't exist.");
 
             return false;
@@ -324,6 +349,13 @@ class API
      */
     private function verifyLocaleExists($locale, $repository)
     {
+        if ($repository == 'global') {
+            $locale_repositories = Project::getLocaleRepositories($locale);
+            if (! empty($locale_repositories)) {
+                return true;
+            }
+        }
+
         if (! in_array($locale, Project::getRepositoryLocales($repository))) {
             $this->log("The locale queried ({$locale}) is not "
                        . "available for the repository ({$repository}).");
