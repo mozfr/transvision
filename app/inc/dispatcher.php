@@ -21,8 +21,8 @@ switch ($url['path']) {
         $page_descr = 'One source locale, get search results for two target locales';
         break;
     case 'news':
-        $view = 'changelog';
-        $page_title = 'Transvision News. Version Notes';
+        $controller = 'changelog';
+        $page_title = 'Transvision News and Release Notes';
         $page_descr = '';
         $css_include = ['changelog.css'];
         break;

@@ -1,50 +1,92 @@
-<?php
-// Throw away function to generate tags
-$relnotes = function($tag) {
-    switch($tag) {
-        case 'better':
-            $type = 'improvement';
-            $text = 'Improvement';
-            break;
-        case 'bug':
-            $type = 'bugfix';
-            $text = 'Bug fix';
-            break;
-        case 'change':
-            $type = 'change';
-            $text = 'Change';
-            break;
-        case 'experimental':
-            $type = 'exp_feature';
-            $text = 'Experimental';
-            break;
-        case 'new':
-            $type = 'new_feature';
-            $text = 'New feature';
-            break;
-        default:
-            $type = '';
-            $text = 'Other';
-            break;
-    }
-    return "<span class=\"release_tag {$type}\">{$text}</span> ";
-};
+<?=$release_title('3.6')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('new')?>
+        Added a new view exposing all <a href="/unchanged/">strings that are kept identical to en-US</a> (flod)
+    </li>
+    <li>
+        <?=$relnotes('new')?>
+        <?=$issue(360)?>
+        Notify user when we don't display all the results and add a count of search results (SkySymbol)
+    </li>
+    <li>
+        <?=$relnotes('change')?>
+        Aurora is now the default repository for Desktop searches (flod)
+    </li>
+    <li>
+        <?=$relnotes('change')?>
+        Mozilla.org searches now use en-US instead of en-GB as source locale (reflects a change on the reference locale for templates on mozilla.org) (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Smarter locale selection in searches when you switch repositories (flod)
+    </li>
+</ul>
 
-$github_link = function($start, $end) {
-    return "<p class=\"github_link\">See the complete list of <a href=\"https://github.com/mozfr/transvision/compare/v{$start}...v{$end}\">code changes from version {$start} on Github</a>.</p>\n";
-}
-?>
-<h2 class="release_number" id="v3.5.1"><a href="#v3.5.1">Version 3.5.1 <span class="release_date">2014-10-07</span></a></h2>
+<h3>External API changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(380)?>
+        API no longer returns an invalid request for a non existent string ID (flod)
+    </li>
+    <li>
+        <?=$relnotes('change')?>
+        Queries for mozilla.org no longer return English text when the string is untranslated (flod)
+    </li>
+</ul>
 
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>
+        <?=$relnotes('new')?>
+        <?=$issue(400)?>
+        Continuous integration of commits to master to the <a href="http://transvision-beta.mozfr.org/">beta</a> site via GitHub notification API (pascal)
+    </li>
+    <li>
+        <?=$relnotes('new')?>
+        <?=$issue(413)?>
+        Replace Kint library by Symfony/var_dumper library for quick debugging, new <code>dump()</code> and <code>cli_dump()</code> helper functions (pascal)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        Archlinux compatibility fix: Force the use of Python 2 and not 3 (SkySymbol)
+    </li>
+    <li>
+        <?=$relnotes('change')?>
+        Bugzilla and Cache classes were moved as external libraries for sharing with other l10n-drivers PHP tools (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Front end code cleanups to reorganize our JavaScript and CSS code and minimize page load time of static assets (flod)
+    </li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(381, 388, 397)?>
+        Fix views with either broken layout due to HTML not escaped from localized strings or HTML deleted instead of escaped (pascal and flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        The changelog page now includes links to the commits for a release on Github and is easier to update at release time (flod, pascal)
+    </li>
+</ul>
+<?=$github_link('3.6');?>
+
+
+<?=$release_title('3.5.1')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('bug')?>Fixed a bug that prevented new Gaia repositories – fetched from external web service – to appear in the list of available repositories when performing a search (flod)</li>
 </ul>
+<?=$github_link('3.5.1');?>
 
-<?=$github_link('3.5', '3.5.1');?>
 
-<h2 class="release_number" id="v3.5"><a href="#v3.5">Version 3.5 <span class="release_date">2014-09-29</span></a></h2>
-
+<?=$release_title('3.5')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?>Starting with this release, adding a locale to a repository (mostly Gaia) no longer requires releasing a new version of Transvision as the list of locales per repositories is now fetched from a web service maintained by flod, which means that adding new locales to Transvision can now be done at any time (flod)</li>
@@ -80,11 +122,10 @@ $github_link = function($start, $end) {
 <ul>
     <li><?=$relnotes('better')?>MPL2 licence file now included in the repository root (Anthony Maton)</li>
 </ul>
+<?=$github_link('3.5');?>
 
-<?=$github_link('3.4', '3.5');?>
 
-<h2 class="release_number" id="v3.4"><a href="#v3.4">Version 3.4 <span class="release_date">2014-06-25</span></a></h2>
-
+<?=$release_title('3.4')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>On demand TMX generation:</strong> The static <a href="/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory (tchevalier).</li>
@@ -111,11 +152,10 @@ $github_link = function($start, $end) {
     <li><a href="/productization/">Productization</a> view was updated to remove Metro files (flod)</li>
     <li>Many refactorings to improve maintainability, page load speed and memory consumption of the views (team)</li>
 </ul>
+<?=$github_link('3.4');?>
 
-<?=$github_link('3.3', '3.4');?>
 
-<h2 class="release_number" id="v3.3"><a href="#v3.3">Version 3.3 <span class="release_date">2014-05-20</span></a></h2>
-
+<?=$release_title('3.3')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="/?recherche=lookmark&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings">proposes similar searches that do yield results</a> (pascal).</li>
@@ -137,10 +177,10 @@ $github_link = function($start, $end) {
     <li>Added file caching library to cache data sets or template. <a href="https://github.com/mozfr/transvision/commit/4515974b566ecf7ebb5b4e6e5bebcefc0927f102">Usage details in commit message</a> (pascal)</li>
 </ul>
 
-<?=$github_link('3.2', '3.3');?>
+<?=$github_link('3.3');?>
 
-<h2 class="release_number" id="v3.2"><a href="#v3.2">Version 3.2 <span class="release_date">2014-03-17</span></a></h2>
 
+<?=$release_title('3.2')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>www.mozilla.org support:</strong> Transvision can now extract and index projects using the .lang format, the first repository added is www.mozilla.org and appears as a separate channel. Source links and Bugzilla links are adjusted to point to subversion instead of Mercurial and to file bugs in the www.mozilla.org/L10N component instead of the Mozilla Localization one. This makes Transvision more useful for people working on Web localization (pascal).</li>
@@ -155,10 +195,10 @@ $github_link = function($start, $end) {
     <li>Updated our README file to add missing dependencies to install Transvision locally (pascal)</li>
 </ul>
 
-<?=$github_link('3.1', '3.2');?>
+<?=$github_link('3.2');?>
 
-<h2 class="release_number" id="v3.1"><a href="#v3.1">Version 3.1 <span class="release_date">2014-02-24</span></a></h2>
 
+<?=$release_title('3.1')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>Top menu:</strong> The application now has a top menu summarizing and categorizing the different views in the application (flod)</li>
@@ -179,11 +219,10 @@ $github_link = function($start, $end) {
     <li>Various refactoring and speed improvements (pascal &amp; flod)</li>
     <li>Venkman and Chatzilla strings are now indexed (flod)</li>
 </ul>
+<?=$github_link('3.1');?>
 
-<?=$github_link('3.0', '3.1');?>
 
-<h2 class="release_number" id="v3.0"><a href="#v3.0">Version 3.0 <span class="release_date">2013-12-18</span></a></h2>
-
+<?=$release_title('3.0')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New view:</strong> <a href="/3locales/">3 locales search</a> in your strings for potential errors (pascal &amp; filip)</li>
@@ -209,9 +248,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>Page load performance with the use of cached reduced json data from Bugzilla (flod)</li>
 </ul>
+<?=$github_link('3.0');?>
 
-<h2 class="release_number" id="v2.9"><a href="#v2.9">Version 2.9 <span class="release_date">2013-10-26</span></a></h2>
 
+<?=$release_title('2.9')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Two new repos are added for searches: Gaia 1.1 and Gaia 1.2 (Pascal)</li>
@@ -228,9 +268,10 @@ $github_link = function($start, $end) {
     <li>Fix broken Statistics link (Jesũs)</li>
 
 </ul>
+<?=$github_link('2.9');?>
 
-<h2 class="release_number" id="v2.8"><a href="#v2.8">Version 2.8 <span class="release_date">2013-08-09</span></a></h2>
 
+<?=$release_title('2.8')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field (flod) </li>
@@ -249,9 +290,10 @@ $github_link = function($start, $end) {
     <li>Server changes to make Transvision compatible with l20n sources (pascal)</li>
     <li>Server changes to pull from <var>hg default</var> instead of <var>hg tip</var> for automatic updates, fixes various result pages problems (flod)</li>
 </ul>
+<?=$github_link('2.8');?>
 
-<h2 class="release_number" id="v2.7"><a href="#v2.7">Version 2.7 <span class="release_date">2013-07-05</span></a></h2>
 
+<?=$release_title('2.7')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>The repository select box is now located on the far left of the search page. Switching repositories now dynamically updates the select boxes for locales with the right locales (Jesús)</li>
@@ -277,9 +319,10 @@ $github_link = function($start, $end) {
     <li>Links to source code sometimes were linking to the wrong repository (Pascal)</li>
     <li>Various bugs fixes related to string extractions and mercurial repositories updates (Pascal)</li>
 </ul>
+<?=$github_link('2.7');?>
 
-<h2 class="release_number" id="v2.6"><a href="#v2.6">Version 2.6 <span class="release_date">2013-06-14</span></a></h2>
 
+<?=$release_title('2.6')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
@@ -287,9 +330,10 @@ $github_link = function($start, $end) {
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes (Jesús)</li>
 </ul>
+<?=$github_link('2.6');?>
 
-<h2 class="release_number" id="v2.5"><a href="#v2.5">Version 2.5 <span class="release_date">2013-04-18</span></a></h2>
 
+<?=$release_title('2.5')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?> Updated visual theme inspired by Mozilla Sandstone, responsive design (Jesús and Pascal).</li>
@@ -307,16 +351,18 @@ $github_link = function($start, $end) {
     <li>The <a href="http://babelwiki.babelzilla.org/index.php?title=MozTran">MozTran Firefox extension</a> was updated and allow now to search for an entity you select on a page from the context menu. This is mostly useful when looking at the product Dashboard (Goofy and Pascal).</li>
     <li>Update to track the recent <var>webapprt</var> folder move.</li>
 </ul>
+<?=$github_link('2.5');?>
 
-<h2 class="release_number" id="v2.4"><a href="#v2.4">Version 2.4 <span class="release_date">2013-04-10</span></a></h2>
 
+<?=$release_title('2.4')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?> There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string<em>(Jesús and Pascal)</em></li>
 </ul>
+<?=$github_link('2.4');?>
 
-<h2 class="release_number" id="v2.3"><a href="#v2.3">Version 2.3 <span class="release_date">2013-03-22</span></a></h2>
 
+<?=$release_title('2.3')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?> You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences <em>(Jesús)</em></li>
@@ -330,9 +376,10 @@ $github_link = function($start, $end) {
     <li>Removed Firefox Mobile Xul code and data (<em>pascal</em>)</li>
     <li>Bug fixes, code cleanups.</li>
 </ul>
+<?=$github_link('2.3');?>
 
-<h2 class="release_number" id="v2.2"><a href="#v2.2">Version 2.2 <span class="release_date">2013-02-28</span></a></h2>
 
+<?=$release_title('2.2')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Selected search type value (strings, entities, strings and entities) is kept after a search.</li>
@@ -345,9 +392,10 @@ $github_link = function($start, $end) {
     <li>Cron job is now ran twice a day instead of once, at 2AM CET and 2PM CET</li>
     <li>Stats page now lists type of string searches and repos. All stats reset to zero.</li>
 </ul>
+<?=$github_link('2.2');?>
 
-<h2 class="release_number" id="v2.1"><a href="#v2.1">Version 2.1 <span class="release_date">2013-01-30</span></a></h2>
 
+<?=$release_title('2.1')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.</li>
@@ -367,9 +415,10 @@ $github_link = function($start, $end) {
     <li>Added a <a href="/credits/">credits</a> page.</li>
     <li>Added a counter for the use of search options to check if some options are unused and could be removed.</li>
 </ul>
+<?=$github_link('2.1');?>
 
-<h2 class="release_number" id="v2.0"><a href="#v2.0">Version 2.0 <span class="release_date">2013-01-18</span></a></h2>
 
+<?=$release_title('2.0')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.</li>
@@ -384,9 +433,10 @@ $github_link = function($start, $end) {
     <li>Transvision jumps from version 1.9 to version 2.0 (and not 1.10), this is partly because the addition of source strings was significant development work which involved data structure changes and partly because I don't want to end up with a version 1.230 at some point ;).</li>
     <li>The <a href="/stats/">statistics page</a> view added last week now sorts locales per number of requests and gives totals of searches and locales.</li>
 </ul>
+<?=$github_link('2.0');?>
 
-<h2 class="release_number" id="v1.9"><a href="#v1.9">Version 1.9 <span class="release_date">2013-01-11</span></a></h2>
 
+<?=$release_title('1.9')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches including  special characters such as [, (, { are now possible (useful for plurals in Gaia entities, replacement variables in Gais strings or output of messages containing function names in developer tools) </li>
@@ -406,9 +456,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>New short <a href="/stats/">statistics page</a> showing which locales use Transvision</li>
 </ul>
+<?=$github_link('1.9');?>
 
-<h2 class="release_number" id="v1.8"><a href="#v1.8">Version 1.8 <span class="release_date">2013-01-04</span></a></h2>
 
+<?=$release_title('1.8')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches need to be at least 2 characters long, single letter searches now return an error message.</li>
@@ -420,9 +471,10 @@ $github_link = function($start, $end) {
     <li>External dependencies are now all managed through <a href="http://getcomposer.org/">Composer</a></li>
     <li>Added Monolog library to be able to log events related to debugging or the use of the application (/ex: which locales actually do use Transvision)</li>
 </ul>
+<?=$github_link('1.8');?>
 
-<h2 class="release_number" id="v1.7"><a href="#v1.7">Version 1.7 <span class="release_date">2012-10-24</span></a></h2>
 
+<?=$release_title('1.7')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New experimental feature:</strong> You can now see all the translated <a href="/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a reddish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.</li>
@@ -434,9 +486,10 @@ $github_link = function($start, $end) {
     <li>Fixed a regression on the JSON api results (double quotes no longer escaped and breaking JSON format).</li>
     <li>Added back proper JSONP support activated with the <var>callback</var> GET parameter, sent with the application/javascript Mime type.</li>
 </ul>
+<?=$github_link('1.7');?>
 
-<h2 class="release_number" id="v1.6"><a href="#v1.6">Version 1.6 <span class="release_date">2012-10-18</span></a></h2>
 
+<?=$release_title('1.6')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="/channelcomparison/">Channel to Channel differences</a></li>
@@ -450,9 +503,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>Lots of refactoring, the code is now stable enough to experiment with new views such as the Channel to Channel comparison page, with little to no impact on the main search feature for the application. That should allow specific views per locale and experiments.</li>
 </ul>
+<?=$github_link('1.6');?>
 
-<h2 class="release_number" id="v1.5"><a href="#v1.5">Version 1.5 <span class="release_date">2012-10-02</span></a></h2>
 
+<?=$release_title('1.5')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only</li>
@@ -469,9 +523,10 @@ $github_link = function($start, $end) {
     <li>Set up a basic url front controller to be able to use the new PHP 5.4 integrated web server for development and also installed the Atoum Unit Test framework.</li>
     <li>Now with the MozFR favicon :)</li>
 </ul>
+<?=$github_link('1.5');?>
 
-<h2 class="release_number" id="v1.4"><a href="#v1.4">Version 1.4 <span class="release_date">2012-09-04</span></a></h2>
 
+<?=$release_title('1.4')?>
 <h3>End user visible changes</h3>
 <ul>
     <li><?=$relnotes('new')?><strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.</li>
@@ -483,9 +538,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>The cron job updating the repositories on MozFR server was not behaving correctly and repos were not updated in the last week, this is now fixed</li>
 </ul>
+<?=$github_link('1.4');?>
 
-<h2 class="release_number" id="v1.3"><a href="#v1.3">Version 1.3 <span class="release_date">2012-08-17</span></a></h2>
 
+<?=$release_title('1.3')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Strings in .ini and .inc files are now also in results</li>
@@ -499,9 +555,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>The suite/debugQA strings in English are no longer extracted  because they are not meant to be translated (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=782243">bug 782243</a>)</li>
 </ul>
+<?=$github_link('1.3');?>
 
-<h2 class="release_number" id="v1.2"><a href="#v1.2">Version 1.2 <span class="release_date">2012-08-10</span></a></h2>
 
+<?=$release_title('1.2')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>Searches for strings with single and double quotes work ex: <a href="/?locale=fr&amp;repo=release&amp;recherche=Don't">Search for « Don't »</a></li>
@@ -520,9 +577,10 @@ $github_link = function($start, $end) {
     <li>Simplification of the python script creating TMX files</li>
     <li>Overall simplification of the PHP code to remove dead code</li>
 </ul>
+<?=$github_link('1.2');?>
 
-<h2 class="release_number" id="v1.1"><a href="#v1.1">Version 1.1 <span class="release_date">2012-08-01</span></a></h2>
 
+<?=$release_title('1.1')?>
 <h3>End user visible changes</h3>
 <ul>
     <li>added ach, ff, lij, my, wo locales</li>
@@ -543,9 +601,10 @@ $github_link = function($start, $end) {
 <ul>
     <li>Lots of code clean ups and simplifications</li>
 </ul>
+<?=$github_link('1.1');?>
 
-<h2 class="release_number" id="v1.0"><a href="#v1.0">Version 1.0 <span class="release_date">2012-07-27</span></a></h2>
 
+<?=$release_title('1.0')?>
 <ul>
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>
     <li>New URL is <a href="http://transvision.mozfr.org">http://transvision.mozfr.org</a></li>
