@@ -1,7 +1,9 @@
 <?php
+namespace Transvision;
+
 ob_start();
 
-$check['repo'] = isset($check['repo']) ? $check['repo'] : 'central';
+$check['repo'] = isset($check['repo']) ? $check['repo'] : 'aurora';
 $source_locale = isset($source_locale) ? $source_locale : 'en-US';
 $locale = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
@@ -78,6 +80,20 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     foreach ($javascript_include as $js_file) {
         echo "    <script src=\"/js/{$js_file}\"></script>\n";
     }
+
+    /* Building array of supported locales for JavaScript functions.
+     * This is inline because it shouldn't be cached by the browser.
+     * Note: encoding array_values() instead of the array makes sure
+     * that json_encode returns an array and not an object.
+     */
+    echo "<script>\n" .
+         "      var supported_locales = [];\n";
+    foreach (Project::getSupportedRepositories() as $repo_id => $repo_name) {
+        echo "      supported_locales['{$repo_id}'] = " .
+             json_encode(array_values(Project::getRepositoryLocales($repo_id))) .
+             ";\n";
+    }
+    echo "    </script>\n";
     ?>
   </head>
 <body id="<?=$page?>">

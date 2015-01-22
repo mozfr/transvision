@@ -3,19 +3,6 @@ namespace Transvision;
 
 require_once INC . 'l10n-init.php';
 
-// let's add en-US to check their errors too
-$all_locales[] = 'en-US';
-
-$repo = 'central';
-
-if (isset($_GET['repo']) && in_array($_GET['repo'], $desktop_repos)) {
-    $repo = $_GET['repo'];
-}
-
-if (isset($_GET['locale']) && in_array($_GET['locale'], $all_locales)) {
-    $locale = $_GET['locale'];
-}
-
 $strings[$repo]        = Utils::getRepoStrings($locale, $repo);
 $strings_english[$repo] = Utils::getRepoStrings('en-US', $repo);
 

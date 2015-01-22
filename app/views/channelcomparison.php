@@ -14,10 +14,6 @@ if (isset($_GET['chan2']) && in_array($_GET['chan2'], $desktop_repos)) {
     $chan2 = $_GET['chan2'];
 }
 
-if (isset($_GET['locale']) && in_array($_GET['locale'], $all_locales)) {
-    $locale = $_GET['locale'];
-}
-
 $strings = array();
 $strings[$chan1] = Utils::getRepoStrings($locale, $chan1);
 $strings[$chan2] = Utils::getRepoStrings($locale, $chan2);
