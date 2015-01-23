@@ -100,7 +100,7 @@ $search_type_list = Utils::getHtmlSelectOptions(
 );
 
 // Get COOKIES
-$get_cookie = function($var) {
+$get_cookie = function ($var) {
     return isset($_COOKIE[$var]) ? $_COOKIE[$var] : '';
 };
 

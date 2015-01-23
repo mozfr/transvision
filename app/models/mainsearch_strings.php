@@ -82,7 +82,7 @@ if (! $search_yields_results) {
 } else {
     if (in_array($check['repo'], $desktop_repos)) {
         // Build logic to filter components
-        $javascript_include = ['component_filter.js'];
+        $javascript_include[] = 'component_filter.js';
         $filter_block = '';
         foreach ($components as $value) {
             $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";

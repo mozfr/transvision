@@ -7,10 +7,10 @@ namespace Transvision;
 if (isset($_GET['repo'])) {
     $repo = Project::isValidRepository($_GET['repo'])
             ? $_GET['repo']
-            : 'central';
+            : 'aurora';
 } else {
     if (! isset($repo)) {
-        $repo = 'central';
+        $repo = 'aurora';
     }
 }
 
@@ -71,3 +71,6 @@ if (isset($_GET['sourcelocale'])) {
 // Get rtl attribute for source and target locales
 $locale_dir = $l10n->getDirection($locale);
 $source_locale_dir = $l10n->getDirection($source_locale);
+
+// Initialize list of JavaScript files to include
+$javascript_include = [];
