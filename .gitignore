@@ -1,3 +1,5 @@
+.~
+.gitignore
 .idea
 app/config/config.ini
 app/config/sources/*.json
