@@ -618,6 +618,12 @@ fieldset {
     text-align: center;
 }
 
+/* Glossary view */
+#glossary_matches {
+    width: 80%;
+    margin: 0.5em auto;
+}
+
 /* Credits */
 #credits #pagecontent {
     margin: 30px auto;
@@ -628,7 +634,7 @@ fieldset {
     padding-left: 15px;
 }
 
-/* string view */
+/* One-string view */
 
 #onestring tr:target {
     background-color: #90ee90;

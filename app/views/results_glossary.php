@@ -1,29 +1,37 @@
 <?php
 namespace Transvision;
 
+echo "<h2>Perfect matches</h2>\n" .
+     "<div id='glossary_matches'>\n";
+
 if (count($perfect_results) > 0) {
-    print '<h4>Perfect matches</h4>';
-    print "<ol dir='{$locale_dir}'>";
+    echo "  <ol dir='{$locale_dir}'>\n";
     foreach ($perfect_results as $val) {
-        print '<li>' . Utils::secureText($val) . '</li>';
+        echo '    <li>' . Utils::secureText($val) . "</li>\n";
     }
-    print '</ol>';
+    echo "  </ol>\n" .
+         "</div>\n";
+
+    echo "<h2>Results</h2>
+    <table class='collapsable'>
+      <tr>
+        <th>Localized string</th>
+        <th>Source string</th>
+      </tr>\n";
+
+    foreach ($imperfect_results as $string_id => $string_value) {
+        $entity_link = "/?sourcelocale={$source_locale}"
+        . "&locale={$locale}"
+        . "&repo={$repo}"
+        . "&search_type=entities&recherche={$string_id}";
+
+        echo "<tr>\n";
+        echo "  <td dir='{$locale_dir}'><span class='celltitle'>Localized string</span><div class='string'><a href='{$entity_link}'>" . Utils::secureText($string_value) . "</a></div></td>\n";
+        echo "  <td dir='{$source_locale_dir}'><span class='celltitle'>Source string</span><div class='string'>" . Utils::secureText($tmx_source[$string_id]) . "</div></td>\n";
+        echo "</tr>\n";
+    }
+    echo "</table>\n";
 } else {
-    print '<p>No perfect match found.</p>';
-    return;
+    echo "  <p>No perfect match found.</p>\n</div>\n";
 }
 
-print "<b>Used in</b>
-<table class='collapsable'>
-  <tr>
-    <th>Localized string</th>
-    <th>Source string</th>
-  </tr>\n";
-
-foreach ($imperfect_results as $key => $val) {
-    print "<tr>\n";
-    print "  <td dir='{$locale_dir}'><span class='celltitle'>Localized string</span><div class='string'>" . Utils::secureText($val) . "</div></td>\n";
-    print "  <td dir='{$source_locale_dir}'><span class='celltitle'>Source string</span><div class='string'>" . Utils::secureText($tmx_source[$key]) . "</div></td>\n";
-    print "</tr>\n";
-}
-print "</table>\n";
