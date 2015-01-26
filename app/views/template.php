@@ -74,32 +74,15 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     }
     ?>
     <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
-    <script src="/assets/jquery/jquery.min.js"></script>
-    <script src="/js/base.js"></script>
-    <?php
-    foreach ($javascript_include as $js_file) {
-        echo "    <script src=\"/js/{$js_file}\"></script>\n";
-    }
-
-    /* Building array of supported locales for JavaScript functions.
-     * This is inline because it shouldn't be cached by the browser.
-     * Note: encoding array_values() instead of the array makes sure
-     * that json_encode returns an array and not an object.
-     */
-    echo "<script>\n" .
-         "      var supported_locales = [];\n";
-    foreach (Project::getSupportedRepositories() as $repo_id => $repo_name) {
-        echo "      supported_locales['{$repo_id}'] = " .
-             json_encode(array_values(Project::getRepositoryLocales($repo_id))) .
-             ";\n";
-    }
-    echo "    </script>\n";
-    ?>
   </head>
 <body id="<?=$page?>">
-  <div id="links-top" class="links"><div class="container"><?=$links?></div></div>
+  <div id="links-top" class="links">
+    <div class="container">
+      <?=$links?>
+    </div>
+  </div>
   <div id="links-top-button-container">
-    <a href="" class="menu-button" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a>
+    <a href="" class="menu-button" id="links-top-button" title="Hide Transvision Menu"><span>menu</span></a>
   </div>
   <?php
   if ($beta_version) {
@@ -121,11 +104,36 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     <?=$content?>
   </div>
 
+  <div id="noscript-warning">
+    Please enable JavaScript. Some features won't be available without it.
+  </div>
+
   <div id="footer">
     <p>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
     <?php echo $last_update; ?>
   </div>
 
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/js/base.js"></script>
+  <?php
+    foreach ($javascript_include as $js_file) {
+        echo "    <script src=\"/js/{$js_file}\"></script>\n";
+    }
+
+    /* Building array of supported locales for JavaScript functions.
+     * This is inline because it shouldn't be cached by the browser.
+     * Note: encoding array_values() instead of the array makes sure
+     * that json_encode returns an array and not an object.
+     */
+    echo "<script>\n" .
+         "      var supported_locales = [];\n";
+    foreach (Project::getSupportedRepositories() as $repo_id => $repo_name) {
+        echo "      supported_locales['{$repo_id}'] = " .
+             json_encode(array_values(Project::getRepositoryLocales($repo_id))) .
+             ";\n";
+    }
+    echo "    </script>\n";
+  ?>
 </body>
 </html>
 
