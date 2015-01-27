@@ -11,7 +11,7 @@ class Utils extends atoum\test
 {
     public function uniqueWordsDP()
     {
-        return ['Le système le style du couteau du suisse'];
+        return ['achat des couteaux suisses'];
     }
 
     /**
@@ -24,13 +24,10 @@ class Utils extends atoum\test
             ->array($obj->uniqueWords($a))
                 ->isEqualTo(
                     [
-                        'couteau',
-                        'système',
-                        'suisse',
-                        'style',
-                        'le',
-                        'Le',
-                        'du'
+                        'couteaux',
+                        'suisses',
+                        'achat',
+                        'des',
                     ]
                 );
     }
