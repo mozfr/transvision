@@ -116,13 +116,56 @@ class Utils extends atoum\test
     /**
      * @dataProvider checkBoxState3DP
      */
-
     public function testCheckboxState3($a, $b)
     {
         $obj = new _Utils();
         $this
             ->string($obj->checkboxState($a, $b))
                 ->isEqualTo(' checked="checked"');
+    }
+
+    public function markStringDP()
+    {
+        return [
+            ['cronologia', 'cronologia di navigazione', '←←cronologia→→ di navigazione'],
+            ['cronologia', 'Cronologia di navigazione', '←Cronologia→ di navigazione'],
+            ['test', 'Cronologia di navigazione', 'Cronologia di navigazione'],
+            ['Überdeckende', 'Überdeckende Popups öffnen', '←←Überdeckende→→ Popups öffnen'],
+            ['überdeckende', 'Überdeckende Popups öffnen', '←Überdeckende→ Popups öffnen'],
+            ['Überdeckende', 'überdeckende Popups öffnen', '←überdeckende→ Popups öffnen'],
+        ];
+    }
+
+    /**
+     * @dataProvider markStringDP
+     */
+    public function testMarkString($a, $b, $c)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->markString($a, $b, $c))
+                ->isEqualTo($c);
+    }
+
+    public function highlightStringDP()
+    {
+        return [
+            ['←←←cronologia→→→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
+            ['←←cronologia→→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
+            ['←Cronologia→ di navigazione', '<span class=\'highlight\'>Cronologia</span> di navigazione'],
+            ['Cronologia di navigazione', 'Cronologia di navigazione'],
+        ];
+    }
+
+    /**
+     * @dataProvider highlightStringDP
+     */
+    public function testHighlightString($a, $b)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->highlightString($a))
+                ->isEqualTo($b);
     }
 
     public function getHtmlSelectOptionsDP()

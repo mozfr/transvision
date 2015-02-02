@@ -18,7 +18,8 @@ $whole_word     = $get_option('whole_word') ? '\b' : '';
 $case_sensitive = $get_option('case_sensitive') ? '' : 'i';
 
 if ($get_option('perfect_match')) {
-    $regex = '~' . $whole_word . trim('^' . preg_quote($initial_search, '~') . '$') . $whole_word . '~' . $case_sensitive;
+    $regex = '~' . $whole_word . trim('^' . preg_quote($initial_search, '~') . '$') .
+             $whole_word . '~' . $case_sensitive . 'u';
     if ($request->parameters[2] == 'entities') {
         $entities = preg_grep($regex, array_keys($source_strings));
         $source_strings = array_intersect_key($source_strings, array_flip($entities));
@@ -28,7 +29,8 @@ if ($get_option('perfect_match')) {
     }
 } else {
     foreach (Utils::uniqueWords($initial_search) as $word) {
-        $regex = '~' . $whole_word . preg_quote($word, '~') . $whole_word . '~' . $case_sensitive;
+        $regex = '~' . $whole_word . preg_quote($word, '~') .
+                 $whole_word . '~' . $case_sensitive . 'u';
         if ($request->parameters[2] == 'entities') {
             $entities = preg_grep($regex, array_keys($source_strings));
             $source_strings = array_intersect_key($source_strings, array_flip($entities));

@@ -8,7 +8,8 @@ $locale1_strings = $tmx_source;
 $search = Utils::uniqueWords($initial_search);
 
 foreach ($search as $word) {
-    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
+    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
+             $whole_word . $delimiter . $case_sensitive . 'u';
     $locale1_strings = preg_grep($regex, $locale1_strings);
 }
 
