@@ -13,7 +13,8 @@ $terms = Utils::uniqueWords($initial_search);
 $delimiter = '~';
 $whole_word = isset($check['whole_word']) ? '\b' : '';
 $case_sensitive = isset($check['case_sensitive']) ? '' : 'i';
-$regex = $delimiter . $whole_word . $initial_search . $whole_word . $delimiter . $case_sensitive;
+$regex = $delimiter . $whole_word . $initial_search . $whole_word .
+         $delimiter . $case_sensitive . 'u';
 
 // Closure to get extra parameters set
 $get_option = function($option) use ($request) {
@@ -27,7 +28,8 @@ $get_option = function($option) use ($request) {
 };
 
 foreach ($terms as $word) {
-    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
+    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
+             $whole_word . $delimiter . $case_sensitive . 'u';
     $source_strings = preg_grep($regex, $source_strings);
 }
 

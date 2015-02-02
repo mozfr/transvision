@@ -75,28 +75,32 @@ class Utils
     }
 
     /**
-     * This method surrounds a searched term by ←→ so as to nbe used together
-     * with highlightString() and replace those by spans.
+     * This method surrounds a searched term with ←→ It's used together
+     * with highlightString() to replace these with spans.
      *
-     * @param string $needle The term we when to find and mark for highlighting
-     * @param string $haystack The string we search in
-     * @return string The original string with the searched term surronded by arrows
+     * @param   string  $needle    The term we when to find and mark for
+     *                             highlighting
+     * @param   string  $haystack  The string we search in
+     *
+     * @return  string             The original string with the searched term
+     *                             surronded by arrows
      */
     public static function markString($needle, $haystack)
     {
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
-        $str = str_replace(ucwords($needle), '←' . ucwords($needle) . '→', $str);
-        $str = str_replace(strtolower($needle), '←' . strtolower($needle) . '→', $str);
+        $str = str_replace(mb_convert_case($needle, MB_CASE_TITLE), '←' . mb_convert_case($needle, MB_CASE_TITLE) . '→', $str);
+        $str = str_replace(mb_strtolower($needle), '←' . mb_strtolower($needle) . '→', $str);
 
         return $str;
     }
 
 
     /**
-     * Highlight searched terms in a string that were marked by markString()
+     * Highlight searched terms in a string previously marked by markString()
      *
-     * @param string $str String with marked items to highlight
-     * @return string html with searched terms in <span class="hightlight">
+     * @param   string  $str  String with marked items to highlight
+     *
+     * @return  string        HTML with searched terms in <span class="hightlight">
      */
     public static function highlightString($str)
     {

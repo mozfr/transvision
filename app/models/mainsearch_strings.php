@@ -8,7 +8,8 @@ if ($check['perfect_match']) {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
     foreach (Utils::uniqueWords($initial_search) as $word) {
-        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) . $whole_word . $delimiter . $case_sensitive;
+        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
+                 $whole_word . $delimiter . $case_sensitive . 'u';
         $locale1_strings = preg_grep($regex, $locale1_strings);
         $locale2_strings = preg_grep($regex, $locale2_strings);
     }
