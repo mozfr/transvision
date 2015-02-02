@@ -188,7 +188,7 @@ h3 {
 #links-top {
     width: 100%;
     background: #fff;
-    display: none;
+    display: block;
     margin: 0;
     padding: 50px 0 20px;
     float: left;
@@ -215,13 +215,20 @@ h3 {
     margin-right: 5px;
     width: 125px;
     height: 36px;
-    background: url(/img/menu.png) top center no-repeat transparent;
+    background: url(/img/menu.png) center -38px no-repeat transparent;
 }
 
 .selected_view,
 .selected_view:visited {
     color: #00539f;
     font-weight: bold;
+}
+
+#noscript-warning {
+    color: #f2294b;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 30px;
 }
 
 /* Tables */
@@ -838,15 +845,12 @@ fieldset {
         float: none;
     }
 
-    #main_search select {
+    #main_search select,
+    #main_search #search_type {
         display: inline;
     }
 
     /* Hide search options */
-    #searchoptions {
-        display: none;
-    }
-
     .smallscreen_notices {
         display: block;
         font-size: 0.8em;
