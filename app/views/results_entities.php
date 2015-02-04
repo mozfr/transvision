@@ -1,6 +1,9 @@
 <?php
 namespace Transvision;
 
+// Promote API view
+include VIEWS . 'templates/api_promotion.php';
+
 $table = "
 <table class='collapsable'>
   <tr>
