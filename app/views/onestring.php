@@ -16,6 +16,10 @@ if (isset($error)) {
 $page_descr = $entity;
 ?>
 
+<p class="api_link">
+    <span>API</span>These results are also available as an <a href="<?=$api_link?>">API request</a>.<br>
+    <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about Transvision API</a>.
+</p>
 <table>
     <tr>
         <th>Locale</th>

@@ -647,6 +647,24 @@ fieldset {
     background-color: #90ee90;
 }
 
+.api_link {
+    font-size: 12px;
+    text-align: center;
+}
+
+.api_link span {
+    padding: 0.2em 0.4em;
+    border-radius: 0.33em;
+    margin: 0px 6px;
+    display: inline-block;
+    background: #e04e54 none repeat scroll 0% 0%;
+    text-transform: uppercase;
+    color: #FFF;
+    letter-spacing: 0.1em;
+    position: relative;
+    top: -2px;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 850px) {
