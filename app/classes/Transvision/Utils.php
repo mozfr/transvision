@@ -411,4 +411,15 @@ class Utils
         if ($interval->i >= 1) return self::pluralize($interval->i, 'minute') . $suffix;
         return self::pluralize($interval->s, 'second') . $suffix;
     }
+
+    /**
+     * Return the current URL with the json GET variable appended
+     * This is used on views which also exist in our public API
+     * https://github.com/mozfr/transvision/wiki/JSON-API
+     *
+     * @return string URL with 'json' appended as part of the query string
+     */
+    public static function redirectToAPI() {
+        return $_SERVER["REQUEST_URI"] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
+    }
 }

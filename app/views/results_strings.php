@@ -9,6 +9,9 @@
 <?php
 endif;
 
+// Promote API view
+include VIEWS . 'templates/api_promotion.php';
+
 foreach($output as $results_table) {
     print $results_table;
 }

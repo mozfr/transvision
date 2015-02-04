@@ -117,7 +117,7 @@ if ($template) {
     ob_end_clean();
 
     // display the page
-    require_once VIEWS .'template.php';
+    require_once VIEWS .'templates/base.php';
 } else {
     if (isset($view)) {
         include VIEWS . $view . '.php';
