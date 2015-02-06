@@ -2,15 +2,6 @@
 
 First of all thank you for taking the time to contribute to the Transvision project.
 
-## Getting Started
-
-
-1. Fork the [Transvision Project][] into your GitHub account.
-2. Clone your fork to your machine.
-3. Run "start.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed. A config file located in app/config/config.ini will be created automatically. Once this is done, PHP development server will be launched and you can visit http://localhost:8082/ with your browser.
-
-Note that if you launch start.sh again after the installation, it will not download again all the data, composer and dependencies, it will only launch the development server.
-
 ## Code Conventions
 
 Our minimum requirements for PHP is PHP 5.4 (5.4.4 to be precise)
