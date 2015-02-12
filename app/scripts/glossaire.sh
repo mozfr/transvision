@@ -27,21 +27,54 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
+function echo_manual() {
+    echo "ERROR: too many or incorrect arguments. "
+    echo "Run 'glossaire.sh' without parameters to update all locales"
+    echo "---"
+    echo "To update only one locale, add the locale code as first parameter"
+    echo "(e.g. 'glossaire.sh fr' to update only French)."
+    echo "---"
+    echo "To update all locales, and avoid creating a data snapshot at the end, add 'no-snapshot'"
+    echo "(e.g. 'glossaire.sh no-snapshot' to update all locales without creating a data snapshot)."
+    echo "---"
+    echo "To update only one locale, and avoid creating a data snapshot at the end, add locale code and 'no-snapshot'"
+    echo "(e.g. 'glossaire.sh fr no-snapshot' to update only French without creating a data snapshot)."
+
+}
+
 all_locales=true
+create_snapshot=true
 
 if [ $# -eq 1 ]
 then
-    # I have exactly one parameter, it should be the locale code
-    all_locales=false
-    locale_code=$1
+    # I have one parameter, it could be 'no-snapshot' or a locale code
+    if [ "$1" == "no-snapshot" ]
+    then
+        create_snapshot=false
+    else
+        all_locales=false
+        locale_code=$1
+    fi
 fi
 
-if [ $# -gt 1 ]
+if [ $# -eq 2 ]
+then
+    # I have two parameters, I expect the first to be a locale code, the
+    # second to be 'no-snapshot'
+    all_locales=false
+    locale_code=$1
+    if [ "$2" != "no-snapshot" ]
+    then
+        echo_manual
+        exit 1
+    fi
+    create_snapshot=false
+fi
+
+if [ $# -gt 2 ]
 then
     # Too many parameters, warn and exit
-    echo "ERROR: too many arguments. Run 'glossaire.sh' without parameters to"
-    echo "update all locales, or add the locale code as the only parameter "
-    echo "(e.g. 'glossaire.sh fr' to update only French)."
+    echo_manual
     exit 1
 fi
 
@@ -313,7 +346,7 @@ echogreen "Deleting custom TMX files"
 rm -f web/download/*.tmx
 
 # Create a snapshot of all extracted data for download
-if $all_locales
+if $create_snapshot
 then
     cd $root
     echogreen "Creating a snapshot of extracted strings in web/data.tar.gz"
