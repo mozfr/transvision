@@ -23,7 +23,8 @@ class Project extends atoum\test
                 ->isEqualTo($repos);
     }
 
-    public function testGetLastGaiaBranch() {
+    public function testGetLastGaiaBranch()
+    {
         $obj = new _Project();
         $this
             ->string($obj->getLastGaiaBranch())
@@ -35,7 +36,7 @@ class Project extends atoum\test
         $obj = new _Project();
         $repos = ['release', 'beta', 'aurora', 'central', 'gaia_1_3',
                   'gaia_1_4', 'gaia_2_0', 'gaia_2_1', 'gaia',
-                  'mozilla_org'];
+                  'mozilla_org', ];
         $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);

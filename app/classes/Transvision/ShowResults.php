@@ -22,7 +22,6 @@ class ShowResults
         $search_results = [];
 
         foreach ($entities as $entity) {
-
             $temp = [];
 
             foreach ($array_strings as $strings) {
@@ -39,14 +38,14 @@ class ShowResults
      * Return an array of search results from our Translation Memory API
      * service with a quality index based on the levenshtein distance.
      *
-     * @param  array  $entities  The entities we want to analyse
+     * @param  array  $entities      The entities we want to analyse
      * @param  array  $array_strings The strings to look into [locale1 strings, locale2 strings]
-     * @param  string $search The string to search for
-     * @param  int    $max_results Optional, default to 200, the max number of results we return
-     * @param  int    $min_quality Optional, default to 0, The minimal quality index to filter result
+     * @param  string $search        The string to search for
+     * @param  int    $max_results   Optional, default to 200, the max number of results we return
+     * @param  int    $min_quality   Optional, default to 0, The minimal quality index to filter result
      * @return array  An array of strings as [source => string, target => string, quality=> Levenshtein index]
      */
-    public static function getTranslationMemoryResults($entities, $array_strings, $search, $max_results=200, $min_quality=0)
+    public static function getTranslationMemoryResults($entities, $array_strings, $search, $max_results = 200, $min_quality = 0)
     {
         $search_results = array_values(self::getTMXResults($entities, $array_strings));
         $output = [];
@@ -60,7 +59,7 @@ class ShowResults
                     $output[] = [
                         'source'  => $set[0],
                         'target'  => $set[1],
-                        'quality' => $quality
+                        'quality' => $quality,
                     ];
                 }
             }
@@ -81,7 +80,7 @@ class ShowResults
     /**
      * Return search results in a repository on strings/entities for the API
      *
-     * @param  array $entities An array of all the entities we want to return
+     * @param  array $entities      An array of all the entities we want to return
      * @param  array $array_strings The strings to look into [locale1 strings, locale2 strings]
      * @return array An array of strings with the entity as key [entity => [English => French]]
      */
@@ -90,7 +89,7 @@ class ShowResults
         $search_results = self::getTMXResults($entities, $array_strings);
         $output = [];
 
-        $clean_string = function($string) {
+        $clean_string = function ($string) {
             return trim(htmlspecialchars_decode($string, ENT_QUOTES));
         };
 
@@ -98,7 +97,7 @@ class ShowResults
             // we only want results for which we have a translation
             if ($set[1]) {
                 $output[$entity] = [
-                    $clean_string($set[0]) => $clean_string($set[1])
+                    $clean_string($set[0]) => $clean_string($set[1]),
                 ];
             }
         }
@@ -109,8 +108,8 @@ class ShowResults
     /**
      * Returns the string from its entity or false
      *
-     * @param string $entity Entity we are looking for
-     * @param array $strings Haystack of strings to search in
+     * @param  string $entity  Entity we are looking for
+     * @param  array  $strings Haystack of strings to search in
      * @return string The string for the entity or false if no matching result
      */
     public static function getStringFromEntity($entity, $strings)
@@ -123,9 +122,9 @@ class ShowResults
     /**
      * Nicely format entities for tables by splitting them in subpaths and styling them
      *
-     * @param string $entity
-     * @param boolean $highlight Optional. Default to false. Use a highlighting style
-     * @return string Entity reformated with html markup and css classes for styling
+     * @param  string  $entity
+     * @param  boolean $highlight Optional. Default to false. Use a highlighting style
+     * @return string  Entity reformated with html markup and css classes for styling
      */
     public static function formatEntity($entity, $highlight = false)
     {
@@ -146,7 +145,7 @@ class ShowResults
 
         $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
 
-        return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' .$entity;
+        return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' . $entity;
     }
 
     /**
@@ -154,17 +153,17 @@ class ShowResults
      * Can also highlight specific per locale sub-strings.
      * For example in French non-breaking spaces used in typography
      *
-     * @param string $string Source text
-     * @param string $locale Optional. Locale code. Defaults to French.
+     * @param  string $string Source text
+     * @param  string $locale Optional. Locale code. Defaults to French.
      * @return string Same string with specific sub-strings in span elements
-     *                for styling with CSS (.hightlight-gray class)
+     *                       for styling with CSS (.hightlight-gray class)
      */
     public static function highlight($string, $locale = 'fr')
     {
-        $replacements = array(
-            ' ' => '<span class="highlight-gray"> </span>',
+        $replacements = [
+            ' '  => '<span class="highlight-gray"> </span>',
             '…' => '<span class="highlight-gray">…</span>',
-        );
+        ];
 
         switch ($locale) {
             case 'fr':
@@ -179,11 +178,11 @@ class ShowResults
     /**
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
-     * @param array $search_results list of rows
-     * @param string $recherche The words searched for
-     * @param string $locale1 Reference locale to search in, usually en-US
-     * @param string $locale2 Target locale to search in
-     * @param array $search_options All the search options from the query
+     * @param array  $search_results list of rows
+     * @param string $recherche      The words searched for
+     * @param string $locale1        Reference locale to search in, usually en-US
+     * @param string $locale2        Target locale to search in
+     * @param array  $search_options All the search options from the query
      *
      * @return string html table to insert in the view
      */
@@ -208,11 +207,10 @@ class ShowResults
                         {$extra_column_header}
                       </tr>";
 
-
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
         } else {
-            $recherche = array($recherche);
+            $recherche = [$recherche];
         }
 
         foreach ($search_results as $key => $strings) {
@@ -269,12 +267,12 @@ class ShowResults
                 $target_string2 = Utils::highlightString($target_string2);
             }
 
-            $replacements = array(
-                ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+            $replacements = [
+                ' '         => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
                 ' '        => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
                 '…'        => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-                '&hellip;' => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-            );
+                '&hellip;'   => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+            ];
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);
 
@@ -328,11 +326,10 @@ class ShowResults
             }
 
             // Replace / and : in the key name and use it as an anchor name
-            $anchor_name = str_replace(array('/', ':'), '_', $key);
+            $anchor_name = str_replace(['/', ':'], '_', $key);
 
             // 3locales view
             if (isset($search_options["extra_locale"])) {
-
                 if ($search_options['repo'] == 'mozilla_org') {
                     $locale3_path = VersionControl::svnPath($locale3, $search_options['repo'], $key);
                 } else {

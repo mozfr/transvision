@@ -34,4 +34,3 @@ if (count($perfect_results) > 0) {
 } else {
     echo "  <p>No perfect match found.</p>\n</div>\n";
 }
-

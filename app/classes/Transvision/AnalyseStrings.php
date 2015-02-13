@@ -13,7 +13,7 @@ class AnalyseStrings
     /**
      * Replace common and uncommon html entities by real letters
      *
-     * @param string $string the string to process
+     * @param  string $string the string to process
      * @return string cleaned up string with entities converted
      */
     public static function cleanUpEntities($string)
@@ -32,10 +32,10 @@ class AnalyseStrings
 
     /**
      * Search for strings with variables differences
-     * @param array  $tmx_source TMX file as reference
-     * @param array  $tmx_target TMX file for the locale to compare
-     * @param string $repo Name of the repo to determine the right set of regexps
-     * @return array List of entity names not matching source
+     * @param  array  $tmx_source TMX file as reference
+     * @param  array  $tmx_target TMX file for the locale to compare
+     * @param  string $repo       Name of the repo to determine the right set of regexps
+     * @return array  List of entity names not matching source
      */
     public static function differences($tmx_source, $tmx_target, $repo)
     {
@@ -43,13 +43,13 @@ class AnalyseStrings
 
         if (Strings::startsWith($repo, 'gaia')) {
             $patterns = [
-                'l10njs'     => '/\{\{([\s]*[a-z0-9]+[\s]*)\}\}/i' // {{foobar2}}
+                'l10njs'     => '/\{\{([\s]*[a-z0-9]+[\s]*)\}\}/i', // {{foobar2}}
             ];
         } else {
             $patterns = [
                 'dtd'        => '/&([a-z0-9\.]+);/i',                // &foobar;
                 'printf'     => '/%([0-9]+\$){0,1}([0-9].){0,1}S/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i'      // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',      // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
             ];
         }
 
@@ -66,11 +66,11 @@ class AnalyseStrings
                             if ($pattern_name == 'printf') {
                                 // Variables are in format %S or %1$S, case is not relevant
                                 if (stripos($translation, $val) === false) {
-                                   $wrong_variable = true;
+                                    $wrong_variable = true;
                                 }
                             } else {
                                 if (strpos($translation, $val) === false) {
-                                   $wrong_variable = true;
+                                    $wrong_variable = true;
                                 }
                             }
                         }

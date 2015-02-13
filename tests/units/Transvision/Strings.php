@@ -41,7 +41,7 @@ class Strings extends atoum\test
     {
         $obj = new _Strings();
         $this
-            ->boolean($obj->startsWith($a,$b))
+            ->boolean($obj->startsWith($a, $b))
                 ->isEqualTo($c);
     }
 
@@ -71,7 +71,7 @@ class Strings extends atoum\test
         return [
             ['La maison est blanche', 'blanche', true],
             ['Le ciel est bleu', 'noir', false],
-            ['Le ciel est bleu', 'Le', true]
+            ['Le ciel est bleu', 'Le', true],
         ];
     }
 
@@ -91,14 +91,14 @@ class Strings extends atoum\test
         return [
             [
                 [
-                    ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                    ' '         => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
                     ' '        => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
                     '…'        => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-                    '&hellip;' => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                    '&hellip;'   => '<span class="highlight-gray">…</span>', // right ellipsis highlight
                 ],
                 '&hellip;  …',
-                '<span class="highlight-gray">…</span><span class="highlight-gray" title="Non breakable space"> </span><span class="highlight-red" title="Thin space"> </span><span class="highlight-gray">…</span>'
-            ]
+                '<span class="highlight-gray">…</span><span class="highlight-gray" title="Non breakable space"> </span><span class="highlight-red" title="Thin space"> </span><span class="highlight-gray">…</span>',
+            ],
         ];
     }
 
@@ -146,7 +146,7 @@ class Strings extends atoum\test
                 ['maçon', 'melon', 'blanche', 'navet'],
                 2,
                 ['navet', 'melon'],
-            ]
+            ],
         ];
     }
 

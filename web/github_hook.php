@@ -13,11 +13,12 @@ $header = 'HTTP_X_HUB_SIGNATURE';
 $secret = parse_ini_file($app_root . '/app/config/config.ini')['github_key'];
 
 // Logging function to output content to /github_log.txt
-function logHookResult($message , $success = false) {
+function logHookResult($message, $success = false)
+{
     $log_headers = "$message\n";
     if (! $success) {
         foreach ($_SERVER as $header => $value) {
-           $log_headers .= "$header: $value \n";
+            $log_headers .= "$header: $value \n";
         }
     }
     file_put_contents(__DIR__ . '/github_log.txt', $log_headers);

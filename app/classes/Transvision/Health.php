@@ -19,7 +19,7 @@ class Health
         'total'      => 'Total',
         'translated' => 'Translated',
         'missing'    => 'Missing',
-        'identical'  => 'Identical'
+        'identical'  => 'Identical',
     ];
 
     /**
@@ -46,13 +46,13 @@ class Health
      * Get an array with the completion status by analyzing the localized strings
      * array vs. the reference strings array.
      *
-     * @param string $name Real name of the repository that will be displayed
-     * in the UI.
-     * @param array $ref_strings Array containing all the reference strings of
-     * the repo ('entity_name' => 'Content.')
-     * @param array $loc_strings Array containing all the strings of the repo
-     * for a given locale ('entity_name' => 'Localized content.')
-     * @return array Status for a repository of a locale
+     * @param  string $name        Real name of the repository that will be displayed
+     *                             in the UI.
+     * @param  array  $ref_strings Array containing all the reference strings of
+     *                             the repo ('entity_name' => 'Content.')
+     * @param  array  $loc_strings Array containing all the strings of the repo
+     *                             for a given locale ('entity_name' => 'Localized content.')
+     * @return array  Status for a repository of a locale
      */
     public static function getStatus($name, $ref_strings, $loc_strings)
     {
@@ -99,19 +99,19 @@ class Health
         }
 
         return [
-            'total' => $ref_total,
-            'translated' => $loc_translated
+            'total'      => $ref_total,
+            'translated' => $loc_translated,
         ];
     }
 
     /**
      * Create a tab-link element that can be added to a list of tabs.
      *
-     * @param string $title Text displayed in the tab
-     * @param string $anchor HTML anchor used to activate the associated
-     * tab-content. Should be the same as the $id argument in Health::addTab.
-     * @param boolean $active Should this tab be the active one?
-     * @return string HTML element to add between <ul class="tab-links"> and </ul>
+     * @param  string  $title  Text displayed in the tab
+     * @param  string  $anchor HTML anchor used to activate the associated
+     *                         tab-content. Should be the same as the $id argument in Health::addTab.
+     * @param  boolean $active Should this tab be the active one?
+     * @return string  HTML element to add between <ul class="tab-links"> and </ul>
      */
     public static function addLink($title, $anchor, $active)
     {
@@ -127,12 +127,12 @@ class Health
     /**
      * Create a tab-content element that can be added to a list of tab-content.
      *
-     * @param string $id ID that will be used in combination with an HTML anchor
-     * in a tab-link to show this tab-content. Should match the $anchor argument
-     * in Health::addLink.
-     * @param boolean $active Should this tab be the active one?
-     * @return string HTML element to add between <div class="tab-content"> and
-     * </div>.
+     * @param  string  $id     ID that will be used in combination with an HTML anchor
+     *                         in a tab-link to show this tab-content. Should match the $anchor argument
+     *                         in Health::addLink.
+     * @param  boolean $active Should this tab be the active one?
+     * @return string  HTML element to add between <div class="tab-content"> and
+     *                        </div>.
      */
     public static function addTab($id, $active)
     {
@@ -148,8 +148,8 @@ class Health
     /**
      * Create a row to be added to a table, extracting values for all the columns.
      *
-     * @param array $col Array containing the id of each column
-     * @param array $status Array containing the value for each column
+     * @param  array  $col    Array containing the id of each column
+     * @param  array  $status Array containing the value for each column
      * @return string HTML element to add to a table
      */
     public static function addRow($col, $status)
@@ -165,15 +165,16 @@ class Health
     /**
      * Create a tab containing the repo info
      *
-     * @param array $data Array containing structured commit data
-     * @param string $id ID that will be used in combination with an HTML anchor
-     * in a tab-link to show this tab-content. Should match the id in $data
-     * argument used in Health::getStatsPane.
-     * @param boolean $active Should this tab be the active one?
-     * @return string HTML element to add between <div class="tab-content"> and
-     * </div>, or false if data are missing.
+     * @param  array   $data   Array containing structured commit data
+     * @param  string  $id     ID that will be used in combination with an HTML anchor
+     *                         in a tab-link to show this tab-content. Should match the id in $data
+     *                         argument used in Health::getStatsPane.
+     * @param  boolean $active Should this tab be the active one?
+     * @return string  HTML element to add between <div class="tab-content"> and
+     *                        </div>, or false if data are missing.
      */
-    public static function getStatsTab($data, $id, $active) {
+    public static function getStatsTab($data, $id, $active)
+    {
         // Create the tab only if we get data
         if (isset($data['commit'])) {
             $date = $data['commit']['date'];
@@ -199,7 +200,6 @@ class Health
 
             return $tab;
         } else {
-
             return false;
         }
     }
@@ -208,10 +208,11 @@ class Health
      * Create a panel containing tabs with info for all the repos of this group
      * For instance, a panel with tabs for each gaia repo.
      *
-     * @param array $data Array containing all the data for each repo
+     * @param  array  $data Array containing all the data for each repo
      * @return string HTML element to add in the repo tab
      */
-    public static function getStatsPane($data) {
+    public static function getStatsPane($data)
+    {
         if (! isset($data['stats'])) {
             $first_tab = true;
             $links = $tabs = '';
@@ -245,7 +246,6 @@ class Health
                 </div>
             </div>';
         } else {
-
             return '<div class="stats-panel">'
                     . self::getStatsTab(
                                 $data['stats'],

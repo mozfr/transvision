@@ -33,8 +33,8 @@ $releases = [
 ];
 
 // Helper to generate CSS class tags
-$relnotes = function($tag) {
-    switch($tag) {
+$relnotes = function ($tag) {
+    switch ($tag) {
         case 'better':
             $type = 'improvement';
             $text = 'Improvement';
@@ -60,6 +60,7 @@ $relnotes = function($tag) {
             $text = 'Other';
             break;
     }
+
     return "<span class=\"release_tag {$type}\">{$text}</span> ";
 };
 
@@ -88,7 +89,7 @@ TITLE;
 $issue = function () {
     $link = '';
     $issues = func_get_args();
-    foreach($issues as $issue) {
+    foreach ($issues as $issue) {
         $link .= "<a href=\"https://github.com/mozfr/transvision/issues/{$issue}\" class=\"github_issue\">Issue {$issue}</a>";
         $link .=  ($issue === end($issues)) ? '. ' : ' + ';
     }

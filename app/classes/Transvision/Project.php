@@ -20,7 +20,7 @@ class Project
         'mobile'   => 'Firefox for Android',
         'mail'     => 'Thunderbird',
         'suite'    => 'SeaMonkey',
-        'calendar' => 'Lightning'
+        'calendar' => 'Lightning',
     ];
 
     /**
@@ -39,13 +39,13 @@ class Project
             foreach ($gaia_versions as $gaia_version) {
                 if ($gaia_version == 'gaia') {
                     $supported_versions += [
-                        'gaia' => 'Gaia master'
+                        'gaia' => 'Gaia master',
                     ];
                 } else {
                     $repo_name = "gaia_{$gaia_version}";
                     $repo_description = 'Gaia ' . str_replace('_', '.', $gaia_version);
                     $supported_versions += [
-                        $repo_name => $repo_description
+                        $repo_name => $repo_description,
                     ];
                 }
             }
@@ -183,7 +183,7 @@ class Project
     /**
      * Check if the specified repository is supported
      *
-     * @param  string $repository Name of the folder for the repository
+     * @param  string  $repository Name of the folder for the repository
      * @return boolean True if supported repository, False if unknown
      */
     public static function isValidRepository($repository)
@@ -196,7 +196,7 @@ class Project
      * For example: given "es", returns "es-ES" for Bugzilla,
      * "es" for Gaia, "es-ES" for other repos.
      *
-     * @param  string $locale Name of the current locale
+     * @param  string $locale  Name of the current locale
      * @param  string $context The context we need to use this locale in
      * @return string Locale code to use in the requested context
      */
@@ -250,12 +250,13 @@ class Project
      *
      * @param  array  Containing entities associated with strings,
      *                like "path/to/properties:entity" => "a string".
-     * @return array  List of components
+     * @return array List of components
      */
-    public static function getComponents($strings) {
+    public static function getComponents($strings)
+    {
         $reference_components = array_keys($strings);
         $reference_components = array_map(
-            function($row) {
+            function ($row) {
                 return explode('/', $row)[0];
             },
             $reference_components

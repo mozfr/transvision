@@ -43,7 +43,6 @@ $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&
 $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 
 foreach ($mismatch as $entity) {
-
     if ($repo == 'mozilla_org') {
         $path_locale1 = VersionControl::svnPath('en-US', $repo, $entity);
         $path_locale2 = VersionControl::svnPath($locale, $repo, $entity);

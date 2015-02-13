@@ -9,11 +9,10 @@ if (isset($_GET['tmx_format'])
     $check['tmx_format'] = $_GET['tmx_format'];
 }
 
-
 // Build the tmx format switcher
 $tmx_format_descriptions = [
     'normal' => 'Normal',
-    'omegat'=> 'OmegaT'
+    'omegat' => 'OmegaT',
 ];
 
 $tmx_format_list = Utils::getHtmlSelectOptions(

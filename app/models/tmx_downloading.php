@@ -7,16 +7,14 @@ $strings = ['en-US' => [], $locale => []];
 
 foreach ($repos as $repo) {
     if (isset($_GET[$repo])) {
-
         $cache_file_english = Utils::getRepoStrings(Project::getReferenceLocale($repo), $repo);
 
         if ($cache_file_english) {
-
             $cache_file_locale = Utils::getRepoStrings($locale, $repo);
 
             if ($repo == 'mozilla_org') {
                 $cache_file_locale = array_map(
-                    function($e) {
+                    function ($e) {
                         return trim(rtrim($e, '{ok}'));
                     },
                     $cache_file_locale

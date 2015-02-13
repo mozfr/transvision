@@ -30,7 +30,7 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
 $check['search_type'] = 'strings';
 
 if (isset($_GET['search_type'])
-    && in_array($_GET['search_type'], array('strings', 'entities', 'strings_entities')
+    && in_array($_GET['search_type'], ['strings', 'entities', 'strings_entities']
     )) {
     $check['search_type'] = $_GET['search_type'];
 }
@@ -88,9 +88,9 @@ foreach ($repositories as $repository) {
 
 // Build the search type switcher
 $search_type_descriptions = [
-    'strings' => 'Strings',
-    'entities'=> 'Entities',
-    'strings_entities' => 'Strings & Entities'
+    'strings'          => 'Strings',
+    'entities'         => 'Entities',
+    'strings_entities' => 'Strings & Entities',
 ];
 
 $search_type_list = Utils::getHtmlSelectOptions(

@@ -35,7 +35,7 @@ class Strings
      */
     public static function startsWith($haystack, $needles)
     {
-        foreach((array) $needles as $prefix) {
+        foreach ((array) $needles as $prefix) {
             if (! strncmp($haystack, $prefix, mb_strlen($prefix))) {
                 return true;
             }
@@ -49,12 +49,12 @@ class Strings
      * $needles can be a string or an array of strings.
      *
      * @param  string  $haystack String to analyse
-     * @param  array   $needles The strings to look for
+     * @param  array   $needles  The strings to look for
      * @return boolean True if the $haystack string ends with a string in $needles
      */
     public static function endsWith($haystack, $needles)
     {
-        foreach((array) $needles as $suffix) {
+        foreach ((array) $needles as $suffix) {
             if (mb_substr($haystack, -mb_strlen($suffix)) === $suffix) {
                 return true;
             }
@@ -67,7 +67,7 @@ class Strings
      * Check if $needle is in $haystack
      *
      * @param  string  $haystack String to analyse
-     * @param  string  $needle The string to look for
+     * @param  string  $needle   The string to look for
      * @return boolean True if the $haystack string contains $needle
      */
     public static function inString($haystack, $needle)
@@ -78,9 +78,9 @@ class Strings
     /**
      * Returns a string after replacing all the items provided in an array
      *
-     * @param array $replacements List of replacements to do as :
-     *                            ['before1' => 'after1', 'before2' => 'after2']
-     * @param string $string The string to process
+     * @param  array  $replacements List of replacements to do as :
+     *                              ['before1' => 'after1', 'before2' => 'after2']
+     * @param  string $string       The string to process
      * @return string Processed string
      */
     public static function multipleStringReplace($replacements, $string)
@@ -102,9 +102,9 @@ class Strings
     /**
      * Search for similar strings in an array
      *
-     * @param  string $needle string to search for
+     * @param  string $needle   string to search for
      * @param  array  $haystack array of strings to search into
-     * @param  int    $number optional, number of results we want, defaults to 1
+     * @param  int    $number   optional, number of results we want, defaults to 1
      * @return array  Closest strings to $needle in $haystack or empty array if no match
      */
     public static function getSimilar($needle, $haystack, $number = 1)
@@ -113,11 +113,9 @@ class Strings
         $matches = [];
 
         foreach ($haystack as $string) {
-
             similar_text($needle, $string, $percent);
 
             if ($percent >= $similarity && ! in_array($string, $matches)) {
-
                 $similarity = $percent;
 
                 if (count($matches) < $number) {
@@ -207,7 +205,7 @@ class Strings
     {
         $length = max([
             mb_strlen($string1, 'UTF-8'),
-            mb_strlen($string2, 'UTF-8')
+            mb_strlen($string2, 'UTF-8'),
         ]);
 
         return (float) (1-self::levenshteinUTF8($string1, $string2)/$length)*100;
