@@ -13,12 +13,12 @@ class RTLSupport
     /*
      * List of locales that are Right to Left
      */
-    public static $rtl = array('ar', 'fa', 'he', 'ur');
+    public static $rtl = ['ar', 'fa', 'he', 'ur'];
 
     /**
      * Get the text direction from a locale code
      *
-     * @param string $locale locale code
+     * @param  string $locale locale code
      * @return string rtl or ltr
      */
     public static function getDirection($locale)
@@ -29,7 +29,7 @@ class RTLSupport
     /**
      * Is this locale code a RTL locale?
      *
-     * @param type $locale locale code we want to test
+     * @param  type    $locale locale code we want to test
      * @return boolean true if RTL, false if LTR
      */
     public static function isRTL($locale)

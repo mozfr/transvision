@@ -13,12 +13,13 @@ class TMX
     /**
      * Generate a TMX file from a data source
      *
-     * @param array $strings All the strings the user picked
-     * @param string $target_lang Locale picked from which we get translations
-     * @param string $source_lang Source locale
-     * @return mixed string that contains a TMX in xml format, False otherwise
+     * @param  array  $strings     All the strings the user picked
+     * @param  string $target_lang Locale picked from which we get translations
+     * @param  string $source_lang Source locale
+     * @return mixed  string that contains a TMX in xml format, False otherwise
      */
-    public static function create($strings, $target_lang, $source_lang) {
+    public static function create($strings, $target_lang, $source_lang)
+    {
         if ($strings[$target_lang] && $strings[$source_lang]) {
             $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
                         . '<tmx version="1.4">' . "\n"
@@ -34,7 +35,7 @@ class TMX
                 $string_source = htmlentities($string_source, ENT_XML1);
                 $string_target = htmlentities($string_target, ENT_XML1);
 
-                $content .= "\t".'<tu tuid="' . $entity . '" srclang="' . $source_lang . '">' . "\n"
+                $content .= "\t" . '<tu tuid="' . $entity . '" srclang="' . $source_lang . '">' . "\n"
                             . "\t\t" . '<tuv xml:lang="' . $source_lang . '"><seg>' . $string_source . '</seg></tuv>' . "\n"
                             . "\t\t" . '<tuv xml:lang="' . $target_lang . '"><seg>' . $string_target . '</seg></tuv>' . "\n"
                             . "\t" . '</tu>' . "\n";
@@ -50,19 +51,20 @@ class TMX
     /**
      * Generate a TMX file from a data source with the format of OmegaT
      *
-     * @param array $strings All the strings the user picked
-     * @param string $target_lang Locale picked from which we get translations
-     * @param string $source_lang Source locale
-     * @return mixed string that contains a TMX in xml format, False otherwise
+     * @param  array  $strings     All the strings the user picked
+     * @param  string $target_lang Locale picked from which we get translations
+     * @param  string $source_lang Source locale
+     * @return mixed  string that contains a TMX in xml format, False otherwise
      */
-    public static function createOmegat($strings, $target_lang, $source_lang) {
+    public static function createOmegat($strings, $target_lang, $source_lang)
+    {
         if ($strings[$target_lang] && $strings[$source_lang]) {
             $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
                         . '<!DOCTYPE tmx SYSTEM "tmx11.dtd">' . "\n"
                         . '<tmx version="1.1">' . "\n"
                         . '<header creationtool="Transvision" o-tmf="OmegaT TMX" o-encoding="UTF8"'
                         . ' adminlang="EN-US" datatype="plaintext" creationtoolversion="0.1" segtype="paragraph"'
-                        . ' creationdate="' . date('c') . '" srclang="' . $source_lang. '">'
+                        . ' creationdate="' . date('c') . '" srclang="' . $source_lang . '">'
                         . '</header>' . "\n"
                         . '<body>' . "\n";
 

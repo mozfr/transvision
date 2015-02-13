@@ -1,5 +1,6 @@
 <?php
 namespace Transvision;
+
 /*
  * This view outputs a json or jsonp representation of search results
  */
@@ -12,4 +13,3 @@ die(Json::output(
     $json,
     isset($_GET['callback']) ? $_GET['callback'] : false
 ));
-

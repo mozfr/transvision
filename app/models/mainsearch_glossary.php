@@ -74,8 +74,8 @@ foreach ($search as $word) {
 // remove duplicates
 $imperfect = array_unique($imperfect);
 
-$get_results = function($arr) use ($tmx_target) {
-    $results = array();
+$get_results = function ($arr) use ($tmx_target) {
+    $results = [];
     foreach ($arr as $val) {
         if ($tmx_target[$val] != '') {
             $results[$val] = $tmx_target[$val];

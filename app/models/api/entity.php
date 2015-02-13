@@ -6,11 +6,9 @@ use Cache\Cache;
 $cache_id = $repo . $entity . 'alllocales';
 
 if (! $translations = Cache::getKey($cache_id)) {
-
     $translations = [];
 
     foreach (Project::getRepositoryLocales($repo) as $locale_code) {
-
         $strings = Utils::getRepoStrings($locale_code, $repo);
 
         if (isset($strings[$entity])) {
@@ -25,6 +23,7 @@ if (! $translations = Cache::getKey($cache_id)) {
         unset($strings);
     }
 
-   Cache::setKey($cache_id, $translations);
+    Cache::setKey($cache_id, $translations);
 }
+
 return $json = $translations;

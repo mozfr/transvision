@@ -1,4 +1,4 @@
-<?php if(isset($filter_block)) : ?>
+<?php if (isset($filter_block)) : ?>
 
 <div id="filters">
     <h4>Filter by folder:</h4>
@@ -12,6 +12,6 @@ endif;
 // Promote API view
 include VIEWS . 'templates/api_promotion.php';
 
-foreach($output as $results_table) {
+foreach ($output as $results_table) {
     print $results_table;
 }

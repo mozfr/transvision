@@ -11,8 +11,8 @@ class Json extends atoum\test
     public function fetchDP()
     {
         return [
-            [TEST_FILES . 'json/empty.json', array()],
-            [TEST_FILES . 'json/test1.json', array('user_name' => 'Pascal')]
+            [TEST_FILES . 'json/empty.json', []],
+            [TEST_FILES . 'json/test1.json', ['user_name' => 'Pascal']],
         ];
     }
 
@@ -34,20 +34,20 @@ class Json extends atoum\test
                 ['foo' => 'bar'],
                 false,
                 false,
-                '{"foo":"bar"}'
+                '{"foo":"bar"}',
             ],
             [
                 ['foo' => 'bar'],
                 false,
                 true,
-                "{\n    " . '"foo": "bar"' . "\n}"
+                "{\n    " . '"foo": "bar"' . "\n}",
             ],
             [
                 ['foo' => 'bar'],
                 'toto',
                 false,
-                'toto({"foo":"bar"})'
-            ]
+                'toto({"foo":"bar"})',
+            ],
         ];
     }
 

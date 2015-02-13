@@ -17,5 +17,4 @@ class ChooseLocale extends atoum\test
                 ->string($obj->getDefaultLocale())
                 ->isEqualTo('en-US');
     }
-
 }

@@ -14,7 +14,7 @@ class Dotlang
 {
     /**
      * Recursively find all lang files, ignore common VCS dot files
-     * @param string  $path Path to the directory to scan
+     * @param  string $path Path to the directory to scan
      * @return array  All the file paths
      */
     public static function getLangFilesList($path)
@@ -23,7 +23,7 @@ class Dotlang
 
         foreach (scandir($path) as $sub_path) {
             if (Strings::startsWith($sub_path, '.')) {
-            // ignore '.', '..' and other hidden files such as .svn
+                // ignore '.', '..' and other hidden files such as .svn
                continue;
             }
 
@@ -48,8 +48,8 @@ class Dotlang
     /**
      * Loads the  lang file and returns a cleaned up array of the lines
      *
-     * @param string $file path to the local file to load
-     * @return array All the significant lines in the file as an array
+     * @param  string $file path to the local file to load
+     * @return array  All the significant lines in the file as an array
      */
     public static function getFile($file)
     {
@@ -73,8 +73,8 @@ class Dotlang
      *  ;String in english
      *  translated string
      *
-     * @param string $file .lang file to load
-     * @return array Array of strings as [original => translation]
+     * @param  string $file .lang file to load
+     * @return array  Array of strings as [original => translation]
      */
     public static function getStrings($file)
     {
@@ -117,11 +117,12 @@ class Dotlang
      * Generate a unique id for a string to store that in Transvision with
      * the unique ids for products. Since there are no names for strings
      * we generate a short hash of the string.
-     * @param string $file_path the file path to the .lang file
-     * @param string $string the English string
+     * @param  string $file_path the file path to the .lang file
+     * @param  string $string    the English string
      * @return string unique id such as mozilla_org/mozorg/about.lang:a4a7eabd
      */
-    public static function generateStringID($file_path, $string) {
+    public static function generateStringID($file_path, $string)
+    {
         return $file_path . ':' . hash('crc32', $string);
     }
 }

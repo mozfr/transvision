@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-require_once INC .'l10n-init.php';
+require_once INC . 'l10n-init.php';
 
 $chan1 = 'aurora';
 $chan2 = 'beta';
@@ -14,7 +14,7 @@ if (isset($_GET['chan2']) && in_array($_GET['chan2'], $desktop_repos)) {
     $chan2 = $_GET['chan2'];
 }
 
-$strings = array();
+$strings = [];
 $strings[$chan1] = Utils::getRepoStrings($locale, $chan1);
 $strings[$chan2] = Utils::getRepoStrings($locale, $chan2);
 
@@ -23,8 +23,8 @@ $chan_selector1 = $chan_selector2 = '';
 foreach ($desktop_repos as $repo) {
     $ch1 = ($repo == $chan1) ? ' selected' : '';
     $ch2 = ($repo == $chan2) ? ' selected' : '';
-    $chan_selector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
-    $chan_selector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" .$repos_nice_names[$repo] . "</option>\n";
+    $chan_selector1 .= "\t<option" . $ch1 . " value=" . $repo . ">" . $repos_nice_names[$repo] . "</option>\n";
+    $chan_selector2 .= "\t<option" . $ch2 . " value=" . $repo . ">" . $repos_nice_names[$repo] . "</option>\n";
 }
 
 // Get the locale list

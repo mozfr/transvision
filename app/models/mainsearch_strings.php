@@ -30,7 +30,7 @@ array_splice($locale2_strings, $limit_results);
 
 $searches = [
     $source_locale => $locale1_strings,
-    $locale => $locale2_strings
+    $locale        => $locale2_strings,
 ];
 
 $data = [$tmx_source, $tmx_target];
@@ -79,6 +79,7 @@ if (! $search_yields_results) {
     $best_matches = Strings::getSimilar($initial_search, $merged_strings, 3);
 
     include VIEWS . 'results_similar.php';
+
     return;
 } else {
     if (in_array($check['repo'], $desktop_repos)) {

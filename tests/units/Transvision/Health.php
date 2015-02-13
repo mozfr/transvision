@@ -23,102 +23,102 @@ class Health extends atoum\test
             [
                 'Gaia master',
                 [
-                    'apps/settings/settings.properties:apps-free-space' => 'Left',
-                    'apps/sms/sms.properties:files-too-large[few]' => 'The files you have selected are too large.',
-                    'apps/settings/settings.properties:pinAttemptMsg3[few]' => 'You have {{n}} tries left to enter the correct code before locking the SIM card.',
-                    'apps/settings/settings.properties:downloads-header' => '{{downloads}}',
-                    'apps/settings/settings.properties:continue' => 'Continue',
-                    'apps/system/system.properties:confirmNewSimPinMsg' => 'Confirm new PIN',
+                    'apps/settings/settings.properties:apps-free-space'          => 'Left',
+                    'apps/sms/sms.properties:files-too-large[few]'               => 'The files you have selected are too large.',
+                    'apps/settings/settings.properties:pinAttemptMsg3[few]'      => 'You have {{n}} tries left to enter the correct code before locking the SIM card.',
+                    'apps/settings/settings.properties:downloads-header'         => '{{downloads}}',
+                    'apps/settings/settings.properties:continue'                 => 'Continue',
+                    'apps/system/system.properties:confirmNewSimPinMsg'          => 'Confirm new PIN',
                     'apps/costcontrol/costcontrol.properties:fte-postpaid3-hint' => 'Set an alert to avoid using too much data.',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'           => 'Overscrolling',
                 ],
                 [
-                    'apps/settings/settings.properties:apps-free-space' => 'Libre',
-                    'apps/sms/sms.properties:files-too-large[few]' => 'Les fichiers sélectionnés sont trop volumineux.',
-                    'apps/settings/settings.properties:pinAttemptMsg3[few]' => 'Il vous reste {{n}} essais pour saisir le code correct avant de bloquer la carte SIM.',
-                    'apps/settings/settings.properties:downloads-header' => 'Téléchargements',
-                    'apps/settings/settings.properties:continue' => 'Continuer',
-                    'apps/system/system.properties:confirmNewSimPinMsg' => 'Confirmer le nouveau code PIN',
+                    'apps/settings/settings.properties:apps-free-space'          => 'Libre',
+                    'apps/sms/sms.properties:files-too-large[few]'               => 'Les fichiers sélectionnés sont trop volumineux.',
+                    'apps/settings/settings.properties:pinAttemptMsg3[few]'      => 'Il vous reste {{n}} essais pour saisir le code correct avant de bloquer la carte SIM.',
+                    'apps/settings/settings.properties:downloads-header'         => 'Téléchargements',
+                    'apps/settings/settings.properties:continue'                 => 'Continuer',
+                    'apps/system/system.properties:confirmNewSimPinMsg'          => 'Confirmer le nouveau code PIN',
                     'apps/costcontrol/costcontrol.properties:fte-postpaid3-hint' => 'Définir une alerte pour éviter d’utiliser trop de données.',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'           => 'Overscrolling',
                 ],
 
                 [
-                    'name' => 'Gaia master',
-                    'total' => 8,
+                    'name'       => 'Gaia master',
+                    'total'      => 8,
                     'translated' => 8,
-                    'missing' => 0,
-                    'identical' => 1
-                ]
+                    'missing'    => 0,
+                    'identical'  => 1,
+                ],
             ],
             [
                 'Gaia master',
                 [
                     'apps/settings/settings.properties:apps-free-space' => 'Left',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'  => 'Overscrolling',
                 ],
                 [
                     'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
                 ],
                 [
-                    'name' => 'Gaia master',
-                    'total' => 2,
+                    'name'       => 'Gaia master',
+                    'total'      => 2,
                     'translated' => 1,
-                    'missing' => 1,
-                    'identical' => 1
-                ]
+                    'missing'    => 1,
+                    'identical'  => 1,
+                ],
             ],
             [
                 'Gaia master',
                 [
                     'apps/settings/settings.properties:apps-free-space' => 'Left',
-                    'apps/settings/settings.properties:test' => 'Overscrolling',
+                    'apps/settings/settings.properties:test'            => 'Overscrolling',
                 ],
                 [
                     'apps/settings/settings.properties:apps-free-space' => 'Libre',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'  => 'Overscrolling',
                 ],
                 [
-                    'name' => 'Gaia master',
-                    'total' => 2,
+                    'name'       => 'Gaia master',
+                    'total'      => 2,
                     'translated' => 2,
-                    'missing' => 1,
-                    'identical' => 0
-                ]
+                    'missing'    => 1,
+                    'identical'  => 0,
+                ],
             ],
             [
                 'Gaia master',
                 [
                     'apps/settings/settings.properties:apps-free-space' => 'Left',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'  => 'Overscrolling',
                 ],
                 [
-                    'apps/settings/settings.properties:test' => 'test',
+                    'apps/settings/settings.properties:test'            => 'test',
                     'apps/settings/settings.properties:apps-free-space' => 'Libre',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'  => 'Overscrolling',
                 ],
                 [
-                    'name' => 'Gaia master',
-                    'total' => 2,
+                    'name'       => 'Gaia master',
+                    'total'      => 2,
                     'translated' => 3,
-                    'missing' => 0,
-                    'identical' => 1
-                ]
+                    'missing'    => 0,
+                    'identical'  => 1,
+                ],
             ],
             [
                 'Gaia master',
                 [
                     'apps/settings/settings.properties:apps-free-space' => 'Left',
-                    'apps/settings/settings.properties:apz-overscroll' => 'Overscrolling',
+                    'apps/settings/settings.properties:apz-overscroll'  => 'Overscrolling',
                 ],
                 [],
                 [
-                    'name' => 'Gaia master',
-                    'total' => 2,
+                    'name'       => 'Gaia master',
+                    'total'      => 2,
                     'translated' => 0,
-                    'missing' => 2,
-                    'identical' => 0
-                ]
+                    'missing'    => 2,
+                    'identical'  => 0,
+                ],
             ],
         ];
     }
@@ -137,8 +137,8 @@ class Health extends atoum\test
     public function addLinkDP()
     {
         return [
-            ['Other repositories', 'test-id', true, '<li class="active"><a href=\'#test-id\'>Other repositories</a></li>'. "\n"],
-            ['Other repositories', 'test-id', false, '<li><a href=\'#test-id\'>Other repositories</a></li>'. "\n"],
+            ['Other repositories', 'test-id', true, '<li class="active"><a href=\'#test-id\'>Other repositories</a></li>' . "\n"],
+            ['Other repositories', 'test-id', false, '<li><a href=\'#test-id\'>Other repositories</a></li>' . "\n"],
         ];
     }
 
@@ -172,8 +172,6 @@ class Health extends atoum\test
                 ->isEqualTo($c);
     }
 
-
-
     public function addRowDP()
     {
         return [
@@ -181,7 +179,7 @@ class Health extends atoum\test
                 ['name', 'translated'],
                 ['name' => 'Test App', 'translated' => 1300],
                 "<tr><td>Test App</td><td>1300</td></tr>\n",
-            ]
+            ],
         ];
     }
 

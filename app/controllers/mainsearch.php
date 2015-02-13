@@ -5,13 +5,14 @@ namespace Transvision;
 if (isset($_GET['json'])) {
 
     // Define sane fallback values to redirect old API calls to new API calls
-    $get_value = function($value, $fallback) {
+    $get_value = function ($value, $fallback) {
         if (isset($_GET[$value])) {
             // 'strings_entities' search is now called 'all' in new API
             return $_GET[$value] == 'strings_entities'
                 ? 'all'
                 : Utils::secureText($_GET[$value]);
         }
+
         return $fallback;
     };
 
@@ -73,6 +74,7 @@ if ($check['t2t']) {
     // Search not acceptable
     if (mb_strlen(trim($my_search)) < 2) {
         print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
+
         return;
     }
 

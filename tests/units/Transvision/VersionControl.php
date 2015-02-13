@@ -12,13 +12,13 @@ class VersionControl extends atoum\test
     {
         return [
             [
-                'mozilla_org', 'svn'
+                'mozilla_org', 'svn',
             ],
             [
-                'gaia_1_4', 'hg'
+                'gaia_1_4', 'hg',
             ],
             [
-                'central', 'hg'
+                'central', 'hg',
             ],
         ];
     }
@@ -38,22 +38,22 @@ class VersionControl extends atoum\test
     {
         return [
             [
-                'gaia', 'GAIA'
+                'gaia', 'GAIA',
             ],
             [
-                'gaia_42_0', 'GAIA_42_0'
+                'gaia_42_0', 'GAIA_42_0',
             ],
             [
-                'central', 'TRUNK_L10N'
+                'central', 'TRUNK_L10N',
             ],
             [
-                'release', 'RELEASE_L10N'
+                'release', 'RELEASE_L10N',
             ],
             [
-                'mozilla_org', 'mozilla_org'
+                'mozilla_org', 'mozilla_org',
             ],
             [
-                'foobar', 'foobar'
+                'foobar', 'foobar',
             ],
         ];
     }
@@ -76,25 +76,25 @@ class VersionControl extends atoum\test
                 'fr',
                 'beta',
                 'browser/updater/updater.ini:TitleText',
-                'http://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini'
+                'http://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini',
             ],
             [
                 'es-ES',
                 'gaia',
                 'apps/settings/settings.properties:usb-tethering',
-                'http://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties'
+                'http://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties',
             ],
             [
                 'de',
                 'gaia',
                 'shared/date/date.properties:month-7-long',
-                'http://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties'
+                'http://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties',
             ],
             [
                 'sr-Cyrl',
                 'gaia_2_0',
                 'shared/date/date.properties:month-7-long',
-                'http://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties'
+                'http://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties',
                 ],
         ];
     }
@@ -117,13 +117,13 @@ class VersionControl extends atoum\test
                 'sr',
                 'mozilla_org',
                 'mozilla_org/download_button.lang:ab34ff81',
-                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup'
+                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup',
             ],
             [
                 'es-ES',
                 'mozilla_org',
                 'mozilla_org/firefox/os/faq.lang:c71a7a50',
-                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup'
+                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup',
             ],
         ];
     }

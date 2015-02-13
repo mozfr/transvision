@@ -2,10 +2,11 @@
 namespace Transvision;
 
 // Closure to use extra parameters
-$get_option = function($option) use ($request) {
+$get_option = function ($option) use ($request) {
     if (isset($request->extra_parameters[$option])) {
         return $request->extra_parameters[$option];
     }
+
     return false;
 };
 

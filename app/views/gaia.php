@@ -6,23 +6,24 @@ $repo = 'gaia';
 require_once INC . 'l10n-init.php';
 
 // Functions
-$get_or_set = function($arr, $value, $fallback) {
+$get_or_set = function ($arr, $value, $fallback) {
     return isset($_GET[$value]) && in_array($_GET[$value], $arr)
             ? $_GET[$value]
             : $fallback;
 };
 
-$get_repo_strings = function($locale, $repo) {
+$get_repo_strings = function ($locale, $repo) {
     return array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 };
 
-$build_select = function($array_in, $selected_elm) use ($repos_nice_names) {
+$build_select = function ($array_in, $selected_elm) use ($repos_nice_names) {
     $string_out = '';
     foreach ($array_in as $elm) {
         $ch = ($elm == $selected_elm) ? ' selected' : '';
         $elm_nice_name = isset($repos_nice_names[$elm]) ? $repos_nice_names[$elm] : $elm;
         $string_out .= "<option" . $ch . " value=" . $elm . ">" . $elm_nice_name . "</option>\n";
     }
+
     return $string_out;
 };
 
@@ -98,7 +99,7 @@ $sections = [
 <?php
 
 // Overview of string count for the locale
-$overview = function($section_title, $columns, $rows, $anchor) {
+$overview = function ($section_title, $columns, $rows, $anchor) {
     // Titles
     $html = '<table id="' . $anchor . '">'
        . '<tr>'
@@ -123,7 +124,7 @@ $overview = function($section_title, $columns, $rows, $anchor) {
     return $html;
 };
 
-$anchor_title = function($name) use ($sections) {
+$anchor_title = function ($name) use ($sections) {
     return "<h3 id='{$name}'><a href='#{$name}'>{$sections[$name]}</a></h3>\n";
 };
 
@@ -160,10 +161,10 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
         $temp = array_filter($temp, 'strlen');
 
         // remove duplicates
-        $temp = array_unique ($temp);
+        $temp = array_unique($temp);
 
         // if we have a string in one repo or no string, skip the key
-        if (count($temp) <= 1 ) {
+        if (count($temp) <= 1) {
             continue;
         }
 
@@ -202,7 +203,7 @@ print $anchor_title('diverging_strings');
 print $diverging(
     [
       $repo1,
-      $repo2
+      $repo2,
      ],
     $strings,
     'diverging'
@@ -237,6 +238,7 @@ $find_duplicates = function ($string_array) {
         $previous_value = $value;
         $previous_key = $key;
     }
+
     return $duplicates;
 };
 
@@ -285,7 +287,6 @@ if (count($inconsistent_translation) > 0) {
     $inconsistent_results = "<p>No inconsistent translations found.</p>";
 }
 
-
 print $anchor_title('translation_consistency');
 print "<p class='subtitle'>Analysis of translation consistency in {$repos_nice_names[$repo1]}.</p>";
 print $inconsistent_results;
@@ -307,9 +308,9 @@ $table = '<table id="englishchanges" class="collapsable">'
        . '<th>' . $repo_two . '</th>'
        . '</tr>';
 
-foreach($common_keys as $key =>$val) {
+foreach ($common_keys as $key => $val) {
     if (trim(strtolower($strings[$englishchanges[0] . '-en-US'][$key])) != trim(strtolower($strings[$englishchanges[1] . '-en-US'][$key]))) {
-            $table .=
+        $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
             . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">'
@@ -327,7 +328,7 @@ print $anchor_title('changed_english');
 print $table;
 
 // String diff between two repositories
-$strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, $anchor, $cssclass) use ($locale, $repos_nice_names) {
+$strings_added = function ($reverted_comparison, $strings, $repo_one, $repo_two, $anchor, $cssclass) use ($locale, $repos_nice_names) {
     $temp = array_diff_key($strings[$repo_one . '-en-US'], $strings[$repo_two . '-en-US']);
     $count = count($temp);
     if ($reverted_comparison) {
@@ -353,7 +354,7 @@ $strings_added = function($reverted_comparison, $strings, $repo_one, $repo_two, 
         $table .= '<tr>'
                 . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
                 . '<td><span class="celltitle">' . $locale . '</span><div class="string">'
-                . ShowResults::highlight(Utils::secureText($strings[$repo_one. '-en-US'][$k]), 'en-US')
+                . ShowResults::highlight(Utils::secureText($strings[$repo_one . '-en-US'][$k]), 'en-US')
                 . '<br><small>' . ShowResults::highlight(Utils::secureText($translation), $locale)
                 . '</small></div></td>'
                 . '</tr>';

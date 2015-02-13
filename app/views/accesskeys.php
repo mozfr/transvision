@@ -27,11 +27,10 @@ $akeys = array_filter(
     }
 );
 
-$ak_labels  = array('.label', '.title', '.title2');
-$ak_results = array();
+$ak_labels  = ['.label', '.title', '.title2'];
+$ak_results = [];
 
 foreach ($akeys as $akey) {
-
     $entity     = substr($akey, 0, -10);
     $akey_value = $strings[$repo][$akey];
 
@@ -58,6 +57,6 @@ echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
 Utils::printSimpleTable(
     $ak_results,
     $strings[$repo],
-    array('Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity'),
+    ['Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity'],
     'collapsable'
 );
