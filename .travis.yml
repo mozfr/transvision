@@ -1,13 +1,15 @@
 language: php
 php:
-  - "5.5"
-  - "5.4"
+  - 5.4
+  - 5.5
 before_script:
   ## Composer
   - composer install
   ## travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
-script: php vendor/atoum/atoum/bin/atoum -d tests/units/
+script:
+  - vendor/atoum/atoum/bin/atoum -d tests/units/
+  - vendor/bin/php-cs-fixer --diff --dry-run -v fix
 notifications:
   irc:
     channels:
