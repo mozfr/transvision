@@ -17,7 +17,7 @@ $regex = $delimiter . $whole_word . $initial_search . $whole_word .
          $delimiter . $case_sensitive . 'u';
 
 // Closure to get extra parameters set
-$get_option = function($option) use ($request) {
+$get_option = function ($option) use ($request) {
     $value = 0;
     if (isset($request->extra_parameters[$option])
         && (int) $request->extra_parameters[$option] != 0) {
@@ -32,7 +32,6 @@ foreach ($terms as $word) {
              $whole_word . $delimiter . $case_sensitive . 'u';
     $source_strings = preg_grep($regex, $source_strings);
 }
-
 
 return $json = ShowResults::getTranslationMemoryResults(
     array_keys($source_strings),

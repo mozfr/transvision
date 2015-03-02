@@ -1,5 +1,6 @@
 <?php
 namespace Transvision;
+
 /*
  * This file initializes l10n support: locale detection, rtl/ltr variables
  */

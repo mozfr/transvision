@@ -6,7 +6,7 @@ include __DIR__ . '/simplesearchform.php';
 
 $content = '<h2>' . count($unchanged_strings) . " strings identical to English</h2>\n";
 
-if(isset($filter_block)) {
+if (isset($filter_block)) {
     $content .= "<div id='filters'>" .
                 "  <h4>Filter by folder:</h4>\n" .
                 "  <a href='#showall' id='showall' class='filter'>Show all results</a>\n" .
@@ -36,7 +36,7 @@ foreach ($unchanged_strings as $string_id => $string_value) {
     $content .= "  <tr class='{$component}'>\n" .
                 "    <td dir='ltr'><a href='{$entity_link}'>{$string_id}</a></td>\n" .
                 "    <td dir='{$direction}' lang='{$source_locale}'>{$string_value}</td>\n" .
-                "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] ."</td>\n" .
+                "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] . "</td>\n" .
                 "  </tr>\n";
 }
 $content .= "</table>\n";

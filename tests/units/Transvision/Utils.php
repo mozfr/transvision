@@ -2,8 +2,8 @@
 namespace tests\units\Transvision;
 
 use atoum;
-use Transvision\Utils as _Utils;
 use Cache\Cache as _Cache;
+use Transvision\Utils as _Utils;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -35,7 +35,7 @@ class Utils extends atoum\test
     public function checkboxDefaultOption1DP()
     {
         return [
-            ['es-ES', 'es-ES', ' checked="checked"']
+            ['es-ES', 'es-ES', ' checked="checked"'],
         ];
     }
 
@@ -53,7 +53,7 @@ class Utils extends atoum\test
     public function checkboxDefaultOption2DP()
     {
         return [
-            ['es-ES', 'en-US', false]
+            ['es-ES', 'en-US', false],
         ];
     }
 
@@ -71,8 +71,9 @@ class Utils extends atoum\test
     public function checkBoxState1DP()
     {
         $_GET['t2t'] = 'somedata';
+
         return [
-            [$_GET['t2t'], '']
+            [$_GET['t2t'], ''],
         ];
     }
 
@@ -90,8 +91,9 @@ class Utils extends atoum\test
     public function checkBoxState2DP()
     {
         $_GET['t2t'] = 'somedata';
+
         return [
-            [$_GET['t2t'], 't2t']
+            [$_GET['t2t'], 't2t'],
         ];
     }
 
@@ -109,7 +111,7 @@ class Utils extends atoum\test
     public function checkBoxState3DP()
     {
         return [
-            ['some string', null]
+            ['some string', null],
         ];
     }
 
@@ -172,10 +174,10 @@ class Utils extends atoum\test
     {
         return [
             [
-                ['strings' => 'Strings', 'entities'=> 'Entities', 'strings_entities' => 'Strings & Entities'],
+                ['strings' => 'Strings', 'entities' => 'Entities', 'strings_entities' => 'Strings & Entities'],
                 'strings_entities',
-                true
-            ]
+                true,
+            ],
         ];
     }
 
@@ -195,15 +197,15 @@ class Utils extends atoum\test
         return [
             [
                 'pages web   fréquemment visitées (en cliquant sur « Recharger »,',
-                'pages web fréquemment visitées (en cliquant sur « Recharger »,'
+                'pages web fréquemment visitées (en cliquant sur « Recharger »,',
             ],
             [
                 'toto ',
-                'toto'
+                'toto',
             ],
             [
                 'don\'t escape',
-                "don't escape"
+                "don't escape",
             ],
         ];
     }
@@ -225,23 +227,23 @@ class Utils extends atoum\test
             [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème. Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème.',
-                'large'
+                'large',
             ],
             [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et',
-                'small'
+                'small',
             ],
             [
                 'Le système de marque-pages et',
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
-                'large'
+                'large',
             ],
             [
                 'pages web',
                 'pa',
-                'small'
-            ]
+                'small',
+            ],
         ];
     }
 
@@ -260,7 +262,7 @@ class Utils extends atoum\test
     {
         return [
             ['Add Bookmarks', 'Ajouter des marque-pages', false],
-            ['Add Bookmarks', '', false]
+            ['Add Bookmarks', '', false],
         ];
     }
 
@@ -339,8 +341,7 @@ class Utils extends atoum\test
 
     public function afterTestMethod($method)
     {
-        switch ($method)
-        {
+        switch ($method) {
             case 'testGetRepoStrings':
                 // Destroy cached files created by getRepoStrings()
                 $obj = new _Cache();
@@ -391,23 +392,23 @@ class Utils extends atoum\test
         return [
             [
                 (new \DateTime('now'))->modify('-1 day'),
-                '1 day ago'
+                '1 day ago',
             ],
             [
                 (new \DateTime('now'))->modify('-2 seconds'),
-                '2 seconds ago'
+                '2 seconds ago',
             ],
             [
                 (new \DateTime('now'))->modify('+2 months'),
-                '2 months'
+                '2 months',
             ],
             [
                 (new \DateTime('now'))->modify('+1 year'),
-                '1 year'
+                '1 year',
             ],
             [
                 (new \DateTime('now'))->modify('-10 hours'),
-                '10 hours ago'
+                '10 hours ago',
             ],
         ];
     }
@@ -428,11 +429,11 @@ class Utils extends atoum\test
         return [
             [
                 'http://transvision.mozfr.org/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central',
-                'http://transvision.mozfr.org/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json'
+                'http://transvision.mozfr.org/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json',
             ],
             [
                 'http://transvision.mozfr.org/api/v1/versions/',
-                'http://transvision.mozfr.org/api/v1/versions/?json'
+                'http://transvision.mozfr.org/api/v1/versions/?json',
             ],
         ];
     }
@@ -451,5 +452,4 @@ class Utils extends atoum\test
             ->string($obj->redirectToAPI())
                 ->isEqualTo($b);
     }
-
 }

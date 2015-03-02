@@ -10,15 +10,15 @@ class Dotlang extends atoum\test
 {
     public function getLangFilesListDP()
     {
-        return array(
+        return [
             [
                 TEST_FILES,
                 [
                     TEST_FILES . 'langfiles/foo/bar/baz.lang',
                     TEST_FILES . 'langfiles/toto.lang',
-                ]
-            ]
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -50,8 +50,8 @@ class Dotlang extends atoum\test
                     '# another comment',
                     ';Hello',
                     'Bonjour',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -76,8 +76,8 @@ class Dotlang extends atoum\test
                     'Mail'         => 'Courrier',
                     'Hello'        => 'Bonjour',
                     'Empty string' => '',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 

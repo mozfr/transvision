@@ -14,19 +14,19 @@ class TMX extends atoum\test
             [
                 [
                     'fr' => [
-                            'shared/date/date.properties:month-7-genitive' => 'août',
-                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible'
+                            'shared/date/date.properties:month-7-genitive'                             => 'août',
+                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible',
                     ],
                     'en-US' => [
-                            'shared/date/date.properties:month-7-genitive' => 'August',
-                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open'
-                    ]
+                            'shared/date/date.properties:month-7-genitive'                             => 'August',
+                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open',
+                    ],
                 ],
                 'fr',
                 'en-US',
                 '<?xml version="1.0" encoding="UTF-8"?>
 <tmx version="1.4">
-<header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="'. date('c') . '" creationtoolversion="0.1" creationtool="Transvision" srclang="en-US" segtype="sentence" datatype="plaintext">
+<header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="' . date('c') . '" creationtoolversion="0.1" creationtool="Transvision" srclang="en-US" segtype="sentence" datatype="plaintext">
 </header>
 <body>'
 . "\n\t" . '<tu tuid="shared/date/date.properties:month-7-genitive" srclang="en-US">'
@@ -38,15 +38,16 @@ class TMX extends atoum\test
 . "\n\t\t" . '<tuv xml:lang="fr"><seg>Ouverture impossible</seg></tuv>'
 . "\n\t" . '</tu>
 </body>
-</tmx>'. "\n"
-            ]
+</tmx>' . "\n",
+            ],
         ];
     }
 
     /**
      * @dataProvider createDP
      */
-    public function testCreate($a, $b, $c, $d) {
+    public function testCreate($a, $b, $c, $d)
+    {
         $obj = new _TMX();
         $this->string($obj->create($a, $b, $c))
                 ->isEqualTo($d);
@@ -58,13 +59,13 @@ class TMX extends atoum\test
             [
                 [
                     'fr' => [
-                            'shared/date/date.properties:month-7-genitive' => 'août',
-                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible'
+                            'shared/date/date.properties:month-7-genitive'                             => 'août',
+                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible',
                     ],
                     'en-US' => [
-                            'shared/date/date.properties:month-7-genitive' => 'August',
-                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open'
-                    ]
+                            'shared/date/date.properties:month-7-genitive'                             => 'August',
+                            'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open',
+                    ],
                 ],
                 'fr',
                 'en-US',
@@ -94,15 +95,16 @@ class TMX extends atoum\test
 . "\n\t\t" . '</tuv>'
 . "\n\t" . '</tu>
 </body>
-</tmx>'. "\n"
-            ]
+</tmx>' . "\n",
+            ],
         ];
     }
 
     /**
      * @dataProvider createOmegatDP
      */
-    public function testCreateOmegat($a, $b, $c, $d) {
+    public function testCreateOmegat($a, $b, $c, $d)
+    {
         $obj = new _TMX();
         $this->string($obj->createOmegat($a, $b, $c))
                 ->isEqualTo($d);

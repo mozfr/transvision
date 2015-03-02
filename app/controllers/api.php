@@ -26,7 +26,6 @@ switch ($request->getService()) {
     case 'search':
         // We chain 2 queries to match both strings and entities
         if ($request->parameters[2] == 'all') {
-
             $request->parameters[2] = 'entities';
             include MODELS . 'api/repository_search.php';
             $entities_json = $json;

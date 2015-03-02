@@ -45,9 +45,9 @@ foreach (Project::getRepositories() as $repo) {
         }
 
         // Utility closure to create a cache file of filtered strings
-        $cache_filtered_strings = function($lang, $cache_id) use($repo) {
+        $cache_filtered_strings = function ($lang, $cache_id) use ($repo) {
             // Get all the strings (English and locale), ignore empty entities
-            $filter_empty = function($arr) {
+            $filter_empty = function ($arr) {
                 // return $arr;
                 return array_filter($arr, 'strlen');
             };
@@ -60,6 +60,7 @@ foreach (Project::getRepositories() as $repo) {
                     $cache_id,
                     $filtered_strings
                 );
+
                 return $filtered_strings;
             }
         };
@@ -70,7 +71,7 @@ foreach (Project::getRepositories() as $repo) {
         // If Desktop, parse the strings to get components
         if (in_array($repo, Project::getDesktopRepositories())) {
             foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
-                $filter_pattern = function($locale_code) use($component, $repo, $strings) {
+                $filter_pattern = function ($locale_code) use ($component, $repo, $strings) {
                     return array_filter(
                         preg_grep(
                             '#^' . $component . '/.*#',
@@ -114,14 +115,13 @@ foreach (Project::getRepositories() as $repo) {
 
                 $english_entities = array_filter(
                     $english_entities,
-                    function($entity) use ($path) {
+                    function ($entity) use ($path) {
                         return ! Strings::startsWith($entity, $path);
                     }
                 );
 
                 // Map the values
                 foreach ($english_entities as $entity) {
-
                     $english_strings[$entity] = $strings[$ref_locale][$repo][$entity];
 
                     if (isset($strings[$locale][$repo][$entity])) {
@@ -237,7 +237,6 @@ foreach (array_keys($html) as $project) {
                  . Health::getStatsPane($projects[$project]) . '</div>';
     }
 }
-
 
 // Get stats
 $stats = Health::getStats($projects);

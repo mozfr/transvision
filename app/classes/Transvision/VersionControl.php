@@ -14,14 +14,14 @@ class VersionControl
     /**
      * Get the right VCS for a given repository
      *
-     * @param string $repo repository name
+     * @param  string $repo repository name
      * @return string Name of the VCS or false if the repo does not exist
      */
     public static function getVCS($repo)
     {
         $vcs = [
-            'hg' => [],
-            'svn' => ['mozilla_org']
+            'hg'  => [],
+            'svn' => ['mozilla_org'],
         ];
         $vcs['hg'] = array_merge(
             Project::getDesktopRepositories(),
@@ -30,7 +30,6 @@ class VersionControl
         );
         foreach ($vcs as $system => $repos) {
             if (in_array($repo, $repos)) {
-
                 return $system;
             }
         }
@@ -41,7 +40,7 @@ class VersionControl
     /**
      * Get the repo name used for VCS from the folder name used in Transvision
      *
-     * @param string $repo repository name
+     * @param  string $repo repository name
      * @return string Name of the VCS or unchanged $repo by default
      */
     public static function VCSRepoName($repo)
@@ -59,18 +58,16 @@ class VersionControl
         return $repo;
     }
 
-
     /**
      * Generate a path to the mercurial repo for the file
      *
-     * @param string $locale locale code
-     * @param string $repo repository name
-     * @param string $path Entity name representing the local file
+     * @param  string $locale locale code
+     * @param  string $repo   repository name
+     * @param  string $path   Entity name representing the local file
      * @return string Path to the file in remote mercurial repository
      */
     public static function hgPath($locale, $repo, $path)
     {
-
         $url = 'http://hg.mozilla.org';
 
         // remove entity from path and store it in a variable
@@ -85,16 +82,15 @@ class VersionControl
         if (Strings::startsWith($repo, 'gaia')
             || in_array(
                 $base_folder,
-                array('apps', 'shared', 'showcase_apps',
-                      'test_apps', 'test_external_apps')
+                ['apps', 'shared', 'showcase_apps',
+                      'test_apps', 'test_external_apps', ]
             )
         ) {
             $locale = Project::getLocaleInContext($locale, $repo);
 
             if ($repo == 'gaia') {
                 $url .= '/gaia-l10n/' . $locale . '/file/default/';
-            }
-            else {
+            } else {
                 $version = str_replace('gaia_', '', $repo);
                 $url .= '/releases/gaia-l10n/v' . $version . '/' . $locale . '/file/default/';
             }
@@ -102,7 +98,7 @@ class VersionControl
             return $url . $path . '/' . $entity_file;
         }
 
-        $en_US_Folder_Mess = array(
+        $en_US_Folder_Mess = [
             'b2g/branding/official/',
             'b2g/branding/unofficial/',
             'b2g/',
@@ -140,22 +136,19 @@ class VersionControl
             'mail/test/resources/mozmill/mozmill/extension/',
             'editor/ui/',
             'calendar/',
-        );
+        ];
 
         // Destop repos
         if ($locale != 'en-US') {
-
             if ($repo == 'central') {
                 $url .= '/l10n-central/' . $locale . '/file/default/';
             } else {
                 $url .= '/releases/l10n/mozilla-' . $repo . '/' . $locale . '/file/default/';
             }
-
         } else {
-
             if (in_array(
                 $base_folder,
-                array('calendar', 'chat', 'editor', 'ldap', 'mail', 'mailnews', 'suite')
+                ['calendar', 'chat', 'editor', 'ldap', 'mail', 'mailnews', 'suite']
             )) {
                 $repo_base = 'comm';
             } else {
@@ -195,9 +188,9 @@ class VersionControl
     /**
      * Generate a path to the subversion repo for the file
      *
-     * @param string $locale locale code
-     * @param string $repo repository name
-     * @param string $path Entity name representing the local file
+     * @param  string $locale locale code
+     * @param  string $repo   repository name
+     * @param  string $path   Entity name representing the local file
      * @return string Path to the file in remote subversion repository
      */
     public static function svnPath($locale, $repo, $path)

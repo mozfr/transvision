@@ -44,19 +44,19 @@ $links = '
 ';
 
 if (strpos(VERSION, 'dev') !== false) {
-  $beta_version = true;
-  $title_productname = 'Transvision Beta';
+    $beta_version = true;
+    $title_productname = 'Transvision Beta';
 } else {
-  $beta_version = false;
-  $title_productname = 'Transvision';
+    $beta_version = false;
+    $title_productname = 'Transvision';
 }
 
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
-  $last_update = "<p>Data last updated: " .
-                 date ('F d, Y \a\t H:i (e)', filemtime(CACHE_PATH . 'lastdataupdate.txt')) .
+    $last_update = "<p>Data last updated: " .
+                 date('F d, Y \a\t H:i (e)', filemtime(CACHE_PATH . 'lastdataupdate.txt')) .
                  ".</p>\n";
 } else {
-  $last_update = "<p>Data last updated: not available.</p>\n";
+    $last_update = "<p>Data last updated: not available.</p>\n";
 }
 
 ?>
@@ -64,7 +64,9 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
 <html lang="en" dir="ltr">
   <head>
-    <title><?php if($show_title == true){ echo $page_title . ' | '; } ?><?=$title_productname?></title>
+    <title><?php if ($show_title == true) {
+    echo $page_title . ' | ';
+} ?><?=$title_productname?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style/transvision.css?<?php echo VERSION; ?>" type="text/css" media="all" />
@@ -86,15 +88,15 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   </div>
   <?php
   if ($beta_version) {
-    echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
+      echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
   }
   ?>
   <h1><?=$title?></h1>
-  <?php if($experimental == true): ?>
+  <?php if ($experimental == true): ?>
   <h2 id="experimental" class="alert">Experimental View</h2>
   <?php endif; ?>
 
-  <?php if($show_title == true): ?>
+  <?php if ($show_title == true): ?>
   <h2 id="page_title"><?=$page_title?></h2>
   <h3 id="page_descrition"><?=$page_descr?></h3>
   <?php endif; ?>

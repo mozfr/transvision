@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-$strings = array();
+$strings = [];
 
 // We only want software on this view, not websites
 unset($repos[array_search('mozilla_org', $repos)]);
@@ -26,22 +26,22 @@ if ($key = array_search('en-US', $gaia_locales)) {
     unset($gaia_locales[$key]);
 }
 
-$string_count = array();
+$string_count = [];
 
 // Referen_ce locale count
 $count_reference = count($strings['en-US'][$repo]);
 
 foreach ($gaia_locales as $val) {
     $strings[$val][$repo] = array_filter(Utils::getRepoStrings($val, $repo), 'strlen');
-    $string_count[$val] = array(
+    $string_count[$val] = [
         'total'     => count($strings[$val][$repo]),
         'missing'   => count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo])),
         'identical' => count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo])),
-    );
+    ];
     unset($strings[$val][$repo]);
 }
 
-$json = array();
+$json = [];
 $table = '
 <style>td {text-align:right;} form[name="searchform"] { text-align: center; }</style>
 <table>
@@ -56,7 +56,6 @@ $table = '
 </tr>';
 
 foreach ($string_count as $locale => $numbers) {
-
     $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
     $completion = number_format($completion/$count_reference*100);
 
@@ -80,14 +79,14 @@ foreach ($string_count as $locale => $numbers) {
         $confidence = 'No localization';
     }
 
-    $json[$locale] = array(
+    $json[$locale] = [
         'total'      => $numbers['total'],
         'missing'    => $numbers['missing'],
         'translated' => ($numbers['total'] - $numbers['identical']),
         'identical'  => $numbers['identical'],
         'completion' => $completion,
         'confidence' => $confidence,
-    );
+    ];
 
     $table .=
     "<tr id=\"{$locale}\">
@@ -99,11 +98,9 @@ foreach ($string_count as $locale => $numbers) {
     <td>{$completion} %</td>
     <td>{$confidence}</td>
     </tr>";
-
 }
 
 $table .= '</table>';
-
 
 if (isset($_GET['json'])) {
     include VIEWS . 'json.php';

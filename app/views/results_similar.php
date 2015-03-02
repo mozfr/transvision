@@ -6,7 +6,7 @@ $proposed_search = $_GET;
 $list_items = '';
 foreach ($best_matches as $match) {
     $proposed_search['recherche'] = $match;
-    $query = '?' .http_build_query($proposed_search, '', '&amp;');
+    $query = '?' . http_build_query($proposed_search, '', '&amp;');
     $list_items .= '<li><a href="' . $query . '">' . $match . '</a></li>';
 }
 ?>

@@ -10,12 +10,12 @@ include __DIR__ . '/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 
-foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
+foreach (Files::getFilenamesInFolder(SVN . 'mozilla_org/') as $locale) {
     $path = SVN . "mozilla_org/{$locale}/";
     $mozilla_org_files = Dotlang::getLangFilesList($path);
 
     $mozilla_org_files = array_map(
-        function($item) use ($path) {
+        function ($item) use ($path) {
             return str_replace($path, '', $item);
         },
         $mozilla_org_files);
@@ -28,8 +28,7 @@ foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
         $total_strings += count($strings);
 
         foreach ($strings as $english => $translation) {
-            $output = function($str1, $str2) use ($file, $english, $translation)
-            {
+            $output = function ($str1, $str2) use ($file, $english, $translation) {
                 $array_line =
                     "'"
                    . Dotlang::generateStringID('mozilla_org/' . $file, $str1)
@@ -53,4 +52,3 @@ foreach (Files::getFilenamesInFolder( SVN . 'mozilla_org/') as $locale) {
     Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_en-US.php", $out_english);
     error_log("{$locale}: {$total_strings} strings");
 }
-

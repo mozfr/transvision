@@ -71,7 +71,6 @@ foreach ($entities as $entity) {
         {$file_bug}
       </div>
     </td>";
-
     } else {
         $extra_column_rows = '';
     }
@@ -86,7 +85,7 @@ foreach ($entities as $entity) {
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
                                           $target_string, $check['repo'], $entity_link)
               . '">&lt;report a bug&gt;</a>';
-    $anchor_name = str_replace(array('/', ':'), '_', $entity);
+    $anchor_name = str_replace(['/', ':'], '_', $entity);
     $table .= "
   <tr>
     <td>

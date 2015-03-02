@@ -16,11 +16,11 @@ if ($url['path'] == '3locales') {
 $entities = preg_grep($main_regex, array_keys($tmx_source));
 
 if (count($entities) == 0) {
-
     $merged_strings = [];
 
     $best_matches = Strings::getSimilar($initial_search, array_keys($tmx_source), 3);
 
     include VIEWS . 'results_similar.php';
+
     return;
 }

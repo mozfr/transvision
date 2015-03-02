@@ -22,7 +22,8 @@
         "mozillal10n/cache": "~0.1",
         "pascalc/tinyl10n" : "~0.1",
         "pascalc/vcs": "~0.1",
-        "symfony/var-dumper": "~2.1"
+        "symfony/var-dumper": "~2.1",
+        "fabpot/php-cs-fixer": "~1.4"
     },
 
     "autoload": {

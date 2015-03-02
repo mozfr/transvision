@@ -15,8 +15,8 @@ class Files
      * it will create the folders and subfolders to the target if
      * they don't exist
      *
-     * @param string $dir path to the file we want to create
-     * @param string $contents the string we want to write
+     * @param  string    $dir      path to the file we want to create
+     * @param  string    $contents the string we want to write
      * @return int/false value in bytes if success, false otherwise
      */
     public static function fileForceContents($dir, $contents)
@@ -38,9 +38,9 @@ class Files
      * Return the list of files in a folder as an array.
      * Hidden files starting with a dot (.svn, .htaccess...) are ignored.
      *
-     * @param string $folder the directory we want to scan
-     * @param array $excluded_files Files to exclude from results
-     * @return array Files in the folder
+     * @param  string $folder         the directory we want to scan
+     * @param  array  $excluded_files Files to exclude from results
+     * @return array  Files in the folder
      */
     public static function getFilenamesInFolder($folder, $excluded_files = [])
     {
@@ -50,7 +50,7 @@ class Files
         */
         $files = array_filter(
             scandir($folder),
-            function($item) {
+            function ($item) {
                 return !Strings::startsWith($item, '.');
             }
         );

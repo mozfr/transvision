@@ -1,9 +1,9 @@
 <?php
 namespace Transvision;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * API class
@@ -35,7 +35,7 @@ use Monolog\Handler\ErrorLogHandler;
  *
  * @package Transvision
  */
-Class API
+class API
 {
     public $url;
     public $parameters;
@@ -90,7 +90,7 @@ Class API
         $parameters = array_values($parameters);
 
         return array_map(
-            function($item) {
+            function ($item) {
                 return trim(urldecode($item));
             },
             $parameters
@@ -146,6 +146,7 @@ Class API
         // No parameters passed
         if (! count($this->parameters)) {
             $this->log('No service requested');
+
             return false;
         }
 
@@ -162,6 +163,7 @@ Class API
         // Check if we (still) support this API version
         if (! in_array($this->parameters[0], array_keys($this->api_versions))) {
             $this->log("Incorrect version of API ({$this->parameters[0]})");
+
             return false;
         }
 
@@ -196,6 +198,7 @@ Class API
 
                 if (! isset($this->extra_parameters['id'])) {
                     $this->log("You haven't provided the entity id to search.");
+
                     return false;
                 }
 
@@ -220,6 +223,7 @@ Class API
                 if (! in_array($this->parameters[2], ['strings', 'entities', 'all'])) {
                     $this->log("'{$this->parameters[2]}' is not a type of search "
                                 . "you can perform, 'strings' and 'entities' are.");
+
                     return false;
                 }
 
@@ -227,11 +231,11 @@ Class API
                     return false;
                 }
 
-                if (! $this->verifyLocaleExists($this->parameters[4], $this->parameters[3]) ) {
+                if (! $this->verifyLocaleExists($this->parameters[4], $this->parameters[3])) {
                     return false;
                 }
 
-                if (! $this->verifyLocaleExists($this->parameters[5], $this->parameters[3]) ) {
+                if (! $this->verifyLocaleExists($this->parameters[5], $this->parameters[3])) {
                     return false;
                 }
 
@@ -246,11 +250,11 @@ Class API
                     return false;
                 }
 
-                if (! $this->verifyLocaleExists($this->parameters[3], $this->parameters[2]) ) {
+                if (! $this->verifyLocaleExists($this->parameters[3], $this->parameters[2])) {
                     return false;
                 }
 
-                if (! $this->verifyLocaleExists($this->parameters[4], $this->parameters[2]) ) {
+                if (! $this->verifyLocaleExists($this->parameters[4], $this->parameters[2])) {
                     return false;
                 }
 
@@ -287,6 +291,7 @@ Class API
     {
         if (count($this->parameters) < $number) {
             $this->log('Not enough parameters for this query.');
+
             return false;
         }
 
@@ -301,8 +306,9 @@ Class API
      */
     private function verifyRepositoryExists($repository)
     {
-        if (! in_array($repository, Project::getRepositories() )) {
+        if (! in_array($repository, Project::getRepositories())) {
             $this->log("The repo queried ({$repository}) doesn't exist.");
+
             return false;
         }
 
@@ -312,15 +318,16 @@ Class API
     /**
      * Check that a locale is available for a repository
      *
-     * @param  string  $locale Locale code we want to check
+     * @param  string  $locale     Locale code we want to check
      * @param  string  $repository Repository name we want to check the locale for
      * @return boolean True if we support the locale, False if we don't
      */
     private function verifyLocaleExists($locale, $repository)
     {
-        if (! in_array($locale, Project::getRepositoryLocales($repository) )) {
+        if (! in_array($locale, Project::getRepositoryLocales($repository))) {
             $this->log("The locale queried ({$locale}) is not "
                        . "available for the repository ({$repository}).");
+
             return false;
         }
 
@@ -344,6 +351,7 @@ Class API
 
         if (! in_array($this->parameters[1], $this->services)) {
             $this->log("The service requested ({$this->parameters[1]}) doesn't exist");
+
             return false;
         }
 
