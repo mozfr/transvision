@@ -73,7 +73,8 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                     $html_output .= "  <div class='searchplugin'>\n" .
                                     "    <div class='image'>\n";
                     foreach ($singlesp['images'] as $imageindex) {
-                        $html_output .= "      <img src='{$json_data['images'][$imageindex]}' alt='searchplugin icon' />\n";
+                        $data_uri = str_replace('\'', '%27', $json_data['images'][$imageindex]);
+                        $html_output .= "      <img src='{$data_uri}' alt='searchplugin icon' />\n";
                     }
                     $html_output .= "    </div>\n";
 
