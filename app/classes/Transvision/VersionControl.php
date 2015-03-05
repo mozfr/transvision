@@ -10,7 +10,6 @@ namespace Transvision;
  */
 class VersionControl
 {
-
     /**
      * Get the right VCS for a given repository
      *
