@@ -35,11 +35,12 @@ $source = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $source);
 $target = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $target);
 
 $mismatch = AnalyseStrings::differences($source, $target, $repo);
-
+$mismatch_number = count($mismatch);
 $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                . Bugzilla::getURLencodedBugzillaLocale($locale, 'products')
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
+echo "<h2>" . $mismatch_number . " results found</h2>";
 $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 
 foreach ($mismatch as $entity) {
