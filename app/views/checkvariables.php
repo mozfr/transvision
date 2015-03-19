@@ -40,6 +40,12 @@ $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&
                . Bugzilla::getURLencodedBugzillaLocale($locale, 'products')
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
+print '<h2>' . count($mismatch)
+    . (count($mismatch) == 1
+    ? ' result'
+    : ' results')
+    . ' found</h2>';
+
 $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 
 foreach ($mismatch as $entity) {
