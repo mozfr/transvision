@@ -32,12 +32,13 @@ class AnalyseStrings
 
     /**
      * Search for strings with variables differences
-     * @param  array  $tmx_source TMX file as reference
-     * @param  array  $tmx_target TMX file for the locale to compare
-     * @param  string $repo       Name of the repo to determine the right set of regexps
+     * @param  array  $tmx_source      TMX file as reference
+     * @param  array  $tmx_target      TMX file for the locale to compare
+     * @param  string $repo            Name of the repo to determine the right set of regexps
+     * @param  array  $ignored_strings Optional list of ignored strings, default empty
      * @return array  List of entity names not matching source
      */
-    public static function differences($tmx_source, $tmx_target, $repo)
+    public static function differences($tmx_source, $tmx_target, $repo, $ignored_strings = [])
     {
         $pattern_mismatch = [];
 
@@ -49,15 +50,17 @@ class AnalyseStrings
             $patterns = [
                 'dtd'        => '/&([a-z0-9\.]+);/i',                // &foobar;
                 'printf'     => '/%([0-9]+\$){0,1}([0-9].){0,1}S/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',      // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',     // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
             ];
         }
 
         foreach ($patterns as $pattern_name => $pattern) {
             foreach ($tmx_source as $key => $value) {
                 if (isset($tmx_target[$key])
-                    && $tmx_target[$key] != '') {
-                    //Check variables only if the translation exist
+                    && $tmx_target[$key] != ''
+                    && ! in_array($key, $ignored_strings)) {
+                    // Check variables only if the translation exists and
+                    // the string is not in the list of strings to ignore
                     $translation = $tmx_target[$key];
                     $wrong_variable = false;
                     preg_match_all($pattern, $value, $matches_source);

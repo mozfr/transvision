@@ -34,72 +34,77 @@ include __DIR__ . '/simplesearchform.php';
 $source = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $source);
 $target = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $target);
 
-$mismatch = AnalyseStrings::differences($source, $target, $repo);
+// We need to ignore some strings because of false positives
+$ignored_strings = [
+    'mail/chrome/messenger/aboutRights.dtd:rights.webservices-term4',
+    'suite/chrome/branding/aboutRights.dtd:rights.webservices-term4',
+    'toolkit/chrome/global/aboutRights.dtd:rights.webservices-term5',
+];
+
+$mismatch = AnalyseStrings::differences($source, $target, $repo, $ignored_strings);
 
 $bugzilla_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
                . Bugzilla::getURLencodedBugzillaLocale($locale, 'products')
                . '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';
 
-print '<h2>' . count($mismatch)
-    . (count($mismatch) == 1
-    ? ' result'
-    : ' results')
-    . ' found</h2>';
+$string_mismatches = count($mismatch);
+if ($string_mismatches > 0) {
+    print "<h2>{$string_mismatches} "
+        . ($string_mismatches == 1 ? 'result' : 'results')
+        . ' found</h2>';
 
-$table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
+    $table = "<table class='collapsable'><tr><th>Entity</th><th>en-US</th><th>{$locale}</th></tr>";
 
-foreach ($mismatch as $entity) {
-    if ($repo == 'mozilla_org') {
-        $path_locale1 = VersionControl::svnPath('en-US', $repo, $entity);
-        $path_locale2 = VersionControl::svnPath($locale, $repo, $entity);
-    } else {
+    foreach ($mismatch as $entity) {
         $path_locale1 = VersionControl::hgPath('en-US', $repo, $entity);
         $path_locale2 = VersionControl::hgPath($locale, $repo, $entity);
+
+        // Link to entity
+        $entity_link = "?sourcelocale=en-US"
+                     . "&locale={$locale}"
+                     . "&repo={$repo}"
+                     . "&search_type=entities&recherche={$entity}";
+
+        $bug_summary = rawurlencode("Translation update proposed for {$entity}");
+        $bug_message = rawurlencode(
+            html_entity_decode(
+                "The string:\n{$source[$entity]}\n\n"
+                . "Is translated as:\n{$target[$entity]}\n\n"
+                . "And should be:\n\n\n\n"
+                . "Feedback via Transvision:\n"
+                . "http://transvision.mozfr.org/{$entity_link}"
+            )
+        );
+
+        $complete_link = $bugzilla_link . '&short_desc=' . $bug_summary . '&comment=' . $bug_message;
+
+        $table .= "<tr>
+                        <td>
+                           <span class='celltitle'>Entity</span>
+                           <a class='link_to_entity' href=\"/{$entity_link}\">" . ShowResults::formatEntity($entity) . "</a>
+                        </td>
+                        <td dir='{$direction1}'>
+                           <span class='celltitle'>en-US</span>
+                           <div class='string'>" . Utils::secureText($source[$entity]) . "</div>
+                           <div class='result_meta_link'>
+                            <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
+                           </div>
+                        </td>
+                         <td dir='{$direction2}'>
+                           <span class='celltitle'>$locale</span>
+                           <div class='string'>" . Utils::secureText($target[$entity]) . "</div>
+                           <div class='result_meta_link'>
+                            <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
+                            <a class='bug_link' target='_blank' href='{$complete_link}'>
+                            &lt;report a bug&gt;
+                          </a>
+                           </div>
+                        </td>
+                    </tr>";
     }
+    $table .= '</table>';
 
-    // Link to entity
-    $entity_link = "?sourcelocale=en-US"
-                 . "&locale={$locale}"
-                 . "&repo={$repo}"
-                 . "&search_type=entities&recherche={$entity}";
-
-    $bug_summary = rawurlencode("Translation update proposed for {$entity}");
-    $bug_message = rawurlencode(
-        html_entity_decode(
-            "The string:\n{$source[$entity]}\n\n"
-            . "Is translated as:\n{$target[$entity]}\n\n"
-            . "And should be:\n\n\n\n"
-            . "Feedback via Transvision:\n"
-            . "http://transvision.mozfr.org/{$entity_link}"
-        )
-    );
-
-    $complete_link = $bugzilla_link . '&short_desc=' . $bug_summary . '&comment=' . $bug_message;
-
-    $table .= "<tr>
-                    <td>
-                       <span class='celltitle'>Entity</span>
-                       <a class='link_to_entity' href=\"/{$entity_link}\">" . ShowResults::formatEntity($entity) . "</a>
-                    </td>
-                    <td dir='{$direction1}'>
-                       <span class='celltitle'>en-US</span>
-                       <div class='string'>" . Utils::secureText($source[$entity]) . "</div>
-                       <div class='result_meta_link'>
-                        <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
-                       </div>
-                    </td>
-                     <td dir='{$direction2}'>
-                       <span class='celltitle'>$locale</span>
-                       <div class='string'>" . Utils::secureText($target[$entity]) . "</div>
-                       <div class='result_meta_link'>
-                        <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
-                        <a class='bug_link' target='_blank' href='{$complete_link}'>
-                        &lt;report a bug&gt;
-                      </a>
-                       </div>
-                    </td>
-                </tr>";
+    print $table;
+} else {
+    print "<h2>No errors found.</h2>";
 }
-$table .= '</table>';
-
-print $table;
