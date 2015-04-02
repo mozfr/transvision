@@ -34,18 +34,21 @@ class AnalyseStrings extends atoum\test
                 ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => '&brandShortName; will:'],
                 ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => 'Règles de conservation :'],
                 'central',
+                [],
                 ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label'],
             ],
             [
                 ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}}, +{{n}} more'],
                 ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}} et un autre'],
                 'gaia',
+                [],
                 ['apps/settings/settings.properties:bt-status-paired[one]'],
             ],
             [
                 ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => '$BrandShortName is already running.\n\nPlease close $BrandShortName prior to launching the version you have just installed.'],
                 ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => 'El $BrandFullName ja s\'està executant.\n\nTanqueu el $BrandFullName abans d\'executar la versió que acabeu d\'instal·lar.'],
                 'aurora',
+                [],
                 ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH'],
             ],
             [
@@ -54,12 +57,14 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe.'],
                 'release',
                 [],
+                [],
             ],
             [
                 // Variable format %S, different case (not an error)
                 ['browser:foobar' => 'A username and password are being requested by %S.'],
                 ['browser:foobar' => 'Le site %s demande un nom d\'utilisateur et un mot de passe.'],
                 'release',
+                [],
                 [],
             ],
             [
@@ -68,12 +73,14 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar' => 'Le site %2$s demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$s »'],
                 'release',
                 [],
+                [],
             ],
             [
                 // Variable format %1$s, different case (not an error)
                 ['browser:foobar' => 'Invalid section name (%1$s) at line %2$s.'],
                 ['browser:foobar' => 'Nom de section (%1$S) incorrect à la ligne %1$S.'],
                 'release',
+                [],
                 [],
             ],
             [
@@ -82,12 +89,14 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar' => 'Nom de section (%S) incorrect à la ligne %S.'],
                 'release',
                 [],
+                [],
             ],
             [
                 // Using %0.S instead of %S (not an error)
                 ['browser:foobar' => 'Do you want %S to save your tabs for the next time it starts?'],
                 ['browser:foobar' => 'Salvare le schede aperte per il prossimo avvio?%0.S'],
                 'release',
+                [],
                 [],
             ],
             [
@@ -96,19 +105,30 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar' => 'Impossibile connettersi a %2$S in questo momento.%1$0.S'],
                 'release',
                 [],
+                [],
             ],
             [
                 // Mixed ordered variables %1$S and %S (error)
                 ['browser:foobar' => 'A username and password are being requested by %S. The site says: "%S"'],
                 ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
                 'release',
+                [],
                 ['browser:foobar'],
             ],
             [
-                // not matching test
+                // Not matching test
                 ['foobar' => 'A username and password are being requested by %2$S. The site says: "%1$S"'],
                 ['foobar' => 'Le site %2$S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
                 'release',
+                [],
+                [],
+            ],
+            [
+                // String should be ignored for false positives
+                ['browser:foobar' => 'A username and password are being requested by %S. The site says: "%S"'],
+                ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
+                'release',
+                ['browser:foobar'],
                 [],
             ],
         ];
@@ -117,11 +137,11 @@ class AnalyseStrings extends atoum\test
     /**
      * @dataProvider differencesDP
      */
-    public function testDifferences($a, $b, $c, $d)
+    public function testDifferences($a, $b, $c, $d, $e)
     {
         $obj = new _AnalyseStrings();
         $this
-            ->array($obj->differences($a, $b, $c))
-                ->isEqualTo($d);
+            ->array($obj->differences($a, $b, $c, $d))
+                ->isEqualTo($e);
     }
 }
