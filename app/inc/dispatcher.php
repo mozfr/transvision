@@ -81,10 +81,9 @@ switch ($url['path']) {
         $page_descr = 'Display a list of strings identical to English';
         break;
     case 'variables':
-        $view = 'checkvariables';
-        $experimental = true;
+        $controller = 'check_variables';
         $page_title = 'Variables Overview';
-        $page_descr = 'Show potential errors in your strings for the use of variables.';
+        $page_descr = 'Show potential errors related to missing or mispelled variables in your strings.';
         break;
     case 'productization':
         $view = 'productization';

@@ -31,104 +31,120 @@ class AnalyseStrings extends atoum\test
     {
         return [
             [
-                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => '&brandShortName; will:'],
-                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label' => 'Règles de conservation :'],
+                ['browser:foobar1' => '&brandShortName; will:'],
+                ['browser:foobar1' => 'Règles de conservation :'],
                 'central',
                 [],
-                ['browser/chrome/browser/preferences/privacy.dtd:historyHeader.pre.label'],
+                ['browser:foobar1'],
             ],
             [
-                ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}}, +{{n}} more'],
-                ['apps/settings/settings.properties:bt-status-paired[one]' => '{{name}} et un autre'],
+                ['browser:foobar2' => '{{name}}, +{{n}} more'],
+                ['browser:foobar2' => '{{name}} et un autre'],
                 'gaia',
                 [],
-                ['apps/settings/settings.properties:bt-status-paired[one]'],
+                ['browser:foobar2'],
             ],
             [
-                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => '$BrandShortName is already running.\n\nPlease close $BrandShortName prior to launching the version you have just installed.'],
-                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH' => 'El $BrandFullName ja s\'està executant.\n\nTanqueu el $BrandFullName abans d\'executar la versió que acabeu d\'instal·lar.'],
+                ['browser:foobar2' => '$BrandShortName is already running.\n\nPlease close $BrandShortName prior to launching the version you have just installed.'],
+                ['browser:foobar2' => 'El $BrandFullName ja s\'està executant.\n\nTanqueu el $BrandFullName abans d\'executar la versió que acabeu d\'instal·lar.'],
                 'aurora',
                 [],
-                ['browser/installer/custom.properties:WARN_MANUALLY_CLOSE_APP_LAUNCH'],
+                ['browser:foobar2'],
             ],
             [
                 // Variable format %S
-                ['browser:foobar' => 'A username and password are being requested by %S.'],
-                ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe.'],
+                ['browser:foobar3' => 'A username and password are being requested by %S.'],
+                ['browser:foobar3' => 'Le site %S demande un nom d\'utilisateur et un mot de passe.'],
                 'release',
                 [],
                 [],
             ],
             [
-                // Variable format %S, different case (not an error)
-                ['browser:foobar' => 'A username and password are being requested by %S.'],
-                ['browser:foobar' => 'Le site %s demande un nom d\'utilisateur et un mot de passe.'],
+                // Variable format %S, different case
+                ['browser:foobar4' => 'A username and password are being requested by %S.'],
+                ['browser:foobar4' => 'Le site %s demande un nom d\'utilisateur et un mot de passe.'],
                 'release',
                 [],
-                [],
+                ['browser:foobar4'],
             ],
             [
                 // Variable format %1$s
-                ['browser:foobar' => 'A username and password are being requested by %2$s. The site says: "%1$s"'],
-                ['browser:foobar' => 'Le site %2$s demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$s »'],
+                ['browser:foobar5' => 'A username and password are being requested by %2$s. The site says: "%1$s"'],
+                ['browser:foobar5' => 'Le site %2$s demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$s »'],
                 'release',
                 [],
                 [],
             ],
             [
-                // Variable format %1$s, different case (not an error)
-                ['browser:foobar' => 'Invalid section name (%1$s) at line %2$s.'],
-                ['browser:foobar' => 'Nom de section (%1$S) incorrect à la ligne %1$S.'],
+                // Variable format %1$s, different case
+                ['browser:foobar6' => 'Invalid section name (%1$s) at line %2$s.'],
+                ['browser:foobar6' => 'Nom de section (%1$S) incorrect à la ligne %1$S.'],
                 'release',
                 [],
-                [],
+                ['browser:foobar6'],
             ],
             [
                 // Using ordered variables %1$S instead of %S (not an error)
-                ['browser:foobar' => 'Invalid section name (%1$S) at line %2$S.'],
-                ['browser:foobar' => 'Nom de section (%S) incorrect à la ligne %S.'],
+                ['browser:foobar7' => 'Invalid section name (%1$S) at line %2$S.'],
+                ['browser:foobar7' => 'Nom de section (%S) incorrect à la ligne %S.'],
                 'release',
                 [],
                 [],
             ],
             [
                 // Using %0.S instead of %S (not an error)
-                ['browser:foobar' => 'Do you want %S to save your tabs for the next time it starts?'],
-                ['browser:foobar' => 'Salvare le schede aperte per il prossimo avvio?%0.S'],
+                ['browser:foobar8' => 'Do you want %S to save your tabs for the next time it starts?'],
+                ['browser:foobar8' => 'Salvare le schede aperte per il prossimo avvio?%0.S'],
                 'release',
                 [],
                 [],
             ],
             [
                 // Using %1$0.S instead of %1$S (not an error)
-                ['browser:foobar' => '%1$S is unable to connect with %2$S right now.'],
-                ['browser:foobar' => 'Impossibile connettersi a %2$S in questo momento.%1$0.S'],
+                ['browser:foobar9' => '%1$S is unable to connect with %2$S right now.'],
+                ['browser:foobar9' => 'Impossibile connettersi a %2$S in questo momento.%1$0.S'],
                 'release',
                 [],
                 [],
             ],
             [
                 // Mixed ordered variables %1$S and %S (error)
-                ['browser:foobar' => 'A username and password are being requested by %S. The site says: "%S"'],
-                ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
+                ['browser:foobar10' => 'A username and password are being requested by %S. The site says: "%S"'],
+                ['browser:foobar10' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
                 'release',
                 [],
-                ['browser:foobar'],
+                ['browser:foobar10'],
             ],
             [
                 // Not matching test
-                ['foobar' => 'A username and password are being requested by %2$S. The site says: "%1$S"'],
-                ['foobar' => 'Le site %2$S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
+                ['foobar11' => 'A username and password are being requested by %2$S. The site says: "%1$S"'],
+                ['foobar11' => 'Le site %2$S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
                 'release',
                 [],
                 [],
             ],
             [
                 // String should be ignored for false positives
-                ['browser:foobar' => 'A username and password are being requested by %S. The site says: "%S"'],
-                ['browser:foobar' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
+                ['browser:foobar12' => 'A username and password are being requested by %S. The site says: "%S"'],
+                ['browser:foobar12' => 'Le site %S demande un nom d\'utilisateur et un mot de passe. Le site indique : « %1$S »'],
                 'release',
-                ['browser:foobar'],
+                ['browser:foobar12'],
+                [],
+            ],
+            [
+                // {{n}} vs {{ n }} (not an error)
+                ['browser:foobar13' => '{{name}}, +{{n}} more'],
+                ['browser:foobar13' => '{{ name }} et {{ n }} autre'],
+                'gaia',
+                [],
+                [],
+            ],
+            [
+                // {{n}} vs {{ n }}, changed order (not an error)
+                ['browser:foobar14' => '{{ n}} more and {{ name }}'],
+                ['browser:foobar14' => '{{name}} et {{n}} autre'],
+                'gaia',
+                [],
                 [],
             ],
         ];
