@@ -44,18 +44,19 @@ class AnalyseStrings
 
         if (Strings::startsWith($repo, 'gaia')) {
             $patterns = [
-                'l10njs'     => '/\{\{([\s]*[a-z0-9]+[\s]*)\}\}/i', // {{foobar2}}
+                'l10njs'     => '/\{\{([\s]*[a-z0-9_]+[\s]*)\}\}/i', // {{foobar2}}
             ];
         } else {
             $patterns = [
-                'dtd'        => '/&([a-z0-9\.]+);/i',                // &foobar;
-                'printf'     => '/%([0-9]+\$){0,1}([0-9].){0,1}S/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',     // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;
+                'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
+                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                'l10njs'     => '/\{\{([\s]*[a-z0-9_]+[\s]*)\}\}/i',         // {{foobar2}} Used in Loop and PDFViewer
             ];
         }
 
         foreach ($patterns as $pattern_name => $pattern) {
-            foreach ($tmx_source as $key => $value) {
+            foreach ($tmx_source as $key => $source) {
                 if (isset($tmx_target[$key])
                     && $tmx_target[$key] != ''
                     && ! in_array($key, $ignored_strings)) {
@@ -63,35 +64,50 @@ class AnalyseStrings
                     // the string is not in the list of strings to ignore
                     $translation = $tmx_target[$key];
                     $wrong_variable = false;
-                    preg_match_all($pattern, $value, $matches_source);
+
+                    preg_match_all($pattern, $source, $matches_source);
+                    preg_match_all($pattern, $translation, $matches_translation);
+
                     if (count($matches_source[0]) > 0) {
-                        foreach ($matches_source[0] as $val) {
-                            if ($pattern_name == 'printf') {
-                                // Variables are in format %S or %1$S, case is not relevant
-                                if (stripos($translation, $val) === false) {
-                                    $wrong_variable = true;
-                                }
-                            } else {
-                                if (strpos($translation, $val) === false) {
-                                    $wrong_variable = true;
+                        foreach ($matches_source[0] as $var_source) {
+                            if (! in_array($var_source, $matches_translation[0])) {
+                                $wrong_variable = true;
+                            }
+
+                            // For l10n.js {{n}} == {{ n }}
+                            if ($pattern_name == 'l10njs' && $wrong_variable) {
+                                // Trim whitespaces and sort variables alphabetically
+                                $trimmed_source_vars = array_map('trim', $matches_source[1]);
+                                sort($trimmed_source_vars);
+                                $trimmed_source_trans = array_map('trim', $matches_translation[1]);
+                                sort($trimmed_source_trans);
+
+                                if ($trimmed_source_vars === $trimmed_source_trans) {
+                                    $wrong_variable = false;
                                 }
                             }
                         }
                     }
 
                     if ($pattern_name == 'printf') {
-                        preg_match_all('/%([0-9]+\$){1}([0-9].){0,1}S/i', $translation, $matches_ordered);
-                        preg_match_all('/%(0.){0,1}S/i', $translation, $matches_unordered);
+                        /*
+                         * Check ordered vs unordered variables. The pattern
+                         * regular expression returns "S" or "s" as second group
+                         * for each variable, I can use it to check for case
+                         * differences ("s" vs "S") which are not allowed.
+                         */
+                        preg_match_all('/%(?:[0-9]+\$){1}(?:[0-9].){0,1}S/i', $translation, $matches_ordered_trans);
+                        preg_match_all('/%(?:0.){0,1}S/i', $translation, $matches_unordered_trans);
 
-                        if ((count($matches_ordered[0]) > 0) &&
-                            (count($matches_unordered[0]) > 0)) {
-                            // A string can't have both ordered and unordered variables
+                        if (count($matches_ordered_trans[0]) > 0 && count($matches_unordered_trans[0]) > 0) {
+                            // Strings can't mix ordered and unordered variables
                             $wrong_variable = true;
-                        } elseif (count($matches_ordered[0]) + count($matches_unordered[0]) == count($matches_source[0])) {
-                            /* I have the same number of variables in source and translation,
-                             * I consider the string valid.
-                             */
-                            $wrong_variable = false;
+                        } else {
+                            if (count($matches_translation[0]) == count($matches_source[0]) &&
+                                $matches_translation[2] === $matches_source[2]) {
+                                // Same number of variables and case, I assume the string is OK
+                                $wrong_variable = false;
+                            }
                         }
                     }
 
