@@ -105,3 +105,14 @@
     background-color: #e9cfff;
     border-color: #8106e0;
 }
+
+code {
+    font-family: Courier, Courier New, monospace;
+    font-weight: normal;
+    color: #333;
+    background-color: #fafafa;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+    text-shadow: 1px 1px 0 #fff;
+    white-space: nowrap;
+    padding: 0.1em 0.3em;
+}
