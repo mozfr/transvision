@@ -1,3 +1,82 @@
+<?=$release_title('3.7')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        The <a href="/?sourcelocale=en-US&amp;locale=fr&amp;repo=aurora&amp;t2t=t2t&amp;recherche=Bookmarks">glossary</a> view looks better and is visually more consistent with the rest of the site (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        The application is more usable when JavaScript is disabled (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(438)?>
+        Added number of results found in <a href="/variables/">Variables Overview</a> view (SkySymbol)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(444, 446)?>
+        Improve result quality of the <a href="/variables/">Variables Overview</a> view by ignoring known false-positives and detecting l10n.js style variables (flod)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(386)?>
+        Searching for uppercase/lowercase strings with diacritics (ex: überdeckende vs Überdeckende) now works (flod)
+    </li>
+</ul>
+
+<h3>External API changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(431)?>
+        HTML views which also exist as a JSON view now have a banner linking to the JSON file and our public API documentation (pascal)
+    </li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>
+        <?=$relnotes('new')?>
+        <?=$issue(403)?>
+        Repository now has a CONTRIBUTING.md file with code conventions displayed for each pull request (SkySymbol)
+    </li>
+    <li>
+        <?=$relnotes('new')?>
+        Added a command line option to glossaire.sh to not create a data snapshot when ran locally: <code>glossaire.sh no-snapshot</code> (flod)
+    </li>
+    <li>
+        <?=$relnotes('new')?>
+        <?=$issue(435)?>
+        Coding standards are enforced via php-cs-fixer, which is now installed via Composer. If you want to fix your code before committing, use the command <code>./vendor/bin/php-cs-fixer fix</code>. This is now a requirement as your build will fail on Travis CI if your code does not follow the project standards (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(427)?>
+        In Composer, we now use the tilde (~) operator to indicate that we don't want to upgrade a dependency if its public API changes. See <a href="https://github.com/mozfr/transvision/commit/b64012814d017f508a7f6777658b7fdd49fc808f">this commit</a> for an example (pascal)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(443)?>
+        Search results could take up to 20 seconds to display if caching was disabled as it was querying a remote ressource for each search result leading to hundreds of http requests. This is now down to one http request cached in RAM per view (pascal)
+    </li>
+</ul>
+<h3>Other changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(447)?>
+        Extraction of strings from hg repositories was failing if it found a non-UTF8 source file and resulted in a damaged dataset causing searches for the locale to lead to a visually broken page. We now skip folders containing files not in UTF8 and index the rest of the files. We also log the error to report it to the localizer in Bugzilla (pascal)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        In <a href="/productization/">Productization</a> view, images as data URIs are sanitized before being displayed (flod)
+    </li>
+</ul>
+
+<?=$github_link('3.7');?>
+
 <?=$release_title('3.6')?>
 <h3>End user visible changes</h3>
 <ul>
