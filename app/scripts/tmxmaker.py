@@ -6,7 +6,7 @@ import datetime
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
-""" here we read the server configuration file """
+""" Here we read the server configuration file """
 parser = SafeConfigParser()
 # Get absolute path of ../config from current script location (not current folder)
 config_folder = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, 'config'))
@@ -20,7 +20,6 @@ import silme.diff
 import silme.core
 import silme.format
 import silme.io
-
 
 silme.format.Manager.register('dtd', 'properties', 'ini', 'inc')
 
@@ -46,9 +45,6 @@ def get_string(package, localdirectory):
 
     return strings
 
-def tmx_close(target_file):
-    target_file.write("</body>\n</tmx>")
-
 def php_header(target_file):
     target_file.write("<?php\n$tmx = [\n")
 
@@ -59,7 +55,6 @@ def php_add_to_array(ent,ch,target_file):
 
 def php_close_array(target_file):
     target_file.write("];\n")
-
 
 if __name__ == "__main__":
     usage = "test"
@@ -102,13 +97,14 @@ if __name__ == "__main__":
         try:
             l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
         except:
-            pass
+            print 'Silme couldn\'t extract data for ' + path1
+            continue
 
-        rcsClient2 = silme.io.Manager.get('file')
         try:
             l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
         except:
-            pass
+            print 'Silme couldn\'t extract data for ' + path2
+            continue
 
         strings = {}
         chaine = get_string(l10nPackage, directory)
