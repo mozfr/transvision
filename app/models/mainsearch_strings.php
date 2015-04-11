@@ -49,7 +49,7 @@ $components = [];
 
 foreach ($searches as $key => $value) {
     $search_results = ShowResults::getTMXResults(array_keys($value), $data);
-    $components = Project::getComponents($search_results);
+    $components += Project::getComponents($search_results);
 
     if (count($value) > 0) {
         // We have results, we won't display search suggestions but search results
@@ -68,6 +68,10 @@ foreach ($searches as $key => $value) {
                         . " for the locale {$key}</h2>";
     }
 }
+
+// Remove duplicated components
+$components = array_unique($components);
+
 // Display a search hint for the closest string we have if we have no search results
 if (! $search_yields_results) {
     $merged_strings = [];
