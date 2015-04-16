@@ -191,11 +191,11 @@ class Strings extends atoum\test
         return [
             ['notre', 'nôtre', (float) 80],
             ['웹', '으', (float) 0],
-            ['हिस्सा', 'हमारे', (float) 100/6],
+            ['हिस्सा', 'हमारे', (float) 100 / 6],
             ['hello', 'melon', (float) 40],
-            ['കട', 'കടല', (float) 100/1.5],
+            ['കട', 'കടല', (float) 100 / 1.5],
             ['കട', 'കല', (float) 50],
-            ['കട', 'കടി', (float) 100/1.5],
+            ['കട', 'കടി', (float) 100 / 1.5],
         ];
     }
 

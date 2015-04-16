@@ -57,7 +57,7 @@ $table = '
 
 foreach ($string_count as $locale => $numbers) {
     $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
-    $completion = number_format($completion/$count_reference*100);
+    $completion = number_format($completion / $count_reference * 100);
 
     if ($completion >= 99) {
         $confidence = 'Highest';

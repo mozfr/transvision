@@ -156,7 +156,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                                         "    <p><strong>Feed readers:</strong></p>\n" .
                                         "    <ol>\n";
                         // Feed handlers start from 0
-                        for ($i = 0; $i<count($p12n['feedhandlers']); $i++) {
+                        for ($i = 0; $i < count($p12n['feedhandlers']); $i++) {
                             $html_output .= "    <li><a href='{$p12n['feedhandlers'][$i]['uri']}'>{$p12n['feedhandlers'][$i]['title']}</a></li>\n";
                         }
                         $html_output .= "    </ol>\n";
@@ -165,7 +165,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
                         foreach ($p12n['contenthandlers'] as $protocol => $handler) {
                             $html_output .= "    <p>{$protocol}</p>\n" .
                                             "    <ol>\n";
-                            for ($i = 0; $i<count($handler); $i++) {
+                            for ($i = 0; $i < count($handler); $i++) {
                                 $html_output .= "      <li><a href='{$handler[$i]['uri']}'>{$handler[$i]['name']}</a></li>\n";
                             }
                             $html_output .= "    </ol>\n";

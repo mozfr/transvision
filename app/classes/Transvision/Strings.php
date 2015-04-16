@@ -182,7 +182,7 @@ class Strings
 
             for ($j = 0; $j < $length2; $j++) {
                 $c2            = mb_substr($string2, $j, 1, 'UTF-8');
-                $insertions    = $previous_row[$j+1] + 1;
+                $insertions    = $previous_row[$j + 1] + 1;
                 $deletions     = $current_row[$j] + 1;
                 $substitutions = $previous_row[$j] + (($c1 != $c2) ? 1 : 0);
                 $current_row[] = min($insertions, $deletions, $substitutions);
@@ -208,6 +208,6 @@ class Strings
             mb_strlen($string2, 'UTF-8'),
         ]);
 
-        return (float) (1-self::levenshteinUTF8($string1, $string2)/$length)*100;
+        return (float) (1 - self::levenshteinUTF8($string1, $string2) / $length) * 100;
     }
 }

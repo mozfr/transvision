@@ -62,13 +62,13 @@ class ShowResults extends atoum\test
             [
               'source'  => 'Bookmarks',
               'target'  => 'Marque-pages',
-              'quality' => (float) 100/1.125,
+              'quality' => (float) 100 / 1.125,
             ],
 
             [
               'source'  => 'New Bookmarks',
               'target'  => 'Nouveaux marque-pages',
-              'quality' => (float) 100/1.625,
+              'quality' => (float) 100 / 1.625,
             ],
         ];
 
