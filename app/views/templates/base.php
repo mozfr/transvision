@@ -75,7 +75,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
         echo "<link rel=\"stylesheet\" href=\"/style/{$css_file}?" . VERSION . "\" type=\"text/css\" media=\"all\" />\n";
     }
     ?>
-    <link rel="shortcut icon" type="image/x-icon" href="http://www.mozfr.org/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.mozfr.org/favicon.ico" />
   </head>
 <body id="<?=$page?>">
   <div id="links-top" class="links">
@@ -111,7 +111,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   </div>
 
   <div id="footer">
-    <p>Transvision is a tool provided by the French Mozilla community, <a href="http://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
+    <p>Transvision is a tool provided by the French Mozilla community, <a href="https://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
     <?php echo $last_update; ?>
   </div>
 

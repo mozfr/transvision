@@ -47,7 +47,7 @@ class Bugzilla extends _Bugzilla
                 . "Is translated as:\n{$target_string}\n\n"
                 . "And should be:\n\n\n\n"
                 . "Feedback via Transvision:\n"
-                . "http://transvision.mozfr.org/{$entity_link}"
+                . "https://transvision.mozfr.org/{$entity_link}"
             ));
 
         if ($repo == 'mozilla_org') {

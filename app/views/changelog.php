@@ -121,7 +121,7 @@
     <li>
         <?=$relnotes('new')?>
         <?=$issue(400)?>
-        Continuous integration of commits to master to the <a href="http://transvision-beta.mozfr.org/">beta</a> site via GitHub notification API (pascal)
+        Continuous integration of commits to master to the <a href="https://transvision-beta.mozfr.org/">beta</a> site via GitHub notification API (pascal)
     </li>
     <li>
         <?=$relnotes('new')?>
@@ -269,7 +269,7 @@
 
 <h3>Developer visible changes</h3>
 <ul>
-    <li><?=$relnotes('new')?><strong>API documentation:</strong> <a href="http://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor. (pascal)</li>
+    <li><?=$relnotes('new')?><strong>API documentation:</strong> <a href="https://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor. (pascal)</li>
     <li>All Unit tests now use a <a href="https://github.com/mozfr/transvision/blob/8a9e17e7bfa31414b50f72408b909f46be506bff/tests/units/bootstrap.php">single bootstrap file</a> to define constants or initialize data needed to run the tests. (pascal)</li>
     <li>Updated our README file to add missing dependencies to install Transvision locally (pascal)</li>
 </ul>
@@ -312,7 +312,7 @@
     <li>Each view now has a one line description of what it does at the top (Jesus)</li>
     <li>Updated supported locales (flod)</li>
     <li>Added Gaia 1.3 support (flod)</li>
-    <li>The <a href="http://transvision-beta.mozfr.org/">beta site</a> now has a Beta ribbon to distinguish it from the main site (flod)</li>
+    <li>The <a href="https://transvision-beta.mozfr.org/">beta site</a> now has a Beta ribbon to distinguish it from the main site (flod)</li>
 </ul>
 
 <h3>Developer visible changes</h3>
@@ -404,7 +404,7 @@
 <?=$release_title('2.6')?>
 <h3>End user visible changes</h3>
 <ul>
-    <li><?=$relnotes('new')?> All TMX files for all locales/repos combinations are now available via a <a href="http://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
+    <li><?=$relnotes('new')?> All TMX files for all locales/repos combinations are now available via a <a href="https://transvision.mozfr.org/downloads/">TMX download page</a> (Jesús, Pascal)</li>
     <li><quote>Translate with:</quote> links in search results are now below the source English strings to point to Bing and Google translation services (Jesús)</li>
     <li>In the search results page for string searches, the entity names in the first columns are now links to the entities for easy sharing/bookmarking (Pascal)</li>
     <li>CSS fixes (Jesús)</li>
@@ -598,7 +598,7 @@
 </ul>
 <h3>Other changes</h3>
 <ul>
-    <li>There is now a Transvision Beta server at <a href="http://transvision-beta.mozfr.org">transvision-beta.mozfr.org</a>, if you find a bug or a regression on Transvision, please check on this beta server that the bug you want to report is not already fixed.</li>
+    <li>There is now a Transvision Beta server at <a href="https://transvision-beta.mozfr.org">transvision-beta.mozfr.org</a>, if you find a bug or a regression on Transvision, please check on this beta server that the bug you want to report is not already fixed.</li>
     <li>Set up a basic url front controller to be able to use the new PHP 5.4 integrated web server for development and also installed the Atoum Unit Test framework.</li>
     <li>Now with the MozFR favicon :)</li>
 </ul>
@@ -686,5 +686,5 @@
 <?=$release_title('1.0')?>
 <ul>
     <li>Initial import of existing code into github and reinstalling on MozFR server</li>
-    <li>New URL is <a href="http://transvision.mozfr.org">http://transvision.mozfr.org</a></li>
+    <li>New URL is <a href="https://transvision.mozfr.org">https://transvision.mozfr.org</a></li>
 </ul>

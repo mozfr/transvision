@@ -84,9 +84,9 @@ then
         echogreen "Downloading a snapshot of data from Transvision Web site"
         if ! command -v curl >/dev/null 2>&1
         then
-            wget http://transvision.mozfr.org/data.tar.gz -O - | tar -xz
+            wget https://transvision.mozfr.org/data.tar.gz -O - | tar -xz
         else
-            curl http://transvision.mozfr.org/data.tar.gz | tar -xz
+            curl https://transvision.mozfr.org/data.tar.gz | tar -xz
         fi
         echogreen "Data is now extracted in your web/TMX/ folder"
     fi
