@@ -18,6 +18,7 @@ define('MODELS',        APP_ROOT . 'models/');
 define('CONTROLLERS',   APP_ROOT . 'controllers/');
 define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
+define('APP_SCHEME', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
 
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     define('CACHE_TIME',  time() - filemtime(CACHE_PATH . 'lastdataupdate.txt'));

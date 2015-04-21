@@ -36,8 +36,8 @@ if (isset($_GET['json'])) {
     $regex = count($regex) > 0 ? '?' . implode('&', $regex) : '';
 
     header('Status: 301 Moved Permanently', false, 301);
-    header("Location: http://{$_SERVER['HTTP_HOST']}/api/v1/search/"
-           . "{$type}/{$repo}/{$source}/{$target}/{$terms}/{$regex}");
+    header('Location:' . APP_SCHEME . "{$_SERVER['HTTP_HOST']}/api/v1/search/"
+        . "{$type}/{$repo}/{$source}/{$target}/{$terms}/{$regex}");
     exit;
 }
 

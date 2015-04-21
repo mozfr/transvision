@@ -37,7 +37,7 @@ if ($error_count > 0) {
                 "Is translated as:\n{$target[$string_id]}\n\n" .
                 "And should be:\n\n\n\n" .
                 "Feedback via Transvision:\n" .
-                "http://transvision.mozfr.org/{$string_id_link}"
+                "https://transvision.mozfr.org/{$string_id_link}"
             )
         );
         $bugzilla_link = "{$bugzilla_base_link}&short_desc={$bug_summary}&comment={$bug_message}";
