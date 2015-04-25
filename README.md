@@ -32,6 +32,7 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 - Composer (Dependency Manager for PHP, http://getcomposer.org/)
 - mercurial, git, svn to check out data sources (only for a Full installation for production)
 - php5-xsl and GraphViz packages for generating the documentation with [phpDocumentor][]
+- Apache with mod_rewrite activated
 
 ## Full Installation (production or heavy development)
 
