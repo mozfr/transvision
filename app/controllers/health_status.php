@@ -2,6 +2,7 @@
 namespace Transvision;
 
 $locales_list = [];
+$javascript_include = ['show_hide_tabs.js'];
 
 foreach (Project::getRepositories() as $repo) {
     $locales_list = array_merge($locales_list, Project::getRepositoryLocales($repo));
