@@ -147,6 +147,14 @@ class AnalyseStrings extends atoum\test
                 [],
                 [],
             ],
+            [
+                // non-breaking space in {{ n }} (not an error)
+                ['browser:foobar15' => '{{ appName }} installed'],
+                ['browser:foobar15' => '{{ appName }} ইনস্টল রয়েছে'],
+                'gaia',
+                [],
+                [],
+            ],
         ];
     }
 
