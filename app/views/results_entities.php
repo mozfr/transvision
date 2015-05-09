@@ -23,17 +23,21 @@ foreach ($entities as $entity) {
         $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
     }
 
-    // Escape strings for HTML Display
+    // Escape strings for HTML display
     $bz_target_string = $target_string = isset($tmx_target[$entity])
                                             ? Utils::secureText($tmx_target[$entity])
                                             : '';
-    $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
-                                            ? Utils::secureText($tmx_target2[$entity])
-                                            : '';
+    // Highlight non-breaking spaces only after strings have been escaped
+    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string);
+
     $source_string = Utils::secureText($tmx_source[$entity]);
 
+    // 3locales view
     if ($url['path'] == '3locales') {
-        // nbsp highlight only after strings have been escaped
+        $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
+                                                    ? Utils::secureText($tmx_target2[$entity])
+                                                    : '';
+        // Highlight non-breaking spaces only after strings have been escaped
         $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string2);
 
         if ($check['repo'] == 'mozilla_org') {
@@ -41,13 +45,7 @@ foreach ($entities as $entity) {
         } else {
             $path_locale3 = VersionControl::hgPath($locale2, $check['repo'], $entity);
         }
-    }
 
-    // nbsp highlight only after strings have been escaped
-    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string);
-
-    // 3locales view
-    if ($url['path'] == '3locales') {
         // Link to entity
         $entity_link = "?sourcelocale={$source_locale}"
                      . "&locale={$locale2}"
