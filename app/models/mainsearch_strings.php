@@ -59,7 +59,9 @@ foreach ($searches as $key => $value) {
                         ? $limit_results . ' of ' . $real_search_results
                         : count($search_results);
 
-        $output[$key] = "<h2>Displaying {$message_count} results for the string "
+        $pluralized_count = Utils::pluralize($message_count, 'result');
+
+        $output[$key] = "<h2>Displaying {$pluralized_count} for the string "
                         . "<span class=\"searchedTerm\">{$initial_search_decoded}</span> in {$key}:</h2>";
         $output[$key] .= ShowResults::resultsTable($search_results, $initial_search, $source_locale, $locale, $check);
     } else {
