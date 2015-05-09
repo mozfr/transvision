@@ -6,7 +6,6 @@
 ./browser/branding/official/locales/en-US
 ./browser/branding/unofficial/locales/en-US
 ./browser/locales/en-US
-./browser/metro/locales/en-US
 ./dom/locales/en-US
 ./extensions/spellcheck/locales/en-US
 ./intl/locales/en-US

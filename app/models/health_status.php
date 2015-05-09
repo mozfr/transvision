@@ -87,7 +87,6 @@ foreach (Project::getRepositories() as $repo) {
                 $path = [];
                 switch ($component) {
                     case 'browser':
-                        $path[] = $component . '/metro';
                         $path[] = $component . '/branding';
                         $path[] = $component . '/chrome/browser/devtools/styleeditor.dtd:noStyleSheet-tip';
                         $path[] = $component . '/chrome/browser-region/region.properties';
