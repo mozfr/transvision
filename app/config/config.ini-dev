@@ -26,3 +26,6 @@ libraries=/temp
 
 ; Flag to know if we are working in production more or development mode
 dev=true
+
+; Flag to display page time generation and memory usage in console logs (development mode only)
+perf_check=false
