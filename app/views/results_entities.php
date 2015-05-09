@@ -23,12 +23,18 @@ foreach ($entities as $entity) {
         $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
     }
 
-    $target_string2 = '';
+    // Escape strings for HTML Display
+    $bz_target_string = $target_string = isset($tmx_target[$entity])
+                                            ? Utils::secureText($tmx_target[$entity])
+                                            : '';
+    $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
+                                            ? Utils::secureText($tmx_target2[$entity])
+                                            : '';
+    $source_string = Utils::secureText($tmx_source[$entity]);
+
     if ($url['path'] == '3locales') {
-        if (isset($tmx_target2[$entity])) {
-            // nbsp highlight
-            $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target2[$entity]);
-        }
+        // nbsp highlight only after strings have been escaped
+        $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string2);
 
         if ($check['repo'] == 'mozilla_org') {
             $path_locale3 = VersionControl::svnPath($locale2, $check['repo'], $entity);
@@ -37,17 +43,8 @@ foreach ($entities as $entity) {
         }
     }
 
-    if (isset($tmx_target[$entity])) {
-        // nbsp highlight
-        $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $tmx_target[$entity]);
-    } else {
-        $target_string = '';
-    }
-
-    // Escape strings for HTML Display
-    $source_string  = Utils::secureText($tmx_source[$entity]);
-    $target_string  = Utils::secureText($target_string);
-    $target_string2 = Utils::secureText($target_string2);
+    // nbsp highlight only after strings have been escaped
+    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string);
 
     // 3locales view
     if ($url['path'] == '3locales') {
@@ -59,7 +56,7 @@ foreach ($entities as $entity) {
 
         $file_bug = '<a class="bug_link" target="_blank" href="'
                     . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
-                                              $target_string2, $check['repo'], $entity_link)
+                                              $bz_target_string2, $check['repo'], $entity_link)
                   . '">&lt;report a bug&gt;</a>';
 
         $extra_column_rows = "
@@ -83,7 +80,7 @@ foreach ($entities as $entity) {
 
     $file_bug = '<a class="bug_link" target="_blank" href="'
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
-                                          $target_string, $check['repo'], $entity_link)
+                                          $bz_target_string, $check['repo'], $entity_link)
               . '">&lt;report a bug&gt;</a>';
     $anchor_name = str_replace(['/', ':'], '_', $entity);
     $table .= "
