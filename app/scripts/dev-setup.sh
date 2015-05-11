@@ -127,3 +127,20 @@ then
     echogreen "Add $stats_file2 file"
     echo '{}' > $stats_file2
 fi
+
+# Add Reference repository as upstream remote
+if ! $(git remote | grep upstream &> /dev/null)
+then
+    origin=$(git config --get remote.origin.url)
+    remote_https='https://github.com/mozfr/transvision.git'
+    remote_git='git@github.com:mozfr/transvision.git'
+
+    if [ $origin == $remote_https ] || [ $origin == $remote_git ]
+    then
+        echored "Your local clone is from the reference repository, you should clone your own fork if you intend to contribute code."
+    else
+        echogreen "$remote_git added as upstream remote"
+        git remote add upstream $remote_git
+        git fetch upstream
+    fi
+fi
