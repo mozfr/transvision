@@ -24,25 +24,6 @@ foreach ($repos_nice_names as $repo => $name) {
 }
 ?>
 
-<script>
-$(document).ready(function() {
-    $('#select').click(function(event) {
-        if(this.textContent == "Select all") {
-            this.textContent = "Deselect all";
-            $('.checkbox').each(function() {
-                this.checked = true;
-            });
-        }else {
-            this.textContent = "Select all";
-            $('.checkbox').each(function() {
-                this.checked = false;
-            });
-        }
-    });
-});
-
-</script>
-
 <form name="tmxform" id="simplesearchform" method="get" action="">
     <fieldset id="main_search">
         <fieldset id="TMX_locales">
