@@ -129,10 +129,10 @@ class Utils extends atoum\test
     public function markStringDP()
     {
         return [
-            ['cronologia', 'cronologia di navigazione', '←←cronologia→→ di navigazione'],
+            ['cronologia', 'cronologia di navigazione', '←cronologia→ di navigazione'],
             ['cronologia', 'Cronologia di navigazione', '←Cronologia→ di navigazione'],
             ['test', 'Cronologia di navigazione', 'Cronologia di navigazione'],
-            ['Überdeckende', 'Überdeckende Popups öffnen', '←←Überdeckende→→ Popups öffnen'],
+            ['Überdeckende', 'Überdeckende Popups öffnen', '←Überdeckende→ Popups öffnen'],
             ['überdeckende', 'Überdeckende Popups öffnen', '←Überdeckende→ Popups öffnen'],
             ['Überdeckende', 'überdeckende Popups öffnen', '←überdeckende→ Popups öffnen'],
         ];
@@ -152,8 +152,7 @@ class Utils extends atoum\test
     public function highlightStringDP()
     {
         return [
-            ['←←←cronologia→→→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
-            ['←←cronologia→→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
+            ['←cronologia→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
             ['←Cronologia→ di navigazione', '<span class=\'highlight\'>Cronologia</span> di navigazione'],
             ['Cronologia di navigazione', 'Cronologia di navigazione'],
         ];

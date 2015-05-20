@@ -149,7 +149,7 @@ class ShowResults
     }
 
     /**
-     * Hightlight specific elements in the string for locales.
+     * Highlight specific elements in the string for locales.
      * Can also highlight specific per locale sub-strings.
      * For example in French non-breaking spaces used in typography
      *
