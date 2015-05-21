@@ -13,6 +13,13 @@ use Bugzilla\Bugzilla as _Bugzilla;
 class Bugzilla extends _Bugzilla
 {
     /**
+     * Store in this variable the URL encoded values for this locale
+     *
+     * @var array
+     */
+    private static $URLencodedBugzillaLocale = [];
+
+    /**
      * Return URL encoded component name.
      *
      * @param string $locale  Locale code for the wrong translation such as zh-TW
@@ -33,7 +40,7 @@ class Bugzilla extends _Bugzilla
      * @param string $entity        Entity reference in Transvision to the string
      * @param string $source_string Text of the original string
      * @param string $target_string Text of the translation
-     * @param string $repo          Repository where the string is locales
+     * @param string $repo          Repository where the string is located
      * @param string $entity_link   Transvision link for the entity
      *
      * @return string URL to use in a link that will prefill the report
@@ -51,11 +58,17 @@ class Bugzilla extends _Bugzilla
             ));
 
         if ($repo == 'mozilla_org') {
+            if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
+                self::$URLencodedBugzillaLocale[$repo] = self::getURLencodedBugzillaLocale($locale, 'www');
+            }
             $bz_component = 'L10N';
             $bz_product = 'www.mozilla.org';
-            $bz_extra = '&cf_locale=' . self::getURLencodedBugzillaLocale($locale, 'www');
+            $bz_extra = '&cf_locale=' . self::$URLencodedBugzillaLocale[$repo];
         } else {
-            $bz_component = self::getURLencodedBugzillaLocale($locale, 'products');
+            if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
+                self::$URLencodedBugzillaLocale[$repo] = self::getURLencodedBugzillaLocale($locale, 'products');
+            }
+            $bz_component = self::$URLencodedBugzillaLocale[$repo];
             $bz_product = 'Mozilla%20Localizations';
             $bz_extra = '';
         }

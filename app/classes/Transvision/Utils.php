@@ -88,9 +88,21 @@ class Utils
      */
     public static function markString($needle, $haystack)
     {
+        // Search for the original $needle
+        $original_needle = $needle;
         $str = str_replace($needle, '←' . $needle . '→', $haystack);
-        $str = str_replace(mb_convert_case($needle, MB_CASE_TITLE), '←' . mb_convert_case($needle, MB_CASE_TITLE) . '→', $str);
-        $str = str_replace(mb_strtolower($needle), '←' . mb_strtolower($needle) . '→', $str);
+
+        // Search for $needle converted to Title Case
+        $needle = mb_convert_case($original_needle, MB_CASE_TITLE);
+        if ($original_needle != $needle) {
+            $str = str_replace($needle, '←' . $needle . '→', $str);
+        }
+
+        // Search for $needle converted to lower case
+        $needle = mb_strtolower($original_needle);
+        if ($original_needle != $needle) {
+            $str = str_replace($needle, '←' . $needle . '→', $str);
+        }
 
         return $str;
     }
@@ -105,25 +117,10 @@ class Utils
     public static function highlightString($str)
     {
         $str = preg_replace(
-            '/←←←(.*)→→→/isU',
-            "<span class='highlight'>$1</span>",
-            $str
-        );
-
-        $str = preg_replace(
-            '/←←(.*)→→/isU',
-            "<span class='highlight'>$1</span>",
-            $str
-        );
-
-        $str = preg_replace(
             '/←(.*)→/isU',
             "<span class='highlight'>$1</span>",
             $str
         );
-
-        // remove last ones
-        $str = str_replace(['←', '→'], '', $str);
 
         return $str;
     }
