@@ -11,6 +11,7 @@ before_script:
   - cp app/config/config.ini-travis app/config/config.ini
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/
+  - php tests/functional/api.php
   - vendor/bin/php-cs-fixer --diff --dry-run -v fix
 notifications:
   irc:
