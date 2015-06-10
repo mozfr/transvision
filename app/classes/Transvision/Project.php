@@ -162,7 +162,7 @@ class Project
         if (! in_array($reference_locale, $supported_locales)) {
             $supported_locales[] = $reference_locale;
         }
-        asort($supported_locales);
+        sort($supported_locales);
 
         return $supported_locales;
     }
