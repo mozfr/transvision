@@ -1,10 +1,12 @@
+sudo: false
 language: php
 php:
   - 5.4
   - 5.5
 before_script:
   ## Composer
-  - composer install
+  - composer self-update
+  - composer install --no-interaction --prefer-source
   ## travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
 script:
