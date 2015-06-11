@@ -7,6 +7,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/mozilla-l10n/phpclass-cache"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/pascalchevrel/Verif/"
         }
     ],
 
@@ -15,15 +19,19 @@
     },
 
     "require": {
-        "atoum/atoum" : "~1.1",
         "components/jquery": "~1.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "pascalc/tinyl10n" : "~0.1",
-        "pascalc/vcs": "~0.1",
-        "symfony/var-dumper": "~2.1",
-        "fabpot/php-cs-fixer": "~1.4"
+        "pascalc/vcs": "~0.1"
+    },
+
+    "require-dev": {
+        "atoum/atoum" : "~1.1",
+        "symfony/var-dumper": "~2.6",
+        "fabpot/php-cs-fixer": "~1.4",
+        "pchevrel/verif": "0.1"
     },
 
     "autoload": {
