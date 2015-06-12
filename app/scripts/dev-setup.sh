@@ -113,8 +113,8 @@ else
 fi
 
 # Create json files used for stats
-stats_file1=web/stats_locales.json
-stats_file2=web/stats_requests.json
+stats_file1=cache/stats_locales.json
+stats_file2=cache/stats_requests.json
 
 if [ ! -f $stats_file1 ]
 then
