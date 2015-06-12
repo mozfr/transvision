@@ -62,6 +62,8 @@ $javascript_include[] = 'main_search.js';
                          /> <span>Default</span>
                      </label>
                 </fieldset>
+                <fieldset id="locale_switch" alt="Switch source and target locales" title="Switch source and target locales">
+                </fieldset>
                 <fieldset>
                     <label>Target Locale</label>
                     <select

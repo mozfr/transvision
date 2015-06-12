@@ -52,7 +52,7 @@ $(document).ready(function() {
         check_default(this.id);
     });
 
-    // Associate code to defaul checkbox changes to store a cookie.
+    // Associate code to default checkbox changes to store a cookie.
     $('.mainsearch_default_checkbox').on('change', function(){
         var today = new Date();
         var expire = new Date();
@@ -76,5 +76,13 @@ $(document).ready(function() {
         document.cookie = cookie_name + '=' + cookie_value +
                           ';expires=' + expire.toGMTString();
         $(this).val(cookie_value);
+    });
+
+    // Switch source and target locales in select boxes
+    $('#locale_switch').on('click', function() {
+      source_locale = $('#source_locale').val()
+      target_locale = $('#target_locale').val()
+      $('#source_locale').val(target_locale).change();
+      $('#target_locale').val(source_locale).change();
     });
 });
