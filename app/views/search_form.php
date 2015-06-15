@@ -122,6 +122,14 @@ $javascript_include[] = 'main_search.js';
                         title="Search in">
                     <?=$search_type_list?>
                     </select>
+                    <label class="default_option" for="default_search_type">
+                        <input type="checkbox"
+                               id="default_search_type"
+                               class="mainsearch_default_checkbox"
+                               value="<?=$cookie_search_type?>"
+                               <?=Utils::checkboxDefaultOption($check['search_type'], $cookie_search_type)?>
+                         /> <span>Default</span>
+                     </label>
                 </fieldset>
 
                 <fieldset id="advanced_search">

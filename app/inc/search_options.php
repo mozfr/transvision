@@ -27,12 +27,14 @@ if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
     $check['repo'] = $_GET['repo'];
 }
 
+// Default search type: strings
 $check['search_type'] = 'strings';
-
 if (isset($_GET['search_type'])
     && in_array($_GET['search_type'], ['strings', 'entities', 'strings_entities']
     )) {
     $check['search_type'] = $_GET['search_type'];
+} elseif (isset($_COOKIE['default_search_type'])) {
+    $check['search_type'] = $_COOKIE['default_search_type'];
 }
 
 // Locales list for the select boxes
@@ -108,3 +110,4 @@ $cookie_repository     = $get_cookie('default_repository');
 $cookie_source_locale  = $get_cookie('default_source_locale');
 $cookie_target_locale  = $get_cookie('default_target_locale');
 $cookie_target_locale2 = $get_cookie('default_target_locale2');
+$cookie_search_type    = $get_cookie('default_search_type');
