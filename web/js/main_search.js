@@ -13,10 +13,13 @@ var check_default = function(id) {
 };
 
 $(document).ready(function() {
-    // Change the label below the search field to reflect the value of "Search in".
+    /* Change the label below the search field to reflect the value of "Search in".
+     * Also checks if the default checkbox needs to be selected.
+     */
     $('#search_type').on('change', function(){
         var option_label = $('#search_type option[value="' + this.value + '"]').text();
         $('#searchcontextvalue').text(option_label);
+        check_default(this.id);
     });
 
     // Associate code to repository switch in main search form.
