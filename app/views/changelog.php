@@ -1,3 +1,98 @@
+<?=$release_title('3.8')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(471)?>
+        Add a widget in search form to switch source and target locales (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Improve performances for main search view (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Add cookie for search type (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Better detection of l10n.js style variables in strings (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Use proper plural form for the string "Displaying x results" (tchevalier)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        Regression: component filter is broken in string search results (flod)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        Regression: tabs no longer working on Health Status view (tchevalier)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        Regression: fix Select button on TMX download view (tchevalier)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(461)?>
+        Results are displaying HTML added by Transvision when searching for entities (tchevalier)
+    </li>
+</ul>
+
+<h3>External API changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(472)?>
+        Depending on the repository queried, the <var>locales</var> service used to return a JSON feed with or without numeric keys (pascal)
+    </li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        Allow developers to toggle PERF_CHECK from config.ini (tchevalier)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(466)?>
+        Add upstream remote repository automatically in setup script (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(476)?>
+        Improve Travis CI config for faster tests (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(474)?>
+        Automate functional testing of our JSON API (pascal)
+    </li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(452)?>
+        Make Transvision code HTTPS friendly (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(455)?>
+        Add reference about Apache and mod_rewrite in README file (Thegennok)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        Remove references to Firefox Metro in extraction scripts (SkySymbol)
+    </li>
+</ul>
+
+<?=$github_link('3.8');?>
+
 <?=$release_title('3.7')?>
 <h3>End user visible changes</h3>
 <ul>
