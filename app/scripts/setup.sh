@@ -328,8 +328,8 @@ fi
 echo "AddType application/octet-stream .tmx" > $install/web/download/.htaccess
 
 # Create json files used for stats
-stats_files=( $install/web/stats_locales.json
-              $install/web/stats_requests.json )
+stats_files=( $install/cache/stats_locales.json
+              $install/cache/stats_requests.json )
 
 for stats_file in "${stats_files[@]}"
 do
