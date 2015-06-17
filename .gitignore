@@ -4,12 +4,11 @@ app/config/sources/*.json
 app/config/sources/*.txt
 cache/*.cache
 cache/lastdataupdate.txt
+cache/stats_*.json
 composer.lock
 composer.phar
 logs/*.log
 phpDocumentor.phar
-stats_locales.json
-stats_requests.json
 vendor
 web/assets
 web/p12n
