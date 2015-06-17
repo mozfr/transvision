@@ -390,24 +390,29 @@ class Utils extends atoum\test
     {
         return [
             [
-                (new \DateTime('now'))->modify('-1 day'),
-                '1 day ago',
-            ],
-            [
-                (new \DateTime('now'))->modify('-2 seconds'),
+                (new \DateTime())->modify('-2 seconds'),
+                (new \DateTime()),
                 '2 seconds ago',
             ],
             [
-                (new \DateTime('now'))->modify('+2 months'),
+                (new \DateTime())->modify('-10 hours'),
+                '',
+                '10 hours ago',
+            ],
+            [
+                (new \DateTime())->modify('-1 day'),
+                (new \DateTime()),
+                '1 day ago',
+            ],
+            [
+                (new \DateTime())->modify('+2 months'),
+                '',
                 '2 months',
             ],
             [
-                (new \DateTime('now'))->modify('+1 year'),
+                (new \DateTime())->modify('+1 year'),
+                '',
                 '1 year',
-            ],
-            [
-                (new \DateTime('now'))->modify('-10 hours'),
-                '10 hours ago',
             ],
         ];
     }
@@ -415,12 +420,12 @@ class Utils extends atoum\test
     /**
      * @dataProvider agoDP
      */
-    public function testAgo($a, $b)
+    public function testAgo($a, $b, $c)
     {
         $obj = new _Utils();
         $this
-            ->string($obj->ago($a))
-                ->contains($b);
+            ->string($obj->ago($a, $b))
+                ->contains($c);
     }
 
     public function redirectToAPIDP()
