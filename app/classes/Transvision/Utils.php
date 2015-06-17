@@ -397,12 +397,17 @@ class Utils
      * Get the elapsed/remaining time from a DateTime vs. now
      *
      * @param  DateTime $datetime The DateTime object to check against current time
+     * @param  DateTime $ref_time Reference time to calculate the difference (optional)
      * @return a        string containing the value concatenated with the pluralized unit
      */
-    public static function ago($datetime)
+    public static function ago($datetime, $ref_time = '')
     {
-        $interval = (new \DateTime('now'))->diff($datetime);
-        $suffix = ($interval->invert ? ' ago' : '');
+        if (! $ref_time instanceof DateTime) {
+            // Use current time as reference
+            $ref_time = new \DateTime();
+        }
+        $interval = $ref_time->diff($datetime);
+        $suffix = $interval->invert ? ' ago' : '';
         if ($interval->y >= 1) {
             return self::pluralize($interval->y, 'year') . $suffix;
         }
