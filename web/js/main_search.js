@@ -83,9 +83,32 @@ $(document).ready(function() {
 
     // Switch source and target locales in select boxes
     $('#locale_switch').on('click', function() {
-      source_locale = $('#source_locale').val()
-      target_locale = $('#target_locale').val()
-      $('#source_locale').val(target_locale).change();
-      $('#target_locale').val(source_locale).change();
+        source_locale = $('#source_locale').val()
+        target_locale = $('#target_locale').val()
+        $('#source_locale').val(target_locale).change();
+        $('#target_locale').val(source_locale).change();
     });
+
+    // Hide the clear button if the search field is empty
+    if (!$('#recherche').val()) {
+        $('#clear_search').hide();
+    } else {
+        $('#clear_search').show();
+    }
+
+    // Show the clear button if search field changes
+    $('#recherche').on('input', function() {
+        if (!this.value) {
+            $('#clear_search').hide();
+        } else {
+            $('#clear_search').show();
+        }
+    });
+
+    // Clear the search field when clicking on the X button
+    $('#clear_search').on('click', function() {
+        $('#recherche').val('').focus();
+        $(this).hide();
+    });
+
 });

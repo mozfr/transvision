@@ -10,14 +10,17 @@ $javascript_include[] = 'main_search.js';
         <fieldset id="main_search">
             <div id="search">
                 <p class="smallscreen_notices">Use the <a href="" class="menu-button">Menu tab</a> in the right top corner to select a different view.<p>
-                <input type="text"
-                       name="recherche"
-                       id="recherche"
-                       value="<?=$initial_search?>"
-                       placeholder="Type your search here"
-                       title="Type your search here"
-                       size="30"
-                />
+                <div id="search_field_container">
+                    <input type="text"
+                           name="recherche"
+                           id="recherche"
+                           value="<?=$initial_search?>"
+                           placeholder="Type your search here"
+                           title="Type your search here"
+                           size="30"
+                    />
+                    <span id="clear_search" alt="Clear the search field" title="Clear the search field"></span>
+                </div>
                 <input type="submit" value="Search" alt="Search" />
                 <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
             </div>
