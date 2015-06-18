@@ -3,12 +3,25 @@ namespace Transvision;
 
 ob_start();
 
-$check['repo'] = isset($check['repo']) ? $check['repo'] : 'aurora';
-$source_locale = isset($source_locale) ? $source_locale : 'en-US';
-$locale = isset($locale) ? $locale : 'fr';
+$check['repo']  = isset($check['repo']) ? $check['repo'] : 'aurora';
+$source_locale  = isset($source_locale) ? $source_locale : 'en-US';
+$locale         = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
-$javascript_include = isset($javascript_include) ? $javascript_include : [];
-$css_include = isset($css_include) ? $css_include : [];
+$base_js        = ['base.js'];
+$base_css       = ['transvision.css'];
+$cache_bust     = '?v=' . VERSION;
+
+if (isset($javascript_include)) {
+    $javascript_include = array_merge($base_js, $javascript_include);
+} else {
+    $javascript_include = $base_js;
+}
+
+if (isset($css_include)) {
+    $css_include = array_merge($base_css, $css_include);
+} else {
+    $css_include = $base_css;
+}
 
 $links = '
 <div class="linkscolumn">
@@ -65,22 +78,19 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 <html lang="en" dir="ltr">
   <head>
     <title><?php if ($show_title == true) {
-    echo $page_title . ' | ';
-} ?><?=$title_productname?></title>
+    print $page_title . ' | ';
+} ?><?= $title_productname ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/transvision.css?<?php echo VERSION; ?>" type="text/css" media="all" />
-    <?php
-    foreach ($css_include as $css_file) {
-        echo "<link rel=\"stylesheet\" href=\"/style/{$css_file}?" . VERSION . "\" type=\"text/css\" media=\"all\" />\n";
-    }
-    ?>
+<?php foreach ($css_include as $css_file):?>
+    <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
+<?php endforeach?>
     <link rel="shortcut icon" type="image/x-icon" href="https://www.mozfr.org/favicon.ico" />
   </head>
-<body id="<?=$page?>">
+<body id="<?= $page ?>">
   <div id="links-top" class="links">
     <div class="container">
-      <?=$links?>
+      <?= $links ?>
     </div>
   </div>
   <div id="links-top-button-container">
@@ -88,22 +98,22 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   </div>
   <?php
   if ($beta_version) {
-      echo "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
+      print "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
   }
   ?>
-  <h1><?=$title?></h1>
+  <h1><?= $title ?></h1>
   <?php if ($experimental == true): ?>
   <h2 id="experimental" class="alert">Experimental View</h2>
   <?php endif; ?>
 
   <?php if ($show_title == true): ?>
-  <h2 id="page_title"><?=$page_title?></h2>
-  <h3 id="page_descrition"><?=$page_descr?></h3>
+  <h2 id="page_title"><?= $page_title ?></h2>
+  <h3 id="page_descrition"><?= $page_descr ?></h3>
   <?php endif; ?>
 
   <div id="pagecontent">
-    <?=$extra?>
-    <?=$content?>
+    <?= $extra ?>
+    <?= $content ?>
   </div>
 
   <div id="noscript-warning">
@@ -112,30 +122,29 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
   <div id="footer">
     <p>Transvision is a tool provided by the French Mozilla community, <a href="https://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
-    <?php echo $last_update; ?>
+    <?= $last_update ?>
   </div>
 
-  <script src="/assets/jquery/jquery.min.js"></script>
-  <script src="/js/base.js"></script>
-  <?php
-    foreach ($javascript_include as $js_file) {
-        echo "    <script src=\"/js/{$js_file}\"></script>\n";
-    }
+  <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
+<?php foreach ($javascript_include as $js_file):?>
+  <script src="/js/<?= $js_file . $cache_bust ?>"></script>
+<?php endforeach?>
 
+  <script>
+    var supported_locales = [];
+<?php
     /* Building array of supported locales for JavaScript functions.
      * This is inline because it shouldn't be cached by the browser.
      * Note: encoding array_values() instead of the array makes sure
      * that json_encode returns an array and not an object.
      */
-    echo "<script>\n" .
-         "      var supported_locales = [];\n";
     foreach (Project::getSupportedRepositories() as $repo_id => $repo_name) {
-        echo "      supported_locales['{$repo_id}'] = " .
+        print "      supported_locales['{$repo_id}'] = " .
              json_encode(array_values(Project::getRepositoryLocales($repo_id))) .
              ";\n";
     }
-    echo "    </script>\n";
-  ?>
+?>
+  </script>
 </body>
 </html>
 
