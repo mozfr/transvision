@@ -122,6 +122,9 @@ class Utils
             $str
         );
 
+        // Remove remaining marking characters
+        $str = str_replace(['←', '→'], '', $str);
+
         return $str;
     }
 

@@ -154,6 +154,7 @@ class Utils extends atoum\test
         return [
             ['←cronologia→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
             ['←Cronologia→ di navigazione', '<span class=\'highlight\'>Cronologia</span> di navigazione'],
+            ['←servi←ce→→', '<span class=\'highlight\'>service</span>'],
             ['Cronologia di navigazione', 'Cronologia di navigazione'],
         ];
     }
