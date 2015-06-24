@@ -1,3 +1,12 @@
+<?=$release_title('3.8.1')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(488)?>
+        Regression: ← and → flags are displayed with some queries (flod)
+    </li>
+</ul>
 <?=$release_title('3.8')?>
 <h3>End user visible changes</h3>
 <ul>
