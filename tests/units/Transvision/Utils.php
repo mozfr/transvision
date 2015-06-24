@@ -389,7 +389,7 @@ class Utils extends atoum\test
 
     public function agoDP()
     {
-        return [
+        $data = [
             [
                 (new \DateTime())->modify('-2 seconds'),
                 (new \DateTime()),
@@ -397,7 +397,7 @@ class Utils extends atoum\test
             ],
             [
                 (new \DateTime())->modify('-10 hours'),
-                '',
+                (new \DateTime()),
                 '10 hours ago',
             ],
             [
@@ -407,15 +407,37 @@ class Utils extends atoum\test
             ],
             [
                 (new \DateTime())->modify('+2 months'),
-                '',
+                (new \DateTime()),
                 '2 months',
             ],
             [
                 (new \DateTime())->modify('+1 year'),
-                '',
+                (new \DateTime()),
                 '1 year',
             ],
         ];
+
+        // If running tests locally, check also the behavior without providing
+        // a reference date
+        if (! getenv('TRAVIS')) {
+            $data = array_merge(
+                $data,
+                [
+                    [
+                        (new \DateTime())->modify('-2 seconds'),
+                        '',
+                        '2 seconds ago',
+                    ],
+                    [
+                        (new \DateTime())->modify('-1 hours'),
+                        '',
+                        '1 hour ago',
+                    ],
+                ]
+            );
+        }
+
+        return $data;
     }
 
     /**
