@@ -46,7 +46,7 @@ class Dotlang
     }
 
     /**
-     * Loads the  lang file and returns a cleaned up array of the lines
+     * Loads the lang file and returns a cleaned up array of the lines
      *
      * @param  string $file path to the local file to load
      * @return array  All the significant lines in the file as an array
@@ -73,10 +73,11 @@ class Dotlang
      *  ;String in english
      *  translated string
      *
-     * @param  string $file .lang file to load
-     * @return array  Array of strings as [original => translation]
+     * @param  string  $file             .lang file to load
+     * @param  boolean $reference_locale True if the current locale is the reference locale
+     * @return array   Array of strings as [original => translation]
      */
-    public static function getStrings($file)
+    public static function getStrings($file, $reference_locale)
     {
         // get all the lines in an array
         $f = self::getFile($file);
@@ -104,7 +105,12 @@ class Dotlang
                 }
 
                 // If untranslated, I need to store an empty string as translation
-                $strings[$english] = ($translation == $english) ? '' : $translation;
+                // unless it's the reference locale
+                if ($reference_locale) {
+                    $strings[$english] = $english;
+                } else {
+                    $strings[$english] = ($translation == $english) ? '' : $translation;
+                }
 
                 $i++;
             }

@@ -30,7 +30,7 @@ eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 
 # Generate sources (gaia versions, supported locales)
 echogreen "Generate list of locales and supported Gaia versions"
-php $DIR/generate_sources $config
+$DIR/generate_sources $config
 
 # Check if we have sources
 echogreen "Checking if Transvision sources are available..."
@@ -117,7 +117,7 @@ function checkoutSilme() {
     then
         echogreen "Checking out the SILME library into $libraries"
         cd $libraries
-        hg clone http://hg.mozilla.org/l10n/silme -u silme-0.8.0
+        hg clone https://hg.mozilla.org/l10n/silme -u silme-0.8.0
         cd $install
     fi
 }
@@ -127,11 +127,11 @@ function initDesktopL10nRepo() {
     if [ "$1" == "central" ]
     then
         local repo_folder="trunk_l10n"
-        local repo_path="http://hg.mozilla.org/l10n-central"
+        local repo_path="https://hg.mozilla.org/l10n-central"
         local locale_list="trunk_locales"
     else
         local repo_folder="${1}_l10n"
-        local repo_path="http://hg.mozilla.org/releases/l10n/mozilla-$1"
+        local repo_path="https://hg.mozilla.org/releases/l10n/mozilla-$1"
         local locale_list="${1}_locales"
     fi
 
@@ -152,12 +152,11 @@ function initDesktopL10nRepo() {
                 hg clone $repo_path/$locale $locale
             fi
 
-            if [ ! -d $root/TMX/$1/$locale ]
+            if [ ! -d $root/TMX/$locale ]
             then
                 # ${1^^} = uppercase($1)
-                echogreen "Creating this locale cache for ${1^^}:"
-                echogreen $locale
-                mkdir -p $root/TMX/$1/$locale
+                echogreen "Creating folder cache for: $locale"
+                mkdir -p $root/TMX/$locale
             fi
     done
 }
@@ -170,7 +169,7 @@ function initDesktopSourceRepo() {
             echogreen "Checking out the following repo:"
             echogreen $trunk_source/comm-central/
             cd $trunk_source
-            hg clone http://hg.mozilla.org/comm-central/
+            hg clone https://hg.mozilla.org/comm-central/
         fi
 
         if [ ! -d $trunk_source/mozilla-central/.hg ]
@@ -178,12 +177,12 @@ function initDesktopSourceRepo() {
             echogreen "Checking out the following repo:"
             echogreen $trunk_source/mozilla-central/
             cd $trunk_source
-            hg clone http://hg.mozilla.org/mozilla-central/
+            hg clone https://hg.mozilla.org/mozilla-central/
         fi
 
         # Checkout chatzilla and venkman only on trunk, since they don't
         # have branches. Can add other products to array nobranch_products,
-        # as long as their code is located in http://hg.mozilla.org/PRODUCT
+        # as long as their code is located in https://hg.mozilla.org/PRODUCT
         local nobranch_products=( chatzilla venkman )
         for product in "${nobranch_products[@]}"
         do
@@ -192,7 +191,7 @@ function initDesktopSourceRepo() {
                 echogreen "Checking out the following repo:"
                 echogreen $trunk_source/$product
                 cd $trunk_source
-                hg clone http://hg.mozilla.org/$product/
+                hg clone https://hg.mozilla.org/$product/
             fi
         done
     else
@@ -203,22 +202,21 @@ function initDesktopSourceRepo() {
         then
             echogreen "Checking out the following repo:"
             echogreen ${!target}/comm-$1/
-            hg clone http://hg.mozilla.org/releases/comm-$1/
+            hg clone https://hg.mozilla.org/releases/comm-$1/
         fi
 
         if [ ! -d ${!target}/mozilla-$1/.hg ]
         then
             echogreen "Checking out the following repo:"
             echogreen ${!target}/mozilla-$1/
-            hg clone http://hg.mozilla.org/releases/mozilla-$1/
+            hg clone https://hg.mozilla.org/releases/mozilla-$1/
         fi
     fi
 
-    if [ ! -d $root/TMX/$1/en-US ]
+    if [ ! -d $root/TMX/en-US ]
     then
-        echogreen "Creating this locale cache for $1:"
-        echogreen en-US
-        mkdir -p $root/TMX/$1/en-US
+        echogreen "Creating folder cache for: en-US"
+        mkdir -p $root/TMX/en-US
     fi
 }
 
@@ -229,13 +227,13 @@ function initGaiaRepo () {
         local locale_list="gaia_locales"
         local repo_name="gaia"
         local repo_pretty_name="Gaia"
-        local repo_path="http://hg.mozilla.org/gaia-l10n"
+        local repo_path="https://hg.mozilla.org/gaia-l10n"
     else
         local locale_list="gaia_locales_$1"
         local repo_name="gaia_$1"
         # If version is "1_4", repo_pretty_name will be "Gaia 1.4"
         local repo_pretty_name="Gaia ${1/_/.}"
-        local repo_path="http://hg.mozilla.org/releases/gaia-l10n/v$1"
+        local repo_path="https://hg.mozilla.org/releases/gaia-l10n/v$1"
     fi
 
     echogreen "$repo_pretty_name initialization"
@@ -255,11 +253,10 @@ function initGaiaRepo () {
                     hg clone $repo_path/$locale
                 fi
 
-                if [ ! -d $root/TMX/$repo_name/$locale ]
+                if [ ! -d $root/TMX/$locale ]
                 then
-                    echogreen "Creating this locale cache for $repo_pretty_name:"
-                    echogreen $locale
-                    mkdir -p $root/TMX/$repo_name/$locale
+                    echogreen "Creating folder cache for: $locale"
+                    mkdir -p $root/TMX/$locale
                 fi
         done
     fi
@@ -309,11 +306,10 @@ fi
 
 for locale in $(cat $l20n_test_locales)
     do
-        if [ ! -d $root/TMX/l20n_test/$locale ]
+        if [ ! -d $root/TMX/$locale ]
         then
-            echogreen "Creating this locale cache for L20n test:"
-            echogreen $locale
-            mkdir -p $root/TMX/l20n_test/$locale
+            echogreen "Creating locale cache for: $locale"
+            mkdir -p $root/TMX/$locale
         fi
 done
 

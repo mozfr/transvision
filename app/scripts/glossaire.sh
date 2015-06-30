@@ -278,7 +278,7 @@ function updateFromSVN() {
     then
         echogreen "Extract strings on svn"
         cd $install
-        nice -20 php app/inc/mozorg.php
+        nice -20 app/scripts/tmx_mozillaorg
     fi
 }
 
@@ -296,7 +296,7 @@ do
     updateGaiaRepo ${gaia_version}
 done
 
-# mozilla.org has its own extraction script, mozorg.php
+# mozilla.org has its own extraction script
 updateFromSVN
 
 # Generate productization data
