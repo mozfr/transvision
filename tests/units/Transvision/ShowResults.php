@@ -10,9 +10,9 @@ class ShowResults extends atoum\test
 {
     public function getTMXResultsDP()
     {
-        include TMX . 'central/en-US/cache_en-US.php';
+        include TMX . 'en-US/cache_en-US_central.php';
         $source = $tmx;
-        include TMX . 'central/fr/cache_fr.php';
+        include TMX . 'fr/cache_fr_central.php';
         $target = $tmx;
         $data = [$source, $target];
 
@@ -40,9 +40,9 @@ class ShowResults extends atoum\test
 
     public function getTranslationMemoryResultsDP()
     {
-        include TMX . 'central/en-US/cache_en-US.php';
+        include TMX . 'en-US/cache_en-US_central.php';
         $source = $tmx;
-        include TMX . 'central/fr/cache_fr.php';
+        include TMX . 'fr/cache_fr_central.php';
         $target = $tmx;
         $data = [$source, $target];
         $results = [

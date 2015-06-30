@@ -230,7 +230,7 @@ class Utils
     {
         $locale = Project::getLocaleInContext($locale, $repository);
 
-        $file = TMX . "{$repository}/{$locale}/cache_{$locale}.php";
+        $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
 
         if (! $tmx = Cache::getKey($file)) {
             if (is_file($file)) {

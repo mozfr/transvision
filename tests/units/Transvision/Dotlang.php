@@ -71,11 +71,22 @@ class Dotlang extends atoum\test
         return [
             [
                 TEST_FILES . 'langfiles/toto.lang',
+                false,
                 [
                     'Browser'      => 'Navigateur',
                     'Mail'         => 'Courrier',
                     'Hello'        => 'Bonjour',
                     'Empty string' => '',
+                ],
+            ],
+            [
+                TEST_FILES . 'langfiles/toto.lang',
+                true,
+                [
+                    'Browser'      => 'Browser',
+                    'Mail'         => 'Mail',
+                    'Hello'        => 'Hello',
+                    'Empty string' => 'Empty string',
                 ],
             ],
         ];
@@ -84,12 +95,12 @@ class Dotlang extends atoum\test
     /**
      * @dataProvider getStringsDP
      */
-    public function testGetStrings($a, $b)
+    public function testGetStrings($a, $b, $c)
     {
         $obj = new _Dotlang();
         $this
-            ->array($obj->getStrings($a))
-                ->isEqualTo($b);
+            ->array($obj->getStrings($a, $b))
+                ->isEqualTo($c);
     }
 
     public function generateStringID_DP()

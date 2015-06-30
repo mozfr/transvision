@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 namespace Transvision;
 
@@ -6,7 +7,7 @@ if (php_sapi_name() != 'cli') {
     die('Nope');
 }
 
-include __DIR__ . '/init.php';
+include __DIR__ . '/../inc/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 
@@ -20,11 +21,14 @@ foreach (Files::getFilenamesInFolder(SVN . 'mozilla_org/') as $locale) {
         },
         $mozilla_org_files);
 
-    $out_english = $out_translation = '';
+    $out_translation = '';
     $total_strings = 0;
 
+    // Check if this is the reference locale
+    $reference_locale = (Project::getReferenceLocale('mozilla_org') == $locale);
+
     foreach ($mozilla_org_files as $file) {
-        $strings = Dotlang::getStrings(SVN . "mozilla_org/{$locale}/{$file}");
+        $strings = Dotlang::getStrings(SVN . "mozilla_org/{$locale}/{$file}", $reference_locale);
         $total_strings += count($strings);
 
         foreach ($strings as $english => $translation) {
@@ -40,15 +44,12 @@ foreach (Files::getFilenamesInFolder(SVN . 'mozilla_org/') as $locale) {
                 return $array_line;
             };
 
-            $out_english     .= $output($english, $english);
             $out_translation .= $output($english, $translation);
         }
     }
 
-    $out_english     = "<?php\n\$tmx = [\n" . $out_english .  "];\n";
     $out_translation = "<?php\n\$tmx = [\n" . $out_translation .  "];\n";
 
-    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_{$locale}.php", $out_translation);
-    Files::fileForceContents(TMX . "mozilla_org/{$locale}/cache_en-US.php", $out_english);
+    Files::fileForceContents(TMX . "{$locale}/cache_{$locale}_mozilla_org.php", $out_translation);
     error_log("{$locale}: {$total_strings} strings");
 }

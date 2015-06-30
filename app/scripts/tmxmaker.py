@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
+import argparse
+import datetime
 import os
 import sys
-import datetime
-from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
 """ Here we read the server configuration file """
@@ -57,57 +57,54 @@ def php_close_array(target_file):
     target_file.write("];\n")
 
 if __name__ == "__main__":
-    usage = "test"
-    parser = OptionParser(usage, version='%prog 0.1')
-    (options, args) = parser.parse_args(sys.argv[1:])
-
-    locale_repo = args[0]
-    en_US_repo = args[1]
-    langcode1 = args[2]
-    langcode2 = args[3]
-    repo = args[4]
+    # Read command line input parameters
+    parser = argparse.ArgumentParser()
+    parser.add_argument('locale_repo', help='Path to locale files')
+    parser.add_argument('reference_repo', help='Path to reference files')
+    parser.add_argument('locale_code', help='Locale language code')
+    parser.add_argument('reference_code', help='Reference language code')
+    parser.add_argument('repository', help='Repository name')
+    args = parser.parse_args()
 
     exclusionlist = ['.hgtags', '.hg', '.git', '.gitignore']
-    dirs1 = os.listdir(locale_repo)
-    if repo.startswith('gaia') or repo == 'l20n_test' :
-        dirs2 = os.listdir(en_US_repo)
-        dirs2 = [x for x in dirs2 if x not in exclusionlist]
+    dirs_locale = os.listdir(args.locale_repo)
+    if args.repository.startswith('gaia') or args.repository == 'l20n_test' :
+        dirs_reference = os.listdir(args.reference_repo)
+        dirs_reference = [x for x in dirs_reference if x not in exclusionlist]
     else:
-        dirs2 = ["browser", "calendar", "chat", "dom", "editor",
-                "extensions", "mail", "mobile", "netwerk", "other-licenses",
-                "security", "services", "suite", "toolkit", "webapprt"]
+        dirs_reference = [
+            "browser", "calendar", "chat", "dom", "editor",
+            "extensions", "mail", "mobile", "netwerk", "other-licenses",
+            "security", "services", "suite", "toolkit", "webapprt"
+        ]
 
-    dirs = filter(lambda x:x in dirs1, dirs2)
+    dirs = filter(lambda x:x in dirs_locale, dirs_reference)
 
-    localpath = os.path.join(localdir, repo, langcode1)
-    filename1 = os.path.join(localpath, "cache_" + langcode2 + ".php")
-    filename2 = os.path.join(localpath, "cache_" + langcode1 + ".php")
+    localpath = os.path.join(localdir, args.locale_code)
+    filename_locale = os.path.join(localpath, "cache_%s_%s.php" % (args.locale_code, args.repository))
 
-    target_file1 = open(filename1, "w")
-    target_file2 = open(filename2, "w")
-    php_header(target_file1)
-    php_header(target_file2)
+    target_locale = open(filename_locale, "w")
+    php_header(target_locale)
 
     for directory in dirs:
-
-        path1 = en_US_repo + directory
-        path2 = locale_repo + directory
+        path_reference = args.reference_repo + directory
+        path_locale = args.locale_repo + directory
 
         rcsClient = silme.io.Manager.get('file')
         try:
-            l10nPackage = rcsClient.get_package(path1, object_type='entitylist')
+            l10nPackage_reference = rcsClient.get_package(path_reference, object_type='entitylist')
         except:
-            print 'Silme couldn\'t extract data for ' + path1
+            print 'Silme couldn\'t extract data for ' + path_reference
             continue
 
         try:
-            l10nPackage2 = rcsClient.get_package(path2, object_type='entitylist')
+            l10nPackage_locale = rcsClient.get_package(path_locale, object_type='entitylist')
         except:
-            print 'Silme couldn\'t extract data for ' + path2
+            print 'Silme couldn\'t extract data for ' + path_locale
             continue
 
         strings = {}
-        chaine = get_string(l10nPackage, directory)
+        strings_reference = get_string(l10nPackage_reference, directory)
 
         """
         get_string() is a recursive function that fills 'strings', a global array
@@ -115,13 +112,10 @@ if __name__ == "__main__":
         """
         del strings
         strings = {}
-        chaine2 = get_string(l10nPackage2, directory)
+        strings_locale = get_string(l10nPackage_locale, directory)
 
+        for entity in strings_reference:
+            php_add_to_array(entity, strings_locale.get(entity, ""), target_locale)
 
-        for entity in chaine:
-            php_add_to_array(entity, chaine[entity], target_file1)
-            php_add_to_array(entity, chaine2.get(entity, ""), target_file2)
-    php_close_array(target_file1)
-    php_close_array(target_file2)
-    target_file1.close()
-    target_file2.close()
+    php_close_array(target_locale)
+    target_locale.close()

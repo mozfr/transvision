@@ -281,7 +281,7 @@ class Utils extends atoum\test
     {
         return [
             ['fr', 'central', 'Ouvrir dans le Finder'],
-            ['es-ES','gaia', 'Hogar'], // test fallback to es locale for gaia
+            ['es-ES', 'gaia', 'Hogar'], // test fallback to es locale for gaia
         ];
     }
 
