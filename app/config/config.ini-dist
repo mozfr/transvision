@@ -34,3 +34,9 @@ dev=false
 
 ; Github secret key for continuous integration on Beta site
 github_key=putsecretkeyhere
+
+; Optional: URL of a Piwik instance we want to use, if Transvision uses https, Piwik has to be on https too
+piwik_url=
+
+; Optional: Piwik site ID, this is a number you get from your Piwik instance
+piwik_id=

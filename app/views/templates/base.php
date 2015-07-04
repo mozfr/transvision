@@ -145,6 +145,13 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     }
 ?>
   </script>
+
+<?php
+// Piwik Optional integration in production mode
+if (! LOCAL_DEV) {
+    include VIEWS . 'templates/piwik.php';
+}
+?>
 </body>
 </html>
 
