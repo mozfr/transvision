@@ -9,6 +9,9 @@ date_default_timezone_set('Europe/Paris');
 
 require __DIR__ . '/../../vendor/autoload.php';
 
+// Set an environment variable so that the instance will use content from test files
+putenv("AUTOMATED_TESTS=true");
+
 // Launch PHP dev server in the background
 chdir(INSTALL_ROOT);
 exec('./start.sh -remote > /dev/null 2>&1 & echo $!', $output);
