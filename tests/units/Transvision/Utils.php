@@ -298,6 +298,56 @@ class Utils extends atoum\test
         }
     }
 
+    public function searchEntityNamesDP()
+    {
+        return [
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~sourceNameIE~i',
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1',
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~^sourceNameIE$~i',
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE' => 'test',
+                ],
+                '~foobar~',
+                [],
+            ],
+            [
+                [],
+                '~foobar~',
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider searchEntityNamesDP
+     */
+    public function testSearchEntityNames($a, $b, $c)
+    {
+        $obj = new _Utils();
+        $this
+            ->array($obj->searchEntityNames($a, $b))
+                ->isEqualTo($c);
+    }
+
     public function getOrSetDP()
     {
         return [

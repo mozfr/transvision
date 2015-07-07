@@ -133,7 +133,6 @@ class ShowResults
 
         if ($highlight) {
             $entity = array_pop($chunk);
-            $highlight = preg_quote($highlight, '/');
             $entity = preg_replace("/($highlight)/i", '<span class="highlight">$1</span>', $entity);
             $entity = '<span class="red">' . $entity . '</span>';
         } else {

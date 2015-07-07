@@ -243,6 +243,27 @@ class Utils
     }
 
     /**
+     * Search through entity names without the full path, return an array
+     * of full entities for matching results.
+     *
+     * @param array  $source_strings Array of source strings
+     * @param string $regex          Regexp used to search entity names
+     *
+     * @return array List of matches (full entity names)
+     */
+    public static function searchEntityNames($source_strings, $regex)
+    {
+        $entity_names = [];
+        foreach ($source_strings as $entity => $translation) {
+            $entity_name = explode(":", $entity)[1];
+            $entity_names[$entity] = $entity_name;
+        }
+        $entities = preg_grep($regex, $entity_names);
+
+        return array_keys($entities);
+    }
+
+    /**
      * Return an array of entities for a locale from a repository
      * @param  string $locale     Locale we want to have entities for
      * @param  string $repository string repository such as gaia_1_3, central...
