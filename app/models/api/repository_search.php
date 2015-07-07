@@ -22,7 +22,7 @@ if ($get_option('perfect_match')) {
     $regex = '~' . $whole_word . trim('^' . preg_quote($initial_search, '~') . '$') .
              $whole_word . '~' . $case_sensitive . 'u';
     if ($request->parameters[2] == 'entities') {
-        $entities = preg_grep($regex, array_keys($source_strings));
+        $entities = Utils::searchEntityNames($source_strings, $regex);
         $source_strings = array_intersect_key($source_strings, array_flip($entities));
     } else {
         $source_strings = preg_grep($regex, $source_strings);
@@ -33,7 +33,7 @@ if ($get_option('perfect_match')) {
         $regex = '~' . $whole_word . preg_quote($word, '~') .
                  $whole_word . '~' . $case_sensitive . 'u';
         if ($request->parameters[2] == 'entities') {
-            $entities = preg_grep($regex, array_keys($source_strings));
+            $entities = Utils::searchEntityNames($source_strings, $regex);
             $source_strings = array_intersect_key($source_strings, array_flip($entities));
         } else {
             $source_strings = preg_grep($regex, $source_strings);
