@@ -16,7 +16,7 @@ if ($check['perfect_match']) {
 }
 
 if ($check['search_type'] == 'strings_entities') {
-    $entities = preg_grep($main_regex, array_keys($tmx_source));
+    $entities = ShowResults::searchEntities($tmx_source, $main_regex);
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
     }

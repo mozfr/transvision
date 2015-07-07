@@ -162,7 +162,7 @@ class ShowResults
     {
         $replacements = [
             ' '  => '<span class="highlight-gray"> </span>',
-            '…' => '<span class="highlight-gray">…</span>',
+            '…'  => '<span class="highlight-gray">…</span>',
         ];
 
         switch ($locale) {
@@ -217,9 +217,9 @@ class ShowResults
 
             // Don't highlight search matches in entities when searching strings
             if ($search_options['search_type'] == 'strings') {
-                $result_entity = ShowResults::formatEntity($key);
+                $result_entity = Self::formatEntity($key);
             } else {
-                $result_entity = ShowResults::formatEntity($key, $recherche[0]);
+                $result_entity = Self::formatEntity($key, $recherche[0]);
             }
 
             $component = explode('/', $key)[0];
@@ -268,9 +268,9 @@ class ShowResults
             }
 
             $replacements = [
-                ' '         => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
-                ' '        => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
-                '…'        => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                ' '          => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                ' '          => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
+                '…'          => '<span class="highlight-gray">…</span>', // right ellipsis highlight
                 '&hellip;'   => '<span class="highlight-gray">…</span>', // right ellipsis highlight
             ];
 
@@ -402,5 +402,35 @@ class ShowResults
         $table .= "  </table>";
 
         return $table;
+    }
+
+    /**
+     * Search entity names: search full entity IDs (including path and filename),
+     * then search entity names (without the full path) if there are no results.
+     *
+     * @param array  $source_strings Array of source strings
+     * @param string $regex          Regular expression to search entity names
+     *
+     * @return array List of matching entity names
+     */
+    public static function searchEntities($source_strings, $regex)
+    {
+        // Search through the full entity ID
+        $entities = preg_grep($regex, array_keys($source_strings));
+
+        /* If there are no results, search also through the entity names.
+         * This is needed for "perfect match" when only the entity name is
+         * provided.
+         */
+        if (empty($entities)) {
+            $entity_names = [];
+            foreach ($source_strings as $entity => $translation) {
+                $entity_names[$entity] = explode(':', $entity)[1];
+            }
+            $entities = preg_grep($regex, $entity_names);
+            $entities = array_keys($entities);
+        }
+
+        return $entities;
     }
 }
