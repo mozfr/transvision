@@ -205,4 +205,64 @@ class ShowResults extends atoum\test
             ->array($obj->getRepositorySearchResults($a, $b))
                 ->isIdenticalTo($c);
     }
+
+    public function searchEntitiesDP()
+    {
+        return [
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~^browser/chrome/browser/migration/migration.properties:sourceNameIE$~i',
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~sourceNameIE~i',
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1',
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~^sourceNameIE$~i',
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE' => 'test',
+                ],
+                '~foobar~',
+                [],
+            ],
+            [
+                [],
+                '~foobar~',
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider searchEntitiesDP
+     */
+    public function testSearchEntities($a, $b, $c)
+    {
+        $obj = new _ShowResults();
+        $this
+            ->array($obj->searchEntities($a, $b))
+                ->isEqualTo($c);
+    }
 }

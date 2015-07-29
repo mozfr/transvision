@@ -12,9 +12,9 @@ if ($url['path'] == '3locales') {
     $extra_column_header = '';
 }
 
-// Display a search hint for the closest string we have if we have no search results
-$entities = preg_grep($main_regex, array_keys($tmx_source));
+$entities = ShowResults::searchEntities($tmx_source, $main_regex);
 
+// Display a search hint for the closest string we have if we have no search results
 if (count($entities) == 0) {
     $merged_strings = [];
 
