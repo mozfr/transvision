@@ -26,6 +26,10 @@ switch ($url['path']) {
         $page_descr = '';
         $css_include = ['changelog.css'];
         break;
+    case 'rss':
+        $controller = 'changelog';
+        $template = false;
+        break;
     case 'stats':
         $view = 'showrepos';
         $page_title = 'Status Overview';

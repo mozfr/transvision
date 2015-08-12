@@ -1,41 +1,7 @@
 <?php
 namespace Transvision;
 
-$releases = [
-    '1.0'   => '2012-07-27',
-    '1.1'   => '2012-08-01',
-    '1.2'   => '2012-08-10',
-    '1.3'   => '2012-08-17',
-    '1.4'   => '2012-09-04',
-    '1.5'   => '2012-10-02',
-    '1.6'   => '2012-10-18',
-    '1.7'   => '2012-10-24',
-    '1.8'   => '2013-01-04',
-    '1.9'   => '2013-01-11',
-    '2.0'   => '2013-01-18',
-    '2.1'   => '2013-01-30',
-    '2.2'   => '2013-02-28',
-    '2.3'   => '2013-03-22',
-    '2.4'   => '2013-04-10',
-    '2.5'   => '2013-04-18',
-    '2.6'   => '2013-06-14',
-    '2.7'   => '2013-07-05',
-    '2.8'   => '2013-08-09',
-    '2.9'   => '2013-10-26',
-    '3.0'   => '2013-12-18',
-    '3.1'   => '2014-02-24',
-    '3.2'   => '2014-03-17',
-    '3.3'   => '2014-05-20',
-    '3.4'   => '2014-06-25',
-    '3.5'   => '2014-09-29',
-    '3.5.1' => '2014-10-07',
-    '3.6'   => '2015-01-22',
-    '3.7'   => '2015-04-09',
-    '3.8'   => '2015-06-15',
-    '3.8.1' => '2015-06-24',
-    '3.9'   => '2015-10-08',
-    '3.10'  => '2015-11-13',
-];
+include MODELS . 'changelog_data.php';
 
 // Helper to generate CSS class tags
 $relnotes = function ($tag) {
@@ -66,19 +32,43 @@ $relnotes = function ($tag) {
             break;
     }
 
-    return "<span class=\"release_tag {$type}\">{$text}</span> ";
+    return "<span class=\"release_tag {$type}\">{$text}</span>";
+};
+
+$get_sections = function ($section) {
+    switch ($section) {
+        case 'end_user':
+            $text = 'End user visible changes';
+            break;
+        case 'external_api':
+            $text = 'External API changes';
+            break;
+        case 'developers':
+            $text = 'Changes for Transvision developers';
+            break;
+        case 'code':
+            $text = 'Code changes';
+            break;
+        default:
+            $text = 'Other changes';
+            break;
+    }
+
+    return $text;
 };
 
 // Helper to generate the list of patches for the version
 $github_link = function ($release) use ($releases) {
-    $keys = array_keys($releases);
-    $previous = $keys[array_search($release, $keys, true) - 1];
+    if ($release > 1) {
+        $keys = array_keys($releases);
+        $previous = $keys[array_search($release, $keys, true) - 1];
 
-    return <<<LINK
+        return <<<LINK
 <p class="github_link">See the complete list of
-<a href="https://github.com/mozfr/transvision/compare/v{$previous}...v{$release}">code changes from version {$previous} on Github</a>.
+<a href="https://github.com/mozfr/transvision/compare/v{$previous}...v{$release}">code changes from version {$previous} on GitHub</a>.
 </p>
 LINK;
+    }
 };
 
 // Helper to generate a release title block
@@ -91,21 +81,19 @@ TITLE;
 };
 
 // Helper to generate a GitHub issues link
-$issue = function () {
+$issue = function ($issues) {
     $link = '';
-    $issues = func_get_args();
     foreach ($issues as $issue) {
         $link .= "<a href=\"https://github.com/mozfr/transvision/issues/{$issue}\" class=\"github_issue\">Issue {$issue}</a>";
-        $link .=  ($issue === end($issues)) ? '. ' : ' + ';
+        $link .= ($issue === end($issues)) ? '. ' : ' + ';
     }
 
     return $link;
 };
 
 // Helper to generate a GitHub commit link
-$commit = function () {
+$commit = function ($commits) {
     $link = '';
-    $commits = func_get_args();
     foreach ($commits as $commit) {
         $link .= "<a href=\"https://github.com/mozfr/transvision/commit/{$commit}\" class=\"github_commit\">"
                 . 'Commit <span>' . substr($commit, 0, 7) . "</span></a>";
@@ -113,4 +101,20 @@ $commit = function () {
     }
 
     return $link;
+};
+
+// Helper to generate a link for each author
+$authors = function ($list) use ($author_urls) {
+  $text = ' (';
+
+  foreach ($list as $author) {
+      if (isset($author_urls[$author])) {
+          $text .= "<a href=\"{$author_urls[$author]}\">{$author}</a>";
+      } else {
+          $text .= $author;
+      }
+      $text .= ($author === end($list)) ? ')' : ', ';
+  }
+
+  return $text;
 };

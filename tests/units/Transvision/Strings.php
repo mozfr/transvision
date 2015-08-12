@@ -91,10 +91,10 @@ class Strings extends atoum\test
         return [
             [
                 [
-                    ' '          => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
-                    ' '          => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
-                    '…'          => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-                    '&hellip;'   => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                    ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                    ' '            => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
+                    '…'            => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                    '&hellip;'     => '<span class="highlight-gray">…</span>', // right ellipsis highlight
                 ],
                 '&hellip;  …',
                 '<span class="highlight-gray">…</span><span class="highlight-gray" title="Non breakable space"> </span><span class="highlight-red" title="Thin space"> </span><span class="highlight-gray">…</span>',
