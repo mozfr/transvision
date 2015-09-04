@@ -217,9 +217,9 @@ class ShowResults
 
             // Don't highlight search matches in entities when searching strings
             if ($search_options['search_type'] == 'strings') {
-                $result_entity = Self::formatEntity($key);
+                $result_entity = self::formatEntity($key);
             } else {
-                $result_entity = Self::formatEntity($key, $recherche[0]);
+                $result_entity = self::formatEntity($key, $recherche[0]);
             }
 
             $component = explode('/', $key)[0];
