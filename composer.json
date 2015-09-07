@@ -24,7 +24,8 @@
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "pascalc/tinyl10n" : "~0.1",
-        "pascalc/vcs": "~0.1"
+        "pascalc/vcs": "~0.1",
+        "robloach/component-installer": "*"
     },
 
     "require-dev": {
