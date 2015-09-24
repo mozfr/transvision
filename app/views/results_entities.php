@@ -18,6 +18,9 @@ foreach ($entities as $entity) {
     if ($check['repo'] == 'mozilla_org') {
         $path_locale1 = VersionControl::gitPath($source_locale, $check['repo'], $entity);
         $path_locale2 = VersionControl::gitPath($locale, $check['repo'], $entity);
+    } elseif ($check['repo'] == 'firefox_ios') {
+        $path_locale1 = VersionControl::svnPath($source_locale, $check['repo'], $entity);
+        $path_locale2 = VersionControl::svnPath($locale, $check['repo'], $entity);
     } else {
         $path_locale1 = VersionControl::hgPath($source_locale, $check['repo'], $entity);
         $path_locale2 = VersionControl::hgPath($locale, $check['repo'], $entity);
@@ -42,6 +45,8 @@ foreach ($entities as $entity) {
 
         if ($check['repo'] == 'mozilla_org') {
             $path_locale3 = VersionControl::gitPath($locale2, $check['repo'], $entity);
+        } elseif ($check['repo'] == 'firefox_ios') {
+            $path_locale3 = VersionControl::svnPath($locale2, $check['repo'], $entity);
         } else {
             $path_locale3 = VersionControl::hgPath($locale2, $check['repo'], $entity);
         }

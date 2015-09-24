@@ -20,6 +20,9 @@ class VersionControl extends atoum\test
             [
                 'central', 'hg',
             ],
+            [
+                'firefox_ios', 'svn',
+            ],
         ];
     }
 
@@ -117,13 +120,19 @@ class VersionControl extends atoum\test
                 'sr',
                 'mozilla_org',
                 'mozilla_org/download_button.lang:ab34ff81',
-                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup',
+                'https://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup',
             ],
             [
                 'es-ES',
                 'mozilla_org',
                 'mozilla_org/firefox/os/faq.lang:c71a7a50',
-                'http://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup',
+                'https://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup',
+            ],
+            [
+                'it',
+                'firefox_ios',
+                'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'https://viewvc.svn.mozilla.org/vc/projects/l10n-misc/trunk/firefox-ios/it/firefox-ios.xliff?view=markup',
             ],
         ];
     }

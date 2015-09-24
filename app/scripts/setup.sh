@@ -295,6 +295,14 @@ then
     git clone https://github.com/mozilla-l10n/www.mozilla.org .
 fi
 
+echogreen "Firefox for iOS repo being checked out from subversion"
+cd $firefox_ios
+if [ ! -d $firefox_ios/.svn ]
+then
+    echogreen "Checking out Firefox for iOS repo"
+    svn co https://svn.mozilla.org/projects/l10n-misc/trunk/firefox-ios/ .
+fi
+
 # We now deal with L20n test repo as a specific case
 echogreen "L20n test repo initialization"
 cd $l20n_test
