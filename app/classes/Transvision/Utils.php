@@ -239,7 +239,7 @@ class Utils
             }
         }
 
-        return isset($tmx) ? $tmx : [];
+        return $tmx !== false ? $tmx : [];
     }
 
     /**
