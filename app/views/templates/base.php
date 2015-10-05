@@ -30,7 +30,6 @@ $links = '
     <li><a href="/" title="Main search">Home</a></li>
     <li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
     <li><a ' . ($url['path'] == '3locales' ? 'class="selected_view" ' : '') . 'href="/3locales/" title="Search with 3 locales">3 locales</a></li>
-    <li><a ' . ($url['path'] == 'string' ? 'class="selected_view" ' : '') . 'href="/string/?entity=apps/sms/sms.properties:home&repo=gaia" title="Get all translations available for an entity">Translate String</a></li>
     <li><a ' . ($url['path'] == 'downloads' ? 'class="selected_view" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
   </ul>
 </div>
