@@ -12,7 +12,7 @@ class VersionControl extends atoum\test
     {
         return [
             [
-                'mozilla_org', 'svn',
+                'mozilla_org', 'git',
             ],
             [
                 'gaia_1_4', 'hg',
@@ -136,6 +136,35 @@ class VersionControl extends atoum\test
         $obj = new _VersionControl();
         $this
             ->string($obj->svnPath($a, $b, $c))
+                ->isEqualTo($d);
+    }
+
+    public function gitFileDP()
+    {
+        return [
+            [
+                'sr',
+                'mozilla_org',
+                'mozilla_org/download_button.lang:ab34ff81',
+                'https://github.com/mozilla-l10n/www.mozilla.org/blob/master/sr/download_button.lang',
+            ],
+            [
+                'es-ES',
+                'mozilla_org',
+                'mozilla_org/firefox/os/faq.lang:c71a7a50',
+                'https://github.com/mozilla-l10n/www.mozilla.org/blob/master/es-ES/firefox/os/faq.lang',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider gitFileDP
+     */
+    public function testGitFile($a, $b, $c, $d)
+    {
+        $obj = new _VersionControl();
+        $this
+            ->string($obj->gitPath($a, $b, $c))
                 ->isEqualTo($d);
     }
 }

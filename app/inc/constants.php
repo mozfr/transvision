@@ -4,12 +4,13 @@
 const VERSION = '3.9dev';
 
 // Constants for the project
-define('DATA_ROOT',     $server_config['root']);
-define('HG',            $server_config['local_hg'] . '/');
-define('SVN',           $server_config['local_svn'] . '/');
-define('TMX',           DATA_ROOT . '/TMX/');
-define('INSTALL_ROOT',  $server_config['install'] . '/');
-define('APP_SOURCES',   $server_config['config'] . '/sources/');
+define('DATA_ROOT',     realpath($server_config['root']) . '/');
+define('HG',            realpath($server_config['local_hg']) . '/');
+define('SVN',           realpath($server_config['local_svn']) . '/');
+define('GIT',           realpath($server_config['local_git']) . '/');
+define('TMX',           DATA_ROOT . 'TMX/');
+define('INSTALL_ROOT',  realpath($server_config['install']) . '/');
+define('APP_SOURCES',   realpath($server_config['config']) . '/sources/');
 define('WEB_ROOT',      INSTALL_ROOT . 'web/');
 define('APP_ROOT',      INSTALL_ROOT . 'app/');
 define('INC',           APP_ROOT . 'inc/');

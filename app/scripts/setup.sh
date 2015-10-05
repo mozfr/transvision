@@ -286,13 +286,13 @@ do
     initGaiaRepo ${gaia_version}
 done
 
-# Check out svn repos
-echogreen "mozilla.org repo being checked out from subversion"
+# Check out GitHub repos
+echogreen "mozilla.org repo being checked out from GitHub"
 cd $mozilla_org
-if [ ! -d $mozilla_org/.svn ]
+if [ ! -d $mozilla_org/.git ]
 then
     echogreen "Checking out mozilla.org repo"
-    svn co https://svn.mozilla.org/projects/mozilla.com/trunk/locales/ .
+    git clone https://github.com/mozilla-l10n/www.mozilla.org .
 fi
 
 # We now deal with L20n test repo as a specific case
