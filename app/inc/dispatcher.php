@@ -28,7 +28,6 @@ switch ($url['path']) {
         break;
     case 'stats':
         $view = 'showrepos';
-        $experimental = true;
         $page_title = 'Status Overview';
         $page_descr = 'Repository status overview.';
         break;
@@ -37,13 +36,11 @@ switch ($url['path']) {
         break;
     case 'gaia':
         $view = 'gaia';
-        $experimental = true;
         $page_title = 'Gaia Comparison';
         $page_descr = 'Check the Status of your GAIA strings across repositories.';
         break;
     case 'channelcomparison':
         $view = 'channelcomparison';
-        $experimental = true;
         $page_title = 'Channel Comparison';
         $page_descr = 'Compare strings from channel to channel.';
         break;
@@ -87,7 +84,6 @@ switch ($url['path']) {
         break;
     case 'productization':
         $view = 'productization';
-        $experimental = true;
         $page_title = 'Productization Overview';
         $page_descr = 'Show productization aspects for this locale.';
         $css_include = ['productization.css'];
