@@ -285,6 +285,9 @@ class ShowResults
             if ($search_options['repo'] == 'mozilla_org') {
                 $locale1_path = VersionControl::gitPath($locale1, $search_options['repo'], $key);
                 $locale2_path = VersionControl::gitPath($locale2, $search_options['repo'], $key);
+            } elseif ($search_options['repo'] == 'firefox_ios') {
+                $locale1_path = VersionControl::svnPath($locale1, $search_options['repo'], $key);
+                $locale2_path = VersionControl::svnPath($locale2, $search_options['repo'], $key);
             } else {
                 $locale1_path = VersionControl::hgPath($locale1, $search_options['repo'], $key);
                 $locale2_path = VersionControl::hgPath($locale2, $search_options['repo'], $key);
@@ -332,6 +335,8 @@ class ShowResults
             if (isset($search_options["extra_locale"])) {
                 if ($search_options['repo'] == 'mozilla_org') {
                     $locale3_path = VersionControl::gitPath($locale3, $search_options['repo'], $key);
+                } elseif ($search_options['repo'] == 'firefox_ios') {
+                    $locale3_path = VersionControl::svnPath($locale3, $search_options['repo'], $key);
                 } else {
                     $locale3_path = VersionControl::hgPath($locale3, $search_options['repo'], $key);
                 }

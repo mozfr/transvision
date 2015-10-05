@@ -282,6 +282,21 @@ function updateFromGitHub() {
     fi
 }
 
+function updateFirefoxiOS() {
+    if $checkrepo
+    then
+        cd $firefox_ios
+        echogreen "Update subversion repository"
+        svn up
+    fi
+    if $createTMX
+    then
+        echogreen "Extract strings for Firefox for iOS"
+        cd $install
+        nice -20 app/scripts/tmx_xliff firefox_ios
+    fi
+}
+
 # Update repos without branches first (their TMX is created in updateStandardRepo)
 updateNoBranchRepo "chatzilla"
 updateNoBranchRepo "venkman"
@@ -296,8 +311,8 @@ do
     updateGaiaRepo ${gaia_version}
 done
 
-# mozilla.org has its own extraction script
 updateFromGitHub
+updateFirefoxiOS
 
 # Generate productization data
 cd $install

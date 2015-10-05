@@ -19,8 +19,9 @@ class VersionControl
     public static function getVCS($repo)
     {
         $vcs = [
-            'hg'  => [],
             'git' => ['mozilla_org'],
+            'hg'  => [],
+            'svn' => ['firefox_ios'],
         ];
         $vcs['hg'] = array_merge(
             Project::getDesktopRepositories(),
@@ -197,9 +198,11 @@ class VersionControl
         if ($repo == 'mozilla_org') {
             $file_path = 'projects/mozilla.com/trunk/locales/'
                         . $locale . '/' . self::extractFilePath($path);
+        } elseif ($repo == 'firefox_ios') {
+            $file_path = "projects/l10n-misc/trunk/firefox-ios/{$locale}/firefox-ios.xliff";
         }
 
-        return 'http://viewvc.svn.mozilla.org/vc/'
+        return 'https://viewvc.svn.mozilla.org/vc/'
                . $file_path . '?view=markup';
     }
 

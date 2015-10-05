@@ -155,6 +155,30 @@ class AnalyseStrings extends atoum\test
                 [],
                 [],
             ],
+            [
+                // mispelled variable
+                ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
+                ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
+                'firefox_ios',
+                [],
+                ['ios:foobar1'],
+            ],
+            [
+                // missing variable
+                ['ios:foobar2' => 'Do you want to save the password on %@?'],
+                ['ios:foobar2' => 'Salvare la password?'],
+                'firefox_ios',
+                [],
+                ['ios:foobar2'],
+            ],
+            [
+                // changed order, not an error
+                ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
+                ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
+                'firefox_ios',
+                [],
+                [],
+            ],
         ];
     }
 

@@ -46,6 +46,10 @@ done
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 
+# Firefox for iOS (XLIFF)
+firefox_ios=$local_svn/firefox_ios/
+folders+=( $firefox_ios )
+
 # l20n test repo
 l20n_test=$local_git/L20N_TEST
 l20n_test_locales=${path_sources}/l20n_test.txt

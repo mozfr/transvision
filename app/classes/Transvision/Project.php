@@ -138,7 +138,8 @@ class Project
     public static function getDesktopRepositories()
     {
         return array_diff(
-            array_diff(self::getRepositories(), ['mozilla_org']),
+            self::getRepositories(),
+            ['mozilla_org', 'firefox_ios'],
             self::getGaiaRepositories()
         );
     }
@@ -224,13 +225,16 @@ class Project
             'sr'    => 'sr-Cyrl',
         ];
 
-        // Other contexts. At the moment, identical to Bugzilla list
-        $locale_mappings['other'] = $locale_mappings['bugzilla'];
-
         // Use Gaia mapping for all Gaia repositories
         if (Strings::startsWith($context, 'gaia')) {
             $context = 'gaia';
         }
+
+        // Firefox for iOS: no mapping
+        $locale_mappings['firefox_ios'] = [];
+
+        // For other contexts use the same as Bugzilla
+        $locale_mappings['other'] = $locale_mappings['bugzilla'];
 
         // Fallback to 'other' if context doesn't exist in $locale_mappings
         $context = array_key_exists($context, $locale_mappings)
