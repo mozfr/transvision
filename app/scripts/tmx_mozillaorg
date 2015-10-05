@@ -11,8 +11,8 @@ include __DIR__ . '/../inc/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 
-foreach (Files::getFilenamesInFolder(SVN . 'mozilla_org/') as $locale) {
-    $path = SVN . "mozilla_org/{$locale}/";
+foreach (Files::getFilenamesInFolder(GIT . 'mozilla_org/') as $locale) {
+    $path = GIT . "mozilla_org/{$locale}/";
     $mozilla_org_files = Dotlang::getLangFilesList($path);
 
     $mozilla_org_files = array_map(
@@ -28,7 +28,7 @@ foreach (Files::getFilenamesInFolder(SVN . 'mozilla_org/') as $locale) {
     $reference_locale = (Project::getReferenceLocale('mozilla_org') == $locale);
 
     foreach ($mozilla_org_files as $file) {
-        $strings = Dotlang::getStrings(SVN . "mozilla_org/{$locale}/{$file}", $reference_locale);
+        $strings = Dotlang::getStrings(GIT . "mozilla_org/{$locale}/{$file}", $reference_locale);
         $total_strings += count($strings);
 
         foreach ($strings as $english => $translation) {

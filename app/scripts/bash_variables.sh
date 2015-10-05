@@ -43,7 +43,7 @@ do
 done
 
 # Location of Dotlang-based repos
-mozilla_org=$local_svn/mozilla_org/
+mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 
 # l20n test repo

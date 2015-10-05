@@ -20,7 +20,7 @@ class VersionControl
     {
         $vcs = [
             'hg'  => [],
-            'svn' => ['mozilla_org'],
+            'git' => ['mozilla_org'],
         ];
         $vcs['hg'] = array_merge(
             Project::getDesktopRepositories(),
@@ -194,19 +194,51 @@ class VersionControl
      */
     public static function svnPath($locale, $repo, $path)
     {
-        $url = 'http://viewvc.svn.mozilla.org/vc/';
-
-        // remove entity and project name from path
-        $path          = explode(':', $path);
-        $path          = $path[0];
-        $path          = explode('/', $path);
-        array_shift($path);
-        $path          = implode('/', $path);
-
         if ($repo == 'mozilla_org') {
-            $url .= 'projects/mozilla.com/trunk/locales/' . $locale . '/' . $path;
+            $file_path = 'projects/mozilla.com/trunk/locales/'
+                        . $locale . '/' . self::extractFilePath($path);
         }
 
-        return $url . '?view=markup';
+        return 'http://viewvc.svn.mozilla.org/vc/'
+               . $file_path . '?view=markup';
+    }
+
+    /**
+     * Generate a path to the GitHub repo for the file.
+     * Only mozilla.org is supported for now.
+     *
+     * @param  string $locale locale code
+     * @param  string $repo   repository name
+     * @param  string $path   Entity name representing the local file
+     * @return string Path to the file in remote GitHub repository
+     */
+    public static function gitPath($locale, $repo, $path)
+    {
+        switch ($repo) {
+            case 'mozilla_org':
+            default:
+                $repo = 'www.mozilla.org';
+                break;
+        }
+
+        return 'https://github.com/mozilla-l10n/'
+               . $repo . '/blob/master/'
+               . $locale . '/' . self::extractFilePath($path);
+    }
+
+    /**
+     * Remove entity and project name from path
+     *
+     * @param  string $path A Transvision file path
+     * @return string The same path without the entity
+     *                     and internal project name
+     */
+    private static function extractFilePath($path)
+    {
+        $path = explode(':', $path);
+        $path = explode('/', $path[0]);
+        array_shift($path);
+
+        return implode('/', $path);
     }
 }

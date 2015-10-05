@@ -267,16 +267,16 @@ function updateGaiaRepo() {
     fi
 }
 
-function updateFromSVN() {
+function updateFromGitHub() {
     if $checkrepo
     then
         cd $mozilla_org
-        echogreen "Update subversion repositories"
-        svn up
+        echogreen "Update mozilla.org repository"
+        git pull origin master
     fi
     if $createTMX
     then
-        echogreen "Extract strings on svn"
+        echogreen "Extract strings for mozilla.org"
         cd $install
         nice -20 app/scripts/tmx_mozillaorg
     fi
@@ -297,7 +297,7 @@ do
 done
 
 # mozilla.org has its own extraction script
-updateFromSVN
+updateFromGitHub
 
 # Generate productization data
 cd $install
