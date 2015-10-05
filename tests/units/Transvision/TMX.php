@@ -59,10 +59,12 @@ class TMX extends atoum\test
             [
                 [
                     'fr' => [
+                            'shared/date/date.properties:month'                                        => '',
                             'shared/date/date.properties:month-7-genitive'                             => 'août',
                             'shared/download/download.properties:unsupported_file_type_download_title' => 'Ouverture impossible',
                     ],
                     'en-US' => [
+                            'shared/date/date.properties:month'                                        => 'Open',
                             'shared/date/date.properties:month-7-genitive'                             => 'August',
                             'shared/download/download.properties:unsupported_file_type_download_title' => 'Unable to open',
                     ],

@@ -71,6 +71,14 @@ class TMX
             foreach ($strings[$source_lang] as $entity => $string_source) {
                 $string_target = isset($strings[$target_lang][$entity]) ? $strings[$target_lang][$entity] : '';
 
+                // It does not create the pair without translation
+                if (empty($string_target)) {
+                    continue;
+                }
+
+                $string_source = htmlentities($string_source, ENT_XML1);
+                $string_target = htmlentities($string_target, ENT_XML1);
+
                 // Divide the entity by two. The file and the key.
                 $entity_split = explode(":", $entity);
                 $content .= "\t" . '<tu>' . "\n"
