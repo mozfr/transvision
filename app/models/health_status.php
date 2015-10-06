@@ -2,6 +2,7 @@
 namespace Transvision;
 
 use Cache\Cache;
+use VCS\Git;
 use VCS\Mercurial;
 use VCS\Subversion;
 
@@ -21,12 +22,17 @@ foreach (Project::getRepositories() as $repo) {
         // Get VCS data
         $repo_vcs = VersionControl::VCSRepoName($repo);
 
+        $repo_path = $repo_vcs . '/' . $locale;
+
         switch (VersionControl::getVCS($repo)) {
             case 'hg':
-                $vcs = new Mercurial(HG . $repo_vcs . '/' . $locale);
+                $vcs = new Mercurial(HG . $repo_path);
                 break;
             case 'svn':
-                $vcs = new Subversion(SVN . $repo_vcs . '/' . $locale);
+                $vcs = new Subversion(SVN . $repo_path);
+                break;
+            case 'git':
+                $vcs = new Git(GIT . $repo_path);
                 break;
         }
 
