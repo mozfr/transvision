@@ -33,6 +33,7 @@ $releases = [
     '3.7'   => '2015-04-09',
     '3.8'   => '2015-06-15',
     '3.8.1' => '2015-06-24',
+    '3.9'   => '2015-10-08',
 ];
 
 // Helper to generate CSS class tags
@@ -95,6 +96,19 @@ $issue = function () {
     foreach ($issues as $issue) {
         $link .= "<a href=\"https://github.com/mozfr/transvision/issues/{$issue}\" class=\"github_issue\">Issue {$issue}</a>";
         $link .=  ($issue === end($issues)) ? '. ' : ' + ';
+    }
+
+    return $link;
+};
+
+// Helper to generate a GitHub commit link
+$commit = function () {
+    $link = '';
+    $commits = func_get_args();
+    foreach ($commits as $commit) {
+        $link .= "<a href=\"https://github.com/mozfr/transvision/commit/{$commit}\" class=\"github_commit\">"
+                . 'Commit <span>' . substr($commit, 0, 7) . "</span></a>";
+        $link .=  ($commit === end($commits)) ? '. ' : ' + ';
     }
 
     return $link;

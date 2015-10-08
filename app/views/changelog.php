@@ -1,3 +1,75 @@
+<?=$release_title('3.9')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('change')?>
+        <?=$issue(507)?>
+        Update Transvision for mozilla.org migration to GitHub (pascal)
+    </li>
+    <li>
+        <?=$relnotes('change')?>
+        <?=$commit('9868ea238784b4eace7086b1a9eba0e8bd660181')?>
+        Add support for Firefox for iOS (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(482)?>
+        Add a 'clear search' button next to the search box (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(486)?>
+        Automatically bust JavaScript and CSS caches with each new release (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$commit('4b38cac0d623568238ac5ac05874142be135a8e1')?>
+        Improve search for entities (flod)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(318)?>
+        Fix OmegaT export data which was invalid XML (keko)
+    </li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        Upgrade Atoum to 2.x branch for PHP 7 compatibility (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Make functional tests run locally as they do on Travis (tchevalier)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(502)?>
+        Fix assets folder not created on a fresh install (SkySymbol)
+    </li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$commit('91609fa8c0b72f1c1317f866992087de134135b5')?>
+        Restructure storage and extraction of strings to save space and simplify file structure (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(493)?>
+        Piwik template integration (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Various code and UI clean ups (the team)
+    </li>
+</ul>
+<?=$github_link('3.9');?>
+
+
 <?=$release_title('3.8.1')?>
 <h3>End user visible changes</h3>
 <ul>
@@ -7,6 +79,8 @@
         Regression: ← and → flags are displayed with some queries (flod)
     </li>
 </ul>
+<?=$github_link('3.8.1');?>
+
 <?=$release_title('3.8')?>
 <h3>End user visible changes</h3>
 <ul>
