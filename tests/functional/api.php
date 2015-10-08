@@ -31,7 +31,7 @@ $paths = [
     ['v1/search/strings/central/en-US/fr/tralala/', 200, '[]'],
     ['v1/locales/central/', 200, '["ar","ast","cs","de","en-GB","en-US","eo","es-AR","es-CL","es-ES","es-MX","fa","fr","fy-NL","gl","he","hu","id","it","ja","ja-JP-mac","kk","ko","lt","lv","nb-NO","nl","nn-NO","pl","pt-BR","pt-PT","ru","sk","sl","sv-SE","th","tr","uk","vi","zh-CN","zh-TW"]'],
     ['v1/locales/iDontExist/', 400, '{"error":"The repo queried (iDontExist) doesn\'t exist."}'],
-    ['v1/repositories/', 200, '["release","beta","aurora","central","gaia_1_3","gaia_1_4","gaia_2_0","gaia_2_1","gaia_2_2","gaia","mozilla_org"]'],
+    ['v1/repositories/', 200, '["release","beta","aurora","central","firefox_ios","gaia_1_3","gaia_1_4","gaia_2_0","gaia_2_1","gaia_2_2","gaia","mozilla_org"]'],
     ['v1/tm/central/en-US/fr/Bookmark/?max_results=3&min_quality=80', 200, '[{"source":"Bookmark","target":"Marquer cette page","quality":100},{"source":"Bookmark","target":"Marque-page","quality":100},{"source":"Bookmarks","target":"Marque-pages","quality":88.888888888889}]'],
     ['v1/versions/', 200, '{"v1":"stable"}'],
 ];
