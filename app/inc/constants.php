@@ -1,7 +1,7 @@
 <?php
 
 // Bump this constant with each new release
-const VERSION = '3.9';
+const VERSION = '3.10dev';
 
 // Constants for the project
 define('DATA_ROOT',     realpath($server_config['root']) . '/');
