@@ -42,21 +42,25 @@ class AnalyseStrings
     {
         $pattern_mismatch = [];
 
-        if (Strings::startsWith($repo, 'gaia')) {
-            $patterns = [
-                'l10njs' => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu', // {{foobar2}}
-            ];
-        } elseif ($repo == 'firefox_ios') {
-            $patterns = [
-                'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.
-            ];
-        } else {
-            $patterns = [
-                'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;
-                'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
-                'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}} Used in Loop and PDFViewer
-            ];
+        switch ($repo) {
+            case Strings::startsWith($repo, 'gaia'):
+                $patterns = [
+                    'l10njs' => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu', // {{foobar2}}
+                ];
+                break;
+            case 'firefox_ios':
+                $patterns = [
+                    'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.
+                ];
+                break;
+            default:
+                $patterns = [
+                    'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;
+                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
+                    'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                    'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}} Used in Loop and PDFViewer
+                ];
+                break;
         }
 
         foreach ($patterns as $pattern_name => $pattern) {

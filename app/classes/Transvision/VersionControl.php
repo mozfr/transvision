@@ -195,11 +195,10 @@ class VersionControl
      */
     public static function svnPath($locale, $repo, $path)
     {
-        if ($repo == 'mozilla_org') {
-            $file_path = 'projects/mozilla.com/trunk/locales/'
-                        . $locale . '/' . self::extractFilePath($path);
-        } elseif ($repo == 'firefox_ios') {
+        if ($repo == 'firefox_ios') {
             $file_path = "projects/l10n-misc/trunk/firefox-ios/{$locale}/firefox-ios.xliff";
+        } else {
+            $file_path = '';
         }
 
         return 'https://viewvc.svn.mozilla.org/vc/'

@@ -213,6 +213,8 @@ class ShowResults
             $recherche = [$recherche];
         }
 
+        $current_repo = $search_options['repo'];
+
         foreach ($search_results as $key => $strings) {
 
             // Don't highlight search matches in entities when searching strings
@@ -228,21 +230,21 @@ class ShowResults
 
             $entity_link = "?sourcelocale={$locale1}"
             . "&locale={$locale2}"
-            . "&repo={$search_options['repo']}"
+            . "&repo={$current_repo}"
             . "&search_type=entities&recherche={$key}";
 
             $bz_link = [Bugzilla::reportErrorLink(
-                $locale2, $key, $source_string, $target_string, $search_options['repo'], $entity_link
+                $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
             )];
 
             if (isset($search_options['extra_locale'])) {
                 $target_string2 = trim($strings[2]);
                 $entity_link = "?sourcelocale={$locale1}"
                                 . "&locale={$search_options['extra_locale']}"
-                                . "&repo={$search_options['repo']}"
+                                . "&repo={$current_repo}"
                                 . "&search_type=entities&recherche={$key}";
                 $bz_link[] = Bugzilla::reportErrorLink(
-                    $search_options['extra_locale'], $key, $source_string, $target_string2, $search_options['repo'], $entity_link
+                    $search_options['extra_locale'], $key, $source_string, $target_string2, $current_repo, $entity_link
                 );
             } else {
                 $target_string2 = '';
@@ -282,16 +284,21 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2_short_code = $temp[0];
 
-            if ($search_options['repo'] == 'mozilla_org') {
-                $locale1_path = VersionControl::gitPath($locale1, $search_options['repo'], $key);
-                $locale2_path = VersionControl::gitPath($locale2, $search_options['repo'], $key);
-            } elseif ($search_options['repo'] == 'firefox_ios') {
-                $locale1_path = VersionControl::svnPath($locale1, $search_options['repo'], $key);
-                $locale2_path = VersionControl::svnPath($locale2, $search_options['repo'], $key);
-            } else {
-                $locale1_path = VersionControl::hgPath($locale1, $search_options['repo'], $key);
-                $locale2_path = VersionControl::hgPath($locale2, $search_options['repo'], $key);
+            switch ($current_repo) {
+                case 'mozilla_org':
+                    $locale1_path = VersionControl::gitPath($locale1, $current_repo, $key);
+                    $locale2_path = VersionControl::gitPath($locale2, $current_repo, $key);
+                    break;
+                case 'firefox_ios':
+                    $locale1_path = VersionControl::svnPath($locale1, $current_repo, $key);
+                    $locale2_path = VersionControl::svnPath($locale2, $current_repo, $key);
+                    break;
+                default:
+                    $locale1_path = VersionControl::hgPath($locale1, $current_repo, $key);
+                    $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
+                    break;
             }
+
             // errors
             $error_message = '';
 
@@ -333,12 +340,16 @@ class ShowResults
 
             // 3locales view
             if (isset($search_options["extra_locale"])) {
-                if ($search_options['repo'] == 'mozilla_org') {
-                    $locale3_path = VersionControl::gitPath($locale3, $search_options['repo'], $key);
-                } elseif ($search_options['repo'] == 'firefox_ios') {
-                    $locale3_path = VersionControl::svnPath($locale3, $search_options['repo'], $key);
-                } else {
-                    $locale3_path = VersionControl::hgPath($locale3, $search_options['repo'], $key);
+                switch ($current_repo) {
+                    case 'mozilla_org':
+                        $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
+                        break;
+                    case 'firefox_ios':
+                        $locale3_path = VersionControl::svnPath($locale3, $current_repo, $key);
+                        break;
+                    default:
+                        $locale3_path = VersionControl::hgPath($locale3, $current_repo, $key);
+                        break;
                 }
 
                 $extra_column_rows = "
@@ -363,7 +374,7 @@ class ShowResults
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
-                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$search_options['repo']}' title='List all translations for this entity'>l10n</a>
+                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$current_repo}' title='List all translations for this entity'>l10n</a>
                     <a class='link_to_entity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
                   <td dir='{$direction1}' lang='{$locale1}'>
