@@ -117,16 +117,10 @@ class VersionControl extends atoum\test
     {
         return [
             [
-                'sr',
-                'mozilla_org',
-                'mozilla_org/download_button.lang:ab34ff81',
-                'https://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/sr/download_button.lang?view=markup',
-            ],
-            [
                 'es-ES',
-                'mozilla_org',
+                'random_repo',
                 'mozilla_org/firefox/os/faq.lang:c71a7a50',
-                'https://viewvc.svn.mozilla.org/vc/projects/mozilla.com/trunk/locales/es-ES/firefox/os/faq.lang?view=markup',
+                'https://viewvc.svn.mozilla.org/vc/?view=markup',
             ],
             [
                 'it',
