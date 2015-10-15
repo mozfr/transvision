@@ -179,10 +179,7 @@ class Project
     {
         $matches = [];
         foreach (self::getRepositories() as $repository) {
-            if (in_array(
-                self::getLocaleInContext($locale, $repository),
-                self::getRepositoryLocales($repository)
-            )) {
+            if (in_array($locale, self::getRepositoryLocales($repository))) {
                 $matches[] = $repository;
             }
         }
