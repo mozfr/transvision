@@ -70,7 +70,8 @@ class Project
     /**
      * Create a list of all supported repositories.
      *
-     * @return array list of supported repositories
+     * @return array List of supported repositories, key is the repo, value is
+     *               the nice name for the repo for display purposes.
      */
     public static function getSupportedRepositories()
     {
@@ -93,7 +94,7 @@ class Project
     /**
      * Get the list of repositories.
      *
-     * @return array list of local repositories
+     * @return array list of local repositories values
      */
     public static function getRepositories()
     {
@@ -169,6 +170,29 @@ class Project
     }
 
     /**
+     * Get the list of repositories available for a locale
+     *
+     * @param  string $locale Mozilla locale code
+     * @return array  A sorted list of repositories available for the locale
+     */
+    public static function getLocaleRepositories($locale)
+    {
+        $matches = [];
+        foreach (self::getRepositories() as $repository) {
+            if (in_array(
+                self::getLocaleInContext($locale, $repository),
+                self::getRepositoryLocales($repository)
+            )) {
+                $matches[] = $repository;
+            }
+        }
+
+        sort($matches);
+
+        return $matches;
+    }
+
+    /**
      * Return the reference locale for a repository
      * We used to have en-GB as reference locale for mozilla.org
      * Now all projects use en-US but we may need this method in the future
@@ -231,7 +255,10 @@ class Project
         }
 
         // Firefox for iOS: no mapping
-        $locale_mappings['firefox_ios'] = [];
+        $locale_mappings['firefox_ios'] = [
+            'es-AR' => 'es',
+            'es-ES' => 'es',
+        ];
 
         // For other contexts use the same as Bugzilla
         $locale_mappings['other'] = $locale_mappings['bugzilla'];

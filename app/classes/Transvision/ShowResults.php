@@ -65,6 +65,9 @@ class ShowResults
             }
         }
 
+        // Remove duplicate results
+        $output = array_unique($output, SORT_REGULAR);
+
         // We sort by quality to get the best results first
         usort($output, function ($a, $b) {
            return $a['quality'] < $b['quality'];
