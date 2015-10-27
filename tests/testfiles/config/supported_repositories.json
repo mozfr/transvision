@@ -16,26 +16,18 @@
     "name": "Central"
   },
   "5": {
-    "id": "gaia_1_3",
-    "name": "Gaia 1.3"
-  },
-  "6": {
-    "id": "gaia_1_4",
-    "name": "Gaia 1.4"
-  },
-  "7": {
     "id": "gaia_2_0",
     "name": "Gaia 2.0"
   },
-  "8": {
+  "6": {
     "id": "gaia_2_1",
     "name": "Gaia 2.1"
   },
-  "9": {
+  "7": {
     "id": "gaia",
     "name": "Gaia Master"
   },
-  "10": {
+  "8": {
     "id": "mozilla_org",
     "name": "mozilla.org"
   }
