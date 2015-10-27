@@ -15,7 +15,7 @@ class VersionControl extends atoum\test
                 'mozilla_org', 'git',
             ],
             [
-                'gaia_1_4', 'hg',
+                'gaia_2_1', 'hg',
             ],
             [
                 'central', 'hg',
