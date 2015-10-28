@@ -181,7 +181,8 @@ class ShowResults
     /**
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
-     * @param array  $search_results list of rows
+     * @param array  $search_id      Identifier for the current search
+     * @param array  $search_results List of rows
      * @param string $recherche      The words searched for
      * @param string $locale1        Reference locale to search in, usually en-US
      * @param string $locale2        Target locale to search in
@@ -189,7 +190,7 @@ class ShowResults
      *
      * @return string html table to insert in the view
      */
-    public static function resultsTable($search_results, $recherche, $locale1, $locale2, $search_options)
+    public static function resultsTable($search_id, $search_results, $recherche, $locale1, $locale2, $search_options)
     {
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
@@ -202,7 +203,7 @@ class ShowResults
             $extra_column_header = '';
         }
 
-        $table  = "<table class='collapsable'>
+        $table  = "<table class='collapsable results_table {$search_id}'>
                       <tr class='column_headers'>
                         <th>Entity</th>
                         <th>{$locale1}</th>
@@ -373,7 +374,7 @@ class ShowResults
                 $extra_column_rows = '';
             }
             $table .= "
-                <tr class='{$component}'>
+                <tr class='{$component} {$search_id}'>
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
