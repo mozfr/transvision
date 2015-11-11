@@ -68,7 +68,7 @@ class VersionControl
      */
     public static function hgPath($locale, $repo, $path)
     {
-        $url = 'http://hg.mozilla.org';
+        $url = 'https://hg.mozilla.org';
 
         // remove entity from path and store it in a variable
         $path          = explode(':', $path);
@@ -124,6 +124,8 @@ class VersionControl
             'browser/branding/nightly/',
             'browser/branding/unofficial/',
             'browser/',
+            'devtools/client/',
+            'devtools/shared/',
             'layout/tools/layout-debug/ui/',
             'dom/',
             'webapprt/',

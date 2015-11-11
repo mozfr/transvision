@@ -73,7 +73,7 @@ if __name__ == "__main__":
         dirs_reference = [x for x in dirs_reference if x not in exclusionlist]
     else:
         dirs_reference = [
-            "browser", "calendar", "chat", "dom", "editor",
+            "browser", "calendar", "chat", "devtools", "dom", "editor",
             "extensions", "mail", "mobile", "netwerk", "other-licenses",
             "security", "services", "suite", "toolkit", "webapprt"
         ]

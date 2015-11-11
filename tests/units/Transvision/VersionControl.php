@@ -79,26 +79,44 @@ class VersionControl extends atoum\test
                 'fr',
                 'beta',
                 'browser/updater/updater.ini:TitleText',
-                'http://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini',
+                'https://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini',
             ],
             [
                 'es-ES',
                 'gaia',
                 'apps/settings/settings.properties:usb-tethering',
-                'http://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties',
+                'https://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties',
             ],
             [
                 'de',
                 'gaia',
                 'shared/date/date.properties:month-7-long',
-                'http://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties',
+                'https://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties',
             ],
             [
                 'sr-Cyrl',
                 'gaia_2_0',
                 'shared/date/date.properties:month-7-long',
-                'http://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties',
-                ],
+                'https://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties',
+            ],
+            [
+                'en-US',
+                'beta',
+                'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies',
+                'https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/locales/en-US/chrome/browser/aboutPrivateBrowsing.dtd',
+            ],
+            [
+                'en-US',
+                'central',
+                'devtools/shared/gclicommands.properties:appCacheViewEntryManual',
+                'https://hg.mozilla.org/mozilla-central/file/default/devtools/shared/locales/en-US/gclicommands.properties',
+            ],
+            [
+                'en-US',
+                'aurora',
+                'devtools/client/memory.properties:heapview.field.totalcount',
+                'https://hg.mozilla.org/releases/mozilla-aurora/file/default/devtools/client/locales/en-US/memory.properties',
+            ],
         ];
     }
 
