@@ -3,6 +3,7 @@ namespace tests\units\Transvision;
 
 use atoum;
 use Cache\Cache as _Cache;
+use DateTime;
 use Transvision\Utils as _Utils;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -391,51 +392,41 @@ class Utils extends atoum\test
     {
         $data = [
             [
-                (new \DateTime())->modify('-2 seconds'),
-                (new \DateTime()),
+                (new DateTime())->modify('-2 seconds'),
+                (new DateTime()),
                 '2 seconds ago',
             ],
             [
-                (new \DateTime())->modify('-10 hours'),
-                (new \DateTime()),
+                (new DateTime())->modify('-10 hours'),
+                (new DateTime()),
                 '10 hours ago',
             ],
             [
-                (new \DateTime())->modify('-1 day'),
-                (new \DateTime()),
+                (new DateTime())->modify('-1 day'),
+                (new DateTime()),
                 '1 day ago',
             ],
             [
-                (new \DateTime())->modify('+2 months'),
-                (new \DateTime()),
+                (new DateTime())->modify('+2 months'),
+                (new DateTime()),
                 '2 months',
             ],
             [
-                (new \DateTime())->modify('+1 year'),
-                (new \DateTime()),
+                (new DateTime())->modify('+1 year'),
+                (new DateTime()),
                 '1 year',
             ],
+            [
+                (new DateTime())->modify('-2 seconds'),
+                '',
+                '2 seconds ago',
+            ],
+            [
+                (new DateTime())->modify('-1 hour'),
+                '',
+                '1 hour ago',
+            ],
         ];
-
-        // If running tests locally, check also the behavior without providing
-        // a reference date
-        if (! getenv('TRAVIS')) {
-            $data = array_merge(
-                $data,
-                [
-                    [
-                        (new \DateTime())->modify('-2 seconds'),
-                        '',
-                        '2 seconds ago',
-                    ],
-                    [
-                        (new \DateTime())->modify('-1 hours'),
-                        '',
-                        '1 hour ago',
-                    ],
-                ]
-            );
-        }
 
         return $data;
     }
