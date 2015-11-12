@@ -267,6 +267,16 @@ td {
     display: none;
 }
 
+td a.onestring_search {
+    display: block;
+    margin: 0 auto;
+    padding: 0 4px;
+}
+
+td a.onestring_search:hover {
+    text-decoration: none;
+}
+
 td a em,
 td em.error {
     font-style: normal;
