@@ -30,7 +30,7 @@ if ($error_count > 0) {
                           "&locale={$locale}" .
                           "&repo={$repo}" .
                           "&search_type=entities&recherche={$string_id}";
-        $bug_summary = rawurlencode("Translation update proposed for {$string_id}");
+        $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$string_id}");
         $bug_message = rawurlencode(
             html_entity_decode(
                 "The string:\n{$source[$string_id]}\n\n" .
