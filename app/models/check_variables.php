@@ -42,7 +42,3 @@ if (in_array($repo, $desktop_repos)) {
 // RTL support
 $direction1 = RTLSupport::getDirection($source_locale);
 $direction2 = RTLSupport::getDirection($locale);
-
-$bugzilla_base_link = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component=' .
-                      Bugzilla::getURLencodedBugzillaLocale($locale, 'products') .
-                      '&product=Mozilla%20Localizations&status_whiteboard=%5Btransvision-feedback%5D';

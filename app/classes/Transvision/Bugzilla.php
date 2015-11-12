@@ -48,13 +48,14 @@ class Bugzilla extends _Bugzilla
     public static function reportErrorLink($locale, $entity, $source_string, $target_string, $repo, $entity_link)
     {
         $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$entity}");
+        $transvision_url = "https://transvision.mozfr.org/{$entity_link}";
         $bug_message = rawurlencode(
             html_entity_decode(
                 "The string:\n{$source_string}\n\n"
                 . "Is translated as:\n{$target_string}\n\n"
                 . "And should be:\n\n\n\n"
                 . "Feedback via Transvision:\n"
-                . "https://transvision.mozfr.org/{$entity_link}"
+                . $transvision_url
             ));
 
         if ($repo == 'mozilla_org') {
@@ -73,15 +74,13 @@ class Bugzilla extends _Bugzilla
             $bz_extra = '';
         }
 
-        return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&component='
-               . $bz_component
-               . '&product='
-               . $bz_product
+        return 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__'
+               . '&component=' . $bz_component
+               . '&product=' . $bz_product
                . '&status_whiteboard=%5Btransvision-feedback%5D'
-               . '&short_desc='
-               . $bug_summary
-               . '&comment='
-               . $bug_message
+               . '&bug_file_loc=' . rawurlencode($transvision_url)
+               . '&short_desc=' . $bug_summary
+               . '&comment=' . $bug_message
                . $bz_extra;
     }
 }
