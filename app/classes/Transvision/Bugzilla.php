@@ -47,7 +47,7 @@ class Bugzilla extends _Bugzilla
      */
     public static function reportErrorLink($locale, $entity, $source_string, $target_string, $repo, $entity_link)
     {
-        $bug_summary = rawurlencode("Translation update proposed for {$entity}");
+        $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$entity}");
         $bug_message = rawurlencode(
             html_entity_decode(
                 "The string:\n{$source_string}\n\n"
