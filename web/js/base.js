@@ -63,3 +63,14 @@ $(document).ready(function() {
     // Focus on the main search field.
     $('#recherche').focus();
 });
+
+var clipboard = new Clipboard('.clipboard');
+clipboard.on('success', function(e) {
+       e.trigger.setAttribute('data-title', 'Translation copied!');
+       e.trigger.setAttribute('class', 'clipboard tooltip');
+       setTimeout(function(arg1) {
+           arg1.trigger.setAttribute('class', 'clipboard')
+       }, 1000, e);
+       e.clearSelection();
+   }
+);

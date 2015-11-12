@@ -341,6 +341,8 @@ class ShowResults
             // Replace / and : in the key name and use it as an anchor name
             $anchor_name = str_replace(['/', ':'], '_', $key);
 
+            $clipboard_target_string  = 'clip_' . md5($target_string);
+
             // 3locales view
             if (isset($search_options["extra_locale"])) {
                 switch ($current_repo) {
@@ -355,10 +357,12 @@ class ShowResults
                         break;
                 }
 
+                $clipboard_target_string2 = 'clip_' . md5($target_string2);
+
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>
                     <span class='celltitle'>{$locale3}</span>
-                    <div class='string'>{$target_string2}</div>
+                    <div class='string' id='{$clipboard_target_string2}'>{$target_string2}</div>
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale3_path}'>
                         &lt;source&gt;
@@ -367,6 +371,7 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link[1]}'>
                         &lt;report a bug&gt;
                       </a>
+                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
                     </div>
                   </td>";
             } else {
@@ -402,7 +407,7 @@ class ShowResults
 
                   <td dir='{$direction2}' lang='{$locale2}'>
                     <span class='celltitle'>{$locale2}</span>
-                    <div class='string'>{$target_string}</div>
+                    <div class='string' id='{$clipboard_target_string}'>{$target_string}</div>
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
@@ -411,6 +416,7 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
                       </a>
+                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
                       {$error_message}
                     </div>
                   </td>

@@ -946,3 +946,52 @@ fieldset {
         font-size: 10px;
     }
 }
+
+/* Tooltips for copy-pasting of strings */
+.clipboard {
+    float: right;
+    font-size: 200%;
+    color: #000;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 850px) {
+    .clipboard img {
+        position: relative;
+        right: 4px;
+        bottom: 4px;
+    }
+}
+
+.clipboard:active {
+    background: #90ee90;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip:hover::after {
+    position: absolute;
+    font-size: small;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: attr(data-title);
+    right: 20%;
+    padding: 4px 10px;
+    z-index: 98;
+}
+
+.tooltip:hover::before {
+    position: absolute;
+    border: solid;
+    border-color: #fff transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 60%;
+    z-index: 99;
+}

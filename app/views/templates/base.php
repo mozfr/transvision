@@ -125,6 +125,8 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   </div>
 
   <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
+  <script src="/assets/clipboard.js/clipboard.js-built.js?v=<?= VERSION ?>"></script>
+
 <?php foreach ($javascript_include as $js_file):?>
   <script src="/js/<?= $js_file . $cache_bust ?>"></script>
 <?php endforeach?>
