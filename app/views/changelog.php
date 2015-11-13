@@ -1,3 +1,67 @@
+<?=$release_title('3.10')?>
+<h3>End user visible changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$commit('b4ae1a9499334885259e8ed65da764a2717f5a9a')?>
+        Provide a way to go back to the search view from the onestring view (flod)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(520)?>
+        Add a "copy to clipboard" button next to a translation for SUMO localizers (pascal, Sphinx)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(529)?>
+        Add a language prefix to the subject when reporting bug on Bugzilla (MikkCZ)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$commit('b49de20b924d58043b043c9a59c35f43f1dc9b44')?>
+        Track Devtools in new path (flod)
+    </li>
+    <li>
+        <?=$relnotes('bug')?>
+        <?=$issue(525)?>
+        The result counter does not update when filtering by folder (flod)
+    </li>
+</ul>
+
+<h3>Changes for Transvision developers</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(392)?>
+        Translation memory and search APIs allow now querying all repositories with a single call (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(518)?>
+        Generate <a href="https://transvision-beta.mozfr.org/docs/">internal API documentation</a> automatically on pushes to master (pascal)
+    </li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$commit('f9731e5eb70ec9368124006714b43953c60ade1f')?>
+        Add Travis CI status icon on README file on GitHub (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        <?=$issue(521)?>
+         Cleanup: Remove Gaia 1.3 and 1.4 references in our code (pascal)
+    </li>
+    <li>
+        <?=$relnotes('better')?>
+        Various code clean ups and additional automatic tests (the team)
+    </li>
+</ul>
+<?=$github_link('3.10');?>
+
+
 <?=$release_title('3.9')?>
 <h3>End user visible changes</h3>
 <ul>

@@ -34,6 +34,7 @@ $releases = [
     '3.8'   => '2015-06-15',
     '3.8.1' => '2015-06-24',
     '3.9'   => '2015-10-08',
+    '3.10'  => '2015-11-13',
 ];
 
 // Helper to generate CSS class tags
@@ -71,7 +72,7 @@ $relnotes = function ($tag) {
 // Helper to generate the list of patches for the version
 $github_link = function ($release) use ($releases) {
     $keys = array_keys($releases);
-    $previous = $keys[array_search($release, $keys) - 1];
+    $previous = $keys[array_search($release, $keys, true) - 1];
 
     return <<<LINK
 <p class="github_link">See the complete list of
