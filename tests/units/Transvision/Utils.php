@@ -416,17 +416,27 @@ class Utils extends atoum\test
                 (new DateTime()),
                 '1 year',
             ],
-            [
-                (new DateTime())->modify('-2 seconds'),
-                '',
-                '2 seconds ago',
-            ],
-            [
-                (new DateTime())->modify('-1 hour'),
-                '',
-                '1 hour ago',
-            ],
         ];
+
+        // If running tests locally, check also the behavior without providing
+        // a reference date
+        if (! getenv('TRAVIS')) {
+            $data = array_merge(
+                $data,
+                [
+                    [
+                        (new DateTime())->modify('-2 seconds'),
+                        '',
+                        '2 seconds ago',
+                    ],
+                    [
+                        (new DateTime())->modify('-1 hour'),
+                        '',
+                        '1 hour ago',
+                    ],
+                ]
+            );
+        }
 
         return $data;
     }
