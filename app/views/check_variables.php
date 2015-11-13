@@ -30,17 +30,10 @@ if ($error_count > 0) {
                           "&locale={$locale}" .
                           "&repo={$repo}" .
                           "&search_type=entities&recherche={$string_id}";
-        $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$string_id}");
-        $bug_message = rawurlencode(
-            html_entity_decode(
-                "The string:\n{$source[$string_id]}\n\n" .
-                "Is translated as:\n{$target[$string_id]}\n\n" .
-                "And should be:\n\n\n\n" .
-                "Feedback via Transvision:\n" .
-                "https://transvision.mozfr.org/{$string_id_link}"
-            )
+        $bugzilla_link = Bugzilla::reportErrorLink(
+            $locale, $string_id, $source[$string_id],
+            $target[$string_id], $repo, $string_id_link
         );
-        $bugzilla_link = "{$bugzilla_base_link}&short_desc={$bug_summary}&comment={$bug_message}";
 
         $path_locale1 = VersionControl::hgPath($source_locale, $repo, $string_id);
         $path_locale2 = VersionControl::hgPath($locale, $repo, $string_id);
