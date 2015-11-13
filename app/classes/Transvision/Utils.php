@@ -394,7 +394,7 @@ class Utils
      */
     public static function pluralize($count, $text)
     {
-        return $count . (($count == 1) ? (" $text") : (" ${text}s"));
+        return $count . (($count == 1) ? (" {$text}") : (" ${text}s"));
     }
 
     /**

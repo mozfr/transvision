@@ -25,8 +25,8 @@ if ($check['search_type'] == 'strings_entities') {
 $real_search_results = count($locale1_strings);
 $limit_results = 200;
 // Limit results to 200 per locale
-array_splice($locale1_strings, $limit_results);
-array_splice($locale2_strings, $limit_results);
+array_splice($locale1_strings, $limit_results - 1);
+array_splice($locale2_strings, $limit_results - 1);
 
 $searches = [
     $source_locale => $locale1_strings,
@@ -55,15 +55,14 @@ foreach ($searches as $key => $value) {
         // We have results, we won't display search suggestions but search results
         $search_yields_results = true;
 
+        $search_id = strtolower(str_replace('-', '', $key));
         $message_count = $real_search_results > $limit_results
-                        ? $limit_results . ' of ' . $real_search_results
-                        : count($search_results);
+            ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
+            : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
 
-        $pluralized_count = Utils::pluralize($message_count, 'result');
-
-        $output[$key] = "<h2>Displaying {$pluralized_count} for the string "
+        $output[$key] = "<h2>Displaying {$message_count} for the string "
                         . "<span class=\"searchedTerm\">{$initial_search_decoded}</span> in {$key}:</h2>";
-        $output[$key] .= ShowResults::resultsTable($search_results, $initial_search, $source_locale, $locale, $check);
+        $output[$key] .= ShowResults::resultsTable($search_id, $search_results, $initial_search, $source_locale, $locale, $check);
     } else {
         $output[$key] = "<h2>No matching results for the string "
                         . "<span class=\"searchedTerm\">{$initial_search_decoded}</span>"
