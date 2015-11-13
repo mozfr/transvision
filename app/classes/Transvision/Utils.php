@@ -2,6 +2,7 @@
 namespace Transvision;
 
 use Cache\Cache;
+use DateTime;
 
 /**
  * Utils class
@@ -401,13 +402,13 @@ class Utils
      *
      * @param  DateTime $datetime The DateTime object to check against current time
      * @param  DateTime $ref_time Reference time to calculate the difference (optional)
-     * @return a        string containing the value concatenated with the pluralized unit
+     * @return string   String containing the value concatenated with the pluralized unit
      */
     public static function ago($datetime, $ref_time = '')
     {
         if (! $ref_time instanceof DateTime) {
             // Use current time as reference
-            $ref_time = new \DateTime();
+            $ref_time = new DateTime();
         }
         $interval = $ref_time->diff($datetime);
         $suffix = $interval->invert ? ' ago' : '';
