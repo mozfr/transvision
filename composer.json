@@ -11,6 +11,30 @@
         {
             "type": "vcs",
             "url": "https://github.com/pascalchevrel/Verif/"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "zenorocha/clipboard.js",
+                "type": "component",
+                "version": "1.5.3",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.5.3.zip"
+                },
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/zenorocha/clipboard.js.git",
+                    "reference": "1.5.3"
+                },
+                "extra": {
+                    "component": {
+                        "scripts": [
+                            "dist/clipboard.js"
+                        ]
+                    }
+                }
+            }
         }
     ],
 
@@ -25,7 +49,8 @@
         "mozillal10n/cache": "~0.1",
         "pascalc/tinyl10n" : "~0.1",
         "pascalc/vcs": "~0.1",
-        "robloach/component-installer": "*"
+        "robloach/component-installer": "*",
+        "zenorocha/clipboard.js": "~1.5."
     },
 
     "require-dev": {
