@@ -25,8 +25,8 @@ if ($check['search_type'] == 'strings_entities') {
 $real_search_results = count($locale1_strings);
 $limit_results = 200;
 // Limit results to 200 per locale
-array_splice($locale1_strings, $limit_results - 1);
-array_splice($locale2_strings, $limit_results - 1);
+array_splice($locale1_strings, $limit_results);
+array_splice($locale2_strings, $limit_results);
 
 $searches = [
     $source_locale => $locale1_strings,
