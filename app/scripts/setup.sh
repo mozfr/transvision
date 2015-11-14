@@ -23,38 +23,6 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
-# Store current directory path to be able to call this script from anywhere
-DIR=$(dirname "$0")
-# Convert .ini file in bash variables
-eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
-
-# Generate sources (gaia versions, supported locales)
-echogreen "Generate list of locales and supported Gaia versions"
-$DIR/generate_sources $config
-
-# Check if we have sources
-echogreen "Checking if Transvision sources are available..."
-if ! $(ls $config/sources/*.txt &> /dev/null)
-then
-    echored "CRITICAL ERROR: no sources available, aborting."
-    echored "Check the value for l10nwebservice in your config.ini"
-    exit
-fi
-
-# Create all bash variables
-source $DIR/bash_variables.sh
-
-# Make sure that we have the file structure ($folders is defined in bash_variables.sh)
-echogreen "Checking folders..."
-for folder in "${folders[@]}"
-do
-    if [ ! -d $folder ]
-    then
-        echogreen "Creating folder: $folder"
-        mkdir -p "$folder"
-    fi
-done
-
 function createSymlinks() {
     branches=( trunk aurora beta release )
 
@@ -261,6 +229,54 @@ function initGaiaRepo () {
         done
     fi
 }
+
+# Store current directory path to be able to call this script from anywhere
+DIR=$(dirname "$0")
+# Convert .ini file in bash variables
+eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+
+# Generate sources (gaia versions, supported locales)
+echogreen "Generate list of locales and supported Gaia versions"
+$DIR/generate_sources $config
+
+# Check if we have sources
+echogreen "Checking if Transvision sources are available..."
+if ! $(ls $config/sources/*.txt &> /dev/null)
+then
+    echored "CRITICAL ERROR: no sources available, aborting."
+    echored "Check the value for l10nwebservice in your config.ini"
+    exit
+fi
+
+# Create all bash variables
+source $DIR/bash_variables.sh
+
+# Make sure that we have the file structure ($folders is defined in bash_variables.sh)
+echogreen "Checking folders..."
+for folder in "${folders[@]}"
+do
+    if [ ! -d $folder ]
+    then
+        echogreen "Creating folder: $folder"
+        mkdir -p "$folder"
+    fi
+done
+
+# Store version information in cache
+DEV_VERSION="dev"
+if [ ! -d ${install}/.git ]
+then
+    CURRENT_TIP="unknown"
+else
+    cd "${install}"
+    CURRENT_TIP=$(git rev-parse HEAD)
+    LATEST_TAG=$(git for-each-ref refs/tags --sort='-committerdate' --format='%(objectname)' --count=1)
+    if [ "${CURRENT_TIP}" = "${LATEST_TAG}" ]
+    then
+        DEV_VERSION=""
+    fi
+fi
+echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
 
 checkoutSilme
 

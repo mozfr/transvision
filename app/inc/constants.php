@@ -1,8 +1,5 @@
 <?php
 
-// Bump this constant with each new release
-const VERSION = '3.10';
-
 // Constants for the project
 define('DATA_ROOT',     realpath($server_config['root']) . '/');
 define('HG',            realpath($server_config['local_hg']) . '/');
@@ -21,6 +18,14 @@ define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
 define('APP_SCHEME',    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
 
+if (file_exists(CACHE_PATH . 'version.txt')) {
+    define('VERSION', file_get_contents(CACHE_PATH . 'version.txt'));
+    define('BETA_VERSION', strstr(VERSION, 'dev'));
+} else {
+    define('VERSION', 'unknown.dev');
+    define('BETA_VERSION', true);
+}
+
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     define('CACHE_TIME',  time() - filemtime(CACHE_PATH . 'lastdataupdate.txt'));
 } else {
@@ -29,7 +34,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 }
 
 // Special modes for the app
-define('DEBUG',     strstr(VERSION, 'dev') || isset($_GET['debug']));
+define('DEBUG',     BETA_VERSION || isset($_GET['debug']));
 define('LOCAL_DEV', isset($server_config['dev']) && $server_config['dev']);
 
 // Set perf_check=true in config.ini to log page time generation and memory used while in DEBUG mode
