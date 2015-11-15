@@ -55,13 +55,7 @@ $links = '
 </div>
 ';
 
-if (strpos(VERSION, 'dev') !== false) {
-    $beta_version = true;
-    $title_productname = 'Transvision Beta';
-} else {
-    $beta_version = false;
-    $title_productname = 'Transvision';
-}
+$title_productname = BETA_VERSION ? 'Transvision Beta' : 'Transvision';
 
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     $last_update = "<p>Data last updated: " .
@@ -96,7 +90,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     <a href="" class="menu-button" id="links-top-button" title="Hide Transvision Menu"><span>menu</span></a>
   </div>
   <?php
-  if ($beta_version) {
+  if (BETA_VERSION) {
       print "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
   }
   ?>
