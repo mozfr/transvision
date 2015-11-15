@@ -18,13 +18,21 @@ define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
 define('APP_SCHEME',    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
 
+/* Determine the last Git hash from cache/version.txt, ignoring new lines.
+ * If the file doesn't exist, or is empty, fall back to 'unknown.dev'
+ */
 if (file_exists(CACHE_PATH . 'version.txt')) {
-    define('VERSION', file_get_contents(CACHE_PATH . 'version.txt'));
-    define('BETA_VERSION', strstr(VERSION, 'dev'));
+    $file_content = file(CACHE_PATH . 'version.txt', FILE_IGNORE_NEW_LINES |  FILE_SKIP_EMPTY_LINES);
+    $git_hash = empty($file_content)
+        ? 'unknown.dev'
+        : $file_content[0];
+    $beta_version = strstr($git_hash, 'dev');
 } else {
-    define('VERSION', 'unknown.dev');
-    define('BETA_VERSION', true);
+    $git_hash = 'unknown.dev';
+    $beta_version = true;
 }
+define('VERSION', $git_hash);
+define('BETA_VERSION', $beta_version);
 
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     define('CACHE_TIME',  time() - filemtime(CACHE_PATH . 'lastdataupdate.txt'));
