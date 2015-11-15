@@ -4,7 +4,10 @@ namespace Transvision;
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';
 
-$content = '<h2>' . count($unchanged_strings) . " strings identical to English</h2>\n";
+$search_id = 'unchanged_strings';
+$content = "<h2><span class=\"results_count_{$search_id}\">"
+    . Utils::pluralize(count($unchanged_strings), 'string')
+    . "</span> identical to English</h2>\n";
 
 if (isset($filter_block)) {
     $content .= "<div id='filters'>" .
@@ -14,7 +17,7 @@ if (isset($filter_block)) {
                 "</div>\n";
 }
 
-$content .= "<table class='collapsable'>\n";
+$content .= "<table class='collapsable results_table {$search_id}'>\n";
 $content .= "  <tr class='column_headers'>\n" .
             "    <th>String ID</th>\n" .
             "    <th>English</th>\n" .
@@ -33,7 +36,7 @@ foreach ($unchanged_strings as $string_id => $string_value) {
      */
     $direction = RTLSupport::getDirection($source_locale);
 
-    $content .= "  <tr class='{$component}'>\n" .
+    $content .= "  <tr class='{$component} {$search_id}'>\n" .
                 "    <td dir='ltr'><a href='{$entity_link}'>{$string_id}</a></td>\n" .
                 "    <td dir='{$direction}' lang='{$source_locale}'>{$string_value}</td>\n" .
                 "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] . "</td>\n" .

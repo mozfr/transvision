@@ -5,9 +5,10 @@ namespace Transvision;
 include __DIR__ . '/simplesearchform.php';
 
 if ($error_count > 0) {
-    $content = "<h2>{$error_count} " .
-               ($error_count == 1 ? 'result' : 'results') .
-               " found</h2>\n";
+    $search_id = 'check_variable';
+    $content = "<h2><span class=\"results_count_{$search_id}\">"
+        . Utils::pluralize($error_count, 'result')
+        . "</span> found</h2>\n";
 
     if (isset($filter_block)) {
         $content .= "<div id='filters'>" .
@@ -17,7 +18,7 @@ if ($error_count > 0) {
                     "</div>\n";
     }
 
-    $content .= "<table class='collapsable'>\n" .
+    $content .= "<table class='collapsable results_table {$search_id}'>\n" .
                 "  <tr>\n" .
                 "    <th>Entity</th>\n" .
                 "    <th>{$source_locale}</th>\n" .
@@ -39,7 +40,7 @@ if ($error_count > 0) {
         $path_locale2 = VersionControl::hgPath($locale, $repo, $string_id);
 
         $component = explode('/', $string_id)[0];
-        $content .= "<tr class='{$component}'>
+        $content .= "<tr class='{$component} {$search_id}'>
                        <td>
                           <span class='celltitle'>Entity</span>
                           <a class='link_to_entity' href=\"/{$string_id_link}\">" . ShowResults::formatEntity($string_id) . "</a>

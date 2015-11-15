@@ -24,8 +24,8 @@ $(document).ready(function() {
         available_searches.forEach(function(search_id) {
             var class_name;
             class_name = e.target.id === 'showall'
-                ? '.' + search_id
-                : '.' + search_id + '.' + e.target.id;
+                ? 'tr.' + search_id
+                : 'tr.' + search_id + '.' + e.target.id;
 
             var results_count = $(class_name).length;
             var results_message =
