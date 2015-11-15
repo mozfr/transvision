@@ -21,33 +21,33 @@ $entities_merged       = [];
 $source_strings_merged = [];
 $target_strings_merged = [];
 
+// Define our regex
+$search = (new Search)
+    ->setSearchTerms(Utils::cleanString($initial_search))
+    ->setRegexWholeWords($get_option('whole_word'))
+    ->setRegexCaseInsensitive($get_option('case_sensitive'))
+    ->setRegexPerfectMatch($get_option('perfect_match'));
+
 // We loop through all repositories searched and merge results
 foreach ($repositories as $repository) {
     $source_strings = Utils::getRepoStrings($request->parameters[4], $repository);
 
-    // Regex options
-    $whole_word     = $get_option('whole_word') ? '\b' : '';
-    $case_sensitive = $get_option('case_sensitive') ? '' : 'i';
-
-    if ($get_option('perfect_match')) {
-        $regex = '~' . $whole_word . trim('^' . preg_quote($initial_search, '~') . '$') .
-                 $whole_word . '~' . $case_sensitive . 'u';
+    if ($search->isPerfectMatch()) {
         if ($request->parameters[2] == 'entities') {
-            $entities = ShowResults::searchEntities($source_strings, $regex);
+            $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
             $source_strings = array_intersect_key($source_strings, array_flip($entities));
         } else {
-            $source_strings = preg_grep($regex, $source_strings);
+            $source_strings = preg_grep($search->getRegex(), $source_strings);
             $entities = array_keys($source_strings);
         }
     } else {
         foreach (Utils::uniqueWords($initial_search) as $word) {
-            $regex = '~' . $whole_word . preg_quote($word, '~') .
-                     $whole_word . '~' . $case_sensitive . 'u';
+            $search->setRegexSearchTerms($word);
             if ($request->parameters[2] == 'entities') {
-                $entities = ShowResults::searchEntities($source_strings, $regex);
+                $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
                 $source_strings = array_intersect_key($source_strings, array_flip($entities));
             } else {
-                $source_strings = preg_grep($regex, $source_strings);
+                $source_strings = preg_grep($search->getRegex(), $source_strings);
                 $entities = array_keys($source_strings);
             }
         }

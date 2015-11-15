@@ -12,7 +12,7 @@ if ($url['path'] == '3locales') {
     $extra_column_header = '';
 }
 
-$entities = ShowResults::searchEntities($tmx_source, $main_regex);
+$entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
 
 // Display a search hint for the closest string we have if we have no search results
 if (count($entities) == 0) {
