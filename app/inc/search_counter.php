@@ -1,13 +1,23 @@
 <?php
 namespace Transvision;
 
+use Json\Json;
+
 // Create a JSON file logging locale/number of requests
-$stats = Json::fetch(CACHE_PATH . 'stats_locales.json');
+$json_data = new Json;
+$local_filename = CACHE_PATH . 'stats_locales.json';
+$stats = $json_data
+    ->setURI($local_filename)
+    ->fetchContent();
+
 $stats[$locale] = array_key_exists($locale, $stats) ? $stats[$locale] += 1 : 1;
-file_put_contents(CACHE_PATH . 'stats_locales.json', json_encode($stats));
+$json_data->saveFile($stats, $local_filename);
 
 // Create a JSON file logging search options to determine if some are unused
-$stats = Json::fetch(CACHE_PATH . 'stats_requests.json');
+$local_filename = CACHE_PATH . 'stats_requests.json';
+$stats = $json_data
+    ->setURI($local_filename)
+    ->fetchContent();
 
 foreach ($check as $k => $v) {
     if (in_array($k, $form_checkboxes) && $v == 1) {
@@ -18,6 +28,6 @@ foreach ($check as $k => $v) {
         $stats[$v] = array_key_exists($v, $stats) ? $stats[$v] += 1 : 1;
     }
 
-    file_put_contents(CACHE_PATH . 'stats_requests.json', json_encode($stats));
+    $json_data->saveFile($stats, $local_filename);
 }
 unset($stats);
