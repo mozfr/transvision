@@ -288,19 +288,12 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2_short_code = $temp[0];
 
-            switch ($current_repo) {
-                case 'mozilla_org':
-                    $locale1_path = VersionControl::gitPath($locale1, $current_repo, $key);
-                    $locale2_path = VersionControl::gitPath($locale2, $current_repo, $key);
-                    break;
-                case 'firefox_ios':
-                    $locale1_path = VersionControl::svnPath($locale1, $current_repo, $key);
-                    $locale2_path = VersionControl::svnPath($locale2, $current_repo, $key);
-                    break;
-                default:
-                    $locale1_path = VersionControl::hgPath($locale1, $current_repo, $key);
-                    $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
-                    break;
+            if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
+                $locale1_path = VersionControl::gitPath($locale1, $current_repo, $key);
+                $locale2_path = VersionControl::gitPath($locale2, $current_repo, $key);
+            } else {
+                $locale1_path = VersionControl::hgPath($locale1, $current_repo, $key);
+                $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
             }
 
             // errors
@@ -346,16 +339,10 @@ class ShowResults
 
             // 3locales view
             if (isset($search_options["extra_locale"])) {
-                switch ($current_repo) {
-                    case 'mozilla_org':
-                        $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
-                        break;
-                    case 'firefox_ios':
-                        $locale3_path = VersionControl::svnPath($locale3, $current_repo, $key);
-                        break;
-                    default:
-                        $locale3_path = VersionControl::hgPath($locale3, $current_repo, $key);
-                        break;
+                if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
+                    $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
+                } else {
+                    $locale3_path = VersionControl::hgPath($locale3, $current_repo, $key);
                 }
 
                 $clipboard_target_string2 = 'clip_' . md5($target_string2);

@@ -26,7 +26,7 @@ $project_name = $argv[1];
 $supported_projects = [
     'firefox_ios' => [
         'file_name' => 'firefox-ios.xliff',
-        'base_path' => SVN . 'firefox_ios',
+        'base_path' => GIT . 'firefox_ios',
     ],
 ];
 

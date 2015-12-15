@@ -286,8 +286,8 @@ function updateFirefoxiOS() {
     if $checkrepo
     then
         cd $firefox_ios
-        echogreen "Update subversion repository"
-        svn up
+        echogreen "Update GitHub repository"
+        git pull
     fi
     if $createTMX
     then
