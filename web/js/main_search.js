@@ -83,8 +83,8 @@ $(document).ready(function() {
 
     // Switch source and target locales in select boxes
     $('#locale_switch').on('click', function() {
-        source_locale = $('#source_locale').val()
-        target_locale = $('#target_locale').val()
+        var source_locale = $('#source_locale').val()
+        var target_locale = $('#target_locale').val()
         $('#source_locale').val(target_locale).change();
         $('#target_locale').val(source_locale).change();
     });

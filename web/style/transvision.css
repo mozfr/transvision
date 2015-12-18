@@ -660,9 +660,9 @@ fieldset {
 .api_link span {
     padding: 0.2em 0.4em;
     border-radius: 0.33em;
-    margin: 0px 6px;
+    margin: 0 6px;
     display: inline-block;
-    background: #e04e54 none repeat scroll 0% 0%;
+    background: #e04e54 none repeat scroll 0 0;
     text-transform: uppercase;
     color: #FFF;
     letter-spacing: 0.1em;
