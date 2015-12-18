@@ -19,9 +19,9 @@ class VersionControl
     public static function getVCS($repo)
     {
         $vcs = [
-            'git' => ['mozilla_org'],
+            'git' => ['firefox_ios', 'mozilla_org'],
             'hg'  => [],
-            'svn' => ['firefox_ios'],
+            'svn' => [],
         ];
         $vcs['hg'] = array_merge(
             Project::getDesktopRepositories(),
@@ -188,26 +188,6 @@ class VersionControl
     }
 
     /**
-     * Generate a path to the subversion repo for the file
-     *
-     * @param  string $locale locale code
-     * @param  string $repo   repository name
-     * @param  string $path   Entity name representing the local file
-     * @return string Path to the file in remote subversion repository
-     */
-    public static function svnPath($locale, $repo, $path)
-    {
-        if ($repo == 'firefox_ios') {
-            $file_path = "projects/l10n-misc/trunk/firefox-ios/{$locale}/firefox-ios.xliff";
-        } else {
-            $file_path = '';
-        }
-
-        return 'https://viewvc.svn.mozilla.org/vc/'
-               . $file_path . '?view=markup';
-    }
-
-    /**
      * Generate a path to the GitHub repo for the file.
      * Only mozilla.org is supported for now.
      *
@@ -219,15 +199,20 @@ class VersionControl
     public static function gitPath($locale, $repo, $path)
     {
         switch ($repo) {
+            case 'firefox_ios':
+                $repo = 'firefoxios-l10n';
+                $file_path = 'firefox-ios.xliff';
+                break;
             case 'mozilla_org':
-            default:
                 $repo = 'www.mozilla.org';
+                $file_path = self::extractFilePath($path);
+                break;
+            default:
+                $file_path = $path;
                 break;
         }
 
-        return 'https://github.com/mozilla-l10n/'
-               . $repo . '/blob/master/'
-               . $locale . '/' . self::extractFilePath($path);
+        return "https://github.com/mozilla-l10n/{$repo}/blob/master/{$locale}/$file_path";
     }
 
     /**

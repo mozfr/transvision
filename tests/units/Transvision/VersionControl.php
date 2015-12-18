@@ -21,7 +21,7 @@ class VersionControl extends atoum\test
                 'central', 'hg',
             ],
             [
-                'firefox_ios', 'svn',
+                'firefox_ios', 'git',
             ],
         ];
     }
@@ -131,38 +131,15 @@ class VersionControl extends atoum\test
                 ->isEqualTo($d);
     }
 
-    public function svnFileDP()
+    public function gitFileDP()
     {
         return [
-            [
-                'es-ES',
-                'random_repo',
-                'mozilla_org/firefox/os/faq.lang:c71a7a50',
-                'https://viewvc.svn.mozilla.org/vc/?view=markup',
-            ],
             [
                 'it',
                 'firefox_ios',
                 'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
-                'https://viewvc.svn.mozilla.org/vc/projects/l10n-misc/trunk/firefox-ios/it/firefox-ios.xliff?view=markup',
+                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
             ],
-        ];
-    }
-
-    /**
-     * @dataProvider svnFileDP
-     */
-    public function testSvnFile($a, $b, $c, $d)
-    {
-        $obj = new _VersionControl();
-        $this
-            ->string($obj->svnPath($a, $b, $c))
-                ->isEqualTo($d);
-    }
-
-    public function gitFileDP()
-    {
-        return [
             [
                 'sr',
                 'mozilla_org',
@@ -174,6 +151,12 @@ class VersionControl extends atoum\test
                 'mozilla_org',
                 'mozilla_org/firefox/os/faq.lang:c71a7a50',
                 'https://github.com/mozilla-l10n/www.mozilla.org/blob/master/es-ES/firefox/os/faq.lang',
+            ],
+            [
+                'fr',
+                'unknown',
+                'test/file.properties',
+                'https://github.com/mozilla-l10n/unknown/blob/master/fr/test/file.properties',
             ],
         ];
     }

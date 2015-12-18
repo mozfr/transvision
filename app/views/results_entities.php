@@ -16,19 +16,12 @@ $table = "
 $current_repo = $check['repo'];
 // Display results
 foreach ($entities as $entity) {
-    switch ($current_repo) {
-        case 'mozilla_org':
-            $path_locale1 = VersionControl::gitPath($source_locale, $current_repo, $entity);
-            $path_locale2 = VersionControl::gitPath($locale, $current_repo, $entity);
-            break;
-        case 'firefox_ios':
-            $path_locale1 = VersionControl::svnPath($source_locale, $current_repo, $entity);
-            $path_locale2 = VersionControl::svnPath($locale, $current_repo, $entity);
-            break;
-        default:
-            $path_locale1 = VersionControl::hgPath($source_locale, $current_repo, $entity);
-            $path_locale2 = VersionControl::hgPath($locale, $current_repo, $entity);
-            break;
+    if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
+        $path_locale1 = VersionControl::gitPath($source_locale, $current_repo, $entity);
+        $path_locale2 = VersionControl::gitPath($locale, $current_repo, $entity);
+    } else {
+        $path_locale1 = VersionControl::hgPath($source_locale, $current_repo, $entity);
+        $path_locale2 = VersionControl::hgPath($locale, $current_repo, $entity);
     }
 
     // Escape strings for HTML display
@@ -48,16 +41,10 @@ foreach ($entities as $entity) {
         // Highlight non-breaking spaces only after strings have been escaped
         $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string2);
 
-        switch ($current_repo) {
-            case 'mozilla_org':
-                $path_locale3 = VersionControl::gitPath($locale2, $current_repo, $entity);
-                break;
-            case 'firefox_ios':
-                $path_locale3 = VersionControl::svnPath($locale2, $current_repo, $entity);
-                break;
-            default:
-                $path_locale3 = VersionControl::hgPath($locale2, $current_repo, $entity);
-                break;
+        if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
+            $path_locale3 = VersionControl::gitPath($locale2, $current_repo, $entity);
+        } else {
+            $path_locale3 = VersionControl::hgPath($locale2, $current_repo, $entity);
         }
 
         // Link to entity

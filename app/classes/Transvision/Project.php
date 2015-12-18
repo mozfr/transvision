@@ -251,7 +251,7 @@ class Project
             $context = 'gaia';
         }
 
-        // Firefox for iOS: no mapping
+        // Firefox for iOS
         $locale_mappings['firefox_ios'] = [
             'es-AR' => 'es',
             'es-ES' => 'es',
