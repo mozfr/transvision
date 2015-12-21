@@ -79,6 +79,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
 <?php endforeach?>
     <link rel="shortcut icon" type="image/x-icon" href="https://www.mozfr.org/favicon.ico" />
+    <link rel="alternate" type="application/rss+xml" title="Changelog RSS" href="/rss" />
   </head>
 <body id="<?= $page ?>">
   <div id="links-top" class="links">

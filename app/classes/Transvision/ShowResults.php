@@ -164,8 +164,8 @@ class ShowResults
     public static function highlight($string, $locale = 'fr')
     {
         $replacements = [
-            ' '  => '<span class="highlight-gray"> </span>',
-            '…'  => '<span class="highlight-gray">…</span>',
+            ' '   => '<span class="highlight-gray"> </span>',
+            '…'   => '<span class="highlight-gray">…</span>',
         ];
 
         switch ($locale) {
@@ -274,10 +274,10 @@ class ShowResults
             }
 
             $replacements = [
-                ' '          => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
-                ' '          => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
-                '…'          => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-                '&hellip;'   => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
+                ' '            => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
+                '…'            => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                '&hellip;'     => '<span class="highlight-gray">…</span>', // right ellipsis highlight
             ];
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);

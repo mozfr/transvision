@@ -4,6 +4,7 @@ $urls = [
     '/'                 => 'root',
     'news'              => 'changelog',
     'changelog.php'     => 'changelog',
+    'rss'               => 'rss',
     'stats'             => 'stats',
     'repocomparizon'    => 'repocomp',
     'repocomparison'    => 'repocomp',
