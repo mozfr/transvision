@@ -19,7 +19,7 @@ if (isset($_GET['locale'])) {
     include MODELS . 'tmx_downloading.php';
     include VIEWS . 'tmx_downloading.php';
 } else {
-    $javascript_include = ['select_all.js'];
+    $javascript_include = ['/js/select_all.js'];
     $l10n = new \tinyl10n\ChooseLocale($locales_list);
     $locale = $l10n->getCompatibleLocale();
     include VIEWS . 'tmx_downloads.php';

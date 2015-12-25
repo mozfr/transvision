@@ -7,7 +7,7 @@ $check['repo']  = isset($check['repo']) ? $check['repo'] : 'aurora';
 $source_locale  = isset($source_locale) ? $source_locale : 'en-US';
 $locale         = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
-$base_js        = ['base.js'];
+$base_js        = ['/js/base.js'];
 $base_css       = ['transvision.css'];
 $cache_bust     = '?v=' . VERSION;
 
@@ -121,9 +121,8 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
   <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
   <script src="/assets/clipboard.js/clipboard.js-built.js?v=<?= VERSION ?>"></script>
-
 <?php foreach ($javascript_include as $js_file):?>
-  <script src="/js/<?= $js_file . $cache_bust ?>"></script>
+  <script src="<?= $js_file . $cache_bust ?>"></script>
 <?php endforeach?>
 
   <script>

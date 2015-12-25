@@ -39,6 +39,30 @@
                     }
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "devbridge/jQuery-Autocomplete",
+                "type": "component",
+                "version": "1.2.24",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/devbridge/jQuery-Autocomplete/archive/v1.2.24.zip"
+                },
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/devbridge/jQuery-Autocomplete.git",
+                    "reference": "1.2.24"
+                },
+                "extra": {
+                    "component": {
+                        "scripts": [
+                            "dist/jquery.autocomplete.min.js"
+                        ]
+                    }
+                }
+            }
         }
     ],
 
@@ -48,6 +72,7 @@
 
     "require": {
         "components/jquery": "~1.1",
+        "devbridge/jQuery-Autocomplete": "~1.2.",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",

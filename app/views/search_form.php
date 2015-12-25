@@ -1,8 +1,9 @@
 <?php
 namespace Transvision;
 
-// Include external JavaScript
-$javascript_include[] = 'main_search.js';
+// Include JavaScript
+$javascript_include[] = '/js/main_search.js';
+$javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
 
 ?>
   <div id="current">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>

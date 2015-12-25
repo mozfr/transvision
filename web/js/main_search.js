@@ -111,4 +111,30 @@ $(document).ready(function() {
         $(this).hide();
     });
 
+    // Autocomplete search suggestions in main search box using our own API
+    $('#recherche').autocomplete({
+        serviceUrl: function (query){
+            return '/api/v1/tm/'
+                + $('#repository').val() + '/'
+                + $('#source_locale').val() + '/'
+                + $('#target_locale').val() + '/'
+                + query + '/';
+        },
+        params: 'max_results=10',
+        minChars: 2,
+        transformResult: function(response) {
+            var data = JSON.parse(response);
+            return {
+                suggestions: $.map(data, function(dataItem) {
+                    return {
+                        value: dataItem.source,
+                        data: dataItem.target
+                    };
+                })
+            };
+        },
+        onSelect: function() {
+            $("#searchform").submit();
+        }
+    });
 });
