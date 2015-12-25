@@ -13,8 +13,8 @@ $(document).ready(function() {
 
     // Associate code to link to hide/display top menu.
     $('#links-top-button').click(function(e) {
-      e.preventDefault();
-      hideMenuButton(400);
+        e.preventDefault();
+        hideMenuButton(400);
     });
 
     // Associate code to toggle search options on small screens.
