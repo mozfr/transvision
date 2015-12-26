@@ -1,13 +1,15 @@
 sudo: false
 language: php
 php:
-  - 5.4
-  - 5.5
+  - 5.6
+  - 7.0
 before_script:
+  ## Disabling xdebug
+  - phpenv config-rm xdebug.ini
   ## Composer
   - composer self-update
   - composer install --no-interaction --prefer-source
-  ## travis configuration
+  ## Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/
