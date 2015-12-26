@@ -35,6 +35,61 @@ class ShowResults
     }
 
     /**
+     * Return an array of suggestions from our Translation Memory API. Unlike
+     * other services, we return values from both source and target languages.
+     *
+     * @param array  $source_strings Matches from source strings
+     * @param array  $target_strings Matches from target strings
+     * @param string $search         The string to search for
+     * @param int    $max_results    Optional, default to 10, the max number of results we return
+     *
+     * @return array An array of strings
+     */
+    public static function getSuggestionsResults($source_strings, $target_strings, $search, $max_results = 10)
+    {
+        // Only interested in unique strings (values, not IDs).
+        $data = [
+            'source' => array_unique(array_values($source_strings)),
+            'target' => array_unique(array_values($target_strings)),
+        ];
+        $output = [
+            'source' => [],
+            'target' => [],
+        ];
+        $flat_output = [];
+
+        // Assign quality to each string in each group (source, target)
+        foreach ($data as $group => $group_strings) {
+            foreach ($group_strings as $single_string) {
+                $quality = Strings::levenshteinQuality($search, $single_string);
+                $output[$group][$single_string] = $quality;
+            }
+        }
+
+        // Determine how many suggestions we should display
+        $limits = [
+            'source' => $max_results / 2,
+            'target' => $max_results / 2,
+        ];
+        if (count($output['source']) < $limits['source']) {
+            $limits['target'] = $max_results - count($output['source']);
+        }
+        if (count($output['target']) < $limits['target']) {
+            $limits['source'] = $max_results - count($output['target']);
+        }
+
+        // Sort them by quality, display higher quality results first
+        foreach ($output as $group => $group_strings) {
+            natsort($group_strings);
+            $suggestions = array_keys(array_reverse($group_strings));
+            array_splice($suggestions, $limits[$group]);
+            $flat_output = array_merge($flat_output, $suggestions);
+        }
+
+        return $flat_output;
+    }
+
+    /**
      * Return an array of search results from our Translation Memory API
      * service with a quality index based on the levenshtein distance.
      *

@@ -41,7 +41,10 @@ class API
     public $parameters;
     public $extra_parameters;
     public $api_versions = ['v1' => 'stable'];
-    public $services = ['entity', 'locales', 'repositories', 'search', 'tm', 'versions'];
+    public $services = [
+        'entity', 'locales', 'repositories', 'search',
+        'suggestions', 'tm', 'versions',
+    ];
     public $error;
     public $logging = true;
     public $logger;
@@ -214,6 +217,29 @@ class API
                 }
 
                 break;
+            case 'repositories':
+                // ex: api/repositories/
+                // ex: api/repositories/fr/
+                // Generated from Project class
+                // There is one optional parameter, a locale code
+                if (isset($this->parameters[2])) {
+                    $match = false;
+
+                    foreach (Project::getRepositories() as $repository) {
+                        if ($this->verifyLocaleExists($this->parameters[2], $repository)) {
+                            $match = true;
+                            break;
+                        }
+                    }
+
+                    if (! $match) {
+                        $this->log("The locale queried ({$this->parameters[2]}) is not supported");
+
+                        return false;
+                    }
+                }
+
+                break;
             case 'search':
             // ex: /api/v1/search/string/central/en-US/fr/Bookmark/?case_sensitive=1
                 if (! $this->verifyEnoughParameters(7)) {
@@ -240,6 +266,9 @@ class API
                 }
 
                 break;
+            case 'suggestions':
+            // Use the same settings as 'tm'
+            // ex: /api/v1/suggestions/release/en-US/fr/string/Home%20page/?max_results=3
             case 'tm':
             // ex: /api/v1/tm/release/en-US/fr/string/Home%20page/?max_results=3&min_quality=80
                 if (! $this->verifyEnoughParameters(6)) {
@@ -256,29 +285,6 @@ class API
 
                 if (! $this->verifyLocaleExists($this->parameters[4], $this->parameters[2])) {
                     return false;
-                }
-
-                break;
-            case 'repositories':
-                // ex: api/repositories/
-                // ex: api/repositories/fr/
-                // Generated from Project class
-                // There is one optional parameter, a locale code
-                if (isset($this->parameters[2])) {
-                    $match = false;
-
-                    foreach (Project::getRepositories() as $repository) {
-                        if ($this->verifyLocaleExists($this->parameters[2], $repository)) {
-                            $match = true;
-                            break;
-                        }
-                    }
-
-                    if (! $match) {
-                        $this->log("The locale queried ({$this->parameters[2]}) is not supported");
-
-                        return false;
-                    }
                 }
 
                 break;
