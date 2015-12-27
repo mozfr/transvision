@@ -94,6 +94,12 @@ class API extends atoum\test
             ['http://foobar/api/v1/locales/', false], // Not enough parameters
             ['http://foobar/api/v1/locales/wrong_repo/', false],
 
+            // repositories service
+            ['http://foobar/api/v1/repositories/', true],
+            ['http://foobar/api/v1/repositories/fr/', true],
+            ['http://foobar/api/v1/repositories/foobar/', false],
+            ['http://foobar/api/v1/repositories/en-US/', true],
+
             // search service
             ['http://foobar/api/v1/search/strings/central/en-US/fr/Add%20%20Bookmarks/', true],
             ['http://foobar/api/v1/search/entities/central/en-US/fr/edit-Bookmark/', true],
@@ -103,17 +109,17 @@ class API extends atoum\test
             ['http://foobar/api/v1/search/strings/central/wrong_source/fr/', false],
             ['http://foobar/api/v1/search/strings/central/en-US/wrong_target/', false],
 
+            // suggestions service
+            ['http://foobar/api/v1/suggestions/central/en-US/fr/', false], // Not enough parameters
+            ['http://foobar/api/v1/suggestions/wrong_repo/en-US/fr/hello world', false],
+            ['http://foobar/api/v1/suggestions/central/wrong_source/fr/hello world', false],
+            ['http://foobar/api/v1/suggestions/central/en-US/wrong_target/hello world', false],
+
             // tm service
             ['http://foobar/api/v1/tm/central/en-US/fr/', false], // Not enough parameters
             ['http://foobar/api/v1/tm/wrong_repo/en-US/fr/hello world', false],
             ['http://foobar/api/v1/tm/central/wrong_source/fr/hello world', false],
             ['http://foobar/api/v1/tm/central/en-US/wrong_target/hello world', false],
-
-            // repositories service
-            ['http://foobar/api/v1/repositories/', true],
-            ['http://foobar/api/v1/repositories/fr/', true],
-            ['http://foobar/api/v1/repositories/foobar/', false],
-            ['http://foobar/api/v1/repositories/en-US/', true],
 
             // versions service
             ['http://foobar/api/versions/', true],
@@ -142,6 +148,7 @@ class API extends atoum\test
             ['http://foobar/api/v1/entity/central/?id=myid', true],
             ['http://foobar/api/v1/locales/', true],
             ['http://foobar/api/v1/search/strings/central/en-US/fr/Add%20%20Bookmarks/', true],
+            ['http://foobar/api/v1/suggestions/aurora/en-US/it/', true],
             ['http://foobar/api/v1/tm/central/en-US/fr/', true],
             ['http://foobar/api/versions/', true],
         ];

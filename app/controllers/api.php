@@ -23,6 +23,9 @@ switch ($request->getService()) {
     case 'locales':
         include MODELS . 'api/repository_locales.php';
         break;
+    case 'repositories':
+        include MODELS . 'api/repositories_list.php';
+        break;
     case 'search':
         // We chain 2 queries to match both strings and entities
         if ($request->parameters[2] == 'all') {
@@ -39,11 +42,11 @@ switch ($request->getService()) {
             include MODELS . 'api/repository_search.php';
         }
         break;
+    case 'suggestions':
+        include MODELS . 'api/suggestions.php';
+        break;
     case 'tm':
         include MODELS . 'api/translation_memory.php';
-        break;
-    case 'repositories':
-        include MODELS . 'api/repositories_list.php';
         break;
     case 'versions':
         include MODELS . 'api/versions.php';

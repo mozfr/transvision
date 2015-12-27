@@ -114,7 +114,7 @@ $(document).ready(function() {
     // Autocomplete search suggestions in main search box using our own API
     $('#recherche').autocomplete({
         serviceUrl: function (query){
-            return '/api/v1/tm/'
+            return '/api/v1/suggestions/'
                 + $('#repository').val() + '/'
                 + $('#source_locale').val() + '/'
                 + $('#target_locale').val() + '/'
@@ -127,14 +127,14 @@ $(document).ready(function() {
             return {
                 suggestions: $.map(data, function(dataItem) {
                     return {
-                        value: dataItem.source,
-                        data: dataItem.target
+                        value: dataItem,
+                        data: dataItem
                     };
                 })
             };
         },
         onSelect: function() {
-            $("#searchform").submit();
+            $('#searchform').submit();
         }
     });
 });
