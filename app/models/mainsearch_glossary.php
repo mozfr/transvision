@@ -16,13 +16,6 @@ foreach ($search as $word) {
 // Limit results to 200
 array_splice($locale1_strings, 200);
 
-// Get the locale results
-$results = [];
-
-foreach ($locale1_strings as $key => $str) {
-    $results[$key] = $tmx_target[$key];
-}
-
 $perfect = $imperfect = [];
 
 // We want to test compound words as well, /ex: 'switch to'
@@ -77,7 +70,7 @@ $imperfect = array_unique($imperfect);
 $get_results = function ($arr) use ($tmx_target) {
     $results = [];
     foreach ($arr as $val) {
-        if ($tmx_target[$val] != '') {
+        if (isset($tmx_target[$val]) && $tmx_target[$val] != '') {
             $results[$val] = $tmx_target[$val];
         }
     }
