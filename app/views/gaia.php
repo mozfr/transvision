@@ -309,16 +309,23 @@ $table = '<table id="englishchanges" class="collapsable">'
        . '</tr>';
 
 foreach ($common_keys as $key => $val) {
+    $get_localized_string = function ($id) use ($key, $strings) {
+        // Avoid warnings if the string is not localized
+
+        return isset($strings[$id][$key]) ?
+            $strings[$id][$key] :
+            '<em class="error">missing string</em>';
+    };
     if (trim(strtolower($strings[$englishchanges[0] . '-en-US'][$key])) != trim(strtolower($strings[$englishchanges[1] . '-en-US'][$key]))) {
         $table .=
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
             . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">'
             . ShowResults::highlight(Utils::secureText($strings[$englishchanges[0] . '-en-US'][$key]), 'en-US')
-            . '<br><small>' . Utils::secureText($strings[$englishchanges[0]][$key]) . '</small></div></td>'
+            . '<br><small>' . $get_localized_string($englishchanges[0]) . '</small></div></td>'
             . '<td><span class="celltitle">Gaia' . $repo_two . '</span><div class="string">'
             . ShowResults::highlight(Utils::secureText($strings[$englishchanges[1] . '-en-US'][$key]), 'en-US')
-            . '<br><small>' . Utils::secureText($strings[$englishchanges[1]][$key]) . '</small></div></td>'
+            . '<br><small>' . $get_localized_string($englishchanges[1]) . '</small></div></td>'
             . '</tr>';
     }
 }
