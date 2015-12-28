@@ -13,6 +13,11 @@ error_log('Mozilla.org: extraction of strings');
 
 foreach (Files::getFilenamesInFolder(GIT . 'mozilla_org/') as $locale) {
     $path = GIT . "mozilla_org/{$locale}/";
+
+    if (! is_dir($path)) {
+        continue;
+    }
+
     $mozilla_org_files = Dotlang::getLangFilesList($path);
 
     $mozilla_org_files = array_map(
