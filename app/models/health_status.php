@@ -6,6 +6,7 @@ use VCS\Git;
 use VCS\Mercurial;
 use VCS\Subversion;
 
+$projects = [];
 foreach (Project::getRepositories() as $repo) {
 
     // Get the right locale for this repo
@@ -243,45 +244,7 @@ foreach (array_keys($html) as $project) {
     }
 }
 
-// Get stats
-$stats = Health::getStats($projects);
-$translated = $stats['translated'];
-$reference = $stats['total'];
-
-$completion = round(($translated / $reference) * 100, 2);
-$completion = $completion > 100 ? 100 : $completion;
-
-// Get color from completion value
-$color = Utils::redYellowGreen($completion);
-
-// Get active projects
-$active_projects = '<h4>Active projects:</h4><ul>';
-if (isset($projects['release']['repos'])) {
-    $active_projects .= '<li><b>Desktop:</b> ';
-    foreach (array_keys($projects['release']['repos']) as $repo) {
-        if (in_array($repo, array_keys(Project::$components_names))) {
-            $active_projects .= Project::$components_names[$repo] . ', ';
-        }
-    }
-    $active_projects .= '</li>';
-}
-
-if (isset($projects['gaia'])) {
-    $active_projects .= '<li><b>Gaia:</b> ';
-    foreach (array_keys($projects['gaia']) as $repo) {
-        $active_projects .= Project::getRepositoriesNames()[$repo] . ', ';
-    }
-    $active_projects .= '</li>';
-}
-
-if (isset($projects['others'])) {
-    $active_projects .= '<li><b>Others:</b> ';
-    foreach (array_keys($projects['others']) as $repo) {
-        $active_projects .= Project::getRepositoriesNames()[$repo] . ', ';
-    }
-    $active_projects .= '</li>';
-}
-$active_projects .= '</ul>';
+$active_projects = '';
 
 // Build locales select
 $target_locales_list = '';
@@ -291,4 +254,46 @@ foreach ($locales_list as $loc) {
     }
     $ch = ($loc == $locale) ? ' selected' : '';
     $target_locales_list .= "\t<option{$ch} value={$loc}>{$loc}</option>\n";
+}
+
+// Get stats
+if (! empty($projects)) {
+    $stats = Health::getStats($projects);
+    $translated = $stats['translated'];
+    $reference = $stats['total'];
+    $completion = round(($translated / $reference) * 100, 2);
+    $completion = $completion > 100 ? 100 : $completion;
+
+    // Get color from completion value
+    $color = Utils::redYellowGreen($completion);
+
+    // Get active projects
+    if (isset($projects['release']['repos'])) {
+        $active_projects .= '<li><b>Desktop:</b> ';
+        $tmp_projects = [];
+        foreach (array_keys($projects['release']['repos']) as $repo) {
+            if (in_array($repo, array_keys(Project::$components_names))) {
+                $tmp_projects[] = Project::$components_names[$repo];
+            }
+        }
+        $active_projects .= implode(', ', $tmp_projects) . '</li>';
+    }
+
+    if (isset($projects['gaia'])) {
+        $active_projects .= '<li><b>Gaia:</b> ';
+        $tmp_projects = [];
+        foreach (array_keys($projects['gaia']) as $repo) {
+            $tmp_projects[] = Project::getRepositoriesNames()[$repo];
+        }
+        $active_projects .= implode(', ', $tmp_projects) . '</li>';
+    }
+
+    if (isset($projects['others'])) {
+        $active_projects .= '<li><b>Others:</b> ';
+        $tmp_projects = [];
+        foreach (array_keys($projects['others']) as $repo) {
+            $tmp_projects[] = Project::getRepositoriesNames()[$repo];
+        }
+        $active_projects .= implode(', ', $tmp_projects) . '</li>';
+    }
 }
