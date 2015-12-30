@@ -40,11 +40,6 @@ if (isset($_GET['search_type'])
 // Locales list for the select boxes
 $loc_list = Project::getRepositoryLocales($check['repo']);
 
-// Deal with special cases depending on checkboxes ticked on or off
-if ($check['wild']) {
-    $my_search = str_replace('*', '.+', $my_search);
-}
-
 // Search for perfectMatch
 if ($check['perfect_match']) {
     $my_search = trim('^' . $my_search . '$');

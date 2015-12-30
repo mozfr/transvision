@@ -149,15 +149,6 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="wild"
-                               id="wild"
-                               value="wild"
-                               <?=Utils::checkboxState($check['wild'])?>
-                         />
-                        <label for="wild">Wildcard (*)</label>
-                    </span>
-                    <span>
-                        <input type="checkbox"
                                name="whole_word"
                                id="whole_word"
                                value="whole_word"
