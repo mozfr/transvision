@@ -1,6 +1,16 @@
 <?php
 namespace Transvision;
 
+// Closure to get extra parameters set
+$get_option = function ($option) use ($request) {
+    $value = 0;
+    if (isset($request->extra_parameters[$option])
+        && (int) $request->extra_parameters[$option] != 0) {
+        $value = (int) $request->extra_parameters[$option];
+    }
+
+    return $value;
+};
 $repositories = ($request->parameters[2] == 'global')
     ? Project::getRepositories()
     : [$request->parameters[2]];
@@ -12,12 +22,12 @@ $target_strings_merged = [];
 $initial_search = Utils::cleanString($request->parameters[5]);
 $terms = Utils::uniqueWords($initial_search);
 
-// Regex options (not currenty used)
-$delimiter = '~';
-$whole_word = isset($check['whole_word']) ? '\b' : '';
-$case_sensitive = isset($check['case_sensitive']) ? '' : 'i';
-$regex = $delimiter . $whole_word . $initial_search . $whole_word .
-         $delimiter . $case_sensitive . 'u';
+// Define our regex
+$search = (new Search)
+    ->setSearchTerms(Utils::cleanString($initial_search))
+    ->setRegexWholeWords($get_option('whole_word'))
+    ->setRegexCaseInsensitive($get_option('case_sensitive'))
+    ->setRegexPerfectMatch($get_option('perfect_match'));
 
 // We loop through all repositories and merge the results
 foreach ($repositories as $repository) {
@@ -25,25 +35,13 @@ foreach ($repositories as $repository) {
     $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
 
     foreach ($terms as $word) {
-        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
-                 $whole_word . $delimiter . $case_sensitive . 'u';
-        $source_strings = preg_grep($regex, $source_strings);
+        $search->setRegexSearchTerms($word);
+        $source_strings = preg_grep($search->getRegex(), $source_strings);
     }
 
     $source_strings_merged = array_merge($source_strings, $source_strings_merged);
     $target_strings_merged = array_merge($target_strings, $target_strings_merged);
 }
-
-// Closure to get extra parameters set
-$get_option = function ($option) use ($request) {
-    $value = 0;
-    if (isset($request->extra_parameters[$option])
-        && (int) $request->extra_parameters[$option] != 0) {
-        $value = (int) $request->extra_parameters[$option];
-    }
-
-    return $value;
-};
 
 return $json = ShowResults::getTranslationMemoryResults(
     array_keys($source_strings_merged),

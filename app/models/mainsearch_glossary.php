@@ -5,12 +5,11 @@ namespace Transvision;
 $tmx_source = Utils::getRepoStrings($source_locale, $check['repo']);
 $tmx_target = Utils::getRepoStrings($locale, $check['repo']);
 $locale1_strings = $tmx_source;
-$search = Utils::uniqueWords($initial_search);
+$search_terms = Utils::uniqueWords($initial_search);
 
-foreach ($search as $word) {
-    $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
-             $whole_word . $delimiter . $case_sensitive . 'u';
-    $locale1_strings = preg_grep($regex, $locale1_strings);
+foreach ($search_terms as $word) {
+    $search->setRegexSearchTerms($word);
+    $locale1_strings = preg_grep($search->getRegex(), $locale1_strings);
 }
 
 // Limit results to 200
@@ -19,16 +18,16 @@ array_splice($locale1_strings, 200);
 $perfect = $imperfect = [];
 
 // We want to test compound words as well, /ex: 'switch to'
-$compound_search = (count($search) > 1) ? true : false;
+$compound_search = (count($search_terms) > 1) ? true : false;
 
-foreach ($search as $word) {
+foreach ($search_terms as $word) {
     // If the word is one or two letters, we skip it
     if (mb_strlen($word) < 3) {
         continue;
     }
 
     // Perfect matches are hits for a single word or a compound word
-    if ($compound_search || count($search) == 1) {
+    if ($compound_search || count($search_terms) == 1) {
         $alternate1 = ucfirst($word);
         $alternate2 = ucwords($word);
         $alternate3 = strtolower($word);

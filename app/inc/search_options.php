@@ -40,18 +40,12 @@ if (isset($_GET['search_type'])
 // Locales list for the select boxes
 $loc_list = Project::getRepositoryLocales($check['repo']);
 
-// Search for perfectMatch
-if ($check['perfect_match']) {
-    $my_search = trim('^' . $my_search . '$');
-} else {
-    $my_search = preg_quote($my_search, '/');
-}
-
-// Regex options
-$case_sensitive = $check['case_sensitive'] ? '' : 'i';
-$whole_word     = $check['whole_word']     ? '\b' : '';
-$delimiter      = '~';
-$main_regex     = $delimiter . $whole_word . $my_search . $whole_word . $delimiter . $case_sensitive;
+// Define our regex
+$search = (new Search)
+    ->setSearchTerms(Utils::cleanString($_GET['recherche']))
+    ->setRegexWholeWords($check['whole_word'])
+    ->setRegexCaseInsensitive($check['case_sensitive'])
+    ->setRegexPerfectMatch($check['perfect_match']);
 
 // build the repository switcher
 $repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $check['repo'], true);

@@ -1,22 +1,20 @@
 <?php
 namespace Transvision;
 
-if ($check['perfect_match']) {
-    $locale1_strings = preg_grep($main_regex, $tmx_source);
-    $locale2_strings = preg_grep($main_regex, $tmx_target);
+if ($search->isPerfectMatch()) {
+    $locale1_strings = preg_grep($search->getRegex(), $tmx_source);
+    $locale2_strings = preg_grep($search->getRegex(), $tmx_target);
 } else {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
     foreach (Utils::uniqueWords($initial_search) as $word) {
-        $regex = $delimiter . $whole_word . preg_quote($word, $delimiter) .
-                 $whole_word . $delimiter . $case_sensitive . 'u';
-        $locale1_strings = preg_grep($regex, $locale1_strings);
-        $locale2_strings = preg_grep($regex, $locale2_strings);
+        $locale1_strings = preg_grep($search->getRegex(), $locale1_strings);
+        $locale2_strings = preg_grep($search->getRegex(), $locale2_strings);
     }
 }
 
 if ($check['search_type'] == 'strings_entities') {
-    $entities = ShowResults::searchEntities($tmx_source, $main_regex);
+    $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
     }
