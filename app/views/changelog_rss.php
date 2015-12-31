@@ -41,6 +41,8 @@ foreach ($changelog as $release => $changes) {
         $output .= isset($attributes['authors'])
                     ? $authors($attributes['authors'])
                     : '';
+
+        $output .= '<br>';
     }
     $output .= $github_link($release);
     $output .= ' ]]></description>' . "\n";
