@@ -13,6 +13,44 @@ var check_default = function(id) {
 };
 
 $(document).ready(function() {
+    // Show suggestions only for strings and strings+entities
+    var check_suggestions = function() {
+        if (typeof $('#recherche').autocomplete() === 'undefined') {
+            $('#recherche').autocomplete({
+                serviceUrl: function (query){
+                    return '/api/v1/suggestions/'
+                        + $('#repository').val() + '/'
+                        + $('#source_locale').val() + '/'
+                        + $('#target_locale').val() + '/'
+                        + query + '/';
+                },
+                params: 'max_results=10',
+                minChars: 2,
+                transformResult: function(response) {
+                    var data = JSON.parse(response);
+                    return {
+                        suggestions: $.map(data, function(dataItem) {
+                            return {
+                                value: dataItem,
+                                data: dataItem
+                            };
+                        })
+                    };
+                },
+                onSelect: function() {
+                    $('#searchform').submit();
+                }
+            });
+        }
+        if ($('#search_type').val() != 'entities') {
+            $('#recherche').autocomplete().enable();
+        } else {
+            $('#recherche').autocomplete().disable();
+        }
+    };
+    // Call it once when the page is ready
+    check_suggestions();
+
     /* Change the label below the search field to reflect the value of "Search in".
      * Also checks if the default checkbox needs to be selected.
      */
@@ -20,6 +58,8 @@ $(document).ready(function() {
         var option_label = $('#search_type option[value="' + this.value + '"]').text();
         $('#searchcontextvalue').text(option_label);
         check_default(this.id);
+        // Check if suggestions shoul be disabled or enabled
+        check_suggestions();
     });
 
     // Associate code to repository switch in main search form.
@@ -109,32 +149,5 @@ $(document).ready(function() {
     $('#clear_search').on('click', function() {
         $('#recherche').val('').focus();
         $(this).hide();
-    });
-
-    // Autocomplete search suggestions in main search box using our own API
-    $('#recherche').autocomplete({
-        serviceUrl: function (query){
-            return '/api/v1/suggestions/'
-                + $('#repository').val() + '/'
-                + $('#source_locale').val() + '/'
-                + $('#target_locale').val() + '/'
-                + query + '/';
-        },
-        params: 'max_results=10',
-        minChars: 2,
-        transformResult: function(response) {
-            var data = JSON.parse(response);
-            return {
-                suggestions: $.map(data, function(dataItem) {
-                    return {
-                        value: dataItem,
-                        data: dataItem
-                    };
-                })
-            };
-        },
-        onSelect: function() {
-            $('#searchform').submit();
-        }
     });
 });
