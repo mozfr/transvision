@@ -24,7 +24,7 @@ $(document).ready(function() {
                         + $('#target_locale').val() + '/'
                         + query + '/';
                 },
-                params: 'max_results=10',
+                params: { max_results: 10 },
                 minChars: 2,
                 transformResult: function(response) {
                     var data = JSON.parse(response);
