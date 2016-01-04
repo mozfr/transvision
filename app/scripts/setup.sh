@@ -270,7 +270,7 @@ then
 else
     cd "${install}"
     CURRENT_TIP=$(git rev-parse HEAD)
-    LATEST_TAG=$(git for-each-ref refs/tags --sort='-committerdate' --format='%(objectname)' --count=1)
+    LATEST_TAG=$(git describe --abbrev=0 --tags | xargs -I {} git rev-list -n 1 {})
     if [ "${CURRENT_TIP}" = "${LATEST_TAG}" ]
     then
         DEV_VERSION=""
