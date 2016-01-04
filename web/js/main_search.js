@@ -22,7 +22,7 @@ $(document).ready(function() {
                         + $('#repository').val() + '/'
                         + $('#source_locale').val() + '/'
                         + $('#target_locale').val() + '/'
-                        + query + '/';
+                        + encodeURIComponent(query) + '/';
                 },
                 params: { max_results: 10 },
                 minChars: 2,
