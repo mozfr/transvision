@@ -201,10 +201,14 @@ h3 {
 #links-top {
     width: 100%;
     background: #fff;
-    display: block;
     margin: 0;
     padding: 50px 0 20px;
     float: left;
+    display: none;
+}
+
+.nojs #links-top {
+    display: block;
 }
 
 #links-top .container {
@@ -228,7 +232,11 @@ h3 {
     margin-right: 5px;
     width: 125px;
     height: 36px;
-    background: url(/img/menu.png) center -38px no-repeat transparent;
+    background: url(/img/menu.png) center 0 no-repeat transparent;
+}
+
+.nojs #links-top-button {
+    background-position: 0 -38px;
 }
 
 .selected_view,
@@ -242,6 +250,12 @@ h3 {
     text-align: center;
     font-weight: bold;
     padding: 0 30px;
+    margin-top: 20px;
+    display: none;
+}
+
+.nojs #noscript-warning {
+    display: block;
 }
 
 /* Tables */
