@@ -87,7 +87,7 @@
         "atoum/atoum" : "~2.0",
         "symfony/var-dumper": "~2.6",
         "fabpot/php-cs-fixer": "~1.4",
-        "pchevrel/verif": "0.3",
+        "pchevrel/verif": "0.4",
         "phpdocumentor/phpdocumentor": "2.*"
     },
 
