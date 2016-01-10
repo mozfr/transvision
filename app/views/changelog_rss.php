@@ -14,7 +14,7 @@ $output .= '  <link>https://transvision.mozfr.org/news/</link>' . "\n";
 foreach ($changelog as $release => $changes) {
     $section = '';
     $output .= '  <item>' . "\n";
-    $output .= '  <guid isPermaLink="false">' . sha1($release . date('W')) . '</guid>' . "\n";
+    $output .= '  <guid isPermaLink="false">' . sha1($release) . '</guid>' . "\n";
     $output .= '  <pubDate>' . date(DATE_RSS, strtotime($releases[$release])) . '</pubDate>' . "\n";
     $output .= '  <title>' . 'Version ' . $release . ' Release Notes</title>' . "\n";
     $output .= "  <link>https://transvision.mozfr.org/news/#v{$release}</link>\n";
