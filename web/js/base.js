@@ -51,10 +51,6 @@ $(document).ready(function() {
             .prop('selected', true);
     });
 
-    // Javascript is enabled, hide the menu without transitions
-    hideMenuButton(0);
-    $('#noscript-warning').hide();
-
     // Hides search options on small screens (check if the warning is displayed)
     if ($('.smallscreen_notices').is(':visible')) {
         $('#searchoptions').hide();

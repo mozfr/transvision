@@ -81,7 +81,10 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     <link rel="shortcut icon" type="image/x-icon" href="https://www.mozfr.org/favicon.ico" />
     <link rel="alternate" type="application/rss+xml" title="Changelog RSS" href="/rss" />
   </head>
-<body id="<?= $page ?>">
+<body id="<?= $page ?>" class="nojs">
+  <script>
+    document.getElementsByTagName('body')[0].className = 'jsEnabled';
+  </script>
   <div id="links-top" class="links">
     <div class="container">
       <?= $links ?>
