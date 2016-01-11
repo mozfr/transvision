@@ -41,6 +41,7 @@ foreach ($repositories as $repository) {
 
     $source_strings_merged = array_merge($source_strings, $source_strings_merged);
     $target_strings_merged = array_merge($target_strings, $target_strings_merged);
+    unset($source_strings, $target_strings);
 }
 
 return $json = ShowResults::getTranslationMemoryResults(
