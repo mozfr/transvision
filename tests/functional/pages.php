@@ -23,7 +23,6 @@ $pid = $output[0];
 sleep(3);
 
 $paths = [
-    ['channelcomparizon/', 200, 'Compare strings from channel to channel', 'Key'],
     ['channelcomparison/', 200, 'Compare strings from channel to channel', 'Key'],
     ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is hosted on the MozFR server'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
