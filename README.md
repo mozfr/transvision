@@ -71,9 +71,9 @@ Then switch to a new branch where you will work on the patch you want to propose
 ```bash
 git checkout -b my_new_branch
 ```
-- Launch unit tests:
+- Launch PHP-cs-fixer, unit and functional tests:
 ```bash
-php vendor/atoum/atoum/bin/atoum -d tests/units/
+start.sh -tests
 ```
 - Update dependencies with composer:
 ```bash
