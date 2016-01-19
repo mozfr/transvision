@@ -232,15 +232,17 @@ class Utils
         $locale = Project::getLocaleInContext($locale, $repository);
 
         $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
-
-        if (! $tmx = Cache::getKey($file)) {
-            if (is_file($file)) {
-                include $file;
-                Cache::setKey($file, $tmx);
-            }
+        if (! is_file($file)) {
+            return [];
         }
 
-        return $tmx !== false ? $tmx : [];
+        include $file;
+
+        if (! isset($tmx)) {
+            error_log('$tmx not set in file: ' . $file);
+        }
+
+        return $tmx;
     }
 
     /**
