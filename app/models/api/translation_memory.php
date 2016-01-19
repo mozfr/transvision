@@ -11,6 +11,7 @@ $get_option = function ($option) use ($request) {
 
     return $value;
 };
+
 $repositories = ($request->parameters[2] == 'global')
     ? Project::getRepositories()
     : [$request->parameters[2]];
@@ -32,21 +33,51 @@ $search = (new Search)
 // We loop through all repositories and merge the results
 foreach ($repositories as $repository) {
     $source_strings = Utils::getRepoStrings($request->parameters[3], $repository);
-    $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
 
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
         $source_strings = preg_grep($search->getRegex(), $source_strings);
     }
 
-    $source_strings_merged = array_merge($source_strings, $source_strings_merged);
-    $target_strings_merged = array_merge($target_strings, $target_strings_merged);
+    /*
+        If we don't have any match for a repo, no need to do heavy calculations,
+        just skip to the next repo.
+    */
+    if (empty($source_strings)) {
+        continue;
+    }
+
+    /*
+        We are only interested in target strings with keys in common with our
+        source strings. Not sending noise to getTranslationMemoryResults() has
+        a major performance and memory impact.
+    */
+    $target_strings = array_intersect_key(
+        Utils::getRepoStrings($request->parameters[4], $repository),
+        $source_strings
+    );
+
+    /*
+        We are not interested in keeping duplicate strings that have
+        different keys because this API does not take into account the
+        frequency of matches but the similarity of the strings.
+    */
+    $target_strings = array_unique($target_strings);
+
+    /*
+        The + operator is slightly faster than array_merge and also easier
+        to read. The functional difference doesn't matter in this case
+        (http://stackoverflow.com/questions/7059721/array-merge-versus/27717809#27717809)
+     */
+    $source_strings_merged += $source_strings;
+    $target_strings_merged += $target_strings;
+
     unset($source_strings, $target_strings);
 }
 
 return $json = ShowResults::getTranslationMemoryResults(
-    array_keys($source_strings_merged),
-    [$source_strings_merged, $target_strings_merged],
+    $source_strings_merged,
+    $target_strings_merged,
     $initial_search,
     $get_option('max_results'), // Cap results with the ?max_results=number option
     $get_option('min_quality') // Optional quality threshold defined by ?min_quality=50
