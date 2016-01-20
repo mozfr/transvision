@@ -44,7 +44,6 @@ class ShowResults extends atoum\test
         $source = $tmx;
         include TMX . 'fr/cache_fr_central.php';
         $target = $tmx;
-        $data = [$source, $target];
         $results = [
             // We use divisions so as to have real precise numbers for float comparizon
             [
@@ -74,8 +73,8 @@ class ShowResults extends atoum\test
 
         return [
             [
-                array_keys($source),
-                $data,
+                $source,
+                $target,
                 'Bookmark',
                 $results,
             ],
