@@ -45,29 +45,28 @@ class ShowResults extends atoum\test
         include TMX . 'fr/cache_fr_central.php';
         $target = $tmx;
         $results = [
-            // We use divisions so as to have real precise numbers for float comparizon
             [
               'source'  => 'Bookmark',
               'target'  => 'Marquer cette page',
-              'quality' => (float) 100,
+              'quality' => 100,
             ],
 
             [
               'source'  => 'Bookmark',
               'target'  => 'Marque-page',
-              'quality' => (float) 100,
+              'quality' => 100,
             ],
 
             [
               'source'  => 'Bookmarks',
               'target'  => 'Marque-pages',
-              'quality' => (float) 100 / 1.125,
+              'quality' => 88.89,
             ],
 
             [
               'source'  => 'New Bookmarks',
               'target'  => 'Nouveaux marque-pages',
-              'quality' => (float) 100 / 1.625,
+              'quality' => 61.54,
             ],
         ];
 

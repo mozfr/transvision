@@ -61,7 +61,7 @@ class ShowResults
         // Assign quality to each string in each group (source, target)
         foreach ($data as $group => $group_strings) {
             foreach ($group_strings as $single_string) {
-                $quality = Strings::levenshteinQuality($search, $single_string);
+                $quality = round(Strings::levenshteinQuality($search, $single_string), 2);
                 $output[$group][$single_string] = $quality;
             }
         }
@@ -110,7 +110,7 @@ class ShowResults
         foreach ($search_results as $set) {
             // We only want results for which we have a translation
             if ($set[1]) {
-                $quality = Strings::levenshteinQuality($search, $set[0]);
+                $quality = round(Strings::levenshteinQuality($search, $set[0]), 2);
 
                 if ($quality >= $min_quality) {
                     $output[] = [
