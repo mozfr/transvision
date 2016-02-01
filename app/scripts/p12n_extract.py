@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
-# This script is designed to work in Transvision
-# https://github.com/mozfr/transvision
+# This script is designed to work inside a fully functional Transvision
+# installation (https://github.com/mozfr/transvision)
 
 import argparse
 import collections
@@ -22,18 +22,22 @@ class ProductizationData():
     def __init__(self, install_path):
         '''Initialize object'''
 
-        # Check if the path to store files exists
+        # Check if the path to store files exists. If it doesn't, create it
         web_p12n_folder = os.path.join(install_path, 'web', 'p12n')
         if not os.path.exists(web_p12n_folder):
             os.makedirs(web_p12n_folder)
         self.output_folder = web_p12n_folder
 
+        # Create a dictionary that auto-generates keys when trying to set a
+        # a value for a key that doesn't exist (no need to check for its
+        # existence)
         nested_dict = lambda: collections.defaultdict(nested_dict)
 
         # Data storage
         self.data = nested_dict()
         self.errors = nested_dict()
         self.hashes = nested_dict()
+        self.enUS_searchplugins = {}
 
         # Initialize images with a default one
         self.images_list = [
@@ -49,17 +53,20 @@ class ProductizationData():
             'ElFTkSuQmCC'
         ]
 
-    def extract_splist_enUS(self, path, list_sp_enUS):
-        ''' Store in list_sp_enUS a list of en-US searchplugins (*.xml) in paths '''
+    def extract_splist_enUS(self, path, product):
+        '''Store in enUS_searchplugins a list of en-US searchplugins (*.xml) in paths.'''
+
         try:
+            if product not in self.enUS_searchplugins:
+                self.enUS_searchplugins[product] = []
             for searchplugin in glob.glob(os.path.join(path, '*.xml')):
                 searchplugin_noext = os.path.splitext(
                     os.path.basename(searchplugin))[0]
-                list_sp_enUS.append(searchplugin_noext)
+                self.enUS_searchplugins[product].append(searchplugin_noext)
         except:
             print 'Error: problem reading list of en-US searchplugins from {0}'.format(pathsource)
 
-    def extract_searchplugins_product(self, search_path, product, locale, channel, list_sp_enUS):
+    def extract_searchplugins_product(self, search_path, product, locale, channel):
         '''Extract information about searchplugings'''
 
         try:
@@ -88,8 +95,8 @@ class ProductizationData():
             else:
                 # en-US is different from all other locales: I must analyze all
                 # XML files in the folder, since some searchplugins are not used
-                # in en-US but from other locales
-                list_sp = list_sp_enUS
+                # in en-US but by other locales
+                list_sp = self.enUS_searchplugins[product]
 
             if locale != 'en-US':
                 # Get a list of all files inside search_path
@@ -97,7 +104,7 @@ class ProductizationData():
                     filename = os.path.basename(searchplugin)
                     # Remove extension
                     filename_noext = os.path.splitext(filename)[0]
-                    if filename_noext in list_sp_enUS:
+                    if filename_noext in self.enUS_searchplugins[product]:
                         # File exists but has the same name of an en-US
                         # searchplugin.
                         errors.append(
@@ -115,7 +122,7 @@ class ProductizationData():
                 sp_file = os.path.join(search_path, sp + '.xml')
                 existing_file = os.path.isfile(sp_file)
 
-                if sp in list_sp_enUS and existing_file and locale != 'en-US':
+                if sp in self.enUS_searchplugins[product] and existing_file and locale != 'en-US':
                     # There's a problem: file exists but has the same name of an
                     # en-US searchplugin. This file will never be picked at build
                     # time, so let's analyze en-US and use it for JSON, acting
@@ -125,7 +132,7 @@ class ProductizationData():
                 if existing_file:
                     try:
                         # Store md5 hash for this file. All files are very
-                        # small, so I don't bother creating a buffer
+                        # small, so I don't bother using a buffer
                         file_content = open(sp_file, 'rb').read()
                         self.hashes['locales'][locale][product][channel][
                             sp + '.xml'] = hashlib.md5(file_content).hexdigest()
@@ -218,7 +225,7 @@ class ProductizationData():
                             for node in nodes:
                                 image = node.childNodes[0].nodeValue
                                 if image in self.images_list:
-                                    # Image already stored. In the JSON record. Store
+                                    # Image already stored in the JSON record. Store
                                     # only the index
                                     images.append(
                                         self.images_list.index(image))
@@ -275,9 +282,9 @@ class ProductizationData():
                             'images': searchplugin_enUS['images']
                         }
                     else:
-                        # File does not exist but we don't have in in en-US either.
+                        # File does not exist but we don't have it in en-US either.
                         # This means that list.txt references a non existing
-                        # plugin, which will cause the build to fail
+                        # plugin (luckily builds won't fail anymore)
                         errors.append('file referenced in list.txt but not available ({0}, {1}, {2}, {3}.xml)'.format(
                             locale, product, channel, sp))
 
@@ -314,7 +321,8 @@ class ProductizationData():
                 if existing_file:
                     try:
                         # Store md5 hash for this file. All files are very
-                        # small, so I don't bother creating a buffer
+                        # small, so I don't bother using a buffer. 'suite' is
+                        # a special case since it has 2 of them.
                         file_content = open(region_file, 'rb').read()
                         index_name = os.path.basename(region_file)
                         if product == 'suite':
@@ -430,16 +438,16 @@ class ProductizationData():
                                     'browser.search.defaulturl',
                                     'browser.startup.homepage',
                                     'browser.throbber.url',
-                                    'browser.translation.service',
-                                    'browser.translation.serviceDomain',
+                                    'browser.translation.',
                                     'browser.validate.html.service',
-                                    'mail.addr_book.mapit_url.format',
+                                    'mail.addr_book.mapit_url.',
                                     'mailnews.localizedRe',
                                     'mailnews.messageid_browser.url',
                                     'startup.homepage_override_url',
                                 ]
-                                if key in ignored_keys:
-                                    line_ok = True
+                                for ignored_key in ignored_keys:
+                                    if key.startswith(ignored_key):
+                                        line_ok = True
 
                             # Unrecognized line, print warning (not for en-US)
                             if not line_ok and locale != 'en-US':
@@ -501,6 +509,7 @@ class ProductizationData():
 
     def extract_p12n_channel(self, requested_product, channel_data, requested_channel, check_p12n):
         '''Extract information from all products for this channel'''
+
         try:
             # Analyze en-US searchplugins first
             base = os.path.join(channel_data['source_path'], 'COMMUN')
@@ -523,18 +532,16 @@ class ProductizationData():
                     ]
                 }
             }
-            list_sp_enUS = {}
             locales_list = open(
                 channel_data['locales_file'], 'r').read().splitlines()
             for product in ['browser', 'mobile', 'mail', 'suite']:
                 if requested_product in ['all', product]:
                     # Analyze en-US first
-                    list_sp_enUS[product] = []
-                    self.extract_splist_enUS(search_path_enUS['sp'][
-                        product], list_sp_enUS[product])
+                    self.extract_splist_enUS(
+                        search_path_enUS['sp'][product], product)
                     self.extract_searchplugins_product(
                         search_path_enUS['sp'][product], product, 'en-US',
-                        requested_channel, list_sp_enUS[product])
+                        requested_channel)
                     if check_p12n:
                         for path in search_path_enUS['p12n'][product]:
                             self.extract_productization_product(
@@ -564,7 +571,7 @@ class ProductizationData():
                         }
                         self.extract_searchplugins_product(
                             search_path_l10n['sp'][product], product, locale,
-                            requested_channel, list_sp_enUS[product])
+                            requested_channel)
                         if check_p12n:
                             for path in search_path_l10n['p12n'][product]:
                                 self.extract_productization_product(
