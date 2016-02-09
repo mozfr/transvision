@@ -93,32 +93,35 @@ class ShowResults
      * Return an array of search results from our Translation Memory API
      * service with a quality index based on the levenshtein distance.
      *
-     * @param  array  $source_strings The source reference strings with entities as keys
-     * @param  array  $target_strings The target strings to look into with entities as keys
-     * @param  string $search         The string to search for
-     * @param  int    $max_results    Optional, default to 200, the max number of results we return
-     * @param  int    $min_quality    Optional, default to 0, The minimal quality index to filter result
+     * @param  array  $strings     The source and target strings to look into
+     * @param  string $search      The string to search for
+     * @param  int    $max_results Optional, default to 200, the max number of results we return
+     * @param  int    $min_quality Optional, default to 0, The minimal quality index to filter result
      * @return array  An array of strings as [source => string, target => string, quality=> Levenshtein index]
      */
-    public static function getTranslationMemoryResults($source_strings, $target_strings, $search, $max_results = 200, $min_quality = 0)
+    public static function getTranslationMemoryResults($strings, $search, $max_results = 200, $min_quality = 0)
     {
-        $search_results = array_values(
-            self::getTMXResults(array_keys($source_strings), [$source_strings, $target_strings])
-        );
-        $output = [];
+        if (empty($strings)) {
+            return [];
+        }
 
-        foreach ($search_results as $set) {
-            // We only want results for which we have a translation
-            if ($set[1]) {
-                $quality = round(Strings::levenshteinQuality($search, $set[0]), 2);
+        /*
+            Here we prepare an output array with source and target strings plus
+            a quality index.
+            $set[0] is the source string (usually English) on which we
+            calculate a quality index based on the Levenshtein algorithm.
+            $set[1] is the target string, that is the language we want
+            translations from.
+        */
+        foreach ($strings as $set) {
+            $quality = round(Strings::levenshteinQuality($search, $set[0]), 2);
 
-                if ($quality >= $min_quality) {
-                    $output[] = [
-                        'source'  => $set[0],
-                        'target'  => $set[1],
-                        'quality' => $quality,
-                    ];
-                }
+            if ($quality >= $min_quality) {
+                $output[] = [
+                    'source'  => $set[0],
+                    'target'  => $set[1],
+                    'quality' => $quality,
+                ];
             }
         }
 
