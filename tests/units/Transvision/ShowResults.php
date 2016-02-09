@@ -44,6 +44,13 @@ class ShowResults extends atoum\test
         $source = $tmx;
         include TMX . 'fr/cache_fr_central.php';
         $target = $tmx;
+
+        foreach ($source as $key => $value) {
+            if (isset($target[$key])) {
+                $strings[] = [$value, $target[$key]];
+            }
+        }
+
         $results = [
             [
               'source'  => 'Bookmark',
@@ -72,8 +79,7 @@ class ShowResults extends atoum\test
 
         return [
             [
-                $source,
-                $target,
+                $strings,
                 'Bookmark',
                 $results,
             ],
@@ -83,12 +89,12 @@ class ShowResults extends atoum\test
     /**
      * @dataProvider getTranslationMemoryResultsDP
      */
-    public function testGetTranslationMemoryResults($a, $b, $c, $d)
+    public function testGetTranslationMemoryResults($a, $b, $c)
     {
         $obj = new _ShowResults();
         $this
-            ->array($obj->getTranslationMemoryResults($a, $b, $c, 4))
-                ->isEqualTo($d);
+            ->array($obj->getTranslationMemoryResults($a, $b, 4))
+                ->isEqualTo($c);
     }
 
     public function formatEntityDP()

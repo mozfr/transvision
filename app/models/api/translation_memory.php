@@ -13,11 +13,11 @@ $get_option = function ($option) use ($request) {
 };
 
 $repositories = ($request->parameters[2] == 'global')
-    ? Project::getRepositories()
+    ? Project::getLocaleRepositories($request->parameters[4])
     : [$request->parameters[2]];
 
-$source_strings_merged = [];
-$target_strings_merged = [];
+// This is the filtered data we will send to getTranslationMemoryResults()
+$output = [];
 
 // The search
 $initial_search = Utils::cleanString($request->parameters[5]);
@@ -49,35 +49,23 @@ foreach ($repositories as $repository) {
 
     /*
         We are only interested in target strings with keys in common with our
-        source strings. Not sending noise to getTranslationMemoryResults() has
-        a major performance and memory impact.
+        source strings.
     */
-    $target_strings = array_intersect_key(
-        Utils::getRepoStrings($request->parameters[4], $repository),
-        $source_strings
-    );
+    $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
 
-    /*
-        We are not interested in keeping duplicate strings that have
-        different keys because this API does not take into account the
-        frequency of matches but the similarity of the strings.
-    */
-    $target_strings = array_unique($target_strings);
-
-    /*
-        The + operator is slightly faster than array_merge and also easier
-        to read. The functional difference doesn't matter in this case
-        (http://stackoverflow.com/questions/7059721/array-merge-versus/27717809#27717809)
-     */
-    $source_strings_merged += $source_strings;
-    $target_strings_merged += $target_strings;
-
+    foreach ($source_strings as $key => $value) {
+        if (isset($target_strings[$key]) && ! empty($target_strings[$key])) {
+            $output[] = [
+                $value,
+                $target_strings[$key],
+            ];
+        }
+    }
     unset($source_strings, $target_strings);
 }
 
 return $json = ShowResults::getTranslationMemoryResults(
-    $source_strings_merged,
-    $target_strings_merged,
+    $output,
     $initial_search,
     $get_option('max_results'), // Cap results with the ?max_results=number option
     $get_option('min_quality') // Optional quality threshold defined by ?min_quality=50
