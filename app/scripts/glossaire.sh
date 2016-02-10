@@ -121,12 +121,10 @@ function updateStandardRepo() {
         cd ${!repo_source}              # value of variable called repo, e.g. value of $release_source
         echogreen "Update $comm_repo"
         cd $comm_repo
-        hg pull -r default
-        hg update -C
+        hg pull -r default --update
         echogreen "Update $mozilla_repo"
         cd ../$mozilla_repo
-        hg pull -r default
-        hg update -C
+        hg pull -r default --update
 
         if $all_locales
         then
@@ -137,8 +135,7 @@ function updateStandardRepo() {
                 then
                     echogreen "Update $repo_name/$locale"
                     cd $locale
-                    hg pull -r default
-                    hg update -C
+                    hg pull -r default --update
                     cd ..
                 else
                     echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
@@ -149,8 +146,7 @@ function updateStandardRepo() {
             then
                 echogreen "Update $repo_name/$locale_code"
                 cd ${!repo_l10n}/$locale_code
-                hg pull -r default
-                hg update -C
+                hg pull -r default --update
                 cd ..
             else
                 echored "Folder ${!repo_l10n}/$locale_code does not exist."
@@ -191,8 +187,7 @@ function updateNoBranchRepo() {
         # These repos exist only on trunk
         cd $trunk_source/$1
         echogreen "Update $1"
-        hg pull -r default
-        hg update -C
+        hg pull -r default --update
     fi
 }
 
@@ -221,8 +216,7 @@ function updateGaiaRepo() {
                 then
                     echogreen "Update $repo_name/$locale"
                     cd $locale
-                    hg pull -r default
-                    hg update -C
+                    hg pull -r default --update
                     cd ..
                 else
                     echored "Folder ${!repo_name}/$locale does not exist. Run setup.sh to fix the issue."
@@ -233,8 +227,7 @@ function updateGaiaRepo() {
             then
                 echogreen "Update $repo_name/$locale_code"
                 cd ${!repo_name}/$locale_code
-                hg pull -r default
-                hg update -C
+                hg pull -r default --update
                 cd ..
             else
                 echored "Folder ${!repo_name}/$locale_code does not exist."
