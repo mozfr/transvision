@@ -153,9 +153,9 @@ function updateStandardRepo() {
         echogreen "Create ${repo_name^^} cache for $repo_name/$1"
         if [ "$1" = "en-US" ]
         then
-            nice -20 python $install/app/scripts/tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
+            nice -20 $install/app/scripts/tmx_products.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
         else
-            nice -20 python $install/app/scripts/tmxmaker.py ${!repo_l10n}/$1/ ${!repo_source}/COMMUN/ $1 en-US $repo_name
+            nice -20 $install/app/scripts/tmx_products.py ${!repo_l10n}/$1/ ${!repo_source}/COMMUN/ $1 en-US $repo_name
         fi
     }
 
@@ -262,7 +262,7 @@ function updateGaiaRepo() {
         # Build the cache
         # $1: Locale code
         echogreen "Create ${repo_name^^} cache for $repo_name/$1"
-        nice -20 python $install/app/scripts/tmxmaker.py ${!repo_name}/$1/ ${!repo_name}/en-US/ $1 en-US $repo_name
+        nice -20 $install/app/scripts/tmx_products.py ${!repo_name}/$1/ ${!repo_name}/en-US/ $1 en-US $repo_name
     }
 
     if [ "$1" == "gaia" ]
