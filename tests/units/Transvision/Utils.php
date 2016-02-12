@@ -458,11 +458,13 @@ class Utils extends atoum\test
     {
         return [
             [
-                'http://transvision.mozfr.org/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central',
-                'http://transvision.mozfr.org/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json',
+                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings',
+                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json',
+                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json',
             ],
             [
                 'http://transvision.mozfr.org/api/v1/versions/',
+                'http://transvision.mozfr.org/api/v1/versions/?json',
                 'http://transvision.mozfr.org/api/v1/versions/?json',
             ],
         ];
@@ -471,15 +473,19 @@ class Utils extends atoum\test
     /**
      * @dataProvider redirectToAPIDP
      */
-    public function testRedirectToAPI($a, $b)
+    public function testRedirectToAPI($a, $b, $c)
     {
         $obj = new _Utils();
-        $_SERVER["REQUEST_URI"] = $a;
+        $_SERVER['REQUEST_URI'] = $a;
         $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
             ? parse_url($a)['query']
             : null;
+        $_SERVER['HTTP_HOST'] = 'http://' . parse_url($a)['host'];
         $this
             ->string($obj->redirectToAPI())
                 ->isEqualTo($b);
+        $this
+            ->string($obj->redirectToAPI(true))
+                ->isEqualTo($c);
     }
 }
