@@ -33,14 +33,14 @@ foreach ($repositories as $repository) {
     $source_strings = Utils::getRepoStrings($request->parameters[3], $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
-        $source_strings = preg_grep($search->getRegex(), $source_strings);
+        $source_strings = $search->grep($source_strings);
     }
     $source_strings_merged = array_merge($source_strings, $source_strings_merged);
 
     $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
-        $target_strings = preg_grep($search->getRegex(), $target_strings);
+        $target_strings = $search->grep($target_strings);
     }
     $target_strings_merged = array_merge($target_strings, $target_strings_merged);
 }

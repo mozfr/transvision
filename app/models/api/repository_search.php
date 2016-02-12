@@ -37,7 +37,7 @@ foreach ($repositories as $repository) {
             $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
             $source_strings = array_intersect_key($source_strings, array_flip($entities));
         } else {
-            $source_strings = preg_grep($search->getRegex(), $source_strings);
+            $source_strings = $search->grep($source_strings);
             $entities = array_keys($source_strings);
         }
     } else {
@@ -47,7 +47,7 @@ foreach ($repositories as $repository) {
                 $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
                 $source_strings = array_intersect_key($source_strings, array_flip($entities));
             } else {
-                $source_strings = preg_grep($search->getRegex(), $source_strings);
+                $source_strings = $search->grep($source_strings);
                 $entities = array_keys($source_strings);
             }
         }
