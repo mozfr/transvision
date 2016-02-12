@@ -58,7 +58,7 @@ $(document).ready(function() {
         var option_label = $('#search_type option[value="' + this.value + '"]').text();
         $('#searchcontextvalue').text(option_label);
         check_default(this.id);
-        // Check if suggestions shoul be disabled or enabled
+        // Check if suggestions should be disabled or enabled
         check_suggestions();
     });
 
@@ -148,6 +148,7 @@ $(document).ready(function() {
     // Clear the search field when clicking on the X button
     $('#clear_search').on('click', function() {
         $('#recherche').val('').focus();
+        $('#recherche').autocomplete().clear();
         $(this).hide();
     });
 });
