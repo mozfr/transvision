@@ -1,6 +1,8 @@
 <?php
 namespace Transvision;
 
+use Json\Json;
+
 /**
  * Project class
  *
@@ -78,7 +80,7 @@ class Project
         // Read list of repositories from supported_repositories.json
         $file_name = APP_SOURCES . 'supported_repositories.json';
         if (file_exists($file_name)) {
-            $json_repositories = json_decode(file_get_contents($file_name), true);
+            $json_repositories = (new Json($file_name))->fetchContent();
         } else {
             die("ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.");
         }
