@@ -78,7 +78,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 <?php foreach ($css_include as $css_file):?>
     <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
 <?php endforeach?>
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.mozfr.org/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
     <link rel="alternate" type="application/rss+xml" title="Changelog RSS" href="/rss" />
   </head>
 <body id="<?= $page ?>" class="nojs">
