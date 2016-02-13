@@ -67,7 +67,14 @@
     ],
 
     "config": {
-        "component-dir": "web/assets"
+        "component-dir": "web/assets",
+        "prestissimo": {
+            "maxConnections": 12,
+            "minConnections": 3,
+            "pipeline": true,
+            "verbose": true,
+            "insecure": false
+        }
     },
 
     "require": {
@@ -88,6 +95,7 @@
         "symfony/var-dumper": "~2.6",
         "fabpot/php-cs-fixer": "~1.4",
         "pchevrel/verif": "0.4",
+        "hirak/prestissimo": "~0.1.",
         "phpdocumentor/phpdocumentor": "2.*"
     },
 
