@@ -4,7 +4,7 @@ include 'includes/init.php';
 
 $paths = [
     ['channelcomparison/', 200, 'Compare strings from channel to channel', 'Key'],
-    ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is hosted on the MozFR server'],
+    ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is a community project under the MozFR umbrella'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
     ['gaia/', 200, 'Translation Status', 'How many strings are translated'],
     ['news/', 200, 'Version 4.0', 'End user visible changes'],
