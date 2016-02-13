@@ -124,6 +124,7 @@ class VersionControl
             'browser/branding/nightly/',
             'browser/branding/unofficial/',
             'browser/',
+            'browser/extensions/pocket/',
             'devtools/client/',
             'devtools/shared/',
             'layout/tools/layout-debug/ui/',
