@@ -36,7 +36,7 @@ foreach ($repositories as $repository) {
 
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
-        $source_strings = preg_grep($search->getRegex(), $source_strings);
+        $source_strings = $search->grep($source_strings);
     }
 
     /*

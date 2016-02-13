@@ -136,4 +136,21 @@ class Search extends atoum\test
             ->string($obj->getRegex())
                 ->isEqualTo('~^Return of the jedi$~iu');
     }
+
+    public function testGrep()
+    {
+        include_once TMX . 'fr/cache_fr_central.php';
+        $obj = new _Search();
+        $obj
+            ->setSearchTerms('Marque')
+            ->setRegexWholeWords('whole_word');
+        $this->array($obj->grep($tmx))
+            ->isEqualTo(
+                [
+                    "browser/chrome/browser/places/places.properties:bookmarkResultLabel"             => "Marque-page",
+                    "browser/chrome/browser/syncQuota.properties:collection.bookmarks.label"          => "Marque-pages",
+                    "browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti" => "Nouveaux marque-pages",
+                ]
+            );
+    }
 }

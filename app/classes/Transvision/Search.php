@@ -225,4 +225,15 @@ class Search
     {
         return $this->regex_whole_words;
     }
+
+    /**
+     * Grep data in regex
+     *
+     * @param  array $source_strings The array of strings to be filtered
+     * @return array Return an array of filtered strings
+     */
+    public function grep($source_strings)
+    {
+        return preg_grep($this->regex, $source_strings);
+    }
 }
