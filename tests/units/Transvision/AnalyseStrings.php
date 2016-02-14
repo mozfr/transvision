@@ -148,7 +148,7 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
-                // non-breaking space in {{ n }} (not an error)
+                // Non-breaking space in {{ n }} (not an error)
                 ['browser:foobar15' => '{{ appName }} installed'],
                 ['browser:foobar15' => '{{ appName }} ইনস্টল রয়েছে'],
                 'gaia',
@@ -156,7 +156,7 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
-                // mispelled variable
+                // Mispelled variable
                 ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
                 'firefox_ios',
@@ -164,7 +164,7 @@ class AnalyseStrings extends atoum\test
                 ['ios:foobar1'],
             ],
             [
-                // missing variable
+                // Missing variable
                 ['ios:foobar2' => 'Do you want to save the password on %@?'],
                 ['ios:foobar2' => 'Salvare la password?'],
                 'firefox_ios',
@@ -172,7 +172,7 @@ class AnalyseStrings extends atoum\test
                 ['ios:foobar2'],
             ],
             [
-                // changed order, not an error
+                // Changed order, not an error
                 ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
                 'firefox_ios',

@@ -157,7 +157,7 @@ class ShowResults
         };
 
         foreach ($search_results as $entity => $set) {
-            // we only want results for which we have a translation
+            // We only want results for which we have a translation
             if ($set[1]) {
                 $output[$entity] = [
                     $clean_string($set[0]) => $clean_string($set[1]),
@@ -191,7 +191,7 @@ class ShowResults
      */
     public static function formatEntity($entity, $highlight = false)
     {
-        // let's analyse the entity for the search string
+        // Let's analyse the entity for the search string
         $chunk  = explode(':', $entity);
 
         if ($highlight) {
@@ -202,7 +202,7 @@ class ShowResults
         } else {
             $entity = '<span class="red">' . array_pop($chunk) . '</span>';
         }
-        // let's analyse the entity for the search string
+        // Let's analyse the entity for the search string
         $chunk = explode('/', $chunk[0]);
         $repo  = '<span class="green">' . array_shift($chunk) . '</span>';
 
@@ -231,7 +231,7 @@ class ShowResults
         switch ($locale) {
             case 'fr':
             default:
-                $replacements['&hellip;'] = '<span class="highlight-gray">…</span>'; // right ellipsis highlight
+                $replacements['&hellip;'] = '<span class="highlight-gray">…</span>'; // Right ellipsis highlight
                 break;
         }
 
@@ -334,10 +334,10 @@ class ShowResults
             }
 
             $replacements = [
-                ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // nbsp highlight
-                ' '            => '<span class="highlight-red" title="Thin space"> </span>', // thin space highlight
-                '…'            => '<span class="highlight-gray">…</span>', // right ellipsis highlight
-                '&hellip;'     => '<span class="highlight-gray">…</span>', // right ellipsis highlight
+                ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
+                ' '            => '<span class="highlight-red" title="Thin space"> </span>', // Thin space highlight
+                '…'            => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
+                '&hellip;'     => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
             ];
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);
@@ -356,16 +356,16 @@ class ShowResults
                 $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
             }
 
-            // errors
+            // Errors
             $error_message = '';
 
-            // check for final dot
+            // Check for final dot
             if (substr(strip_tags($source_string), -1) == '.'
                 && substr(strip_tags($target_string), -1) != '.') {
                 $error_message = '<em class="error"> No final dot?</em>';
             }
 
-            // check abnormal string length
+            // Check abnormal string length
             $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
             if ($length_diff) {
                 switch ($length_diff) {
@@ -491,10 +491,11 @@ class ShowResults
         // Search through the full entity ID
         $entities = preg_grep($regex, array_keys($source_strings));
 
-        /* If there are no results, search also through the entity names.
-         * This is needed for "perfect match" when only the entity name is
-         * provided.
-         */
+        /*
+            If there are no results, search also through the entity names.
+            This is needed for "perfect match" when only the entity name is
+            provided.
+        */
         if (empty($entities)) {
             $entity_names = [];
             foreach ($source_strings as $entity => $translation) {

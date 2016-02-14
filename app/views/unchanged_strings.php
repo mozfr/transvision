@@ -31,9 +31,10 @@ foreach ($unchanged_strings as $string_id => $string_value) {
             . "&repo={$repo}"
             . "&search_type=entities&recherche={$string_id}";
 
-    /* Since this view displays strings identical to source locale, I'll use the same
-     * direction, not the locale's default (for example I'll use LTR for English+Arabic).
-     */
+    /*
+        Since this view displays strings identical to source locale, I'll use the same
+        direction, not the locale's default (for example I'll use LTR for English+Arabic).
+    */
     $direction = RTLSupport::getDirection($source_locale);
 
     $content .= "  <tr class='{$component} {$search_id}'>\n" .

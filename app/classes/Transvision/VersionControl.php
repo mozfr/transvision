@@ -70,7 +70,7 @@ class VersionControl
     {
         $url = 'https://hg.mozilla.org';
 
-        // remove entity from path and store it in a variable
+        // Remove entity from path and store it in a variable
         $path          = explode(':', $path);
         $path          = $path[0];
         $path          = explode('/', $path);
@@ -141,7 +141,7 @@ class VersionControl
             'calendar/',
         ];
 
-        // Destop repos
+        // Desktop repos
         if ($locale != 'en-US') {
             if ($repo == 'central') {
                 $url .= '/l10n-central/' . $locale . '/file/default/';

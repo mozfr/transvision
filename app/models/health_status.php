@@ -40,14 +40,14 @@ foreach (Project::getRepositories() as $repo) {
         // Extract, cache and store VCS data
         $cache_id = $repo_vcs . $locale . 'healthstatus2';
         if (! $stats = Cache::getKey($cache_id)) {
-            /* generate data */
+            // Generate data
             $commits = $vcs->getCommits();
             $stats['commit']     = $commits[0];
             $stats['commit_sum'] = count($commits);
             $stats['repo']       = $repo;
             unset($commits);
 
-            /* cache the data */
+            // Cache the data
             Cache::setKey($cache_id, $stats);
         }
 
@@ -55,7 +55,6 @@ foreach (Project::getRepositories() as $repo) {
         $cache_filtered_strings = function ($lang, $cache_id) use ($repo) {
             // Get all the strings (English and locale), ignore empty entities
             $filter_empty = function ($arr) {
-                // return $arr;
                 return array_filter($arr, 'strlen');
             };
 

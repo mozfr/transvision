@@ -17,7 +17,7 @@ $channel_selector = Utils::getHtmlSelectOptions(
 // Get the locale list
 $loc_list = Project::getRepositoryLocales($repo);
 
-// build the target locale switcher
+// Build the target locale switcher
 $target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
 
 $akeys = array_filter(

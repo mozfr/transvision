@@ -183,9 +183,9 @@ class Utils
     public static function uniqueWords($sentence)
     {
         $words = explode(' ', $sentence);
-        $words = array_filter($words); // filter out extra spaces
-        $words = array_unique($words); // remove duplicate words
-        // sort words from longest to shortest
+        $words = array_filter($words); // Filter out extra spaces
+        $words = array_unique($words); // Remove duplicate words
+        // Sort words from longest to shortest
         usort(
             $words,
             function ($a, $b) {
@@ -304,23 +304,23 @@ class Utils
             $difference = round($difference);
 
             if ($origin_length > 100 && $difference > 150) {
-                //large translation for a large origin
+                // Large translation for a large origin
                 $abnormal_length =  'large';
             } elseif ($origin_length > 100 && $difference < 50) {
-                //small translation for a large origin
+                // Small translation for a large origin
                 $abnormal_length =  'small';
             } elseif ($origin_length < 100 && $difference > 200 && $translated_length > 100) {
-                //large translation for a small origin
+                // Large translation for a small origin
                 $abnormal_length =  'large';
             } elseif ($origin_length < 100 && $difference < 25) {
-                //small translation for a small origin
+                // Small translation for a small origin
                 $abnormal_length =  'small';
             } else {
-                //no problems detected
+                // No problems detected
                 $abnormal_length =  false;
             }
         } else {
-            //missing origin or translated string
+            // Missing origin or translated string
             $abnormal_length =  false;
         }
 
@@ -370,15 +370,15 @@ class Utils
      */
     public static function redYellowGreen($number)
     {
-        // work with 0-99 values
+        // Work with 0-99 values
         $number--;
 
         if ($number < 50) {
-            // red to yellow
+            // Red to yellow
             $r = 255;
             $g = floor(255 * ($number / 50));
         } else {
-            // yellow to red
+            // Yellow to red
             $r = floor(255 * ((50 - $number % 50) / 50));
             $g = 255;
         }

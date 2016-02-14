@@ -18,9 +18,10 @@ define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
 define('APP_SCHEME',    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
 
-/* Determine the last Git hash from cache/version.txt, ignoring new lines.
- * If the file doesn't exist, or is empty, fall back to 'unknown.dev'
- */
+/*
+    Determine the last Git hash from cache/version.txt, ignoring new lines.
+    If the file doesn't exist, or is empty, fall back to 'unknown.dev'.
+*/
 if (file_exists(CACHE_PATH . 'version.txt')) {
     $file_content = file(CACHE_PATH . 'version.txt', FILE_IGNORE_NEW_LINES |  FILE_SKIP_EMPTY_LINES);
     $git_hash = empty($file_content)

@@ -113,10 +113,11 @@ class API
                 list($key, $value) = explode('=', $item);
                 $extra[$key] = $value;
             } else {
-                /* Deal with empty queries such as:
-                 query/?foo=
-                 query/?foo
-                 query/?foo&bar=toto
+                /*
+                    Deal with empty queries such as:
+                    query/?foo=
+                    query/?foo
+                    query/?foo&bar=toto
                 */
                 $extra[$item] = '';
             }
@@ -218,10 +219,12 @@ class API
 
                 break;
             case 'repositories':
-                // ex: api/repositories/
-                // ex: api/repositories/fr/
-                // Generated from Project class
-                // There is one optional parameter, a locale code
+                /*
+                    ex: api/repositories/
+                    ex: api/repositories/fr/
+                    Generated from Project class.
+                    There is one optional parameter, a locale code.
+                */
                 if (isset($this->parameters[2])) {
                     $match = false;
 
@@ -267,8 +270,10 @@ class API
 
                 break;
             case 'suggestions':
-            // Use the same settings as 'tm'
-            // ex: /api/v1/suggestions/release/en-US/fr/string/Home%20page/?max_results=3
+            /*
+                Use the same settings as 'tm'
+                ex: /api/v1/suggestions/release/en-US/fr/string/Home%20page/?max_results=3
+            */
             case 'tm':
             // ex: /api/v1/tm/release/en-US/fr/string/Home%20page/?max_results=3&min_quality=80
                 if (! $this->verifyEnoughParameters(6)) {
@@ -289,8 +294,10 @@ class API
 
                 break;
             case 'versions':
-                // ex: api/versions/
-                // No user-defined variables = nothing to check
+                /*
+                    ex: api/versions/
+                    No user-defined variables = nothing to check
+                */
                 break;
             default:
                 return false;

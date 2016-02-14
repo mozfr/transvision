@@ -68,8 +68,10 @@ class AnalyseStrings
                 if (isset($tmx_target[$key])
                     && $tmx_target[$key] != ''
                     && ! in_array($key, $ignored_strings)) {
-                    // Check variables only if the translation exists and
-                    // the string is not in the list of strings to ignore
+                    /*
+                        Check variables only if the translation exists and
+                        the string is not in the list of strings to ignore.
+                    */
                     $translation = $tmx_target[$key];
                     $wrong_variable = false;
 
@@ -99,11 +101,11 @@ class AnalyseStrings
 
                     if ($pattern_name == 'printf') {
                         /*
-                         * Check ordered vs unordered variables. The pattern
-                         * regular expression returns "S" or "s" as second group
-                         * for each variable, I can use it to check for case
-                         * differences ("s" vs "S") which are not allowed.
-                         */
+                            Check ordered vs unordered variables. The pattern
+                            regular expression returns "S" or "s" as second group
+                            for each variable, I can use it to check for case
+                            differences ("s" vs "S") which are not allowed.
+                        */
                         preg_match_all('/%(?:[0-9]+\$){1}(?:[0-9].){0,1}S/i', $translation, $matches_ordered_trans);
                         preg_match_all('/%(?:0.){0,1}S/i', $translation, $matches_unordered_trans);
 

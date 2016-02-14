@@ -131,11 +131,12 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   <script>
     var supported_locales = [];
 <?php
-    /* Building array of supported locales for JavaScript functions.
-     * This is inline because it shouldn't be cached by the browser.
-     * Note: encoding array_values() instead of the array makes sure
-     * that json_encode returns an array and not an object.
-     */
+    /*
+        Building array of supported locales for JavaScript functions.
+        This is inline because it shouldn't be cached by the browser.
+        Note: encoding array_values() instead of the array makes sure
+        that json_encode returns an array and not an object.
+    */
     foreach (Project::getSupportedRepositories() as $repo_id => $repo_name) {
         print "      supported_locales['{$repo_id}'] = " .
              json_encode(array_values(Project::getRepositoryLocales($repo_id))) .

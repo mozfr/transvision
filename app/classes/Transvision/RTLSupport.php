@@ -10,7 +10,7 @@ namespace Transvision;
  */
 class RTLSupport
 {
-    /*
+    /**
      * List of locales that are Right to Left
      */
     public static $rtl = ['ar', 'fa', 'he', 'ur'];
