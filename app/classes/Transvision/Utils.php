@@ -276,9 +276,6 @@ class Utils
             return '';
         }
 
-        // Remove escaped characters (quotes)
-        $string = stripslashes($string);
-
         // Filter out double spaces
         $string = Strings::mtrim($string);
 

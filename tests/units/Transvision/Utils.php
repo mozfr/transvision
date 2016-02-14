@@ -205,8 +205,8 @@ class Utils extends atoum\test
                 'toto',
             ],
             [
-                'don\'t escape',
-                "don't escape",
+                "don\u0027t strip unicode escaped chars",
+                "don\u0027t strip unicode escaped chars",
             ],
         ];
     }
