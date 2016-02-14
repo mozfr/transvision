@@ -1,9 +1,7 @@
 <?php
 namespace Transvision;
 
-/*
- * This file initializes l10n support: locale detection, rtl/ltr variables
- */
+// This file initializes l10n support: locale detection, RTL/LTR variables
 
 if (isset($_GET['repo'])) {
     $repo = Project::isValidRepository($_GET['repo'])
@@ -69,7 +67,7 @@ if (isset($_GET['sourcelocale'])) {
     }
 }
 
-// Get rtl attribute for source and target locales
+// Get RTL attribute for source and target locales
 $locale_dir = $l10n->getDirection($locale);
 $source_locale_dir = $l10n->getDirection($source_locale);
 

@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-/* Global variables used across the project */
+// Global variables used across the project
 
 // Repositories
 $repos            = Project::getRepositories();

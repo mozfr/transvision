@@ -85,22 +85,22 @@ class API extends atoum\test
             ['http://foobar/api/wrong_version/tm/central/en-US/fr/Bookmark/', false],
             ['http://foobar/api/v1/wrong_service/central/en-US/fr/hello world', false],
 
-            // entity service
+            // Service: entity
             ['http://foobar/api/v1/entity/central/?id=myid', true],
             ['http://foobar/api/v1/entity/wrong_repo/', false],
             ['http://foobar/api/v1/entity/central/', false], // Missing id
 
-            // locales service
+            // Service: locale
             ['http://foobar/api/v1/locales/', false], // Not enough parameters
             ['http://foobar/api/v1/locales/wrong_repo/', false],
 
-            // repositories service
+            // Service: repositories
             ['http://foobar/api/v1/repositories/', true],
             ['http://foobar/api/v1/repositories/fr/', true],
             ['http://foobar/api/v1/repositories/foobar/', false],
             ['http://foobar/api/v1/repositories/en-US/', true],
 
-            // search service
+            // Service: search
             ['http://foobar/api/v1/search/strings/central/en-US/fr/Add%20%20Bookmarks/', true],
             ['http://foobar/api/v1/search/entities/central/en-US/fr/edit-Bookmark/', true],
             ['http://foobar/api/v1/search/wrong_search_type/central/en-US/fr/edit-Bookmark/', false],
@@ -109,19 +109,19 @@ class API extends atoum\test
             ['http://foobar/api/v1/search/strings/central/wrong_source/fr/', false],
             ['http://foobar/api/v1/search/strings/central/en-US/wrong_target/', false],
 
-            // suggestions service
+            // Service: suggestions
             ['http://foobar/api/v1/suggestions/central/en-US/fr/', false], // Not enough parameters
             ['http://foobar/api/v1/suggestions/wrong_repo/en-US/fr/hello world', false],
             ['http://foobar/api/v1/suggestions/central/wrong_source/fr/hello world', false],
             ['http://foobar/api/v1/suggestions/central/en-US/wrong_target/hello world', false],
 
-            // tm service
+            // Service: tm
             ['http://foobar/api/v1/tm/central/en-US/fr/', false], // Not enough parameters
             ['http://foobar/api/v1/tm/wrong_repo/en-US/fr/hello world', false],
             ['http://foobar/api/v1/tm/central/wrong_source/fr/hello world', false],
             ['http://foobar/api/v1/tm/central/en-US/wrong_target/hello world', false],
 
-            // versions service
+            // Service: versions
             ['http://foobar/api/versions/', true],
         ];
     }
@@ -133,7 +133,7 @@ class API extends atoum\test
     {
         $url = parse_url($a);
         $obj = new _API($url);
-        $obj->logging = false; // logging interfers with Atoum
+        $obj->logging = false; // Logging interfers with Atoum
         $this
             ->boolean($obj->isValidRequest())
                 ->isEqualTo($b);
@@ -161,7 +161,7 @@ class API extends atoum\test
     {
         $url = parse_url($a);
         $obj = new _API($url);
-        $obj->logging = false; // logging interfers with Atoum
+        $obj->logging = false; // Logging interfers with Atoum
         $this
             ->variable($obj->getService())
                 ->isEqualTo($b);

@@ -40,7 +40,7 @@ $repo2 = $get_or_set($gaia_repos, 'repo2', $repo2);
 // Get the locale list
 $loc_list = Project::getRepositoryLocales('gaia');
 
-// build the target locale & channels switchers
+// Build the target locale & channels switchers
 $target_locales_list = '';
 $channel_selector1 = '';
 $channel_selector2 = '';
@@ -157,13 +157,13 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
             $temp[] = $repo[$k];
         }
 
-        // remove blanks
+        // Remove blanks
         $temp = array_filter($temp, 'strlen');
 
-        // remove duplicates
+        // Remove duplicates
         $temp = array_unique($temp);
 
-        // if we have a string in one repo or no string, skip the key
+        // If we have a string in one repo or no string, skip the key
         if (count($temp) <= 1) {
             continue;
         }
@@ -251,13 +251,13 @@ $missing_duplicates = array_diff_key($duplicated_strings_english, $duplicated_st
 $inconsistent_translation = [];
 foreach ($duplicated_strings_english as $key => $value) {
     /*
-    I'm interested only in strings with a value that should be duplicated.
-    1) Ignore plural forms containing [] in the key, too many false positives
-       since English doesn't have plural for adjectives.
-    2) Ignore single character strings.
-    3) Ignore strings in accessibility.properties. It contains both normal and
-       abbreviated strings, which are often identical in English, so there are
-       too many false positives.
+        I'm interested only in strings with a value that should be duplicated.
+        1) Ignore plural forms containing [] in the key, too many false positives
+          since English doesn't have plural for adjectives.
+        2) Ignore single character strings.
+        3) Ignore strings in accessibility.properties. It contains both normal and
+          abbreviated strings, which are often identical in English, so there are
+          too many false positives.
     */
     if (in_array($value, $missing_duplicates) &&
         strpos($key, '[') === false &&

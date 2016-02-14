@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-// rtl support
+// RTL support
 $direction1 = RTLSupport::getDirection($source_locale);
 $direction2 = RTLSupport::getDirection($locale);
 

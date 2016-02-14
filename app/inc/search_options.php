@@ -47,7 +47,7 @@ $search = (new Search)
     ->setRegexCaseInsensitive($check['case_sensitive'])
     ->setRegexPerfectMatch($check['perfect_match']);
 
-// build the repository switcher
+// Build the repository switcher
 $repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $check['repo'], true);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
@@ -58,13 +58,13 @@ $repositories = Project::getRepositories();
 foreach ($repositories as $repository) {
     $loc_list[$repository] = Project::getRepositoryLocales($repository);
 
-    // build the source locale switcher
+    // Build the source locale switcher
     $source_locales_list[$repository] = Utils::getHtmlSelectOptions(
         $loc_list[$repository],
         Project::getLocaleInContext($source_locale, $repository)
     );
 
-    // build the target locale switcher
+    // Build the target locale switcher
     $target_locales_list[$repository] = Utils::getHtmlSelectOptions(
         $loc_list[$repository],
         Project::getLocaleInContext($locale, $repository)

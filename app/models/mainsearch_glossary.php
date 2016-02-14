@@ -45,9 +45,9 @@ foreach ($search_terms as $word) {
     }
 
     /*
-     * We use a closure here to extract imperfect matches without having to
-     * use a loop to search all strings
-     */
+        We use a closure here to extract imperfect matches without having to
+        use a loop to search all strings.
+    */
     $imperfect = array_keys(
         array_filter(
             $tmx_source,
@@ -63,7 +63,7 @@ foreach ($search_terms as $word) {
     );
 }
 
-// remove duplicates
+// Remove duplicates
 $imperfect = array_unique($imperfect);
 
 $get_results = function ($arr) use ($tmx_target) {

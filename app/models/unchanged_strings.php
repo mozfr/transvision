@@ -23,9 +23,10 @@ $strings_reference = Utils::getRepoStrings(
 foreach ($strings_reference as $string_id => $string_value) {
     if (strlen($string_value) <= 1 ||
         strpos($string_id, 'region.properties') !== false) {
-        /* Ignore accesskeys, shortcuts and empty strings.
-         * Ignore keys in region.properties
-         */
+        /*
+            Ignore accesskeys, shortcuts and empty strings.
+            Ignore keys in region.properties
+        */
         unset($strings_reference[$string_id]);
     }
 }

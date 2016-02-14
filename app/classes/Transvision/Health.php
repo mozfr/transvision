@@ -180,8 +180,7 @@ class Health
             $date = $data['commit']['date'];
             $tab = '';
 
-            // Set CSS classes
-            // If the latest commit is 1 year old or older
+            // Set CSS classes if the latest commit is 1 year old or older
             $commit_class = $date->diff(new \DateTime('now'))->format('%y') >= 1
                             ? ' old' : '';
 

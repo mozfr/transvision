@@ -150,7 +150,7 @@ class ShowResults extends atoum\test
     public function getRepositorySearchResultsDP()
     {
         return [
-            // simple search
+            // Simple search
             [
                 ['apps/system/system.properties:softwareHomeButton.ariaLabel', 'apps/settings/settings.properties:homescreens'],
                 [

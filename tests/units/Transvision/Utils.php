@@ -282,7 +282,7 @@ class Utils extends atoum\test
     {
         return [
             ['fr', 'central', 'Ouvrir dans le Finder'],
-            ['es-ES', 'gaia', 'Hogar'], // test fallback to es locale for gaia
+            ['es-ES', 'gaia', 'Hogar'], // Test fallback to es locale for gaia
         ];
     }
 
@@ -418,8 +418,10 @@ class Utils extends atoum\test
             ],
         ];
 
-        // If running tests locally, check also the behavior without providing
-        // a reference date
+        /*
+            If running tests locally, check also the behavior without providing
+            a reference date.
+        */
         if (! getenv('TRAVIS')) {
             $data = array_merge(
                 $data,

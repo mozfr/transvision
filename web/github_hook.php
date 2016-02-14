@@ -1,13 +1,13 @@
 <?php
-/* Webhook to update a repo for each push on GitHub. */
+// Webhook to update a repo for each push on GitHub
 
 date_default_timezone_set('Europe/Paris');
 
-// app variables
+// App variables
 $app_root = realpath(__DIR__ . '/../');
 $composer = $app_root . '/composer.phar';
 
-// git variables
+// Git variables
 $branch = 'master';
 $header = 'HTTP_X_HUB_SIGNATURE';
 $secret = parse_ini_file($app_root . '/app/config/config.ini')['github_key'];

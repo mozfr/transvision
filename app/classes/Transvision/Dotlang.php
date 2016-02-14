@@ -23,7 +23,7 @@ class Dotlang
 
         foreach (scandir($path) as $sub_path) {
             if (Strings::startsWith($sub_path, '.')) {
-                // ignore '.', '..' and other hidden files such as .svn
+                // Ignore '.', '..' and other hidden files such as .svn
                continue;
             }
 
@@ -31,7 +31,7 @@ class Dotlang
 
             if (is_file($file_path)) {
                 if (pathinfo($file_path, PATHINFO_EXTENSION) == 'lang') {
-                    // we want to avoid double slashes in the path
+                    // We want to avoid double slashes in the path
                     $files[] = str_replace('//', '/', $file_path);
                 }
                 continue;
@@ -79,14 +79,14 @@ class Dotlang
      */
     public static function getStrings($file, $reference_locale)
     {
-        // get all the lines in an array
+        // Get all the lines in an array
         $f = self::getFile($file);
 
         $strings = [];
 
         for ($i = 0, $lines = count($f); $i < $lines; $i++) {
 
-            // skip comments and metadata
+            // Skip comments and metadata
             if (Strings::startsWith($f[$i], '#')) {
                 continue;
             }
@@ -95,17 +95,20 @@ class Dotlang
                 $english = trim(substr($f[$i], 1));
                 if (Strings::startsWith($f[$i + 1], '#') ||
                     Strings::startsWith($f[$i + 1], ';')) {
-                    /* String is not translated, next line is a comment or
-                     * the next source string. I consider the string untranslated
-                     */
+                    /*
+                        String is not translated, next line is a comment or
+                        the next source string. I consider the string untranslated.
+                    */
                     $translation = $english;
                 } else {
                     // Next line is an actual translation
                     $translation = trim($f[$i + 1]);
                 }
 
-                // If untranslated, I need to store an empty string as translation
-                // unless it's the reference locale
+                /*
+                    If untranslated, I need to store an empty string as translation
+                    unless it's the reference locale.
+                */
                 if ($reference_locale) {
                     $strings[$english] = $english;
                 } else {

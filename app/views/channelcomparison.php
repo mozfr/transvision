@@ -30,7 +30,7 @@ foreach ($desktop_repos as $repo) {
 // Get the locale list
 $loc_list = Project::getRepositoryLocales($repo);
 
-// build the target locale switcher
+// Build the target locale switcher
 $target_locales_list = '';
 
 foreach ($loc_list as $loc) {

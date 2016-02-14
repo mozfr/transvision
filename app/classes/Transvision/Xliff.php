@@ -26,14 +26,16 @@ class Xliff
         if ($xml = simplexml_load_file($xliff_path)) {
             $namespaces = $xml->getDocNamespaces();
             $xml->registerXPathNamespace('x', $namespaces['']);
-            /* Get all trans-units, which include both reference (source) and
-            /* translation (target)
-             */
+            /*
+                Get all trans-units, which include both reference (source) and
+                translation (target).
+            */
             $trans_units = $xml->xpath('//x:trans-unit');
+            /*
+                File's name is 2 levels above in the hierarchy, stored as
+                'original' attribute of the <file> element.
+            */
             foreach ($trans_units as $trans_unit) {
-                /* File's name is 2 levels above in the hierarchy, stored as
-                 * 'original' attribute of the <file> element.
-                 */
                 $file_node = $trans_unit->xpath('../..');
                 $file_name = $file_node[0]['original'];
 

@@ -124,7 +124,7 @@ class Project
         $gaia_repos = array_keys(self::getSupportedGaiaVersions());
         rsort($gaia_repos);
 
-        // gaia repo is the latest master branch, always first
+        // 'gaia' repo is the latest master branch, always first
         array_pop($gaia_repos);
         array_unshift($gaia_repos, 'gaia');
 
