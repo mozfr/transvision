@@ -117,6 +117,18 @@ class VersionControl extends atoum\test
                 'devtools/client/memory.properties:heapview.field.totalcount',
                 'https://hg.mozilla.org/releases/mozilla-aurora/file/default/devtools/client/locales/en-US/memory.properties',
             ],
+            [
+                'en-US',
+                'release',
+                'browser/chrome/browser/browser-pocket.properties:removepage',
+                'https://hg.mozilla.org/releases/mozilla-release/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
+            ],
+            [
+                'en-US',
+                'beta',
+                'browser/chrome/browser/browser-pocket.properties:maxtaglength',
+                'https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
+            ],
         ];
     }
 
