@@ -360,6 +360,7 @@ class Utils
                            . round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
             error_log($memory);
             error_log($render_time);
+            header('Transvision-perf: ' . $memory . '; ' . $render_time);
         }
     }
 
