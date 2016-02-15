@@ -16,6 +16,8 @@ $paths = [
     ['v1/repositories/fr/', 200, '["aurora","beta","central","firefox_ios","gaia","gaia_2_0","gaia_2_1","gaia_2_2","gaia_2_5","mozilla_org","release"]'],
     ['v1/suggestions/central/en-US/fr/ar/?max_results=2', 200, '["Bookmark","Marque-page"]'],
     ['v1/suggestions/central/en-US/fr/ar/?max_results=10', 200, '["Bookmark","Bookmarks","New Bookmarks","Bookmark This Page","Marque-page","Marque-pages","Marquer cette page","Nouveaux marque-pages"]'],
+    ['v1/suggestions/central/en-US/fr/ar/?max_results=0', 200, '["Bookmark","Bookmarks","New Bookmarks","Bookmark This Page","Marque-page","Marque-pages","Marquer cette page","Nouveaux marque-pages"]'],
+    ['v1/suggestions/central/en-US/fr/ar/', 200, '["Bookmark","Bookmarks","New Bookmarks","Bookmark This Page","Marque-page","Marque-pages","Marquer cette page","Nouveaux marque-pages"]'],
     ['v1/suggestions/central/en-US/fr/bookmark/?max_results=2', 200, '["Bookmark","Bookmarks"]'],
     ['v1/tm/central/en-US/fr/Bookmark/?max_results=3&min_quality=80', 200, '[{"source":"Bookmark","target":"Marquer cette page","quality":100},{"source":"Bookmark","target":"Marque-page","quality":100},{"source":"Bookmarks","target":"Marque-pages","quality":88.89}]'],
     ['v1/tm/global/fr/en-US/Ouvrir/', 200, '[{"source":"Ouvrir dans le Finder","target":"Find in Finder","quality":28.57},{"source":"D\u00e9couvrez comment ouvrir une fen\u00eatre de navigation priv\u00e9e","target":"Learn how to open a private window","quality":8.77}]'],

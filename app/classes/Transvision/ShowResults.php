@@ -58,6 +58,9 @@ class ShowResults
         ];
         $flat_output = [];
 
+        // Reset $max_results as 10 if it's currently set to 0 (default value when the parameter is not specified in the API request).
+        $max_results = $max_results > 0 ? $max_results : 10;
+
         // Assign quality to each string in each group (source, target)
         foreach ($data as $group => $group_strings) {
             foreach ($group_strings as $single_string) {
