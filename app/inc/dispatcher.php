@@ -44,7 +44,7 @@ switch ($url['path']) {
         $page_descr = 'Check the Status of your GAIA strings across repositories.';
         break;
     case 'channelcomparison':
-        $view = 'channelcomparison';
+        $controller = 'channelcomparison';
         $page_title = 'Channel Comparison';
         $page_descr = 'Compare strings from channel to channel.';
         break;
