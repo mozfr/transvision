@@ -474,7 +474,7 @@ class Utils extends atoum\test
     public function testRedirectToAPI($a, $b)
     {
         $obj = new _Utils();
-        $_SERVER["REQUEST_URI"] = $a;
+        $_SERVER['REQUEST_URI'] = $a;
         $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
             ? parse_url($a)['query']
             : null;

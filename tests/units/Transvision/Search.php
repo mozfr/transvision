@@ -147,9 +147,9 @@ class Search extends atoum\test
         $this->array($obj->grep($tmx))
             ->isEqualTo(
                 [
-                    "browser/chrome/browser/places/places.properties:bookmarkResultLabel"             => "Marque-page",
-                    "browser/chrome/browser/syncQuota.properties:collection.bookmarks.label"          => "Marque-pages",
-                    "browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti" => "Nouveaux marque-pages",
+                    'browser/chrome/browser/places/places.properties:bookmarkResultLabel'             => 'Marque-page',
+                    'browser/chrome/browser/syncQuota.properties:collection.bookmarks.label'          => 'Marque-pages',
+                    'browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti' => 'Nouveaux marque-pages',
                 ]
             );
     }
