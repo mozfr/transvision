@@ -8,6 +8,8 @@ $request = new API($url);
 if (! $request->isValidRequest()) {
     $json = $request->invalidAPICall();
     include VIEWS . 'json.php';
+
+    return;
 }
 
 switch ($request->getService()) {
