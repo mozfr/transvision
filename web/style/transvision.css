@@ -19,7 +19,7 @@
 
 @font-face {
     font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-LightItalic.woff2) format('woff2')
+    src: url(/fonts/OpenSans/OpenSans-LightItalic.woff2) format('woff2'),
          url(/fonts/OpenSans/OpenSans-LightItalic-webfont.woff) format('woff');
     font-weight: normal;
     font-style: italic;
@@ -27,7 +27,7 @@
 
 @font-face {
     font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Regular.woff2) format('woff2')
+    src: url(/fonts/OpenSans/OpenSans-Regular.woff2) format('woff2'),
          url(/fonts/OpenSans/OpenSans-Regular-webfont.woff) format('woff');
     font-weight: normal;
     font-style: normal;
@@ -35,7 +35,7 @@
 
 @font-face {
     font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Bold.woff2) format('woff2')
+    src: url(/fonts/OpenSans/OpenSans-Bold.woff2) format('woff2'),
          url(/fonts/OpenSans/OpenSans-Bold-webfont.woff) format('woff');
     font-weight: bold;
     font-style: normal;
@@ -43,7 +43,7 @@
 
 @font-face {
     font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Italic.woff2) format('woff2')
+    src: url(/fonts/OpenSans/OpenSans-Italic.woff2) format('woff2'),
          url(/fonts/OpenSans/OpenSans-Italic-webfont.woff) format('woff');
     font-weight: normal;
     font-style: italic;
