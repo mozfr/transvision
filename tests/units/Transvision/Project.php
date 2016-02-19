@@ -13,9 +13,9 @@ class Project extends atoum\test
         $obj = new _Project();
         $repos = [
             'gaia'        => 'Gaia master',
-            'gaia_2_0'    => 'Gaia 2.0',
-            'gaia_2_1'    => 'Gaia 2.1',
+            'gaia_2_5'    => 'Gaia 2.5',
         ];
+
         $this
             ->array($obj->getSupportedGaiaVersions())
                 ->isEqualTo($repos);
@@ -26,14 +26,14 @@ class Project extends atoum\test
         $obj = new _Project();
         $this
             ->string($obj->getLastGaiaBranch())
-                ->isEqualTo('gaia_2_1');
+                ->isEqualTo('gaia_2_5');
     }
 
     public function testGetRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'aurora', 'central', 'gaia_2_0',
-                  'gaia_2_1', 'gaia', 'mozilla_org', ];
+        $repos = ['release', 'beta', 'aurora', 'central',
+                  'gaia_2_5', 'gaia', 'mozilla_org', ];
         $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);
@@ -47,8 +47,7 @@ class Project extends atoum\test
             'beta'        => 'Beta',
             'aurora'      => 'Aurora',
             'central'     => 'Central',
-            'gaia_2_0'    => 'Gaia 2.0',
-            'gaia_2_1'    => 'Gaia 2.1',
+            'gaia_2_5'    => 'Gaia 2.5',
             'gaia'        => 'Gaia Master',
             'mozilla_org' => 'mozilla.org',
         ];
@@ -60,7 +59,7 @@ class Project extends atoum\test
     public function testGetGaiaRepositories()
     {
         $obj = new _Project();
-        $repos = ['gaia', 'gaia_2_1', 'gaia_2_0'];
+        $repos = ['gaia', 'gaia_2_5'];
         $this
             ->array($obj->getGaiaRepositories())
                 ->isEqualTo($repos);

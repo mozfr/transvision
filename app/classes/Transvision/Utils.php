@@ -224,7 +224,7 @@ class Utils
     /**
      * Return an array of strings for a locale from a repository
      * @param  string $locale     Locale we want to have strings for
-     * @param  string $repository string repository such as gaia_2_0, central...
+     * @param  string $repository string repository such as gaia_2_5, central...
      * @return array  Localized strings or empty array if no match
      */
     public static function getRepoStrings($locale, $repository)
@@ -248,7 +248,7 @@ class Utils
     /**
      * Return an array of entities for a locale from a repository
      * @param  string $locale     Locale we want to have entities for
-     * @param  string $repository string repository such as gaia_2_0, central...
+     * @param  string $repository string repository such as gaia_2_5, central...
      * @return array  Entities or empty array if no match
      */
     public static function getRepoEntities($locale, $repository)
