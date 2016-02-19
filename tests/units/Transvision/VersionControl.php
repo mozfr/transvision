@@ -15,7 +15,7 @@ class VersionControl extends atoum\test
                 'mozilla_org', 'git',
             ],
             [
-                'gaia_2_1', 'hg',
+                'gaia_2_5', 'hg',
             ],
             [
                 'central', 'hg',
@@ -95,9 +95,9 @@ class VersionControl extends atoum\test
             ],
             [
                 'sr-Cyrl',
-                'gaia_2_0',
+                'gaia_2_5',
                 'shared/date/date.properties:month-7-long',
-                'https://hg.mozilla.org/releases/gaia-l10n/v2_0/sr-Cyrl/file/default/shared/date/date.properties',
+                'https://hg.mozilla.org/releases/gaia-l10n/v2_5/sr-Cyrl/file/default/shared/date/date.properties',
             ],
             [
                 'en-US',
