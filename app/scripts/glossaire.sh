@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
 # Syntax:
-# - without parameters: update all locales
-# - one parameter (locale code): update only the requested locale
+# - locale code: update only the requested locale
+# - 'no-snapshot': avoid creating a data snapshot
 
 function interrupt_code()
 # This code runs if user hits control-c
@@ -15,21 +15,21 @@ function interrupt_code()
 trap interrupt_code SIGINT
 
 # Pretty printing functions
-NORMAL=$(tput sgr0)
-GREEN=$(tput setaf 2; tput bold)
-RED=$(tput setaf 1)
+standard_color=$(tput sgr0)
+green=$(tput setaf 2; tput bold)
+red=$(tput setaf 1)
 
 function echored() {
-    echo -e "$RED$*$NORMAL"
+    echo -e "$red$*$standard_color"
 }
 
 function echogreen() {
-    echo -e "$GREEN$*$NORMAL"
+    echo -e "$green$*$standard_color"
 }
 
 function echo_manual() {
-    echo "ERROR: too many or incorrect arguments. "
-    echo "Run 'glossaire.sh' without parameters to update all locales"
+    echo "Run 'glossaire.sh' without parameters to update all locales."
+    echo "Run 'glossaire.sh help' to display this manual."
     echo "---"
     echo "To update only one locale, add the locale code as first parameter"
     echo "(e.g. 'glossaire.sh fr' to update only French)."
@@ -39,7 +39,6 @@ function echo_manual() {
     echo "---"
     echo "To update only one locale, and avoid creating a data snapshot at the end, add locale code and 'no-snapshot'"
     echo "(e.g. 'glossaire.sh fr no-snapshot' to update only French without creating a data snapshot)."
-
 }
 
 all_locales=true
@@ -48,7 +47,11 @@ create_snapshot=true
 if [ $# -eq 1 ]
 then
     # I have one parameter, it could be 'no-snapshot' or a locale code
-    if [ "$1" == "no-snapshot" ]
+    if [ "$1" == "help" ]
+    then
+        echo_manual
+        exit 1
+    elif [ "$1" == "no-snapshot" ]
     then
         create_snapshot=false
     else
@@ -65,6 +68,7 @@ then
     locale_code=$1
     if [ "$2" != "no-snapshot" ]
     then
+        echo "ERROR: incorrect arguments."
         echo_manual
         exit 1
     fi
@@ -74,19 +78,21 @@ fi
 if [ $# -gt 2 ]
 then
     # Too many parameters, warn and exit
+    echo "ERROR: too many arguments."
     echo_manual
     exit 1
 fi
 
-# Get server configuration variables
-APP_FOLDER=$(dirname $PWD)
-export PATH=$PATH:$APP_FOLDER/app/inc
-export PATH=$PATH:$APP_FOLDER/
+# Get configuration variables from config/config.ini
+app_folder=$(dirname $PWD)
+export PATH=$PATH:$app_folder/app/inc
+export PATH=$PATH:$app_folder/
 
-# Store current directory path to be able to call this script from anywhere
-DIR=$(dirname "$0")
+# Store the relative path to the script
+script_path=$(dirname "$0")
+
 # Convert .ini file in bash variables
-eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+eval $(cat $script_path/../config/config.ini | $script_path/ini_to_bash.py)
 
 # Check if we have sources
 echogreen "Checking if Transvision sources are available..."
@@ -98,16 +104,60 @@ then
 fi
 
 # Create all bash variables
-source $DIR/bash_variables.sh
+source $script_path/bash_variables.sh
 
-# Decide if must update hg repositories and create TMX
+# Set if we need to update repositories or force TMX creation
 checkrepo=true
-createTMX=true
+forceTMX=false
+
+function updateLocale() {
+    # Update this locale's repository
+    # $1: Path to l10n repository
+    # $2: Locale code
+    # $3: Repository name
+
+    # Assign input variables to variables with meaningful names
+    l10n_path="$1"
+    locale="$2"
+    repository_name="$3"
+
+    cd $l10n_path/$locale
+    # Check if there are incoming changesets
+    hg incoming -r default --bundle incoming.hg 2>&1 >/dev/null
+    incoming_changesets=$?
+    if [ $incoming_changesets -eq 0 ]
+    then
+        # Update with incoming changesets and remove the bundle
+        echogreen "Updating $repository_name"
+        hg pull --update incoming.hg
+        rm incoming.hg
+
+        # Return 1: we need to create the cache for this locale
+        return 1
+    else
+        echogreen "There are no changes to pull for $repository_name"
+
+        # Return 0: no need to create the cache
+        return 0
+    fi
+}
 
 function updateStandardRepo() {
     # Update specified repository. Parameters:
-    # $1 = channel name used in folders and TMX
-    # $2 = channel name used in variable names
+    # $1: Channel name used in folders and TMX
+    # $2: Channel name used in variable names
+
+    function buildCache() {
+        # Build the cache
+        # $1: Locale code
+        echogreen "Create ${repo_name^^} cache for $repo_name/$1"
+        if [ "$1" = "en-US" ]
+        then
+            nice -20 python $install/app/scripts/tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
+        else
+            nice -20 python $install/app/scripts/tmxmaker.py ${!repo_l10n}/$1/ ${!repo_source}/COMMUN/ $1 en-US $repo_name
+        fi
+    }
 
     local repo_name="$1"                # e.g. release, beta, aurora, central
     local comm_repo="comm-$1"           # e.g. comm-release, etc.
@@ -116,70 +166,83 @@ function updateStandardRepo() {
     local repo_l10n="${2}_l10n"         # e.g. release_l10n, etc.
     local locale_list="${2}_locales"    # e.g. release_locales, etc.
 
-    if $checkrepo
+    updated_english=false
+
+    # Store md5 of the existing cache before updating the repositories
+    cache_file="${root}TMX/en-US/cache_en-US_${repo_name}.php"
+    if [ -f $cache_file ]
     then
-        cd ${!repo_source}              # value of variable called repo, e.g. value of $release_source
+        existing_md5=($(md5sum $cache_file))
+    else
+        existing_md5=0
+    fi
+
+    if [ "$checkrepo" = true ]
+    then
+        # Update all source repositories
+        # ${!repo_source}: if repo_source contains 'release_source', this will
+        # return the value of the variable $release_source.
+        cd ${!repo_source}
         echogreen "Update $comm_repo"
         cd $comm_repo
         hg pull -r default --update
         echogreen "Update $mozilla_repo"
         cd ../$mozilla_repo
         hg pull -r default --update
-
-        if $all_locales
-        then
-            cd ${!repo_l10n}            # value of variable called repo_l10n, e.g. value of $release_l10n
-            for locale in $(cat ${!locale_list})
-            do
-                if [ -d ${!repo_l10n}/$locale ]
-                then
-                    echogreen "Update $repo_name/$locale"
-                    cd $locale
-                    hg pull -r default --update
-                    cd ..
-                else
-                    echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
-                fi
-            done
-        else
-            if [ -d ${!repo_l10n}/$locale_code ]
-            then
-                echogreen "Update $repo_name/$locale_code"
-                cd ${!repo_l10n}/$locale_code
-                hg pull -r default --update
-                cd ..
-            else
-                echored "Folder ${!repo_l10n}/$locale_code does not exist."
-            fi
-        fi
     fi
 
-    cd $install
-    if $createTMX
-    then
-        find -L ${!repo_source}/COMMUN/ -type l | while read -r file; do echored "$file is orphaned";  unlink $file; done
-        if $all_locales
-        then
-            for locale in $(cat ${!locale_list})
-            do
-                echogreen "Create ${repo_name^^} cache for $locale"
-                nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale/ ${!repo_source}/COMMUN/ $locale en-US $repo_name
-            done
-        else
-            if [ -d ${!repo_l10n}/$locale_code ]
-            then
-                echogreen "Create ${repo_name^^} cache for $locale_code"
-                nice -20 python app/scripts/tmxmaker.py ${!repo_l10n}/$locale_code/ ${!repo_source}/COMMUN/ $locale_code en-US $repo_name
-            else
-                echored "Folder ${!repo_l10n}/$locale_code does not exist."
-            fi
-        fi
+    # Remove orphaned symbolic links
+    find -L ${!repo_source}/COMMUN/ -type l | while read -r file; do echored "$file is orphaned";  unlink $file; done
 
-        echogreen "Create ${repo_name^^} cache for en-US"
-        nice -20 python app/scripts/tmxmaker.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
+    # Create TMX for en-US and check the updated md5
+    buildCache en-US
+    updated_md5=($(md5sum $cache_file))
+    if [ $existing_md5 != $updated_md5 ]
+    then
+        echo "English strings have been updated."
+        updated_english=true
+    fi
+
+    if [ "$all_locales" = true ]
+    then
+        for locale in $(cat ${!locale_list})
+        do
+            if [ -d ${!repo_l10n}/$locale ]
+            then
+                updated_locale=false
+                if [ "$checkrepo" = true ]
+                then
+                    updateLocale ${!repo_l10n} $locale $repo_name/$locale
+                    updated_locale=$?
+                fi
+
+                if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
+                then
+                    buildCache $locale
+                fi
+            else
+                echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
+            fi
+        done
+    else
+        if [ -d ${!repo_l10n}/$locale_code ]
+        then
+            updated_locale=false
+            if [ "$checkrepo" = true ]
+            then
+                updateLocale ${!repo_l10n} $locale_code $repo_name/$locale_code
+                updated_locale=$?
+            fi
+
+            if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
+            then
+                buildCache $locale_code
+            fi
+        else
+            echored "Folder ${!repo_l10n}/$locale_code does not exist."
+        fi
     fi
 }
-
 
 function updateNoBranchRepo() {
     if $checkrepo
@@ -191,10 +254,16 @@ function updateNoBranchRepo() {
     fi
 }
 
-
 function updateGaiaRepo() {
-    # Update specified Gaia repository. Parameters:
-    # $1 = version, could be "trunk" or a version (e.g. 1_3, 1_4, etc)
+    # Update specified Gaia repository
+    # $1: Version. It could be "trunk" or a version (e.g. 1_3, 1_4, etc)
+
+    function buildCache() {
+        # Build the cache
+        # $1: Locale code
+        echogreen "Create ${repo_name^^} cache for $repo_name/$1"
+        nice -20 python $install/app/scripts/tmxmaker.py ${!repo_name}/$1/ ${!repo_name}/en-US/ $1 en-US $repo_name
+    }
 
     if [ "$1" == "gaia" ]
     then
@@ -205,89 +274,93 @@ function updateGaiaRepo() {
         local repo_name="gaia_$1"
     fi
 
-    if $checkrepo
+    # Store md5 of the existing cache before updating the repository
+    cache_file="${root}TMX/en-US/cache_en-US_${repo_name}.php"
+    if [ -f $cache_file ]
     then
-        if $all_locales
-        then
-            cd ${!repo_name}
-            for locale in $(cat ${!locale_list})
-            do
-                if [ -d ${!repo_name}/$locale ]
-                then
-                    echogreen "Update $repo_name/$locale"
-                    cd $locale
-                    hg pull -r default --update
-                    cd ..
-                else
-                    echored "Folder ${!repo_name}/$locale does not exist. Run setup.sh to fix the issue."
-                fi
-            done
-        else
-            if [ -d ${!repo_name}/$locale_code ]
-            then
-                echogreen "Update $repo_name/$locale_code"
-                cd ${!repo_name}/$locale_code
-                hg pull -r default --update
-                cd ..
-            else
-                echored "Folder ${!repo_name}/$locale_code does not exist."
-            fi
-        fi
+        existing_md5=($(md5sum $cache_file))
+    else
+        existing_md5=0
     fi
 
-    cd $install
-    if $createTMX
+    # Update en-US and build its TMX
+    if [ "$checkrepo" = true ]
     then
-        if $all_locales
-        then
-            for locale in $(cat ${!locale_list})
-            do
-                echogreen "Create ${repo_name^^} cache for $locale"
-                nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale/ ${!repo_name}/en-US/ $locale en-US $repo_name
-            done
-        else
-            if [ -d ${!repo_name}/$locale_code ]
-            then
-                echogreen "Create ${repo_name^^} cache for $locale_code"
-                nice -20 python app/scripts/tmxmaker.py ${!repo_name}/$locale_code/ ${!repo_name}/en-US/ $locale_code en-US $repo_name
-            else
-                echored "Folder ${!repo_name}/$locale_code does not exist."
-            fi
-        fi
+        updateLocale ${!repo_name} en-US $repo_name/en-US
+    fi
+    updated_md5=($(md5sum $cache_file))
+    if [ $existing_md5 != $updated_md5 ]
+    then
+        echo "English strings have been updated."
+        updated_english=true
+    fi
 
-        echogreen "Create ${repo_name^^} cache for en-US"
-        nice -20 python app/scripts/tmxmaker.py ${!repo_name}/en-US/ ${!repo_name}/en-US/ en-US en-US $repo_name
+    if [ "$all_locales" = true ]
+    then
+        for locale in $(cat ${!locale_list})
+        do
+            if [ -d ${!repo_name}/$locale ]
+            then
+                if [ "$locale" != "en-US" ]
+                then
+                    updated_locale=false
+                    if [ "$checkrepo" = true ]
+                    then
+                        updateLocale ${!repo_name} $locale $repo_name/$locale
+                        updated_locale=$?
+                    fi
+
+                    if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
+                    then
+                        buildCache $locale
+                    fi
+                fi
+            else
+                echored "Folder ${!repo_name}/$locale does not exist. Run setup.sh to fix the issue."
+            fi
+        done
+    else
+        if [ -d ${!repo_name}/$locale_code ]
+        then
+            updated_locale=false
+            if [ "$checkrepo" = true ]
+            then
+                updateLocale ${!repo_name} $locale_code $repo_name/$locale_code
+                updated_locale=$?
+            fi
+
+            if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
+            then
+                buildCache $locale_code
+            fi
+        else
+            echored "Folder ${!repo_name}/$locale_code does not exist."
+        fi
     fi
 }
 
 function updateFromGitHub() {
-    if $checkrepo
+    if [ "$checkrepo" = true ]
     then
         cd $mozilla_org
         echogreen "Update mozilla.org repository"
         git pull origin master
     fi
-    if $createTMX
-    then
-        echogreen "Extract strings for mozilla.org"
-        cd $install
-        nice -20 app/scripts/tmx_mozillaorg
-    fi
+    echogreen "Extract strings for mozilla.org"
+    cd $install
+    nice -20 $install/app/scripts/tmx_mozillaorg
 }
 
 function updateFirefoxiOS() {
-    if $checkrepo
+    if [ "$checkrepo" = true ]
     then
         cd $firefox_ios
         echogreen "Update GitHub repository"
         git pull
     fi
-    if $createTMX
-    then
-        echogreen "Extract strings for Firefox for iOS"
-        cd $install
-        nice -20 app/scripts/tmx_xliff firefox_ios
-    fi
+    echogreen "Extract strings for Firefox for iOS"
+    cd $install
+    nice -20 $install/app/scripts/tmx_xliff firefox_ios
 }
 
 # Update repos without branches first (their TMX is created in updateStandardRepo)
@@ -310,38 +383,7 @@ updateFirefoxiOS
 # Generate productization data
 cd $install
 echogreen "Extracting p12n data"
-nice -20 python app/scripts/p12n_extract.py
-
-# Update L20N test repo
-if $checkrepo
-then
-    cd $l20n_test/l20ntestdata
-    git pull origin master
-fi
-
-cd $install
-if $createTMX
-then
-    if $all_locales
-    then
-        for locale in $(cat $l20n_test_locales)
-        do
-            echogreen "Create L20N test repo cache for $locale"
-            nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale/ $l20n_test/l20ntestdata/en-US/ $locale en-US l20n_test
-        done
-    else
-        if [ -d $l20n_test/l20ntestdata/$locale_code ]
-        then
-            echogreen "Create L20N test repo cache for $locale_code"
-            nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/$locale_code/ $l20n_test/l20ntestdata/en-US/ $locale_code en-US l20n_test
-        else
-            echored "Folder $l20n_test/$locale_code does not exist."
-        fi
-    fi
-
-    echogreen "Create L20N test repo cache for en-US"
-    nice -20 python app/scripts/tmxmaker.py $l20n_test/l20ntestdata/en-US/ $l20n_test/l20ntestdata/en-US/ en-US en-US l20n_test
-fi
+nice -20 python $install/app/scripts/p12n_extract.py
 
 # Create a file to get the timestamp of the last string extraction for caching
 echogreen "Creating extraction timestamp for cache system"
@@ -354,11 +396,11 @@ echogreen "Deleting custom TMX files"
 rm -f web/download/*.tmx
 
 # Create a snapshot of all extracted data for download
-if $create_snapshot
+if [ "$create_snapshot" = true ]
 then
     cd $root
     echogreen "Creating a snapshot of extracted strings in web/data.tar.gz"
-    tar --exclude='*.tmx' -zcf datatemp.tar.gz TMX
+    tar --exclude="*.tmx" -zcf datatemp.tar.gz TMX
 
     echogreen "Snapshot created in the web root for download"
     mv datatemp.tar.gz $install/web/data.tar.gz
