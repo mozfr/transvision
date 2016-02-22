@@ -340,24 +340,48 @@ class Utils
     }
 
     /**
-     * Utility function to log the memory used by a script
-     * and the time needed to generate the page
+     * Utility function to return the memory used by a script
+     * and the time needed to compute the data.
+     *
+     * @return array [Memory peak in bytes, Memory peak in MB, Computation time]
+     */
+    public static function getScriptPerformances()
+    {
+        $memory_peak_B    = memory_get_peak_usage(true);
+        $memory_peak_MB   = round(($memory_peak_B / (1024 * 1024)), 2);
+        $computation_time = round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
+
+        return [$memory_peak_B, $memory_peak_MB, $computation_time];
+    }
+
+    /**
+     * Utility function to log to stderr the memory used by a script
+     * and the time needed to generate the page.
+     * This is used only when the constants DEBUG and PERF_CHECK are set to True
+     * because we don't want to fill our logs with debug data on production.
      *
      * @return void
      */
     public static function logScriptPerformances()
     {
+        list($memory_peak_B, $memory_peak_MB, $computation_time) = self::getScriptPerformances();
+
         if (DEBUG && PERF_CHECK) {
-            $memory = 'Memory peak: '
-                      . memory_get_peak_usage(true)
-                      . ' ('
-                      . round((memory_get_peak_usage(true) / (1024 * 1024)), 2)
-                      . 'MB)';
-            $render_time = 'Elapsed time (s): '
-                           . round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
-            error_log($memory);
-            error_log($render_time);
+            error_log("Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)");
+            error_log("Elapsed time (s): {$computation_time}");
         }
+    }
+
+    /**
+     * Utility function to log the memory used by a script
+     * and the time needed to generate the page as an HTTP header.
+     *
+     * @return void
+     */
+    public static function addPerformancesHTTPHeader()
+    {
+        list($memory_peak_B, $memory_peak_MB, $computation_time) = self::getScriptPerformances();
+        header("Transvision-perf: Memory: {$memory_peak_B} ({$memory_peak_MB}MB); Time: {$computation_time}s");
     }
 
     /**

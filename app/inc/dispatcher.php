@@ -115,15 +115,27 @@ if ($template) {
     $content = ob_get_contents();
     ob_end_clean();
 
+    ob_start();
     // display the page
     require_once VIEWS . 'templates/base.php';
+    $content = ob_get_contents();
+    ob_end_clean();
 } else {
+    ob_start();
     if (isset($view)) {
         include VIEWS . $view . '.php';
     } else {
         include CONTROLLERS . $controller . '.php';
     }
+    $content = ob_get_contents();
+    ob_end_clean();
 }
-
+ob_start();
+// Log script performance in the HTTP headers sent to the browser
+Utils::addPerformancesHTTPHeader();
+$perf_header = ob_get_contents();
 // Log script performance in PHP integrated developement server console
 Utils::logScriptPerformances();
+ob_end_clean();
+print $perf_header . $content;
+die;

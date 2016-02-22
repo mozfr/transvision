@@ -482,4 +482,16 @@ class Utils extends atoum\test
             ->string($obj->redirectToAPI())
                 ->isEqualTo($b);
     }
+
+    public function testGetScriptPerformances()
+    {
+        $obj  = new _Utils();
+        $data = $obj->getScriptPerformances();
+        $this
+            ->array($data)
+                ->size->isEqualTo(3)
+            ->integer($data[0])
+            ->float($data[1])
+            ->float($data[2]);
+    }
 }

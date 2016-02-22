@@ -1,8 +1,6 @@
 <?php
 namespace Transvision;
 
-ob_start();
-
 $check['repo']  = isset($check['repo']) ? $check['repo'] : 'aurora';
 $source_locale  = isset($source_locale) ? $source_locale : 'en-US';
 $locale         = isset($locale) ? $locale : 'fr';
@@ -64,7 +62,6 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 } else {
     $last_update = "<p>Data last updated: not available.</p>\n";
 }
-
 ?>
 <!doctype html>
 
@@ -153,11 +150,3 @@ if (! LOCAL_DEV) {
 ?>
 </body>
 </html>
-
-<?php
-
-$content = ob_get_contents();
-
-ob_end_clean();
-
-print $content;
