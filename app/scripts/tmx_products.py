@@ -94,7 +94,7 @@ def get_strings(package, local_directory, strings_array):
 
 def create_directories_list(locale_repo, reference_repo, repository):
     ''' Create a list of folders to analyze '''
-    if repository.startswith('gaia') or repository == 'l20n_test':
+    if repository.startswith('gaia'):
         # Examine the entire folder
         dirs = ['']
     else:
