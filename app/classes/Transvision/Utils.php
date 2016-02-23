@@ -459,31 +459,30 @@ class Utils
      * This is used on views which also exist in our public API
      * https://github.com/mozfr/transvision/wiki/JSON-API
      *
-     * @param  boolean $revert if true, invert the locale and the source_locale in the API generated link
+     * @param  boolean $swap_locales Defaults to False. If set to True, swap the
+     *                               values of locale and source_locale parameters.
      * @return string  URL with 'json' appended as part of the query string
      */
-    public static function redirectToAPI($revert = false)
+    public static function redirectToAPI($swap_locales = false)
     {
-        if (! is_null($_SERVER['QUERY_STRING'])) {
-            // Allow to revert the locale and the sourcelocale when redirecting to the API
-            if ($revert) {
-                $arg = [];
-                parse_str($_SERVER['QUERY_STRING'], $arg);
-                $sourcelocale = $arg['sourcelocale'];
-                $arg['sourcelocale'] = $arg['locale'];
-                $arg['locale'] = $sourcelocale;
-                $query = http_build_query($arg);
-            } else {
-                $query = $_SERVER['QUERY_STRING'];
-            }
-            $address = (strstr($_SERVER['REQUEST_URI'], '?') ?
-                strstr($_SERVER['REQUEST_URI'], '?', true) :
-                $_SERVER['REQUEST_URI']) . '?' .  $query;
-        } else {
-            $query = null;
-            $address = $_SERVER['REQUEST_URI'];
+        if (! $swap_locales) {
+            return $_SERVER['REQUEST_URI'] . (is_null($_SERVER['QUERY_STRING']) ? '?json=true' : '&json=true');
         }
 
-        return $address . (is_null($query) ? '?json' : '&json');
+        // We are going to split and then rebuild QUERY_STRING
+        parse_str($_SERVER['QUERY_STRING'], $args);
+
+        // We add a json parameter to the query, its value doesn't matter.
+        $args['json'] = 'true';
+
+        // Swap the values of locale and sourcelocale if they exist
+        if (isset($args['locale'], $args['sourcelocale'])) {
+            list($args['locale'], $args['sourcelocale']) = [$args['sourcelocale'], $args['locale']];
+        }
+
+        // We don't want to encode slashes in searches for entity names
+        $query = urldecode(http_build_query($args));
+
+        return explode('?', $_SERVER['REQUEST_URI'])[0] . '?' . $query;
     }
 }

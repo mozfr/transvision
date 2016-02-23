@@ -458,14 +458,19 @@ class Utils extends atoum\test
     {
         return [
             [
-                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings',
-                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json',
-                'http://transvision.mozfr.org/string/?recherche=screen&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json=true',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json=true',
             ],
             [
-                'http://transvision.mozfr.org/api/v1/versions/',
-                'http://transvision.mozfr.org/api/v1/versions/?json',
-                'http://transvision.mozfr.org/api/v1/versions/?json',
+                '/v1/versions/',
+                '/v1/versions/?json=true',
+                '/v1/versions/?json=true',
+            ],
+            [
+                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings',
+                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
+                '/?recherche=home&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json=true',
             ],
         ];
     }
@@ -480,7 +485,6 @@ class Utils extends atoum\test
         $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
             ? parse_url($a)['query']
             : null;
-        $_SERVER['HTTP_HOST'] = 'http://' . parse_url($a)['host'];
         $this
             ->string($obj->redirectToAPI())
                 ->isEqualTo($b);
