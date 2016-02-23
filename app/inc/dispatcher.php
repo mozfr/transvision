@@ -99,6 +99,16 @@ switch ($url['path']) {
         $page_title = 'Unchanged Strings';
         $page_descr = 'Display a list of strings identical to English';
         break;
+    case 'unlocalized':
+        $experimental = true;
+        $controller   = 'unlocalized_words';
+        $page_title   = 'Commonly Unlocalized Words';
+        $page_descr   = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
+        break;
+    case 'unlocalized-json':
+        $controller = 'unlocalized_words';
+        $template   = false;
+        break;
     case 'variables':
         $controller = 'check_variables';
         $page_title = 'Variables Overview';

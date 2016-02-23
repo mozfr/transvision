@@ -41,6 +41,7 @@ $links = '
     <li><a ' . ($url['path'] == 'gaia' ? 'class="selected_view" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
     <li><a ' . ($url['path'] == 'consistency' ? 'class="selected_view" ' : '') . 'href="/consistency/" title="Translation Consistency">Translation Consistency</a></li>
     <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="selected_view" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged Strings</a></li>
+    <li><a ' . ($url['path'] == 'unlocalized_words' ? 'class="selected_view" ' : '') . 'href="/unlocalized/" title="Display common words remaining in English">Unlocalized Words</a></li>
     <li><a ' . ($url['path'] == 'variables' ? 'class="selected_view" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
   </ul>
 </div>
