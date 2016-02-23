@@ -93,14 +93,16 @@ if __name__ == "__main__":
         rcsClient = silme.io.Manager.get('file')
         try:
             l10nPackage_reference = rcsClient.get_package(path_reference, object_type='entitylist')
-        except:
+        except Exception as e:
             print 'Silme couldn\'t extract data for ' + path_reference
+            print e
             continue
 
         try:
             l10nPackage_locale = rcsClient.get_package(path_locale, object_type='entitylist')
-        except:
+        except Exception as e:
             print 'Silme couldn\'t extract data for ' + path_locale
+            print e
             continue
 
         strings = {}
