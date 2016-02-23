@@ -319,24 +319,6 @@ then
     git clone https://github.com/mozilla-l10n/firefoxios-l10n .
 fi
 
-# We now deal with L20n test repo as a specific case
-echogreen "L20n test repo initialization"
-cd $l20n_test
-if [ ! -d $l20n_test/l20ntestdata/.git ]
-then
-    echogreen "Checking out the following repo:"
-    git clone https://github.com/pascalchevrel/l20ntestdata.git
-fi
-
-for locale in $(cat $l20n_test_locales)
-    do
-        if [ ! -d $root/TMX/$locale ]
-        then
-            echogreen "Creating locale cache for: $locale"
-            mkdir -p $root/TMX/$locale
-        fi
-done
-
 # Add .htaccess to download folder. Folder should already exists, but check in
 # advance to be sure. I overwrite an existing .htaccess if already present.
 echogreen "Add .htaccess to download folder"
