@@ -14,7 +14,13 @@ error_log('Mozilla.org: extraction of strings');
 foreach (Files::getFilenamesInFolder(GIT . 'mozilla_org/') as $locale) {
     $path = GIT . "mozilla_org/{$locale}/";
 
-    if (! is_dir($path)) {
+    /*
+        'hi' is a fake locale on mozilla.org: it's not actually supported,
+        but we have a folder to enable legal documents in Bedrock. That
+        doesn't mean that we need to create a TMX for it.
+    */
+    $excluded_locales = ['hi'];
+    if (! is_dir($path) || in_array($locale, $excluded_locales)) {
         continue;
     }
 
