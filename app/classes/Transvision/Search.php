@@ -234,6 +234,6 @@ class Search
      */
     public function grep($source_strings)
     {
-        return preg_grep($this->regex, $source_strings);
+        return preg_grep($this->getRegex(), $source_strings);
     }
 }
