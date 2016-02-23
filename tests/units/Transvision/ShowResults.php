@@ -269,4 +269,26 @@ class ShowResults extends atoum\test
             ->array($obj->searchEntities($a, $b))
                 ->isEqualTo($c);
     }
+
+    public function testGetSuggestionsResults()
+    {
+        $obj = new _ShowResults();
+        include TMX . 'en-US/cache_en-US_central.php';
+        $source = $tmx;
+        include TMX . 'fr/cache_fr_central.php';
+        $target = $tmx;
+        $this
+            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark'))
+                ->isEqualTo(['Bookmark', 'Bookmarks', 'New Bookmarks',
+                             'Bookmark This Page', 'Find in Finder',
+                             'Nouveaux marque-pages', 'Marque-page', 'Marque-pages',
+                             'Marquer cette page', 'Ouvrir dans le Finder', ])
+            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark', 10))
+                ->isEqualTo(['Bookmark', 'Bookmarks', 'New Bookmarks',
+                             'Bookmark This Page', 'Find in Finder',
+                             'Nouveaux marque-pages', 'Marque-page', 'Marque-pages',
+                             'Marquer cette page', 'Ouvrir dans le Finder', ])
+            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark', 3))
+                ->isEqualTo(['Bookmark', 'Nouveaux marque-pages']);
+    }
 }
