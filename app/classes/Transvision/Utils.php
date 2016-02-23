@@ -459,10 +459,31 @@ class Utils
      * This is used on views which also exist in our public API
      * https://github.com/mozfr/transvision/wiki/JSON-API
      *
-     * @return string URL with 'json' appended as part of the query string
+     * @param  boolean $revert if true, invert the locale and the source_locale in the API generated link
+     * @return string  URL with 'json' appended as part of the query string
      */
-    public static function redirectToAPI()
+    public static function redirectToAPI($revert = false)
     {
-        return $_SERVER["REQUEST_URI"] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
+        if (! is_null($_SERVER['QUERY_STRING'])) {
+            // Allow to revert the locale and the sourcelocale when redirecting to the API
+            if ($revert) {
+                $arg = [];
+                parse_str($_SERVER['QUERY_STRING'], $arg);
+                $sourcelocale = $arg['sourcelocale'];
+                $arg['sourcelocale'] = $arg['locale'];
+                $arg['locale'] = $sourcelocale;
+                $query = http_build_query($arg);
+            } else {
+                $query = $_SERVER['QUERY_STRING'];
+            }
+            $address = (strstr($_SERVER['REQUEST_URI'], '?') ?
+                strstr($_SERVER['REQUEST_URI'], '?', true) :
+                $_SERVER['REQUEST_URI']) . '?' .  $query;
+        } else {
+            $query = null;
+            $address = $_SERVER['REQUEST_URI'];
+        }
+
+        return $address . (is_null($query) ? '?json' : '&json');
     }
 }
