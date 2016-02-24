@@ -209,77 +209,38 @@ print $diverging(
     'diverging'
 );
 
-// Inconsistent translations in the first repo (repo1)
-$find_duplicates = function ($string_array) {
-    $duplicates = [];
-    // Ignore case
-    $string_array = array_map(
-        function ($str) {
-            // Ignore date modifiers like %b, %B
-            $matches = preg_grep('/%[a-z]{1}/i', [$str]);
-            if (! count($matches)) {
-                $str = mb_strtolower($str, 'UTF-8');
-            }
+$english_repo = "{$repo1}-en-US";
+$l10n_repo = $repo1;
+$duplicated_strings_english = Consistency::findDuplicates($strings[$english_repo]);
+$duplicated_strings_translation = Consistency::findDuplicates($strings[$l10n_repo]);
 
-            return $str;
-        },
-        $string_array
-    );
-    asort($string_array);
-    reset($string_array);
-
-    $previous_key = '';
-    $previous_value = '';
-    foreach ($string_array as $key => $value) {
-        if (strcasecmp($previous_value, $value) === 0) {
-            $duplicates[$previous_key] = $previous_value;
-            $duplicates[$key] = $value;
-        }
-        $previous_value = $value;
-        $previous_key = $key;
-    }
-
-    return $duplicates;
-};
-
-$duplicated_strings_english = $find_duplicates($strings[$repo1 . '-en-US']);
-$duplicated_strings_translation = $find_duplicates($strings[$repo1]);
+// Filter English duplicates before comparing them with the localization
+$duplicated_strings_english = Consistency::filterStrings($duplicated_strings_english, $l10n_repo);
 
 // Get the strings duplicated in English but not in the localization
 $missing_duplicates = array_diff_key($duplicated_strings_english, $duplicated_strings_translation);
 
-$inconsistent_translation = [];
+$inconsistent_translations = [];
 foreach ($duplicated_strings_english as $key => $value) {
-    /*
-        I'm interested only in strings with a value that should be duplicated.
-        1) Ignore plural forms containing [] in the key, too many false positives
-          since English doesn't have plural for adjectives.
-        2) Ignore single character strings.
-        3) Ignore strings in accessibility.properties. It contains both normal and
-          abbreviated strings, which are often identical in English, so there are
-          too many false positives.
-    */
-    if (in_array($value, $missing_duplicates) &&
-        strpos($key, '[') === false &&
-        strpos($key, ']') === false &&
-        strlen($value) > 1 &&
-        strpos($key, 'accessibility.properties') === false) {
-        $inconsistent_translation[$key]['en-US'] = $value;
-        if (array_key_exists($key, $strings[$repo1])) {
-            $inconsistent_translation[$key]['l10n'] = $strings[$repo1][$key];
-        } else {
-            $inconsistent_translation[$key]['l10n'] = '';
+    if (in_array($value, $missing_duplicates)) {
+        // Store inconsistency only if there's a translation available
+        if (isset($strings[$l10n_repo][$key])) {
+            $inconsistent_translations[] = [
+                'key'   => $key,
+                'en-US' => $strings[$english_repo][$key],
+                'l10n'  => $strings[$repo1][$key],
+            ];
         }
     }
 }
 
-if (count($inconsistent_translation) > 0) {
+if (count($inconsistent_translations) > 0) {
     $inconsistent_results = "\n<table><tr><th>Label</th><th>English</th><th>Translation</th></tr>";
-    foreach ($inconsistent_translation as $key => $value) {
+    foreach ($inconsistent_translations as $inconsistent_translation) {
         $inconsistent_results .= "<tr>
-            <td>" . ShowResults::formatEntity($key) . "</td>
-            <td>" . Utils::secureText($value['en-US']) . "</td>
-            <td>" . Utils::secureText($value['l10n']) . "</td>
+            <td>" . ShowResults::formatEntity($inconsistent_translation['key']) . "</td>
+            <td>" . Utils::secureText($inconsistent_translation['en-US']) . "</td>
+            <td>" . Utils::secureText($inconsistent_translation['l10n']) . "</td>
         </tr>\n";
     }
     $inconsistent_results .= "</table>\n";

@@ -725,8 +725,21 @@ fieldset {
     top: -2px;
 }
 
-/* Gaia comparison view */
+/* Translation Consistency view */
+.inconsistent_translation {
+    margin: 0 0 10px 0;
+}
 
+#consistency table tr td:first-child {
+    color: #333;
+}
+
+#consistency .message {
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Gaia comparison view */
 .added_string {
     color: #008000;
 }

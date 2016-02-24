@@ -39,7 +39,8 @@ $links = '
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="selected_view" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
     <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="selected_view" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
     <li><a ' . ($url['path'] == 'gaia' ? 'class="selected_view" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
-    <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="selected_view" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged strings</a></li>
+    <li><a ' . ($url['path'] == 'consistency' ? 'class="selected_view" ' : '') . 'href="/consistency/" title="Translation Consistency">Translation Consistency</a></li>
+    <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="selected_view" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged Strings</a></li>
     <li><a ' . ($url['path'] == 'variables' ? 'class="selected_view" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
   </ul>
 </div>

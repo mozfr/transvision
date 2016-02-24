@@ -64,15 +64,29 @@ class Strings
     }
 
     /**
-     * Check if $needle is in $haystack
+     * Check if $needles are in $haystack
      *
-     * @param  string  $haystack String to analyse
-     * @param  string  $needle   The string to look for
-     * @return boolean True if the $haystack string contains $needle
+     * @param string  $haystack  String to analyze
+     * @param mixed   $needles   The string (or array of strings) to look for
+     * @param boolean $match_all True if we need to match all $needles, false
+     *                           if it's enough to match one. Default: false
+     *
+     * @return boolean True if the $haystack string contains any/all $needles
      */
-    public static function inString($haystack, $needle)
+    public static function inString($haystack, $needles, $match_all = false)
     {
-        return mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false ? true : false;
+        $matches = 0;
+        foreach ((array) $needles as $needle) {
+            if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
+                // If I need to match any needle, I can stop at the first match
+                if (! $match_all) {
+                    return true;
+                }
+                $matches++;
+            }
+        }
+
+        return $matches == count($needles);
     }
 
     /**
