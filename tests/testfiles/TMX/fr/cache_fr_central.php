@@ -6,4 +6,5 @@ $tmx = [
 'browser/chrome/browser/syncQuota.properties:collection.bookmarks.label'          => 'Marque-pages',
 'browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti' => 'Nouveaux marque-pages',
 'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label'                    => 'Marquer cette page',
+'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2'                   => '...',
 ];

@@ -152,5 +152,17 @@ class Search extends atoum\test
                     'browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti' => 'Nouveaux marque-pages',
                 ]
             );
+
+        $obj
+            ->setRegexWholeWords('')
+            ->setSearchTerms('...')
+            ->setRegexPerfectMatch('perfect_match');
+
+        $this->array($obj->grep($tmx))
+            ->isEqualTo(
+                [
+                    'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2' => '...',
+                ]
+            );
     }
 }
