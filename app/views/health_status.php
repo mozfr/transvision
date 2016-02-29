@@ -1,14 +1,8 @@
-<form name="searchform" id="simplesearchform" method="get" action="">
-    <fieldset id="main_search">
-        <fieldset>
-            <label>Locale</label>
-            <select name="locale" title="Locale">
-            <?=$target_locales_list?>
-            </select>
-        </fieldset>
-        <input type="submit" value="Go" alt="Go" />
-    </fieldset>
-</form>
+<?php
+
+// Include the common simple search form
+include __DIR__ . '/simplesearchform.php';
+?>
 
 <h3>Health Status for <?=$page_locale?></h3>
 <div id="wrapper">

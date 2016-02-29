@@ -28,7 +28,7 @@ if ($key = array_search('en-US', $gaia_locales)) {
 
 $string_count = [];
 
-// Referen_ce locale count
+// Reference locale count
 $count_reference = count($strings['en-US'][$repo]);
 
 foreach ($gaia_locales as $val) {
@@ -57,7 +57,9 @@ $table = '
 
 foreach ($string_count as $locale => $numbers) {
     $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
-    $completion = number_format($completion / $count_reference * 100);
+
+    // Making sure we never divide by zero while computing percentage
+    $completion = $count_reference == 0 ? 0 : number_format($completion / $count_reference * 100);
 
     if ($completion >= 99) {
         $confidence = 'Highest';

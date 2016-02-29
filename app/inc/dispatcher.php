@@ -70,9 +70,6 @@ switch ($url['path']) {
         $page_descr = 'Show productization aspects for this locale.';
         $css_include = ['productization.css'];
         break;
-    case 'repocomparison':
-        $view = 'repocomparison';
-        break;
     case 'rss':
         $controller = 'changelog';
         $template = false;

@@ -88,6 +88,7 @@ foreach (Project::getRepositories() as $repo) {
 
                 $locale_entities  = $filter_pattern($locale);
                 $english_entities = $filter_pattern($ref_locale);
+                $english_strings = $locale_strings = [];
 
                 // Skip some special cases (mostly optional strings)
                 $path = [];
@@ -260,7 +261,10 @@ if (! empty($projects)) {
     $stats = Health::getStats($projects);
     $translated = $stats['translated'];
     $reference = $stats['total'];
-    $completion = round(($translated / $reference) * 100, 2);
+
+    // Making sure we never divide by zero while computing percentage
+    $completion = $reference == 0 ? 0 : round(($translated / $reference) * 100, 2);
+
     $completion = $completion > 100 ? 100 : $completion;
 
     // Get color from completion value
