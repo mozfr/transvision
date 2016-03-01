@@ -36,7 +36,7 @@ if (! isset($supported_projects[$project_name])) {
 error_log('Extraction of strings from XLIFF file');
 
 $base_path = $supported_projects[$project_name]['base_path'];
-foreach (Files::getFilenamesInFolder($base_path, ['templates', 'README']) as $locale) {
+foreach (Files::getFilenamesInFolder($base_path, ['templates', 'README.md']) as $locale) {
     $out_translation = '';
     $total_strings = 0;
 
