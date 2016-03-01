@@ -58,32 +58,7 @@ Note that if you launch start.sh again after the installation, it will not downl
 
 ## Contribution tips
 
-- Add Transvision parent project as a remote repository called 'upstream' (this is a one time operation):
-```bash
-git remote add upstream git@github.com:mozfr/transvision.git
-```
-- Update your master branch to the latest version of Transvision every time you want to do some dev work:
-```bash
-git checkout master
-git pull upstream master
-```
-Then switch to a new branch where you will work on the patch you want to propose:
-```bash
-git checkout -b my_new_branch
-```
-- Launch PHP-cs-fixer, unit and functional tests:
-```bash
-start.sh -tests
-```
-- Update dependencies with composer:
-```bash
-php composer.phar update
-```
-or, if Composer is installed globally:
-```bash
-composer update
-```
-- Check our [Coding Standards][] before submitting pull requests.
+See [``CONTRIBUTING.md``](CONTRIBUTING.md)
 
 ## Licence:
 
