@@ -148,10 +148,9 @@ class Search
      */
     private function updateRegex()
     {
+        $search = preg_quote($this->regex_search_terms);
         if ($this->regex_perfect_match) {
-            $search =  '^' . $this->regex_search_terms . '$';
-        } else {
-            $search = preg_quote($this->regex_search_terms, '~');
+            $search =  "^{$search}$";
         }
 
         $this->regex =
