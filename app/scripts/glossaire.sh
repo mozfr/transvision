@@ -216,6 +216,16 @@ function updateStandardRepo() {
                     updated_locale=$?
                 fi
 
+                # Check if we have a cache file for this locale. If it's a brand
+                # new locale, we'll have the folder and no updates, but we
+                # still need to create the cache.
+                cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
+                if [ ! -f $cache_file ]
+                then
+                    echored "Cache doesn't exist for ${repo_name}/${locale}"
+                    updated_locale=1
+                fi
+
                 if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
                 then
                     buildCache $locale
@@ -232,6 +242,13 @@ function updateStandardRepo() {
             then
                 updateLocale ${!repo_l10n} $locale_code $repo_name/$locale_code
                 updated_locale=$?
+            fi
+
+            cache_file="${root}TMX/${locale_code}/cache_${locale_code}_${repo_name}.php"
+            if [ ! -f $cache_file ]
+            then
+                echored "Cache doesn't exist for ${repo_name}/${locale_code}"
+                updated_locale=1
             fi
 
             if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
@@ -310,6 +327,16 @@ function updateGaiaRepo() {
                         updated_locale=$?
                     fi
 
+                    # Check if we have a cache file for this locale. If it's a brand
+                    # new locale, we'll have the folder and no updates, but we
+                    # still need to create the cache.
+                    cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
+                    if [ ! -f $cache_file ]
+                    then
+                        echored "Cache doesn't exist for ${repo_name}/${locale}"
+                        updated_locale=1
+                    fi
+
                     if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
                     then
                         buildCache $locale
@@ -327,6 +354,13 @@ function updateGaiaRepo() {
             then
                 updateLocale ${!repo_name} $locale_code $repo_name/$locale_code
                 updated_locale=$?
+            fi
+
+            cache_file="${root}TMX/${locale_code}/cache_${locale_code}_${repo_name}.php"
+            if [ ! -f $cache_file ]
+            then
+                echored "Cache doesn't exist for ${repo_name}/${locale_code}"
+                updated_locale=1
             fi
 
             if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
