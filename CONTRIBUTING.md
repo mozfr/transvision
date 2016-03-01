@@ -59,4 +59,4 @@ or, if Composer is installed globally:
 ```bash
 composer update
 ```
-- Check our [Coding Standards][] before submitting pull requests.
+- Check our [Coding Standards](https://github.com/mozfr/transvision/wiki/Code-conventions) before submitting pull requests.
