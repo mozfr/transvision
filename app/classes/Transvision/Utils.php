@@ -24,6 +24,8 @@ class Utils
         $sanitize = function ($v) {
             // CRLF XSS
             $v = str_replace(['%0D', '%0A'], '', $v);
+            // We want to convert line breaks into spaces
+            $v = str_replace("\n", ' ', $v);
             // Escape HTML tags and remove ASCII characters below 32
             $v = filter_var(
                 $v,
