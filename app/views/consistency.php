@@ -23,7 +23,6 @@ namespace Transvision;
         </fieldset>
         <?php endif; ?>
 
-        <input type="hidden" name="display" value="true" />
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
 </form>
