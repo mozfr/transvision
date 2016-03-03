@@ -10,6 +10,25 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class Utils extends atoum\test
 {
+    public function secureTextDP()
+    {
+        return [
+            ["achat des couteaux\nsuisses", 'achat des couteaux suisses'],
+            ["<b>foo</b>", '&#60;b&#62;foo&#60;/b&#62;'],
+        ];
+    }
+
+    /**
+     * @dataProvider secureTextDP
+     */
+    public function testSecureText($a, $b)
+    {
+        $obj = new _Utils();
+        $this
+            ->string($obj->secureText($a))
+                ->isEqualTo($b);
+    }
+
     public function uniqueWordsDP()
     {
         return ['achat des couteaux suisses'];
