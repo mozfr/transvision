@@ -4,8 +4,8 @@ include 'includes/init.php';
 
 $paths = [
     ['channelcomparison/', 200, 'Compare strings from channel to channel', 'Key'],
-    ['consistency/?locale=fr&repo=central&display=true', 200, 'English String', 'Available Translations'],
-    ['consistency/?locale=en-US&repo=central&display=true', 200, 'No inconsistent translations found.', 'Analyze translation consistency across repositories.'],
+    ['consistency/?locale=fr&repo=central', 200, 'English String', 'Available Translations'],
+    ['consistency/?locale=en-US&repo=central', 200, 'No inconsistent translations found.', 'Analyze translation consistency across repositories.'],
     ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is a community project under the MozFR umbrella'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
     ['gaia/', 200, 'Translation Status', 'How many strings are translated'],
