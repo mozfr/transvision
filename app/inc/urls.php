@@ -6,6 +6,7 @@ $urls = [
     'rss'               => 'rss',
     'stats'             => 'stats',
     'channelcomparison' => 'channelcomp',
+    'consistency'       => 'consistency',
     'accesskeys'        => 'keys',
     'credits'           => 'credits',
     'downloads'         => 'downloads',

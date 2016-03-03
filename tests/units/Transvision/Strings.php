@@ -69,21 +69,26 @@ class Strings extends atoum\test
     public function inStringWithDP()
     {
         return [
-            ['La maison est blanche', 'blanche', true],
-            ['Le ciel est bleu', 'noir', false],
-            ['Le ciel est bleu', 'Le', true],
+            ['La maison est blanche', 'blanche', false, true],
+            ['La maison est blanche', 'blanche', true, true],
+            ['La maison est blanche', ['blanche', 'maison'], true, true],
+            ['La maison est blanche', ['blanche', 'maison'], false, true],
+            ['La maison est blanche', ['blanche', 'noir'], true, false],
+            ['La maison est blanche', ['blanche', 'noir'], false, true],
+            ['Le ciel est bleu', 'noir', false, false],
+            ['Le ciel est bleu', 'Le', false, true],
         ];
     }
 
     /**
      * @dataProvider inStringWithDP
      */
-    public function testInString($a, $b, $c)
+    public function testInString($a, $b, $c, $d)
     {
         $obj = new _Strings();
         $this
-            ->boolean($obj->inString($a, $b))
-                ->isEqualTo($c);
+            ->boolean($obj->inString($a, $b, $c))
+                ->isEqualTo($d);
     }
 
     public function multipleStringReplaceDP()

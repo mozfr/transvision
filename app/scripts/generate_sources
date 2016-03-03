@@ -59,12 +59,10 @@ if ($gaia_versions) {
 // Create a JSON file with the list of all supported repositories in the correct order
 $json_repositories = [];
 foreach ($repositories as $repository) {
-    if ($repository['type'] != 'test') {
-        $json_repositories[intval($repository['display_order'])] = [
-            'id'   => $repository['id'],
-            'name' => $repository['name']
-        ];
-    }
+    $json_repositories[intval($repository['display_order'])] = [
+        'id'   => $repository['id'],
+        'name' => $repository['name']
+    ];
 }
 ksort($json_repositories);
 echo "* Saving JSON record of all supported repositories\n";

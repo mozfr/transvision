@@ -20,38 +20,27 @@ switch ($url['path']) {
         $page_title = '3 locales search';
         $page_descr = 'One source locale, get search results for two target locales';
         break;
-    case 'news':
-        $controller = 'changelog';
-        $page_title = 'Transvision News and Release Notes';
+    case 'accesskeys':
+        $view = 'accesskeys';
+        $page_title = 'Access Keys';
+        $page_descr = 'Check your access keys.';
+        break;
+    case Strings::StartsWith($url['path'], 'api'):
+        $controller = 'api';
+        $page_title = 'API response';
         $page_descr = '';
-        $css_include = ['changelog.css'];
-        break;
-    case 'rss':
-        $controller = 'changelog';
         $template = false;
-        break;
-    case 'stats':
-        $view = 'showrepos';
-        $page_title = 'Status Overview';
-        $page_descr = 'Repository status overview.';
-        break;
-    case 'repocomparison':
-        $view = 'repocomparison';
-        break;
-    case 'gaia':
-        $view = 'gaia';
-        $page_title = 'Gaia Comparison';
-        $page_descr = 'Check the Status of your GAIA strings across repositories.';
         break;
     case 'channelcomparison':
         $controller = 'channelcomparison';
         $page_title = 'Channel Comparison';
         $page_descr = 'Compare strings from channel to channel.';
         break;
-    case 'accesskeys':
-        $view = 'accesskeys';
-        $page_title = 'Access Keys';
-        $page_descr = 'Check your access keys.';
+    case 'consistency':
+        $experimental = true;
+        $controller = 'consistency';
+        $page_title = 'Translation Consistency';
+        $page_descr = 'Analyze translation consistency across repositories.';
         break;
     case 'credits':
         $view = 'credits';
@@ -64,12 +53,41 @@ switch ($url['path']) {
         $page_descr = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
         $css_include = ['tmx.css'];
         break;
+    case 'gaia':
+        $view = 'gaia';
+        $page_title = 'Gaia Comparison';
+        $page_descr = 'Check the Status of your GAIA strings across repositories.';
+        break;
+    case 'news':
+        $controller = 'changelog';
+        $page_title = 'Transvision News and Release Notes';
+        $page_descr = '';
+        $css_include = ['changelog.css'];
+        break;
+    case 'productization':
+        $view = 'productization';
+        $page_title = 'Productization Overview';
+        $page_descr = 'Show productization aspects for this locale.';
+        $css_include = ['productization.css'];
+        break;
+    case 'repocomparison':
+        $view = 'repocomparison';
+        break;
+    case 'rss':
+        $controller = 'changelog';
+        $template = false;
+        break;
     case 'showrepos':
         $experimental = true;
         $controller = 'health_status';
         $page_title = 'Health status';
         $page_descr = 'Check the health status of locales.';
         $css_include = ['health.css'];
+        break;
+    case 'stats':
+        $view = 'showrepos';
+        $page_title = 'Status Overview';
+        $page_descr = 'Repository status overview.';
         break;
     case 'string':
         $controller = 'onestring';
@@ -85,18 +103,6 @@ switch ($url['path']) {
         $controller = 'check_variables';
         $page_title = 'Variables Overview';
         $page_descr = 'Show potential errors related to missing or mispelled variables in your strings.';
-        break;
-    case 'productization':
-        $view = 'productization';
-        $page_title = 'Productization Overview';
-        $page_descr = 'Show productization aspects for this locale.';
-        $css_include = ['productization.css'];
-        break;
-    case Strings::StartsWith($url['path'], 'api'):
-        $controller = 'api';
-        $page_title = 'API response';
-        $page_descr = '';
-        $template = false;
         break;
     default:
         $controller = 'mainsearch';
