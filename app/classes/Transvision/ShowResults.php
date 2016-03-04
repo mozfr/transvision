@@ -116,6 +116,7 @@ class ShowResults
             $set[1] is the target string, that is the language we want
             translations from.
         */
+        $output = [];
         foreach ($strings as $set) {
             $quality = round(Strings::levenshteinQuality($search, $set[0]), 2);
 
