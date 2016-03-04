@@ -216,28 +216,20 @@ class ShowResults
     }
 
     /**
-     * Highlight specific elements in the string for locales.
-     * Can also highlight specific per locale sub-strings.
-     * For example in French non-breaking spaces used in typography
+     * Highlight specific elements in the string.
      *
      * @param  string $string Source text
-     * @param  string $locale Optional. Locale code. Defaults to French.
-     * @return string Same string with specific sub-strings in span elements
-     *                       for styling with CSS (.hightlight-gray class)
+     * @return string Same string with specific sub-strings in <span>
+     *                       elements for styling with CSS
      */
-    public static function highlight($string, $locale = 'fr')
+    public static function highlight($string)
     {
         $replacements = [
-            ' '   => '<span class="highlight-gray"> </span>',
-            '…'   => '<span class="highlight-gray">…</span>',
+            ' '        => '<span class="highlight-space" title="White space"> </span>',
+            ' '        => '<span class="highlight-red" title="Unicode non-breaking space"> </span>',
+            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
+            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
         ];
-
-        switch ($locale) {
-            case 'fr':
-            default:
-                $replacements['&hellip;'] = '<span class="highlight-gray">…</span>'; // Right ellipsis highlight
-                break;
-        }
 
         return Strings::multipleStringReplace($replacements, $string);
     }

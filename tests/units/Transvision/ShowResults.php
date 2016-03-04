@@ -38,6 +38,14 @@ class ShowResults extends atoum\test
                 ->isEqualTo($c);
     }
 
+    public function testHighlight()
+    {
+        $obj = new _ShowResults();
+        $this
+            ->string($obj->highlight('Foo is bar ; Bar is Foo…'))
+                ->isEqualTo('Foo<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>bar<span class="highlight-red" title="Unicode non-breaking space"> </span>;<span class="highlight-red" title="Unicode non-breaking space"> </span>Bar<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
+    }
+
     public function getTranslationMemoryResultsDP()
     {
         include TMX . 'en-US/cache_en-US_central.php';

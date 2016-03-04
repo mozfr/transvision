@@ -189,7 +189,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
         $table .= '<tr>'
                 . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($v) . '</div></td>';
         foreach ($normalized_repo as $repo_name => $repo) {
-            $table .= '<td><span class="celltitle">' . $repo_name . '</span><div class="string">' . ShowResults::highlight($normalized_repo[$repo_name][$v], $locale) . '</div></td>';
+            $table .= '<td><span class="celltitle">' . $repo_name . '</span><div class="string">' . ShowResults::highlight($normalized_repo[$repo_name][$v]) . '</div></td>';
         }
         $table .= '</tr>';
     }
@@ -282,10 +282,10 @@ foreach ($common_keys as $key => $val) {
               '<tr>'
             . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($key) . '</div></td>'
             . '<td><span class="celltitle">Gaia' . $repo_one . '</span><div class="string">'
-            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[0] . '-en-US'][$key]), 'en-US')
+            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[0] . '-en-US'][$key]))
             . '<br><small>' . $get_localized_string($englishchanges[0]) . '</small></div></td>'
             . '<td><span class="celltitle">Gaia' . $repo_two . '</span><div class="string">'
-            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[1] . '-en-US'][$key]), 'en-US')
+            . ShowResults::highlight(Utils::secureText($strings[$englishchanges[1] . '-en-US'][$key]))
             . '<br><small>' . $get_localized_string($englishchanges[1]) . '</small></div></td>'
             . '</tr>';
     }
@@ -322,8 +322,8 @@ $strings_added = function ($reverted_comparison, $strings, $repo_one, $repo_two,
         $table .= '<tr>'
                 . '<td><span class="celltitle">Key</span><div class="string">' . ShowResults::formatEntity($k) . '</td>'
                 . '<td><span class="celltitle">' . $locale . '</span><div class="string">'
-                . ShowResults::highlight(Utils::secureText($strings[$repo_one . '-en-US'][$k]), 'en-US')
-                . '<br><small>' . ShowResults::highlight(Utils::secureText($translation), $locale)
+                . ShowResults::highlight(Utils::secureText($strings[$repo_one . '-en-US'][$k]))
+                . '<br><small>' . ShowResults::highlight(Utils::secureText($translation))
                 . '</small></div></td>'
                 . '</tr>';
     }

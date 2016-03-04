@@ -402,21 +402,33 @@ table tr td:first-child {
     color: rgb(0, 0, 200);
 }
 
+/* highlighting rules */
+
+.highlight-specialchars {
+    color: #000;
+    white-space: pre-wrap; /* That allows exposing contiguous white spaces */
+}
+
+.highlight-specialchars .highlight-gray {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.highlight-specialchars .highlight-space {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    height: 0.5em;
+    vertical-align: middle;
+}
+
+.highlight-specialchars .highlight-red {
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
 .highlight {
     /* generic highlight */
     color: #000;
     background-color: rgba(255, 165, 0, 0.77);
     border-radius: 3px;
-}
-
-.highlight-gray {
-    color: #000;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.highlight-red {
-    color: #000;
-    background-color: rgba(255, 0, 0, 0.4);
 }
 
 .superset {

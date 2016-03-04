@@ -47,8 +47,8 @@ if (empty($common_strings)) {
     foreach ($common_strings as $key => $value) {
         echo   "  <tr>"
              . "    <td><span class='celltitle'>Key</span><div class='string'>" . ShowResults::formatEntity($key) . "</div></td>\n"
-             . "    <td><span class='celltitle'>{$chan1}</span><div class='string'>" . ShowResults::highlight($value, $locale) . "</div></td>\n"
-             . "    <td><span class='celltitle'>{$chan2}</span><div class='string'>" . ShowResults::highlight($strings[$chan2][$key], $locale) . "</div></td>\n"
+             . "    <td><span class='celltitle'>{$chan1}</span><div class='string'>" . ShowResults::highlight($value) . "</div></td>\n"
+             . "    <td><span class='celltitle'>{$chan2}</span><div class='string'>" . ShowResults::highlight($strings[$chan2][$key]) . "</div></td>\n"
              . "  </tr>\n";
     }
     echo "</table>\n";
