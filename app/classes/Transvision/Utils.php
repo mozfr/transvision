@@ -461,30 +461,34 @@ class Utils
      * This is used on views which also exist in our public API
      * https://github.com/mozfr/transvision/wiki/JSON-API
      *
-     * @param  boolean $swap_locales Defaults to False. If set to True, swap the
-     *                               values of locale and source_locale parameters.
-     * @return string  URL with 'json' appended as part of the query string
+     * @return string URL with 'json' appended as part of the query string
      */
-    public static function redirectToAPI($swap_locales = false)
+    public static function redirectToAPI()
     {
-        if (! $swap_locales) {
-            return $_SERVER['REQUEST_URI'] . (is_null($_SERVER['QUERY_STRING']) ? '?json=true' : '&json=true');
-        }
+        return $_SERVER["REQUEST_URI"] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
+    }
 
+    /**
+     * Return the current URL with the json GET variable appended
+     * and also adds locale codes if they are not already provided
+     * by redirectToAPI()
+     *
+     * @param  string $source_locale Locale code for source
+     * @param  string $target_locale Locale code for target
+     * @return string URL with 'json' appended as part of the query string
+     */
+    public static function APIPromotion($source_locale, $target_locale)
+    {
         // We are going to split and then rebuild QUERY_STRING
-        parse_str($_SERVER['QUERY_STRING'], $args);
+        parse_str(self::redirectToAPI(), $args);
 
-        // We add a json parameter to the query, its value doesn't matter.
-        $args['json'] = 'true';
-
-        // Swap the values of locale and sourcelocale if they exist
-        if (isset($args['locale'], $args['sourcelocale'])) {
-            list($args['locale'], $args['sourcelocale']) = [$args['sourcelocale'], $args['locale']];
-        }
+        $args['locale']       = $source_locale;
+        $args['sourcelocale'] = $target_locale;
+        $args['json']         = 'true';
 
         // We don't want to encode slashes in searches for entity names
         $query = urldecode(http_build_query($args));
 
-        return explode('?', $_SERVER['REQUEST_URI'])[0] . '?' . $query;
+        return $query;
     }
 }

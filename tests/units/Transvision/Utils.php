@@ -478,18 +478,15 @@ class Utils extends atoum\test
         return [
             [
                 '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central',
-                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json=true',
-                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json=true',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json',
             ],
             [
                 '/v1/versions/',
-                '/v1/versions/?json=true',
-                '/v1/versions/?json=true',
+                '/v1/versions/?json',
             ],
             [
                 '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings',
-                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
-                '/?recherche=home&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json=true',
+                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json',
             ],
         ];
     }
@@ -497,7 +494,7 @@ class Utils extends atoum\test
     /**
      * @dataProvider redirectToAPIDP
      */
-    public function testRedirectToAPI($a, $b, $c)
+    public function testRedirectToAPI($a, $b)
     {
         $obj = new _Utils();
         $_SERVER['REQUEST_URI'] = $a;
@@ -507,9 +504,29 @@ class Utils extends atoum\test
         $this
             ->string($obj->redirectToAPI())
                 ->isEqualTo($b);
+    }
+    public function APIPromotionDP()
+    {
+        return [
+            [
+                '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings',
+                '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json=true',
+            ],
+        ];
+    }
+    /**
+     * @dataProvider APIPromotionDP
+     */
+    public function testAPIPromotion($a, $b)
+    {
+        $obj = new _Utils();
+        $_SERVER['REQUEST_URI'] = $a;
+        $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
+            ? parse_url($a)['query']
+            : null;
         $this
-            ->string($obj->redirectToAPI(true))
-                ->isEqualTo($c);
+            ->string($obj->APIPromotion('en-US', 'fr'))
+                ->isEqualTo($b);
     }
 
     public function testGetScriptPerformances()
