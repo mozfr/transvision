@@ -48,7 +48,7 @@ if ($strings_number == 0) {
         echo '<a href="' . $search_link . '" title="Search for this string">' . Utils::secureText($data['source']) . "</a></td>\n";
         echo '<td>';
         foreach ($data['target'] as $target) {
-            echo '<div class="inconsistent_translation">' . Utils::secureText($target) . "</div>\n";
+            echo '<div class="inconsistent_translation highlight-specialchars">' . ShowResults::highlight(Utils::secureText($target)) . "</div>\n";
         }
         echo "</td>\n</tr>\n";
     }
