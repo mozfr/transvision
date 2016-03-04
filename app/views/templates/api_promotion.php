@@ -1,19 +1,20 @@
 <?php
-    if ($controller == 'mainsearch') {
-        ?>
-<p class="api_link">
-    <span>API</span>These results are also available as an API request for <a href="<?=\Transvision\Utils::redirectToAPI()?>"><?=$requested_sourcelocale?></a> or <a href="<?=\Transvision\Utils::redirectToAPI(true)?>"><?=$requested_locale?></a>.<br>
-    <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
-</p>
-<?php
+namespace Transvision;
 
-    } else {
-        ?>
-<p class="api_link">
-    <span>API</span>These results are also available as an <a href="<?=\Transvision\Utils::redirectToAPI()?>">API request</a>.<br>
-    <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
-</p>
-<?php
-
-    }
+if ($controller == 'mainsearch'):
 ?>
+<p class="api_link">
+    <span>API</span>These results are also available as an API request for
+    <a href="<?=Utils::APIPromotion($source_locale, $locale)?>"><?=$source_locale?></a> or
+    <a href="<?=Utils::APIPromotion($locale, $source_locale)?>"><?=$locale?></a>.
+    <br>
+    <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
+</p>
+<?php else: ?>
+
+<p class="api_link">
+    <span>API</span>These results are also available as an <a href="<?=Utils::redirectToAPI()?>">API request</a>.
+    <br>
+    <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
+</p>
+<?php endif; ?>
