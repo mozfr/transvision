@@ -65,11 +65,10 @@ foreach ($gaia_repos as $repo) {
 }
 
 $sections = [
-    'translation_status'      => 'Translation Status',
-    'diverging_strings'       => 'Diverging Strings',
-    'translation_consistency' => 'Translation Consistency',
-    'changed_english'         => 'String Changes in English',
-    'new_strings'             => 'New Strings',
+    'translation_status' => 'Translation Status',
+    'diverging_strings'  => 'Diverging Strings',
+    'changed_english'    => 'String Changes in English',
+    'new_strings'        => 'New Strings',
 ];
 
 ?>
@@ -134,6 +133,8 @@ print "<ul id='gaia_views_list'>\n";
 foreach ($sections as $anchor_name => $section_title) {
     print "  <li><a href='#{$anchor_name}'>{$section_title}</a></li>\n";
 }
+// Adding a manual link for consistency (to the specific view)
+print "  <li>Translation consistency for <a href='/consistency/?locale={$locale}&repo={$repo1}'>{$repos_nice_names[$repo1]}</a> or <a href='/consistency/?locale={$locale}&repo={$repo2}'>{$repos_nice_names[$repo2]}</a></li>\n";
 print "</ul>\n";
 
 print $anchor_title('translation_status');
@@ -157,7 +158,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
             $temp[] = $repo[$k];
         }
 
-        // Remove blanks
+        // Remove blanks strings. Using 'strlen' to avoid filtering out strings set to 0
         $temp = array_filter($temp, 'strlen');
 
         // Remove duplicates
@@ -208,49 +209,6 @@ print $diverging(
     $strings,
     'diverging'
 );
-
-$english_repo = "{$repo1}-en-US";
-$l10n_repo = $repo1;
-$duplicated_strings_english = Consistency::findDuplicates($strings[$english_repo]);
-$duplicated_strings_translation = Consistency::findDuplicates($strings[$l10n_repo]);
-
-// Filter English duplicates before comparing them with the localization
-$duplicated_strings_english = Consistency::filterStrings($duplicated_strings_english, $l10n_repo);
-
-// Get the strings duplicated in English but not in the localization
-$missing_duplicates = array_diff_key($duplicated_strings_english, $duplicated_strings_translation);
-
-$inconsistent_translations = [];
-foreach ($duplicated_strings_english as $key => $value) {
-    if (in_array($value, $missing_duplicates)) {
-        // Store inconsistency only if there's a translation available
-        if (isset($strings[$l10n_repo][$key])) {
-            $inconsistent_translations[] = [
-                'key'   => $key,
-                'en-US' => $strings[$english_repo][$key],
-                'l10n'  => $strings[$repo1][$key],
-            ];
-        }
-    }
-}
-
-if (count($inconsistent_translations) > 0) {
-    $inconsistent_results = "\n<table><tr><th>Label</th><th>English</th><th>Translation</th></tr>";
-    foreach ($inconsistent_translations as $inconsistent_translation) {
-        $inconsistent_results .= "<tr>
-            <td>" . ShowResults::formatEntity($inconsistent_translation['key']) . "</td>
-            <td>" . Utils::secureText($inconsistent_translation['en-US']) . "</td>
-            <td>" . Utils::secureText($inconsistent_translation['l10n']) . "</td>
-        </tr>\n";
-    }
-    $inconsistent_results .= "</table>\n";
-} else {
-    $inconsistent_results = "<p>No inconsistent translations found.</p>";
-}
-
-print $anchor_title('translation_consistency');
-print "<p class='subtitle'>Analysis of translation consistency in {$repos_nice_names[$repo1]}.</p>";
-print $inconsistent_results;
 
 // Changes in en-US
 $englishchanges = [$repo1, $repo2];
