@@ -209,7 +209,7 @@ function updateStandardRepo() {
         do
             if [ -d ${!repo_l10n}/$locale ]
             then
-                updated_locale=false
+                updated_locale=0
                 if [ "$checkrepo" = true ]
                 then
                     updateLocale ${!repo_l10n} $locale $repo_name/$locale
@@ -237,7 +237,7 @@ function updateStandardRepo() {
     else
         if [ -d ${!repo_l10n}/$locale_code ]
         then
-            updated_locale=false
+            updated_locale=0
             if [ "$checkrepo" = true ]
             then
                 updateLocale ${!repo_l10n} $locale_code $repo_name/$locale_code
@@ -320,7 +320,7 @@ function updateGaiaRepo() {
             then
                 if [ "$locale" != "en-US" ]
                 then
-                    updated_locale=false
+                    updated_locale=0
                     if [ "$checkrepo" = true ]
                     then
                         updateLocale ${!repo_name} $locale $repo_name/$locale
@@ -349,7 +349,7 @@ function updateGaiaRepo() {
     else
         if [ -d ${!repo_name}/$locale_code ]
         then
-            updated_locale=false
+            updated_locale=0
             if [ "$checkrepo" = true ]
             then
                 updateLocale ${!repo_name} $locale_code $repo_name/$locale_code
