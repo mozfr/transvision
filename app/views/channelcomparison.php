@@ -53,3 +53,23 @@ if (empty($common_strings)) {
     }
     echo "</table>\n";
 }
+
+if (empty($new_strings)) {
+    echo "<h3>No new strings have been added</h3>\n";
+} else {
+    echo "<h3>New added strings in {$locale} between {$repos_nice_names[$chan1]} and {$repos_nice_names[$chan2]}</h3>";
+    echo "\n<table class='collapsable'>" .
+         "  <tr>\n" .
+         "    <th>Key</th>\n" .
+         "    <th>Value</th>\n" .
+         "  </tr>\n";
+
+    foreach ($new_strings as $key => $value) {
+        echo  " <tr>"
+            . "   <td><span class='celltitle'>Key</span><div class='string'>" . showResults::formatEntity($key) . "</div></td>\n"
+            . "   <td><span class='celltitle'>Value</span><div class='string'>" . showResults::highlight($value) . "</div></td>\n"
+            . " </tr>\n";
+    }
+
+    echo "</table>\n";
+}

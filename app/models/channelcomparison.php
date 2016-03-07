@@ -37,3 +37,6 @@ foreach ($loc_list as $loc) {
 
 $common_strings = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $common_strings = array_diff($common_strings, $strings[$chan2]);
+
+$new_strings = array_diff($strings[$chan1], $strings[$chan2]);
+$new_strings = array_diff($new_strings, $common_strings);
