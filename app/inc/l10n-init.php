@@ -57,6 +57,16 @@ if (isset($_GET['locale2'])) {
     }
 }
 
+// Bypass default source locale for locale to locale comparison
+if (isset($_GET['sourcelocale'])) {
+    // Redirect locale to a different one if necessary
+    $requested_sourcelocale = $_GET['sourcelocale'];
+    $requested_sourcelocale = Project::getLocaleInContext($requested_sourcelocale, $repo);
+    if (in_array($requested_sourcelocale, $all_locales)) {
+        $source_locale = $requested_sourcelocale;
+    }
+}
+
 // Get RTL attribute for source and target locales
 $locale_dir = $l10n->getDirection($locale);
 $source_locale_dir = $l10n->getDirection($source_locale);
