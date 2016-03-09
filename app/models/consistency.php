@@ -19,8 +19,8 @@ $reference_locale = Project::getReferenceLocale($repo);
 $strings_number = 0;
 
 $source_strings = Utils::getRepoStrings($reference_locale, $repo);
-// Ignore empty strings in translations
-$target_strings = array_filter(Utils::getRepoStrings($locale, $repo));
+// Remove blanks strings. Using 'strlen' to avoid filtering out strings set to 0
+$target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 
 if (! empty($source_strings)) {
     // Remove known problematic strings
