@@ -15,7 +15,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                     <input type="text"
                            name="recherche"
                            id="recherche"
-                           value="<?=$initial_search?>"
+                           value="<?=Utils::secureText($initial_search)?>"
                            placeholder="Type your search here"
                            title="Type your search here"
                            size="30"

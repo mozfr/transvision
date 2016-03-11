@@ -26,7 +26,7 @@ $links = '
   <h3>Main Views</h3>
   <ul>
     <li><a href="/" title="Main search">Home</a></li>
-    <li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . $initial_search . '" title="Search in the Glossary">Glossary</a></li>
+    <li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . Utils::secureText($initial_search) . '" title="Search in the Glossary">Glossary</a></li>
     <li><a ' . ($url['path'] == '3locales' ? 'class="selected_view" ' : '') . 'href="/3locales/" title="Search with 3 locales">3 locales</a></li>
     <li><a ' . ($url['path'] == 'downloads' ? 'class="selected_view" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
   </ul>
