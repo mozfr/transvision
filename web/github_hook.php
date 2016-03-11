@@ -21,7 +21,7 @@ function logHookResult($message, $success = false)
             $log_headers .= "$header: $value \n";
         }
     }
-    file_put_contents(__DIR__ . '/github_log.txt', $log_headers);
+    file_put_contents(__DIR__ . '/../logs/github_log.txt', $log_headers);
 }
 
 // CHECK: Download composer in the app root if it is not already there
@@ -38,8 +38,7 @@ if (isset($_SERVER[$header])) {
         file_get_contents("php://input"),
         $secret
     );
-
-    if ($validation == explode('=', $_SERVER[$header])[1]) {
+    if (hash_equals($validation, explode('=', $_SERVER[$header])[1])) {
         // Pull latest changes
         exec("git checkout $branch ; git pull origin $branch");
 
