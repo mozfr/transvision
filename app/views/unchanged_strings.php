@@ -17,12 +17,15 @@ if (isset($filter_block)) {
                 "</div>\n";
 }
 
-$content .= "<table class='collapsable results_table {$search_id}'>\n";
-$content .= "  <tr class='column_headers'>\n" .
-            "    <th>String ID</th>\n" .
-            "    <th>English</th>\n" .
-            "    <th>Translation</th>\n" .
-            "  </tr>\n";
+$content .= "<table class='collapsable results_table {$search_id}'>
+               <thead>
+                 <tr class='column_headers'>
+                   <th>String ID</th>
+                   <th>English</th>
+                   <th>Translation</th>
+                 </tr>
+               </thead>
+               <tbody>\n";
 foreach ($unchanged_strings as $string_id => $string_value) {
     $component = explode('/', $string_id)[0];
 
@@ -43,6 +46,6 @@ foreach ($unchanged_strings as $string_id => $string_value) {
                 "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] . "</td>\n" .
                 "  </tr>\n";
 }
-$content .= "</table>\n";
+$content .= "</tbody>\n</table>\n";
 
 echo $content;

@@ -33,10 +33,13 @@ if ($strings_number == 0) {
 } else {
     ?>
     <table>
-        <tr>
+      <thead>
+        <tr class="column_headers">
             <th>English String</th>
             <th>Available Translations</th>
         </tr>
+      </thead>
+      <tbody>
 <?php
     foreach ($inconsistent_translations as $data) {
         $search_link = "/?sourcelocale={$reference_locale}"
@@ -52,5 +55,5 @@ if ($strings_number == 0) {
         }
         echo "</td>\n</tr>\n";
     }
-    echo "</table>\n";
+    echo "</tbody>\n</table>\n";
 }

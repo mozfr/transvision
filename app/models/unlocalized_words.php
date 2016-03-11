@@ -60,10 +60,13 @@ foreach ($strings_reference as $string_ref_id => $ref_words) {
         Remove punctuation characters from the strings then explode them into
         words.
     */
+    $ref_words = strip_tags($ref_words);
     $ref_words = explode(
         ' ',
         preg_replace('/\p{P}/u', '', $ref_words)
     );
+
+    $locale_words = strip_tags($locale_words);
     $locale_words = explode(
         ' ',
         preg_replace('/\p{P}/u', '', $locale_words)

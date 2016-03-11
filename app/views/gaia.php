@@ -100,15 +100,15 @@ $sections = [
 // Overview of string count for the locale
 $overview = function ($section_title, $columns, $rows, $anchor) {
     // Titles
-    $html = '<table id="' . $anchor . '">'
-       . '<tr>'
-       . '<th colspan="3">' . $section_title . '</th>'
-       . '</tr>'
-       . '<tr>';
+    $html = "
+        <p class='section_title'>{$section_title}</p>
+        <table id='{$anchor}'>
+          <thead>
+            <tr class='column_headers'>";
     foreach ($columns as $key => $value) {
         $html .= '<th>' . $value . '</th>';
     }
-    $html .= '</tr>';
+    $html .= "</tr>\n</thead>\n<tbody>\n";
 
     // Rows
     foreach ($rows as $key => $row) {
@@ -118,7 +118,7 @@ $overview = function ($section_title, $columns, $rows, $anchor) {
         }
         $html .= '</tr>';
     }
-    $html .= '</table>';
+    $html .= "</tbody>\n</table>\n";
 
     return $html;
 };
@@ -174,17 +174,18 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
     $nb_sources = count($diverging_sources) + 1;
     $width = 100 / $nb_sources;
 
-    $table = '<table id="' . $anchor . '" class="collapsable">'
-           . '<tr>'
-           . '<th colspan="' . $nb_sources . '">' . count($divergences) . ' diverging translations across repositories</th>'
-           . '</tr>'
-           . '<tr>';
-    $table .= "<th style=\"width:$width%\">Keys</th>";
+    $section_title = count($divergences) . ' diverging translations across repositories';
+    $table = "
+        <p class='section_title'>{$section_title}</p>
+        <table id='{$anchor}' class='collapsable'>
+          <thead>
+            <tr class='column_headers'>
+              <th style='width: {$width}%;'>Keys</th>";
     foreach ($diverging_sources as $key => $repo_name) {
-        $table .= "<th style=\"width:$width%\">" . $repos_nice_names[$repo_name] . '</th>';
+        $table .= "<th style='width: $width%;'>{$repos_nice_names[$repo_name]}</th>\n";
     }
 
-    $table .= '</tr>';
+    $table .= "</tr>\n</thead>\n<tbody>\n";
 
     foreach ($divergences as $v) {
         $table .= '<tr>'
@@ -195,7 +196,7 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
         $table .= '</tr>';
     }
 
-    $table .= '</table>';
+    $table .= "</tbody>\n</table>\n";
 
     return $table;
 };
@@ -217,16 +218,21 @@ $common_keys = array_intersect_key($strings[$englishchanges[0] . '-en-US'], $str
 
 $repo_one = $repos_nice_names[$englishchanges[0]];
 $repo_two = $repos_nice_names[$englishchanges[1]];
-$table = '<table id="englishchanges" class="collapsable">'
-       . '<tr>'
-       . '<th colspan="3">Strings that have changed significantly in English between ' . $repo_one . ' and ' . $repo_two . ' but for which the entity name didn\'t change</th>'
-       . '</tr>'
-       . '<tr>'
-       . '<th>Key</th>'
-       . '<th>' . $repo_one . '</th>'
-       . '<th>' . $repo_two . '</th>'
-       . '</tr>';
 
+$section_title = "Strings that have changed significantly in English between {$repo_one} and {$repo_two} but for which the entity name didn’t change";
+$table = "
+    <p class='section_title'>{$section_title}</p>
+    <table id='englishchanges' class='collapsable'>
+      <thead>
+        <tr class='column_headers'>
+          <th>Key</th>
+          <th>{$repo_one}</th>
+          <th>{$repo_two}</th>
+        </tr>
+      </thead>
+      <tbody>\n";
+
+$changed_strings = 0;
 foreach ($common_keys as $key => $val) {
     $get_localized_string = function ($id) use ($key, $strings) {
         // Avoid warnings if the string is not localized
@@ -246,9 +252,14 @@ foreach ($common_keys as $key => $val) {
             . ShowResults::highlight(Utils::secureText($strings[$englishchanges[1] . '-en-US'][$key]))
             . '<br><small>' . $get_localized_string($englishchanges[1]) . '</small></div></td>'
             . '</tr>';
+        $changed_strings++;
     }
 }
-$table .= '</table>';
+
+if ($changed_strings == 0) {
+    $table .= "<tr><td colspan='3' class='no_highligth'>There are no changed strings.</td></tr>\n";
+}
+$table .= "</tbody>\n</table>\n";
 
 print $anchor_title('changed_english');
 print $table;
@@ -263,14 +274,17 @@ $strings_added = function ($reverted_comparison, $strings, $repo_one, $repo_two,
         $comparison_type = '<span class="deleted_string">' . $count . ' deleted strings</span>';
     }
 
-    $table = '<table id="' . $anchor . '" class="' . $cssclass . '">'
-           . '<tr>'
-           . '<th colspan="3">' . $comparison_type . ' between ' . $repos_nice_names[$repo_one] . ' and ' . $repos_nice_names[$repo_two] . '</th>'
-           . '</tr>'
-           . '<tr>'
-           . '<th>Key</th>'
-           . '<th>New strings</th>'
-           . '</tr>';
+    $section_title = "{$comparison_type} between {$repos_nice_names[$repo_one]} and {$repos_nice_names[$repo_two]}";
+    $table = "
+        <p class='section_title'>{$section_title}</p>
+        <table id='{$anchor}' class='{$cssclass}'>
+          <thead>
+            <tr class='column_headers'>
+              <th>Key</th>
+              <th>New strings</th>
+            </tr>
+          </thead>
+          <tbody>\n";
 
     foreach ($temp as $k => $v) {
         $translation = array_key_exists($k, $strings[$repo_one])
@@ -286,7 +300,7 @@ $strings_added = function ($reverted_comparison, $strings, $repo_one, $repo_two,
                 . '</tr>';
     }
 
-    $table .= '</table>';
+    $table .= "</tbody>\n</table>\n";
 
     return $table;
 };

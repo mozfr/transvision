@@ -6,12 +6,15 @@ include VIEWS . 'templates/api_promotion.php';
 
 $table = "
 <table class='collapsable'>
-  <tr>
-    <th>Entity</th>
-    <th>{$source_locale}</th>
-    <th>{$locale}</th>
-    {$extra_column_header}
-  </tr>";
+  <thead>
+    <tr class='column_headers'>
+      <th>Entity</th>
+      <th>{$source_locale}</th>
+      <th>{$locale}</th>
+      {$extra_column_header}
+    </tr>
+  </thead>
+  <tbody>\n";
 
 $current_repo = $check['repo'];
 // Display results
@@ -109,7 +112,7 @@ foreach ($entities as $entity) {
   </tr>\n";
 }
 
-$table .= "</table>\n\n";
+$table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     print $table;
 }
