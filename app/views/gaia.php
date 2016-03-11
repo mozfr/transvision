@@ -98,10 +98,10 @@ $sections = [
 <?php
 
 // Overview of string count for the locale
-$overview = function ($section_title, $columns, $rows, $anchor) {
+$overview = function ($section_description, $columns, $rows, $anchor) {
     // Titles
     $html = "
-        <p class='section_title'>{$section_title}</p>
+        <p class='section_description'>{$section_description}</p>
         <table id='{$anchor}'>
           <thead>
             <tr class='column_headers'>";
@@ -174,9 +174,9 @@ $diverging = function ($diverging_sources, $strings, $anchor) use ($locale, $rep
     $nb_sources = count($diverging_sources) + 1;
     $width = 100 / $nb_sources;
 
-    $section_title = count($divergences) . ' diverging translations across repositories';
+    $section_description = count($divergences) . ' diverging translations across repositories';
     $table = "
-        <p class='section_title'>{$section_title}</p>
+        <p class='section_description'>{$section_description}</p>
         <table id='{$anchor}' class='collapsable'>
           <thead>
             <tr class='column_headers'>
@@ -219,9 +219,9 @@ $common_keys = array_intersect_key($strings[$englishchanges[0] . '-en-US'], $str
 $repo_one = $repos_nice_names[$englishchanges[0]];
 $repo_two = $repos_nice_names[$englishchanges[1]];
 
-$section_title = "Strings that have changed significantly in English between {$repo_one} and {$repo_two} but for which the entity name didn’t change";
+$section_description = "Strings that have changed significantly in English between {$repo_one} and {$repo_two} but for which the entity name didn’t change";
 $table = "
-    <p class='section_title'>{$section_title}</p>
+    <p class='section_description'>{$section_description}</p>
     <table id='englishchanges' class='collapsable'>
       <thead>
         <tr class='column_headers'>
@@ -274,9 +274,9 @@ $strings_added = function ($reverted_comparison, $strings, $repo_one, $repo_two,
         $comparison_type = '<span class="deleted_string">' . $count . ' deleted strings</span>';
     }
 
-    $section_title = "{$comparison_type} between {$repos_nice_names[$repo_one]} and {$repos_nice_names[$repo_two]}";
+    $section_description = "{$comparison_type} between {$repos_nice_names[$repo_one]} and {$repos_nice_names[$repo_two]}";
     $table = "
-        <p class='section_title'>{$section_title}</p>
+        <p class='section_description'>{$section_description}</p>
         <table id='{$anchor}' class='{$cssclass}'>
           <thead>
             <tr class='column_headers'>

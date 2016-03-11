@@ -755,7 +755,11 @@ fieldset {
     color: #008000;
 }
 
-.section_title {
+#gaia table {
+    min-width: 300px;
+}
+
+.section_description {
     text-align: center;
     font-weight: bold;
 }
