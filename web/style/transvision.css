@@ -187,32 +187,46 @@ h3 {
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
-    width: 550px;
+    width: 660px;
 }
 
 .links h3 {
     padding: 0 0 6px 12px;
     margin: 0;
     font-size: 14px;
-    text-align: left;
+    text-align: center;
+    width: 100%;
 }
 
 .links ul {
+    float: left;
     list-style-type: none;
-    margin: 0;
-    padding: 0 0 0 12px;
+    margin: 0 0 0 8px;
+    padding: 0;
+    width: 150px;
 }
 
 .linkscolumn {
-    width: 180px;
+    width: 140px;
     float: left;
+    padding-bottom: 10px;
+}
+
+#qa_column {
+    width: 350px;
+    border-left: 1px dotted #d9d9d9;
+    border-right: 1px dotted #d9d9d9;
+}
+
+#qa_column ul {
+    width: 165px;
 }
 
 #links-top {
     width: 100%;
     background: #fff;
     margin: 0;
-    padding: 50px 0 20px;
+    padding: 50px 0 10px;
     float: left;
     display: none;
 }
@@ -222,7 +236,7 @@ h3 {
 }
 
 #links-top .container {
-    width: 550px;
+    width: 660px;
     margin: 0 auto;
 }
 
@@ -877,18 +891,32 @@ fieldset {
     }
 
     .links {
-        font-size: 0.9em;
+        font-size: 1em;
         margin: 2em auto 1em auto;
         text-align: left;
-        width: 460px;
+        width: 100%;
     }
 
     #links-top .container {
-        width: 460px;
+        width: 100%;
     }
 
     .linkscolumn {
-        width: 150px;
+        display: block;
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    #qa_column {
+        border: 0;
+        display: block;
+        width: 100%;
+    }
+
+    .links ul {
+        float: none;
+        margin: 0 auto;
     }
 
     /* special results */

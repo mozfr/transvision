@@ -31,18 +31,20 @@ $links = '
     <li><a ' . ($url['path'] == 'downloads' ? 'class="selected_view" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
   </ul>
 </div>
-<div class="linkscolumn">
+<div class="linkscolumn" id="qa_column">
   <h3>QA Views</h3>
   <ul>
-    <li><a ' . ($url['path'] == 'showrepos' ? 'class="selected_view" ' : '') . 'href="/showrepos/" title="Check the health status of locales">Health Status Overview</a></li>
-    <li><a ' . ($url['path'] == 'productization' ? 'class="selected_view" ' : '') . 'href="/productization/" title="Show productization aspects">Productization</a></li>
     <li><a ' . ($url['path'] == 'accesskeys' ? 'class="selected_view" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
-    <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="selected_view" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
-    <li><a ' . ($url['path'] == 'gaia' ? 'class="selected_view" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
+    <li><a ' . ($url['path'] == 'variables' ? 'class="selected_view" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
     <li><a ' . ($url['path'] == 'consistency' ? 'class="selected_view" ' : '') . 'href="/consistency/" title="Translation Consistency">Translation Consistency</a></li>
     <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="selected_view" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged Strings</a></li>
     <li><a ' . ($url['path'] == 'unlocalized_words' ? 'class="selected_view" ' : '') . 'href="/unlocalized/" title="Display common words remaining in English">Unlocalized Words</a></li>
-    <li><a ' . ($url['path'] == 'variables' ? 'class="selected_view" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
+  </ul>
+  <ul>
+    <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="selected_view" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
+    <li><a ' . ($url['path'] == 'gaia' ? 'class="selected_view" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
+    <li><a ' . ($url['path'] == 'showrepos' ? 'class="selected_view" ' : '') . 'href="/showrepos/" title="Check the health status of locales">Health Status Overview</a></li>
+    <li><a ' . ($url['path'] == 'productization' ? 'class="selected_view" ' : '') . 'href="/productization/" title="Show productization aspects">Productization</a></li>
   </ul>
 </div>
 <div class="linkscolumn">
