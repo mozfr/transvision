@@ -482,6 +482,7 @@ class Utils
         // We are going to split and then rebuild QUERY_STRING
         parse_str(self::redirectToAPI(), $args);
 
+        $args = array_map(['self', 'secureText'], $args);
         $args['locale']       = $source_locale;
         $args['sourcelocale'] = $target_locale;
         $args['json']         = 'true';
