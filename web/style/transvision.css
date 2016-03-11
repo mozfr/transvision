@@ -115,18 +115,8 @@ h2,
     clear: both;
 }
 
-h1 {
-    background-color: #fff;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    padding: 5px 10px;
-    letter-spacing: 1px;
-    margin: 0 0 0 -80px;
-    width: 140px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0 5px 5px -5px #888;
+h1 img {
+    width: 350px;
 }
 
 h1 a,
@@ -864,6 +854,10 @@ fieldset {
         font-size: 12px;
     }
 
+    h1 img {
+        width: 300px;
+    }
+
     h2 {
         font-size: 1.2em;
     }
@@ -907,12 +901,8 @@ fieldset {
 }
 
 @media only screen and (max-width: 460px) {
-    h1 {
-        padding: 5px;
-        font-size: 1.1em;
-        width: 80px;
-        letter-spacing: normal;
-        margin-left: -40px;
+    h1 img {
+        width: 200px;
     }
 
     #current,

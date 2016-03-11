@@ -7,8 +7,6 @@ $extra        = null;
 $experimental = false;
 $show_title   = true;
 
-$title = '<a href="/" id="transvision-title">Transvision</a>';
-
 switch ($url['path']) {
     case '/':
         $controller = 'mainsearch';
