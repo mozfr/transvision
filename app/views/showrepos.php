@@ -43,17 +43,19 @@ foreach ($gaia_locales as $val) {
 
 $json = [];
 $table = '
-<style>td {text-align:right;} form[name="searchform"] { text-align: center; }</style>
-<table>
-<tr>
-    <th>Locale</th>
-    <th>Total</th>
-    <th>Missing</th>
-    <th>Translated</th>
-    <th>Identical</th>
-    <th>Completion</th>
-    <th>Status estimate</th>
-</tr>';
+<table id="showrepos_table">
+  <thead>
+    <tr class="column_headers">
+        <th>Locale</th>
+        <th>Total</th>
+        <th>Missing</th>
+        <th>Translated</th>
+        <th>Identical</th>
+        <th>Completion</th>
+        <th>Status estimate</th>
+    </tr>
+  </thead>
+  <tbody>';
 
 foreach ($string_count as $locale => $numbers) {
     $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
@@ -102,7 +104,7 @@ foreach ($string_count as $locale => $numbers) {
     </tr>";
 }
 
-$table .= '</table>';
+$table .= "</tbody>\n</table>\n";
 
 if (isset($_GET['json'])) {
     include VIEWS . 'json.php';

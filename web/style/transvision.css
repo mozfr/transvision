@@ -276,15 +276,14 @@ table {
 }
 
 tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-tr:nth-child(even) {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-tr:first-child,
-#channelcomp tr:nth-child(2) {
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+tr.column_headers {
     background-color: transparent;
     box-shadow: none;
 }
@@ -388,6 +387,10 @@ td .result_meta_link .bug_link {
 
 table tr td:first-child {
     color: #3c8fd1;
+}
+
+table tr td.no_highligth {
+    color: #333;
 }
 
 .red {
@@ -742,10 +745,6 @@ fieldset {
     margin: 0 0 10px 0;
 }
 
-#consistency table tr td:first-child {
-    color: #333;
-}
-
 #consistency .message {
     width: 50%;
     margin: 0 auto;
@@ -754,6 +753,15 @@ fieldset {
 /* Gaia comparison view */
 .added_string {
     color: #008000;
+}
+
+#gaia table {
+    min-width: 300px;
+}
+
+.section_description {
+    text-align: center;
+    font-weight: bold;
 }
 
 .deleted_string {
@@ -789,6 +797,12 @@ fieldset {
 
 #onestring tr:target {
     background-color: #90ee90;
+}
+
+/* Showrepos (/stats) */
+
+#showrepos_table td {
+    text-align: right;
 }
 
 /* Responsive */

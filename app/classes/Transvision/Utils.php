@@ -151,14 +151,14 @@ class Utils
         } else {
             echo '<table>';
         }
-        echo '<tr>' .
-             "<th>{$titles[0]}</th><th>{$titles[1]}</th>";
+        echo "<thead>\n  <tr class='column_headers'>\n" .
+             "    <th>{$titles[0]}</th><th>{$titles[1]}</th>\n";
 
         if ($arr2) {
-            echo "<th>{$titles[2]}</th><th>{$titles[3]}</th>";
+            echo "    <th>{$titles[2]}</th><th>{$titles[3]}</th>\n";
         }
 
-        echo '</tr>';
+        echo "  </tr>\n</thead>\n<tbody>\n";
 
         foreach ($arr as $key => $val) {
             echo '<tr>';
@@ -173,7 +173,7 @@ class Utils
             }
             echo '</tr>';
         }
-        echo '</table>';
+        echo "</tbody>\n</table>\n";
     }
 
     /**

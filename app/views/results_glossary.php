@@ -14,10 +14,13 @@ if (count($perfect_results) > 0) {
 
     echo "<h2>Results</h2>
     <table class='collapsable'>
-      <tr>
-        <th>Localized string</th>
-        <th>Source string</th>
-      </tr>\n";
+      <thead>
+        <tr class='column_headers'>
+          <th>Localized string</th>
+          <th>Source string</th>
+        </tr>
+      </thead>
+      <tbody>\n";
 
     foreach ($imperfect_results as $string_id => $string_value) {
         $entity_link = "/?sourcelocale={$source_locale}"
@@ -30,7 +33,7 @@ if (count($perfect_results) > 0) {
         echo "  <td dir='{$source_locale_dir}'><span class='celltitle'>Source string</span><div class='string'>" . Utils::secureText($tmx_source[$string_id]) . "</div></td>\n";
         echo "</tr>\n";
     }
-    echo "</table>\n";
+    echo "</tbody>\n</table>\n";
 } else {
     echo "  <p>No perfect match found.</p>\n</div>\n";
 }

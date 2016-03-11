@@ -18,12 +18,16 @@ if ($error_count > 0) {
                     "</div>\n";
     }
 
-    $content .= "<table class='collapsable results_table {$search_id}'>\n" .
-                "  <tr>\n" .
-                "    <th>Entity</th>\n" .
-                "    <th>{$source_locale}</th>\n" .
-                "    <th>{$locale}</th>\n" .
-                "  </tr>\n";
+    $content .= "
+        <table class='collapsable results_table {$search_id}'>
+          <thead>
+            <tr class='column_headers'>
+              <th>Entity</th>
+              <th>{$source_locale}</th>
+              <th>{$locale}</th>
+            </tr>
+          </thead>
+          <tbody>\n";
 
     foreach ($var_errors as $string_id) {
         // Link to entity
@@ -62,7 +66,7 @@ if ($error_count > 0) {
                        </td>
                      </tr>\n";
     }
-    $content .= "</table>\n";
+    $content .= "</tbody>\n</table>\n";
 } else {
     $content = "<h2>Congratulations, no errors found.</h2>";
 }

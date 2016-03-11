@@ -260,12 +260,15 @@ class ShowResults
         }
 
         $table  = "<table class='collapsable results_table {$search_id}'>
-                      <tr class='column_headers'>
-                        <th>Entity</th>
-                        <th>{$locale1}</th>
-                        <th>{$locale2}</th>
-                        {$extra_column_header}
-                      </tr>";
+                     <thead>
+                       <tr class='column_headers'>
+                         <th>Entity</th>
+                         <th>{$locale1}</th>
+                         <th>{$locale2}</th>
+                         {$extra_column_header}
+                       </tr>
+                     </thead>
+                     <tbody>\n";
 
         if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
             $recherche = Utils::uniqueWords($recherche);
@@ -468,7 +471,7 @@ class ShowResults
                 </tr>";
         }
 
-        $table .= "  </table>";
+        $table .= "  </tbody>\n</table>\n";
 
         return $table;
     }
