@@ -93,7 +93,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     </div>
   </div>
   <div id="links-top-button-container">
-    <a href="" class="menu-button" id="links-top-button" title="Hide Transvision Menu"><span>menu</span></a>
+    <a href="" class="menu-button" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a>
   </div>
   <?php
   if (BETA_VERSION) {
