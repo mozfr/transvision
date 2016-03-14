@@ -55,20 +55,27 @@ if (empty($common_strings)) {
 }
 
 if (empty($new_strings)) {
-    echo "<h3>No new strings have been added</h3>\n";
+    echo "<h3 id='new_strings'>No new strings have been added</h3>\n";
 } else {
-    echo "<h3>New added strings in {$locale} between {$repos_nice_names[$chan1]} and {$repos_nice_names[$chan2]}</h3>";
+    echo "<h3 id='new_strings'>New added strings in {$locale} between {$repos_nice_names[$chan1]} and {$repos_nice_names[$chan2]}</h3>";
     echo "\n<table class='collapsable'>" .
          "  <tr>\n" .
          "    <th>Key</th>\n" .
          "    <th>Value</th>\n" .
+         "    <th>en-US value</th>" .
          "  </tr>\n";
 
     foreach ($new_strings as $key => $value) {
-        echo  " <tr>"
-            . "   <td><span class='celltitle'>Key</span><div class='string'>" . showResults::formatEntity($key) . "</div></td>\n"
-            . "   <td><span class='celltitle'>Value</span><div class='string'>" . showResults::highlight($value) . "</div></td>\n"
-            . " </tr>\n";
+        echo " <tr>"
+                . "   <td><span class='celltitle'>Key</span><div class='string'>" . showResults::formatEntity(Utils::secureText($key)) . "</div></td>\n"
+                . "   <td><span class='celltitle'>Value</span><div class='string'>" . Utils::secureText($value) . "</div></td>\n";
+        if (isset($new_en_US_strings[$key])) {
+            echo "   <td><span class='celltitle'>en-US value</span><div class='string'>"
+                    . Utils::secureText($new_en_US_strings[$key]) . "</div></td>\n";
+        }else{
+            echo "   <td><span class='celltitle'>en-US value</span><div class='string'>(not available)</div></td>\n";
+        }
+        echo " </tr>\n";
     }
 
     echo "</table>\n";

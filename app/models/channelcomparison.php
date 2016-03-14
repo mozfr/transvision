@@ -40,3 +40,17 @@ $common_strings = array_diff($common_strings, $strings[$chan2]);
 
 $new_strings = array_diff($strings[$chan1], $strings[$chan2]);
 $new_strings = array_diff($new_strings, $common_strings);
+
+// Get en-US locale strings
+$en_US_strings = [];
+$en_US_strings[$chan1] = Utils::getRepoStrings('en-US', $chan1);
+$en_US_strings[$chan2] = Utils::getRepoStrings('en-US', $chan2);
+
+$common_en_US_strings = array_intersect_key($en_US_strings[$chan1], $en_US_strings[$chan2]);
+$common_en_US_strings = array_diff($common_en_US_strings, $en_US_strings[$chan2]);
+
+$new_en_US_strings = array_diff($en_US_strings[$chan1], $en_US_strings[$chan2]);
+$new_en_US_strings = array_diff($new_en_US_strings, $common_en_US_strings);
+
+// Unset variable that we don't use anymore
+unset($en_US_strings, $common_en_US_strings);
