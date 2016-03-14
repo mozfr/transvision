@@ -1,6 +1,12 @@
 <?php
 namespace Transvision;
 
+// Helper anonymous variable to output a formatted table cell
+$td = function ($key, $value) {
+    return "<td><span class=\"celltitle\">{$key}</span>"
+           . "<div class=²\"string\">{$value}</div></td>";
+};
+
 ?>
 <form id ="searchform" name="searchform" method="get" action="">
     <fieldset id="main_search">
@@ -33,10 +39,10 @@ namespace Transvision;
 <?php else: ?>
 <table class='collapsable'>
     <thead>
-        <tr>
+        <tr class='column_headers'>
             <th colspan='3'>Locale: <?=$locale?></th>
         </tr>
-        <tr>
+        <tr class='column_headers'>
             <th>Key</th>
             <th><?=$chan1?></th>
             <th><?=$chan2?></th>
@@ -45,9 +51,9 @@ namespace Transvision;
     <tbody>
     <?php foreach ($common_strings as $key => $value) : ?>
     <tr>
-        <td><span class='celltitle'>Key</span><div class='string'><?=ShowResults::formatEntity($key)?></div></td>
-        <td><span class='celltitle'><?=$chan1?></span><div class='string'><?=Utils::secureText($value)?></div></td>
-        <td><span class='celltitle'><?=$chan2?></span><div class='string'><?=Utils::secureText($strings[$chan2][$key])?></div></td>
+        <?=$td('Key', ShowResults::formatEntity($key))?>
+        <?=$td($chan1, Utils::secureText($value))?>
+        <?=$td($chan2, Utils::secureText($strings[$chan2][$key]))?>
     </tr>
     <?php endforeach; ?>
     </tbody>
@@ -58,25 +64,25 @@ namespace Transvision;
 <h3 id="new_strings">No new strings have been added</h3>
 
 <?php else : ?>
-<h3 id="new_strings">New added strings in <?=$locale?> between <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?></h3>
+<h3 id="new_strings">New strings added in <em><?=$locale?></em> between <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?></h3>
 <table class="collapsable">
     <thead>
-        <tr>
-            <th>Key</th>
-            <th>Value</th>
-            <th>en-US value</th>
+        <tr class='column_headers'>
+            <th>Entity</th>
+            <th>en-US</th>
+            <th><?=$locale?></th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($new_strings as $key => $value): ?>
+    <?php foreach ($new_strings as $string_id => $string_values): ?>
     <tr>
-        <td><span class="celltitle">Key</span><div class="string"><?=showResults::formatEntity($key)?></div></td>
-        <td><span class="celltitle">Value</span><div class="string"><?=Utils::secureText($value)?></div></td>
-        <?php if (isset($new_en_US_strings[$key])): ?>
-        <td><span class="celltitle">en-US Value</span><div class="string"><?=Utils::secureText($new_en_US_strings[$key])?></div></td>
+        <?=$td('Entity', ShowResults::formatEntity($string_id))?>
+        <?php if ($new_strings[$string_id]['reference'] != '@N/A@'): ?>
+        <?=$td('en-US', Utils::secureText($string_values['reference']))?>
         <?php else: ?>
-        <td><span class='celltitle'>en-US value</span><div class="string">(not available)</div></td>
+        <?=$td('en-US', '<em class="error">(not available)</em>')?>
         <?php endif; ?>
+        <?=$td($locale, Utils::secureText($string_values['translation']))?>
     </tr>
     <?php endforeach; ?>
     <tbody>

@@ -35,22 +35,27 @@ foreach ($loc_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
+/*
+    Get locale strings available in both channels with array_intersect_key.
+    The translation stored is the one available in channel 1. Then remove
+    strings that are identical in both channels using array_diff.
+*/
 $common_strings = array_intersect_key($strings[$chan1], $strings[$chan2]);
 $common_strings = array_diff($common_strings, $strings[$chan2]);
 
-$new_strings = array_diff($strings[$chan1], $strings[$chan2]);
-$new_strings = array_diff($new_strings, $common_strings);
-
-// Get en-US locale strings
-$en_US_strings = [];
-$en_US_strings[$chan1] = Utils::getRepoStrings('en-US', $chan1);
-$en_US_strings[$chan2] = Utils::getRepoStrings('en-US', $chan2);
-
-$common_en_US_strings = array_intersect_key($en_US_strings[$chan1], $en_US_strings[$chan2]);
-$common_en_US_strings = array_diff($common_en_US_strings, $en_US_strings[$chan2]);
-
-$new_en_US_strings = array_diff($en_US_strings[$chan1], $en_US_strings[$chan2]);
-$new_en_US_strings = array_diff($new_en_US_strings, $common_en_US_strings);
-
-// Unset variable that we don't use anymore
-unset($en_US_strings, $common_en_US_strings);
+/*
+    Find new locale strings added between repositories, store them with the
+    reference string.
+*/
+$added_strings = array_diff_key($strings[$chan1], $strings[$chan2]);
+$new_strings = [];
+$en_US_strings_chan1 = Utils::getRepoStrings('en-US', $chan1);
+foreach ($added_strings as $string_id => $translation) {
+    $reference_string = isset($en_US_strings_chan1[$string_id])
+        ? $en_US_strings_chan1[$string_id]
+        : '@N/A@';
+    $new_strings[$string_id] = [
+        'reference'   => $reference_string,
+        'translation' => $translation,
+    ];
+}
