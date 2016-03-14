@@ -26,6 +26,10 @@ $relnotes = function ($tag) {
             $type = 'new_feature';
             $text = 'New feature';
             break;
+        case 'regression':
+            $type = 'regression';
+            $text = 'Regression';
+            break;
         default:
             $type = '';
             $text = 'Other';

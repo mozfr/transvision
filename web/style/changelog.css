@@ -6,6 +6,7 @@
 }
 
 #changelog ul {
+    list-style: none;
     padding-left: 15px;
 }
 
@@ -75,35 +76,35 @@
     left: 0;
     line-height: 1.1;
     padding: 4px 2px 4px 13px;
-    text-shadow: 1px 1px 0 #fff;
     text-transform: uppercase;
     width: 92px;
     margin-right:4px;
+    border-color: #555;
 }
 
 .new_feature {
-    background-color: #ffedcf;
-    border-color: #f90;
+    background-color: #c8c8ff;
 }
 
 .exp_feature {
     background-color: #ffedcf;
-    border-color: #f90;
 }
 
 .bugfix {
-    background-color: #f0ffe1;
-    border-color: #5ba622;
+    background-color: #ffc864;
 }
 
 .improvement {
-    background-color: #f8dfd8;
-    border-color: #d85027;
+    background-color: #96e196;
 }
 
 .change {
     background-color: #e9cfff;
-    border-color: #8106e0;
+}
+
+.regression {
+    color: #fff;
+    background-color: #ff6464;
 }
 
 code {
