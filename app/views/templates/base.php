@@ -29,14 +29,12 @@ if (isset($css_include)) {
 $li_link = function ($page, $title, $text) use ($url, $urls) {
     $link = array_search($page, $urls);
 
+    $css_class = $url['path'] == $link ? 'class="selected_view" ' : '';
     if ($link != '/') {
         $link = "/{$link}/";
     }
 
-    return '<li><a ' . ($url['path'] == $link ? 'class="selected_view" ' : '')
-           . 'href="' . $link . '" '
-           . 'title="' . $title . '">'
-           . $text . '</a></li>';
+    return "<li><a {$css_class} href=\"{$link}\" title=\"{$title}\">{$text}</a></li>";
 };
 
 /*
