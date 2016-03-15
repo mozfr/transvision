@@ -21,41 +21,68 @@ if (isset($css_include)) {
     $css_include = $base_css;
 }
 
-$links = '
+/*
+    This is a closure to build a list item containing the
+    link to the page. The page we are on gets a CSS class
+    of selected_view added.
+*/
+$li_link = function ($page, $title, $text) use ($url, $urls) {
+    $link = array_search($page, $urls);
+
+    if ($link != '/') {
+        $link = "/{$link}/";
+    }
+
+    return '<li><a ' . ($url['path'] == $link ? 'class="selected_view" ' : '')
+           . 'href="' . $link . '" '
+           . 'title="' . $title . '">'
+           . $text . '</a></li>';
+};
+
+/*
+    The t2t page is a legacy page without an entry in the $urls array.
+*/
+$li_t2t = '<li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '')
+       . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale
+       . '&repo=' . $check['repo'] . '&t2t=t2t&recherche='
+       . Utils::secureText($initial_search)
+       . '" title="Search in the Glossary">Glossary</a></li>';
+
+$links = <<<EOT
 <div class="linkscolumn">
   <h3>Main Views</h3>
   <ul>
-    <li><a href="/" title="Main search">Home</a></li>
-    <li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '') . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale . '&repo=' . $check['repo'] . '&t2t=t2t&recherche=' . Utils::secureText($initial_search) . '" title="Search in the Glossary">Glossary</a></li>
-    <li><a ' . ($url['path'] == '3locales' ? 'class="selected_view" ' : '') . 'href="/3locales/" title="Search with 3 locales">3 locales</a></li>
-    <li><a ' . ($url['path'] == 'downloads' ? 'class="selected_view" ' : '') . 'href="/downloads/" title="Download TMX files">TMX Download</a></li>
+    {$li_link('root', 'Main search', 'Home')}
+    {$li_link('3locales', 'Search with 3 locales', '3 locales')}
+    {$li_t2t}
+    {$li_link('downloads', 'Download TMX files', 'TMX Download')}
   </ul>
 </div>
 <div class="linkscolumn" id="qa_column">
   <h3>QA Views</h3>
   <ul>
-    <li><a ' . ($url['path'] == 'accesskeys' ? 'class="selected_view" ' : '') . 'href="/accesskeys/" title="Check your access keys">Access Keys</a></li>
-    <li><a ' . ($url['path'] == 'variables' ? 'class="selected_view" ' : '') . 'href="/variables/" title="Check what variable differences there are from English">Check Variables</a></li>
-    <li><a ' . ($url['path'] == 'consistency' ? 'class="selected_view" ' : '') . 'href="/consistency/" title="Translation Consistency">Translation Consistency</a></li>
-    <li><a ' . ($url['path'] == 'unchanged_strings' ? 'class="selected_view" ' : '') . 'href="/unchanged/" title="Display all strings identical to English">Unchanged Strings</a></li>
-    <li><a ' . ($url['path'] == 'unlocalized_words' ? 'class="selected_view" ' : '') . 'href="/unlocalized/" title="Display common words remaining in English">Unlocalized Words</a></li>
+    {$li_link('keys', 'Check your access keys', 'Access Keys')}
+    {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
+    {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
+    {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
+    {$li_link('unlocalized', 'Display common words remaining in English', 'Unlocalized Words')}
   </ul>
   <ul>
-    <li><a ' . ($url['path'] == 'channelcomparison' ? 'class="selected_view" ' : '') . 'href="/channelcomparison/" title="Compare strings from channel to channel">Channel Comparison</a></li>
-    <li><a ' . ($url['path'] == 'gaia' ? 'class="selected_view" ' : '') . 'href="/gaia/" title="Compare strings across Gaia channels">Gaia Comparison</a></li>
-    <li><a ' . ($url['path'] == 'showrepos' ? 'class="selected_view" ' : '') . 'href="/showrepos/" title="Check the health status of locales">Health Status Overview</a></li>
-    <li><a ' . ($url['path'] == 'productization' ? 'class="selected_view" ' : '') . 'href="/productization/" title="Show productization aspects">Productization</a></li>
+    {$li_link('channelcomp', 'Compare strings betwen channels', 'Channel Comparison')}
+    {$li_link('gaia', 'Compare strings across Gaia channels', 'Gaia Comparison')}
+    {$li_link('showrepos', 'Check the health status of locales', 'Health Status Overview')}
+    {$li_link('productization', 'Show productization aspects', 'Productization')}
   </ul>
 </div>
 <div class="linkscolumn">
   <h3>About Transvision</h3>
   <ul>
-    <li><a ' . ($url['path'] == 'credits' ? 'class="selected_view" ' : '') . 'href="/credits/" title="Transvision Credits page">Credits</a></li>
-    <li><a ' . ($url['path'] == 'news' ? 'class="selected_view" ' : '') . 'href="/news/" title="Changelog">Release Notes</a></li>
-    <li><a ' . ($url['path'] == 'stats' ? 'class="selected_view" ' : '') . 'href="/stats/" title="Light usage statistics">Statistics</a></li>
+    {$li_link('credits', 'Transvision Credits page', 'Credits')}
+    {$li_link('changelog', 'Release Notes', 'Release Notes')}
+    {$li_link('stats', 'Light usage statistics', 'Statistics')}
   </ul>
 </div>
-';
+EOT;
 
 $title_productname = BETA_VERSION ? 'Transvision Beta' : 'Transvision';
 
