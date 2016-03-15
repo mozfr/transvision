@@ -82,8 +82,10 @@ class VersionControl
         if (Strings::startsWith($repo, 'gaia')
             || in_array(
                 $base_folder,
-                ['apps', 'shared', 'showcase_apps',
-                      'test_apps', 'test_external_apps', ]
+                [
+                    'apps', 'shared', 'showcase_apps',
+                    'test_apps', 'test_external_apps',
+                ]
             )
         ) {
             $locale = Project::getLocaleInContext($locale, $repo);
@@ -98,47 +100,47 @@ class VersionControl
             return $url . $path . '/' . $entity_file;
         }
 
-        $en_US_Folder_Mess = [
+        $en_US_folder_mess = [
+            'b2g/',
             'b2g/branding/official/',
             'b2g/branding/unofficial/',
-            'b2g/',
-            'netwerk/',
-            'embedding/android/',
-            'testing/extensions/community/chrome/',
-            'intl/',
-            'extensions/spellcheck/',
-            'services/sync/',
-            'mobile/android/branding/aurora/',
-            'mobile/android/branding/official/',
-            'mobile/android/branding/nightly/',
-            'mobile/android/branding/unofficial/',
-            'mobile/android/branding/beta/',
-            'mobile/android/base/',
-            'mobile/android/',
-            'mobile/',
-            'security/manager/',
-            'toolkit/content/tests/fennec-tile-testapp/chrome/',
-            'toolkit/',
-            'browser/branding/aurora/',
-            'browser/branding/official/',
-            'browser/branding/nightly/',
-            'browser/branding/unofficial/',
             'browser/',
+            'browser/branding/aurora/',
+            'browser/branding/nightly/',
+            'browser/branding/official/',
+            'browser/branding/unofficial/',
             'browser/extensions/pocket/',
+            'calendar/',
+            'chat/',
             'devtools/client/',
             'devtools/shared/',
-            'layout/tools/layout-debug/ui/',
             'dom/',
-            'webapprt/',
-            'chat/',
-            'suite/',
-            'other-licenses/branding/thunderbird/',
+            'editor/ui/',
+            'embedding/android/',
+            'extensions/spellcheck/',
+            'intl/',
+            'layout/tools/layout-debug/ui/',
+            'mail/',
             'mail/branding/aurora/',
             'mail/branding/nightly/',
-            'mail/',
             'mail/test/resources/mozmill/mozmill/extension/',
-            'editor/ui/',
-            'calendar/',
+            'mobile/',
+            'mobile/android/',
+            'mobile/android/base/',
+            'mobile/android/branding/aurora/',
+            'mobile/android/branding/beta/',
+            'mobile/android/branding/nightly/',
+            'mobile/android/branding/official/',
+            'mobile/android/branding/unofficial/',
+            'netwerk/',
+            'other-licenses/branding/thunderbird/',
+            'security/manager/',
+            'services/sync/',
+            'suite/',
+            'testing/extensions/community/chrome/',
+            'toolkit/',
+            'toolkit/content/tests/fennec-tile-testapp/chrome/',
+            'webapprt/',
         ];
 
         // Desktop repos
@@ -149,6 +151,28 @@ class VersionControl
                 $url .= '/releases/l10n/mozilla-' . $repo . '/' . $locale . '/file/default/';
             }
         } else {
+            // Chatzilla and Venkman are in separate repositories
+            if ($base_folder == 'extensions') {
+                switch ($exploded_path[1]) {
+                    case 'irc':
+                        $url .= '/chatzilla';
+                        $found_extension = true;
+                        break;
+                    case 'venkman':
+                        $url .= '/venkman';
+                        $found_extension = true;
+                        break;
+                    default:
+                        $found_extension = false;
+                        break;
+                }
+
+                if ($found_extension) {
+                    return "{$url}/file/default/locales/en-US/chrome/{$entity_file}";
+                }
+            }
+
+            // comm-central folders
             if (in_array(
                 $base_folder,
                 ['calendar', 'chat', 'editor', 'ldap', 'mail', 'mailnews', 'suite']
@@ -167,7 +191,7 @@ class VersionControl
             $loop = true;
 
             while ($loop && count($exploded_path) > 0) {
-                if (in_array(implode('/', $exploded_path) . '/', $en_US_Folder_Mess)) {
+                if (in_array(implode('/', $exploded_path) . '/', $en_US_folder_mess)) {
                     $path_part1 = implode('/', $exploded_path) . '/locales/en-US';
                     $pattern = preg_quote(implode('/', $exploded_path), '/');
                     $path = preg_replace('/' . $pattern . '/', $path_part1, $path, 1);

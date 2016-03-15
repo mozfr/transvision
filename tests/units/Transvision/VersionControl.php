@@ -129,6 +129,18 @@ class VersionControl extends atoum\test
                 'browser/chrome/browser/browser-pocket.properties:maxtaglength',
                 'https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
             ],
+            [
+                'en-US',
+                'beta',
+                'extensions/venkman/chrome/venkman.dtd:Help.about',
+                'https://hg.mozilla.org/venkman/file/default/locales/en-US/chrome/venkman.dtd',
+            ],
+            [
+                'en-US',
+                'aurora',
+                'extensions/irc/chrome/chatzilla.properties:msg.save.files.folder',
+                'https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/chatzilla.properties',
+            ],
         ];
     }
 
