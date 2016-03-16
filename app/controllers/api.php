@@ -50,6 +50,9 @@ switch ($request->getService()) {
     case 'tm':
         $json = include MODELS . 'api/translation_memory.php';
         break;
+    case 'transliterate':
+        $json = include MODELS . 'api/transliterate.php';
+        break;
     case 'versions':
         $json = include MODELS . 'api/versions.php';
         break;
