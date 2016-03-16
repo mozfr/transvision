@@ -33,6 +33,7 @@ $(document).ready(function() {
     $('#simplesearch_repository').on('change', function(){
         // Store locale currently selected
         var current_locale = $('#simplesearch_locale').val();
+        var repository_id = this.value;
 
         // Empty the select
         $('#simplesearch_locale')
@@ -45,6 +46,14 @@ $(document).ready(function() {
                 .append($('<option>', {value : locale})
                 .text(locale));
         });
+
+        // Hide elements (e.g. filters in Consistency view) if it's not a desktop repository
+        var desktop_repositories = ['central', 'aurora', 'beta', 'release'];
+        if (desktop_repositories.indexOf(repository_id) === -1) {
+            $('.desktop_repo_only').hide();
+        } else {
+            $('.desktop_repo_only').show();
+        }
 
         // Try to select the same locale previously selected.
         $('#simplesearch_locale option[value="' + current_locale + '"]')

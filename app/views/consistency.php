@@ -23,10 +23,17 @@ namespace Transvision;
         </fieldset>
         <?php endif; ?>
 
+        <fieldset class="desktop_repo_only" <?=$filter_visibility?>>
+            <label>Filter consistency for</label>
+            <select name="filter" title="Filters" id="simplesearch_filter">
+                <?=$filter_selector?>
+            </select>
+        </fieldset>
+
         <input type="submit" value="Go" alt="Go" />
+        <p class="desktop_repo_only" id="filter_message"><?=$filter_message?></p>
     </fieldset>
 </form>
-
 <?php
 if ($strings_number == 0) {
     echo '<div class="message"><p>No inconsistent translations found.</p></div>';
@@ -45,7 +52,8 @@ if ($strings_number == 0) {
         $search_link = "/?sourcelocale={$reference_locale}"
         . "&locale={$locale}"
         . "&repo={$repo}"
-        . '&search_type=strings&recherche=' . urlencode($data['source']);
+        . '&search_type=strings&recherche=' . urlencode($data['source'])
+        . '&perfect_match=perfect_match';
         echo "<tr>\n";
         echo '<td>';
         echo '<a href="' . $search_link . '" title="Search for this string">' . Utils::secureText($data['source']) . "</a></td>\n";

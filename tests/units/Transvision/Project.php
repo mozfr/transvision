@@ -74,6 +74,28 @@ class Project extends atoum\test
                 ->isEqualTo($repos);
     }
 
+    public function isDesktopRepositoryDP()
+    {
+        return [
+            ['central', true],
+            ['release', true],
+            ['firefox_ios', false],
+            ['mozilla_org', false],
+            ['randomrepo', false],
+        ];
+    }
+
+    /**
+     * @dataProvider isDesktopRepositoryDP
+     */
+    public function testIsDesktopRepository($a, $b)
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isDesktopRepository($a))
+                ->isEqualTo($b);
+    }
+
     public function getRepositoryLocalesDP()
     {
         return [

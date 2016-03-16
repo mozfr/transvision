@@ -46,7 +46,7 @@ class VersionControl
     public static function VCSRepoName($repo)
     {
         // Desktop
-        if (in_array($repo, Project::getDesktopRepositories())) {
+        if (Project::isDesktopRepository($repo)) {
             $repo = strtoupper($repo == 'central' ? 'trunk' : $repo) . '_L10N';
         }
 
