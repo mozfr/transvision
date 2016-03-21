@@ -134,7 +134,7 @@ class Project
     }
 
     /**
-     * Get the list of repositories for Desktop Applications
+     * Get the list of repositories for desktop applications
      *
      * @return array list of local repositories folder names
      */
@@ -145,6 +145,17 @@ class Project
             ['mozilla_org', 'firefox_ios'],
             self::getGaiaRepositories()
         );
+    }
+
+    /**
+     * Check if the repository belongs to a desktop application
+     *
+     * @param  string  $repository ID of the repository
+     * @return boolean True if repository is used for a desktop application
+     */
+    public static function isDesktopRepository($repo)
+    {
+        return in_array($repo, self::getDesktopRepositories());
     }
 
     /**

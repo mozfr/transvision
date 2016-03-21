@@ -110,4 +110,59 @@ class Consistency extends atoum\test
             ->array($obj->filterStrings($a, $b))
                 ->isEqualTo($c);
     }
+
+    public function filterComponents_DP()
+    {
+        return [
+            [
+                [
+                    'browser/chrome/browser/preferences/applicationManager.dtd:appManager.style'        => 'width: 30em; min-height: 20em;',
+                    'extensions/irc/chrome/ceip.dtd:window.size'                                        => 'width: 42em;',
+                    'mail/chrome/messenger/importDialog.dtd:window.macWidth'                            => '45em',
+                    'browser/defines.inc:MOZ_LANGPACK_CREATOR'                                          => 'L\'équipe FrenchMozilla',
+                    'dom/chrome/accessibility/win/accessible.properties:press'                          => 'Appuyer',
+                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
+                    'dom/chrome/accessibility/AccessFu.properties:notation-phasorangle'                 => 'angle de phaseur',
+                    'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
+                ],
+                ['browser', 'dom'],
+                [
+                    'extensions/irc/chrome/ceip.dtd:window.size'                                        => 'width: 42em;',
+                    'mail/chrome/messenger/importDialog.dtd:window.macWidth'                            => '45em',
+                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
+                    'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
+                ],
+            ],
+            [
+                [
+                    'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
+                    'extensions/irc/chrome/ceip.dtd:window.size'                                        => 'width: 42em;',
+                    'mail/chrome/messenger/importDialog.dtd:window.macWidth'                            => '45em',
+                    'dom/chrome/accessibility/win/accessible.properties:press'                          => 'Appuyer',
+                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
+                    'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
+                ],
+                [],
+                [
+                    'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
+                    'extensions/irc/chrome/ceip.dtd:window.size'                                        => 'width: 42em;',
+                    'mail/chrome/messenger/importDialog.dtd:window.macWidth'                            => '45em',
+                    'dom/chrome/accessibility/win/accessible.properties:press'                          => 'Appuyer',
+                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
+                    'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider filterComponents_DP
+     */
+    public function testFilterComponents($a, $b, $c)
+    {
+        $obj = new _Consistency();
+        $this
+            ->array($obj->filterComponents($a, $b))
+                ->isEqualTo($c);
+    }
 }

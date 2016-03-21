@@ -75,7 +75,7 @@ foreach (Project::getRepositories() as $repo) {
         $strings[$ref_locale][$repo] = $cache_filtered_strings($ref_locale, $ref_locale . $repo . 'filteredstrings');
 
         // If Desktop, parse the strings to get components
-        if (in_array($repo, Project::getDesktopRepositories())) {
+        if (Project::isDesktopRepository($repo)) {
             foreach (Project::getComponents($strings[$locale][$repo]) as $component) {
                 $filter_pattern = function ($locale_code) use ($component, $repo, $strings) {
                     return array_filter(

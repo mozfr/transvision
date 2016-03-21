@@ -52,7 +52,7 @@ class Consistency
       */
      public static function filterStrings($strings_array, $repo)
      {
-         if (in_array($repo, Project::getDesktopRepositories())) {
+         if (Project::isDesktopRepository($repo)) {
              $repository_type = 'desktop';
          } elseif (in_array($repo, Project::getGaiaRepositories())) {
              $repository_type = 'gaia';
@@ -108,6 +108,27 @@ class Consistency
 
          foreach ($strings_array as $key => $value) {
              if ($ignore_string($key, $value)) {
+                 unset($strings_array[$key]);
+             }
+         }
+
+         return $strings_array;
+     }
+
+     /**
+      * Filter out strings that belong to a group of components
+      *
+      * @param  array $strings_array Array of strings in the form
+      *                              string_id => string_value
+      * @param  array $components    Array of component names
+      *
+      * @return array Array of filtered strings, with strings belonging
+      *               to requested components removed
+      */
+     public static function filterComponents($strings_array, $components)
+     {
+         foreach ($strings_array as $key => $value) {
+             if (in_array(explode('/', $key)[0], $components)) {
                  unset($strings_array[$key]);
              }
          }

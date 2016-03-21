@@ -13,6 +13,29 @@ $target_locales_list = Utils::getHtmlSelectOptions(
     $locale
 );
 
+$available_filters = [
+    'all'         => 'All products',
+    'firefox'     => 'Firefox for desktop and Android',
+    'seamonkey'   => 'SeaMonkey',
+    'thunderbird' => 'Thunderbird',
+];
+
+if (isset($_GET['filter'])) {
+    $selected_filter = isset($available_filters[$_GET['filter']])
+        ? Utils::secureText($_GET['filter'])
+        : 'all';
+} else {
+    $selected_filter = 'all';
+}
+$filter_visibility = Project::isDesktopRepository($repo)
+    ? ''
+    : 'style="display: none;"';
+$filter_selector = Utils::getHtmlSelectOptions(
+    $available_filters,
+    $selected_filter,
+    true
+);
+
 $reference_locale = Project::getReferenceLocale($repo);
 
 // Set a default for the number of strings to display
@@ -25,6 +48,36 @@ $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 if (! empty($source_strings)) {
     // Remove known problematic strings
     $duplicated_strings_english = Consistency::filterStrings($source_strings, $repo);
+
+    // Filter out components
+    switch ($selected_filter) {
+        case 'firefox':
+            $excluded_components = [
+                'calendar', 'chat', 'editor', 'extensions', 'mail', 'suite',
+            ];
+            break;
+        case 'seamonkey':
+            $excluded_components = [
+                'browser', 'calendar', 'chat', 'extensions', 'mail', 'mobile',
+            ];
+            break;
+        case 'thunderbird':
+            $excluded_components = [
+                'browser', 'extensions', 'mobile', 'suite',
+            ];
+            break;
+        default:
+            $excluded_components = [];
+            break;
+    }
+    $filter_message = empty($excluded_components)
+        ? ''
+        : 'Currently excluding the following folders: ' . implode(', ', $excluded_components) . '.';
+    $duplicated_strings_english = Consistency::filterComponents(
+        $duplicated_strings_english,
+        $excluded_components
+    );
+
     // Find strings that are identical in English
     $duplicated_strings_english = Consistency::findDuplicates($duplicated_strings_english);
 }

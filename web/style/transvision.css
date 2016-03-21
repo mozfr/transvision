@@ -754,6 +754,15 @@ fieldset {
     margin: 0 auto;
 }
 
+#consistency #simplesearch_filter {
+    width: 200px;
+}
+
+#consistency #filter_message {
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
 /* Gaia comparison view */
 .added_string {
     color: #008000;
