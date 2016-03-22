@@ -296,6 +296,23 @@ th {
     padding: 0.5em;
 }
 
+th.select_header {
+    position: relative;
+}
+
+th.select_header span {
+    position: absolute;
+    color: #fff;
+    background-color: #1c75bc;
+    right: 5px;
+    top: 8px;
+    font-weight: normal;
+    font-size: 11px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 td {
     padding: 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.05);
