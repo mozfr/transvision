@@ -1,7 +1,6 @@
 <?php
 namespace Transvision;
 
-$check['repo']  = isset($check['repo']) ? $check['repo'] : 'aurora';
 $source_locale  = isset($source_locale) ? $source_locale : 'en-US';
 $locale         = isset($locale) ? $locale : 'fr';
 $initial_search = isset($initial_search) ? $initial_search : 'Bookmarks';
@@ -42,7 +41,7 @@ $li_link = function ($page, $title, $text) use ($url, $urls) {
 */
 $li_t2t = '<li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '')
        . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale
-       . '&repo=' . $check['repo'] . '&t2t=t2t&recherche='
+       . '&repo=' . $search->getRepository() . '&t2t=t2t&recherche='
        . Utils::secureText($initial_search)
        . '" title="Search in the Glossary">Glossary</a></li>';
 

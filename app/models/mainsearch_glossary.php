@@ -2,8 +2,8 @@
 namespace Transvision;
 
 // Include all strings
-$tmx_source = Utils::getRepoStrings($source_locale, $check['repo']);
-$tmx_target = Utils::getRepoStrings($locale, $check['repo']);
+$tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository());
+$tmx_target = Utils::getRepoStrings($locale, $search->getRepository());
 $locale1_strings = $tmx_source;
 $search_terms = Utils::uniqueWords($initial_search);
 

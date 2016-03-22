@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-$tmx_target2 = Utils::getRepoStrings($locale2, $check['repo']);
+$tmx_target2 = Utils::getRepoStrings($locale2, $search->getRepository());
 
 if ($search->isPerfectMatch()) {
     $locale3_strings = $search->grep($tmx_target2);

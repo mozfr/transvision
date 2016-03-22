@@ -1,4 +1,6 @@
 <?php
+namespace Transvision;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -33,6 +35,9 @@ if (DEBUG) {
 // Logging
 $logger = new Logger(VERSION);
 $logger->pushHandler(new StreamHandler(INSTALL_ROOT . 'logs/transvision.log', Logger::DEBUG));
+
+// Create a Search object with default values available everywhere
+$search = new Search;
 
 // Dispatch urls, use it only in web context
 if (php_sapi_name() != 'cli') {

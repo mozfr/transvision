@@ -6,7 +6,7 @@ $javascript_include[] = '/js/main_search.js';
 $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
 
 ?>
-  <div id="current">You are looking at the <em><?=$repos_nice_names[$check['repo']]?></em> channel <strong><?=$locale?></strong></div>
+  <div id="current">You are looking at the <em><?=$repos_nice_names[$search->getRepository()]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" id="searchform" method="get" action="./" >
         <fieldset id="main_search">
             <div id="search">
@@ -39,7 +39,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                                id="default_repository"
                                class="mainsearch_default_checkbox"
                                value="<?=$cookie_repository?>"
-                               <?=Utils::checkboxDefaultOption($check['repo'], $cookie_repository)?>
+                               <?=Utils::checkboxDefaultOption($search->getRepository(), $cookie_repository)?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>
@@ -50,7 +50,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='sourcelocale'
                         class='mainsearch_locale_selector'
                         title="Source Locale">
-                    <?=$source_locales_list[$check['repo']]?>
+                    <?=$source_locales_list[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_source_locale">
                         <input type="checkbox"
@@ -59,7 +59,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                                value="<?=$cookie_source_locale?>"
                                 <?php
                                 // Mark as default only if the cookie_source_locale exist in repository array
-                                if (in_array($cookie_source_locale, $loc_list[$check['repo']])) {
+                                if (in_array($cookie_source_locale, $loc_list[$search->getRepository()])) {
                                     echo Utils::checkboxDefaultOption($source_locale, $cookie_source_locale);
                                 }
                                 ?>
@@ -75,7 +75,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='locale'
                         class='mainsearch_locale_selector'
                         title="Target Locale">
-                    <?=$target_locales_list[$check['repo']]?>
+                    <?=$target_locales_list[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_target_locale">
                         <input type="checkbox"
@@ -84,7 +84,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                                value="<?=$cookie_target_locale?>"
                                 <?php
                                 // Mark as default only if the cookie_target_locale exist in repository array
-                                if (in_array($cookie_target_locale, $loc_list[$check['repo']])) {
+                                if (in_array($cookie_target_locale, $loc_list[$search->getRepository()])) {
                                     echo Utils::checkboxDefaultOption($locale, $cookie_target_locale);
                                 }
                                 ?>
@@ -100,7 +100,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='locale2'
                         class='mainsearch_locale_selector'
                         title="Extra Locale">
-                    <?=$target_locales_list2[$check['repo']]?>
+                    <?=$target_locales_list2[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_target_locale2">
                         <input type="checkbox"
@@ -109,7 +109,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                                value="<?=$cookie_target_locale2?>"
                                 <?php
                                 // Mark as default only if the cookie_target_locale exist in repository array
-                                if (in_array($cookie_target_locale2, $loc_list[$check['repo']])) {
+                                if (in_array($cookie_target_locale2, $loc_list[$search->getRepository()])) {
                                     echo Utils::checkboxDefaultOption($locale2, $cookie_target_locale2);
                                 }
                                 ?>
