@@ -15,7 +15,7 @@ foreach ($best_matches as $match) {
 
 <div class="resultsbox">
     <h3>There were no results for the string
-    <span class="searchedTerm"><?=$initial_search_decoded?></span>.
+    <span class="searchedTerm"><?=htmlentities($my_search)?></span>.
     <br>Possibly related searches:
     </h3>
 

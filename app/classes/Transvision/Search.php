@@ -5,18 +5,22 @@ namespace Transvision;
  * Search class
  *
  * Allows searching for data in our repositories using a fluent interface.
- * Currently, only the regex part (definition of the search) is implemented.
+ * Currently, only the regex part (definition of the search) and defining the
+ * search options are implemented.
  * e.g.:
  * $search = (new Search)
  *     ->setSearchTerms('Bookmark this page')
  *     ->setRegexWholeWords(true)
  *     ->setRegexCaseInsensitive(true)
- *     ->setRegexPerfectMatch(false);
+ *     ->setRegexPerfectMatch(false)
+ *     ->setRepository('release')
+ *     ->setSearchType('strings')
+ *     ->setLocales(['en-US', 'fr']);
  */
 class Search
 {
     /**
-     * The trimmed string searched, we keep it   as the canonical reference
+     * The trimmed string searched, we keep it as the canonical reference
      * @var string
      */
     protected $search_terms;
@@ -59,6 +63,38 @@ class Search
     protected $repository;
 
     /**
+     * The type of search we will perform
+     * @var string
+     */
+    protected $search_type;
+
+    /**
+     * The different types of search we can perform
+     * @var array
+     */
+    protected $search_types = ['strings', 'entities', 'strings_entities'];
+
+    /**
+     * The different options associated to searches
+     * @var array
+     */
+    protected $form_search_options = [
+        'case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word',
+    ];
+
+    /**
+     * The different checkboxes for the search Form
+     * @var array
+     */
+    protected $form_checkboxes;
+
+    /**
+     * The different locales we will use in views
+     * @var array
+     */
+    protected $locales;
+
+    /**
      * We set the default values for a search
      */
     public function __construct()
@@ -70,6 +106,13 @@ class Search
         $this->regex_perfect_match = false;
         $this->regex_search_terms = '';
         $this->repository = 'aurora'; // Most locales work on Aurora
+        $this->search_type = 'strings';
+        $this->locales = [];
+        $this->form_checkboxes = array_diff(
+            $this->form_search_options,
+            ['repo', 'search_type']
+        );
+        $this->form_checkboxes = array_values($this->form_checkboxes); // Reset keys
     }
 
     /**
@@ -251,7 +294,7 @@ class Search
      */
     public function setRepository($repository)
     {
-        if (in_array($repository, Project::getRepositories())) {
+        if (Project::isValidRepository($repository)) {
             $this->repository = $repository;
         }
 
@@ -266,5 +309,93 @@ class Search
     public function getRepository()
     {
         return $this->repository;
+    }
+
+    /**
+     * Set the type of search we want to perform
+     *
+     * @param  string $type The type of search we will perform
+     * @return $this
+     */
+    public function setSearchType($type)
+    {
+        if (in_array($type, $this->search_types)) {
+            $this->search_type = $type;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the type of search we want to perform
+     *
+     * @return string Type of search
+     */
+    public function getSearchType()
+    {
+        return $this->search_type;
+    }
+
+    /**
+     * Get all the types of search we can perform
+     *
+     * @return array Types of search
+     */
+    public function getSearchTypes()
+    {
+        return $this->search_types;
+    }
+
+    /**
+     * Get all the options we use in the search form
+     *
+     * @return array Form options
+     */
+    public function getFormSearchOptions()
+    {
+        return $this->form_search_options;
+    }
+
+    /**
+     * Get all the checkboxes we use in the search form
+     *
+     * @return array Form checkboxes
+     */
+    public function getFormCheckboxes()
+    {
+        return $this->form_checkboxes;
+    }
+
+    /**
+     * Set the Locales we will use for the search
+     *
+     * @param  array $locales The locale codes
+     * @return $this
+     */
+    public function setLocales($locales)
+    {
+        // We only allow up to 3 locales for analysis
+        $locales = array_slice($locales, 0, 3);
+
+        if (count($locales) == 3) {
+            // We check if the 3rd locale is the same as the 2nd one
+            if ($locales[2] == $locales[1]) {
+                unset($locales[2]);
+            }
+        }
+
+        $this->locales = $locales;
+
+        return $this;
+    }
+
+    /**
+     * Get the locales used for searching
+     *
+     * @return array Locale codes
+     */
+    public function getLocales()
+    {
+        return $this->locales;
     }
 }

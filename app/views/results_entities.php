@@ -91,7 +91,7 @@ foreach ($entities as $entity) {
       <span class='celltitle'>Entity</span>
       <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
       <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$current_repo}' title='List all translations for this entity'>l10n</a>
-      <a class='link_to_entity' href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $initial_search) . "</a>
+      <a class='link_to_entity' href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $search->getSearchTerms()) . "</a>
     </td>
     <td dir='{$direction1}'>
       <span class='celltitle'>{$source_locale}</span>

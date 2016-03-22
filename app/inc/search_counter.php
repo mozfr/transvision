@@ -20,11 +20,11 @@ $stats = $json_data
     ->fetchContent();
 
 foreach ($check as $k => $v) {
-    if (in_array($k, $form_checkboxes) && $v == 1) {
+    if (in_array($k, $search->getFormCheckboxes()) && $v == 1) {
         $stats[$k] = array_key_exists($k, $stats) ? $stats[$k] += 1 : 1;
     }
 
-    if (in_array($k, array_diff($form_search_options, $form_checkboxes))) {
+    if (in_array($k, array_diff($search->getFormSearchOptions(), $search->getFormCheckboxes()))) {
         $stats[$v] = array_key_exists($v, $stats) ? $stats[$v] += 1 : 1;
     }
 

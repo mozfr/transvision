@@ -7,14 +7,14 @@ if ($search->isPerfectMatch()) {
 } else {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
-    foreach (Utils::uniqueWords($initial_search) as $word) {
+    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
         $search->setRegexSearchTerms($word);
         $locale1_strings = $search->grep($locale1_strings);
         $locale2_strings = $search->grep($locale2_strings);
     }
 }
 
-if ($check['search_type'] == 'strings_entities') {
+if ($search->getSearchType() == 'strings_entities') {
     $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
     foreach ($entities as $entity) {
         $locale1_strings[$entity] = $tmx_source[$entity];
@@ -60,11 +60,11 @@ foreach ($searches as $key => $value) {
             : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
 
         $output[$key] = "<h2>Displaying {$message_count} for the string "
-                        . "<span class=\"searchedTerm\">{$initial_search_decoded}</span> in {$key}:</h2>";
-        $output[$key] .= ShowResults::resultsTable($search_id, $search_results, $initial_search, $source_locale, $locale, $check);
+                        . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span> in {$key}:</h2>";
+        $output[$key] .= ShowResults::resultsTable($search, $search_results);
     } else {
         $output[$key] = "<h2>No matching results for the string "
-                        . "<span class=\"searchedTerm\">{$initial_search_decoded}</span>"
+                        . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span>"
                         . " for the locale {$key}</h2>";
     }
 }
@@ -80,7 +80,7 @@ if (! $search_yields_results) {
         $merged_strings = array_merge($merged_strings, array_values($values));
     }
 
-    $best_matches = Strings::getSimilar($initial_search, $merged_strings, 3);
+    $best_matches = Strings::getSimilar($search->getSearchTerms(), $merged_strings, 3);
 
     include VIEWS . 'results_similar.php';
 

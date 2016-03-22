@@ -5,7 +5,7 @@ namespace Transvision;
 $tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository());
 $tmx_target = Utils::getRepoStrings($locale, $search->getRepository());
 $locale1_strings = $tmx_source;
-$search_terms = Utils::uniqueWords($initial_search);
+$search_terms = Utils::uniqueWords($search->getSearchTerms());
 
 foreach ($search_terms as $word) {
     $search->setRegexSearchTerms($word);

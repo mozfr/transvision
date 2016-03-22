@@ -19,22 +19,19 @@ $repositories = ($request->parameters[2] == 'global')
 // This is the filtered data we will send to getTranslationMemoryResults()
 $output = [];
 
-// The search
-$initial_search = Utils::cleanString($request->parameters[5]);
-$terms = Utils::uniqueWords($initial_search);
-
-// Define our regex
+// Define our search terms and parameters
 $search
-    ->setSearchTerms(Utils::cleanString($initial_search))
+    ->setSearchTerms(Utils::cleanString($request->parameters[5]))
     ->setRegexWholeWords($get_option('whole_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'));
+    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setLocales([$request->parameters[3], $request->parameters[4]]);
 
 // We loop through all repositories and merge the results
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($request->parameters[3], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocales()[0], $repository);
 
-    foreach ($terms as $word) {
+    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
         $search->setRegexSearchTerms($word);
         $source_strings = $search->grep($source_strings);
     }
@@ -51,7 +48,7 @@ foreach ($repositories as $repository) {
         We are only interested in target strings with keys in common with our
         source strings.
     */
-    $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
+    $target_strings = Utils::getRepoStrings($search->getLocales()[1], $repository);
 
     foreach ($source_strings as $key => $value) {
         if (isset($target_strings[$key]) && ! empty($target_strings[$key])) {
@@ -66,7 +63,7 @@ foreach ($repositories as $repository) {
 
 return $json = ShowResults::getTranslationMemoryResults(
     $output,
-    $initial_search,
+    $search->getSearchTerms(),
     $get_option('max_results'), // Cap results with the ?max_results=number option
     $get_option('min_quality') // Optional quality threshold defined by ?min_quality=50
 );

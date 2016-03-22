@@ -18,7 +18,7 @@ $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
 if (count($entities) == 0) {
     $merged_strings = [];
 
-    $best_matches = Strings::getSimilar($initial_search, array_keys($tmx_source), 3);
+    $best_matches = Strings::getSimilar($search->getSearchTerms(), array_keys($tmx_source), 3);
 
     include VIEWS . 'results_similar.php';
 

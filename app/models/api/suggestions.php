@@ -17,27 +17,26 @@ $repositories = ($request->parameters[2] == 'global')
 $source_strings_merged = [];
 $target_strings_merged = [];
 
-// The search
-$initial_search = Utils::cleanString($request->parameters[5]);
-$terms = Utils::uniqueWords($initial_search);
-
-// Define our regex
+// Define our search terms and parameters
 $search
-    ->setSearchTerms(Utils::cleanString($initial_search))
+    ->setSearchTerms(Utils::cleanString($request->parameters[5]))
     ->setRegexWholeWords($get_option('whole_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'));
+    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setLocales([$request->parameters[3], $request->parameters[4]]);
+
+$terms = Utils::uniqueWords($search->getSearchTerms());
 
  // Loop through all repositories searching in both source and target languages
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($request->parameters[3], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocales()[0], $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
         $source_strings = $search->grep($source_strings);
     }
     $source_strings_merged = array_merge($source_strings, $source_strings_merged);
 
-    $target_strings = Utils::getRepoStrings($request->parameters[4], $repository);
+    $target_strings = Utils::getRepoStrings($search->getLocales()[1], $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
         $target_strings = $search->grep($target_strings);
@@ -59,6 +58,6 @@ $get_option = function ($option) use ($request) {
 return $json = ShowResults::getSuggestionsResults(
     $source_strings_merged,
     $target_strings_merged,
-    $initial_search,
+    $search->getSearchTerms(),
     $get_option('max_results')
 );
