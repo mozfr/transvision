@@ -13,18 +13,23 @@ $initial_search_decoded = htmlentities($initial_search);
 $check = [];
 
 foreach ($form_checkboxes as $val) {
-    $check[$val] = (isset($_GET[$val])) ? true : false;
+    $check[$val] = isset($_GET[$val]);
 }
 
-// Check for default_repository cookie, if not set default repo to 'central'
+/*
+    We don't set a default repository because we always have a default fallback
+    value in the Search object, but we need to define it to avoid a warning.
+*/
+$check['repo'] = '';
+
+// Check for default_repository cookie
 if (isset($_COOKIE['default_repository'])) {
     $check['repo'] = $_COOKIE['default_repository'];
-} else {
-    $check['repo'] = 'aurora';
 }
 
-if (isset($_GET['repo']) && in_array($_GET['repo'], $repos)) {
-    $check['repo'] = $_GET['repo'];
+// Check if we have a GET parameter that would override the cookie
+if (isset($_GET['repo'])) {
+    $check['repo'] = Utils::secureText($_GET['repo']);
 }
 
 // Default search type: strings
@@ -37,18 +42,16 @@ if (isset($_GET['search_type'])
     $check['search_type'] = $_COOKIE['default_search_type'];
 }
 
-// Locales list for the select boxes
-$loc_list = Project::getRepositoryLocales($check['repo']);
-
-// Define our regex
-$search = (new Search)
-    ->setSearchTerms(Utils::cleanString($_GET['recherche']))
+// Define our regex and search parameters
+$search
+    ->setSearchTerms($my_search)
     ->setRegexWholeWords($check['whole_word'])
     ->setRegexCaseInsensitive($check['case_sensitive'])
-    ->setRegexPerfectMatch($check['perfect_match']);
+    ->setRegexPerfectMatch($check['perfect_match'])
+    ->setRepository($check['repo']);
 
 // Build the repository switcher
-$repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $check['repo'], true);
+$repo_list = Utils::getHtmlSelectOptions($repos_nice_names, $search->getRepository(), true);
 
 // Get the locale list for every repo and build his target/source locale switcher values.
 $loc_list = [];

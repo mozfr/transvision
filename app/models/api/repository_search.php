@@ -22,11 +22,12 @@ $source_strings_merged = [];
 $target_strings_merged = [];
 
 // Define our regex
-$search = (new Search)
+$search
     ->setSearchTerms(Utils::cleanString($initial_search))
     ->setRegexWholeWords($get_option('whole_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'));
+    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setRepository($request->parameters[3]);
 
 // We loop through all repositories searched and merge results
 foreach ($repositories as $repository) {

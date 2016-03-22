@@ -86,7 +86,7 @@ if (! $search_yields_results) {
 
     return;
 } else {
-    if (in_array($check['repo'], $desktop_repos)) {
+    if (Project::isDesktopRepository($search->getRepository())) {
         // Build logic to filter components
         $javascript_include[] = '/js/component_filter.js';
         $filter_block = '';

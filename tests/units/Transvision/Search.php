@@ -29,6 +29,9 @@ class Search extends atoum\test
         $this
             ->string($obj->getRegexSearchTerms())
                 ->isEqualTo('');
+        $this
+            ->string($obj->getRepository())
+                ->isEqualTo('aurora');
     }
 
     public function testSetSearchTerms()
@@ -54,7 +57,7 @@ class Search extends atoum\test
                 ->isEqualTo('~A new hope~iu');
     }
 
-    public function testsetRegexCaseInsensitive()
+    public function testSetRegexCaseInsensitive()
     {
         $obj = new _Search();
 
@@ -164,5 +167,17 @@ class Search extends atoum\test
                     'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2' => '...',
                 ]
             );
+    }
+
+    public function testSetRepository()
+    {
+        $obj = new _Search();
+        $obj->setRepository('foobar');
+        $this->string($obj->getRepository())
+            ->isEqualTo('aurora');
+
+        $obj->setRepository('release');
+        $this->string($obj->getRepository())
+            ->isEqualTo('release');
     }
 }

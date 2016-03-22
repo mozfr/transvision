@@ -53,6 +53,12 @@ class Search
     protected $regex_search_terms;
 
     /**
+     * The repository we want to search strings in
+     * @var string
+     */
+    protected $repository;
+
+    /**
      * We set the default values for a search
      */
     public function __construct()
@@ -63,6 +69,7 @@ class Search
         $this->regex_whole_words = '';
         $this->regex_perfect_match = false;
         $this->regex_search_terms = '';
+        $this->repository = 'aurora'; // Most locales work on Aurora
     }
 
     /**
@@ -234,5 +241,30 @@ class Search
     public function grep($source_strings)
     {
         return preg_grep($this->getRegex(), $source_strings);
+    }
+
+    /**
+     * Set the repository we want to search strings in
+     *
+     * @param  string $repository The name of the repository
+     * @return $this
+     */
+    public function setRepository($repository)
+    {
+        if (in_array($repository, Project::getRepositories())) {
+            $this->repository = $repository;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the repository we are searching strings in
+     *
+     * @return string Name of the repository
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 }

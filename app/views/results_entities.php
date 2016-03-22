@@ -16,7 +16,7 @@ $table = "
   </thead>
   <tbody>\n";
 
-$current_repo = $check['repo'];
+$current_repo = $search->getRepository();
 // Display results
 foreach ($entities as $entity) {
     if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {

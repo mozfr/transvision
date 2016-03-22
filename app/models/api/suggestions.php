@@ -22,7 +22,7 @@ $initial_search = Utils::cleanString($request->parameters[5]);
 $terms = Utils::uniqueWords($initial_search);
 
 // Define our regex
-$search = (new Search)
+$search
     ->setSearchTerms(Utils::cleanString($initial_search))
     ->setRegexWholeWords($get_option('whole_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
