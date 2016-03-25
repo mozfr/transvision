@@ -151,25 +151,9 @@ class VersionControl
                 $url .= '/releases/l10n/mozilla-' . $repo . '/' . $locale . '/file/default/';
             }
         } else {
-            // Chatzilla and Venkman are in separate repositories
-            if ($base_folder == 'extensions') {
-                switch ($exploded_path[1]) {
-                    case 'irc':
-                        $url .= '/chatzilla';
-                        $found_extension = true;
-                        break;
-                    case 'venkman':
-                        $url .= '/venkman';
-                        $found_extension = true;
-                        break;
-                    default:
-                        $found_extension = false;
-                        break;
-                }
-
-                if ($found_extension) {
-                    return "{$url}/file/default/locales/en-US/chrome/{$entity_file}";
-                }
+            // ChatZilla is in a separate repository
+            if ($base_folder == 'extensions' && $exploded_path[1] == 'irc') {
+                return "{$url}/chatzilla/file/default/locales/en-US/chrome/{$entity_file}";
             }
 
             // comm-central folders

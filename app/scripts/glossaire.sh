@@ -399,7 +399,6 @@ function updateFirefoxiOS() {
 
 # Update repos without branches first (their TMX is created in updateStandardRepo)
 updateNoBranchRepo "chatzilla"
-updateNoBranchRepo "venkman"
 
 updateStandardRepo "release" "release"
 updateStandardRepo "beta" "beta"

@@ -53,18 +53,13 @@ function createSymlinks() {
         done
         ;;
 
-        "chatzilla" | "venkman")
-        # Restructure chatzilla and venkman
+        "chatzilla" )
+        # Restructure ChatZilla
         for branch in "${branches[@]}"
         do
-            if [ "$1" == "chatzilla" ]
-            then
-                # Source repo is called "chatzilla", l10n folder is "irc"
-                local dir="extensions/irc/locales/en-US"
-            else
-                local dir="extensions/$1/locales/en-US"
-            fi
-            repo_name="$1/locales/en-US"
+            # Source repo is called "chatzilla", l10n folder is "irc"
+            local dir="extensions/irc/locales/en-US"
+            repo_name="chatzilla/locales/en-US"
             path="$local_hg/${branch^^}_EN-US/COMMUN/$dir"
             if [ ! -L "$path/en-US" ]
             then
@@ -148,10 +143,10 @@ function initDesktopSourceRepo() {
             hg clone https://hg.mozilla.org/mozilla-central/
         fi
 
-        # Checkout chatzilla and venkman only on trunk, since they don't
-        # have branches. Can add other products to array nobranch_products,
-        # as long as their code is located in https://hg.mozilla.org/PRODUCT
-        local nobranch_products=( chatzilla venkman )
+        # Checkout ChatZilla only on trunk, since they don't have branches.
+        # Can add other products to array nobranch_products, as long
+        # as their code is located in https://hg.mozilla.org/PRODUCT
+        local nobranch_products=( chatzilla )
         for product in "${nobranch_products[@]}"
         do
             if [ ! -d $trunk_source/$product/.hg ]
@@ -294,7 +289,6 @@ initDesktopL10nRepo "aurora"
 createSymlinks "mozilla"
 createSymlinks "comm"
 createSymlinks "chatzilla"
-createSymlinks "venkman"
 
 # Set up all Gaia versions
 for gaia_version in $(cat ${gaia_versions})
