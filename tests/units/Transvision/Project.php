@@ -178,6 +178,7 @@ class Project extends atoum\test
             ['fr', 'foobar', 'fr'],
             ['es-ES', 'firefox_ios', 'es'],
             ['es', 'firefox_ios', 'es'],
+            ['son', 'firefox_ios', 'ses'],
         ];
     }
 
