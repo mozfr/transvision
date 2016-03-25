@@ -268,6 +268,7 @@ class Project
         $locale_mappings['firefox_ios'] = [
             'es-AR' => 'es',
             'es-ES' => 'es',
+            'son'   => 'ses',
         ];
 
         // For other contexts use the same as Bugzilla
