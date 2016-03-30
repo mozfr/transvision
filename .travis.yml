@@ -11,11 +11,14 @@ before_script:
   - composer install --no-interaction --prefer-dist
   ## Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
+  ## Install ESLint
+  - npm install -g eslint
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/
   - php tests/functional/api.php
   - php tests/functional/pages.php
   - vendor/bin/php-cs-fixer --diff --dry-run -v fix
+  - eslint web/js
 notifications:
   irc:
     channels:
