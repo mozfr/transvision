@@ -32,8 +32,8 @@ $(document).ready(function() {
     // Associate code to repository switch in simple search form.
     $('#simplesearch_repository').on('change', function(){
         // Store locale currently selected
-        var current_locale = $('#simplesearch_locale').val();
-        var repository_id = this.value;
+        var currentLocale = $('#simplesearch_locale').val();
+        var repositoryID = this.value;
 
         // Empty the select
         $('#simplesearch_locale')
@@ -41,22 +41,22 @@ $(document).ready(function() {
             .remove();
 
         // Rebuild options with locales for new repository.
-        $.each(supported_locales[this.value], function(key, locale) {
+        $.each(supportedLocales[this.value], function(key, locale) {
             $('#simplesearch_locale')
                 .append($('<option>', {value : locale})
                 .text(locale));
         });
 
         // Hide elements (e.g. filters in Consistency view) if it's not a desktop repository
-        var desktop_repositories = ['central', 'aurora', 'beta', 'release'];
-        if (desktop_repositories.indexOf(repository_id) === -1) {
+        var desktopRepositories = ['central', 'aurora', 'beta', 'release'];
+        if (desktopRepositories.indexOf(repositoryID) === -1) {
             $('.desktop_repo_only').hide();
         } else {
             $('.desktop_repo_only').show();
         }
 
         // Try to select the same locale previously selected.
-        $('#simplesearch_locale option[value="' + current_locale + '"]')
+        $('#simplesearch_locale option[value="' + currentLocale + '"]')
             .prop('selected', true);
     });
 
@@ -71,11 +71,10 @@ $(document).ready(function() {
 
 var clipboard = new Clipboard('.clipboard');
 clipboard.on('success', function(e) {
-       e.trigger.setAttribute('data-title', 'Translation copied!');
-       e.trigger.setAttribute('class', 'clipboard tooltip');
-       setTimeout(function(arg1) {
-           arg1.trigger.setAttribute('class', 'clipboard')
-       }, 1000, e);
-       e.clearSelection();
-   }
-);
+    e.trigger.setAttribute('data-title', 'Translation copied!');
+    e.trigger.setAttribute('class', 'clipboard tooltip');
+    setTimeout(function(arg1) {
+        arg1.trigger.setAttribute('class', 'clipboard');
+    }, 1000, e);
+    e.clearSelection();
+});
