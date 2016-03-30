@@ -17,7 +17,7 @@ $(document).ready(function() {
     var checkSuggestions = function() {
         if (typeof $('#recherche').autocomplete() === 'undefined') {
             $('#recherche').autocomplete({
-                serviceUrl: function (query){
+                serviceUrl: function(query){
                     return '/api/v1/suggestions/'
                         + $('#repository').val() + '/'
                         + $('#source_locale').val() + '/'
