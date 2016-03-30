@@ -1,5 +1,17 @@
 #! /usr/bin/env bash
 
+standard_color=$(tput sgr0)
+green=$(tput setab 2)
+red=$(tput setab 1)
+
+function echored() {
+    echo -e "$red$*$standard_color"
+}
+
+function echogreen() {
+    echo -e "$green$*$standard_color"
+}
+
 # Use 'start.sh -remote' if you want to access the server from another machine (or a VM)
 SERVER="localhost:8082"
 
@@ -49,6 +61,16 @@ case "$1" in
         php ./tests/functional/api.php
         php ./tests/functional/pages.php
         vendor/bin/php-cs-fixer --diff --dry-run -v fix
+        echo "Checking JavaScript files with ESLint..."
+        if hash eslint 2>/dev/null
+        then
+            if eslint web/js
+            then
+                echogreen "No issues found in JavaScript files."
+            fi
+        else
+            echored "WARNING: eslint is not available. See README.md for instructions."
+        fi
         exit 1
         ;;
     -tests-server)
