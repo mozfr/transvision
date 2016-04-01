@@ -818,6 +818,21 @@ fieldset {
     text-align: right;
 }
 
+/* 404 */
+#notfound #pagecontent {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+}
+
+#notfound #pagecontent img {
+    max-width: 800px;
+    max-height: 379px;
+    width: 100%;
+    height: 100%;
+    margin-top: 15px;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 850px) {

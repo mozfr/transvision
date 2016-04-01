@@ -17,6 +17,8 @@ $paths = [
     ['unchanged/', 200, 'Display a list of strings identical', 'Locale'],
     ['unlocalized/', 200, 'Display the list of the most common untranslated words', 'Occurrences'],
     ['variables/', 200, 'Show potential errors related to', 'no errors found'],
+    ['foo/', 400, '404: Page Not Found', 'You can use the menu at the top'],
+    ['123/', 400, '404: Page Not Found', 'You can use the menu at the top'],
 ];
 
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');
