@@ -40,22 +40,22 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 
 1. Fork the [Transvision Project][] into your GitHub account.
 2. Clone your fork to your machine.
-3. Copy app/config/config.ini-dist to app/config/config.ini and adapt the variables to your system.
-4. Run first "app/scripts/setup.sh", then "app/scripts/glossaire.sh". This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
-5. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run "php composer.phar install" (or "composer install" if installed globally) inside the web folder.
+3. Copy `app/config/config.ini-dist` to `app/config/config.ini` and adapt the variables to your system.
+4. Run first `app/scripts/setup.sh`, then `app/scripts/glossaire.sh`. This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
+5. Install Composer (Dependency Manager for PHP, http://getcomposer.org/) and run `php composer.phar install` (or "composer install" if installed globally) inside the web folder.
 6. You can run Transvision in your local machine either with the ```start.sh``` script or with ```php -S localhost:8082 -t web/ app/inc/router.php``` and opening http://localhost:8082/ with your browser. To bound PHP internal web server to 0.0.0.0 use ```start.sh -remote```: server will be accessible from other devices in the LAN, or from the host machine in case Transvision is running inside a Virtual Machine.
 
 ## Snapshot installation (regular development)
 
 1. Fork the [Transvision Project][] into your GitHub account.
 2. Clone your fork to your machine.
-3. Run "start.sh". This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed. A config file located in app/config/config.ini will be created automatically. Once this is done, PHP development server will be launched and you can visit http://localhost:8082/ with your browser.
+3. Run `./start.sh`. This process may take some time as it downloads a snapshot of data from Transvision server (~400MB). It will also download Composer, the PHP dependency manager, and install the dependencies needed. A config file located in `app/config/config.ini` will be created automatically. Once this is done, PHP development server will be launched and you can visit http://localhost:8082/ with your browser.
 
 Note that if you launch start.sh again after the installation, it will not download again all the data, composer and dependencies, it will only launch the development server.
 
 ## Update glossary
 
-- To update Transvision glossary, run "app/scripts/glossaire.sh" (only for full installations) .
+- To update Transvision glossary, run `app/scripts/glossaire.sh` (only for full installations) .
 
 ## Contribution tips
 
