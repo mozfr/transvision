@@ -119,8 +119,21 @@ class Utils
      */
     public static function highlightString($str)
     {
+        /*
+            [^←→]: matches any character but the marker characters.
+            [^←→]|(?R): matches any character but the marker characters,
+                        or recursively the entire pattern.
+
+            This is wrapped in a non capturing group (?:), since we're
+            only interested in the content of the more external markers.
+            For example, for “←←A→dd→” we're only interested in “←A→dd”,
+            capturing “←A→” is not useful.
+            Internal extra markers are later removed by str_replace.
+
+            See also http://stackoverflow.com/a/14952740
+        */
         $str = preg_replace(
-            '/←(.*)→/isU',
+            '/←((?:[^←→]|(?R))*)→/iu',
             "<span class='highlight'>$1</span>",
             $str
         );

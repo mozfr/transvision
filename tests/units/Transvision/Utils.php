@@ -176,6 +176,7 @@ class Utils extends atoum\test
             ['←Cronologia→ di navigazione', '<span class=\'highlight\'>Cronologia</span> di navigazione'],
             ['←servi←ce→→', '<span class=\'highlight\'>service</span>'],
             ['Cronologia di navigazione', 'Cronologia di navigazione'],
+            ['←←A→dd→ more ←se←a→rch→ ←engine→s…', '<span class=\'highlight\'>Add</span> more <span class=\'highlight\'>search</span> <span class=\'highlight\'>engine</span>s…'],
         ];
     }
 
