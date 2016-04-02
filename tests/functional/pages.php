@@ -13,7 +13,7 @@ $paths = [
     ['productization/', 200, 'Show productization', 'firefox'],
     ['showrepos/?locale=en-GB', 200, 'Health Status for en-GB', 'General metrics'],
     ['stats/', 200, 'Repository status overview', 'Status estimate'],
-    ['string/?entity=browser/chrome/browser/places/places.properties:bookmarkResultLabel&repo=central', 200, 'supported_locales', 'Marque-page'],
+    ['string/?entity=browser/chrome/browser/places/places.properties:bookmarkResultLabel&repo=central', 200, 'supportedLocales', 'Marque-page'],
     ['unchanged/', 200, 'Display a list of strings identical', 'Locale'],
     ['unlocalized/', 200, 'Display the list of the most common untranslated words', 'Occurrences'],
     ['variables/', 200, 'Show potential errors related to', 'no errors found'],

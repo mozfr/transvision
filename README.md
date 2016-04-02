@@ -27,14 +27,19 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 
 ## Dependencies
 
-- Bash scripting support
-- Python
-- PHP >= 5.6
-- Composer (Dependency Manager for PHP, https://getcomposer.org/)
-- mercurial, git, svn to check out data sources (only for a Full installation for production)
-- php5-xsl and GraphViz packages for generating the documentation with [phpDocumentor][]
-- libpspell-dev, php5-pspell and aspell-en packages for running spell checking in English on [Unlocalized words view][].
-- Apache with mod_rewrite activated
+* Bash scripting support
+* Python
+* PHP >= 5.6
+* Composer (Dependency Manager for PHP, https://getcomposer.org/)
+* mercurial, git, svn to check out data sources (only for a Full installation for production)
+* php5-xsl and GraphViz packages for generating the documentation with [phpDocumentor][]
+* libpspell-dev, php5-pspell and aspell-en packages for running spell checking in English on [Unlocalized words view][]
+* Apache with mod_rewrite activated
+* [npm][] and eslint for JavaScript files (optional)
+```
+npm install -g eslint
+eslint web/js
+```
 
 ## Full Installation (production or heavy development)
 
@@ -71,5 +76,6 @@ MPL 2
 [Transvision classes]: https://transvision-beta.mozfr.org/docs
 [Transvision Project]: https://github.com/mozfr/transvision
 [phpDocumentor]: http://phpdoc.org/
+[npm]: https://www.npmjs.com
 [Unlocalized words view]: https://transvision.mozfr.org/unlocalized
 [Coding Standards]:https://github.com/mozfr/transvision/wiki/Code-conventions
