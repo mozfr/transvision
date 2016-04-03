@@ -1,12 +1,12 @@
 <?php
 
 /*
-    In Transvision we can have queries with a semicolon and a number that lead
+    In Transvision we can have queries with a colon and a number that lead
     to URLs that parse_url() can't parse probably because it thinks that it is a
     port definition. ex:
     ?sourcelocale=en-US&locale=fr&repo=beta&search_type=entities&recherche=mail/chrome/messenger/mime.properties:1008
 
-    That's why we escape the semicolon to %3A before parsing it and then revert
+    That's why we escape the colon to %3A before parsing it and then revert
     that change in the query variable created.
 */
 $url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
