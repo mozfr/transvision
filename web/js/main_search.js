@@ -1,11 +1,11 @@
-var check_default = function(id) {
+var checkDefault = function(id) {
     /* Check if the associated 'default' checkbox needs to be selected.
      * If the select is called 'repository', the default checkbox
      * is called 'default_repository'.
      */
     var checkbox = $('#default_' + id);
-    var current_value = $('#' + id).val();
-    if (current_value === checkbox.val()) {
+    var currentValue = $('#' + id).val();
+    if (currentValue === checkbox.val()) {
         checkbox.prop('checked', true);
     } else {
         checkbox.prop('checked', false);
@@ -14,17 +14,19 @@ var check_default = function(id) {
 
 $(document).ready(function() {
     // Show suggestions only for strings and strings+entities
-    var check_suggestions = function() {
+    var checkSuggestions = function() {
         if (typeof $('#recherche').autocomplete() === 'undefined') {
             $('#recherche').autocomplete({
-                serviceUrl: function (query){
+                serviceUrl: function(query){
                     return '/api/v1/suggestions/'
                         + $('#repository').val() + '/'
                         + $('#source_locale').val() + '/'
                         + $('#target_locale').val() + '/'
                         + encodeURIComponent(query) + '/';
                 },
-                params: { max_results: 10 },
+                params: {
+                    max_results: 10 // eslint-disable-line
+                },
                 minChars: 2,
                 transformResult: function(response) {
                     var data = JSON.parse(response);
@@ -42,48 +44,48 @@ $(document).ready(function() {
                 }
             });
         }
-        if ($('#search_type').val() != 'entities') {
+        if ($('#search_type').val() !== 'entities') {
             $('#recherche').autocomplete().enable();
         } else {
             $('#recherche').autocomplete().disable();
         }
     };
     // Call it once when the page is ready
-    check_suggestions();
+    checkSuggestions();
 
     /* Change the label below the search field to reflect the value of "Search in".
      * Also checks if the default checkbox needs to be selected.
      */
     $('#search_type').on('change', function(){
-        var option_label = $('#search_type option[value="' + this.value + '"]').text();
-        $('#searchcontextvalue').text(option_label);
-        check_default(this.id);
+        var optionLabel = $('#search_type option[value="' + this.value + '"]').text();
+        $('#searchcontextvalue').text(optionLabel);
+        checkDefault(this.id);
         // Check if suggestions should be disabled or enabled
-        check_suggestions();
+        checkSuggestions();
     });
 
     // Associate code to repository switch in main search form.
     $('#repository').on('change', function(){
-        var repository_id = this.value;
+        var repositoryID = this.value;
         // Check if default checkbox needs to be selected.
-        check_default(this.id);
+        checkDefault(this.id);
 
         // Update all locale selectors.
-        $.each($('.mainsearch_locale_selector'), function(key, locale) {
+        $.each($('.mainsearch_locale_selector'), function() {
             // Store locale currently selected
-            var current_locale = this.value;
+            var currentLocale = this.value;
 
             // Empty the select.
             $(this).find('option').remove();
 
             // Rebuild options with locales for new repository.
-            var locale_selector = $(this);
-            $.each(supported_locales[repository_id], function(key, locale) {
-                locale_selector.append($('<option>', {value : locale}).text(locale));
+            var localeSelector = $(this);
+            $.each(supportedLocales[repositoryID], function(key, locale) {
+                localeSelector.append($('<option>', {value : locale}).text(locale));
             });
 
             // Try to select the same locale previously selected.
-            $('#' + this.id + ' option[value="' + current_locale + '"]')
+            $('#' + this.id + ' option[value="' + currentLocale + '"]')
                 .prop('selected', true);
         });
     });
@@ -92,7 +94,7 @@ $(document).ready(function() {
      * to be selected.
      */
     $('.mainsearch_locale_selector').on('change', function(){
-        check_default(this.id);
+        checkDefault(this.id);
     });
 
     // Associate code to default checkbox changes to store a cookie.
@@ -100,33 +102,33 @@ $(document).ready(function() {
         var today = new Date();
         var expire = new Date();
         var days = 3650; // Default expire: +10 years
-        var cookie_name = this.id;
-        var cookie_value = '';
+        var cookieName = this.id;
+        var cookieValue = '';
 
         if (!$(this).prop('checked')) {
             // If checkbox is not selected, remove cookie setting it as expired.
             days = -1;
         } else {
             // The new locale must be read from the associated select
-            var select_name = this.id.replace('default_', '');
-            cookie_value = $('#' + select_name).val();
+            var selectName = this.id.replace('default_', '');
+            cookieValue = $('#' + selectName).val();
         }
 
         /* Set Cookie to store default value. Use checkbox ID as cookie
          * name (e.g. default_repository) and value as content.
          */
         expire.setTime(today.getTime() + 3600000 * 24 * days);
-        document.cookie = cookie_name + '=' + cookie_value +
+        document.cookie = cookieName + '=' + cookieValue +
                           ';expires=' + expire.toGMTString();
-        $(this).val(cookie_value);
+        $(this).val(cookieValue);
     });
 
     // Switch source and target locales in select boxes
     $('#locale_switch').on('click', function() {
-        var source_locale = $('#source_locale').val()
-        var target_locale = $('#target_locale').val()
-        $('#source_locale').val(target_locale).change();
-        $('#target_locale').val(source_locale).change();
+        var sourceLocale = $('#source_locale').val();
+        var targetLocale = $('#target_locale').val();
+        $('#source_locale').val(targetLocale).change();
+        $('#target_locale').val(sourceLocale).change();
     });
 
     // Hide the clear button if the search field is empty
