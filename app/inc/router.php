@@ -47,10 +47,6 @@ if ($url['path'] != '/') {
 // Include all valid urls here
 require_once __DIR__ . '/urls.php';
 
-if (! array_key_exists($url['path'], $urls) && ! $api_url) {
-    return false;
-}
-
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
 if (substr($temp_url['path'], -1) != '/') {

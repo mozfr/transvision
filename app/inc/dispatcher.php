@@ -1,8 +1,13 @@
 <?php
 namespace Transvision;
 
+if ($api_url) {
+    $page = 'api';
+} else {
+    $page = isset($urls[$url['path']]) ? $urls[$url['path']] : 'notfound';
+}
+
 $template     = true;
-$page         = $api_url ? 'api' : $urls[$url['path']];
 $extra        = null;
 $experimental = false;
 $show_title   = true;
@@ -110,7 +115,9 @@ switch ($url['path']) {
         $page_descr = 'Show potential errors related to missing or mispelled variables in your strings.';
         break;
     default:
-        $controller = 'mainsearch';
+        $view = '404';
+        $page_title = '404: Page Not Found';
+        $page_descr = '';
         break;
 }
 
