@@ -4,7 +4,7 @@ namespace Transvision;
 // Helper anonymous variable to output a formatted table cell
 $td = function ($key, $value) {
     return "<td><span class=\"celltitle\">{$key}</span>"
-           . "<div class=²\"string\">{$value}</div></td>";
+           . "<div class=\"string\">{$value}</div></td>";
 };
 
 ?>
@@ -37,15 +37,13 @@ $td = function ($key, $value) {
 <p class='subtitle'>There are no string differences for this locale between the <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?> channels.</p>
 
 <?php else: ?>
-<table class='collapsable'>
+<h3>Locale: <?=$locale?></h3>
+<table class='collapsable' id='modified_strings_table'>
     <thead>
         <tr class='column_headers'>
-            <th colspan='3'>Locale: <?=$locale?></th>
-        </tr>
-        <tr class='column_headers'>
             <th>Key</th>
-            <th><?=$chan1?></th>
-            <th><?=$chan2?></th>
+            <th class='select_header'><?=$chan1?><span>Select column</span></th>
+            <th class='select_header'><?=$chan2?><span>Select column</span></th>
         </tr>
     </thead>
     <tbody>
@@ -65,12 +63,12 @@ $td = function ($key, $value) {
 
 <?php else : ?>
 <h3 id="new_strings">New strings added in <em><?=$locale?></em> between <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?></h3>
-<table class="collapsable">
+<table class='collapsable' id='new_strings_table'>
     <thead>
         <tr class='column_headers'>
             <th>Entity</th>
-            <th>en-US</th>
-            <th><?=$locale?></th>
+            <th class='select_header'>en-US<span>Select column</span></th>
+            <th class='select_header'><?=$locale?><span>Select column</span></th>
         </tr>
     </thead>
     <tbody>
