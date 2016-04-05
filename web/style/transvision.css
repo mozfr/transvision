@@ -149,10 +149,13 @@ h3 {
     padding-bottom: 0;
 }
 
-#page_descrition {
-    padding: 0;
+.page_description {
     font-size: 14px;
     font-weight: normal;
+    margin: 5px auto 15px;
+    padding: 0;
+    text-align: center;
+    width: 80%;
 }
 
 #current {

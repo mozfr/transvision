@@ -85,7 +85,7 @@ switch ($url['path']) {
         $css_include = ['health.css'];
         break;
     case 'stats':
-        $view = 'showrepos';
+        $controller = 'showrepos';
         $page_title = 'Status Overview';
         $page_descr = 'Repository status overview.';
         break;
