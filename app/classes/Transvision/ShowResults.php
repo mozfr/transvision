@@ -237,29 +237,29 @@ class ShowResults
     /**
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
-     * @param array  $search_id      Identifier for the current search
+     * @param object $search_object  The Search object that contains all the options for the query
      * @param array  $search_results List of rows
-     * @param string $recherche      The words searched for
-     * @param string $locale1        Reference locale to search in, usually en-US
-     * @param string $locale2        Target locale to search in
-     * @param array  $search_options All the search options from the query
+     * @param string $page           The page we are generating, used to output results for 2 or 3 locales
      *
      * @return string html table to insert in the view
      */
-    public static function resultsTable($search_id, $search_results, $recherche, $locale1, $locale2, $search_options)
+    public static function resultsTable($search_object, $search_results, $page)
     {
-        $direction1 = RTLSupport::getDirection($locale1);
-        $direction2 = RTLSupport::getDirection($locale2);
+        $locale1      = $search_object->getLocale('source');
+        $locale2      = $search_object->getLocale('target');
+        $direction1   = RTLSupport::getDirection($locale1);
+        $direction2   = RTLSupport::getDirection($locale2);
+        $extra_locale = ($page == '3locales');
 
-        if (isset($search_options['extra_locale'])) {
-            $locale3    = $search_options['extra_locale'];
+        $extra_column_header = '';
+
+        if ($extra_locale) {
+            $locale3    = $search_object->getLocale('extra');
             $direction3 = RTLSupport::getDirection($locale3);
             $extra_column_header = "<th>{$locale3}</th>";
-        } else {
-            $extra_column_header = '';
         }
 
-        $table  = "<table class='collapsable results_table {$search_id}'>
+        $table  = "<table class='collapsable results_table'>
                      <thead>
                        <tr class='column_headers'>
                          <th>Entity</th>
@@ -270,21 +270,21 @@ class ShowResults
                      </thead>
                      <tbody>\n";
 
-        if (!$search_options['whole_word'] && !$search_options['perfect_match']) {
-            $recherche = Utils::uniqueWords($recherche);
+        if (! $search_object->isWholeWords() && ! $search_object->isPerfectMatch()) {
+            $search = Utils::uniqueWords($search_object->getSearchTerms());
         } else {
-            $recherche = [$recherche];
+            $search = [$search_object->getSearchTerms()];
         }
 
-        $current_repo = $search_options['repo'];
+        $current_repo = $search_object->getRepository();
 
         foreach ($search_results as $key => $strings) {
 
             // Don't highlight search matches in entities when searching strings
-            if ($search_options['search_type'] == 'strings') {
+            if ($search_object->getSearchType() == 'strings') {
                 $result_entity = self::formatEntity($key);
             } else {
-                $result_entity = self::formatEntity($key, $recherche[0]);
+                $result_entity = self::formatEntity($key, $search[0]);
             }
 
             $component = explode('/', $key)[0];
@@ -300,23 +300,23 @@ class ShowResults
                 $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
             )];
 
-            if (isset($search_options['extra_locale'])) {
+            if ($extra_locale) {
                 $target_string2 = trim($strings[2]);
                 $entity_link = "?sourcelocale={$locale1}"
-                                . "&locale={$search_options['extra_locale']}"
+                                . "&locale={$search_object->getLocale('extra')}"
                                 . "&repo={$current_repo}"
                                 . "&search_type=entities&recherche={$key}";
                 $bz_link[] = Bugzilla::reportErrorLink(
-                    $search_options['extra_locale'], $key, $source_string, $target_string2, $current_repo, $entity_link
+                    $search_object->getLocale('extra'), $key, $source_string, $target_string2, $current_repo, $entity_link
                 );
             } else {
                 $target_string2 = '';
             }
 
-            foreach ($recherche as $val) {
+            foreach ($search as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
-                if (isset($search_options["extra_locale"])) {
+                if ($extra_locale) {
                     $target_string2 = Utils::markString($val, $target_string2);
                 }
             }
@@ -327,7 +327,7 @@ class ShowResults
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
-            if (isset($search_options["extra_locale"])) {
+            if ($extra_locale) {
                 $target_string2 = htmlspecialchars($target_string2);
                 $target_string2 = Utils::highlightString($target_string2);
             }
@@ -378,15 +378,17 @@ class ShowResults
             }
 
             // Missing string error
-            if (!$source_string) {
+            if (! $source_string) {
                 $source_string = '<em class="error">warning: missing string</em>';
                 $error_message = '';
             }
-            if (!$target_string) {
+
+            if (! $target_string) {
                 $target_string = '<em class="error">warning: missing string</em>';
                 $error_message = '';
             }
-            if (!$target_string2) {
+
+            if (! $target_string2) {
                 $target_string2 = '<em class="error">warning: missing string</em>';
                 $error_message = '';
             }
@@ -397,7 +399,7 @@ class ShowResults
             $clipboard_target_string  = 'clip_' . md5($target_string);
 
             // 3locales view
-            if (isset($search_options["extra_locale"])) {
+            if ($extra_locale) {
                 if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
                     $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
                 } else {
@@ -425,7 +427,7 @@ class ShowResults
                 $extra_column_rows = '';
             }
             $table .= "
-                <tr class='{$component} {$search_id}'>
+                <tr class='{$component}'>
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>

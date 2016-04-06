@@ -5,6 +5,14 @@ namespace Transvision;
 $javascript_include[] = '/js/main_search.js';
 $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
 
+/*
+    This function will mark a <select> option as selected if a cookie is set.
+*/
+$cookie_option = function ($cookie, $locale) use ($search) {
+    if (in_array($cookie, Project::getRepositoryLocales($search->getRepository()))) {
+        return Utils::checkboxDefaultOption($locale, $cookie);
+    }
+};
 ?>
   <div id="current">You are looking at the <em><?=$repos_nice_names[$search->getRepository()]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" id="searchform" method="get" action="./" >
@@ -15,7 +23,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                     <input type="text"
                            name="recherche"
                            id="recherche"
-                           value="<?=Utils::secureText($initial_search)?>"
+                           value="<?=Utils::secureText($search->getSearchTerms())?>"
                            placeholder="Type your search here"
                            title="Type your search here"
                            size="30"
@@ -23,7 +31,7 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                     <span id="clear_search" alt="Clear the search field" title="Clear the search field"></span>
                 </div>
                 <input type="submit" value="Search" alt="Search" />
-                <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$check['search_type']]?></span>.</p>
+                <p id="searchcontext">Search will be performed on: <span id="searchcontextvalue"><?=$search_type_descriptions[$search->getSearchType()]?></span>.</p>
             </div>
             <div id="searchoptions">
                 <fieldset>
@@ -32,14 +40,14 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         id='repository'
                         name='repo'
                         title="Repository">
-                    <?=$repo_list?>
+                        <?=$repo_list?>
                     </select>
                     <label class="default_option" for="default_repository">
                         <input type="checkbox"
                                id="default_repository"
                                class="mainsearch_default_checkbox"
-                               value="<?=$cookie_repository?>"
-                               <?=Utils::checkboxDefaultOption($search->getRepository(), $cookie_repository)?>
+                               value="<?=$cookies['repository']?>"
+                               <?=Utils::checkboxDefaultOption($search->getRepository(), $cookies['repository'])?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>
@@ -50,19 +58,14 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='sourcelocale'
                         class='mainsearch_locale_selector'
                         title="Source Locale">
-                    <?=$source_locales_list[$search->getRepository()]?>
+                        <?=$source_locales_list[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_source_locale">
                         <input type="checkbox"
                                id="default_source_locale"
                                class="mainsearch_default_checkbox"
-                               value="<?=$cookie_source_locale?>"
-                                <?php
-                                // Mark as default only if the cookie_source_locale exist in repository array
-                                if (in_array($cookie_source_locale, $loc_list[$search->getRepository()])) {
-                                    echo Utils::checkboxDefaultOption($source_locale, $cookie_source_locale);
-                                }
-                                ?>
+                               value="<?=$cookies['source_locale']?>"
+                               <?=$cookie_option($cookies['source_locale'], $source_locale)?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>
@@ -75,19 +78,14 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='locale'
                         class='mainsearch_locale_selector'
                         title="Target Locale">
-                    <?=$target_locales_list[$search->getRepository()]?>
+                        <?=$target_locales_list[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_target_locale">
                         <input type="checkbox"
                                id="default_target_locale"
                                class="mainsearch_default_checkbox"
-                               value="<?=$cookie_target_locale?>"
-                                <?php
-                                // Mark as default only if the cookie_target_locale exist in repository array
-                                if (in_array($cookie_target_locale, $loc_list[$search->getRepository()])) {
-                                    echo Utils::checkboxDefaultOption($locale, $cookie_target_locale);
-                                }
-                                ?>
+                               value="<?=$cookies['target_locale']?>"
+                               <?=$cookie_option($cookies['target_locale'], $locale)?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>
@@ -100,19 +98,14 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         name='locale2'
                         class='mainsearch_locale_selector'
                         title="Extra Locale">
-                    <?=$target_locales_list2[$search->getRepository()]?>
+                        <?=$target_locales_list2[$search->getRepository()]?>
                     </select>
                     <label class="default_option" for="default_target_locale2">
                         <input type="checkbox"
                                id="default_target_locale2"
                                class="mainsearch_default_checkbox"
-                               value="<?=$cookie_target_locale2?>"
-                                <?php
-                                // Mark as default only if the cookie_target_locale exist in repository array
-                                if (in_array($cookie_target_locale2, $loc_list[$search->getRepository()])) {
-                                    echo Utils::checkboxDefaultOption($locale2, $cookie_target_locale2);
-                                }
-                                ?>
+                               value="<?=$cookies['target_locale2']?>"
+                               <?=$cookie_option($cookies['target_locale2'], $locale2)?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>
@@ -130,8 +123,8 @@ $javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.mi
                         <input type="checkbox"
                                id="default_search_type"
                                class="mainsearch_default_checkbox"
-                               value="<?=$cookie_search_type?>"
-                               <?=Utils::checkboxDefaultOption($check['search_type'], $cookie_search_type)?>
+                               value="<?=$cookies['search_type']?>"
+                               <?=Utils::checkboxDefaultOption($search->getSearchType(), $cookies['search_type'])?>
                          /> <span>Default</span>
                      </label>
                 </fieldset>

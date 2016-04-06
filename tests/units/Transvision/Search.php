@@ -32,6 +32,18 @@ class Search extends atoum\test
         $this
             ->string($obj->getRepository())
                 ->isEqualTo('aurora');
+        $this
+            ->string($obj->getSearchType())
+                ->isEqualTo('strings');
+        $this
+            ->string($obj->getLocale('source'))
+                ->isEqualTo('');
+        $this
+            ->array($obj->getFormSearchOptions())
+                ->isEqualTo(['case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word']);
+        $this
+            ->array($obj->getFormCheckboxes())
+                ->isEqualTo(['case_sensitive', 'perfect_match', 't2t', 'whole_word']);
     }
 
     public function testSetSearchTerms()
@@ -179,5 +191,44 @@ class Search extends atoum\test
         $obj->setRepository('release');
         $this->string($obj->getRepository())
             ->isEqualTo('release');
+    }
+
+    public function testSetSearchType()
+    {
+        $obj = new _Search();
+        $obj->setSearchType('foobar');
+        $this->string($obj->getSearchType())
+            ->isEqualTo('strings');
+
+        $obj->setSearchType('entities');
+        $this->string($obj->getSearchType())
+            ->isEqualTo('entities');
+    }
+
+    public function testGetSearchTypes()
+    {
+        $obj = new _Search();
+        $this->array($obj->getSearchTypes())
+            ->isEqualTo(['strings', 'entities', 'strings_entities']);
+    }
+
+    public function testSetLocales()
+    {
+        $obj = new _Search();
+        $obj->setLocales(['en-US', 'fr', 'de', 'it']);
+        $this->string($obj->getLocale('source'))
+            ->isEqualTo('en-US');
+        $this->string($obj->getLocale('target'))
+            ->isEqualTo('fr');
+        $this->string($obj->getLocale('extra'))
+            ->isEqualTo('de');
+
+        $obj->setLocales(['en-US', 'fr', 'fr']);
+        $this->string($obj->getLocale('source'))
+            ->isEqualTo('en-US');
+        $this->string($obj->getLocale('target'))
+            ->isEqualTo('fr');
+        $this->string($obj->getLocale('extra'))
+            ->isEqualTo('');
     }
 }

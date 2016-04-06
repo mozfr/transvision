@@ -10,9 +10,6 @@ $get_option = function ($option) use ($request) {
     return false;
 };
 
-// Get all strings
-$initial_search = urldecode(Utils::cleanString($request->parameters[6]));
-
 $repositories = $request->parameters[3] == 'global'
     ? Project::getRepositories()
     : [$request->parameters[3]];
@@ -21,20 +18,21 @@ $entities_merged       = [];
 $source_strings_merged = [];
 $target_strings_merged = [];
 
-// Define our regex
+// Define our search terms and parameters
 $search
-    ->setSearchTerms(Utils::cleanString($initial_search))
+    ->setSearchTerms(urldecode(Utils::cleanString($request->parameters[6])))
     ->setRegexWholeWords($get_option('whole_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexPerfectMatch($get_option('perfect_match'))
-    ->setRepository($request->parameters[3]);
+    ->setSearchType($request->parameters[2])
+    ->setLocales([$request->parameters[4], $request->parameters[5]]);
 
 // We loop through all repositories searched and merge results
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($request->parameters[4], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
 
     if ($search->isPerfectMatch()) {
-        if ($request->parameters[2] == 'entities') {
+        if ($search->getSearchType() == 'entities') {
             $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
             $source_strings = array_intersect_key($source_strings, array_flip($entities));
         } else {
@@ -42,9 +40,9 @@ foreach ($repositories as $repository) {
             $entities = array_keys($source_strings);
         }
     } else {
-        foreach (Utils::uniqueWords($initial_search) as $word) {
+        foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
             $search->setRegexSearchTerms($word);
-            if ($request->parameters[2] == 'entities') {
+            if ($search->getSearchType() == 'entities') {
                 $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
                 $source_strings = array_intersect_key($source_strings, array_flip($entities));
             } else {
@@ -56,7 +54,7 @@ foreach ($repositories as $repository) {
 
     // We have our list of filtered source strings, get corresponding target locale strings
     $target_strings = array_intersect_key(
-        Utils::getRepoStrings($request->parameters[5], $repository),
+        Utils::getRepoStrings($search->getLocale('target'), $repository),
         array_flip($entities)
     );
 

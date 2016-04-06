@@ -56,7 +56,7 @@ if ($url['path'] == '3locales') {
 require_once VIEWS . 'search_form.php';
 
 // Count the number of requests we receive
-if ($initial_search != '') {
+if ($search->getSearchTerms() != '') {
     include INC . 'search_counter.php';
 }
 
@@ -82,7 +82,7 @@ if ($check['t2t']) {
     $tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository());
     $tmx_target = Utils::getRepoStrings($locale, $search->getRepository());
 
-    if ($check['search_type'] == 'entities') {
+    if ($search->getSearchType() == 'entities') {
         require_once MODELS . 'mainsearch_entities.php';
         require_once VIEWS . 'results_entities.php';
     } else {

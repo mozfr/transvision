@@ -7,7 +7,7 @@ if ($search->isPerfectMatch()) {
     $locale3_strings = $search->grep($tmx_target2);
 } else {
     $locale3_strings = $tmx_target2;
-    foreach (Utils::uniqueWords($initial_search) as $word) {
+    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
         $search->setRegexSearchTerms($word);
         $locale3_strings = $search->grep($locale3_strings);
     }
