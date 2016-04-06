@@ -36,8 +36,8 @@ class Search extends atoum\test
             ->string($obj->getSearchType())
                 ->isEqualTo('strings');
         $this
-            ->array($obj->getLocales())
-                ->isEqualTo([]);
+            ->string($obj->getLocale('source'))
+                ->isEqualTo('');
         $this
             ->array($obj->getFormSearchOptions())
                 ->isEqualTo(['case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word']);
@@ -216,11 +216,19 @@ class Search extends atoum\test
     {
         $obj = new _Search();
         $obj->setLocales(['en-US', 'fr', 'de', 'it']);
-        $this->array($obj->getLocales())
-            ->hasSize(3);
+        $this->string($obj->getLocale('source'))
+            ->isEqualTo('en-US');
+        $this->string($obj->getLocale('target'))
+            ->isEqualTo('fr');
+        $this->string($obj->getLocale('extra'))
+            ->isEqualTo('de');
 
         $obj->setLocales(['en-US', 'fr', 'fr']);
-        $this->array($obj->getLocales())
-            ->isEqualTo(['en-US', 'fr']);
+        $this->string($obj->getLocale('source'))
+            ->isEqualTo('en-US');
+        $this->string($obj->getLocale('target'))
+            ->isEqualTo('fr');
+        $this->string($obj->getLocale('extra'))
+            ->isEqualTo('');
     }
 }

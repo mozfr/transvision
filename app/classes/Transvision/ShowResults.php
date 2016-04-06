@@ -244,15 +244,15 @@ class ShowResults
      */
     public static function resultsTable($search_object, $search_results)
     {
-        $locale1    = $search_object->getLocales()[0];
-        $locale2    = $search_object->getLocales()[1];
+        $locale1    = $search_object->getLocale('source');
+        $locale2    = $search_object->getLocale('target');
         $direction1 = RTLSupport::getDirection($locale1);
         $direction2 = RTLSupport::getDirection($locale2);
 
         $extra_column_header = '';
 
-        if (isset($search_object->getLocales()[2])) {
-            $locale3    = $search_object->getLocales()[2];
+        if ($search_object->getLocale('extra') != '') {
+            $locale3    = $search_object->getLocale('extra');
             $direction3 = RTLSupport::getDirection($locale3);
             $extra_column_header = "<th>{$locale3}</th>";
         }
@@ -269,9 +269,9 @@ class ShowResults
                      <tbody>\n";
 
         if (! $search_object->isWholeWords() && ! $search_object->isPerfectMatch()) {
-            $recherche = Utils::uniqueWords($search_object->getSearchTerms());
+            $search = Utils::uniqueWords($search_object->getSearchTerms());
         } else {
-            $recherche = [$search_object->getSearchTerms()];
+            $search = [$search_object->getSearchTerms()];
         }
 
         $current_repo = $search_object->getRepository();
@@ -282,7 +282,7 @@ class ShowResults
             if ($search_object->getSearchType() == 'strings') {
                 $result_entity = self::formatEntity($key);
             } else {
-                $result_entity = self::formatEntity($key, $recherche[0]);
+                $result_entity = self::formatEntity($key, $search[0]);
             }
 
             $component = explode('/', $key)[0];
@@ -298,23 +298,23 @@ class ShowResults
                 $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
             )];
 
-            if (isset($search_object->getLocales()[2])) {
+            if ($search_object->getLocale('extra') != '') {
                 $target_string2 = trim($strings[2]);
                 $entity_link = "?sourcelocale={$locale1}"
-                                . "&locale={$search_object->getLocales()[2]}"
+                                . "&locale={$search_object->getLocale('extra')}"
                                 . "&repo={$current_repo}"
                                 . "&search_type=entities&recherche={$key}";
                 $bz_link[] = Bugzilla::reportErrorLink(
-                    $search_object->getLocales()[2], $key, $source_string, $target_string2, $current_repo, $entity_link
+                    $search_object->getLocale('extra'), $key, $source_string, $target_string2, $current_repo, $entity_link
                 );
             } else {
                 $target_string2 = '';
             }
 
-            foreach ($recherche as $val) {
+            foreach ($search as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
-                if (isset($search_object->getLocales()[2])) {
+                if ($search_object->getLocale('extra') != '') {
                     $target_string2 = Utils::markString($val, $target_string2);
                 }
             }
@@ -325,7 +325,7 @@ class ShowResults
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
-            if (isset($search_object->getLocales()[2])) {
+            if ($search_object->getLocale('extra') != '') {
                 $target_string2 = htmlspecialchars($target_string2);
                 $target_string2 = Utils::highlightString($target_string2);
             }
@@ -397,7 +397,7 @@ class ShowResults
             $clipboard_target_string  = 'clip_' . md5($target_string);
 
             // 3locales view
-            if (isset($search_object->getLocales()[2])) {
+            if ($search_object->getLocale('extra') != '') {
                 if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
                     $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
                 } else {

@@ -29,7 +29,7 @@ $search
 
 // We loop through all repositories searched and merge results
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($search->getLocales()[0], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
 
     if ($search->isPerfectMatch()) {
         if ($search->getSearchType() == 'entities') {
@@ -54,7 +54,7 @@ foreach ($repositories as $repository) {
 
     // We have our list of filtered source strings, get corresponding target locale strings
     $target_strings = array_intersect_key(
-        Utils::getRepoStrings($search->getLocales()[1], $repository),
+        Utils::getRepoStrings($search->getLocale('target'), $repository),
         array_flip($entities)
     );
 

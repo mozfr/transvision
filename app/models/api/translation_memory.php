@@ -29,7 +29,7 @@ $search
 
 // We loop through all repositories and merge the results
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($search->getLocales()[0], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
 
     foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
         $search->setRegexSearchTerms($word);
@@ -48,7 +48,7 @@ foreach ($repositories as $repository) {
         We are only interested in target strings with keys in common with our
         source strings.
     */
-    $target_strings = Utils::getRepoStrings($search->getLocales()[1], $repository);
+    $target_strings = Utils::getRepoStrings($search->getLocale('target'), $repository);
 
     foreach ($source_strings as $key => $value) {
         if (isset($target_strings[$key]) && ! empty($target_strings[$key])) {

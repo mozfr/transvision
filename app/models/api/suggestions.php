@@ -29,14 +29,14 @@ $terms = Utils::uniqueWords($search->getSearchTerms());
 
  // Loop through all repositories searching in both source and target languages
 foreach ($repositories as $repository) {
-    $source_strings = Utils::getRepoStrings($search->getLocales()[0], $repository);
+    $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
         $source_strings = $search->grep($source_strings);
     }
     $source_strings_merged = array_merge($source_strings, $source_strings_merged);
 
-    $target_strings = Utils::getRepoStrings($search->getLocales()[1], $repository);
+    $target_strings = Utils::getRepoStrings($search->getLocale('target'), $repository);
     foreach ($terms as $word) {
         $search->setRegexSearchTerms($word);
         $target_strings = $search->grep($target_strings);

@@ -367,35 +367,49 @@ class Search
     }
 
     /**
-     * Set the Locales we will use for the search
+     * Set the locales we will use for the search with this structure:
+     * $this->locales =
+     * [
+     * 	   'source' => 'en-US',
+     * 	   'target' => 'de',
+     * 	   'extra'  => 'ar',
+     * ];
+     *
+     * The 'extra' value is optional and used in views comparing
+     * data for 3 locales.
      *
      * @param  array $locales The locale codes
      * @return $this
      */
-    public function setLocales($locales)
+    public function setLocales(array $locales)
     {
         // We only allow up to 3 locales for analysis
         $locales = array_slice($locales, 0, 3);
 
+        $this->locales = [
+            'source' => $locales[0],
+            'target' => $locales[1],
+        ];
+
         if (count($locales) == 3) {
             // We check if the 3rd locale is the same as the 2nd one
-            if ($locales[2] == $locales[1]) {
-                unset($locales[2]);
+            if ($locales[2] != $locales[1]) {
+                $this->locales['extra'] = $locales[2];
             }
         }
-
-        $this->locales = $locales;
 
         return $this;
     }
 
     /**
-     * Get the locales used for searching
+     * Get a locale used for searching
      *
-     * @return array Locale codes
+     * @param  string $type The type of locale we want, can be
+     *                      'source', 'target' or 'extra'.
+     * @return string Locale code or an empty string
      */
-    public function getLocales()
+    public function getLocale($type)
     {
-        return $this->locales;
+        return isset($this->locales[$type]) ? $this->locales[$type] : '';
     }
 }
