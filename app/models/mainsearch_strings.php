@@ -45,7 +45,6 @@ $search_yields_results = false;
 
 // This will hold the components names for the search filters
 $components = [];
-
 foreach ($searches as $key => $value) {
     $search_results = ShowResults::getTMXResults(array_keys($value), $data);
     $components += Project::getComponents($search_results);
@@ -61,7 +60,7 @@ foreach ($searches as $key => $value) {
 
         $output[$key] = "<h2>Displaying {$message_count} for the string "
                         . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span> in {$key}:</h2>";
-        $output[$key] .= ShowResults::resultsTable($search, $search_results);
+        $output[$key] .= ShowResults::resultsTable($search, $search_results, $page);
     } else {
         $output[$key] = "<h2>No matching results for the string "
                         . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span>"

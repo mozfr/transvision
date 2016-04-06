@@ -239,19 +239,21 @@ class ShowResults
      *
      * @param object $search_object  The Search object that contains all the options for the query
      * @param array  $search_results List of rows
+     * @param string $page           The page we are generating, used to output results for 2 or 3 locales
      *
      * @return string html table to insert in the view
      */
-    public static function resultsTable($search_object, $search_results)
+    public static function resultsTable($search_object, $search_results, $page)
     {
-        $locale1    = $search_object->getLocale('source');
-        $locale2    = $search_object->getLocale('target');
-        $direction1 = RTLSupport::getDirection($locale1);
-        $direction2 = RTLSupport::getDirection($locale2);
+        $locale1      = $search_object->getLocale('source');
+        $locale2      = $search_object->getLocale('target');
+        $direction1   = RTLSupport::getDirection($locale1);
+        $direction2   = RTLSupport::getDirection($locale2);
+        $extra_locale = ($page == '3locales');
 
         $extra_column_header = '';
 
-        if ($search_object->getLocale('extra') != '') {
+        if ($extra_locale) {
             $locale3    = $search_object->getLocale('extra');
             $direction3 = RTLSupport::getDirection($locale3);
             $extra_column_header = "<th>{$locale3}</th>";
@@ -298,7 +300,7 @@ class ShowResults
                 $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
             )];
 
-            if ($search_object->getLocale('extra') != '') {
+            if ($extra_locale) {
                 $target_string2 = trim($strings[2]);
                 $entity_link = "?sourcelocale={$locale1}"
                                 . "&locale={$search_object->getLocale('extra')}"
@@ -314,7 +316,7 @@ class ShowResults
             foreach ($search as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
-                if ($search_object->getLocale('extra') != '') {
+                if ($extra_locale) {
                     $target_string2 = Utils::markString($val, $target_string2);
                 }
             }
@@ -325,7 +327,7 @@ class ShowResults
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
 
-            if ($search_object->getLocale('extra') != '') {
+            if ($extra_locale) {
                 $target_string2 = htmlspecialchars($target_string2);
                 $target_string2 = Utils::highlightString($target_string2);
             }
@@ -397,7 +399,7 @@ class ShowResults
             $clipboard_target_string  = 'clip_' . md5($target_string);
 
             // 3locales view
-            if ($search_object->getLocale('extra') != '') {
+            if ($extra_locale) {
                 if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
                     $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
                 } else {
