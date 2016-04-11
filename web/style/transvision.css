@@ -1164,3 +1164,23 @@ fieldset {
     left: 60%;
     z-index: 99;
 }
+
+/* Unlocalized words view */
+#unlocalized fieldset#grpChkBox {
+    border: 1px solid #000;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#unlocalized #pagecontent p {
+    text-align: center;
+}
+
+#unlocalized label {
+    display: inline-block;
+    width: 5em;
+}
+
+#unlocalized #words th.hide,
+#unlocalized #words tr :nth-child(1) ~ td {
+    display: none;
+}
