@@ -22,7 +22,7 @@
     margin: 0;
 }
 
-#changelog #page_descrition {
+#changelog .page_description {
     display: none;
 }
 

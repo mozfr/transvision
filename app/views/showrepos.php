@@ -1,49 +1,16 @@
 <?php
 namespace Transvision;
 
-$strings = [];
+// Include the common simple search form
+include __DIR__ . '/simplesearchform.php';
 
-// We only want software on this view, not websites
-unset($repos[array_search('mozilla_org', $repos)]);
+?>
+<p class="page_description">Note that it’s not possible to distinguish between untranslated
+    strings and strings left blank on purpose.<br> For this reason the number of <em>Missing</em>
+    string reported on this page might not be completely accurate.</p>
+<p class="page_description">Click on the column headers to order the table.</p>
 
-$repo = (isset($_GET['repo']) && in_array($_GET['repo'], $repos))
-        ? $_GET['repo']
-        : 'gaia';
-
-$channel_selector = '';
-
-foreach ($repos as $val) {
-    $ch = ($val == $repo) ? ' selected' : '';
-    $channel_selector .= "\t<option" . $ch . " value=" . $val . ">" . $repos_nice_names[$val] . "</option>\n";
-}
-
-// Using a callback with strlen() avoids filtering out numeric strings with a value of 0
-$strings['en-US'][$repo] = array_filter(Utils::getRepoStrings('en-US', $repo), 'strlen');
-$gaia_locales = Project::getRepositoryLocales($repo);
-
-// We don't want en-US in the repos
-if ($key = array_search('en-US', $gaia_locales)) {
-    unset($gaia_locales[$key]);
-}
-
-$string_count = [];
-
-// Reference locale count
-$count_reference = count($strings['en-US'][$repo]);
-
-foreach ($gaia_locales as $val) {
-    $strings[$val][$repo] = array_filter(Utils::getRepoStrings($val, $repo), 'strlen');
-    $string_count[$val] = [
-        'total'     => count($strings[$val][$repo]),
-        'missing'   => count(array_diff_key($strings['en-US'][$repo], $strings[$val][$repo])),
-        'identical' => count(array_intersect_assoc($strings['en-US'][$repo], $strings[$val][$repo])),
-    ];
-    unset($strings[$val][$repo]);
-}
-
-$json = [];
-$table = '
-<table id="showrepos_table">
+<table id="showrepos_table" class="sortable">
   <thead>
     <tr class="column_headers">
         <th>Locale</th>
@@ -52,64 +19,24 @@ $table = '
         <th>Translated</th>
         <th>Identical</th>
         <th>Completion</th>
-        <th>Status estimate</th>
+        <th class="sorttable_nosort">Status estimate</th>
     </tr>
   </thead>
-  <tbody>';
-
-foreach ($string_count as $locale => $numbers) {
-    $completion = $count_reference - $numbers['identical'] - $numbers['missing'];
-
-    // Making sure we never divide by zero while computing percentage
-    $completion = $count_reference == 0 ? 0 : number_format($completion / $count_reference * 100);
-
-    if ($completion >= 99) {
-        $confidence = 'Highest';
-    } elseif ($completion >= 95) {
-        $confidence = 'High';
-    } elseif ($completion >= 90) {
-        $confidence = 'High';
-    } elseif ($completion >= 60) {
-        $confidence = 'In progress';
-    } elseif ($completion >= 50) {
-        $confidence = 'Low';
-    } elseif ($completion >= 30) {
-        $confidence = 'very Low';
-    } elseif ($completion >= 10) {
-        $confidence = 'Barely started';
-    } elseif ($completion >= 1) {
-        $confidence = 'just started';
-    } else {
-        $confidence = 'No localization';
+  <tbody>
+<?php
+    foreach ($table_data as $locale => $stats) {
+        $translated = $stats['total'] - $stats['identical'];
+        echo "
+            <tr id=\"{$locale}\">
+              <th>{$locale}</th>
+              <td>{$stats['total']}</td>
+              <td>{$stats['missing']}</td>
+              <td>{$translated}</td>
+              <td>{$stats['identical']}</td>
+              <td sorttable_customkey=\"{$stats['completion']}\">{$stats['completion']} %</td>
+              <td>{$stats['confidence']}</td>
+            </tr>\n";
     }
-
-    $json[$locale] = [
-        'total'      => $numbers['total'],
-        'missing'    => $numbers['missing'],
-        'translated' => ($numbers['total'] - $numbers['identical']),
-        'identical'  => $numbers['identical'],
-        'completion' => $completion,
-        'confidence' => $confidence,
-    ];
-
-    $table .=
-    "<tr id=\"{$locale}\">
-    <th>{$locale}</th>
-    <td>{$numbers['total']}</td>
-    <td>{$numbers['missing']}</td>"
-    . '<td>' . ($numbers['total'] - $numbers['identical']) . '</td>'
-    . "<td>{$numbers['identical']}</td>
-    <td>{$completion} %</td>
-    <td>{$confidence}</td>
-    </tr>";
-}
-
-$table .= "</tbody>\n</table>\n";
-
-if (isset($_GET['json'])) {
-    include VIEWS . 'json.php';
-} else {
-    // Include the common simple search form
-    include __DIR__ . '/simplesearchform.php';
-    echo $table;
-}
+?>
+  </tbody>
+</table>

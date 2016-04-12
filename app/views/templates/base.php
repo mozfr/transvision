@@ -130,7 +130,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
   <?php if ($show_title == true): ?>
   <h2 id="page_title"><?= $page_title ?></h2>
-  <h3 id="page_descrition"><?= $page_descr ?></h3>
+  <p class="page_description"><?= $page_descr ?></p>
   <?php endif; ?>
 
   <div id="pagecontent">
