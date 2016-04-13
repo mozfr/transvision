@@ -18,7 +18,7 @@ include __DIR__ . '/simplesearchform.php';
     <tbody>
 
 <?php foreach ($unlocalized_words as $english_term => $locales) :
-    $string_count = $locales[$all_locales[0]];
+    $string_count = $locales[$locale];
     $link = "/?recherche={$english_term}&repo={$repo}&sourcelocale={$locale}" .
             "&locale={$ref_locale}&search_type=strings&whole_word=whole_word";
 
