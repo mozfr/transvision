@@ -17,7 +17,7 @@ if (isset($filter_block)) {
                 "</div>\n";
 }
 
-$content .= "<table class='collapsable results_table {$search_id}'>
+$content .= "<table class='collapsable results_table sortable {$search_id}'>
                <thead>
                  <tr class='column_headers'>
                    <th>String ID</th>

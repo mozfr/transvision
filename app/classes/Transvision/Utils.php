@@ -151,7 +151,7 @@ class Utils
      * @param  array  $arr2     Optional. A second column of data
      * @param  array  $titles   Column titles, by default 4 columns
      * @param  string $cssclass optional css class to apply to the table
-     * @return string and html table
+     * @return void
      */
     public static function printSimpleTable(
         $arr,
