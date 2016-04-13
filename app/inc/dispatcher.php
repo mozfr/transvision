@@ -69,7 +69,6 @@ switch ($url['path']) {
         $page_descr  = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
         $css_files[] = 'tmx.css';
         $js_files[]  = '/js/select_all.js';
-        $js_files[]  = '/js/sorttable.js';
         break;
     case 'gaia':
         $view       = 'gaia';
