@@ -14,6 +14,7 @@ $urls = [
     'gaia'              => 'gaia',
     'unchanged'         => 'unchangedstrings',
     'unlocalized'       => 'unlocalized',
+    'unlocalized-all'   => 'unlocalized_all',
     'unlocalized-json'  => 'unlocalized_json',
     'variables'         => 'checkvariables',
     '3locales'          => '3locales',

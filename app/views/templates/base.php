@@ -47,7 +47,7 @@ $links = <<<EOT
     {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
     {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
-    {$li_link('unlocalized', 'Display common words remaining in English', 'Unlocalized Words')}
+    {$li_link('unlocalized-all', 'Display common words remaining in English', 'Unlocalized Words')}
   </ul>
   <ul>
     {$li_link('channelcomp', 'Compare strings betwen channels', 'Channel Comparison')}

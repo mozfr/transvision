@@ -124,6 +124,14 @@ switch ($url['path']) {
         $page_descr   = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
         $js_files[]   = '/js/sorttable.js';
         break;
+    case 'unlocalized-all':
+        $experimental = true;
+        $controller   = 'unlocalized_words';
+        $page_title   = 'Commonly Unlocalized Words (Global view)';
+        $page_descr   = 'Display the list of the most common untranslated words for all locales. Click on the table headers to sort results.';
+        $js_files[]   = '/js/sorttable.js';
+        $js_files[]   = '/js/hide_table_rows.js';
+        break;
     case 'unlocalized-json':
         $controller = 'unlocalized_words';
         $template   = false;
