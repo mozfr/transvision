@@ -24,8 +24,8 @@ function selectColumn(index, tableID) {
 }
 
 $(document).ready(function() {
-    $('.select_header').click(function() {
-        var columnNumber = $(this).index();
+    $('.select_header span').click(function() {
+        var columnNumber = $(this).parent().index();
         var tableID = $(this).closest('table').attr('id');
         selectColumn(columnNumber, tableID);
     });
