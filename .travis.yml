@@ -14,7 +14,7 @@ before_script:
   ## Install ESLint
   - npm install -g eslint
 script:
-  - vendor/atoum/atoum/bin/atoum -d tests/units/
+  - vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
   - php tests/functional/api.php
   - php tests/functional/pages.php
   - vendor/bin/php-cs-fixer --diff --dry-run -v fix
