@@ -26,4 +26,4 @@ if (! $translations = Cache::getKey($cache_id)) {
     Cache::setKey($cache_id, $translations);
 }
 
-return $json = $translations;
+return $translations;
