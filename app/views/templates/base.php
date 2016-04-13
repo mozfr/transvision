@@ -3,21 +3,7 @@ namespace Transvision;
 
 $source_locale  = isset($source_locale) ? $source_locale : 'en-US';
 $locale         = isset($locale) ? $locale : 'fr';
-$base_js        = ['/js/base.js'];
-$base_css       = ['transvision.css'];
 $cache_bust     = '?v=' . VERSION;
-
-if (isset($javascript_include)) {
-    $javascript_include = array_merge($base_js, $javascript_include);
-} else {
-    $javascript_include = $base_js;
-}
-
-if (isset($css_include)) {
-    $css_include = array_merge($base_css, $css_include);
-} else {
-    $css_include = $base_css;
-}
 
 /*
     This is a closure to build a list item containing the
@@ -99,7 +85,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 } ?><?= $title_productname ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php foreach ($css_include as $css_file):?>
+<?php foreach ($css_files as $css_file):?>
     <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
 <?php endforeach?>
     <link rel="shortcut icon" type="image/png" href="/img/logo/Icon_16x16.png" />
@@ -149,7 +135,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
   <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
   <script src="/assets/clipboard.js/clipboard.js-built.js?v=<?= VERSION ?>"></script>
-<?php foreach ($javascript_include as $js_file):?>
+<?php foreach ($js_files as $js_file):?>
   <script src="<?= $js_file . $cache_bust ?>"></script>
 <?php endforeach?>
 

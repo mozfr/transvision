@@ -3,7 +3,7 @@ namespace Transvision;
 
 require_once INC . 'l10n-init.php';
 
-$strings[$repo]        = Utils::getRepoStrings($locale, $repo);
+$strings[$repo]         = Utils::getRepoStrings($locale, $repo);
 $strings_english[$repo] = Utils::getRepoStrings('en-US', $repo);
 
 $channel_selector = Utils::getHtmlSelectOptions(
@@ -12,7 +12,8 @@ $channel_selector = Utils::getHtmlSelectOptions(
         array_flip($desktop_repos)
     ),
     $repo,
-    true);
+    true
+);
 
 // Get the locale list
 $loc_list = Project::getRepositoryLocales($repo);
@@ -58,5 +59,5 @@ Utils::printSimpleTable(
     $ak_results,
     $strings[$repo],
     ['Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity'],
-    'collapsable'
+    'collapsable sortable'
 );

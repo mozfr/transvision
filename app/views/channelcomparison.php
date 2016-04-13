@@ -38,12 +38,12 @@ $td = function ($key, $value) {
 
 <?php else: ?>
 <h3>Locale: <?=$locale?></h3>
-<table class='collapsable' id='modified_strings_table'>
+<table class='collapsable sortable' id='modified_strings_table'>
     <thead>
         <tr class='column_headers'>
             <th>Key</th>
-            <th class='select_header'><?=$chan1?><span>Select column</span></th>
-            <th class='select_header'><?=$chan2?><span>Select column</span></th>
+            <th class='select_header'><a href="#">Select column</a><?=$chan1?></th>
+            <th class='select_header'><a href="#">Select column</a><?=$chan2?></th>
         </tr>
     </thead>
     <tbody>
@@ -63,7 +63,7 @@ $td = function ($key, $value) {
 
 <?php else : ?>
 <h3 id="new_strings">New strings added in <em><?=$locale?></em> between <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?></h3>
-<table class='collapsable' id='new_strings_table'>
+<table class='collapsable sortable' id='new_strings_table'>
     <thead>
         <tr class='column_headers'>
             <th>Entity</th>

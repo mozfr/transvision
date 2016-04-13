@@ -1,10 +1,6 @@
 <?php
 namespace Transvision;
 
-// Include JavaScript
-$javascript_include[] = '/js/main_search.js';
-$javascript_include[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
-
 /*
     This function will mark a <select> option as selected if a cookie is set.
 */

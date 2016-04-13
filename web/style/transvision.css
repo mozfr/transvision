@@ -303,7 +303,7 @@ th.select_header {
     position: relative;
 }
 
-th.select_header span {
+th.select_header a {
     position: absolute;
     color: #fff;
     background-color: #1c75bc;
@@ -314,6 +314,10 @@ th.select_header span {
     padding: 2px 5px;
     border-radius: 3px;
     cursor: pointer;
+}
+
+th.select_header a:hover {
+    text-decoration: none;
 }
 
 td {

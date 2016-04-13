@@ -259,7 +259,7 @@ class ShowResults
             $extra_column_header = "<th>{$locale3}</th>";
         }
 
-        $table  = "<table class='collapsable results_table'>
+        $table  = "<table class='collapsable results_table sortable'>
                      <thead>
                        <tr class='column_headers'>
                          <th>Entity</th>

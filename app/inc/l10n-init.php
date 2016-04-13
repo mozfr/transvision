@@ -65,6 +65,3 @@ if (isset($_GET['sourcelocale'])) {
 // Get RTL attribute for source and target locales
 $locale_dir = $l10n->getDirection($locale);
 $source_locale_dir = $l10n->getDirection($source_locale);
-
-// Initialize list of JavaScript files to include
-$javascript_include = [];

@@ -24,9 +24,11 @@ function selectColumn(index, tableID) {
 }
 
 $(document).ready(function() {
-    $('.select_header span').click(function() {
+    $('.select_header a').click(function(e) {
         var columnNumber = $(this).parent().index();
         var tableID = $(this).closest('table').attr('id');
         selectColumn(columnNumber, tableID);
+        e.preventDefault();
+        e.stopPropagation();
     });
 });

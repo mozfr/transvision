@@ -31,7 +31,6 @@ $error_count = count($var_errors);
 // Add component filter
 if (in_array($repo, $desktop_repos)) {
     // Build logic to filter components
-    $javascript_include = ['/js/component_filter.js'];
     $components = Project::getComponents(array_flip($var_errors));
     $filter_block = '';
     foreach ($components as $value) {

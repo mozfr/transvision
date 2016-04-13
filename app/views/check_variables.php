@@ -19,7 +19,7 @@ if ($error_count > 0) {
     }
 
     $content .= "
-        <table class='collapsable results_table {$search_id}'>
+        <table class='collapsable results_table sortable {$search_id}'>
           <thead>
             <tr class='column_headers'>
               <th>Entity</th>
