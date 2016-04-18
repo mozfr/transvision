@@ -1165,6 +1165,7 @@ fieldset {
     z-index: 99;
 }
 
+<<<<<<< HEAD
 /* Unlocalized words view */
 #unlocalized_all fieldset#grpChkBox {
     border: 1px solid #000;
@@ -1184,4 +1185,12 @@ fieldset {
 #unlocalized_all #words th.hide,
 #unlocalized_all #words tr :nth-child(1) ~ td {
     display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+tr:hover .invisible {
+    visibility: visible;
 }
