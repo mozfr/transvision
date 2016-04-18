@@ -67,8 +67,8 @@ $td = function ($key, $value) {
     <thead>
         <tr class='column_headers'>
             <th>Entity</th>
-            <th class='select_header'>en-US<span>Select column</span></th>
-            <th class='select_header'><?=$locale?><span>Select column</span></th>
+            <th class='select_header'><a href="#">Select column</a>en-US</th>
+            <th class='select_header'><a href="#">Select column</a><?=$locale?></th>
         </tr>
     </thead>
     <tbody>
