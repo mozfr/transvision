@@ -1,4 +1,4 @@
 <?php
 namespace Transvision;
 
-$json = Project::getRepositoryLocales($request->parameters[2]);
+return Project::getRepositoryLocales($request->parameters[2]);

@@ -1,4 +1,4 @@
 <?php
 namespace Transvision;
 
-return $json = $request->api_versions;
+return $request->api_versions;

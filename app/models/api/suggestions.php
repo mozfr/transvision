@@ -55,7 +55,7 @@ $get_option = function ($option) use ($request) {
     return $value;
 };
 
-return $json = ShowResults::getSuggestionsResults(
+return ShowResults::getSuggestionsResults(
     $source_strings_merged,
     $target_strings_merged,
     $search->getSearchTerms(),

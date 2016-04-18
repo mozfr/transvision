@@ -61,7 +61,7 @@ foreach ($repositories as $repository) {
     unset($source_strings, $target_strings);
 }
 
-return $json = ShowResults::getTranslationMemoryResults(
+return ShowResults::getTranslationMemoryResults(
     $output,
     $search->getSearchTerms(),
     $get_option('max_results'), // Cap results with the ?max_results=number option

@@ -7,4 +7,4 @@ if (isset($request->parameters[2])) {
 }
 
 // Default to list all existing repositories
-return $json = Project::getRepositories();
+return Project::getRepositories();

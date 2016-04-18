@@ -71,7 +71,7 @@ ksort($target_strings_merged);
 array_splice($source_strings_merged, 500);
 array_splice($target_strings_merged, 500);
 
-return $json = ShowResults::getRepositorySearchResults(
+return ShowResults::getRepositorySearchResults(
     $entities_merged,
     [$source_strings_merged, $target_strings_merged]
 );
