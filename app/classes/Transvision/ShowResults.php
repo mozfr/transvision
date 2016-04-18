@@ -412,7 +412,7 @@ class ShowResults
                 <td dir='{$direction3}' lang='{$locale3}'>
                     <span class='celltitle'>{$locale3}</span>
                     <div class='string' id='{$clipboard_target_string2}'>{$target_string2}</div>
-                    <div dir='ltr' class='result_meta_link'>
+                    <div dir='ltr' class='result_meta_link invisible'>
                       <a class='source_link' href='{$locale3_path}'>
                         &lt;source&gt;
                       </a>
@@ -430,8 +430,8 @@ class ShowResults
                 <tr class='{$component}'>
                   <td>
                     <span class='celltitle'>Entity</span>
-                    <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
-                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$current_repo}' title='List all translations for this entity'>l10n</a>
+                    <a class='resultpermalink tag invisible' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>link</a>
+                    <a class='l10n tag invisible' href='/string/?entity={$key}&amp;repo={$current_repo}' title='List all translations for this entity'>l10n</a>
                     <a class='link_to_entity' href=\"/{$entity_link}\">{$result_entity}</a>
                   </td>
                   <td dir='{$direction1}' lang='{$locale1}'>
@@ -439,7 +439,7 @@ class ShowResults
                     <div class='string'>
                       {$source_string}
                     </div>
-                    <div dir='ltr' class='result_meta_link'>
+                    <div dir='ltr' class='result_meta_link invisible'>
                       <a class='source_link' href='{$locale1_path}'>
                         &lt;source&gt;
                       </a>
@@ -457,7 +457,7 @@ class ShowResults
                   <td dir='{$direction2}' lang='{$locale2}'>
                     <span class='celltitle'>{$locale2}</span>
                     <div class='string' id='{$clipboard_target_string}'>{$target_string}</div>
-                    <div dir='ltr' class='result_meta_link'>
+                    <div dir='ltr' class='result_meta_link invisible'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>
