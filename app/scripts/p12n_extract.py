@@ -284,9 +284,12 @@ class ProductizationData():
                     else:
                         # File does not exist but we don't have it in en-US either.
                         # This means that list.txt references a non existing
-                        # plugin (luckily builds won't fail anymore)
-                        errors.append('file referenced in list.txt but not available ({0}, {1}, {2}, {3}.xml)'.format(
-                            locale, product, channel, sp))
+                        # plugin (luckily builds won't fail anymore).
+                        # Starting from April 2016, we need to deal with :hidden
+                        # searchplugins in l10n repos (don't report errors)
+                        if not sp.endswith(':hidden'):
+                            errors.append('file referenced in list.txt but not available ({0}, {1}, {2}, {3}.xml)'.format(
+                                locale, product, channel, sp))
 
             # Save errors and warnings
             if errors:
@@ -301,7 +304,7 @@ class ProductizationData():
     def extract_productization_product(self, region_file, product, locale, channel):
         '''Extract productization data and check for errors'''
 
-        # Extract p12n information from region.properties.
+        # Extract p12n information from region.properties
         errors = []
         warnings = []
         nested_dict = lambda: collections.defaultdict(nested_dict)
