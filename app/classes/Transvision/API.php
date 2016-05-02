@@ -43,7 +43,7 @@ class API
     public $api_versions = ['v1' => 'stable'];
     public $services = [
         'entity', 'locales', 'repositories', 'search',
-        'suggestions', 'tm', 'versions',
+        'suggestions', 'tm', 'transliterate', 'versions',
     ];
     public $error;
     public $logging = true;
@@ -293,6 +293,13 @@ class API
                 }
 
                 break;
+            case 'transliterate':
+            // ex: /api/v1/transliterate/serbian/Завиритe
+                if (! $this->verifyEnoughParameters(4)) {
+                    return false;
+                }
+
+                break;
             case 'versions':
                 /*
                     ex: api/versions/
@@ -306,9 +313,9 @@ class API
         return true;
     }
 
-    public function invalidAPICall()
+    public function invalidAPICall($error = 400)
     {
-        http_response_code(400);
+        http_response_code($error);
 
         return ['error' => $this->error];
     }
