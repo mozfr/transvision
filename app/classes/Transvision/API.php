@@ -294,7 +294,7 @@ class API
 
                 break;
             case 'transliterate':
-            // ex: /api/v1/transliterate/serbian/Завиритe
+            // ex: /api/v1/transliterate/sr-Cyrl/Завиритe
                 if (! $this->verifyEnoughParameters(4)) {
                     return false;
                 }
