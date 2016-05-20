@@ -8,8 +8,8 @@ namespace Transvision;
 include __DIR__ . '/simplesearchform.php';
 ?>
 
-<p><input id="button-toggle" type="button" value="Show the locales"></p>
-<div id=toggle-checkboxes style="display:none">
+<p><input id="button-toggle" type="submit" value="Show locales filter"></p>
+<div id="toggle-checkboxes" style="display:none">
 <p>Click on each checkbox below to show/hide the corresponding column.</p>
 <fieldset id="grpChkBox">
     <?php foreach ($all_locales as $locale) : ?>

@@ -1165,8 +1165,13 @@ fieldset {
     z-index: 99;
 }
 
-<<<<<<< HEAD
 /* Unlocalized words view */
+#unlocalized_all #button-toggle {
+    margin: -20px auto 0;
+    display: block;
+    font-size: 1em;
+}
+
 #unlocalized_all fieldset#grpChkBox {
     border: 1px solid #000;
     background-color: rgba(255, 255, 255, 0.5);
