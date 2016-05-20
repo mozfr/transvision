@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    var $locales = $('#toggle-checkboxes');
-    var $butonToggle = $('#button-toggle');
+    $('#button-toggle').click(function(e) {
+        var $locales = $('#toggle-checkboxes');
 
-    $butonToggle.click(function() {
+        e.preventDefault();
         $locales.toggle();
         if ($locales.css('display') === 'none') {
-            $butonToggle.val('Show the locales');
+            $(this).val('Show locales filter');
         } else {
-            $butonToggle.val('Hide the locales');
+            $(this).val('Hide locales filter');
         }
     });
 });
