@@ -7,13 +7,16 @@ namespace Transvision;
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';
 ?>
+
+<p><input id="button-toggle" type="button" value="Show the locales"></p>
+<div id=toggle-checkboxes style="display:none">
 <p>Click on each checkbox below to show/hide the corresponding column.</p>
 <fieldset id="grpChkBox">
-    <legend>Locales</legend>
     <?php foreach ($all_locales as $locale) : ?>
     <label><input type="checkbox" name="<?=$locale?>" /> <?=$locale?></label>
     <?php endforeach ?>
 </fieldset>
+</div>
 <table class="collapsable results_table sortable" id="words">
     <thead>
         <tr class="column_headers">
