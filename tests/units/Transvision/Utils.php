@@ -513,6 +513,10 @@ class Utils extends atoum\test
                 '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings',
                 '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json=true',
             ],
+            [
+                '/?whole_word=on&sourcelocale=af&repo=beta&case_sensitive=on&perfect_match=on&locale=af&search_type=entities&recherche=555-555-0199@example.com&%22%3E%3Cscript%3Ealert%281%29%3C/script%3E=1',
+                '/?whole_word=on&sourcelocale=fr&repo=beta&case_sensitive=on&perfect_match=on&locale=en-US&search_type=entities&recherche=555-555-0199@example.com&&amp;#34;&amp;#62;&amp;#60;script&amp;#62;alert(1)&amp;#60;/script&amp;#62;=1&json=true',
+            ],
         ];
     }
     /**

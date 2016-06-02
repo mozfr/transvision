@@ -495,7 +495,21 @@ class Utils
         // We are going to split and then rebuild QUERY_STRING
         parse_str(self::redirectToAPI(), $args);
 
-        $args = array_map(['self', 'secureText'], $args);
+        /*
+            We are separating keys and values and recombine them
+            after sanitization. With a simple array_map only values
+            get sanitized but we also use the keys to build links
+            in the view.
+        */
+        $sanitize = function ($str) {
+            return htmlentities(self::secureText($str));
+        };
+
+        $args = array_combine(
+            array_map($sanitize, array_keys($args)),
+            array_map($sanitize, array_values($args))
+        );
+
         $args['locale']       = $source_locale;
         $args['sourcelocale'] = $target_locale;
         $args['json']         = 'true';
