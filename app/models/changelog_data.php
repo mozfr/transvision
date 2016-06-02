@@ -55,9 +55,26 @@ $releases = [
     '4.1'   => '2016-02-23',
     '4.2'   => '2016-03-14',
     '4.3'   => '2016-05-02',
+    '4.4'   => '2016-06-02',
 ];
 
 $changelog = [
+    '4.4' => [
+        [
+            'message' => ['Allow toggling all locales checkboxes in the <a href="/unlocalized-all/">global view</a> for commonly unlocalized words'],
+            'section' => ['end_user'],
+            'type'    => ['new'],
+            'issue'   => [697],
+            'authors' => ['SkySymbol', 'flod'],
+        ],
+        [
+            'message' => ['XSS vulnerability on API promotion sub-model'],
+            'section' => ['code'],
+            'type'    => ['bug'],
+            'issues'  => [750],
+            'authors' => ['pascal'],
+        ],
+    ],
     '4.3' => [
         [
             'message' => ['Allow filtering by components on <a href="/consistency/">Consistency view</a>'],
