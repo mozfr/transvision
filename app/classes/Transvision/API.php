@@ -27,6 +27,7 @@ use Monolog\Logger;
  * repositories : Return the list of repositories supported by Transvision that can be used in the API
  * search:        Return translations + entity as key for a locale matching a search query
  * tm:            Return translations for a locale with a quality index
+ * transliterate: Return a transliterated string
  * versions:      Return the list of API versions supported with their status (stable, beta, deprecated)
  *
  * This API is versioned, currently we are at v1.
