@@ -17,6 +17,7 @@ define('CONTROLLERS',   APP_ROOT . 'controllers/');
 define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
 define('APP_SCHEME',    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
+define('API_ROOT',  APP_SCHEME . htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES, 'UTF-8') . '/api/v1/');
 
 /*
     Determine the last Git hash from cache/version.txt, ignoring new lines.
