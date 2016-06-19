@@ -21,6 +21,7 @@ switch ($url['path']) {
         $js_files[] = '/js/component_filter.js';
         $js_files[] = '/js/main_search.js';
         $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/toggle_transliterated_string.js';
         $js_files[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
         break;
     case '3locales':
