@@ -1,28 +1,44 @@
 /* Fonts */
-/* Updated on www.mozilla.org 2015-06-17 */
+/* Fira Sans 4.106 https://carrois.com/typefaces/FiraSans */
 
 @font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-Light.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Light-webfont.woff) format('woff');
+    font-family: 'Fira Sans UltraLight';
+    src: url(/fonts/FiraSans/FiraSans-UltraLight.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-UltraLight.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-Semibold.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Semibold-webfont.woff) format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-LightItalic.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-LightItalic-webfont.woff) format('woff');
+    font-family: 'Fira Sans UltraLight';
+    src: url(/fonts/FiraSans/FiraSans-UltraLightItalic.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-UltraLightItalic.woff) format('woff');
     font-weight: normal;
     font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fira Sans Light';
+    src: url(/fonts/FiraSans/FiraSans-Light.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Light.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans Light';
+    src: url(/fonts/FiraSans/FiraSans-LightItalic.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-LightItalic.woff) format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url(/fonts/FiraSans/FiraSans-Medium.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Medium.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
 }
 
 @font-face {
@@ -34,17 +50,9 @@
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Bold.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Bold-webfont.woff) format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Italic.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Italic-webfont.woff) format('woff');
+    font-family: 'Fira Sans';
+    src: url(/fonts/FiraSans/FiraSans-Italic.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Italic.woff) format('woff');
     font-weight: normal;
     font-style: italic;
 }
@@ -62,7 +70,6 @@ body {
     line-height: 1.5;
     margin: 0 auto;
     padding: 0;
-    border-top: 1px solid #fff;
     position: relative;
     min-width: 320px;
     display: flex;
@@ -72,6 +79,7 @@ body {
 
 #wrapper {
     background-color: #c3dcf2;
+    border-top: 1px solid #fff;
     flex: 1;
 }
 
@@ -113,9 +121,9 @@ a:hover {
 h1,
 h2,
 #current {
-    font-family: 'Open Sans Light', Arial, sans-serif;
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
     color: #333;
-    font-size: 1.4em;
+    font-size: 1.5em;
     text-align: center;
     margin: 0.5em auto;
     width: 80%;
@@ -132,12 +140,14 @@ h1 a:visited {
 }
 
 h2 {
+    font-family: 'Fira Sans Light', Arial, sans-serif;
     width: 80%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     padding: 15px 0;
 }
 
 h3 {
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
     width: 80%;
     padding: 15px 0;
     text-align: center;
@@ -151,7 +161,7 @@ h3 {
 
 #page_title {
     border-bottom: none;
-    font-size: 1.8em;
+    font-size: 1.9em;
     font-weight: normal;
     padding-bottom: 0;
 }
@@ -166,7 +176,7 @@ h3 {
 }
 
 #current {
-    font-size: 1.8em;
+    font-size: 1.9em;
     padding: 0.1em 0;
     margin-top: 30px;
 }
@@ -183,7 +193,7 @@ h3 {
 
 .links {
     clear: both;
-    font-family: 'Open Sans Light', Arial, sans-serif;
+    font-family: 'Fira Sans Light', Arial, sans-serif;
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
@@ -410,10 +420,10 @@ td .result_meta_link .bug_link {
 #footer {
     font-style: italic;
     text-align: center;
-    font-family: 'Open Sans Light', serif;
-    font-size: 1em;
+    font-family: 'Fira Sans Light', sans-serif;
+    font-size: 0.9em;
     clear: both;
-    padding: 2em;
+    padding: 1em;
     line-height: 0.4;
 }
 
@@ -428,7 +438,7 @@ table tr td.no_highligth {
 }
 
 .red {
-    color: rgb(200, 0, 0);
+    color: rgb(237, 56, 96);
 }
 
 .green {
@@ -502,17 +512,16 @@ table tr td.no_highligth {
 .button,
 input[type='submit'] {
   display: inline-block;
-  *display: inline;
-  *zoom: 1;
   border-radius: 6px;
   transition: all linear 0.25s;
   text-align: center;
+  line-height: 1.1;
+  margin-top: 33px;
+  min-width: 80px;
   padding: 9px 30px;
-  margin-bottom: 20px;
   background: #00a0dc;
   color: #fff;
   font-size: 14px;
-  font-size: 0.875rem;
   border: none;
   cursor: pointer;
 }
@@ -549,19 +558,26 @@ fieldset {
 }
 
 #main_search #search input[type='text'] {
-    background: none repeat scroll 0 0 #fff;
+    background: #fff;
     border-color: #b2b2b2;
-    border-radius: 3px 3px 3px 3px;
     border-style: solid;
     border-width: 1px;
+    font-size: 13px;
+    padding: 10px 10px;
+    border-radius: 3px;
     box-shadow: 0 1px rgba(255, 255, 255, 0.5);
-    font-size: 12px;
-    height: 22px;
-    padding: 5px 7px;
-    transition: all 0.1s linear 0s;
+    transition: all linear .1s;
+    line-height: 1.1;
     width: calc(80% - 20px);
     padding-right: 20px;
     vertical-align: middle;
+}
+
+
+#main_search #search input[type='text']:focus {
+    border-color: #42a4e0;
+    box-shadow: 0 0 0 2px rgba(73, 173, 227, 0.4);
+    transition: all linear .1s;
 }
 
 #main_search #searchcontext {
@@ -581,6 +597,7 @@ fieldset {
 }
 
 #main_search fieldset > label {
+    font-family: 'Fira Sans Light', sans-serif;
     line-height: 1.9;
     font-weight: bold;
 }
@@ -700,7 +717,6 @@ fieldset {
     padding: 5px 10px;
     margin: 2px;
     border-radius: 0.25em 0.25em 0.25em 0.25em;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
     line-height: 1.1;
     border: 0 none;
     text-decoration: none;
@@ -711,13 +727,13 @@ fieldset {
 #filters .filter.selected {
     font-weight: bold;
     color: #fff;
-    background: #00a0dc;
+    background-color: #00a0dc;
     border: none;
     cursor: pointer;
 }
 
 #filters .filter.selected:hover {
-    background: #00abeb;
+    background-color: #00abeb;
 }
 
 #filters .filter:hover {
