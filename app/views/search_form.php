@@ -32,12 +32,14 @@ $cookie_option = function ($cookie, $locale) use ($search) {
             <div id="searchoptions">
                 <fieldset>
                     <label>Repository</label>
-                    <select
-                        id='repository'
-                        name='repo'
-                        title="Repository">
-                        <?=$repo_list?>
-                    </select>
+                    <div class="select-style">
+                      <select
+                          id='repository'
+                          name='repo'
+                          title="Repository">
+                          <?=$repo_list?>
+                      </select>
+                    </div>
                     <label class="default_option" for="default_repository">
                         <input type="checkbox"
                                id="default_repository"
@@ -49,13 +51,15 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                 </fieldset>
                 <fieldset>
                     <label>Source Locale</label>
-                    <select
-                        id='source_locale'
-                        name='sourcelocale'
-                        class='mainsearch_locale_selector'
-                        title="Source Locale">
-                        <?=$source_locales_list[$search->getRepository()]?>
-                    </select>
+                    <div class="select-style">
+                      <select
+                          id='source_locale'
+                          name='sourcelocale'
+                          class='mainsearch_locale_selector'
+                          title="Source Locale">
+                          <?=$source_locales_list[$search->getRepository()]?>
+                      </select>
+                    </div>
                     <label class="default_option" for="default_source_locale">
                         <input type="checkbox"
                                id="default_source_locale"
@@ -69,13 +73,15 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                 </fieldset>
                 <fieldset>
                     <label>Target Locale</label>
-                    <select
-                        id='target_locale'
-                        name='locale'
-                        class='mainsearch_locale_selector'
-                        title="Target Locale">
-                        <?=$target_locales_list[$search->getRepository()]?>
-                    </select>
+                    <div class="select-style">
+                      <select
+                          id='target_locale'
+                          name='locale'
+                          class='mainsearch_locale_selector'
+                          title="Target Locale">
+                          <?=$target_locales_list[$search->getRepository()]?>
+                      </select>
+                    </div>
                     <label class="default_option" for="default_target_locale">
                         <input type="checkbox"
                                id="default_target_locale"
@@ -89,13 +95,15 @@ $cookie_option = function ($cookie, $locale) use ($search) {
     <?php if ($url['path'] == '3locales'): ?>
                 <fieldset>
                     <label>Extra Locale</label>
-                    <select
-                        id='target_locale2'
-                        name='locale2'
-                        class='mainsearch_locale_selector'
-                        title="Extra Locale">
-                        <?=$target_locales_list2[$search->getRepository()]?>
-                    </select>
+                    <div class="select-style">
+                      <select
+                          id='target_locale2'
+                          name='locale2'
+                          class='mainsearch_locale_selector'
+                          title="Extra Locale">
+                          <?=$target_locales_list2[$search->getRepository()]?>
+                      </select>
+                    </div>
                     <label class="default_option" for="default_target_locale2">
                         <input type="checkbox"
                                id="default_target_locale2"
@@ -109,12 +117,14 @@ $cookie_option = function ($cookie, $locale) use ($search) {
 
                 <fieldset>
                     <label>Search in</label>
-                    <select
-                        name='search_type'
-                        id='search_type'
-                        title="Search in">
-                    <?=$search_type_list?>
-                    </select>
+                    <div class="select-style">
+                      <select
+                          name='search_type'
+                          id='search_type'
+                          title="Search in">
+                      <?=$search_type_list?>
+                      </select>
+                    </div>
                     <label class="default_option" for="default_search_type">
                         <input type="checkbox"
                                id="default_search_type"

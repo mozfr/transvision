@@ -80,6 +80,7 @@ body {
 #main-wrapper {
     background-color: #c3dcf2;
     border-top: 1px solid #fff;
+    padding-bottom: 0.5em;
     flex: 1;
 }
 
@@ -422,7 +423,6 @@ td .result_meta_link .bug_link {
     text-align: center;
     font-family: 'Fira Sans Light', sans-serif;
     font-size: 0.9em;
-    clear: both;
     padding: 1em;
     line-height: 0.4;
 }
@@ -540,6 +540,37 @@ fieldset {
     display: inline-block;
     min-height: 3em;
     margin: 0.5em 0 0;
+}
+
+.select-style {
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+    background-position: center right 10px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    border-color: #b2b2b2;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.select-style select {
+    padding: 5px 30px 5px 8px;
+    display: block;
+    min-width: 120px;
+    width: 100%;
+    font-size: 1em;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
 }
 
 #main_search select {
