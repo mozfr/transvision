@@ -77,7 +77,7 @@ body {
     flex-direction: column;
 }
 
-#wrapper {
+#main-wrapper {
     background-color: #c3dcf2;
     border-top: 1px solid #fff;
     flex: 1;

@@ -97,7 +97,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   <script>
     document.getElementsByTagName('body')[0].className = 'jsEnabled';
   </script>
-  <div id="wrapper">
+  <div id="main-wrapper">
     <div id="links-top" class="links">
       <div class="container">
         <?= $links ?>
