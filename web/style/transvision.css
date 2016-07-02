@@ -26,9 +26,9 @@
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Regular.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Regular-webfont.woff) format('woff');
+    font-family: 'Fira Sans';
+    src: url(/fonts/FiraSans/FiraSans-Regular.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Regular.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -57,20 +57,22 @@ html {
 
 body {
     color: #333;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 14px;
+    font-family: 'Fira Sans', Arial, sans-serif;
+    font-size: 0.9em;
     line-height: 1.5;
     margin: 0 auto;
     padding: 0;
     border-top: 1px solid #fff;
     position: relative;
-    background-color: #cadded;
-    background-image: url(/img/grain.png), linear-gradient(to bottom, #cadded 0%, #f6f4ec 100%);
-    background-origin: padding-box, padding-box;
-    background-position: 0 0, 0 0, 0 0;
-    background-repeat: repeat;
-    background-size: auto auto, auto auto, auto auto;
     min-width: 320px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#wrapper {
+    background-color: #c3dcf2;
+    flex: 1;
 }
 
 #pagecontent {
@@ -90,17 +92,22 @@ a:hover {
 
 #beta-badge {
     position: absolute;
-    width: 80px;
+    width: 130px;
     height: 80px;
-    top: 0;
-    left: 0;
-    background: url(/img/beta_ribbon.png) top left no-repeat transparent;
+    top: -25px;
+    left: -50px;
+    background-color: #ed3860;
+    text-align: center;
+    line-height: 120px;
+    transform: rotate(-45deg);
 }
 
 #beta-badge span {
-    display: none;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.2em;
+    color: #fff;
 }
-
 /* Titles */
 
 h1,
@@ -116,7 +123,7 @@ h2,
 }
 
 h1 img {
-    width: 350px;
+    width: 250px;
 }
 
 h1 a,
@@ -169,7 +176,7 @@ h3 {
     padding: 0 0.5em;
     border-left: 1px solid #a9a9a9;
     margin-left: 0.5em;
-    color: #ffa500;
+    color: #ff9500;
 }
 
 /* Top and bottom links */
@@ -235,7 +242,10 @@ h3 {
 
 #links-top-button-container {
     width: 100%;
+    max-width: 1000px;
     height: 36px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #links-top-button span {
@@ -390,7 +400,7 @@ td .result_meta_link span {
 }
 
 td .result_meta_link .source_link {
-    color: #ffa500;
+    color: #ff9500;
 }
 
 td .result_meta_link .bug_link {
@@ -400,10 +410,10 @@ td .result_meta_link .bug_link {
 #footer {
     font-style: italic;
     text-align: center;
-    font-family: 'Times New Roman', serif;
-    font-size: 0.9em;
+    font-family: 'Open Sans Light', serif;
+    font-size: 1em;
     clear: both;
-    padding-top: 2em;
+    padding: 2em;
     line-height: 0.4;
 }
 
@@ -481,40 +491,39 @@ table tr td.no_highligth {
     font-variant: normal;
 }
 
-input[type='submit'],
-.button {
-    background-color: #277ac1;
-    background-image: linear-gradient(#43a6e2, #277ac1);
-    background-repeat: repeat-x;
-    border: 0 none;
-    border-radius: 0.25em 0.25em 0.25em 0.25em;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    line-height: 1.1;
-    margin-top: 33px;
-    min-width: 80px;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-    transition: all 0.25s linear 0s;
-}
-
 #root input[type='submit'] {
     margin-top: 0;
     min-width: 100px;
     vertical-align: middle;
 }
 
+
+
+.button,
+input[type='submit'] {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  border-radius: 6px;
+  transition: all linear 0.25s;
+  text-align: center;
+  padding: 9px 30px;
+  margin-bottom: 20px;
+  background: #00a0dc;
+  color: #fff;
+  font-size: 14px;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus,
 input[type='submit']:hover,
-.button:hover {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38a9ed inset;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.25s linear 0s;
+input[type='submit']:focus {
+  text-decoration: none;
+  background: #00abeb;
+  color: #fff;
 }
 
 fieldset {
@@ -696,15 +705,19 @@ fieldset {
     border: 0 none;
     text-decoration: none;
     min-width: 60px;
+    transition: all linear 0.25s;
 }
 
 #filters .filter.selected {
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     font-weight: bold;
-    background-color: #277ac1;
-    background-image: linear-gradient(#43a6e2, #277ac1);
-    background-repeat: repeat-x;
     color: #fff;
+    background: #00a0dc;
+    border: none;
+    cursor: pointer;
+}
+
+#filters .filter.selected:hover {
+    background: #00abeb;
 }
 
 #filters .filter:hover {
@@ -741,7 +754,7 @@ fieldset {
 
 .alert {
     color: #fff;
-    background-color: #ffa500;
+    background-color: #ff9500;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
@@ -756,9 +769,9 @@ fieldset {
     border-radius: 0.33em;
     margin: 0 6px;
     display: inline-block;
-    background: #e04e54 none repeat scroll 0 0;
+    background: #ed3860 none repeat scroll 0 0;
     text-transform: uppercase;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 0.1em;
     position: relative;
     top: -2px;
@@ -913,11 +926,16 @@ fieldset {
     }
 
     h1 img {
-        width: 300px;
+        width: 200px;
     }
 
     h2 {
         font-size: 1.2em;
+    }
+
+    #beta-badge {
+        top: -30px;
+        left: -55px;
     }
 
     #current {
@@ -974,7 +992,7 @@ fieldset {
 
 @media only screen and (max-width: 460px) {
     h1 img {
-        width: 200px;
+        width: 150px;
     }
 
     #current,
