@@ -8,7 +8,7 @@ $app_root = realpath(__DIR__ . '/../');
 $composer = $app_root . '/composer.phar';
 
 // Git variables
-$branch = 'master';
+$branch = 'redesign';
 $header = 'HTTP_X_HUB_SIGNATURE';
 $secret = parse_ini_file($app_root . '/app/config/config.ini')['github_key'];
 
