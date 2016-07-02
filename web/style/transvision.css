@@ -1191,11 +1191,3 @@ fieldset {
 #unlocalized_all #words tr :nth-child(1) ~ td {
     display: none;
 }
-
-.invisible {
-    visibility: hidden;
-}
-
-tr:hover .invisible {
-    visibility: visible;
-}
