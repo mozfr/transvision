@@ -14,7 +14,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
     <form name="searchform" id="searchform" method="get" action="./" >
         <fieldset id="main_search">
             <div id="search">
-                <p class="smallscreen_notices">Use the <a href="" class="menu-button">Menu tab</a> in the right top corner to select a different view.<p>
+                <p class="smallscreen_notices">Use the <a href="" class="menu-button">Menu tab</a> in the right top corner to select a different view.</p>
                 <div id="search_field_container">
                     <input type="text"
                            name="recherche"
