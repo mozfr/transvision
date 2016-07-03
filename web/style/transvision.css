@@ -565,7 +565,7 @@ input[type="checkbox"] + label:before {
 }
 
 input[type="checkbox"]:not(:disabled) + label:hover::before {
-    border-color: #0095DD;
+    border-color: #0095dd;
 }
 
 input[type="checkbox"]:checked + label:before {
@@ -766,6 +766,7 @@ input[type="checkbox"]:disabled + label:before {
 /* Filter buttons on search results */
 
 #filters {
+    font-family: 'Fira Sans Light', sans-serif;
     margin: auto;
     max-width: 90%;
     text-align: center;
