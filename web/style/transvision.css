@@ -702,7 +702,7 @@ input[type="checkbox"]:disabled + label:before {
 }
 
 #advanced_search {
-    width: 250px;
+    width: 230px;
     text-align: left;
 }
 
