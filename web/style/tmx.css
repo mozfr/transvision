@@ -22,8 +22,8 @@
     text-align: left;
 }
 
-#TMX_locales select,
-#TMX_format select {
+#TMX_locales .select-style,
+#TMX_format .select-style {
     float: left;
 }
 
