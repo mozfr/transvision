@@ -610,7 +610,6 @@ input[type="checkbox"]:disabled + label:before {
 
 #main_search select {
     display: block;
-    width: 110px;
     font-size: 0.8em;
 }
 
@@ -867,10 +866,6 @@ input[type="checkbox"]:disabled + label:before {
 #consistency .message {
     width: 50%;
     margin: 0 auto;
-}
-
-#consistency #simplesearch_filter {
-    width: 200px;
 }
 
 #consistency #filter_message {
