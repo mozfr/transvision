@@ -40,14 +40,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                           <?=$repo_list?>
                       </select>
                     </div>
-                    <label class="default_option" for="default_repository">
-                        <input type="checkbox"
-                               id="default_repository"
-                               class="mainsearch_default_checkbox"
-                               value="<?=$cookies['repository']?>"
-                               <?=Utils::checkboxDefaultOption($search->getRepository(), $cookies['repository'])?>
-                         /> <span>Default</span>
-                     </label>
+                    <input type="checkbox"
+                           id="default_repository"
+                           class="mainsearch_default_checkbox"
+                           value="<?=$cookies['repository']?>"
+                           <?=Utils::checkboxDefaultOption($search->getRepository(), $cookies['repository'])?>
+                     /><label class="default_option" for="default_repository">Default</label>
                 </fieldset>
                 <fieldset>
                     <label>Source Locale</label>
@@ -60,14 +58,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                           <?=$source_locales_list[$search->getRepository()]?>
                       </select>
                     </div>
-                    <label class="default_option" for="default_source_locale">
-                        <input type="checkbox"
-                               id="default_source_locale"
-                               class="mainsearch_default_checkbox"
-                               value="<?=$cookies['source_locale']?>"
-                               <?=$cookie_option($cookies['source_locale'], $source_locale)?>
-                         /> <span>Default</span>
-                     </label>
+                      <input type="checkbox"
+                             id="default_source_locale"
+                             class="mainsearch_default_checkbox"
+                             value="<?=$cookies['source_locale']?>"
+                             <?=$cookie_option($cookies['source_locale'], $source_locale)?>
+                         /><label class="default_option" for="default_source_locale">Default</label>
                 </fieldset>
                 <fieldset id="locale_switch" alt="Switch source and target locales" title="Switch source and target locales">
                 </fieldset>
@@ -82,14 +78,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                           <?=$target_locales_list[$search->getRepository()]?>
                       </select>
                     </div>
-                    <label class="default_option" for="default_target_locale">
-                        <input type="checkbox"
-                               id="default_target_locale"
-                               class="mainsearch_default_checkbox"
-                               value="<?=$cookies['target_locale']?>"
-                               <?=$cookie_option($cookies['target_locale'], $locale)?>
-                         /> <span>Default</span>
-                     </label>
+                    <input type="checkbox"
+                           id="default_target_locale"
+                           class="mainsearch_default_checkbox"
+                           value="<?=$cookies['target_locale']?>"
+                           <?=$cookie_option($cookies['target_locale'], $locale)?>
+                     /><label class="default_option" for="default_target_locale">Default</label>
                 </fieldset>
 
     <?php if ($url['path'] == '3locales'): ?>
@@ -104,14 +98,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                           <?=$target_locales_list2[$search->getRepository()]?>
                       </select>
                     </div>
-                    <label class="default_option" for="default_target_locale2">
-                        <input type="checkbox"
-                               id="default_target_locale2"
-                               class="mainsearch_default_checkbox"
-                               value="<?=$cookies['target_locale2']?>"
-                               <?=$cookie_option($cookies['target_locale2'], $locale2)?>
-                         /> <span>Default</span>
-                     </label>
+                    <input type="checkbox"
+                           id="default_target_locale2"
+                           class="mainsearch_default_checkbox"
+                           value="<?=$cookies['target_locale2']?>"
+                           <?=$cookie_option($cookies['target_locale2'], $locale2)?>
+                     /><label class="default_option" for="default_target_locale2">Default</label>
                 </fieldset>
     <?php endif; ?>
 
@@ -125,14 +117,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                       <?=$search_type_list?>
                       </select>
                     </div>
-                    <label class="default_option" for="default_search_type">
-                        <input type="checkbox"
-                               id="default_search_type"
-                               class="mainsearch_default_checkbox"
-                               value="<?=$cookies['search_type']?>"
-                               <?=Utils::checkboxDefaultOption($search->getSearchType(), $cookies['search_type'])?>
-                         /> <span>Default</span>
-                     </label>
+                    <input type="checkbox"
+                           id="default_search_type"
+                           class="mainsearch_default_checkbox"
+                           value="<?=$cookies['search_type']?>"
+                           <?=Utils::checkboxDefaultOption($search->getSearchType(), $cookies['search_type'])?>
+                     /><label class="default_option" for="default_search_type">Default</label>
                 </fieldset>
 
                 <fieldset id="advanced_search">

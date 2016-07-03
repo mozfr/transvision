@@ -237,7 +237,7 @@ h3 {
     width: 100%;
     background: #fff;
     margin: 0;
-    padding: 50px 0 10px;
+    padding: 20px 0 10px;
     float: left;
     display: none;
 }
@@ -511,28 +511,28 @@ table tr td.no_highligth {
 
 .button,
 input[type='submit'] {
-  display: inline-block;
-  border-radius: 6px;
-  transition: all linear 0.25s;
-  text-align: center;
-  line-height: 1.1;
-  margin-top: 33px;
-  min-width: 80px;
-  padding: 9px 30px;
-  background: #00a0dc;
-  color: #fff;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
+    display: inline-block;
+    border-radius: 6px;
+    transition: all linear 0.25s;
+    text-align: center;
+    line-height: 1.1;
+    margin-top: 33px;
+    min-width: 80px;
+    padding: 9px 30px;
+    background: #00a0dc;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover,
 .button:focus,
 input[type='submit']:hover,
 input[type='submit']:focus {
-  text-decoration: none;
-  background: #00abeb;
-  color: #fff;
+    text-decoration: none;
+    background: #00abeb;
+    color: #fff;
 }
 
 fieldset {
@@ -540,6 +540,40 @@ fieldset {
     display: inline-block;
     min-height: 3em;
     margin: 0.5em 0 0;
+}
+
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type="checkbox"] + label:before {
+    content: "";
+    display: inline-block;
+    cursor: pointer;
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    border: 1px solid #c1c1c1;
+    margin-right: 7px;
+    background-color: #f1f1f1;
+    background-image: linear-gradient(#fff, rgba(255, 255, 255, 0.8));
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0px 1px 0 rgb(255, 255, 255), inset 0 1px 0 0 rgba(0, 0, 0, 0.03);
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:not(:disabled) + label:hover::before {
+    border-color: #0095DD;
+}
+
+input[type="checkbox"]:checked + label:before {
+    background-image: url("/img/check.svg#check"), linear-gradient(#fff, rgba(255, 255, 255, 0.8));
+}
+
+input[type="checkbox"]:disabled + label:before {
+    opacity: 0.5;
 }
 
 .select-style {
@@ -552,13 +586,14 @@ fieldset {
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
+    min-width: 110px;
     box-shadow: 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .select-style select {
     padding: 5px 30px 5px 8px;
     display: block;
-    min-width: 120px;
+    min-width: 110px;
     width: 100%;
     font-size: 1em;
     border: none;
@@ -581,7 +616,6 @@ fieldset {
 
 #main_search #search_type {
     display: block;
-    width: 140px;
 }
 
 #main_search #search {
@@ -633,19 +667,19 @@ fieldset {
     font-weight: bold;
 }
 
-#main_search fieldset .default_option input {
+#main_search fieldset .mainsearch_default_checkbox {
     float: left;
     margin: 0.45em 0.3em 0 0;
 }
 
-#main_search fieldset .default_option span {
+#main_search fieldset .default_option {
     float: left;
     font-size: 0.75em;
     padding-top: 0.2em;
 }
 
 #main_search fieldset#locale_switch {
-    margin: 4px 0;
+    margin: 10px 4px 0 4px;
     padding: 2.5em 0;
     min-height: 18px;
     min-width: 18px;
@@ -674,6 +708,7 @@ fieldset {
 
 #advanced_search span > label {
     font-size: 0.9em;
+    font-family: 'Fira Sans Light', sans-serif;
 }
 
 #advanced_search span {
@@ -681,7 +716,7 @@ fieldset {
     font-size: 1em;
     display: block;
     float: left;
-    width: 110px;
+    width: 115px;
 }
 
 #simplesearchform {
@@ -1125,12 +1160,12 @@ fieldset {
         text-align: left;
     }
 
-    #main_search fieldset .default_option input,
-    #main_search fieldset .default_option span {
+    #main_search fieldset .default_option,
+    #main_search fieldset .mainsearch_default_checkbox {
         float: none;
     }
 
-    #main_search select,
+    #main_search fieldset .select-style select,
     #main_search #search_type {
         display: inline;
     }
@@ -1140,14 +1175,14 @@ fieldset {
         min-width: 8em;
     }
 
-    #main_search fieldset select,
+    #main_search fieldset .select-style,
     #main_search fieldset select#search_type {
         display: inline-block;
-        width: 13em;
+        min-width: 110px;
     }
 
     #main_search fieldset#locale_switch {
-        margin: -1.2em 0;
+        margin: 0;
         padding: 0 0 0 14.5em;
         background: url(/img/swap_icon_vert_18x18.png) center no-repeat transparent;
     }
