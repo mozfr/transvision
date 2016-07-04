@@ -666,7 +666,7 @@ input[type="checkbox"]:disabled + label {
 
 #main_search fieldset {
     margin-bottom: 0.5em;
-    vertical-align: top;
+    vertical-align: middle;
     min-height: 5em;
 }
 
