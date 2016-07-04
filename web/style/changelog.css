@@ -3,12 +3,13 @@
 #changelog #pagecontent {
     margin: 30px auto;
     width: 80%;
+    max-width: 1014px;
 }
 
 #changelog #pagecontent ul {
     list-style: none;
     margin: 0;
-    padding-left: 15px;
+    padding-left: 0;
     width: 100%;
 }
 
