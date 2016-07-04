@@ -149,7 +149,7 @@ h1 a:visited {
 
 h2 {
     font-family: 'Fira Sans Light', Arial, sans-serif;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #a9a9a9;
     padding: 15px 0;
 }
 
@@ -185,7 +185,7 @@ h3 {
 #current {
     font-size: 1.9em;
     padding: 0.1em 0;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 #current strong {
@@ -502,6 +502,7 @@ table tr td.no_highligth {
 }
 
 .searchedTerm {
+    font-family: 'Fira Sans UltraLight', sans-serif;
     font-style: italic;
     opacity: 0.8;
     font-variant: normal;
@@ -512,8 +513,6 @@ table tr td.no_highligth {
     min-width: 100px;
     vertical-align: middle;
 }
-
-
 
 .button,
 input[type='submit'] {
