@@ -388,7 +388,8 @@ class ShowResults
                 $error_message = '';
             }
 
-            if (! $target_string2) {
+            // Make sure not to reset $error_message when there is no extra locale
+            if ($extra_locale && ! $target_string2) {
                 $target_string2 = '<em class="error">warning: missing string</em>';
                 $error_message = '';
             }
