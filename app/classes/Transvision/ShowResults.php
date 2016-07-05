@@ -340,6 +340,7 @@ class ShowResults
             ];
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);
+            $clipboard_target_string  = 'clip_' . md5($target_string);
 
             $temp = explode('-', $locale1);
             $locale1_short_code = $temp[0];
@@ -363,7 +364,7 @@ class ShowResults
 
             // If there is no source_string, display an error, otherwise display the string + meta links
             if (! $source_string) {
-                $source_string = '<em class="error">warning: Source string is empty</em>';
+                $source_string = '<em class="error">Warning: Source string is empty</em>';
             } else {
                 $meta_source = "
                     <div dir='ltr' class='result_meta_link'>
@@ -383,7 +384,7 @@ class ShowResults
 
             // If there is no target_string, display an error, otherwise display the string + meta links
             if (! $target_string) {
-                $target_string = '<em class="error">warning: missing string</em>';
+                $target_string = '<em class="error">Warning: Missing string</em>';
             } else {
                 $meta_target = "
                     <div dir='ltr' class='result_meta_link'>
@@ -401,7 +402,7 @@ class ShowResults
 
             // If there is no target_string2, display an error, otherwise display the string + meta links
             if (! $target_string2) {
-                $target_string2 = '<em class="error">warning: missing string</em>';
+                $target_string2 = '<em class="error">Warning: Missing string</em>';
             } else {
                 $meta_target2 = "
                     <div dir='ltr' class='result_meta_link'>
@@ -418,8 +419,6 @@ class ShowResults
 
             // Replace / and : in the key name and use it as an anchor name
             $anchor_name = str_replace(['/', ':'], '_', $key);
-
-            $clipboard_target_string  = 'clip_' . md5($target_string);
 
             // 3locales view
             if ($extra_locale) {
@@ -518,7 +517,7 @@ class ShowResults
         // Check for final dot
         if (substr(strip_tags($source_string), -1) == '.'
             && substr(strip_tags($target_string), -1) != '.') {
-            $error_message = '<em class="error"> No final dot?</em>';
+            $error_message = '<em class="error">No final dot?</em> ';
         }
 
         // Check abnormal string length
@@ -526,10 +525,10 @@ class ShowResults
         if ($length_diff) {
             switch ($length_diff) {
                 case 'small':
-                    $error_message = $error_message . '<em class="error"> Small string?</em>';
+                    $error_message = $error_message . '<em class="error">Small string?</em> ';
                     break;
                 case 'large':
-                    $error_message = $error_message . '<em class="error"> Large string?</em>';
+                    $error_message = $error_message . '<em class="error">Large string?</em> ';
                     break;
             }
         }

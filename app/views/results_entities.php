@@ -66,7 +66,7 @@ foreach ($entities as $entity) {
 
         // If there is no target_string2, display an error, otherwise display the string + meta links
         if (! $target_string2) {
-            $target_string2 = '<em class="error">warning: missing string</em>';
+            $target_string2 = '<em class="error">Warning: Missing string</em>';
         } else {
             $meta_target2 = "
               <div dir='ltr' class='result_meta_link'>
@@ -114,7 +114,7 @@ foreach ($entities as $entity) {
 
     // If there is no source_string, display an error, otherwise display the string + meta links
     if (! $source_string) {
-        $source_string = '<em class="error">warning: source string is empty</em>';
+        $source_string = '<em class="error">Warning: Source string is empty</em>';
     } else {
         $meta_source =  "
           <div dir='ltr' class='result_meta_link'>
@@ -132,7 +132,7 @@ foreach ($entities as $entity) {
 
     // If there is no target_string, display an error, otherwise display the string + meta links
     if (! $target_string) {
-        $target_string = '<em class="error">warning: missing string</em>';
+        $target_string = '<em class="error">Warning: Missing string</em>';
     } else {
         $meta_target = "
           <div dir='ltr' class='result_meta_link'>

@@ -306,7 +306,7 @@ class ShowResults extends atoum\test
             [
                 'Le système de marque-pages et.',
                 'Le système de marque-pages et',
-                '<em class="error"> No final dot?</em>',
+                '<em class="error">No final dot?</em> ',
             ],
             [
                 'Le système de marque-pages et',
@@ -321,22 +321,22 @@ class ShowResults extends atoum\test
             [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et',
-                '<em class="error"> No final dot?</em><em class="error"> Small string?</em>',
+                '<em class="error">No final dot?</em> <em class="error">Small string?</em> ',
             ],
             [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et.',
-                '<em class="error"> Small string?</em>',
+                '<em class="error">Small string?</em> ',
             ],
             [
                 'The bookmarks and history system will not be functional because one of files is in use by another application. Some security software can cause this problem.',
                 'Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème. Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème',
-                '<em class="error"> No final dot?</em><em class="error"> Large string?</em>',
+                '<em class="error">No final dot?</em> <em class="error">Large string?</em> ',
             ],
             [
                 'Le système de marque-pages et',
                 'Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème. Le système de marque-pages et dhistorique ne sera pas opérationnel car lun des fichiers de %S est en cours dutilisation par une autre application. Certains logiciels de sécurité peuvent causer ce problème.',
-                '<em class="error"> Large string?</em>',
+                '<em class="error">Large string?</em> ',
             ],
         ];
     }
