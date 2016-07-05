@@ -40,7 +40,7 @@ include VIEWS . 'templates/api_promotion.php';
                  "  <td><a class='onestring_search' href='{$search_link}' title='Search for the entity in this locale'>🔍</a></td>\n";
         }
 
-             "</tr>\n";
+        "</tr>\n";
     }
     ?>
 </table>
