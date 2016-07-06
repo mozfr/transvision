@@ -3,6 +3,9 @@ language: php
 php:
   - 5.6
   - 7.0
+before_install:
+  ## Install latest version of node
+  - nvm install node
 before_script:
   ## Disabling xdebug
   - phpenv config-rm xdebug.ini
@@ -12,7 +15,7 @@ before_script:
   ## Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
   ## Install ESLint
-  - npm install -g eslint@3.0.0
+  - npm install -g eslint
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
   - php tests/functional/api.php
