@@ -522,7 +522,7 @@ input[type='submit'] {
     line-height: 1.1;
     min-width: 80px;
     padding: 9px 30px;
-    background: #00a0dc;
+    background: #0095dd;
     color: #fff;
     font-size: 14px;
     border: none;
@@ -535,7 +535,7 @@ input[type='submit'] {
 input[type='submit']:hover,
 input[type='submit']:focus {
     text-decoration: none;
-    background: #00abeb;
+    background: #18a4e9;
     color: #fff;
 }
 
@@ -802,13 +802,13 @@ input[type="checkbox"]:disabled + label {
 #filters .filter.selected {
     font-weight: bold;
     color: #fff;
-    background-color: #00a0dc;
+    background-color: #0095dd;
     border: none;
     cursor: pointer;
 }
 
 #filters .filter.selected:hover {
-    background-color: #00abeb;
+    background-color: #18a4e9;
 }
 
 #filters .filter:hover {
