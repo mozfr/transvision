@@ -61,25 +61,19 @@ foreach ($entities as $entity) {
                                               $bz_target_string2, $current_repo, $entity_link)
                   . '">&lt;report a bug&gt;</a>';
 
-        // Don't show meta links by default
-        $meta_target2 = '';
-
-        // If there is no target_string2, display an error, otherwise display the string + meta links
+        // If there is no target_string2, display an error
         if (! $target_string2) {
             $target_string2 = '<em class="error">Warning: Missing string</em>';
-        } else {
-            $meta_target2 = "
-              <div dir='ltr' class='result_meta_link'>
-                <a class='source_link' href='{$path_locale3}'>&lt;source&gt;</a>
-                {$file_bug}
-              </div>";
         }
 
         $extra_column_rows = "
     <td dir='{$direction3}'>
       <span class='celltitle'>{$locale2}</span>
       <div class='string'>{$target_string2}</div>
-      {$meta_target2}
+      <div dir='ltr' class='result_meta_link'>
+        <a class='source_link' href='{$path_locale3}'>&lt;source&gt;</a>
+        {$file_bug}
+      </div>
     </td>";
     } else {
         $extra_column_rows = '';
@@ -117,17 +111,14 @@ foreach ($entities as $entity) {
         $source_string = '<em class="error">Warning: Source string is empty</em>';
     } else {
         $meta_source =  "
-          <div dir='ltr' class='result_meta_link'>
-            <a class='source_link' href='{$path_locale1}'>&lt;source&gt;</a>
-            <span>Translate with:</span>
-            <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
-            // We use html_entity_decode twice because we can have strings as &amp;amp; stored
-            . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
-            . "' target='_blank'>Google</a>
-            <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
-            . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
-            . "' target='_blank'>BING</a>
-          </div>";
+          <span>Translate with:</span>
+          <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
+          // We use html_entity_decode twice because we can have strings as &amp;amp; stored
+          . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
+          . "' target='_blank'>Google</a>
+          <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
+          . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
+          . "' target='_blank'>BING</a>";
     }
 
     // If there is no target_string, display an error, otherwise display the string + meta links
@@ -135,11 +126,8 @@ foreach ($entities as $entity) {
         $target_string = '<em class="error">Warning: Missing string</em>';
     } else {
         $meta_target = "
-          <div dir='ltr' class='result_meta_link'>
-            <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
-            {$file_bug}{$error_message}
-            <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
-          </div>";
+          {$error_message}
+          <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>";
     }
 
     $table .= "
@@ -153,12 +141,19 @@ foreach ($entities as $entity) {
     <td dir='{$direction1}'>
       <span class='celltitle'>{$source_locale}</span>
       <div class='string'>{$source_string}</div>
-      {$meta_source}
+      <div dir='ltr' class='result_meta_link'>
+        <a class='source_link' href='{$path_locale1}'>&lt;source&gt;</a>
+        {$meta_source}
+      </div>
     </td>
     <td dir='{$direction2}'>
       <span class='celltitle'>{$locale}</span>
       <div class='string' id='{$clipboard_target_string}'>{$target_string}</div>
-      {$meta_target}
+      <div dir='ltr' class='result_meta_link'>
+        <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
+        {$file_bug}
+        {$meta_target}
+      </div>
     </td>
     {$extra_column_rows}
   </tr>\n";
