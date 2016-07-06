@@ -34,7 +34,8 @@ if ($error_count > 0) {
         $string_id_link = "?sourcelocale={$source_locale}" .
                           "&locale={$locale}" .
                           "&repo={$repo}" .
-                          "&search_type=entities&recherche={$string_id}";
+                          "&search_type=entities&recherche={$string_id}" .
+                          "&perfect_match=perfect_match";
         $bugzilla_link = Bugzilla::reportErrorLink(
             $locale, $string_id, $source[$string_id],
             $target[$string_id], $repo, $string_id_link

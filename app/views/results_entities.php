@@ -54,7 +54,8 @@ foreach ($entities as $entity) {
         $entity_link = "?sourcelocale={$source_locale}"
                      . "&locale={$locale2}"
                      . "&repo={$current_repo}"
-                     . "&search_type=entities&recherche={$entity}";
+                     . "&search_type=entities&recherche={$entity}"
+                     . "&perfect_match=perfect_match";
 
         $file_bug = '<a class="bug_link" target="_blank" href="'
                     . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
@@ -90,7 +91,8 @@ foreach ($entities as $entity) {
     $entity_link = "?sourcelocale={$source_locale}"
                  . "&locale={$locale}"
                  . "&repo={$current_repo}"
-                 . "&search_type=entities&recherche={$entity}";
+                 . "&search_type=entities&recherche={$entity}"
+                 . "&perfect_match=perfect_match";
 
     $file_bug = '<a class="bug_link" target="_blank" href="'
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
