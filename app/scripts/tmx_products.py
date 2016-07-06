@@ -94,17 +94,13 @@ def get_strings(package, local_directory, strings_array):
 
 def create_directories_list(locale_repo, reference_repo, repository):
     ''' Create a list of folders to analyze '''
-    if repository.startswith('gaia'):
-        # Examine the entire folder
-        dirs = ['']
-    else:
-        dirs_locale = os.listdir(locale_repo)
-        dirs_reference = [
-            'browser', 'calendar', 'chat', 'devtools', 'dom', 'editor',
-            'extensions', 'mail', 'mobile', 'netwerk', 'other-licenses',
-            'security', 'services', 'suite', 'toolkit'
-        ]
-        dirs = filter(lambda x: x in dirs_locale, dirs_reference)
+    dirs_locale = os.listdir(locale_repo)
+    dirs_reference = [
+        'browser', 'calendar', 'chat', 'devtools', 'dom', 'editor',
+        'extensions', 'mail', 'mobile', 'netwerk', 'other-licenses',
+        'security', 'services', 'suite', 'toolkit'
+    ]
+    dirs = filter(lambda x: x in dirs_locale, dirs_reference)
 
     return dirs
 

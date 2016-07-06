@@ -54,8 +54,6 @@ class Consistency
      {
          if (Project::isDesktopRepository($repo)) {
              $repository_type = 'desktop';
-         } elseif (in_array($repo, Project::getGaiaRepositories())) {
-             $repository_type = 'gaia';
          } else {
              $repository_type = $repo;
          }
@@ -75,18 +73,6 @@ class Consistency
              // Exclude CSS width values like '38em'
              if (preg_match('/[\d|\.]+em/', $value)) {
                  return true;
-             }
-
-             if ($repository_type == 'gaia') {
-                 // Ignore plural forms containing [] in the key
-                 if (Strings::inString($key, ['[', ']'])) {
-                     return true;
-                 }
-
-                 // Ignore accessibility strings
-                 if (strpos($key, 'accessibility.properties') !== false) {
-                     return true;
-                 }
              }
 
              if ($repository_type == 'desktop') {

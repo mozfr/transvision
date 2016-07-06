@@ -898,33 +898,6 @@ input[type="checkbox"]:disabled + label {
     margin-top: -10px;
 }
 
-/* Gaia comparison view */
-.added_string {
-    color: #008000;
-}
-
-#gaia table {
-    min-width: 300px;
-}
-
-.section_description {
-    text-align: center;
-    font-weight: bold;
-}
-
-.deleted_string {
-    color: #f00;
-}
-
-#gaia_views_list {
-    margin: 10px auto;
-    width: 350px;
-}
-
-#gaia h3 {
-    margin-top: 30px;
-}
-
 /* Glossary view */
 #glossary_matches {
     width: 80%;

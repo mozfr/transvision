@@ -8,32 +8,11 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class Project extends atoum\test
 {
-    public function testGetSupportedGaiaVersions()
-    {
-        $obj = new _Project();
-        $repos = [
-            'gaia'        => 'Gaia master',
-            'gaia_2_5'    => 'Gaia 2.5',
-        ];
-
-        $this
-            ->array($obj->getSupportedGaiaVersions())
-                ->isEqualTo($repos);
-    }
-
-    public function testGetLastGaiaBranch()
-    {
-        $obj = new _Project();
-        $this
-            ->string($obj->getLastGaiaBranch())
-                ->isEqualTo('gaia_2_5');
-    }
-
     public function testGetRepositories()
     {
         $obj = new _Project();
         $repos = ['release', 'beta', 'aurora', 'central',
-                  'gaia_2_5', 'gaia', 'mozilla_org', ];
+                  'mozilla_org', ];
         $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);
@@ -47,21 +26,10 @@ class Project extends atoum\test
             'beta'        => 'Beta',
             'aurora'      => 'Aurora',
             'central'     => 'Central',
-            'gaia_2_5'    => 'Gaia 2.5',
-            'gaia'        => 'Gaia Master',
             'mozilla_org' => 'mozilla.org',
         ];
         $this
             ->array($obj->getRepositoriesNames())
-                ->isEqualTo($repos);
-    }
-
-    public function testGetGaiaRepositories()
-    {
-        $obj = new _Project();
-        $repos = ['gaia', 'gaia_2_5'];
-        $this
-            ->array($obj->getGaiaRepositories())
                 ->isEqualTo($repos);
     }
 
@@ -166,11 +134,6 @@ class Project extends atoum\test
             ['sr', 'bugzilla', 'sr'],
             ['sr-Cyrl', 'bugzilla', 'sr'],
             ['sr-Latn', 'bugzilla', 'sr'],
-            ['sr-Latn', 'gaia', 'sr-Latn'],
-            ['sr', 'gaia', 'sr-Cyrl'],
-            ['es', 'gaia', 'es'],
-            ['es-CL', 'gaia', 'es'],
-            ['es-ES', 'gaia_1_4', 'es'],
             ['es', 'mozilla_org', 'es-ES'],
             ['es-AR', 'mozilla_org', 'es-AR'],
             ['sr-Cyrl', 'mozilla_org', 'sr'],

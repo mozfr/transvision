@@ -8,7 +8,6 @@ $paths = [
     ['consistency/?locale=en-US&repo=central', 200, 'No inconsistent translations found.', 'Analyze translation consistency across repositories.'],
     ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is a community project under the MozFR umbrella'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
-    ['gaia/', 200, 'Translation Status', 'How many strings are translated'],
     ['news/', 200, 'Version 4.0', 'End user visible changes'],
     ['productization/', 200, 'Show productization', 'firefox'],
     ['showrepos/?locale=en-GB', 200, 'Health Status for en-GB', 'General metrics'],

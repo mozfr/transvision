@@ -10,7 +10,7 @@ if (count($argv) < 2) {
 }
 if (isset($argv[1])) {
     if (in_array($argv[1], ['-h', '--help'])) {
-        $command_help = "generate_sources - Create .txt sources files (supported locales, gaia versions)\n" .
+        $command_help = "generate_sources - Create .txt sources files (supported locales and repositories)\n" .
                 "Usage: generate_sources [config_folder]\n\n" .
                 "Example: generate_sources app/config\n";
         die($command_help);
@@ -31,29 +31,11 @@ if (! $repositories = json_decode(file_get_contents($uri), true)) {
     exit(1);
 }
 
-$gaia_versions = [];
 foreach ($repositories as $repository) {
-    if ($repository['type'] == 'gaia') {
-        // Store supported Gaia versions
-        if ($repository["id"] == 'gaia') {
-            $gaia_version = 'gaia';
-        } else {
-            $gaia_version = substr($repository['id'], strlen('gaia_'));
-        }
-        $gaia_versions[] = $gaia_version;
-    }
-
     // Save supported locales for each repository
     echo "* Saving list of locales for {$repository["id"]}\n";
     $file_name = "{$config_folder}/sources/{$repository["id"]}.txt";
     file_put_contents($file_name, implode("\n", $repository['locales']) . "\n");
-}
-
-if ($gaia_versions) {
-    // Save Gaia versions
-    echo "* Saving list of supported Gaia versions\n";
-    $file_name = "{$config_folder}/sources/gaia_versions.txt";
-    file_put_contents($file_name, implode("\n", $gaia_versions) . "\n");
 }
 
 // Create a JSON file with the list of all supported repositories in the correct order

@@ -25,23 +25,6 @@ release_locales=${path_sources}/release.txt
 folders+=( $release_l10n $beta_l10n $aurora_l10n $trunk_l10n \
            $release_source $beta_source $aurora_source $trunk_source )
 
-# GAIA repos and list of locales
-gaia_versions=${path_sources}/gaia_versions.txt
-for gaia_version in $(cat ${gaia_versions})
-do
-    if [ "$gaia_version" == "gaia" ]
-    then
-        gaia=${local_hg}/GAIA
-        gaia_locales=${path_sources}/gaia.txt
-        folders+=( $gaia )
-    else
-        declare gaia_${gaia_version}=${local_hg}/GAIA_${gaia_version}
-        declare gaia_locales_${gaia_version}=${path_sources}/gaia_${gaia_version}.txt
-        var_name=gaia_${gaia_version}
-        folders+=( ${!var_name} )
-    fi
-done
-
 # Location of Dotlang-based repos
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )

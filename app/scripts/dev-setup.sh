@@ -46,7 +46,7 @@ eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 if ! $(ls $config/sources/*.txt &> /dev/null)
 then
     echogreen "Checking if Transvision sources are available..."
-    echogreen "Generate list of locales and supported Gaia versions"
+    echogreen "Generate list of locales and supported repositories"
     php $DIR/generate_sources $config
     # Check if we actually have sources at this point
     if ! $(ls $config/sources/*.txt &> /dev/null)

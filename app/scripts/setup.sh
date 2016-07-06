@@ -183,55 +183,13 @@ function initDesktopSourceRepo() {
     fi
 }
 
-function initGaiaRepo () {
-    # $1 = version, could be "gaia" or a version number with underscores (e.g. 1_3, 1_4 etc)
-    if [ "$1" == "gaia" ]
-    then
-        local locale_list="gaia_locales"
-        local repo_name="gaia"
-        local repo_pretty_name="Gaia"
-        local repo_path="https://hg.mozilla.org/gaia-l10n"
-    else
-        local locale_list="gaia_locales_$1"
-        local repo_name="gaia_$1"
-        # If version is "1_4", repo_pretty_name will be "Gaia 1.4"
-        local repo_pretty_name="Gaia ${1/_/.}"
-        local repo_path="https://hg.mozilla.org/releases/gaia-l10n/v$1"
-    fi
-
-    echogreen "$repo_pretty_name initialization"
-    # Initialize repo only if folder exists
-    # If repo_name="gaia", ${!repo_name} is equal to $gaia
-    if [ ! -d ${!repo_name} ]
-    then
-        echored "$repo_pretty_name folder does not exist"
-    else
-        cd ${!repo_name}
-        for locale in $(cat ${!locale_list})
-            do
-                if [ ! -d $locale/.hg ]
-                then
-                    echogreen "Checking out the following repo:"
-                    echogreen $locale
-                    hg clone $repo_path/$locale
-                fi
-
-                if [ ! -d $root/TMX/$locale ]
-                then
-                    echogreen "Creating folder cache for: $locale"
-                    mkdir -p $root/TMX/$locale
-                fi
-        done
-    fi
-}
-
 # Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 # Convert .ini file in bash variables
 eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
 
-# Generate sources (gaia versions, supported locales)
-echogreen "Generate list of locales and supported Gaia versions"
+# Generate sources (supported locales and repositories)
+echogreen "Generate list of locales and supported repositories"
 $DIR/generate_sources $config
 
 # Check if we have sources
@@ -289,12 +247,6 @@ initDesktopL10nRepo "aurora"
 createSymlinks "mozilla"
 createSymlinks "comm"
 createSymlinks "chatzilla"
-
-# Set up all Gaia versions
-for gaia_version in $(cat ${gaia_versions})
-do
-    initGaiaRepo ${gaia_version}
-done
 
 # Check out GitHub repos
 echogreen "mozilla.org repo being checked out from GitHub"

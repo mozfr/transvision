@@ -287,125 +287,6 @@ function updateNoBranchRepo() {
     fi
 }
 
-function updateGaiaRepo() {
-    # Update specified Gaia repository
-    # $1: Version. It could be "trunk" or a version (e.g. 1_3, 1_4, etc)
-
-    function buildCache() {
-        # Build the cache
-        # $1: Locale code
-        echogreen "Create ${repo_name^^} cache for $repo_name/$1"
-        nice -20 $install/app/scripts/tmx_products.py ${!repo_name}/$1/ ${!repo_name}/en-US/ $1 en-US $repo_name
-    }
-
-    if [ "$1" == "gaia" ]
-    then
-        local locale_list="gaia_locales"
-        local repo_name="gaia"
-    else
-        local locale_list="gaia_locales_$1"
-        local repo_name="gaia_$1"
-    fi
-
-    # Store md5 of the existing cache before updating the repository
-    cache_file="${root}TMX/en-US/cache_en-US_${repo_name}.php"
-    if [ -f $cache_file ]
-    then
-        existing_md5=($(md5sum $cache_file))
-    else
-        existing_md5=0
-    fi
-
-    # Update en-US, build its TMX and compare md5 hash
-    if [ "$checkrepo" = true ]
-    then
-        updateLocale ${!repo_name} en-US $repo_name/en-US
-    fi
-    buildCache en-US
-    updated_md5=($(md5sum $cache_file))
-    if [ $existing_md5 != $updated_md5 ]
-    then
-        echo "English strings have been updated."
-        updated_english=true
-    fi
-
-    if [ "$all_locales" = true ]
-    then
-        for locale in $(cat ${!locale_list})
-        do
-            if [ -d ${!repo_name}/$locale ]
-            then
-                if [ "$locale" != "en-US" ]
-                then
-                    updated_locale=0
-                    if [ "$checkrepo" = true ]
-                    then
-                        updateLocale ${!repo_name} $locale $repo_name/$locale
-                        updated_locale=$?
-                    fi
-
-                    # Check if we have a cache file for this locale. If it's a brand
-                    # new locale, we'll have the folder and no updates, but we
-                    # still need to create the cache.
-                    cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
-                    if [ ! -f $cache_file ]
-                    then
-                        echored "Cache doesn't exist for ${repo_name}/${locale}"
-                        updated_locale=1
-                    else
-                        php -l $cache_file 2>&1 1>/dev/null
-                        if [ $? -ne 0 ]
-                        then
-                            # There are PHP errors, force the rebuild
-                            echored "PHP errors in $cache_file. Forcing rebuild."
-                            updated_locale=1
-                        fi
-                    fi
-
-                    if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
-                    then
-                        buildCache $locale
-                    fi
-                fi
-            else
-                echored "Folder ${!repo_name}/$locale does not exist. Run setup.sh to fix the issue."
-            fi
-        done
-    else
-        if [ -d ${!repo_name}/$locale_code ]
-        then
-            updated_locale=0
-            if [ "$checkrepo" = true ]
-            then
-                updateLocale ${!repo_name} $locale_code $repo_name/$locale_code
-                updated_locale=$?
-            fi
-
-            cache_file="${root}TMX/${locale_code}/cache_${locale_code}_${repo_name}.php"
-            if [ ! -f $cache_file ]
-            then
-                echored "Cache doesn't exist for ${repo_name}/${locale_code}"
-                updated_locale=1
-            else
-                php -l $cache_file 2>&1 1>/dev/null
-                if [ $? -ne 0 ]
-                then
-                    # There are PHP errors, force the rebuild
-                    echored "PHP errors in $cache_file. Forcing rebuild."
-                    updated_locale=1
-                fi
-            fi
-
-            if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
-            then
-                buildCache $locale_code
-            fi
-        else
-            echored "Folder ${!repo_name}/$locale_code does not exist."
-        fi
-    fi
-}
-
 function updateFromGitHub() {
     if [ "$checkrepo" = true ]
     then
@@ -437,11 +318,6 @@ updateStandardRepo "release" "release"
 updateStandardRepo "beta" "beta"
 updateStandardRepo "aurora" "aurora"
 updateStandardRepo "central" "trunk"
-
-for gaia_version in $(cat ${gaia_versions})
-do
-    updateGaiaRepo ${gaia_version}
-done
 
 updateFromGitHub
 updateFirefoxiOS
