@@ -34,7 +34,7 @@ include VIEWS . 'templates/api_promotion.php';
              "  <th><a href='#{$locale}'>{$locale}</a></th>\n";
 
         if (! $translation) {
-            echo "  <td><em class='error'>Warning: Missing string</em></td><td></td>\n";
+            echo "  <td><em class='error'>Warning: Empty string</em></td><td></td>\n";
         } else {
             echo "  <td lang='#{$locale}' {$rtl_support} >" . Utils::secureText($translation) . "</td>\n" .
                  "  <td><a class='onestring_search' href='{$search_link}' title='Search for the entity in this locale'>🔍</a></td>\n";
