@@ -134,12 +134,12 @@ class ShowResults extends atoum\test
             [
                 'browser/pdfviewer/viewer.properties:last_page.label',
                 ['entity.is.not.found' => 'Aller à la dernière page'],
-                false,
+                '@@missing@@',
             ],
             [
                 'browser/pdfviewer/viewer.properties:last_page.label',
                 ['browser/pdfviewer/viewer.properties:last_page.label' => ''],
-                false,
+                '',
             ],
         ];
     }

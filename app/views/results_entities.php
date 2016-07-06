@@ -30,7 +30,7 @@ foreach ($entities as $entity) {
     // Escape strings for HTML display
     $bz_target_string = $target_string = isset($tmx_target[$entity])
                                             ? Utils::secureText($tmx_target[$entity])
-                                            : '';
+                                            : '@@missing@@';
     // Highlight non-breaking spaces only after strings have been escaped
     $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string);
 
@@ -63,8 +63,10 @@ foreach ($entities as $entity) {
                   . '">&lt;report a bug&gt;</a>';
 
         // If there is no target_string2, display an error
-        if (! $target_string2) {
+        if ($target_string2 == '@@missing@@') {
             $target_string2 = '<em class="error">Warning: Missing string</em>';
+        } elseif (! $target_string2) {
+            $target_string2 = '<em class="error">Warning: Empty string</em>';
         }
 
         $extra_column_rows = "
@@ -124,8 +126,10 @@ foreach ($entities as $entity) {
     }
 
     // If there is no target_string, display an error, otherwise display the string + meta links
-    if (! $target_string) {
+    if ($target_string == '@@missing@@') {
         $target_string = '<em class="error">Warning: Missing string</em>';
+    } elseif (! $target_string) {
+        $target_string = '<em class="error">Warning: Empty string</em>';
     } else {
         $meta_target = "
           {$error_message}
