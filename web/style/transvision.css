@@ -559,7 +559,7 @@ input[type="checkbox"] + label:before {
     height: 13px;
     border-radius: 2px;
     border: 1px solid #c1c1c1;
-    margin-right: 7px;
+    margin: -2px 7px 0 0;
     background-color: #f1f1f1;
     background-image: linear-gradient(#fff, rgba(255, 255, 255, 0.8));
     background-position: center center;
