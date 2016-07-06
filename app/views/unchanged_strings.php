@@ -32,7 +32,8 @@ foreach ($unchanged_strings as $string_id => $string_value) {
     $entity_link = "/?sourcelocale={$source_locale}"
             . "&locale={$locale}"
             . "&repo={$repo}"
-            . "&search_type=entities&recherche={$string_id}";
+            . "&search_type=entities&recherche={$string_id}"
+            . "&perfect_match=perfect_match";
 
     /*
         Since this view displays strings identical to source locale, I'll use the same
