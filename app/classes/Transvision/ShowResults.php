@@ -340,6 +340,7 @@ class ShowResults
             ];
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);
+            $clipboard_target_string  = 'clip_' . md5($target_string);
 
             $temp = explode('-', $locale1);
             $locale1_short_code = $temp[0];
@@ -355,48 +356,45 @@ class ShowResults
                 $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
             }
 
-            // Errors
-            $error_message = '';
+            // Get the potential errors for $target_string (final dot, long/small string)
+            $error_message = ShowResults::buildErrorString($source_string, $target_string);
 
-            // Check for final dot
-            if (substr(strip_tags($source_string), -1) == '.'
-                && substr(strip_tags($target_string), -1) != '.') {
-                $error_message = '<em class="error"> No final dot?</em>';
-            }
+            // Don't show meta links by default
+            $meta_source = $meta_target = $meta_target2 = '';
 
-            // Check abnormal string length
-            $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
-            if ($length_diff) {
-                switch ($length_diff) {
-                    case 'small':
-                        $error_message = $error_message . '<em class="error"> Small string?</em>';
-                        break;
-                    case 'large':
-                        $error_message = $error_message . '<em class="error"> Large String?</em>';
-                        break;
-                }
-            }
-
-            // Missing string error
+            // If there is no source_string, display an error, otherwise display the string + meta links
             if (! $source_string) {
-                $source_string = '<em class="error">warning: missing string</em>';
-                $error_message = '';
+                $source_string = '<em class="error">Warning: Source string is empty</em>';
+            } else {
+                $meta_source = "
+                  <span>Translate with:</span>
+                  <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
+                  // We use html_entity_decode twice because we can have strings as &amp;amp; stored
+                  . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
+                  . "' target='_blank'>Google</a>
+                  <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
+                  . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
+                  . "' target='_blank'>BING</a>";
             }
 
+            // If there is no target_string, display an error, otherwise display the string + meta links
             if (! $target_string) {
-                $target_string = '<em class="error">warning: missing string</em>';
-                $error_message = '';
+                $target_string = '<em class="error">Warning: Missing string</em>';
+            } else {
+                $meta_target = "
+                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
+                      {$error_message}";
             }
 
+            // If there is no target_string2, display an error, otherwise display the string + meta links
             if (! $target_string2) {
-                $target_string2 = '<em class="error">warning: missing string</em>';
-                $error_message = '';
+                $target_string2 = '<em class="error">Warning: Missing string</em>';
+            } else {
+                $meta_target2 = "<span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>";
             }
 
             // Replace / and : in the key name and use it as an anchor name
             $anchor_name = str_replace(['/', ':'], '_', $key);
-
-            $clipboard_target_string  = 'clip_' . md5($target_string);
 
             // 3locales view
             if ($extra_locale) {
@@ -420,9 +418,9 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link[1]}'>
                         &lt;report a bug&gt;
                       </a>
-                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
+                      {$meta_target2}
                     </div>
-                  </td>";
+                </td>";
             } else {
                 $extra_column_rows = '';
             }
@@ -443,14 +441,7 @@ class ShowResults
                       <a class='source_link' href='{$locale1_path}'>
                         &lt;source&gt;
                       </a>
-                      <span>Translate with:</span>
-                      <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
-                      // We use html_entity_decode twice because we can have strings as &amp;amp; stored
-                      . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
-                      . "' target='_blank'>Google</a>
-                      <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
-                      . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
-                      . "' target='_blank'>BING</a>
+                      {$meta_source}
                     </div>
                   </td>
 
@@ -465,8 +456,7 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
                       </a>
-                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
-                      {$error_message}
+                      {$meta_target}
                     </div>
                   </td>
                 {$extra_column_rows}
@@ -507,5 +497,46 @@ class ShowResults
         }
 
         return $entities;
+    }
+
+    /**
+     * Build the error message for target string. Can return a combination of
+     * errors, including missing final dot, long string and short string.
+     *
+     * @param string $source_string String from the source locale
+     * @param string $target_string String from the target locale
+     *
+     * @return string A concatenated string of errors or an empty string if
+     *                there is no error.
+     */
+    public static function buildErrorString($source_string, $target_string)
+    {
+        $error_message = '';
+
+        // Check for final dot
+        if (substr(strip_tags($source_string), -1) == '.'
+            && substr(strip_tags($target_string), -1) != '.') {
+            $error_message = '<em class="error">No final dot?</em> ';
+        }
+
+        // Check abnormal string length
+        $length_diff = Utils::checkAbnormalStringLength($source_string, $target_string);
+        if ($length_diff) {
+            switch ($length_diff) {
+                case 'small':
+                    $error_message = $error_message . '<em class="error">Small string?</em> ';
+                    break;
+                case 'large':
+                    $error_message = $error_message . '<em class="error">Large string?</em> ';
+                    break;
+            }
+        }
+
+        // Missing string error
+        if (! $source_string || ! $target_string) {
+            $error_message = '';
+        }
+
+        return $error_message;
     }
 }

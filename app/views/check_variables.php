@@ -53,14 +53,14 @@ if ($error_count > 0) {
                           <span class='celltitle'>{$source_locale}</span>
                           <div class='string'>" . Utils::secureText($source[$string_id]) . "</div>
                           <div class='result_meta_link'>
-                            <a class='source_link' href='{$path_locale1}'><em>&lt;source&gt;</em></a>
+                            <a class='source_link' href='{$path_locale1}'>&lt;source&gt;</a>
                           </div>
                        </td>
                         <td dir='{$direction2}'>
                           <span class='celltitle'>$locale</span>
                           <div class='string'>" . Utils::secureText($target[$string_id]) . "</div>
                           <div class='result_meta_link'>
-                            <a class='source_link' href='{$path_locale2}'><em>&lt;source&gt;</em></a>
+                            <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
                             <a class='bug_link' target='_blank' href='{$bugzilla_link}'>&lt;report a bug&gt;</a>
                           </div>
                        </td>
