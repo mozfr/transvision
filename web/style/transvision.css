@@ -921,6 +921,7 @@ input[type="checkbox"]:disabled + label {
 #credits #pagecontent {
     margin: 30px auto;
     width: 80%;
+    max-width: 1014px;
 }
 
 #credits #pagecontent ul {
