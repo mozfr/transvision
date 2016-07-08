@@ -58,6 +58,7 @@ body {
     border-top: 1px solid #fff;
     padding-bottom: 0.5em;
     flex: 1;
+    -ms-flex: 1 0 0;
 }
 
 #pagecontent {
