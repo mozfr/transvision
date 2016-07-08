@@ -33,30 +33,6 @@
     font-style: italic;
 }
 
-@font-face {
-    font-family: 'Fira Sans';
-    src: url(/fonts/FiraSans/FiraSans-Medium.woff2) format('woff2'),
-         url(/fonts/FiraSans/FiraSans-Medium.woff) format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Fira Sans';
-    src: url(/fonts/FiraSans/FiraSans-Regular.woff2) format('woff2'),
-         url(/fonts/FiraSans/FiraSans-Regular.woff) format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Fira Sans';
-    src: url(/fonts/FiraSans/FiraSans-Italic.woff2) format('woff2'),
-         url(/fonts/FiraSans/FiraSans-Italic.woff) format('woff');
-    font-weight: normal;
-    font-style: italic;
-}
-
 /* General structure */
 
 html {
@@ -65,7 +41,7 @@ html {
 
 body {
     color: #333;
-    font-family: 'Fira Sans', Arial, sans-serif;
+    font-family: 'Fira Sans Light', Arial, sans-serif;
     font-size: 0.9em;
     line-height: 1.5;
     margin: 0 auto;
@@ -148,7 +124,6 @@ h1 a:visited {
 }
 
 h2 {
-    font-family: 'Fira Sans Light', Arial, sans-serif;
     border-bottom: 1px solid #a9a9a9;
     padding: 15px 0;
 }
@@ -200,7 +175,6 @@ h3 {
 
 .links {
     clear: both;
-    font-family: 'Fira Sans Light', Arial, sans-serif;
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
@@ -427,7 +401,6 @@ td .result_meta_link .bug_link {
 #footer {
     font-style: italic;
     text-align: center;
-    font-family: 'Fira Sans Light', sans-serif;
     font-size: 0.9em;
     padding: 1em;
     line-height: 0.4;
@@ -670,7 +643,6 @@ input[type="checkbox"]:disabled + label {
 }
 
 #main_search fieldset > label {
-    font-family: 'Fira Sans Light', sans-serif;
     line-height: 1.9;
     font-weight: bold;
 }
@@ -716,7 +688,6 @@ input[type="checkbox"]:disabled + label {
 
 #advanced_search span > label {
     font-size: 0.9em;
-    font-family: 'Fira Sans Light', sans-serif;
 }
 
 #advanced_search span {
@@ -775,7 +746,6 @@ input[type="checkbox"]:disabled + label {
 /* Filter buttons on search results */
 
 #filters {
-    font-family: 'Fira Sans Light', sans-serif;
     margin: auto;
     max-width: 90%;
     text-align: center;
@@ -851,7 +821,6 @@ input[type="checkbox"]:disabled + label {
 
 /* API promotion */
 .api_link {
-    font-family: 'Fira Sans Light', sans-serif;
     font-size: 12px;
     text-align: center;
 }
