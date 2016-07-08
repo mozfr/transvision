@@ -145,11 +145,12 @@ def create_tmx_content(reference_repo, locale_repo, dirs):
         get_strings(l10nPackage_locale, directory, strings_locale)
         for entity in strings_reference:
             # Append string to tmx_content, using the format of a PHP array
-            # element
+            # element, but only if there's a translation available
             translation = escape(
-                strings_locale.get(entity, '')).encode('utf-8')
-            tmx_content.append("'{0}' => '{1}'".format(
-                entity.encode('utf-8'), translation))
+                strings_locale.get(entity, '@@missing@@')).encode('utf-8')
+            if translation != '@@missing@@':
+                tmx_content.append("'{0}' => '{1}'".format(
+                    entity.encode('utf-8'), translation))
     tmx_content.sort()
 
     return tmx_content
@@ -179,8 +180,7 @@ def main():
         args.reference_repo, args.locale_repo, args.repository
     )
     tmx_content = create_tmx_content(
-        args.reference_repo, args.locale_repo, dirs
-    )
+        args.reference_repo, args.locale_repo, dirs)
 
     # Store the actual file on disk
     filename_locale = os.path.join(
