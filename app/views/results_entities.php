@@ -36,6 +36,11 @@ foreach ($entities as $entity) {
 
     $source_string = Utils::secureText($tmx_source[$entity]);
 
+    $clipboard_target_string  = 'clip_' . md5($target_string);
+
+    // Don't show meta links by default
+    $meta_source = $meta_target = $meta_target2 = '';
+
     // 3locales view
     if ($url['path'] == '3locales') {
         $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
@@ -43,6 +48,8 @@ foreach ($entities as $entity) {
                                                     : '';
         // Highlight non-breaking spaces only after strings have been escaped
         $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string2);
+
+        $clipboard_target_string2  = 'clip_' . md5($target_string2);
 
         if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
             $path_locale3 = VersionControl::gitPath($locale2, $current_repo, $entity);
@@ -67,15 +74,18 @@ foreach ($entities as $entity) {
             $target_string2 = '<em class="error">Warning: Missing string</em>';
         } elseif (! $target_string2) {
             $target_string2 = '<em class="error">Warning: Empty string</em>';
+        } else {
+            $meta_target2 = "<span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>";
         }
 
         $extra_column_rows = "
     <td dir='{$direction3}'>
       <span class='celltitle'>{$locale2}</span>
-      <div class='string'>{$target_string2}</div>
+      <div class='string' id='{$clipboard_target_string2}'>{$target_string2}</div>
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale3}'>&lt;source&gt;</a>
         {$file_bug}
+        {$meta_target2}
       </div>
     </td>";
     } else {
@@ -102,13 +112,8 @@ foreach ($entities as $entity) {
               . '">&lt;report a bug&gt;</a>';
     $anchor_name = str_replace(['/', ':'], '_', $entity);
 
-    $clipboard_target_string  = 'clip_' . md5($target_string);
-
     // Get the potential errors for $target_string (final dot, long/small string)
     $error_message = ShowResults::buildErrorString($source_string, $target_string);
-
-    // Don't show meta links by default
-    $meta_source = $meta_target = '';
 
     // If there is no source_string, display an error, otherwise display the string + meta links
     if (! $source_string) {
