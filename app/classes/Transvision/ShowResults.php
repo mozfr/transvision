@@ -343,6 +343,7 @@ class ShowResults
 
             $target_string = Strings::multipleStringReplace($replacements, $target_string);
             $clipboard_target_string  = 'clip_' . md5($target_string);
+            $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
             $temp = explode('-', $locale1);
             $locale1_short_code = $temp[0];
@@ -409,8 +410,6 @@ class ShowResults
                 } else {
                     $locale3_path = VersionControl::hgPath($locale3, $current_repo, $key);
                 }
-
-                $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>
