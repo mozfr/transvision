@@ -347,10 +347,6 @@ td em.error {
     color: #f00;
 }
 
-td em.error {
-    padding-left: 6px;
-}
-
 td a.tag {
     font-size: 75%;
     color: #808080;

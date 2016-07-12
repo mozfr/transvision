@@ -51,7 +51,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
        <fieldset>
            <label>Repository</label>
            <select name="product" id="product_select">
-             ' .  $product_selector . '
+             ' . $product_selector . '
            </select>
        </fieldset>
        <input type="submit" value="Go" alt="Go" />
