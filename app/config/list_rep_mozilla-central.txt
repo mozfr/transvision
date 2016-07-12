@@ -24,4 +24,3 @@
 ./security/manager/locales/en-US
 ./services/sync/locales/en-US
 ./toolkit/locales/en-US
-./webapprt/locales/en-US
