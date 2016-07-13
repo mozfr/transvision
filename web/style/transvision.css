@@ -679,7 +679,14 @@ input[type="checkbox"]:disabled + label {
     right: 0;
     width: 40px;
     height: 22px;
-    background: url(/img/clear_icon_18x18.png) center no-repeat transparent;
+    cursor: pointer;
+}
+
+#clear_search:before {
+    content: "×";
+    font-family: 'Fira Sans UltraLight', sans-serif;
+    font-size: 3em;
+    line-height: 0.42em;
 }
 
 #advanced_search {
