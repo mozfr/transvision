@@ -140,7 +140,6 @@ class VersionControl
             'testing/extensions/community/chrome/',
             'toolkit/',
             'toolkit/content/tests/fennec-tile-testapp/chrome/',
-            'webapprt/',
         ];
 
         // Desktop repos
