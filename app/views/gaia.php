@@ -76,21 +76,27 @@ $sections = [
     <fieldset id="main_search">
         <fieldset>
             <label>Locale</label>
-            <select name="locale">
-            <?=$target_locales_list?>
-            </select>
+            <div class="select-style">
+                <select name="locale">
+                <?=$target_locales_list?>
+                </select>
+            </div>
         </fieldset>
         <fieldset>
             <label>Repository 1</label>
-            <select name="repo1">
-            <?=$channel_selector1?>
-            </select>
+            <div class="select-style">
+                <select name="repo1">
+                <?=$channel_selector1?>
+                </select>
+            </div>
         </fieldset>
         <fieldset>
             <label>Repository 2</label>
-            <select name="repo2">
-            <?=$channel_selector2?>
-            </select>
+            <div class="select-style">
+                <select name="repo2">
+                <?=$channel_selector2?>
+                </select>
+            </div>
         </fieldset>
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
