@@ -685,8 +685,8 @@ input[type="checkbox"]:disabled + label {
 #clear_search:before {
     content: "×";
     font-family: 'Fira Sans UltraLight', sans-serif;
-    font-size: 3em;
-    line-height: 0.42em;
+    font-size: 2.5em;
+    line-height: 0.5em;
 }
 
 #advanced_search {
