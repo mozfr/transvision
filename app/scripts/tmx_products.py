@@ -102,7 +102,7 @@ def create_directories_list(locale_repo, reference_repo, repository):
         dirs_reference = [
             'browser', 'calendar', 'chat', 'devtools', 'dom', 'editor',
             'extensions', 'mail', 'mobile', 'netwerk', 'other-licenses',
-            'security', 'services', 'suite', 'toolkit', 'webapprt'
+            'security', 'services', 'suite', 'toolkit'
         ]
         dirs = filter(lambda x: x in dirs_locale, dirs_reference)
 
