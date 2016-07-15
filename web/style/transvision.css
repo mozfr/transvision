@@ -1286,6 +1286,7 @@ input[type="checkbox"]:disabled + label {
     margin: -20px auto 0;
     display: block;
     font-size: 1em;
+    text-transform: none;
 }
 
 #unlocalized_all fieldset#grpChkBox {
