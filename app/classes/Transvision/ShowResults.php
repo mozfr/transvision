@@ -403,8 +403,8 @@ class ShowResults
                 if ($transliterate) {
                     $meta_target .= "<input type='button' value='To Latin' data-transliterated-id='{$string_id}' class='transliterate_button button action'>";
                 }
+                $meta_target .= $error_message;
             }
-            $meta_target .= "{$error_message}";
 
             // If there is no target_string2, display an error, otherwise display the string + meta links
             if ($target_string2 == '@@missing@@') {
@@ -480,9 +480,7 @@ class ShowResults
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
                       </a>
-                      {$meta_target}";
-            $table .= "
-                      {$error_message}
+                      {$meta_target}
                     </div>
                   </td>
                 {$extra_column_rows}
