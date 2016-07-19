@@ -311,7 +311,7 @@ class ShowResults
                 $target_string2 = '';
             }
 
-            $string_id = md5($target_string);
+            $string_id = md5($key . mt_rand());
             $regular_string_id = 'string_' . $string_id;
 
             // Find if we need to transliterate the string
