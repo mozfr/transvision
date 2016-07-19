@@ -315,7 +315,7 @@ class ShowResults
             $regular_string_id = 'string_' . $string_id;
 
             // Find if we need to transliterate the string
-            $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string != '@@missing@@';
+            $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString($target_string, 'sr-Cyrl');
