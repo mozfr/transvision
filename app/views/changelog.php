@@ -19,9 +19,9 @@ foreach ($changelog as $release => $changes) {
         }
 
         $output .= "  <li>";
-        $output .= isset($attributes['type'])    ? $relnotes($attributes['type'][0]) . ' ' : '';
-        $output .= isset($attributes['issues'])  ? $issue($attributes['issues']) : '';
-        $output .= isset($attributes['commit'])  ? $commit($attributes['commit']) : '';
+        $output .= isset($attributes['type']) ? $relnotes($attributes['type'][0]) . ' ' : '';
+        $output .= isset($attributes['issues']) ? $issue($attributes['issues']) : '';
+        $output .= isset($attributes['commit']) ? $commit($attributes['commit']) : '';
         $output .= $attributes['message'][0];
         $output .= isset($attributes['authors']) ? $authors($attributes['authors']) : '';
         $output .= "</li>\n";
