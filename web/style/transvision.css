@@ -78,7 +78,7 @@ body {
 }
 
 #pagecontent {
-    padding: 0 5px;
+    padding: 0 15px;
 }
 
 a,
@@ -129,9 +129,7 @@ h2,
 }
 
 #logo {
-    text-align: left;
     margin: 0 auto;
-    width: 80%;
 }
 
 #logo img {
@@ -1018,10 +1016,6 @@ input[type="checkbox"]:disabled + label {
 @media only screen and (max-width: 640px) {
     body {
         font-size: 12px;
-    }
-
-    #logo {
-        text-align: center;
     }
 
     #logo img {
