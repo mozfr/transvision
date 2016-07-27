@@ -1264,17 +1264,6 @@ input[type="checkbox"]:disabled + label {
     z-index: 98;
 }
 
-.tooltip:hover::before {
-    position: absolute;
-    border: solid;
-    border-color: #fff transparent;
-    border-width: 6px 6px 0 6px;
-    bottom: 20px;
-    content: "";
-    left: 60%;
-    z-index: 99;
-}
-
 /* Unlocalized words view */
 #unlocalized_all #button-toggle {
     margin: -20px auto 0;
