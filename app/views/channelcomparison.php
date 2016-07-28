@@ -12,21 +12,27 @@ $td = function ($key, $value) {
     <fieldset id="main_search">
         <fieldset>
             <label>Locale:</label>
-            <select name='locale'>
-            <?=$target_locales_list?>
-            </select>
+            <div class="select-style">
+                <select name='locale'>
+                <?=$target_locales_list?>
+                </select>
+            </div>
         </fieldset>
         <fieldset>
             <label>Channel 1:</label>
-            <select name='chan1'>
-            <?=$chan_selector1?>
-            </select>
+            <div class="select-style">
+                <select name='chan1'>
+                <?=$chan_selector1?>
+                </select>
+            </div>
         </fieldset>
         <fieldset>
             <label>Channel 2:</label>
-            <select name='chan2'>
-            <?=$chan_selector2?>
-            </select>
+            <div class="select-style">
+                <select name='chan2'>
+                <?=$chan_selector2?>
+                </select>
+            </div>
         </fieldset>
         <input type="submit" value="Go" alt="Go" />
     </fieldset>

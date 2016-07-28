@@ -97,36 +97,38 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   <script>
     document.getElementsByTagName('body')[0].className = 'jsEnabled';
   </script>
-  <div id="links-top" class="links">
-    <div class="container">
-      <?= $links ?>
+  <div id="main-wrapper">
+    <div id="links-top" class="links">
+      <div class="container">
+        <?= $links ?>
+      </div>
     </div>
-  </div>
-  <div id="links-top-button-container">
-    <a href="" class="menu-button" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a>
-  </div>
-  <?php
-  if (BETA_VERSION) {
-      print "<div id='beta-badge'><span>BETA VERSION</span></div>\n";
-  }
-  ?>
-  <h1><a href="/"><img src="/img/logo/Logo_Full.svg" alt="Transvision"></a></h1>
-  <?php if ($experimental == true): ?>
-  <h2 id="experimental" class="alert">Experimental View</h2>
-  <?php endif; ?>
+    <div id="links-top-button-container">
+      <a href="" class="menu-button" id="links-top-button" title="Display Transvision Menu"><span>menu</span></a>
+    </div>
+    <?php
+    if (BETA_VERSION) {
+        print "<div id='beta-badge'><span>BETA</span></div>\n";
+    }
+    ?>
+    <h1 id="logo"><a href="/"><img src="/img/logo/Logo_Full.svg" alt="Transvision"></a></h1>
+    <?php if ($experimental == true): ?>
+    <h2 id="experimental" class="alert">Experimental View</h2>
+    <?php endif; ?>
 
-  <?php if ($show_title == true): ?>
-  <h2 id="page_title"><?= $page_title ?></h2>
-  <p class="page_description"><?= $page_descr ?></p>
-  <?php endif; ?>
+    <?php if ($show_title == true): ?>
+    <h2 id="page_title"><?= $page_title ?></h2>
+    <p class="page_description"><?= $page_descr ?></p>
+    <?php endif; ?>
 
-  <div id="pagecontent">
-    <?= $extra ?>
-    <?= $content ?>
-  </div>
+    <div id="pagecontent">
+      <?= $extra ?>
+      <?= $content ?>
+    </div>
 
-  <div id="noscript-warning">
-    Please enable JavaScript. Some features won't be available without it.
+    <div id="noscript-warning">
+      Please enable JavaScript. Some features won't be available without it.
+    </div>
   </div>
 
   <div id="footer">

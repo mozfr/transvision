@@ -1,52 +1,52 @@
 /* Fonts */
-/* Updated on www.mozilla.org 2015-06-17 */
+/* Fira Sans 4.106 https://carrois.com/typefaces/FiraSans */
 
 @font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-Light.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Light-webfont.woff) format('woff');
+    font-family: 'Fira Sans UltraLight';
+    src: url(/fonts/FiraSans/FiraSans-UltraLight.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-UltraLight.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-Semibold.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Semibold-webfont.woff) format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans Light';
-    src: url(/fonts/OpenSans/OpenSans-LightItalic.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-LightItalic-webfont.woff) format('woff');
+    font-family: 'Fira Sans UltraLight';
+    src: url(/fonts/FiraSans/FiraSans-UltraLightItalic.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-UltraLightItalic.woff) format('woff');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Regular.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Regular-webfont.woff) format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Bold.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Bold-webfont.woff) format('woff');
+    font-family: 'Fira Sans UltraLight';
+    src: url(/fonts/FiraSans/FiraSans-Regular.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Regular.woff) format('woff');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url(/fonts/OpenSans/OpenSans-Italic.woff2) format('woff2'),
-         url(/fonts/OpenSans/OpenSans-Italic-webfont.woff) format('woff');
+    font-family: 'Fira Sans Light';
+    src: url(/fonts/FiraSans/FiraSans-Light.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Light.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans Light';
+    src: url(/fonts/FiraSans/FiraSans-LightItalic.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-LightItalic.woff) format('woff');
     font-weight: normal;
     font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fira Sans Light';
+    src: url(/fonts/FiraSans/FiraSans-Medium.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Medium.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
 }
 
 /* General structure */
@@ -57,24 +57,28 @@ html {
 
 body {
     color: #333;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 14px;
+    font-family: 'Fira Sans Light', Arial, sans-serif;
+    font-size: 0.9em;
     line-height: 1.5;
     margin: 0 auto;
     padding: 0;
-    border-top: 1px solid #fff;
     position: relative;
-    background-color: #cadded;
-    background-image: url(/img/grain.png), linear-gradient(to bottom, #cadded 0%, #f6f4ec 100%);
-    background-origin: padding-box, padding-box;
-    background-position: 0 0, 0 0, 0 0;
-    background-repeat: repeat;
-    background-size: auto auto, auto auto, auto auto;
     min-width: 320px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#main-wrapper {
+    background-color: #cce0f0;
+    border-top: 1px solid #fff;
+    padding-bottom: 0.5em;
+    flex: 1;
+    -ms-flex: 1 0 0;
 }
 
 #pagecontent {
-    padding: 0 5px;
+    padding: 0 15px;
 }
 
 a,
@@ -90,33 +94,46 @@ a:hover {
 
 #beta-badge {
     position: absolute;
-    width: 80px;
+    width: 130px;
     height: 80px;
-    top: 0;
-    left: 0;
-    background: url(/img/beta_ribbon.png) top left no-repeat transparent;
+    top: -25px;
+    left: -50px;
+    background-color: #ed3860;
+    text-align: center;
+    line-height: 120px;
+    transform: rotate(-45deg);
 }
 
 #beta-badge span {
-    display: none;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.2em;
+    color: #fff;
 }
-
 /* Titles */
+
+#current {
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
+}
 
 h1,
 h2,
 #current {
-    font-family: 'Open Sans Light', Arial, sans-serif;
     color: #333;
-    font-size: 1.4em;
+    font-size: 1.5em;
     text-align: center;
     margin: 0.5em auto;
-    width: 80%;
+    width: 90%;
     clear: both;
+    max-width: 1014px;
 }
 
-h1 img {
-    width: 350px;
+#logo {
+    margin: 0 auto;
+}
+
+#logo img {
+    width: 250px;
 }
 
 h1 a,
@@ -125,17 +142,22 @@ h1 a:visited {
 }
 
 h2 {
-    width: 80%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #a9a9a9;
     padding: 15px 0;
 }
 
 h3 {
-    width: 80%;
+    width: 100%;
     padding: 15px 0;
     text-align: center;
     font-size: 18px;
     margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
 }
 
 .subtitle {
@@ -143,8 +165,9 @@ h3 {
 }
 
 #page_title {
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
     border-bottom: none;
-    font-size: 1.8em;
+    font-size: 1.9em;
     font-weight: normal;
     padding-bottom: 0;
 }
@@ -159,9 +182,9 @@ h3 {
 }
 
 #current {
-    font-size: 1.8em;
+    font-size: 1.9em;
     padding: 0.1em 0;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 #current strong {
@@ -169,14 +192,13 @@ h3 {
     padding: 0 0.5em;
     border-left: 1px solid #a9a9a9;
     margin-left: 0.5em;
-    color: #ffa500;
+    color: #ff9500;
 }
 
 /* Top and bottom links */
 
 .links {
     clear: both;
-    font-family: 'Open Sans Light', Arial, sans-serif;
     font-size: 1em;
     margin: 4em auto 1em auto;
     text-align: left;
@@ -206,20 +228,20 @@ h3 {
 }
 
 #qa_column {
-    width: 350px;
+    width: 360px;
     border-left: 1px dotted #d9d9d9;
     border-right: 1px dotted #d9d9d9;
 }
 
 #qa_column ul {
-    width: 165px;
+    width: 172px;
 }
 
 #links-top {
     width: 100%;
     background: #fff;
     margin: 0;
-    padding: 50px 0 10px;
+    padding: 20px 0 10px;
     float: left;
     display: none;
 }
@@ -235,7 +257,10 @@ h3 {
 
 #links-top-button-container {
     width: 100%;
+    max-width: 1014px;
     height: 36px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #links-top-button span {
@@ -263,7 +288,7 @@ h3 {
 }
 
 #noscript-warning {
-    color: #f2294b;
+    color: #ed3860;
     text-align: center;
     font-weight: bold;
     padding: 0 30px;
@@ -344,7 +369,7 @@ td a.onestring_search:hover {
 td a em,
 td em.error {
     font-style: normal;
-    color: #f00;
+    color: #ed3860;
 }
 
 td a.tag {
@@ -390,7 +415,7 @@ td .result_meta_link span {
 }
 
 td .result_meta_link .source_link {
-    color: #ffa500;
+    color: #ff9500;
 }
 
 td .result_meta_link .bug_link {
@@ -398,12 +423,9 @@ td .result_meta_link .bug_link {
 }
 
 #footer {
-    font-style: italic;
     text-align: center;
-    font-family: 'Times New Roman', serif;
     font-size: 0.9em;
-    clear: both;
-    padding-top: 2em;
+    padding: 1em;
     line-height: 0.4;
 }
 
@@ -418,7 +440,7 @@ table tr td.no_highligth {
 }
 
 .red {
-    color: rgb(200, 0, 0);
+    color: rgb(237, 56, 96);
 }
 
 .green {
@@ -460,7 +482,6 @@ table tr td.no_highligth {
 
 .superset {
     color: #808080;
-    font-size: 80%;
 }
 
 /* Search form */
@@ -476,31 +497,10 @@ table tr td.no_highligth {
 }
 
 .searchedTerm {
+    font-family: 'Fira Sans UltraLight', sans-serif;
     font-style: italic;
     opacity: 0.8;
     font-variant: normal;
-}
-
-input[type='submit'],
-.button {
-    background-color: #277ac1;
-    background-image: linear-gradient(#43a6e2, #277ac1);
-    background-repeat: repeat-x;
-    border: 0 none;
-    border-radius: 0.25em 0.25em 0.25em 0.25em;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    line-height: 1.1;
-    margin-top: 33px;
-    min-width: 80px;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-    transition: all 0.25s linear 0s;
 }
 
 #root input[type='submit'] {
@@ -509,12 +509,45 @@ input[type='submit'],
     vertical-align: middle;
 }
 
-input[type='submit']:hover,
-.button:hover {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 0 12px 24px 2px #38a9ed inset;
+.button,
+input[type='submit'] {
+    display: inline-block;
+    border-radius: 6px;
+    transition: all linear 0.25s;
+    text-align: center;
+    line-height: 1.1;
+    min-width: 80px;
+    padding: 9px 30px;
+    background: #0095dd;
     color: #fff;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.button:hover,
+.button:focus,
+input[type='submit']:hover,
+input[type='submit']:focus {
     text-decoration: none;
-    transition: all 0.25s linear 0s;
+    background: #18a4e9;
+    color: #fff;
+}
+
+.button.action {
+    border-radius: 3px;
+    min-width: 50px;
+    padding: 5px 10px;
+    background: #f7f7f7;
+    color: #333;
+    font-size: 13px;
+    text-transform: none;
+}
+
+.button.action:hover,
+.button.action:focus {
+    background: #fff;
 }
 
 fieldset {
@@ -524,15 +557,84 @@ fieldset {
     margin: 0.5em 0 0;
 }
 
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type="checkbox"] + label:before {
+    content: "";
+    display: inline-block;
+    cursor: pointer;
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    border: 1px solid #c1c1c1;
+    margin: -2px 7px 0 0;
+    background-color: #f1f1f1;
+    background-image: linear-gradient(#fff, rgba(255, 255, 255, 0.8));
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 1px 0 rgb(255, 255, 255), inset 0 1px 0 0 rgba(0, 0, 0, 0.03);
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:not(:disabled) + label:hover::before {
+    border-color: #0095dd;
+}
+
+input[type="checkbox"]:checked + label:before {
+    background-image: url(/img/check.svg#check), linear-gradient(#fff, rgba(255, 255, 255, 0.8));
+}
+
+input[type="checkbox"]:disabled + label:before {
+    opacity: 0.5;
+    cursor: default;
+}
+
+input[type="checkbox"]:disabled + label {
+    opacity: 0.8;
+}
+
+.select-style {
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+    background-position: center right 10px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    border-color: #b2b2b2;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    min-width: 110px;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.select-style select {
+    padding: 5px 30px 5px 8px;
+    display: block;
+    min-width: 110px;
+    width: 100%;
+    font-size: 1em;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
 #main_search select {
     display: block;
-    width: 110px;
     font-size: 0.8em;
 }
 
 #main_search #search_type {
     display: block;
-    width: 140px;
 }
 
 #main_search #search {
@@ -540,24 +642,31 @@ fieldset {
 }
 
 #main_search #search input[type='text'] {
-    background: none repeat scroll 0 0 #fff;
+    background: #fff;
     border-color: #b2b2b2;
-    border-radius: 3px 3px 3px 3px;
     border-style: solid;
     border-width: 1px;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 3px;
     box-shadow: 0 1px rgba(255, 255, 255, 0.5);
-    font-size: 12px;
-    height: 22px;
-    padding: 5px 7px;
-    transition: all 0.1s linear 0s;
+    transition: all linear .1s;
+    line-height: 1.7;
     width: calc(80% - 20px);
     padding-right: 20px;
     vertical-align: middle;
 }
 
+
+#main_search #search input[type='text']:focus {
+    border-color: #42a4e0;
+    box-shadow: 0 0 0 2px rgba(73, 173, 227, 0.4);
+    transition: all linear .1s;
+}
+
 #main_search #searchcontext {
-    font-size: 0.8em;
-    margin-top: 2px;
+    font-size: 0.9em;
+    margin: 2px 0 0 0;
     padding-left: 9px;
 }
 
@@ -567,7 +676,7 @@ fieldset {
 
 #main_search fieldset {
     margin-bottom: 0.5em;
-    vertical-align: top;
+    vertical-align: middle;
     min-height: 5em;
 }
 
@@ -576,12 +685,12 @@ fieldset {
     font-weight: bold;
 }
 
-#main_search fieldset .default_option input {
+#main_search fieldset .mainsearch_default_checkbox {
     float: left;
     margin: 0.45em 0.3em 0 0;
 }
 
-#main_search fieldset .default_option span {
+#main_search fieldset .default_option {
     float: left;
     font-size: 0.75em;
     padding-top: 0.2em;
@@ -607,11 +716,18 @@ fieldset {
     right: 0;
     width: 40px;
     height: 22px;
-    background: url(/img/clear_icon_18x18.png) center no-repeat transparent;
+    cursor: pointer;
+}
+
+#clear_search:before {
+    content: "×";
+    font-family: 'Fira Sans UltraLight', sans-serif;
+    font-size: 2.5em;
+    line-height: 0.5em;
 }
 
 #advanced_search {
-    width: 250px;
+    width: 230px;
     text-align: left;
 }
 
@@ -624,7 +740,7 @@ fieldset {
     font-size: 1em;
     display: block;
     float: left;
-    width: 110px;
+    width: 115px;
 }
 
 #simplesearchform {
@@ -691,20 +807,23 @@ fieldset {
     padding: 5px 10px;
     margin: 2px;
     border-radius: 0.25em 0.25em 0.25em 0.25em;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset;
     line-height: 1.1;
     border: 0 none;
     text-decoration: none;
     min-width: 60px;
+    transition: all linear 0.25s;
 }
 
 #filters .filter.selected {
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     font-weight: bold;
-    background-color: #277ac1;
-    background-image: linear-gradient(#43a6e2, #277ac1);
-    background-repeat: repeat-x;
     color: #fff;
+    background-color: #0095dd;
+    border: none;
+    cursor: pointer;
+}
+
+#filters .filter.selected:hover {
+    background-color: #18a4e9;
 }
 
 #filters .filter:hover {
@@ -741,7 +860,7 @@ fieldset {
 
 .alert {
     color: #fff;
-    background-color: #ffa500;
+    background-color: #ff9500;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
 }
 
@@ -756,9 +875,9 @@ fieldset {
     border-radius: 0.33em;
     margin: 0 6px;
     display: inline-block;
-    background: #e04e54 none repeat scroll 0 0;
+    background: #ed3860 none repeat scroll 0 0;
     text-transform: uppercase;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 0.1em;
     position: relative;
     top: -2px;
@@ -772,10 +891,6 @@ fieldset {
 #consistency .message {
     width: 50%;
     margin: 0 auto;
-}
-
-#consistency #simplesearch_filter {
-    width: 200px;
 }
 
 #consistency #filter_message {
@@ -820,6 +935,7 @@ fieldset {
 #credits #pagecontent {
     margin: 30px auto;
     width: 80%;
+    max-width: 1014px;
 }
 
 #credits #pagecontent ul {
@@ -856,6 +972,10 @@ fieldset {
 /* Responsive */
 
 @media only screen and (max-width: 850px) {
+    #current {
+        font-size: 1.6em;
+    }
+
     table.collapsable,
     table.collapsable thead,
     table.collapsable tbody,
@@ -912,12 +1032,17 @@ fieldset {
         font-size: 12px;
     }
 
-    h1 img {
-        width: 300px;
+    #logo img {
+        width: 200px;
     }
 
     h2 {
         font-size: 1.2em;
+    }
+
+    #beta-badge {
+        top: -30px;
+        left: -55px;
     }
 
     #current {
@@ -973,10 +1098,13 @@ fieldset {
 }
 
 @media only screen and (max-width: 460px) {
-    h1 img {
-        width: 200px;
+    #logo img {
+        width: 150px;
     }
 
+    #current {
+        margin-top: 10px;
+    }
     #current,
     h2 {
         font-size: 1.1em;
@@ -1060,12 +1188,12 @@ fieldset {
         text-align: left;
     }
 
-    #main_search fieldset .default_option input,
-    #main_search fieldset .default_option span {
+    #main_search fieldset .default_option,
+    #main_search fieldset .mainsearch_default_checkbox {
         float: none;
     }
 
-    #main_search select,
+    #main_search fieldset .select-style select,
     #main_search #search_type {
         display: inline;
     }
@@ -1075,14 +1203,14 @@ fieldset {
         min-width: 8em;
     }
 
-    #main_search fieldset select,
+    #main_search fieldset .select-style,
     #main_search fieldset select#search_type {
         display: inline-block;
-        width: 13em;
+        min-width: 110px;
     }
 
     #main_search fieldset#locale_switch {
-        margin: -1.2em 0;
+        margin: 0;
         padding: 0 0 0 14.5em;
         background: url(/img/swap_icon_vert_18x18.png) center no-repeat transparent;
     }
@@ -1150,22 +1278,12 @@ fieldset {
     z-index: 98;
 }
 
-.tooltip:hover::before {
-    position: absolute;
-    border: solid;
-    border-color: #fff transparent;
-    border-width: 6px 6px 0 6px;
-    bottom: 20px;
-    content: "";
-    left: 60%;
-    z-index: 99;
-}
-
 /* Unlocalized words view */
 #unlocalized_all #button-toggle {
     margin: -20px auto 0;
     display: block;
     font-size: 1em;
+    text-transform: none;
 }
 
 #unlocalized_all fieldset#grpChkBox {

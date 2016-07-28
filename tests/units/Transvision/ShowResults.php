@@ -120,7 +120,7 @@ class ShowResults extends atoum\test
         $obj = new _ShowResults();
         $this
             ->string($obj->formatEntity($a, $b))
-                ->isEqualTo('<span class="green">browser</span><span class="superset">&nbsp;&sup;&nbsp;</span>chrome<span class="superset">&nbsp;&sup;&nbsp;</span>browser<span class="superset">&nbsp;&sup;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>');
+                ->isEqualTo('<span class="green">browser</span><span class="superset">&nbsp;&bull;&nbsp;</span>chrome<span class="superset">&nbsp;&bull;&nbsp;</span>browser<span class="superset">&nbsp;&bull;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>');
     }
 
     public function getStringFromEntityDP()

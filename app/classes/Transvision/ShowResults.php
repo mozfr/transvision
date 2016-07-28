@@ -210,9 +210,9 @@ class ShowResults
         $chunk = explode('/', $chunk[0]);
         $repo  = '<span class="green">' . array_shift($chunk) . '</span>';
 
-        $path = implode('<span class="superset">&nbsp;&sup;&nbsp;</span>', $chunk);
+        $path = implode('<span class="superset">&nbsp;&bull;&nbsp;</span>', $chunk);
 
-        return $repo . '<span class="superset">&nbsp;&sup;&nbsp;</span>' . $path . '<br>' . $entity;
+        return $repo . '<span class="superset">&nbsp;&bull;&nbsp;</span>' . $path . '<br>' . $entity;
     }
 
     /**

@@ -13,7 +13,7 @@ include __DIR__ . '/simplesearchform.php';
 <p>Click on each checkbox below to show/hide the corresponding column.</p>
 <fieldset id="grpChkBox">
     <?php foreach ($all_locales as $locale) : ?>
-    <label><input type="checkbox" name="<?=$locale?>" /> <?=$locale?></label>
+    <input type="checkbox" name="<?=$locale?>" id="<?=$locale?>" /><label for="<?=$locale?>"><?=$locale?></label>
     <?php endforeach ?>
 </fieldset>
 </div>

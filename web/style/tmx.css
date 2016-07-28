@@ -22,8 +22,8 @@
     text-align: left;
 }
 
-#TMX_locales select,
-#TMX_format select {
+#TMX_locales .select-style,
+#TMX_format .select-style {
     float: left;
 }
 
@@ -34,10 +34,6 @@
 
 #TMX_checkboxes p {
     margin: 0.3em 0 0.6em;
-}
-
-#TMX_checkboxes p label {
-    font-size: 1em;
 }
 
 #TMX_results {
@@ -51,7 +47,7 @@
 }
 
 #TMX_results #error {
-    color: #f00;
+    color: #ed3860;
     font-weight: bold;
 }
 
@@ -59,18 +55,8 @@
     color: #008000;
 }
 
-#TMX_results .button {
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: bold;
-    color: #fff;
-}
-
 #download {
     margin-left: auto;
     margin-right: auto;
     display: block;
-}
-
-#select {
-    font-size: 0.9em;
 }

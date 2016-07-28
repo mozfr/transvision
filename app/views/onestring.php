@@ -20,7 +20,7 @@ include VIEWS . 'templates/api_promotion.php';
 ?>
 
 <table>
-    <tr>
+    <tr class="column_headers">
         <th>Locale</th>
         <th>Translation</th>
         <th>&nbsp;</th>
