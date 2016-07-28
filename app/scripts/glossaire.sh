@@ -168,7 +168,7 @@ function updateStandardRepo() {
 
     updated_english=false
 
-    # Store md5 of the existing cache before updating the repositories
+    # Store md5 of the existing en-US cache before updating the repositories
     cache_file="${root}TMX/en-US/cache_en-US_${repo_name}.php"
     if [ -f $cache_file ]
     then
@@ -224,6 +224,14 @@ function updateStandardRepo() {
                 then
                     echored "Cache doesn't exist for ${repo_name}/${locale}"
                     updated_locale=1
+                else
+                    php -l $cache_file 2>&1 1>/dev/null
+                    if [ $? -ne 0 ]
+                    then
+                        # There are PHP errors, force the rebuild
+                        echored "PHP errors in $cache_file. Forcing rebuild."
+                        updated_locale=1
+                    fi
                 fi
 
                 if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
@@ -300,11 +308,12 @@ function updateGaiaRepo() {
         existing_md5=0
     fi
 
-    # Update en-US and build its TMX
+    # Update en-US, build its TMX and compare md5 hash
     if [ "$checkrepo" = true ]
     then
         updateLocale ${!repo_name} en-US $repo_name/en-US
     fi
+    buildCache en-US
     updated_md5=($(md5sum $cache_file))
     if [ $existing_md5 != $updated_md5 ]
     then
@@ -335,6 +344,14 @@ function updateGaiaRepo() {
                     then
                         echored "Cache doesn't exist for ${repo_name}/${locale}"
                         updated_locale=1
+                    else
+                        php -l $cache_file 2>&1 1>/dev/null
+                        if [ $? -ne 0 ]
+                        then
+                            # There are PHP errors, force the rebuild
+                            echored "PHP errors in $cache_file. Forcing rebuild."
+                            updated_locale=1
+                        fi
                     fi
 
                     if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
