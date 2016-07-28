@@ -48,7 +48,7 @@ foreach ($repos_nice_names as $repo => $name) {
         <fieldset id="TMX_checkboxes">
             <label>Select which strings to include in the TMX file</label>
             <?=$checkboxes?>
-            <button id="select" onclick="return false;">Select all</button>
+            <button id="select" class="button action" onclick="return false;">Select all</button>
         </fieldset>
         <input type="submit" id="test" class="button" value="Generate the TMX »" alt="Generate the TMX" onclick="this.value='Generating the TMX…'" />
     </fieldset>

@@ -536,6 +536,21 @@ input[type='submit']:focus {
     color: #fff;
 }
 
+.button.action {
+    border-radius: 3px;
+    min-width: 50px;
+    padding: 5px 10px;
+    background: #f7f7f7;
+    color: #333;
+    font-size: 13px;
+    text-transform: none;
+}
+
+.button.action:hover,
+.button.action:focus {
+    background: #fff;
+}
+
 fieldset {
     border: none;
     display: inline-block;
