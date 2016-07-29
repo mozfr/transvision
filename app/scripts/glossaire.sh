@@ -257,6 +257,14 @@ function updateStandardRepo() {
             then
                 echored "Cache doesn't exist for ${repo_name}/${locale_code}"
                 updated_locale=1
+            else
+                php -l $cache_file 2>&1 1>/dev/null
+                if [ $? -ne 0 ]
+                then
+                    # There are PHP errors, force the rebuild
+                    echored "PHP errors in $cache_file. Forcing rebuild."
+                    updated_locale=1
+                fi
             fi
 
             if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
@@ -378,6 +386,14 @@ function updateGaiaRepo() {
             then
                 echored "Cache doesn't exist for ${repo_name}/${locale_code}"
                 updated_locale=1
+            else
+                php -l $cache_file 2>&1 1>/dev/null
+                if [ $? -ne 0 ]
+                then
+                    # There are PHP errors, force the rebuild
+                    echored "PHP errors in $cache_file. Forcing rebuild."
+                    updated_locale=1
+                fi
             fi
 
             if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
