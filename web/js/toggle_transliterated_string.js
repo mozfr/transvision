@@ -1,9 +1,9 @@
 $(document).ready(function() {
     $('.transliterate_button').click(function(event) {
-        var $transliterated = $('#transliterate_' + event.target.getAttribute('data-transliterated-id'));
-        var $normal = $('#string_' + event.target.getAttribute('data-transliterated-id'));
-        event.preventDefault();
         var id = event.target.getAttribute('data-transliterated-id');
+        var $transliterated = $('#transliterate_' + id);
+        var $normal = $('#string_' + id);
+        event.preventDefault();
         $normal.toggle();
         $transliterated.toggle();
         if ($normal.css('display') === 'none') {
