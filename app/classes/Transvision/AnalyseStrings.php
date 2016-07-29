@@ -43,11 +43,6 @@ class AnalyseStrings
         $pattern_mismatch = [];
 
         switch ($repo) {
-            case Strings::startsWith($repo, 'gaia'):
-                $patterns = [
-                    'l10njs' => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu', // {{foobar2}}
-                ];
-                break;
             case 'firefox_ios':
                 $patterns = [
                     'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.

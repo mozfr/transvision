@@ -205,7 +205,7 @@ class Health
 
     /**
      * Create a panel containing tabs with info for all the repos of this group
-     * For instance, a panel with tabs for each gaia repo.
+     * For instance, a panel with tabs for mozilla_org and firefox_ios repos.
      *
      * @param  array  $data Array containing all the data for each repo
      * @return string HTML element to add in the repo tab

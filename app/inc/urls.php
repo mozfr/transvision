@@ -11,7 +11,6 @@ $urls = [
     'credits'           => 'credits',
     'downloads'         => 'downloads',
     'showrepos'         => 'showrepos',
-    'gaia'              => 'gaia',
     'unchanged'         => 'unchangedstrings',
     'unlocalized'       => 'unlocalized',
     'unlocalized-all'   => 'unlocalized_all',

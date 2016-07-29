@@ -25,7 +25,6 @@ class VersionControl
         ];
         $vcs['hg'] = array_merge(
             Project::getDesktopRepositories(),
-            Project::getGaiaRepositories(),
             $vcs['hg']
         );
         foreach ($vcs as $system => $repos) {
@@ -48,11 +47,6 @@ class VersionControl
         // Desktop
         if (Project::isDesktopRepository($repo)) {
             $repo = strtoupper($repo == 'central' ? 'trunk' : $repo) . '_L10N';
-        }
-
-        // Gaia
-        if (substr($repo, 0, 4) == 'gaia') {
-            $repo = strtoupper($repo);
         }
 
         return $repo;
@@ -78,27 +72,6 @@ class VersionControl
         $path          = implode('/', $path);
         $exploded_path = explode('/', $path);
         $base_folder   = $exploded_path[0];
-
-        if (Strings::startsWith($repo, 'gaia')
-            || in_array(
-                $base_folder,
-                [
-                    'apps', 'shared', 'showcase_apps',
-                    'test_apps', 'test_external_apps',
-                ]
-            )
-        ) {
-            $locale = Project::getLocaleInContext($locale, $repo);
-
-            if ($repo == 'gaia') {
-                $url .= '/gaia-l10n/' . $locale . '/file/default/';
-            } else {
-                $version = str_replace('gaia_', '', $repo);
-                $url .= '/releases/gaia-l10n/v' . $version . '/' . $locale . '/file/default/';
-            }
-
-            return $url . $path . '/' . $entity_file;
-        }
 
         $en_US_folder_mess = [
             'b2g/',

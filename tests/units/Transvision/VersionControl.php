@@ -15,9 +15,6 @@ class VersionControl extends atoum\test
                 'mozilla_org', 'git',
             ],
             [
-                'gaia_2_5', 'hg',
-            ],
-            [
                 'central', 'hg',
             ],
             [
@@ -40,12 +37,6 @@ class VersionControl extends atoum\test
     public function VCSRepoNameDP()
     {
         return [
-            [
-                'gaia', 'GAIA',
-            ],
-            [
-                'gaia_42_0', 'GAIA_42_0',
-            ],
             [
                 'central', 'TRUNK_L10N',
             ],
@@ -80,24 +71,6 @@ class VersionControl extends atoum\test
                 'beta',
                 'browser/updater/updater.ini:TitleText',
                 'https://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini',
-            ],
-            [
-                'es-ES',
-                'gaia',
-                'apps/settings/settings.properties:usb-tethering',
-                'https://hg.mozilla.org/gaia-l10n/es/file/default/apps/settings/settings.properties',
-            ],
-            [
-                'de',
-                'gaia',
-                'shared/date/date.properties:month-7-long',
-                'https://hg.mozilla.org/gaia-l10n/de/file/default/shared/date/date.properties',
-            ],
-            [
-                'sr-Cyrl',
-                'gaia_2_5',
-                'shared/date/date.properties:month-7-long',
-                'https://hg.mozilla.org/releases/gaia-l10n/v2_5/sr-Cyrl/file/default/shared/date/date.properties',
             ],
             [
                 'en-US',

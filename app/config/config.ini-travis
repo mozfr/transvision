@@ -12,7 +12,7 @@ install=/home/travis/build/mozfr/transvision/
 config=/home/travis/build/mozfr/transvision/app/config
 
 ; URL to l10n web service. Wrap the value between quotes if the URL contains special characters like ~
-l10nwebservice = "https://l10n.mozilla-community.org/~flod/mozilla-l10n-query/"
+l10nwebservice = "https://flod.org/mozilla-l10n-query/"
 
 ; Path to the local Mercurial clones, both en-US and l10n. Could be external
 ; to the Git checkout of Transvision, as long as scripts have access to it.
@@ -28,7 +28,6 @@ local_svn=/home/travis/build/mozfr/transvision/data/svn
 
 ; This path is used to store libraries (e.g. silme)
 libraries=/home/travis/build/mozfr/transvision/data/libraries
-
 
 ; Flag to know if we are working in production more or development mode
 dev=true

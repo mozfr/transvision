@@ -45,13 +45,12 @@ $links = <<<EOT
   <ul>
     {$li_link('keys', 'Check your access keys', 'Access Keys')}
     {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
-    {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
     {$li_link('unlocalized_all', 'Display common words remaining in English', 'Unlocalized Words')}
   </ul>
   <ul>
+    {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
     {$li_link('channelcomp', 'Compare strings betwen channels', 'Channel Comparison')}
-    {$li_link('gaia', 'Compare strings across Gaia channels', 'Gaia Comparison')}
     {$li_link('showrepos', 'Check the health status of locales', 'Health Status Overview')}
     {$li_link('productization', 'Show productization aspects', 'Productization')}
   </ul>

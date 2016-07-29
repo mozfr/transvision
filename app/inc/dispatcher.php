@@ -70,11 +70,6 @@ switch ($url['path']) {
         $css_files[] = 'tmx.css';
         $js_files[]  = '/js/select_all.js';
         break;
-    case 'gaia':
-        $view       = 'gaia';
-        $page_title = 'Gaia Comparison';
-        $page_descr = 'Check the Status of your GAIA strings across repositories.';
-        break;
     case 'news':
         $controller  = 'changelog';
         $page_title  = 'Transvision News and Release Notes';

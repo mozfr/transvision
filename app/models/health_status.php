@@ -152,15 +152,13 @@ foreach (Project::getRepositories() as $repo) {
             }
         } else {
             // Define if grouped repos in the view then store the data in the same place
-            $grouped_repos = in_array($repo, Project::getGaiaRepositories()) ? 'gaia' : 'others';
-
-            $projects[$grouped_repos][$repo] = Health::getStatus(
+            $projects['others'][$repo] = Health::getStatus(
                 Project::getRepositoriesNames()[$repo],
                 $strings[$ref_locale][$repo],
                 $strings[$locale][$repo]
             );
 
-            $projects[$grouped_repos][$repo]['stats'] = $stats;
+            $projects['others'][$repo]['stats'] = $stats;
         }
 
         unset($strings);
@@ -195,10 +193,6 @@ foreach ($projects as $project => $repos) {
             $new_tab = true;
         }
         switch ($project) {
-            case 'gaia':
-                $name = 'Gaia';
-                $single_stats_pane = false;
-                break;
             case 'others':
                 $name = 'Other repositories';
                 $repo = $project;
@@ -278,15 +272,6 @@ if (! empty($projects)) {
             if (in_array($repo, array_keys(Project::$components_names))) {
                 $tmp_projects[] = Project::$components_names[$repo];
             }
-        }
-        $active_projects .= implode(', ', $tmp_projects) . '</li>';
-    }
-
-    if (isset($projects['gaia'])) {
-        $active_projects .= '<li><b>Gaia:</b> ';
-        $tmp_projects = [];
-        foreach (array_keys($projects['gaia']) as $repo) {
-            $tmp_projects[] = Project::getRepositoriesNames()[$repo];
         }
         $active_projects .= implode(', ', $tmp_projects) . '</li>';
     }

@@ -15,11 +15,11 @@ use Monolog\Logger;
  * Calls are like this:
  * api/<version>/<service>/<repository>/<search type>/<source locale>/<target locale>/<url escaped search>/?optional_parameter1=foo&optional_parameter2=bar
  * Example for an entity search containing bookmark:
- * http://transvison.mozfr.org/api/v1/tm/release/entity/en-US/fr/bookmark/?case_sensitive=1
+ * https://transvision.mozfr.org/api/v1/tm/release/entity/en-US/fr/bookmark/?case_sensitive=1
  * (tm = translation memory service)
  *
  * Example for the list of locales supported for a repo:
- * http://transvison.mozfr.org/api/v1/locales/gaia/
+ * https://transvision.mozfr.org/api/v1/locales/mozilla_org/
  *
  * List of services:
  * entity:        Return translations for all locales of a Mozilla entity

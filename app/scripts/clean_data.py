@@ -50,16 +50,11 @@ def main():
     for id, repository in json_repositories.iteritems():
         repository_id = repository['id']
 
-        if repository_id.startswith('gaia'):
-            # Gaia repositories don't use 'L10N' in the folder name, just
-            # transform the repository ID to uppercase.
-            folder_name = repository_id.upper()
-        else:
-            # Check if this repository is mapped to a special folder name
-            # (e.g. central -> trunk), otherwise use the repository ID
-            # (transformed to uppercase) with '_L10N' as folder name.
-            folder_name = folder_mapping.get(
-                repository_id, repository_id.upper() + '_L10N')
+        # Check if this repository is mapped to a special folder name
+        # (e.g. central -> trunk), otherwise use the repository ID
+        # (transformed to uppercase) with '_L10N' as folder name.
+        folder_name = folder_mapping.get(
+            repository_id, repository_id.upper() + '_L10N')
         known_folders.append(folder_name)
 
         # Store supported locales for this repository
@@ -78,12 +73,11 @@ def main():
 
     # List all .txt files in /sources
     print '--\nAnalyzing sources in config/sources'
-    excluded_files = ['gaia_versions']
 
     need_cleanup = False
     for txtfile in glob.glob(os.path.join(sources_path, '*.txt')):
         filename = os.path.splitext(os.path.basename(txtfile))[0]
-        if not filename in supported_repositories.keys() + excluded_files:
+        if not filename in supported_repositories.keys():
             print '{0}.txt is not a supported repository.'.format(filename)
             need_cleanup = True
             if args.delete:

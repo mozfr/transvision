@@ -1148,7 +1148,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
         [
-            'message' => ['<a href="https://transvision.mozfr.org/gaia/">Gaia view</a> now has URL anchors for subsections and less false positives in translation consistency table'],
+            'message' => ['Gaia view now has URL anchors for subsections and less false positives in translation consistency table'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'authors' => ['flod'],
@@ -1241,7 +1241,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
         [
-            'message' => ['<strong>Translation Consistency in Gaia view:</strong> The <a href="https://transvision.mozfr.org/gaia/">gaia view</a> has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context'],
+            'message' => ['<strong>Translation Consistency in Gaia view:</strong> The gaia view has an additional table listing all the inconsistencies in translations in your repository, those are of course not necessarily bugs as an English term can be translated differently depending on context'],
             'section' => ['end_user'],
             'type'    => ['new'],
             'authors' => ['flod'],
@@ -1302,7 +1302,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
         [
-            'message' => ['<strong>Dynamic Gaia comparison view:</strong> allows <a href="https://transvision.mozfr.org/gaia/?locale=fr&amp;repo1=gaia_1_3&amp;repo2=gaia_1_4">comparison of combinations of repositories/locales</a>'],
+            'message' => ['<strong>Dynamic Gaia comparison view:</strong> allows comparison of combinations of repositories/locales'],
             'section' => ['end_user'],
             'type'    => ['new'],
             'authors' => ['tchevalier'],
@@ -1419,7 +1419,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
         [
-            'message' => ['Switched Gaia comparison view to 1.3 in <a href="https://transvision.mozfr.org/gaia/">QA view</a>'],
+            'message' => ['Switched Gaia comparison view to 1.3 in QA view'],
             'section' => ['end_user'],
             'authors' => ['pike'],
         ],
@@ -1469,7 +1469,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
         [
-            'message' => ['On the <a href="https://transvision.mozfr.org/gaia/#englishchanges">Gaia comparison</a> view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change'],
+            'message' => ['On the Gaia comparison view list the strings that have changed significantly in English between Gaia 1.1 and 1.2 releases without an entity change'],
             'section' => ['end_user'],
             'authors' => ['pascal'],
         ],
@@ -1509,7 +1509,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
         [
-            'message' => ['The new view showing all strings for a translation also <a href="https://transvision.mozfr.org/string/?entity=apps/homescreen/homescreen.properties:evme-searchbar-default.placeholder&amp;repo=gaia&amp;json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service'],
+            'message' => ['The new view showing all strings for a translation also <a href="https://transvision.mozfr.org/api/v1/entity/aurora/?id=browser/chrome/browser/aboutDialog.dtd:aboutDialog.title&amp;json">exists as a Json/JsonP source</a> which means that a string can be imported for all locales into another project via this web service'],
             'section' => ['developers'],
             'authors' => ['pascal'],
         ],
@@ -1531,7 +1531,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
         [
-            'message' => ['New (experimental) <a href="https://transvision.mozfr.org/gaia/">QA view for strings in Gaia repos</a> listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention'],
+            'message' => ['New (experimental) QA view for strings in Gaia repos listing the differences in translations for the same entities across gaia-l10n, gaia_1.1 and gaia_1.2 repos as well as listing all the strings added to Gaia 1.2 as they require more attention'],
             'section' => ['end_user'],
             'type'    => ['experimental'],
             'authors' => ['pascal'],

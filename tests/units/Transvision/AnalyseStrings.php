@@ -40,7 +40,7 @@ class AnalyseStrings extends atoum\test
             [
                 ['browser:foobar2' => '{{name}}, +{{n}} more'],
                 ['browser:foobar2' => '{{name}} et un autre'],
-                'gaia',
+                'central',
                 [],
                 ['browser:foobar2'],
             ],
@@ -135,7 +135,7 @@ class AnalyseStrings extends atoum\test
                 // {{n}} vs {{ n }} (not an error)
                 ['browser:foobar13' => '{{name}}, +{{n}} more'],
                 ['browser:foobar13' => '{{ name }} et {{ n }} autre'],
-                'gaia',
+                'central',
                 [],
                 [],
             ],
@@ -143,7 +143,7 @@ class AnalyseStrings extends atoum\test
                 // {{n}} vs {{ n }}, changed order (not an error)
                 ['browser:foobar14' => '{{ n}} more and {{ name }}'],
                 ['browser:foobar14' => '{{name}} et {{n}} autre'],
-                'gaia',
+                'central',
                 [],
                 [],
             ],
@@ -151,7 +151,7 @@ class AnalyseStrings extends atoum\test
                 // Non-breaking space in {{ n }} (not an error)
                 ['browser:foobar15' => '{{ appName }} installed'],
                 ['browser:foobar15' => '{{ appName }} ইনস্টল রয়েছে'],
-                'gaia',
+                'central',
                 [],
                 [],
             ],
