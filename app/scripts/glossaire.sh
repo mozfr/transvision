@@ -39,48 +39,53 @@ function echo_manual() {
     echo "---"
     echo "To update only one locale, and avoid creating a data snapshot at the end, add locale code and 'no-snapshot'"
     echo "(e.g. 'glossaire.sh fr no-snapshot' to update only French without creating a data snapshot)."
+    echo "---"
+    echo "To avoid pulling changes from repositories, add 'no-update'"
+    echo "(e.g. 'glossaire.sh fr no-update' to update only French without updating repositories)."
+    echo "---"
+    echo "To force TMX creation, add 'force-tmx'"
+    echo "(e.g. 'glossaire.sh force-tmx' to update all locales and forcing TMX creation)."
+    echo "(e.g. 'glossaire.sh fr no-snapshot force-tmx' to update only French without creating a data snapshot and forcing TMX creation)."
 }
 
 all_locales=true
 create_snapshot=true
+forceTMX=false
+checkrepo=true
 
-if [ $# -eq 1 ]
-then
-    # I have one parameter, it could be 'no-snapshot' or a locale code
-    if [ "$1" == "help" ]
-    then
-        echo_manual
-        exit 1
-    elif [ "$1" == "no-snapshot" ]
-    then
-        create_snapshot=false
-    else
-        all_locales=false
-        locale_code=$1
-    fi
-fi
+while [[ $# -gt 0 ]]
+do
+    case $1 in
+        force-tmx)
+            forceTMX=true
+        ;;
+        help)
+            echo_manual
+            exit
+        ;;
+        no-snapshot)
+            create_snapshot=false
+        ;;
+        no-update)
+            checkrepo=false
+        ;;
+        *)
+            all_locales=false
+            locale_code=$1
+        ;;
+    esac
+    shift
+done
 
-if [ $# -eq 2 ]
+echo "Request summary:"
+echo "* Create data snapshot: ${create_snapshot}"
+echo "* Force TMX creation: ${forceTMX}"
+echo "* Update repositories: ${checkrepo}"
+if [ "$all_locales" = true ]
 then
-    # I have two parameters, I expect the first to be a locale code, the
-    # second to be 'no-snapshot'
-    all_locales=false
-    locale_code=$1
-    if [ "$2" != "no-snapshot" ]
-    then
-        echo "ERROR: incorrect arguments."
-        echo_manual
-        exit 1
-    fi
-    create_snapshot=false
-fi
-
-if [ $# -gt 2 ]
-then
-    # Too many parameters, warn and exit
-    echo "ERROR: too many arguments."
-    echo_manual
-    exit 1
+    echo "* Elaborate all locales: ${all_locales}"
+else
+    echo "* Elaborate locale: ${locale_code}"
 fi
 
 # Get configuration variables from config/config.ini
@@ -105,10 +110,6 @@ fi
 
 # Create all bash variables
 source $script_path/bash_variables.sh
-
-# Set if we need to update repositories or force TMX creation
-checkrepo=true
-forceTMX=false
 
 function updateLocale() {
     # Update this locale's repository
