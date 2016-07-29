@@ -136,6 +136,11 @@ h2,
     width: 250px;
 }
 
+/* Prevents the tiny resize of the logo on hover */
+#logo a:hover {
+    text-decoration: none;
+}
+
 h1 a,
 h1 a:visited {
     color: #333;
