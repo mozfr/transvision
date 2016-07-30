@@ -19,8 +19,8 @@
 
 @font-face {
     font-family: 'Fira Sans UltraLight';
-    src: url(/fonts/FiraSans/FiraSans-Regular.woff2) format('woff2'),
-         url(/fonts/FiraSans/FiraSans-Regular.woff) format('woff');
+    src: url(/fonts/FiraSans/FiraSans-Book.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Book.woff) format('woff');
     font-weight: bold;
     font-style: normal;
 }
@@ -351,9 +351,11 @@ th.select_header a:hover {
 }
 
 td {
+    font-family: 'Fira Sans UltraLight', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
     padding: 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 0.9em;
     vertical-align: top;
 }
 
@@ -379,7 +381,7 @@ td em.error {
 
 td a.tag {
     font-size: 75%;
-    color: #808080;
+    color: #333;
     background-color: #d1cfd0;
     padding: 0.2em 0.4em;
     border-radius: 0.25em;
