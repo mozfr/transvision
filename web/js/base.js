@@ -43,8 +43,7 @@ $(document).ready(function() {
         // Rebuild options with locales for new repository.
         $.each(supportedLocales[this.value], function(key, locale) {
             $('#simplesearch_locale')
-                .append($('<option>', {value : locale})
-                .text(locale));
+                .append($('<option>', {value : locale}).text(locale));
         });
 
         // Hide elements (e.g. filters in Consistency view) if it's not a desktop repository
