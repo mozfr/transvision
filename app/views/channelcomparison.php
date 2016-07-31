@@ -38,12 +38,22 @@ $td = function ($key, $value) {
     </fieldset>
 </form>
 
+<div class="content_menu">
+    <h3>Available views</h3>
+    <div>
+        <ul>
+            <li><a href="#modified_strings">Modified strings</a></li>
+            <li><a href="#new_strings">Added strings</a></li>
+        </ul>
+    </div>
+</div>
+
 <?php if (empty($common_strings)) : ?>
 <h3>Comparison is empty</h3>
 <p class='subtitle'>There are no string differences for this locale between the <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?> channels.</p>
 
 <?php else: ?>
-<h3>Locale: <?=$locale?></h3>
+<h3 id="modified_strings">Modified strings in <em><?=$locale?></em> between <?=$repos_nice_names[$chan1]?> and <?=$repos_nice_names[$chan2]?></h3>
 <table class='collapsable sortable' id='modified_strings_table'>
     <thead>
         <tr class='column_headers'>

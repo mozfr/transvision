@@ -336,7 +336,7 @@ th.select_header {
 th.select_header a {
     position: absolute;
     color: #fff;
-    background-color: #1c75bc;
+    background-color: #0095dd;
     right: 5px;
     top: 8px;
     font-weight: normal;
@@ -886,6 +886,26 @@ input[type="checkbox"]:disabled + label {
     letter-spacing: 0.1em;
     position: relative;
     top: -2px;
+}
+
+/* Menu to navigate through page content */
+.content_menu {
+    margin: 0 auto 15px auto;
+    text-align: center;
+}
+
+.content_menu > div {
+    display: inline-block;
+    text-align: left;
+    border-left: 3px solid #ed3860;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+.content_menu ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
 }
 
 /* Translation Consistency view */
