@@ -145,7 +145,7 @@ class ShowResults
     }
 
     /**
-     * Use the api to return a transliterated string
+     * Use the API to return a transliterated string
      *
      * @param string $string The string to be transliterated
      * @param string $locale The target locale
