@@ -322,7 +322,7 @@ class ShowResults
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             if ($transliterate) {
-                $transliterated_string = self::getTransliteratedString($target_string, 'sr-Cyrl');
+                $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
                 $transliterate_string_id = 'transliterate_' . $string_id;
             }
 
