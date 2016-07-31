@@ -314,7 +314,11 @@ class ShowResults
             $string_id = md5($key . mt_rand());
             $regular_string_id = 'string_' . $string_id;
 
-            // Find if we need to transliterate the string
+            /*
+                Find if we need to transliterate the string.
+                The string gets transliterated if the target local is serbian,
+                if we aren't in the 3locales view and if we have a $target_string
+            */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             if ($transliterate) {
