@@ -3,7 +3,7 @@ $(document).ready(function() {
         $('#links-top').slideToggle(transition, function(){
             if ($('#links-top').is(':visible')) {
                 $('#links-top-button').attr('title', 'Hide Transvision Menu');
-                $('#links-top-button').css('background-position', '0 -38px');
+                $('#links-top-button').css('background-position', '0 -36px');
             } else {
                 $('#links-top-button').attr('title', 'Display Transvision Menu');
                 $('#links-top-button').css('background-position', '0 0');

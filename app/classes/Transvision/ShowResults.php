@@ -387,7 +387,7 @@ class ShowResults
                 $target_string = '<em class="error">Warning: Empty string</em>';
             } else {
                 $meta_target = "
-                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>
+                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'></span>
                       {$error_message}";
             }
 
@@ -397,7 +397,7 @@ class ShowResults
             } elseif (! $target_string2) {
                 $target_string2 = '<em class="error">Warning: Empty string</em>';
             } else {
-                $meta_target2 = "<span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'><img src='/img/copy_icon_black_18x18.png'></span>";
+                $meta_target2 = "<span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'></span>";
             }
 
             // Replace / and : in the key name and use it as an anchor name
