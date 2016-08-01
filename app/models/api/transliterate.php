@@ -21,4 +21,4 @@ switch ($request->parameters[2]) {
 
 $transliterator = \Transliterator::create($transliterated_locale);
 
-return [$transliterator->transliterate(Utils::secureText(urldecode($request->parameters[3])))];
+return [html_entity_decode($transliterator->transliterate(Utils::secureText(urldecode($request->parameters[3]))))];
