@@ -71,7 +71,7 @@ body {
 
 #main-wrapper {
     background-color: #cce0f0;
-    border-top: 1px solid #fff;
+    border-top: 2px solid #fff;
     padding-bottom: 0.5em;
     flex: 1;
     -ms-flex: 1 0 0;
@@ -277,9 +277,18 @@ h3 {
     display: block;
     float: right;
     margin-right: 5px;
-    width: 125px;
+    width: 147px;
     height: 36px;
     background: url(/img/menu.png) center 0 no-repeat transparent;
+}
+
+@media
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    #links-top-button {
+        background: url(/img/menu_highres.png) center 0 no-repeat transparent;
+        background-size: 147px 72px;
+    }
 }
 
 .nojs #links-top-button {
@@ -1128,7 +1137,7 @@ input[type="checkbox"]:disabled + label {
     }
 
     #links-top-button {
-        width: 100px;
+        width: 114px;
         background: url(/img/menus.png) top center no-repeat transparent;
     }
 
