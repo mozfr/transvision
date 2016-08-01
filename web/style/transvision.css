@@ -897,7 +897,6 @@ input[type="checkbox"]:disabled + label {
 .content_menu > div {
     display: inline-block;
     text-align: left;
-    border-left: 3px solid #ed3860;
     padding-left: 15px;
     margin-bottom: 15px;
 }
@@ -905,7 +904,6 @@ input[type="checkbox"]:disabled + label {
 .content_menu ul {
     padding: 0;
     margin: 0;
-    list-style-type: none;
 }
 
 /* Translation Consistency view */
