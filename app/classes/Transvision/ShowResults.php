@@ -216,25 +216,6 @@ class ShowResults
     }
 
     /**
-     * Highlight specific elements in the string.
-     *
-     * @param  string $string Source text
-     * @return string Same string with specific sub-strings in <span>
-     *                       elements for styling with CSS
-     */
-    public static function highlight($string)
-    {
-        $replacements = [
-            ' '        => '<span class="highlight-space" title="White space"> </span>',
-            ' '        => '<span class="highlight-red" title="Unicode non-breaking space"> </span>',
-            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
-            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
-        ];
-
-        return Strings::multipleStringReplace($replacements, $string);
-    }
-
-    /**
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
      * @param object $search_object  The Search object that contains all the options for the query
@@ -328,20 +309,15 @@ class ShowResults
             $target_string = htmlspecialchars($target_string);
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
+            $source_string = Strings::highlightSpecial($source_string);
+            $target_string = Strings::highlightSpecial($target_string);
 
             if ($extra_locale) {
                 $target_string2 = htmlspecialchars($target_string2);
                 $target_string2 = Utils::highlightString($target_string2);
+                $target_string2 = Strings::highlightSpecial($target_string2);
             }
 
-            $replacements = [
-                ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
-                ' '            => '<span class="highlight-red" title="Thin space"> </span>', // Thin space highlight
-                '…'            => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
-                '&hellip;'     => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
-            ];
-
-            $target_string = Strings::multipleStringReplace($replacements, $target_string);
             $clipboard_target_string  = 'clip_' . md5($target_string);
             $clipboard_target_string2 = 'clip_' . md5($target_string2);
 

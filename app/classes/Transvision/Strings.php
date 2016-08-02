@@ -103,6 +103,45 @@ class Strings
     }
 
     /**
+     * Highlight special characters in the string, and white spaces
+     *
+     * @param  string $string Source text
+     * @return string Same string with specific sub-strings in <span>
+     *                       elements for styling with CSS
+     */
+    public static function highlightSpecialAndWhiteSpace($string)
+    {
+        $replacements = [
+            ' '        => '<span class="highlight-space" title="White space"> </span>',
+            ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>',
+            ' '        => '<span class="highlight-red" title="Narrow no-break space"> </span>',
+            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
+            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
+        ];
+
+        return self::multipleStringReplace($replacements, $string);
+    }
+
+    /**
+     * Highlight special characters in the string
+     *
+     * @param  string $string Source text
+     * @return string Same string with specific sub-strings in <span>
+     *                       elements for styling with CSS
+     */
+    public static function highlightSpecial($string)
+    {
+        $replacements = [
+            ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>',
+            ' '        => '<span class="highlight-red" title="Narrow no-break space"> </span>',
+            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
+            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
+        ];
+
+        return self::multipleStringReplace($replacements, $string);
+    }
+
+    /**
      * Get multibyte UTF-8 string length, html tags stripped
      *
      * @param  string $str A multibyte string

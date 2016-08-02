@@ -35,13 +35,6 @@ foreach ($loc_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
-$replacements = [
-    ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
-    ' '            => '<span class="highlight-red" title="Thin space"> </span>', // Thin space highlight
-    '…'            => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
-    '&hellip;'     => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
-];
-
 /*
     Get locale strings available in both channels with array_intersect_key.
     The translation stored is the one available in channel 1. Then remove
@@ -65,22 +58,12 @@ foreach ($added_strings as $string_id => $translation) {
 
     $new_strings[$string_id] = [
         'reference'   => Utils::secureText($reference_string),
-        'translation' => Strings::multipleStringReplace(
-                            $replacements,
-                            Utils::secureText($translation)
-                        ),
+        'translation' => Strings::highlightSpecial(Utils::secureText($translation)),
     ];
 }
 
 // Highlight special characters in common strings
 foreach ($common_strings as $key => &$value) {
-    $common_strings[$key] = Strings::multipleStringReplace(
-        $replacements,
-        Utils::secureText($value)
-    );
-
-    $strings[$chan2][$key] = Strings::multipleStringReplace(
-        $replacements,
-        Utils::secureText($strings[$chan2][$key])
-    );
+    $common_strings[$key]  = Strings::highlightSpecial(Utils::secureText($value));
+    $strings[$chan2][$key] = Strings::highlightSpecial(Utils::secureText($strings[$chan2][$key]));
 }
