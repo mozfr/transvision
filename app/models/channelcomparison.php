@@ -52,7 +52,7 @@ $common_strings = array_diff($common_strings, $strings[$chan2]);
 
 /*
     Find new locale strings added between repositories, store them with the
-    reference string and hightlight special characters.
+    reference string and highlight special characters.
 */
 $added_strings = array_diff_key($strings[$chan1], $strings[$chan2]);
 $new_strings = [];
@@ -72,7 +72,7 @@ foreach ($added_strings as $string_id => $translation) {
     ];
 }
 
-// Hightlight special characters in common strings
+// Highlight special characters in common strings
 foreach ($common_strings as $key => &$value) {
     $common_strings[$key] = Strings::multipleStringReplace(
         $replacements,
