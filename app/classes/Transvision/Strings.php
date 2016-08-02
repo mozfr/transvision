@@ -105,13 +105,14 @@ class Strings
     /**
      * Highlight special characters in the string
      *
-     * @param  string $string Source text
-     * @param  string $white_space Optional param to specify if we need to
-     * highlight white spaces. Available value is 'whitespaces'.
-     * @return string Same string with specific sub-strings in <span>
-     *                       elements for styling with CSS
+     * @param  string  $string              Source text
+     * @param  boolean $exclude_whitespaces Optional param to specify if we need
+     *                                      to highlight white spaces. White
+     *                                      spaces are not highlighted by default.
+     * @return string  Same string with specific sub-strings in <span>
+     *                                     elements for styling with CSS
      */
-    public static function highlightSpecial($string, $white_space = '')
+    public static function highlightSpecial($string, $exclude_whitespaces = true)
     {
         $replacements = [
             ' '        => '<span class="highlight-space" title="White space"> </span>',
@@ -121,7 +122,7 @@ class Strings
             '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
         ];
 
-        if ($white_space != 'whitespaces') {
+        if ($exclude_whitespaces) {
             unset($replacements[' ']);
         }
 
