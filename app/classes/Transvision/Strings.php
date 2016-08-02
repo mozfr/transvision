@@ -106,6 +106,8 @@ class Strings
      * Highlight special characters in the string
      *
      * @param  string $string Source text
+     * @param  string $white_space Optional param to specify if we need to
+     * highlight white spaces
      * @return string Same string with specific sub-strings in <span>
      *                       elements for styling with CSS
      */
