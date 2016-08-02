@@ -66,8 +66,8 @@ $td = function ($key, $value) {
     <?php foreach ($common_strings as $key => $value) : ?>
     <tr>
         <?=$td('Key', ShowResults::formatEntity($key))?>
-        <?=$td($chan1, Utils::secureText($value))?>
-        <?=$td($chan2, Utils::secureText($strings[$chan2][$key]))?>
+        <?=$td($chan1, $value)?>
+        <?=$td($chan2, $strings[$chan2][$key])?>
     </tr>
     <?php endforeach; ?>
     </tbody>
@@ -91,12 +91,12 @@ $td = function ($key, $value) {
     <?php foreach ($new_strings as $string_id => $string_values): ?>
     <tr>
         <?=$td('Entity', ShowResults::formatEntity($string_id))?>
-        <?php if ($new_strings[$string_id]['reference'] != '@N/A@'): ?>
-        <?=$td('en-US', Utils::secureText($string_values['reference']))?>
+        <?php if ($new_strings[$string_id]['reference'] != '@@missing@@'): ?>
+        <?=$td('en-US', $string_values['reference'])?>
         <?php else: ?>
-        <?=$td('en-US', '<em class="error">(not available)</em>')?>
+        <?=$td('en-US', '<em class="error">Warning: Missing string</em>')?>
         <?php endif; ?>
-        <?=$td($locale, Utils::secureText($string_values['translation']))?>
+        <?=$td($locale, $string_values['translation'])?>
     </tr>
     <?php endforeach; ?>
     <tbody>

@@ -35,6 +35,13 @@ foreach ($loc_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
 }
 
+$replacements = [
+    ' '            => '<span class="highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
+    ' '            => '<span class="highlight-red" title="Thin space"> </span>', // Thin space highlight
+    '…'            => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
+    '&hellip;'     => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
+];
+
 /*
     Get locale strings available in both channels with array_intersect_key.
     The translation stored is the one available in channel 1. Then remove
@@ -45,17 +52,35 @@ $common_strings = array_diff($common_strings, $strings[$chan2]);
 
 /*
     Find new locale strings added between repositories, store them with the
-    reference string.
+    reference string and hightlight special characters.
 */
 $added_strings = array_diff_key($strings[$chan1], $strings[$chan2]);
 $new_strings = [];
 $en_US_strings_chan1 = Utils::getRepoStrings('en-US', $chan1);
+
 foreach ($added_strings as $string_id => $translation) {
     $reference_string = isset($en_US_strings_chan1[$string_id])
         ? $en_US_strings_chan1[$string_id]
-        : '@N/A@';
+        : '@@missing@@';
+
     $new_strings[$string_id] = [
-        'reference'   => $reference_string,
-        'translation' => $translation,
+        'reference'   => Utils::secureText($reference_string),
+        'translation' => Strings::multipleStringReplace(
+                            $replacements,
+                            Utils::secureText($translation)
+                        ),
     ];
+}
+
+// Hightlight special characters in common strings
+foreach ($common_strings as $key => &$value) {
+    $common_strings[$key] = Strings::multipleStringReplace(
+        $replacements,
+        Utils::secureText($value)
+    );
+
+    $strings[$chan2][$key] = Strings::multipleStringReplace(
+        $replacements,
+        Utils::secureText($strings[$chan2][$key])
+    );
 }
