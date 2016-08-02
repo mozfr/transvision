@@ -31,10 +31,9 @@ foreach ($entities as $entity) {
     $bz_target_string = $target_string = isset($tmx_target[$entity])
                                             ? Utils::secureText($tmx_target[$entity])
                                             : '@@missing@@';
-    // Highlight non-breaking spaces only after strings have been escaped
-    $target_string = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string);
-
-    $source_string = Utils::secureText($tmx_source[$entity]);
+    // Highlight special characters only after strings have been escaped
+    $target_string = Strings::highlightSpecial($target_string);
+    $source_string = Strings::highlightSpecial(Utils::secureText($tmx_source[$entity]));
 
     $clipboard_target_string  = 'clip_' . md5($target_string);
 
@@ -46,8 +45,8 @@ foreach ($entities as $entity) {
         $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
                                                     ? Utils::secureText($tmx_target2[$entity])
                                                     : '';
-        // Highlight non-breaking spaces only after strings have been escaped
-        $target_string2 = str_replace(' ', '<span class="highlight-gray"> </span>', $target_string2);
+        // Highlight special characters only after strings have been escaped
+        $target_string2 = Strings::highlightSpecial($target_string2);
 
         $clipboard_target_string2  = 'clip_' . md5($target_string2);
 

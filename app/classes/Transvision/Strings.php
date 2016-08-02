@@ -103,6 +103,33 @@ class Strings
     }
 
     /**
+     * Highlight special characters in the string
+     *
+     * @param  string  $string              Source text
+     * @param  boolean $exclude_whitespaces Optional param to specify if we need
+     *                                      to highlight white spaces. White
+     *                                      spaces are not highlighted by default.
+     * @return string  Same string with specific sub-strings in <span>
+     *                                     elements for styling with CSS
+     */
+    public static function highlightSpecial($string, $exclude_whitespaces = true)
+    {
+        $replacements = [
+            ' '        => '<span class="highlight-space" title="White space"> </span>',
+            ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>',
+            ' '        => '<span class="highlight-red" title="Narrow no-break space"> </span>',
+            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
+            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
+        ];
+
+        if ($exclude_whitespaces) {
+            unset($replacements[' ']);
+        }
+
+        return self::multipleStringReplace($replacements, $string);
+    }
+
+    /**
      * Get multibyte UTF-8 string length, html tags stripped
      *
      * @param  string $str A multibyte string

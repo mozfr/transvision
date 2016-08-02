@@ -474,18 +474,18 @@ table tr td.no_highligth {
     white-space: pre-wrap; /* That allows exposing contiguous white spaces */
 }
 
-.highlight-specialchars .highlight-gray {
+.highlight-gray {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.highlight-specialchars .highlight-space {
+.highlight-space {
     background-color: rgba(0, 0, 0, 0.1);
     display: inline-block;
     height: 0.5em;
     vertical-align: middle;
 }
 
-.highlight-specialchars .highlight-red {
+.highlight-red {
     background-color: rgba(255, 0, 0, 0.4);
 }
 

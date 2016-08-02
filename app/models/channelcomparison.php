@@ -45,17 +45,25 @@ $common_strings = array_diff($common_strings, $strings[$chan2]);
 
 /*
     Find new locale strings added between repositories, store them with the
-    reference string.
+    reference string and highlight special characters.
 */
 $added_strings = array_diff_key($strings[$chan1], $strings[$chan2]);
 $new_strings = [];
 $en_US_strings_chan1 = Utils::getRepoStrings('en-US', $chan1);
+
 foreach ($added_strings as $string_id => $translation) {
     $reference_string = isset($en_US_strings_chan1[$string_id])
         ? $en_US_strings_chan1[$string_id]
-        : '@N/A@';
+        : '@@missing@@';
+
     $new_strings[$string_id] = [
-        'reference'   => $reference_string,
-        'translation' => $translation,
+        'reference'   => Utils::secureText($reference_string),
+        'translation' => Strings::highlightSpecial(Utils::secureText($translation)),
     ];
+}
+
+// Highlight special characters in common strings
+foreach ($common_strings as $key => &$value) {
+    $common_strings[$key]  = Strings::highlightSpecial(Utils::secureText($value));
+    $strings[$chan2][$key] = Strings::highlightSpecial(Utils::secureText($strings[$chan2][$key]));
 }
