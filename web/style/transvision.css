@@ -49,6 +49,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Fira Sans';
+    src: url(/fonts/FiraSans/FiraSans-Book.woff2) format('woff2'),
+         url(/fonts/FiraSans/FiraSans-Book.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* General structure */
 
 html {
@@ -360,8 +369,7 @@ th.select_header a:hover {
 }
 
 td {
-    font-family: 'Fira Sans UltraLight', sans-serif;
-    font-weight: bold;
+    font-family: 'Fira Sans', Arial, sans-serif;
     font-size: 13px;
     padding: 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -513,7 +521,7 @@ table tr td.no_highligth {
 }
 
 .searchedTerm {
-    font-family: 'Fira Sans UltraLight', sans-serif;
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
     font-style: italic;
     opacity: 0.8;
     font-variant: normal;
@@ -738,7 +746,7 @@ input[type="checkbox"]:disabled + label {
 
 #clear_search:before {
     content: "×";
-    font-family: 'Fira Sans UltraLight', sans-serif;
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
     font-size: 2.5em;
     line-height: 0.5em;
 }
