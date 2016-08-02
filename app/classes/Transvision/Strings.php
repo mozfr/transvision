@@ -107,7 +107,7 @@ class Strings
      *
      * @param  string $string Source text
      * @param  string $white_space Optional param to specify if we need to
-     * highlight white spaces
+     * highlight white spaces. Available value is 'whitespaces'.
      * @return string Same string with specific sub-strings in <span>
      *                       elements for styling with CSS
      */
