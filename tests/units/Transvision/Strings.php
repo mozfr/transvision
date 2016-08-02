@@ -125,7 +125,7 @@ class Strings extends atoum\test
             ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…'))
                 ->isEqualTo('Foo is bar<span class="highlight-gray" title="Non breakable space"> </span>;<span class="highlight-gray" title="Non breakable space"> </span>Bar is Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
         $this
-            ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…', 'whitespaces'))
+            ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…', false))
                 ->isEqualTo('Foo<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>bar<span class="highlight-gray" title="Non breakable space"> </span>;<span class="highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
     }
 
