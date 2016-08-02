@@ -103,13 +103,13 @@ class Strings
     }
 
     /**
-     * Highlight special characters in the string, and white spaces
+     * Highlight special characters in the string
      *
      * @param  string $string Source text
      * @return string Same string with specific sub-strings in <span>
      *                       elements for styling with CSS
      */
-    public static function highlightSpecialAndWhiteSpace($string)
+    public static function highlightSpecial($string, $white_space = '')
     {
         $replacements = [
             ' '        => '<span class="highlight-space" title="White space"> </span>',
@@ -119,24 +119,9 @@ class Strings
             '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
         ];
 
-        return self::multipleStringReplace($replacements, $string);
-    }
-
-    /**
-     * Highlight special characters in the string
-     *
-     * @param  string $string Source text
-     * @return string Same string with specific sub-strings in <span>
-     *                       elements for styling with CSS
-     */
-    public static function highlightSpecial($string)
-    {
-        $replacements = [
-            ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>',
-            ' '        => '<span class="highlight-red" title="Narrow no-break space"> </span>',
-            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
-            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
-        ];
+        if ($white_space != 'whitespaces') {
+            unset($replacements[' ']);
+        }
 
         return self::multipleStringReplace($replacements, $string);
     }
