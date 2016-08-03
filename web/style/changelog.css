@@ -13,6 +13,15 @@
     width: 100%;
 }
 
+#changelog #pagecontent ul li {
+    display: table;
+}
+
+#changelog #pagecontent ul li div,
+.release_tag {
+    display: table-cell;
+}
+
 #changelog h3 {
     margin: 0;
     width: 100%;
