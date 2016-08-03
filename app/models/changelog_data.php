@@ -70,7 +70,7 @@ $changelog = [
             'authors' => ['SkySymbol'],
         ],
         [
-            'message' => ['Transvision look &amp; feel has been updated. It’s flatter, looks more modern and is focused on readability'],
+            'message' => ['Transvision look &amp; feel has been updated. It’s flatter, looks more modern and is improving readability'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'commit'  => ['792eae97dcfca321065fde849f6ec6bc575d8e15', '54e59352fb1c91dbac2f31b356582441c17b8820', '0c6a3e58555cc456c23a32cc0f62c27f48d89d14'],
@@ -91,7 +91,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
         [
-            'message' => ['Same contextual info and actions (e.g. “File a bug“, string errors, copy to clipboard…) are now consistently available in both search results and entity views'],
+            'message' => ['Same contextual info and actions (e.g. “File a bug“, string errors, copy to clipboard…) are now consistently available in results for string and entity searches'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'commit'  => ['043455deee0980d82c2ae5b5fd90baa64f2deb32', '132b3d86efaa675b5c51c409104ac755128e2273'],
@@ -105,7 +105,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
         [
-            'message' => ['Removed “button on hover” experiments from search results'],
+            'message' => ['Removed “button on hover” experiment from search results'],
             'section' => ['end_user'],
             'type'    => ['change'],
             'commit'  => ['8243e2bc4bd7a43afa4411bc7b476ba37f3a8f74'],
