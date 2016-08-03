@@ -91,7 +91,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
         [
-            'message' => ['Same contextual info and actions (e.g. “File a bug“, string errors, copy to clipboard…) are now consistently available in results for string and entity searches'],
+            'message' => ['Same contextual info and actions (e.g. “File a bug”, string errors, copy to clipboard…) are now consistently available in results for string and entity searches'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'commit'  => ['043455deee0980d82c2ae5b5fd90baa64f2deb32', '132b3d86efaa675b5c51c409104ac755128e2273'],
