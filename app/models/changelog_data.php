@@ -66,8 +66,8 @@ $changelog = [
             'message' => ['“To Latin” button added to Serbian results, providing on-the-fly transliteration'],
             'section' => ['end_user'],
             'type'    => ['new'],
-            'commit'  => ['###TODO###'],
-            'authors' => ['SkySymbol'],
+            'commit'  => ['382ee5f007bac3740a37118263394a51dfde1338', '631e6cf7f2c2b3d06fe186d2bfcb7ca1f67081c1'],
+            'authors' => ['SkySymbol', 'tchevalier'],
         ],
         [
             'message' => ['Transvision look &amp; feel has been updated. It’s flatter, looks more modern and is improving readability'],
@@ -177,7 +177,7 @@ $changelog = [
             'authors' => ['guiom'],
         ],
         [
-            'message' => [''],
+            'message' => ['Locales were the searched entity is missing are not included in API results anymore.'],
             'section' => ['external_api'],
             'type'    => ['new'],
             'commit'  => ['64dda7a9256ff0537b360980b2756a0df03d4548'],
