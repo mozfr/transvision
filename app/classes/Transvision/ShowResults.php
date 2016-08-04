@@ -145,6 +145,22 @@ class ShowResults
     }
 
     /**
+     * Use the API to return a transliterated string
+     *
+     * @param string $string The string to be transliterated
+     * @param string $locale The target locale
+     *
+     * @return string The string transliterated into the target locale
+     */
+    public static function getTransliteratedString($string, $locale)
+    {
+        $request = new API(parse_url(API_ROOT . "transliterate/$locale/$string"));
+        $json = include MODELS . 'api/transliterate.php';
+
+        return isset($json[0]) ? $json[0] : 'Function not available';
+    }
+
+    /**
      * Return search results in a repository on strings/entities for the API
      *
      * @param  array $entities      An array of all the entities we want to return
@@ -296,21 +312,46 @@ class ShowResults
                 $target_string2 = '';
             }
 
+            $string_id = md5($key . mt_rand());
+            $regular_string_id = 'string_' . $string_id;
+
+            /*
+                Find if we need to transliterate the string.
+                The string gets transliterated if the target local is Serbian,
+                if we aren't in the 3locales view and if we have a $target_string
+            */
+            $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
+
+            if ($transliterate) {
+                $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
+                $transliterate_string_id = 'transliterate_' . $string_id;
+            }
+
             foreach ($search as $val) {
                 $source_string = Utils::markString($val, $source_string);
                 $target_string = Utils::markString($val, $target_string);
                 if ($extra_locale) {
                     $target_string2 = Utils::markString($val, $target_string2);
                 }
+                if ($transliterate) {
+                    $transliterated_string = Utils::markString($val, $transliterated_string);
+                }
             }
 
             // Escape HTML before highlighing search terms
             $source_string = htmlspecialchars($source_string);
             $target_string = htmlspecialchars($target_string);
+
             $source_string = Utils::highlightString($source_string);
             $target_string = Utils::highlightString($target_string);
             $source_string = Strings::highlightSpecial($source_string);
             $target_string = Strings::highlightSpecial($target_string);
+
+            if ($transliterate) {
+                $transliterated_string = htmlspecialchars($transliterated_string);
+                $transliterated_string = Utils::highlightString($transliterated_string);
+                $transliterated_string = Strings::highlightSpecial($transliterated_string);
+            }
 
             if ($extra_locale) {
                 $target_string2 = htmlspecialchars($target_string2);
@@ -362,9 +403,11 @@ class ShowResults
             } elseif (! $target_string) {
                 $target_string = '<em class="error">Warning: Empty string</em>';
             } else {
-                $meta_target = "
-                      <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'></span>
-                      {$error_message}";
+                $meta_target = "<span class='clipboard' data-clipboard-target='#{$regular_string_id}' alt='Copy to clipboard'></span>";
+                if ($transliterate) {
+                    $meta_target .= "<input type='button' value='To Latin' data-transliterated-id='{$string_id}' class='transliterate_button button action'>";
+                }
+                $meta_target .= $error_message;
             }
 
             // If there is no target_string2, display an error, otherwise display the string + meta links
@@ -428,7 +471,11 @@ class ShowResults
 
                   <td dir='{$direction2}' lang='{$locale2}'>
                     <span class='celltitle'>{$locale2}</span>
-                    <div class='string' id='{$clipboard_target_string}'>{$target_string}</div>
+                    <div class='string' id='{$regular_string_id}'>{$target_string}</div>";
+            if ($transliterate) {
+                $table .= "<div class='string toggle' id='{$transliterate_string_id}' style='display: none;'>{$transliterated_string}</div>";
+            }
+            $table .= "
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;

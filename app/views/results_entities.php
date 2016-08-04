@@ -17,6 +17,8 @@ $table = "
   <tbody>\n";
 
 $current_repo = $search->getRepository();
+$extra_locale = $url['path'] == '3locales';
+
 // Display results
 foreach ($entities as $entity) {
     if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
@@ -31,17 +33,34 @@ foreach ($entities as $entity) {
     $bz_target_string = $target_string = isset($tmx_target[$entity])
                                             ? Utils::secureText($tmx_target[$entity])
                                             : '@@missing@@';
+
     // Highlight special characters only after strings have been escaped
     $target_string = Strings::highlightSpecial($target_string);
     $source_string = Strings::highlightSpecial(Utils::secureText($tmx_source[$entity]));
 
     $clipboard_target_string  = 'clip_' . md5($target_string);
+    $string_id = md5($entity . mt_rand());
+    $regular_string_id = 'string_' . $string_id;
+
+    /*
+        Find if we need to transliterate the string.
+        The string gets transliterated if the target local is serbian,
+        if we aren't in the 3locales view and if we have a $target_string
+    */
+    $transliterate = $locale == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
+
+    if ($transliterate) {
+        $transliterated_string = Utils::secureText($tmx_target[$entity]);
+        $transliterated_string = ShowResults::getTransliteratedString(urlencode($transliterated_string), 'sr-Cyrl');
+        $transliterated_string = Strings::highlightSpecial($transliterated_string);
+        $transliterate_string_id = 'transliterate_' . $string_id;
+    }
 
     // Don't show meta links by default
     $meta_source = $meta_target = $meta_target2 = '';
 
     // 3locales view
-    if ($url['path'] == '3locales') {
+    if ($extra_locale) {
         $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
                                                     ? Utils::secureText($tmx_target2[$entity])
                                                     : '';
@@ -135,9 +154,11 @@ foreach ($entities as $entity) {
     } elseif (! $target_string) {
         $target_string = '<em class="error">Warning: Empty string</em>';
     } else {
-        $meta_target = "
-          {$error_message}
-          <span class='clipboard' data-clipboard-target='#{$clipboard_target_string}' alt='Copy to clipboard'></span>";
+        $meta_target = "<span class='clipboard' data-clipboard-target='#{$regular_string_id}' alt='Copy to clipboard'></span>";
+        if ($transliterate) {
+            $meta_target .= "<input type='button' value='To Latin' data-transliterated-id='{$string_id}' class='transliterate_button button action'>";
+        }
+        $meta_target .= $error_message;
     }
 
     $table .= "
@@ -158,7 +179,11 @@ foreach ($entities as $entity) {
     </td>
     <td dir='{$direction2}'>
       <span class='celltitle'>{$locale}</span>
-      <div class='string' id='{$clipboard_target_string}'>{$target_string}</div>
+      <div class='string' id='{$regular_string_id}'>{$target_string}</div>";
+    if ($transliterate) {
+        $table .= "<div class='string toggle' id='{$transliterate_string_id}' style='display: none;'>{$transliterated_string}</div>";
+    }
+    $table .= "
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
         {$file_bug}
