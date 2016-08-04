@@ -176,6 +176,13 @@ $changelog = [
             'commit'  => ['c3f6322d1cba259e252a1b3635f3c0e345d00d8e'],
             'authors' => ['guiom'],
         ],
+        [
+            'message' => [''],
+            'section' => ['external_api'],
+            'type'    => ['new'],
+            'commit'  => ['64dda7a9256ff0537b360980b2756a0df03d4548'],
+            'authors' => ['flod'],
+        ],
     ],
     '4.4' => [
         [
