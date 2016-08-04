@@ -177,7 +177,7 @@ $changelog = [
             'authors' => ['guiom'],
         ],
         [
-            'message' => ['Locales were the searched entity is missing are not included in API results anymore.'],
+            'message' => ['Locales where the searched entity is missing are not included in API results anymore.'],
             'section' => ['external_api'],
             'type'    => ['change'],
             'commit'  => ['64dda7a9256ff0537b360980b2756a0df03d4548'],
