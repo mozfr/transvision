@@ -157,8 +157,9 @@ class ShowResults
         $request = new API(parse_url(API_ROOT . "transliterate/$locale/$string"));
         $json = include MODELS . 'api/transliterate.php';
 
-        return $json[0];
+        return isset($json[0]) ? $json[0] : 'Function not available';
     }
+
     /**
      * Return search results in a repository on strings/entities for the API
      *
@@ -316,7 +317,7 @@ class ShowResults
 
             /*
                 Find if we need to transliterate the string.
-                The string gets transliterated if the target local is serbian,
+                The string gets transliterated if the target local is Serbian,
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
@@ -349,6 +350,7 @@ class ShowResults
             if ($transliterate) {
                 $transliterated_string = htmlspecialchars($transliterated_string);
                 $transliterated_string = Utils::highlightString($transliterated_string);
+                $transliterated_string = Strings::highlightSpecial($transliterated_string);
             }
 
             if ($extra_locale) {
