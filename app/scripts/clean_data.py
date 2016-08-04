@@ -61,6 +61,10 @@ def main():
         locales_file = os.path.join(sources_path, repository_id + '.txt')
         supported_locales = open(locales_file, 'r').read().splitlines()
 
+        # Make sure en-US is included in the list of supported locales
+        if not 'en-US' in supported_locales:
+            supported_locales.append('en-US')
+
         supported_repositories[repository_id] = {
             'folder_name': folder_name,
             'locales': supported_locales
@@ -109,20 +113,23 @@ def main():
         else:
             folder_path = os.path.join(git_path, repository['folder_name'])
 
-        available_folders = os.walk(folder_path).next()[1]
-        available_folders.sort()
-        for folder in available_folders:
-            if folder in exclusions.get(repository_id, []):
-                continue
-            if not folder in repository['locales']:
-                # This folder is inside the repository but doesn't match
-                # any supported locale.
-                print '{0} is not a supported locale'.format(folder)
-                need_cleanup = True
-                if args.delete:
-                    full_path = os.path.join(folder_path, folder)
-                    print "Removing folder:", full_path
-                    shutil.rmtree(full_path)
+        if not os.path.isdir(folder_path):
+            print 'SKIPPED. Check sources: {0} does not exist'.format(folder_path)
+        else:
+            available_folders = os.walk(folder_path).next()[1]
+            available_folders.sort()
+            for folder in available_folders:
+                if folder in exclusions.get(repository_id, []):
+                    continue
+                if not folder in repository['locales']:
+                    # This folder is inside the repository but doesn't match
+                    # any supported locale.
+                    print '{0} is not a supported locale'.format(folder)
+                    need_cleanup = True
+                    if args.delete:
+                        full_path = os.path.join(folder_path, folder)
+                        print "Removing folder:", full_path
+                        shutil.rmtree(full_path)
     if not need_cleanup:
         print "Nothing to remove."
 
@@ -132,9 +139,6 @@ def main():
 
     need_cleanup = False
     for folder in available_folders:
-        # Ignore reference locale
-        if folder == 'en-US':
-            continue
         for filename in glob.glob(os.path.join(storage_path, folder, '*.php')):
             if not filename in known_cache_files:
                 print '{0} is not a known cache file'.format(filename)
