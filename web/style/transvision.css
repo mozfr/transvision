@@ -101,6 +101,10 @@ a:hover {
     text-decoration: underline;
 }
 
+a.button {
+    color: #fff;
+}
+
 #beta-badge {
     position: absolute;
     width: 130px;
