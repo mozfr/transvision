@@ -353,6 +353,7 @@ th {
 
 th.select_header {
     position: relative;
+    min-width: 250px;
 }
 
 th.select_header a {
