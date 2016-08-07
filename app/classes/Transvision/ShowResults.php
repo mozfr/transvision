@@ -312,9 +312,6 @@ class ShowResults
                 $target_string2 = '';
             }
 
-            $target_string_missing  = $target_string  == '@@missing@@';
-            $target_string2_missing = $target_string2 == '@@missing@@';
-
             $string_id = md5($key . mt_rand());
             $regular_string_id = 'string_' . $string_id;
 
@@ -323,7 +320,7 @@ class ShowResults
                 The string gets transliterated if the target local is Serbian,
                 if we aren't in the 3locales view and if we have a $target_string
             */
-            $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && ! $target_string_missing;
+            $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
@@ -401,7 +398,7 @@ class ShowResults
             }
 
             // If there is no target_string, display an error, otherwise display the string + meta links
-            if ($target_string_missing) {
+            if ($target_string == '@@missing@@') {
                 $target_string = '<em class="error">Warning: Missing string</em>';
             } elseif (! $target_string) {
                 $target_string = '<em class="error">Warning: Empty string</em>';
@@ -414,7 +411,7 @@ class ShowResults
             }
 
             // If there is no target_string2, display an error, otherwise display the string + meta links
-            if ($target_string2_missing) {
+            if ($target_string2 == '@@missing@@') {
                 $target_string2 = '<em class="error">Warning: Missing string</em>';
             } elseif (! $target_string2) {
                 $target_string2 = '<em class="error">Warning: Empty string</em>';
