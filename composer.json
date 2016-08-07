@@ -80,7 +80,6 @@
     "require": {
         "components/jquery": "~1.1",
         "devbridge/jQuery-Autocomplete": "~1.2.",
-        "ext-mbstring" : "*",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
