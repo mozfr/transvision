@@ -129,6 +129,53 @@ class Strings extends atoum\test
                 ->isEqualTo('Foo<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>bar<span class="highlight-gray" title="Non breakable space"> </span>;<span class="highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
     }
 
+    public function markStringDP()
+    {
+        return [
+            ['in', '@@missing@@', '@@missing@@'],
+            ['cronologia', 'cronologia di navigazione', '←cronologia→ di navigazione'],
+            ['cronologia', 'Cronologia di navigazione', '←Cronologia→ di navigazione'],
+            ['test', 'Cronologia di navigazione', 'Cronologia di navigazione'],
+            ['Überdeckende', 'Überdeckende Popups öffnen', '←Überdeckende→ Popups öffnen'],
+            ['überdeckende', 'Überdeckende Popups öffnen', '←Überdeckende→ Popups öffnen'],
+            ['Überdeckende', 'überdeckende Popups öffnen', '←überdeckende→ Popups öffnen'],
+        ];
+    }
+
+    /**
+     * @dataProvider markStringDP
+     */
+    public function testMarkString($a, $b, $c)
+    {
+        $obj = new _Strings();
+        $this
+            ->string($obj->markString($a, $b, $c))
+                ->isEqualTo($c);
+    }
+
+    public function highlightStringDP()
+    {
+        return [
+            ['@@missing@@', '@@missing@@'],
+            ['←cronologia→ di navigazione', '<span class=\'highlight\'>cronologia</span> di navigazione'],
+            ['←Cronologia→ di navigazione', '<span class=\'highlight\'>Cronologia</span> di navigazione'],
+            ['←servi←ce→→', '<span class=\'highlight\'>service</span>'],
+            ['Cronologia di navigazione', 'Cronologia di navigazione'],
+            ['←←A→dd→ more ←se←a→rch→ ←engine→s…', '<span class=\'highlight\'>Add</span> more <span class=\'highlight\'>search</span> <span class=\'highlight\'>engine</span>s…'],
+        ];
+    }
+
+    /**
+     * @dataProvider highlightStringDP
+     */
+    public function testHighlightString($a, $b)
+    {
+        $obj = new _Strings();
+        $this
+            ->string($obj->highlightString($a))
+                ->isEqualTo($b);
+    }
+
     public function getLengthDP()
     {
         return [
