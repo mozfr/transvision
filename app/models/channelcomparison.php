@@ -63,7 +63,7 @@ foreach ($added_strings as $string_id => $translation) {
 }
 
 // Highlight special characters in common strings
-foreach ($common_strings as $key => &$value) {
+foreach ($common_strings as $key => $value) {
     $common_strings[$key]  = Strings::highlightSpecial(Utils::secureText($value));
     $strings[$chan2][$key] = Strings::highlightSpecial(Utils::secureText($strings[$chan2][$key]));
 }
