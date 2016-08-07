@@ -328,13 +328,13 @@ class ShowResults
             }
 
             foreach ($search as $val) {
-                $source_string = Utils::markString($val, $source_string);
-                $target_string = Utils::markString($val, $target_string);
+                $source_string = Strings::markString($val, $source_string);
+                $target_string = Strings::markString($val, $target_string);
                 if ($extra_locale) {
-                    $target_string2 = Utils::markString($val, $target_string2);
+                    $target_string2 = Strings::markString($val, $target_string2);
                 }
                 if ($transliterate) {
-                    $transliterated_string = Utils::markString($val, $transliterated_string);
+                    $transliterated_string = Strings::markString($val, $transliterated_string);
                 }
             }
 
@@ -342,20 +342,20 @@ class ShowResults
             $source_string = htmlspecialchars($source_string);
             $target_string = htmlspecialchars($target_string);
 
-            $source_string = Utils::highlightString($source_string);
-            $target_string = Utils::highlightString($target_string);
+            $source_string = Strings::highlightString($source_string);
+            $target_string = Strings::highlightString($target_string);
             $source_string = Strings::highlightSpecial($source_string);
             $target_string = Strings::highlightSpecial($target_string);
 
             if ($transliterate) {
                 $transliterated_string = htmlspecialchars($transliterated_string);
-                $transliterated_string = Utils::highlightString($transliterated_string);
+                $transliterated_string = Strings::highlightString($transliterated_string);
                 $transliterated_string = Strings::highlightSpecial($transliterated_string);
             }
 
             if ($extra_locale) {
                 $target_string2 = htmlspecialchars($target_string2);
-                $target_string2 = Utils::highlightString($target_string2);
+                $target_string2 = Strings::highlightString($target_string2);
                 $target_string2 = Strings::highlightSpecial($target_string2);
             }
 
