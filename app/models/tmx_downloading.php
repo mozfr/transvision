@@ -64,7 +64,7 @@ $empty_TMX = $created_TMX = false;
 
 if ($content) {
     if (! file_put_contents($target_file_path, $content)) {
-        $logger->error("Can't write into web/download folder");
+        $logger->error('Can\'t write into web/download folder');
     }
 } else {
     $empty_TMX = true;
