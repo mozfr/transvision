@@ -42,9 +42,9 @@ foreach (Project::getRepositories() as $repo) {
         if (! $stats = Cache::getKey($cache_id)) {
             // Generate data
             $commits = $vcs->getCommits();
-            $stats['commit']     = $commits[0];
+            $stats['commit'] = $commits[0];
             $stats['commit_sum'] = count($commits);
-            $stats['repo']       = $repo;
+            $stats['repo'] = $repo;
             unset($commits);
 
             // Cache the data
@@ -86,7 +86,7 @@ foreach (Project::getRepositories() as $repo) {
                         'strlen');
                 };
 
-                $locale_entities  = $filter_pattern($locale);
+                $locale_entities = $filter_pattern($locale);
                 $english_entities = $filter_pattern($ref_locale);
                 $english_strings = $locale_strings = [];
 

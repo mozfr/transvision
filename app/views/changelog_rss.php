@@ -1,6 +1,6 @@
 <?php
 
-$output  = header('Content-type: application/xml; charset=UTF-8');
+$output = header('Content-type: application/xml; charset=UTF-8');
 $output .= header('Access-Control-Allow-Origin: *');
 $output .= '<?xml version="1.0" encoding="utf-8"?>' . "\n";
 $output .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . "\n";

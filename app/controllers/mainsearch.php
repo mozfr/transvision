@@ -16,8 +16,8 @@ if (isset($_GET['json'])) {
         return $fallback;
     };
 
-    $repo   = $get_value('repo', 'release');
-    $type   = $get_value('search_type', 'strings');
+    $repo = $get_value('repo', 'release');
+    $type = $get_value('search_type', 'strings');
     $source = $get_value('sourcelocale', Project::getReferenceLocale($repo));
     $target = $get_value('locale', 'fr');
 
@@ -31,8 +31,8 @@ if (isset($_GET['json'])) {
         : '';
 
     $regex = [];
-    $regex['whole']   = isset($_GET['whole_word']) ? 'whole_word=1' : '';
-    $regex['case']    = isset($_GET['case_sensitive']) ? 'case_sensitive=1' : '';
+    $regex['whole'] = isset($_GET['whole_word']) ? 'whole_word=1' : '';
+    $regex['case'] = isset($_GET['case_sensitive']) ? 'case_sensitive=1' : '';
     $regex['perfect'] = isset($_GET['perfect_match']) ? 'perfect_match=1' : '';
     $regex = array_filter($regex);
     $regex = count($regex) > 0 ? '?' . implode('&', $regex) : '';

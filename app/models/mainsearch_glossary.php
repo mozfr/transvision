@@ -79,5 +79,5 @@ $get_results = function ($arr) use ($tmx_target) {
     return $results;
 };
 
-$perfect_results   = $get_results($perfect);
+$perfect_results = $get_results($perfect);
 $imperfect_results = $get_results($imperfect);

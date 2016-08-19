@@ -163,7 +163,7 @@ class Utils
 
         foreach ($options as $key => $option) {
             $value = $nice_labels ? $key : $option;
-            $ch    = ($value == $selected) ? ' selected' : '';
+            $ch = ($value == $selected) ? ' selected' : '';
             $html .= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
         }
 
@@ -251,23 +251,23 @@ class Utils
 
             if ($origin_length > 100 && $difference > 150) {
                 // Large translation for a large origin
-                $abnormal_length =  'large';
+                $abnormal_length = 'large';
             } elseif ($origin_length > 100 && $difference < 50) {
                 // Small translation for a large origin
-                $abnormal_length =  'small';
+                $abnormal_length = 'small';
             } elseif ($origin_length < 100 && $difference > 200 && $translated_length > 100) {
                 // Large translation for a small origin
-                $abnormal_length =  'large';
+                $abnormal_length = 'large';
             } elseif ($origin_length < 100 && $difference < 25) {
                 // Small translation for a small origin
-                $abnormal_length =  'small';
+                $abnormal_length = 'small';
             } else {
                 // No problems detected
-                $abnormal_length =  false;
+                $abnormal_length = false;
             }
         } else {
             // Missing origin or translated string
-            $abnormal_length =  false;
+            $abnormal_length = false;
         }
 
         return $abnormal_length;
@@ -296,8 +296,8 @@ class Utils
      */
     public static function getScriptPerformances()
     {
-        $memory_peak_B    = memory_get_peak_usage(true);
-        $memory_peak_MB   = round(($memory_peak_B / (1024 * 1024)), 2);
+        $memory_peak_B = memory_get_peak_usage(true);
+        $memory_peak_MB = round(($memory_peak_B / (1024 * 1024)), 2);
         $computation_time = round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
 
         return [$memory_peak_B, $memory_peak_MB, $computation_time];
@@ -444,9 +444,9 @@ class Utils
             array_map($sanitize, array_values($args))
         );
 
-        $args['locale']       = $source_locale;
+        $args['locale'] = $source_locale;
         $args['sourcelocale'] = $target_locale;
-        $args['json']         = 'true';
+        $args['json'] = 'true';
 
         // We don't want to encode slashes in searches for entity names
         $query = urldecode(http_build_query($args));

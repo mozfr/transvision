@@ -1,9 +1,9 @@
 <?php
 namespace Transvision;
 
-$source_locale  = isset($source_locale) ? $source_locale : 'en-US';
-$locale         = isset($locale) ? $locale : 'fr';
-$cache_bust     = '?v=' . VERSION;
+$source_locale = isset($source_locale) ? $source_locale : 'en-US';
+$locale = isset($locale) ? $locale : 'fr';
+$cache_bust = '?v=' . VERSION;
 
 /*
     This is a closure to build a list item containing the

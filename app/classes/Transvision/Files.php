@@ -22,8 +22,8 @@ class Files
     public static function fileForceContents($dir, $contents)
     {
         $parts = explode('/', $dir);
-        $file  = array_pop($parts);
-        $dir   = '';
+        $file = array_pop($parts);
+        $dir = '';
 
         foreach ($parts as $part) {
             if (! is_dir($dir .= "/{$part}")) {

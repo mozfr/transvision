@@ -23,7 +23,6 @@ if (is_array($stats)) {
     $logger->addError('stats_locales.json exists but couldn\'t extract a valid array from JSON');
 }
 
-
 // Create a JSON file logging search options to determine if some are unused
 $local_filename = CACHE_PATH . 'stats_requests.json';
 if (file_exists($local_filename)) {

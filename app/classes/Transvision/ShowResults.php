@@ -134,7 +134,7 @@ class ShowResults
 
         // We sort by quality to get the best results first
         usort($output, function ($a, $b) {
-           return $a['quality'] < $b['quality'];
+            return $a['quality'] < $b['quality'];
         });
 
         if ($max_results > 0) {
@@ -212,7 +212,7 @@ class ShowResults
     public static function formatEntity($entity, $highlight = false)
     {
         // Let's analyse the entity for the search string
-        $chunk  = explode(':', $entity);
+        $chunk = explode(':', $entity);
 
         if ($highlight) {
             $entity = array_pop($chunk);
@@ -224,7 +224,7 @@ class ShowResults
         }
         // Let's analyse the entity for the search string
         $chunk = explode('/', $chunk[0]);
-        $repo  = '<span class="green">' . array_shift($chunk) . '</span>';
+        $repo = '<span class="green">' . array_shift($chunk) . '</span>';
 
         $path = implode('<span class="superset">&nbsp;&bull;&nbsp;</span>', $chunk);
 
@@ -242,21 +242,21 @@ class ShowResults
      */
     public static function resultsTable($search_object, $search_results, $page)
     {
-        $locale1      = $search_object->getLocale('source');
-        $locale2      = $search_object->getLocale('target');
-        $direction1   = RTLSupport::getDirection($locale1);
-        $direction2   = RTLSupport::getDirection($locale2);
+        $locale1 = $search_object->getLocale('source');
+        $locale2 = $search_object->getLocale('target');
+        $direction1 = RTLSupport::getDirection($locale1);
+        $direction2 = RTLSupport::getDirection($locale2);
         $extra_locale = ($page == '3locales');
 
         $extra_column_header = '';
 
         if ($extra_locale) {
-            $locale3    = $search_object->getLocale('extra');
+            $locale3 = $search_object->getLocale('extra');
             $direction3 = RTLSupport::getDirection($locale3);
             $extra_column_header = "<th>{$locale3}</th>";
         }
 
-        $table  = "<table class='collapsable results_table sortable'>
+        $table = "<table class='collapsable results_table sortable'>
                      <thead>
                        <tr class='column_headers'>
                          <th>Entity</th>
@@ -359,7 +359,7 @@ class ShowResults
                 $target_string2 = Strings::highlightSpecial($target_string2);
             }
 
-            $clipboard_target_string  = 'clip_' . md5($target_string);
+            $clipboard_target_string = 'clip_' . md5($target_string);
             $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
             $temp = explode('-', $locale1);

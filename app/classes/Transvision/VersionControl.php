@@ -65,13 +65,13 @@ class VersionControl
         $url = 'https://hg.mozilla.org';
 
         // Remove entity from path and store it in a variable
-        $path          = explode(':', $path);
-        $path          = $path[0];
-        $path          = explode('/', $path);
-        $entity_file   = array_pop($path);
-        $path          = implode('/', $path);
+        $path = explode(':', $path);
+        $path = $path[0];
+        $path = explode('/', $path);
+        $entity_file = array_pop($path);
+        $path = implode('/', $path);
         $exploded_path = explode('/', $path);
-        $base_folder   = $exploded_path[0];
+        $base_folder = $exploded_path[0];
 
         $en_US_folder_mess = [
             'b2g/',

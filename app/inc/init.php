@@ -1,8 +1,8 @@
 <?php
 namespace Transvision;
 
-use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 // We always work with UTF8 encoding

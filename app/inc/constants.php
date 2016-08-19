@@ -27,7 +27,7 @@ if (php_sapi_name() != 'cli') {
     If the file doesn't exist, or is empty, fall back to 'unknown.dev'.
 */
 if (file_exists(CACHE_PATH . 'version.txt')) {
-    $file_content = file(CACHE_PATH . 'version.txt', FILE_IGNORE_NEW_LINES |  FILE_SKIP_EMPTY_LINES);
+    $file_content = file(CACHE_PATH . 'version.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $git_hash = empty($file_content)
         ? 'unknown.dev'
         : $file_content[0];

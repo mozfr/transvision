@@ -14,7 +14,7 @@ $repositories = $request->parameters[3] == 'global'
     ? Project::getRepositories()
     : [$request->parameters[3]];
 
-$entities_merged       = [];
+$entities_merged = [];
 $source_strings_merged = [];
 $target_strings_merged = [];
 

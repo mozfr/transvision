@@ -7,12 +7,12 @@ if ($api_url) {
     $page = isset($urls[$url['path']]) ? $urls[$url['path']] : 'notfound';
 }
 
-$template     = true;
-$extra        = null;
+$template = true;
+$extra = null;
 $experimental = false;
-$show_title   = true;
-$css_files    = ['transvision.css'];
-$js_files     = ['/js/base.js'];
+$show_title = true;
+$css_files = ['transvision.css'];
+$js_files = ['/js/base.js'];
 
 switch ($url['path']) {
     case '/':
@@ -35,7 +35,7 @@ switch ($url['path']) {
         $js_files[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
         break;
     case 'accesskeys':
-        $view       = 'accesskeys';
+        $view = 'accesskeys';
         $page_title = 'Access Keys';
         $page_descr = 'Check your access keys.';
         $js_files[] = '/js/sorttable.js';
@@ -44,7 +44,7 @@ switch ($url['path']) {
         $controller = 'api';
         $page_title = 'API response';
         $page_descr = '';
-        $template   = false;
+        $template = false;
         break;
     case 'channelcomparison':
         $controller = 'channelcomparison';
@@ -55,45 +55,45 @@ switch ($url['path']) {
         break;
     case 'consistency':
         $experimental = true;
-        $controller   = 'consistency';
-        $page_title   = 'Translation Consistency';
-        $page_descr   = 'Analyze translation consistency across repositories.';
+        $controller = 'consistency';
+        $page_title = 'Translation Consistency';
+        $page_descr = 'Analyze translation consistency across repositories.';
         break;
     case 'credits':
-        $view       = 'credits';
+        $view = 'credits';
         $page_title = 'Credits';
         $page_descr = '';
         break;
     case 'downloads':
-        $controller  = 'tmx_downloads';
-        $page_title  = 'TMX Download';
-        $page_descr  = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
+        $controller = 'tmx_downloads';
+        $page_title = 'TMX Download';
+        $page_descr = 'Create and download your own <abbr title="Translation Memory eXchange">TMX</abbr> file containing the strings you need.';
         $css_files[] = 'tmx.css';
-        $js_files[]  = '/js/select_all.js';
+        $js_files[] = '/js/select_all.js';
         break;
     case 'news':
-        $controller  = 'changelog';
-        $page_title  = 'Transvision News and Release Notes';
-        $page_descr  = '';
+        $controller = 'changelog';
+        $page_title = 'Transvision News and Release Notes';
+        $page_descr = '';
         $css_files[] = 'changelog.css';
         break;
     case 'productization':
-        $view        = 'productization';
-        $page_title  = 'Productization Overview';
-        $page_descr  = 'Show productization aspects for this locale.';
+        $view = 'productization';
+        $page_title = 'Productization Overview';
+        $page_descr = 'Show productization aspects for this locale.';
         $css_files[] = 'productization.css';
         break;
     case 'rss':
         $controller = 'changelog';
-        $template   = false;
+        $template = false;
         break;
     case 'showrepos':
         $experimental = true;
-        $controller   = 'health_status';
-        $page_title   = 'Health status';
-        $page_descr   = 'Check the health status of locales.';
-        $css_files[]  = 'health.css';
-        $js_files[]   = '/js/show_hide_tabs.js';
+        $controller = 'health_status';
+        $page_title = 'Health status';
+        $page_descr = 'Check the health status of locales.';
+        $css_files[] = 'health.css';
+        $js_files[] = '/js/show_hide_tabs.js';
         break;
     case 'stats':
         $controller = 'showrepos';
@@ -115,23 +115,23 @@ switch ($url['path']) {
         break;
     case 'unlocalized':
         $experimental = true;
-        $controller   = 'unlocalized_words';
-        $page_title   = 'Commonly Unlocalized Words';
-        $page_descr   = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
-        $js_files[]   = '/js/sorttable.js';
+        $controller = 'unlocalized_words';
+        $page_title = 'Commonly Unlocalized Words';
+        $page_descr = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
+        $js_files[] = '/js/sorttable.js';
         break;
     case 'unlocalized-all':
         $experimental = true;
-        $controller   = 'unlocalized_words';
-        $page_title   = 'Commonly Unlocalized Words (Global view)';
-        $page_descr   = 'Display the list of the most common untranslated words for all locales. Click on the table headers to sort results.';
-        $js_files[]   = '/js/sorttable.js';
-        $js_files[]   = '/js/hide_table_rows.js';
-        $js_files[]   = '/js/toggle_checkboxes.js';
+        $controller = 'unlocalized_words';
+        $page_title = 'Commonly Unlocalized Words (Global view)';
+        $page_descr = 'Display the list of the most common untranslated words for all locales. Click on the table headers to sort results.';
+        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/hide_table_rows.js';
+        $js_files[] = '/js/toggle_checkboxes.js';
         break;
     case 'unlocalized-json':
         $controller = 'unlocalized_words';
-        $template   = false;
+        $template = false;
         break;
     case 'variables':
         $controller = 'check_variables';
@@ -141,7 +141,7 @@ switch ($url['path']) {
         $js_files[] = '/js/sorttable.js';
         break;
     default:
-        $view       = '404';
+        $view = '404';
         $page_title = '404: Page Not Found';
         $page_descr = '';
         break;
