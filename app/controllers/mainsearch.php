@@ -26,7 +26,9 @@ if (isset($_GET['json'])) {
         escaped slashes, it gives a 404 instead of going through mod_rewrite
         see: http://www.leakon.com/archives/865
      */
-    $terms = urlencode(urlencode(Utils::cleanString($_GET['recherche'])));
+    $terms = isset($_GET['recherche'])
+        ? urlencode(urlencode(Utils::cleanString($_GET['recherche'])))
+        : '';
 
     $regex = [];
     $regex['whole']   = isset($_GET['whole_word']) ? 'whole_word=1' : '';
