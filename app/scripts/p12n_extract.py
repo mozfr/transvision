@@ -53,16 +53,18 @@ class ProductizationData():
             'ElFTkSuQmCC'
         ]
 
-    def extract_splist_enUS(self, path, product):
+    def extract_splist_enUS(self, path, product, channel):
         '''Store in enUS_searchplugins a list of en-US searchplugins (*.xml) in paths.'''
 
         try:
             if product not in self.enUS_searchplugins:
-                self.enUS_searchplugins[product] = []
+                self.enUS_searchplugins[product] = {}
+            if channel not in self.enUS_searchplugins[product]:
+                self.enUS_searchplugins[product][channel] = []
             for searchplugin in glob.glob(os.path.join(path, '*.xml')):
                 searchplugin_noext = os.path.splitext(
                     os.path.basename(searchplugin))[0]
-                self.enUS_searchplugins[product].append(searchplugin_noext)
+                self.enUS_searchplugins[product][channel].append(searchplugin_noext)
         except:
             print 'Error: problem reading list of en-US searchplugins from {0}'.format(pathsource)
 
@@ -96,7 +98,7 @@ class ProductizationData():
                 # en-US is different from all other locales: I must analyze all
                 # XML files in the folder, since some searchplugins are not used
                 # in en-US but by other locales
-                list_sp = self.enUS_searchplugins[product]
+                list_sp = self.enUS_searchplugins[product][channel]
 
             if locale != 'en-US':
                 # Get a list of all files inside search_path
@@ -104,7 +106,7 @@ class ProductizationData():
                     filename = os.path.basename(searchplugin)
                     # Remove extension
                     filename_noext = os.path.splitext(filename)[0]
-                    if filename_noext in self.enUS_searchplugins[product]:
+                    if filename_noext in self.enUS_searchplugins[product][channel]:
                         # File exists but has the same name of an en-US
                         # searchplugin.
                         errors.append(
@@ -122,7 +124,7 @@ class ProductizationData():
                 sp_file = os.path.join(search_path, sp + '.xml')
                 existing_file = os.path.isfile(sp_file)
 
-                if sp in self.enUS_searchplugins[product] and existing_file and locale != 'en-US':
+                if sp in self.enUS_searchplugins[product][channel] and existing_file and locale != 'en-US':
                     # There's a problem: file exists but has the same name of an
                     # en-US searchplugin. This file will never be picked at build
                     # time, so let's analyze en-US and use it for JSON, acting
@@ -541,7 +543,8 @@ class ProductizationData():
                 if requested_product in ['all', product]:
                     # Analyze en-US first
                     self.extract_splist_enUS(
-                        search_path_enUS['sp'][product], product)
+                        search_path_enUS['sp'][product], product,
+                        requested_channel)
                     self.extract_searchplugins_product(
                         search_path_enUS['sp'][product], product, 'en-US',
                         requested_channel)
