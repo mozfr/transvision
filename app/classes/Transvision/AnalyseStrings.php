@@ -19,10 +19,10 @@ class AnalyseStrings
     public static function cleanUpEntities($string)
     {
         $replace = [
-            '&#037;'    => '%',
-            '&amp;'     => '&',
-            '&apos;'    => "'",
-            '&percnt;'  => '%',
+            '&#037;'   => '%',
+            '&amp;'    => '&',
+            '&apos;'   => "'",
+            '&percnt;' => '%',
         ];
         $string = str_replace(array_keys($replace), array_values($replace), $string);
         $string = html_entity_decode($string, ENT_QUOTES);

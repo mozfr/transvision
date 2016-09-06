@@ -38,7 +38,7 @@ foreach ($entities as $entity) {
     $target_string = Strings::highlightSpecial($target_string);
     $source_string = Strings::highlightSpecial(Utils::secureText($tmx_source[$entity]));
 
-    $clipboard_target_string  = 'clip_' . md5($target_string);
+    $clipboard_target_string = 'clip_' . md5($target_string);
     $string_id = md5($entity . mt_rand());
     $regular_string_id = 'string_' . $string_id;
 
@@ -67,7 +67,7 @@ foreach ($entities as $entity) {
         // Highlight special characters only after strings have been escaped
         $target_string2 = Strings::highlightSpecial($target_string2);
 
-        $clipboard_target_string2  = 'clip_' . md5($target_string2);
+        $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
         if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
             $path_locale3 = VersionControl::gitPath($locale2, $current_repo, $entity);
@@ -137,7 +137,7 @@ foreach ($entities as $entity) {
     if (! $source_string) {
         $source_string = '<em class="error">Warning: Source string is empty</em>';
     } else {
-        $meta_source =  "
+        $meta_source = "
           <span>Translate with:</span>
           <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
           // We use html_entity_decode twice because we can have strings as &amp;amp; stored

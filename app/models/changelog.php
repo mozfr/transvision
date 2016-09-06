@@ -101,7 +101,7 @@ $commit = function ($commits) {
     foreach ($commits as $commit) {
         $link .= "<a href=\"https://github.com/mozfr/transvision/commit/{$commit}\" class=\"github_commit\">"
                 . 'Commit <span>' . substr($commit, 0, 7) . "</span></a>";
-        $link .=  ($commit === end($commits)) ? '. ' : ' + ';
+        $link .= ($commit === end($commits)) ? '. ' : ' + ';
     }
 
     return $link;
@@ -109,16 +109,16 @@ $commit = function ($commits) {
 
 // Helper to generate a link for each author
 $authors = function ($list) use ($author_urls) {
-  $text = ' (';
+    $text = ' (';
 
-  foreach ($list as $author) {
-      if (isset($author_urls[$author])) {
-          $text .= "<a href=\"{$author_urls[$author]}\">{$author}</a>";
-      } else {
-          $text .= $author;
-      }
-      $text .= ($author === end($list)) ? ')' : ', ';
-  }
+    foreach ($list as $author) {
+        if (isset($author_urls[$author])) {
+            $text .= "<a href=\"{$author_urls[$author]}\">{$author}</a>";
+        } else {
+            $text .= $author;
+        }
+        $text .= ($author === end($list)) ? ')' : ', ';
+    }
 
-  return $text;
+    return $text;
 };

@@ -69,8 +69,8 @@ class Health extends atoum\test
                     'browser/chrome/browser/places/places.properties:bookmarkResultLabel' => 'Bookmark',
                 ],
                 [
-                    'browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label'    => 'Ouvrir dans le Finder',
-                    'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2'       => 'Bookmark',
+                    'browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label' => 'Ouvrir dans le Finder',
+                    'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2'    => 'Bookmark',
                 ],
                 [
                     'name'       => 'Firefox Desktop',

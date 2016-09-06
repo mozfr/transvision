@@ -200,7 +200,7 @@ class Search
     {
         $search = preg_quote($this->regex_search_terms);
         if ($this->regex_perfect_match) {
-            $search =  "^{$search}$";
+            $search = "^{$search}$";
         }
 
         $this->regex =

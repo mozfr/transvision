@@ -1,21 +1,21 @@
 <?php
 
 $author_urls = [
-    'Anthony'     => 'https://github.com/MatonAnthony',
-    'Benoit'      => 'https://github.com/benoit-l',
-    'Clement'     => 'https://github.com/clement-lefevre',
-    'djug'        => 'https://github.com/djug',
-    'flod'        => 'https://github.com/flodolo',
-    'geb'         => 'https://github.com/mgoessen',
-    'guiom'       => 'https://github.com/xXGuillaumeXx',
-    'jesus'       => 'https://github.com/tx2z',
-    'keko'        => 'https://github.com/keko',
-    'MikkCZ'      => 'https://github.com/MikkCZ',
-    'pascal'      => 'https://github.com/pascalchevrel',
-    'SkySymbol'   => 'https://github.com/SkySymbol',
-    'sphinx'      => 'https://github.com/SphinxKnight',
-    'tchevalier'  => 'https://github.com/TheoChevalier',
-    'Thegennok'   => 'https://github.com/Thegennok',
+    'Anthony'    => 'https://github.com/MatonAnthony',
+    'Benoit'     => 'https://github.com/benoit-l',
+    'Clement'    => 'https://github.com/clement-lefevre',
+    'djug'       => 'https://github.com/djug',
+    'flod'       => 'https://github.com/flodolo',
+    'geb'        => 'https://github.com/mgoessen',
+    'guiom'      => 'https://github.com/xXGuillaumeXx',
+    'jesus'      => 'https://github.com/tx2z',
+    'keko'       => 'https://github.com/keko',
+    'MikkCZ'     => 'https://github.com/MikkCZ',
+    'pascal'     => 'https://github.com/pascalchevrel',
+    'SkySymbol'  => 'https://github.com/SkySymbol',
+    'sphinx'     => 'https://github.com/SphinxKnight',
+    'tchevalier' => 'https://github.com/TheoChevalier',
+    'Thegennok'  => 'https://github.com/Thegennok',
 ];
 
 $releases = [

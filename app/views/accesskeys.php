@@ -3,7 +3,7 @@ namespace Transvision;
 
 require_once INC . 'l10n-init.php';
 
-$strings[$repo]         = Utils::getRepoStrings($locale, $repo);
+$strings[$repo] = Utils::getRepoStrings($locale, $repo);
 $strings_english[$repo] = Utils::getRepoStrings('en-US', $repo);
 
 $channel_selector = Utils::getHtmlSelectOptions(
@@ -28,11 +28,11 @@ $akeys = array_filter(
     }
 );
 
-$ak_labels  = ['.label', '.title', '.title2'];
+$ak_labels = ['.label', '.title', '.title2'];
 $ak_results = [];
 
 foreach ($akeys as $akey) {
-    $entity     = substr($akey, 0, -10);
+    $entity = substr($akey, 0, -10);
     $akey_value = $strings[$repo][$akey];
 
     foreach ($ak_labels as $ak_label) {

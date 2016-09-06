@@ -490,7 +490,7 @@ class Utils extends atoum\test
 
     public function testGetScriptPerformances()
     {
-        $obj  = new _Utils();
+        $obj = new _Utils();
         $data = $obj->getScriptPerformances();
         $this
             ->array($data)

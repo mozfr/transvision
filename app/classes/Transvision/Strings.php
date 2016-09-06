@@ -269,7 +269,7 @@ class Strings
         // No multibyte characters, use native C Levenshtein function
         if (strlen($string1) == $length1 && strlen($string2) == $length2) {
             // Native Levenshtein function is limited to 255 characters
-            if (strlen($string1) < 255  && strlen($string2) < 255) {
+            if (strlen($string1) < 255 && strlen($string2) < 255) {
                 return levenshtein($string1, $string2);
             }
         }
@@ -293,14 +293,14 @@ class Strings
 
         // This is a matrix
         for ($i = 0; $i < $length1; $i++) {
-            $current_row    = [];
+            $current_row = [];
             $current_row[0] = $i + 1;
             $c1 = mb_substr($string1, $i, 1, 'UTF-8');
 
             for ($j = 0; $j < $length2; $j++) {
-                $c2            = mb_substr($string2, $j, 1, 'UTF-8');
-                $insertions    = $previous_row[$j + 1] + 1;
-                $deletions     = $current_row[$j] + 1;
+                $c2 = mb_substr($string2, $j, 1, 'UTF-8');
+                $insertions = $previous_row[$j + 1] + 1;
+                $deletions = $current_row[$j] + 1;
                 $substitutions = $previous_row[$j] + (($c1 != $c2) ? 1 : 0);
                 $current_row[] = min($insertions, $deletions, $substitutions);
             }
