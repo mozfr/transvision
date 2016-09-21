@@ -82,7 +82,6 @@ class VersionControl
             'browser/branding/nightly/',
             'browser/branding/official/',
             'browser/branding/unofficial/',
-            'browser/extensions/pocket/',
             'calendar/',
             'chat/',
             'devtools/client/',
