@@ -45,7 +45,7 @@ $links = <<<EOT
   <ul>
     {$li_link('keys', 'Check your access keys', 'Access Keys')}
     {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
-    {$li_link('empty_strings', 'Display strings empty in English or the locale', 'Empty Strings')}
+    {$li_link('empty_strings', 'Display empty strings in English or locale', 'Empty Strings')}
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
     {$li_link('unlocalized_all', 'Display common words remaining in English', 'Unlocalized Words')}
   </ul>

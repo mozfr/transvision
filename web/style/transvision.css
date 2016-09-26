@@ -947,6 +947,13 @@ input[type="checkbox"]:disabled + label {
     margin-top: -10px;
 }
 
+/* Empty strings view */
+#empty_strings .intro {
+    margin: 0 auto;
+    text-align: center;
+    width: 75%;
+}
+
 /* Glossary view */
 #glossary_matches {
     width: 80%;

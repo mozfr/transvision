@@ -1,7 +1,11 @@
 <?php
 namespace Transvision;
-use Transvision\ShowResults;
 ?>
+<p class="intro">This view displays strings that are empty in the reference language
+    but have a translation in the requested language, and viceversa.
+    It can be used to identify strings that should have been localized and
+    are empty by mistake, and strings that should actually remain empty.
+</p>
 <form name="searchform" id="simplesearchform" method="get" action="">
     <fieldset id="main_search">
 
@@ -30,19 +34,18 @@ use Transvision\ShowResults;
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
 </form>
-
 <?php if (isset($filter_block)) {
-?>
+    ?>
 <div id="filters">
     <h4>Filter by folder:</h4>
     <a href="#showall" id="showall" class="filter">Show all results</a>
-    <?=$filter_block;?>
+    <?=$filter_block; ?>
 </div>
 <?php
 }
 
 if (count($empty_strings) == 0) {
-    echo "<div class=\"message\"><p>No empty strings found for {$reference_locale}.</p></div>";
+    echo "<div class=\"message\"><p>No strings found.</p></div>";
 } else {
     $text_direction = RTLSupport::getDirection($locale);
     $table = "<table class='collapsable results_table sortable'>

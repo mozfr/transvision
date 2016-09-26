@@ -7,6 +7,7 @@ $paths = [
     ['consistency/?locale=fr&repo=central', 200, 'English String', 'Available Translations'],
     ['consistency/?locale=en-US&repo=central', 200, 'No inconsistent translations found.', 'Analyze translation consistency across repositories.'],
     ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is a community project under the MozFR umbrella'],
+    ['empty-strings/', 200, 'Empty strings', 'No strings found'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
     ['news/', 200, 'Version 4.0', 'End user visible changes'],
     ['productization/', 200, 'Show productization', 'firefox'],

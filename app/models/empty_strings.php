@@ -1,9 +1,12 @@
 <?php
 namespace Transvision;
 
-// Build arrays for the search form, ignore mozilla.org
+// Build arrays for the search form, ignore mozilla.org and iOS
 $channel_selector = Utils::getHtmlSelectOptions(
-    array_diff($repos_nice_names, ['mozilla.org']),
+    array_intersect_key(
+        $repos_nice_names,
+        array_flip($desktop_repos)
+    ),
     $repo,
     true
 );
