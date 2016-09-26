@@ -77,6 +77,7 @@ switch ($url['path']) {
         $page_title = 'Empty Strings';
         $page_descr = '';
         $js_files[] = '/js/component_filter.js';
+        $js_files[] = '/js/sorttable.js';
         break;
     case 'news':
         $controller = 'changelog';
