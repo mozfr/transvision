@@ -63,8 +63,8 @@ if (count($empty_strings) == 0) {
     foreach ($empty_strings as $key => $strings) {
         $entity = ShowResults::formatEntity($key);
         $component = explode('/', $key)[0];
-        $reference_string = $strings['reference'];
-        $locale_string = Strings::highlightSpecial($strings['translation'], false);
+        $reference_string = htmlspecialchars($strings['reference']);
+        $locale_string = Strings::highlightSpecial(htmlspecialchars($strings['translation']), false);
 
         $entity_link = "?sourcelocale={$reference_locale}"
         . "&locale={$locale}"
