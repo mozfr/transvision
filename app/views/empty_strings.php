@@ -31,7 +31,16 @@ use Transvision\ShowResults;
     </fieldset>
 </form>
 
+<?php if (isset($filter_block)) {
+?>
+<div id="filters">
+    <h4>Filter by folder:</h4>
+    <a href="#showall" id="showall" class="filter">Show all results</a>
+    <?=$filter_block;?>
+</div>
 <?php
+}
+
 if (count($empty_strings) == 0) {
     echo "<div class=\"message\"><p>No empty strings found for {$reference_locale}.</p></div>";
 } else {
@@ -48,6 +57,7 @@ if (count($empty_strings) == 0) {
 
     foreach ($empty_strings as $key => $strings) {
         $entity = ShowResults::formatEntity($key);
+        $component = explode('/', $key)[0];
         $reference_string = trim($strings['reference']);
         $locale_string = trim($strings['translation']);
 
@@ -77,7 +87,7 @@ if (count($empty_strings) == 0) {
         $anchor_name = str_replace(['/', ':'], '_', $key);
 
         $table .= "
-            <tr>
+            <tr class='{$component}'>
               <td>
                 <span class='celltitle'>Entity</span>
                 <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this string'>link</a>

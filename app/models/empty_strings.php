@@ -49,7 +49,14 @@ foreach ($empty_locale as $string_id => $value) {
     }
 }
 
-ksort($empty_strings);
-
 unset($reference_strings);
 unset($locale_strings);
+
+if (count($empty_strings > 0)) {
+    ksort($empty_strings);
+    $components = Project::getComponents($empty_strings);
+    $filter_block = '';
+    foreach ($components as $value) {
+        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
+    }
+}
