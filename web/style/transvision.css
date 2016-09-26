@@ -948,7 +948,8 @@ input[type="checkbox"]:disabled + label {
 }
 
 /* Empty strings view */
-#empty_strings .intro {
+#empty_strings .intro,
+#empty_strings .message {
     margin: 0 auto;
     text-align: center;
     width: 75%;
