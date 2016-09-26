@@ -44,7 +44,7 @@ $empty_locale = array_filter($locale_strings, function ($string) {
     return strlen($string) == 0;
 });
 foreach ($empty_locale as $string_id => $value) {
-    if ($reference_strings[$string_id] != '') {
+    if (isset($reference_strings[$string_id]) && $reference_strings[$string_id] != '') {
         $empty_strings[$string_id] = [
             'reference'   => $reference_strings[$string_id],
             'translation' => $value,

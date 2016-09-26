@@ -1,5 +1,6 @@
 <?php
 namespace Transvision;
+
 ?>
 <p class="intro">This view displays strings that are empty in the reference language
     but have a translation in the requested language, and viceversa.
@@ -42,6 +43,7 @@ namespace Transvision;
     <?=$filter_block; ?>
 </div>
 <?php
+
 }
 
 if (count($empty_strings) == 0) {
