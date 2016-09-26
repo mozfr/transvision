@@ -55,7 +55,7 @@ foreach ($empty_locale as $string_id => $value) {
 unset($reference_strings);
 unset($locale_strings);
 
-if (count($empty_strings > 0)) {
+if (count($empty_strings) > 0) {
     ksort($empty_strings);
     $components = Project::getComponents($empty_strings);
     $filter_block = '';
