@@ -954,6 +954,10 @@ input[type="checkbox"]:disabled + label {
     width: 75%;
 }
 
+#empty_strings .highlight-special {
+    min-width: 0.5em;
+}
+
 /* Glossary view */
 #glossary_matches {
     width: 80%;

@@ -61,8 +61,8 @@ if (count($empty_strings) == 0) {
     foreach ($empty_strings as $key => $strings) {
         $entity = ShowResults::formatEntity($key);
         $component = explode('/', $key)[0];
-        $reference_string = trim($strings['reference']);
-        $locale_string = trim($strings['translation']);
+        $reference_string = $strings['reference'];
+        $locale_string = Strings::highlightSpecial($strings['translation'], false);
 
         $entity_link = "?sourcelocale={$reference_locale}"
         . "&locale={$locale}"
@@ -82,7 +82,7 @@ if (count($empty_strings) == 0) {
         }
         if ($locale_string == '@@missing@@') {
             $locale_string = '<em class="error">Missing string</em>';
-        } elseif (! $locale_string) {
+        } elseif ($locale_string == '') {
             $locale_string = '<em class="error">(empty)</em>';
         }
 

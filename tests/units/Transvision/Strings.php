@@ -96,13 +96,13 @@ class Strings extends atoum\test
         return [
             [
                 [
-                    ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
-                    ' '        => '<span class="highlight-red" title="Thin space"> </span>', // Thin space highlight
-                    '…'        => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
-                    '&hellip;' => '<span class="highlight-gray">…</span>', // Right ellipsis highlight
+                    ' '        => '<span class="highlight-special highlight-gray" title="Non breakable space"> </span>', // Nbsp highlight
+                    ' '        => '<span class="highlight-special highlight-red" title="Thin space"> </span>', // Thin space highlight
+                    '…'        => '<span class="highlight-special highlight-gray">…</span>', // Right ellipsis highlight
+                    '&hellip;' => '<span class="highlight-special highlight-gray">…</span>', // Right ellipsis highlight
                 ],
                 '&hellip;  …',
-                '<span class="highlight-gray">…</span><span class="highlight-gray" title="Non breakable space"> </span><span class="highlight-red" title="Thin space"> </span><span class="highlight-gray">…</span>',
+                '<span class="highlight-special highlight-gray">…</span><span class="highlight-special highlight-gray" title="Non breakable space"> </span><span class="highlight-special highlight-red" title="Thin space"> </span><span class="highlight-special highlight-gray">…</span>',
             ],
         ];
     }
@@ -123,10 +123,10 @@ class Strings extends atoum\test
         $obj = new _Strings();
         $this
             ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…'))
-                ->isEqualTo('Foo is bar<span class="highlight-gray" title="Non breakable space"> </span>;<span class="highlight-gray" title="Non breakable space"> </span>Bar is Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
+                ->isEqualTo('Foo is bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar is Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
         $this
             ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…', false))
-                ->isEqualTo('Foo<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>bar<span class="highlight-gray" title="Non breakable space"> </span>;<span class="highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-space" title="White space"> </span>is<span class="highlight-space" title="White space"> </span>Foo<span class="highlight-gray" title="Real ellipsis">…</span>');
+                ->isEqualTo('Foo<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
     }
 
     public function markStringDP()

@@ -115,11 +115,11 @@ class Strings
     public static function highlightSpecial($string, $exclude_whitespaces = true)
     {
         $replacements = [
-            ' '        => '<span class="highlight-space" title="White space"> </span>',
-            ' '        => '<span class="highlight-gray" title="Non breakable space"> </span>',
-            ' '        => '<span class="highlight-red" title="Narrow no-break space"> </span>',
-            '…'        => '<span class="highlight-gray" title="Real ellipsis">…</span>',
-            '&hellip;' => '<span class="highlight-red" title="HTML ellipsis">…</span>',
+            ' '        => '<span class="highlight-special highlight-space" title="White space"> </span>',
+            ' '        => '<span class="highlight-special highlight-gray" title="Non breakable space"> </span>',
+            ' '        => '<span class="highlight-special highlight-red" title="Narrow no-break space"> </span>',
+            '…'        => '<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>',
+            '&hellip;' => '<span class="highlight-special highlight-red" title="HTML ellipsis">…</span>',
         ];
 
         if ($exclude_whitespaces) {
