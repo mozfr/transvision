@@ -71,6 +71,12 @@ switch ($url['path']) {
         $css_files[] = 'tmx.css';
         $js_files[] = '/js/select_all.js';
         break;
+    case 'empty-strings':
+        $experimental = true;
+        $controller = 'empty_strings';
+        $page_title = 'Empty Strings';
+        $page_descr = '';
+        break;
     case 'news':
         $controller = 'changelog';
         $page_title = 'Transvision News and Release Notes';
