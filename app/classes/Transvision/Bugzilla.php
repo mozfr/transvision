@@ -49,6 +49,12 @@ class Bugzilla extends _Bugzilla
     {
         $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$entity}");
         $transvision_url = "https://transvision.mozfr.org/{$entity_link}";
+        $source_string = $source_string != ''
+            ? $source_string
+            : '(empty string)';
+        $target_string = $target_string != ''
+            ? $target_string
+            : '(empty string)';
         $bug_message = rawurlencode(
             html_entity_decode(
                 "The string:\n{$source_string}\n\n"
