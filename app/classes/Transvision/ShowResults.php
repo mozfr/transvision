@@ -388,11 +388,11 @@ class ShowResults
             } else {
                 $meta_source = "
                   <span>Translate with:</span>
-                  <a href='http://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
+                  <a href='https://translate.google.com/#{$locale1_short_code}/{$locale2_short_code}/"
                   // We use html_entity_decode twice because we can have strings as &amp;amp; stored
                   . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
                   . "' target='_blank'>Google</a>
-                  <a href='http://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
+                  <a href='https://www.bing.com/translator/?from={$locale1_short_code}&to={$locale2_short_code}&text="
                   . urlencode(strip_tags(html_entity_decode(html_entity_decode($source_string))))
                   . "' target='_blank'>BING</a>";
             }
