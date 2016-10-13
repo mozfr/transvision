@@ -85,6 +85,21 @@ function checkoutSilme() {
     fi
 }
 
+function setupP12nExtract() {
+    if [ ! -d $libraries/p12n/.git ]
+    then
+        echogreen "Checking out the p12n-extract library into $libraries"
+        cd $libraries
+        git clone https://github.com/flodolo/p12n-extract/ p12n
+        cd $install
+    else
+        echogreen "Updating the p12n-extract library into $libraries"
+        cd $libraries/p12n
+        git pull
+        cd $install
+    fi
+}
+
 # Make sure we have hg repos in the directories, if not check them out
 function initDesktopL10nRepo() {
     if [ "$1" == "central" ]
@@ -232,6 +247,7 @@ fi
 echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
 
 checkoutSilme
+setupP12nExtract
 
 initDesktopSourceRepo "central"
 initDesktopSourceRepo "release"

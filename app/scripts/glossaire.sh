@@ -326,7 +326,7 @@ updateFirefoxiOS
 # Generate productization data
 cd $install
 echogreen "Extracting p12n data"
-nice -20 python $install/app/scripts/p12n_extract.py
+nice -20 python $libraries/p12n/p12n_extract/p12n_extract.py $config
 
 # Create a file to get the timestamp of the last string extraction for caching
 echogreen "Creating extraction timestamp for cache system"
