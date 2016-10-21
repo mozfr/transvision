@@ -127,7 +127,7 @@ class Search
         $this->regex_entire_words = false;
         $this->each_word = false;
         $this->regex_search_terms = '';
-        $this->repository = 'central';
+        $this->repository = 'gecko_strings';
         $this->search_type = 'strings';
         $this->locales = [];
         $this->form_checkboxes = array_diff(

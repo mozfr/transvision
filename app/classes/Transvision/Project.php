@@ -56,7 +56,10 @@ class Project
      */
     public static function getRepositories()
     {
-        return array_keys(self::getSupportedRepositories());
+        $repositories = array_keys(self::getSupportedRepositories());
+        sort($repositories);
+
+        return $repositories;
     }
 
     /**
@@ -80,7 +83,7 @@ class Project
     {
         return array_diff(
             self::getRepositories(),
-            ['mozilla_org', 'firefox_ios']
+            ['firefox_ios', 'focus_ios', 'mozilla_org']
         );
     }
 
@@ -200,8 +203,14 @@ class Project
         $locale_mappings['firefox_ios'] = [
             'bn-IN' => 'bn',
             'bn-BD' => 'bn',
-            'es-AR' => 'es',
             'es-ES' => 'es',
+            'son'   => 'ses',
+        ];
+
+        // Focus for iOS
+        $locale_mappings['focus_ios'] = [
+            'bn-IN' => 'bn',
+            'bn-BD' => 'bn',
             'son'   => 'ses',
         ];
 

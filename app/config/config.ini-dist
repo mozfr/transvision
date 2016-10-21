@@ -16,7 +16,7 @@ local_git=/home/pascalc/transvision/data/git
 ; of Transvision, as long as scripts have access to it.
 local_svn=/home/pascalc/transvision/data/svn
 
-; This path is used to store libraries (e.g. silme)
+; This path is used to store libraries (e.g. compare-locales)
 libraries=/home/pascalc/transvision/data/libraries
 
 ; Path to Git checkout of Transvision, it will contain setup/update scripts

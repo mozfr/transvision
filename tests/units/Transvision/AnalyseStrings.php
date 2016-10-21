@@ -33,14 +33,14 @@ class AnalyseStrings extends atoum\test
             [
                 ['browser:foobar1' => '&brandShortName; will:'],
                 ['browser:foobar1' => 'Règles de conservation :'],
-                'central',
+                'gecko_strings',
                 [],
                 ['browser:foobar1'],
             ],
             [
                 ['browser:foobar2' => '{{name}}, +{{n}} more'],
                 ['browser:foobar2' => '{{name}} et un autre'],
-                'central',
+                'gecko_strings',
                 [],
                 ['browser:foobar2'],
             ],
@@ -135,7 +135,7 @@ class AnalyseStrings extends atoum\test
                 // {{n}} vs {{ n }} (not an error)
                 ['browser:foobar13' => '{{name}}, +{{n}} more'],
                 ['browser:foobar13' => '{{ name }} et {{ n }} autre'],
-                'central',
+                'gecko_strings',
                 [],
                 [],
             ],
@@ -143,7 +143,7 @@ class AnalyseStrings extends atoum\test
                 // {{n}} vs {{ n }}, changed order (not an error)
                 ['browser:foobar14' => '{{ n}} more and {{ name }}'],
                 ['browser:foobar14' => '{{name}} et {{n}} autre'],
-                'central',
+                'gecko_strings',
                 [],
                 [],
             ],
@@ -151,7 +151,7 @@ class AnalyseStrings extends atoum\test
                 // Non-breaking space in {{ n }} (not an error)
                 ['browser:foobar15' => '{{ appName }} installed'],
                 ['browser:foobar15' => '{{ appName }} ইনস্টল রয়েছে'],
-                'central',
+                'gecko_strings',
                 [],
                 [],
             ],
@@ -176,6 +176,14 @@ class AnalyseStrings extends atoum\test
                 ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
                 'firefox_ios',
+                [],
+                [],
+            ],
+            [
+                // Check Focus for iOS has the same results
+                ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
+                ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
+                'focus_ios',
                 [],
                 [],
             ],

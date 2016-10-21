@@ -259,7 +259,7 @@ class ShowResults
         $fileAndRawString = explode(':', $key);
 
         $excluded_repos = ['beta', 'release'];
-        $free_text_repos = ['mozilla_org', 'firefox_ios'];
+        $free_text_repos = ['firefox_ios', 'focus_ios', 'mozilla_org'];
 
         // Ignore files in /extensions
         if ($component == 'extensions') {
@@ -297,6 +297,10 @@ class ShowResults
         } elseif ($repo == 'firefox_ios') {
             $project_name = 'firefox-for-ios';
             $resource_path = 'firefox-ios.xliff';
+            $search_key = $text;
+        } elseif ($repo == 'focus_ios') {
+            $project_name = 'focus-for-ios';
+            $resource_path = 'focus-ios.xliff';
             $search_key = $text;
         } else {
             $resource_path = $fileAndRawString[0];
@@ -469,13 +473,8 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2_short_code = $temp[0];
 
-            if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
-                $locale1_path = VersionControl::gitPath($locale1, $current_repo, $key);
-                $locale2_path = VersionControl::gitPath($locale2, $current_repo, $key);
-            } else {
-                $locale1_path = VersionControl::hgPath($locale1, $current_repo, $key);
-                $locale2_path = VersionControl::hgPath($locale2, $current_repo, $key);
-            }
+            $locale1_path = VersionControl::getPath($locale1, $current_repo, $key);
+            $locale2_path = VersionControl::getPath($locale2, $current_repo, $key);
 
             // Get the potential errors for $target_string (final dot, long/small string)
             $error_message = ShowResults::buildErrorString($source_string, $target_string);
@@ -527,11 +526,7 @@ class ShowResults
 
             // 3locales view
             if ($extra_locale) {
-                if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
-                    $locale3_path = VersionControl::gitPath($locale3, $current_repo, $key);
-                } else {
-                    $locale3_path = VersionControl::hgPath($locale3, $current_repo, $key);
-                }
+                $locale3_path = VersionControl::getPath($locale3, $current_repo, $key);
 
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>

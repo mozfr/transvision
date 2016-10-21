@@ -2,7 +2,7 @@
 namespace Transvision;
 
 // Using Central as a reference for simplicity to create the list of locales
-$repo = 'central';
+$repo = 'gecko_strings';
 
 require_once INC . 'l10n-init.php';
 
@@ -33,7 +33,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     $html_output = "  <h2>Current locale: {$locale}</h2>\n";
 
     $target_locales_list = Utils::getHtmlSelectOptions(
-        Project::getRepositoryLocales('central'),
+        Project::getRepositoryLocales('gecko_strings'),
         $locale
     );
     $product_selector = Utils::getHtmlSelectOptions($products, $product, true);

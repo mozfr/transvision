@@ -125,13 +125,8 @@ a.button {
 }
 /* Titles */
 
-#current {
-    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
-}
-
 h1,
-h2,
-#current {
+h2 {
     color: #333;
     font-size: 1.5em;
     text-align: center;
@@ -197,20 +192,6 @@ h3 {
     padding: 0;
     text-align: center;
     width: 80%;
-}
-
-#current {
-    font-size: 1.9em;
-    padding: 0.1em 0;
-    margin-top: 10px;
-}
-
-#current strong {
-    display: inline-block;
-    padding: 0 0.5em;
-    border-left: 1px solid #a9a9a9;
-    margin-left: 0.5em;
-    color: #ff9500;
 }
 
 /* Top and bottom links */
@@ -687,7 +668,7 @@ input[type="checkbox"]:disabled + label {
 }
 
 #main_search #search {
-    margin: 0;
+    margin: 6px 0 0;
 }
 
 #main_search #search input[type='text'] {
@@ -1128,10 +1109,6 @@ input[type="checkbox"]:disabled + label {
 /* Responsive */
 
 @media only screen and (max-width: 850px) {
-    #current {
-        font-size: 1.6em;
-    }
-
     table.collapsable,
     table.collapsable thead,
     table.collapsable tbody,
@@ -1207,10 +1184,6 @@ input[type="checkbox"]:disabled + label {
         left: -55px;
     }
 
-    #current {
-        font-size: 1.3em;
-    }
-
     #filters h4 {
         display: block;
     }
@@ -1262,14 +1235,6 @@ input[type="checkbox"]:disabled + label {
 @media only screen and (max-width: 460px) {
     #logo img {
         width: 150px;
-    }
-
-    #current {
-        margin-top: 10px;
-    }
-    #current,
-    h2 {
-        font-size: 1.1em;
     }
 
     #filters h4 {

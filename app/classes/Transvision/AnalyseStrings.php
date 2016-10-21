@@ -47,6 +47,7 @@ class AnalyseStrings
 
         switch ($repo) {
             case 'firefox_ios':
+            case 'focus_ios':
                 $patterns = [
                     'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.
                 ];

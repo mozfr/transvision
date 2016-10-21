@@ -39,11 +39,7 @@ def main():
     supported_repositories = {}
     json_repositories = json.load(sources_file)
 
-    folder_mapping = {
-        'central': 'TRUNK_L10N',
-        'firefox_ios': 'firefox_ios',
-        'mozilla_org': 'mozilla_org'
-    }
+    folder_mapping = {}
 
     known_folders = []
     known_cache_files = []
@@ -53,8 +49,7 @@ def main():
         # Check if this repository is mapped to a special folder name
         # (e.g. central -> trunk), otherwise use the repository ID
         # (transformed to uppercase) with '_L10N' as folder name.
-        folder_name = folder_mapping.get(
-            repository_id, repository_id.upper() + '_L10N')
+        folder_name = folder_mapping.get(repository_id, repository_id)
         known_folders.append(folder_name)
 
         # Store supported locales for this repository
@@ -98,6 +93,7 @@ def main():
     #     supported by mozilla.org
     exclusions = {
         'firefox_ios': ['.git', 'templates'],
+        'focus_ios': ['.git', 'templates'],
         'mozilla_org': ['.git', 'en-US', 'hi']
     }
     hg_path = config_parser.get('config', 'local_hg')

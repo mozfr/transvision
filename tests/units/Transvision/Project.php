@@ -11,8 +11,7 @@ class Project extends atoum\test
     public function testGetRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'central',
-                  'mozilla_org', ];
+        $repos = ['gecko_strings', 'mozilla_org'];
         $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);
@@ -22,10 +21,8 @@ class Project extends atoum\test
     {
         $obj = new _Project();
         $repos = [
-            'release'     => 'Release',
-            'beta'        => 'Beta',
-            'central'     => 'Central',
-            'mozilla_org' => 'mozilla.org',
+            'gecko_strings' => 'Gecko Products',
+            'mozilla_org'   => 'mozilla.org',
         ];
         $this
             ->array($obj->getRepositoriesNames())
@@ -35,7 +32,7 @@ class Project extends atoum\test
     public function testGetDesktopRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'central'];
+        $repos = ['gecko_strings'];
         $this
             ->array($obj->getDesktopRepositories())
                 ->isEqualTo($repos);
@@ -44,9 +41,9 @@ class Project extends atoum\test
     public function isDesktopRepositoryDP()
     {
         return [
-            ['central', true],
-            ['release', true],
+            ['gecko_strings', true],
             ['firefox_ios', false],
+            ['focus_ios', false],
             ['mozilla_org', false],
             ['randomrepo', false],
         ];
@@ -66,10 +63,9 @@ class Project extends atoum\test
     public function getRepositoryLocalesDP()
     {
         return [
-            ['central', ['en-US', 'fr', 'it'], []],
-            ['central', ['fr', 'it'], ['en-US']],
-            ['central', ['it'], ['en-US', 'fr']],
-            ['release', ['en-US'], []],
+            ['gecko_strings', ['en-US', 'fr', 'it'], []],
+            ['gecko_strings', ['fr', 'it'], ['en-US']],
+            ['gecko_strings', ['it'], ['en-US', 'fr']],
         ];
     }
 
@@ -87,7 +83,7 @@ class Project extends atoum\test
     public function getLocaleRepositoriesDP()
     {
         return [
-            ['fr', ['central', 'mozilla_org']],
+            ['fr', ['gecko_strings', 'mozilla_org']],
             ['foobar', []],
         ];
     }
@@ -107,7 +103,7 @@ class Project extends atoum\test
     {
         $obj = new _Project();
         $this
-            ->string($obj->getReferenceLocale('central'))
+            ->string($obj->getReferenceLocale('gecko_strings'))
                 ->isEqualTo('en-US');
         $this
             ->string($obj->getReferenceLocale('mozilla_org'))
@@ -118,7 +114,7 @@ class Project extends atoum\test
     {
         $obj = new _Project();
         $this
-            ->boolean($obj->isValidRepository('central'))
+            ->boolean($obj->isValidRepository('gecko_strings'))
                 ->isEqualTo(true);
         $this
             ->boolean($obj->isValidRepository('foo'))
@@ -143,6 +139,8 @@ class Project extends atoum\test
             ['es-ES', 'firefox_ios', 'es'],
             ['es', 'firefox_ios', 'es'],
             ['son', 'firefox_ios', 'ses'],
+            ['es-ES', 'focus_ios', 'es-ES'],
+            ['son', 'focus_ios', 'ses'],
         ];
     }
 

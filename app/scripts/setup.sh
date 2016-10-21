@@ -23,60 +23,9 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
-function createSymlinks() {
-    branches=( trunk beta release )
-
-    case "$1" in
-        "mozilla" | "comm" )
-        # Restructure en-US mozilla-* and comm-*
-        for dir in $(cat "$config/list_rep_$1-central.txt")
-        do
-            for branch in "${branches[@]}"
-            do
-                if [ "$branch" == "trunk" ]
-                then
-                    # Possible values: mozilla-central, comm-central
-                    local repo_name="$1-central"
-                else
-                    # Possible values: mozilla-beta, comm-beta, etc.
-                    local repo_name="$1-$branch"
-                fi
-
-                path="$local_hg/${branch^^}_EN-US/COMMUN/$dir"
-                if [ ! -L "$path/en-US" ]
-                then
-                    echored "Missing symlink for ${branch^^}_EN-US/COMMUN/$dir"
-                    mkdir -p "$path"
-                    ln -s "$local_hg/${branch^^}_EN-US/$repo_name/$dir" "$path"
-                fi
-            done
-        done
-        ;;
-
-        "chatzilla" )
-        # Restructure ChatZilla
-        for branch in "${branches[@]}"
-        do
-            # Source repo is called "chatzilla", l10n folder is "irc"
-            local dir="extensions/irc/locales/en-US"
-            repo_name="chatzilla/locales/en-US"
-            path="$local_hg/${branch^^}_EN-US/COMMUN/$dir"
-            if [ ! -L "$path/en-US" ]
-            then
-                echored "Missing symlink for ${branch^^}_EN-US/COMMUN/$dir"
-                mkdir -p "$path"
-                # Since these products have only one repo, we always create
-                # symlinks to TRUNK in order to check out source code only once
-                ln -s "$local_hg/TRUNK_EN-US/$repo_name" "$path"
-            fi
-        done
-        ;;
-    esac
-}
-
 function setupExternalLibraries() {
     # Check out or update compare-locales library
-    version="RELEASE_1_2_1"
+    version="RELEASE_2_1"
     if [ ! -d $libraries/compare-locales/.hg ]
     then
         echogreen "Checking out compare-locales in $libraries"
@@ -91,37 +40,51 @@ function setupExternalLibraries() {
         cd $install
     fi
 
+    # Check out or update python-fluent library
+    version="0.4.2"
+    if [ ! -d $libraries/python-fluent/.git ]
+    then
+        echogreen "Checking out the python-fluent library in $libraries"
+        cd $libraries
+        git clone https://github.com/projectfluent/python-fluent
+        cd $install
+    else
+        echogreen "Updating the python-fluent library in $libraries"
+        cd $libraries/python-fluent
+        git checkout master
+        git pull
+        git checkout -q $version
+        cd $install
+    fi
+
     # Check out or update external p12n-extract library
     if [ ! -d $libraries/p12n/.git ]
     then
         echogreen "Checking out the p12n-extract library in $libraries"
         cd $libraries
         git clone https://github.com/flodolo/p12n-extract/ p12n
+        #TODO: remove this
+        cd p12n;git checkout x-channel;cd ..
         cd $install
     else
         echogreen "Updating the p12n-extract library in $libraries"
         cd $libraries/p12n
+        #TODO: remove this
+        git checkout x-channel
         git pull
         cd $install
     fi
 }
 
-# Make sure we have hg repos in the directories, if not check them out
-function initDesktopL10nRepo() {
-    if [ "$1" == "central" ]
-    then
-        local repo_folder="trunk_l10n"
-        local repo_path="https://hg.mozilla.org/l10n-central"
-        local locale_list="trunk_locales"
-    else
-        local repo_folder="${1}_l10n"
-        local repo_path="https://hg.mozilla.org/releases/l10n/mozilla-$1"
-        local locale_list="${1}_locales"
-    fi
+function initGeckoStringsRepo() {
+    local repo_folder="gecko_strings_path"
+    local repo_path="https://hg.mozilla.org/l10n-central"
+    local locale_list="gecko_strings_locales"
 
-    # If repo_folder="trunk_l10n", ${!repo_folder} is equal to $trunk_l10n
+    # If repo_folder="gecko_strings_path", ${!repo_folder} is equal to $gecko_strings_path
     cd ${!repo_folder}
 
+    # Checkout all locales, including en-US
     for locale in $(cat ${!locale_list})
         do
             if [ ! -d $locale ]
@@ -132,76 +95,38 @@ function initDesktopL10nRepo() {
             if [ ! -d $locale/.hg ]
             then
                 echogreen "Checking out the following repo:"
-                echogreen $1/$locale/
-                hg clone $repo_path/$locale $locale
+                echogreen $repo_folder/$locale/
+                if [ "$locale" = "en-US" ]
+                then
+                    #TODO: update URL
+                    hg clone https://hg.mozilla.org/users/axel_mozilla.com/gecko-strings-quarantine $locale
+                else
+                    hg clone $repo_path/$locale $locale
+                fi
             fi
 
             if [ ! -d $root/TMX/$locale ]
             then
-                # ${1^^} = uppercase($1)
                 echogreen "Creating folder cache for: $locale"
                 mkdir -p $root/TMX/$locale
             fi
     done
 }
 
-function initDesktopSourceRepo() {
-    if [ "$1" == "central" ]
-    then
-        if [ ! -d $trunk_source/comm-central/.hg ]
+function initOtherSources() {
+    # Can add other products to array products, as long
+    # as their code is located in https://hg.mozilla.org/PRODUCT
+    local products=( chatzilla )
+    for product in "${products[@]}"
+    do
+        if [ ! -d $sources_path/$product/.hg ]
         then
             echogreen "Checking out the following repo:"
-            echogreen $trunk_source/comm-central/
-            cd $trunk_source
-            hg clone https://hg.mozilla.org/comm-central/
+            echogreen $sources_path/$product
+            cd $sources_path
+            hg clone https://hg.mozilla.org/$product/
         fi
-
-        if [ ! -d $trunk_source/mozilla-central/.hg ]
-        then
-            echogreen "Checking out the following repo:"
-            echogreen $trunk_source/mozilla-central/
-            cd $trunk_source
-            hg clone https://hg.mozilla.org/mozilla-central/
-        fi
-
-        # Checkout ChatZilla only on trunk, since they don't have branches.
-        # Can add other products to array nobranch_products, as long
-        # as their code is located in https://hg.mozilla.org/PRODUCT
-        local nobranch_products=( chatzilla )
-        for product in "${nobranch_products[@]}"
-        do
-            if [ ! -d $trunk_source/$product/.hg ]
-            then
-                echogreen "Checking out the following repo:"
-                echogreen $trunk_source/$product
-                cd $trunk_source
-                hg clone https://hg.mozilla.org/$product/
-            fi
-        done
-    else
-        local target="$1_source"
-        # If target="beta_source", ${!target} is equal to $beta_source
-        cd ${!target}
-        if [ ! -d ${!target}/comm-$1/.hg ]
-        then
-            echogreen "Checking out the following repo:"
-            echogreen ${!target}/comm-$1/
-            hg clone https://hg.mozilla.org/releases/comm-$1/
-        fi
-
-        if [ ! -d ${!target}/mozilla-$1/.hg ]
-        then
-            echogreen "Checking out the following repo:"
-            echogreen ${!target}/mozilla-$1/
-            hg clone https://hg.mozilla.org/releases/mozilla-$1/
-        fi
-    fi
-
-    if [ ! -d $root/TMX/en-US ]
-    then
-        echogreen "Creating folder cache for: en-US"
-        mkdir -p $root/TMX/en-US
-    fi
+    done
 }
 
 # Store current directory path to be able to call this script from anywhere
@@ -253,19 +178,8 @@ fi
 echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
 
 setupExternalLibraries
-
-initDesktopSourceRepo "central"
-initDesktopSourceRepo "release"
-initDesktopSourceRepo "beta"
-
-initDesktopL10nRepo "central"
-initDesktopL10nRepo "release"
-initDesktopL10nRepo "beta"
-
-# Create symlinks (or recreate if missing)
-createSymlinks "mozilla"
-createSymlinks "comm"
-createSymlinks "chatzilla"
+initGeckoStringsRepo
+initOtherSources
 
 # Check out GitHub repos
 echogreen "mozilla.org repo being checked out from GitHub"
@@ -282,6 +196,14 @@ if [ ! -d $firefox_ios/.git ]
 then
     echogreen "Checking out Firefox for iOS repo"
     git clone https://github.com/mozilla-l10n/firefoxios-l10n .
+fi
+
+echogreen "Focus for iOS repo being checked out from GitHub"
+cd $focus_ios
+if [ ! -d $focus_ios/.git ]
+then
+    echogreen "Checking out Focus for iOS repo"
+    git clone https://github.com/mozilla-l10n/focusios-l10n .
 fi
 
 # Add .htaccess to download folder. Folder should already exists, but check in

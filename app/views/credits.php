@@ -17,7 +17,7 @@
 <ul>
     <li>PHP</li>
     <li>Bash for installation scripts and cron jobs</li>
-    <li>A bit of Python (and specifically, the Silme library written by Zbigniew Braniecki)</li>
+    <li>Python for extracting strings (compare-locales) and productization data (p12n-extract)</li>
     <li><a href="https://getcomposer.org/">Composer</a>, a dependency manager for PHP projects</li>
     <li><a href="https://www.atoum.org/">Atoum</a>, a unit testing framework for PHP</li>
     <li><a href="https://www.jquery.com/">jQuery</a>, a JavaScript library</li>

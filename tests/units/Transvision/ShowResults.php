@@ -10,9 +10,9 @@ class ShowResults extends atoum\test
 {
     public function getTMXResultsDP()
     {
-        include TMX . 'en-US/cache_en-US_central.php';
+        include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
-        include TMX . 'fr/cache_fr_central.php';
+        include TMX . 'fr/cache_fr_gecko_strings.php';
         $target = $tmx;
         $data = [$source, $target];
 
@@ -40,9 +40,9 @@ class ShowResults extends atoum\test
 
     public function getTranslationMemoryResultsDP()
     {
-        include TMX . 'en-US/cache_en-US_central.php';
+        include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
-        include TMX . 'fr/cache_fr_central.php';
+        include TMX . 'fr/cache_fr_gecko_strings.php';
         $target = $tmx;
 
         foreach ($source as $key => $value) {
@@ -273,9 +273,9 @@ class ShowResults extends atoum\test
     public function testGetSuggestionsResults()
     {
         $obj = new _ShowResults();
-        include TMX . 'en-US/cache_en-US_central.php';
+        include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
-        include TMX . 'fr/cache_fr_central.php';
+        include TMX . 'fr/cache_fr_gecko_strings.php';
         $target = $tmx;
         $this
             ->array($obj->getSuggestionsResults($source, $target, 'Bookmark'))
@@ -350,7 +350,7 @@ class ShowResults extends atoum\test
             // Pontoon links
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
                 'test',
                 'fr',
@@ -358,7 +358,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'test',
                 'fr',
@@ -366,7 +366,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'chat/commands.properties:dnd',
                 'test',
                 'fr',
@@ -374,7 +374,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
                 'test',
                 'fr',
@@ -382,7 +382,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'extensions/irc/chrome/about.dtd:chatzilla.label',
                 'test',
                 '',
@@ -390,7 +390,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
                 'test',
                 'de',
@@ -398,7 +398,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'mobile/android/base/android_strings.dtd:activity_stream_highlights',
                 'test',
                 'bg',
@@ -406,7 +406,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'central',
+                'gecko_strings',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
                 'it',
@@ -455,6 +455,30 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '<em class="error">Warning: Missing string</em>',
+                'it',
+                '',
+            ],
+            [
+                'pontoon',
+                'focus_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'test',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/focus-for-ios/focus-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'focus_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '@@missing@@',
+                'it',
+                '',
+            ],
+            [
+                'pontoon',
+                'focus_ios',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 '<em class="error">Warning: Missing string</em>',
                 'it',

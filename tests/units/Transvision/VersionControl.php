@@ -15,10 +15,13 @@ class VersionControl extends atoum\test
                 'mozilla_org', 'git',
             ],
             [
-                'central', 'hg',
+                'gecko_strings', 'hg',
             ],
             [
                 'firefox_ios', 'git',
+            ],
+            [
+                'focus_ios', 'git',
             ],
         ];
     }
@@ -38,10 +41,7 @@ class VersionControl extends atoum\test
     {
         return [
             [
-                'central', 'TRUNK_L10N',
-            ],
-            [
-                'release', 'RELEASE_L10N',
+                'gecko_strings', 'gecko_strings',
             ],
             [
                 'mozilla_org', 'mozilla_org',
@@ -63,54 +63,18 @@ class VersionControl extends atoum\test
                 ->isEqualTo($b);
     }
 
-    public function hgFileDP()
+    public function hgPathDP()
     {
         return [
             [
                 'fr',
-                'beta',
+                'gecko_strings',
                 'browser/updater/updater.ini:TitleText',
-                'https://hg.mozilla.org/releases/l10n/mozilla-beta/fr/file/default/browser/updater/updater.ini',
+                'https://hg.mozilla.org/l10n-central/fr/file/default/browser/updater/updater.ini',
             ],
             [
                 'en-US',
-                'beta',
-                'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies',
-                'https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/locales/en-US/chrome/browser/aboutPrivateBrowsing.dtd',
-            ],
-            [
-                'en-US',
-                'central',
-                'devtools/shared/gclicommands.properties:appCacheViewEntryManual',
-                'https://hg.mozilla.org/mozilla-central/file/default/devtools/shared/locales/en-US/gclicommands.properties',
-            ],
-            [
-                'en-US',
-                'central',
-                'devtools/client/memory.properties:heapview.field.totalcount',
-                'https://hg.mozilla.org/mozilla-central/file/default/devtools/client/locales/en-US/memory.properties',
-            ],
-            [
-                'en-US',
-                'central',
-                'devtools/shim/key-shortcuts.properties:toggleToolbox.commandkey',
-                'https://hg.mozilla.org/mozilla-central/file/default/devtools/shim/locales/en-US/key-shortcuts.properties',
-            ],
-            [
-                'en-US',
-                'release',
-                'browser/chrome/browser/browser-pocket.properties:removepage',
-                'https://hg.mozilla.org/releases/mozilla-release/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
-            ],
-            [
-                'en-US',
-                'beta',
-                'browser/chrome/browser/browser-pocket.properties:maxtaglength',
-                'https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
-            ],
-            [
-                'en-US',
-                'central',
+                'gecko_strings',
                 'extensions/irc/chrome/chatzilla.properties:msg.save.files.folder',
                 'https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/chatzilla.properties',
             ],
@@ -118,9 +82,9 @@ class VersionControl extends atoum\test
     }
 
     /**
-     * @dataProvider hgFileDP
+     * @dataProvider hgPathDP
      */
-    public function testHgFile($a, $b, $c, $d)
+    public function testHgPath($a, $b, $c, $d)
     {
         $obj = new _VersionControl();
         $this
@@ -128,7 +92,7 @@ class VersionControl extends atoum\test
                 ->isEqualTo($d);
     }
 
-    public function gitFileDP()
+    public function gitPathDP()
     {
         return [
             [
@@ -136,6 +100,12 @@ class VersionControl extends atoum\test
                 'firefox_ios',
                 'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
                 'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
+            ],
+            [
+                'fr',
+                'focus_ios',
+                'focus_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'https://github.com/mozilla-l10n/focusios-l10n/blob/master/fr/focus-ios.xliff',
             ],
             [
                 'sr',
@@ -159,13 +129,42 @@ class VersionControl extends atoum\test
     }
 
     /**
-     * @dataProvider gitFileDP
+     * @dataProvider gitPathDP
      */
-    public function testGitFile($a, $b, $c, $d)
+    public function testGitPath($a, $b, $c, $d)
     {
         $obj = new _VersionControl();
         $this
             ->string($obj->gitPath($a, $b, $c))
+                ->isEqualTo($d);
+    }
+
+    public function getPathDP()
+    {
+        return [
+            [
+                'fr',
+                'gecko_strings',
+                'browser/updater/updater.ini:TitleText',
+                'https://hg.mozilla.org/l10n-central/fr/file/default/browser/updater/updater.ini',
+            ],
+            [
+                'it',
+                'firefox_ios',
+                'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getPathDP
+     */
+    public function testGetPath($a, $b, $c, $d)
+    {
+        $obj = new _VersionControl();
+        $this
+            ->string($obj->getPath($a, $b, $c))
                 ->isEqualTo($d);
     }
 }

@@ -31,7 +31,7 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->string($obj->getRepository())
-                ->isEqualTo('central');
+                ->isEqualTo('gecko_strings');
         $this
             ->string($obj->getSearchType())
                 ->isEqualTo('strings');
@@ -161,7 +161,7 @@ class Search extends atoum\test
 
     public function testGrep()
     {
-        include_once TMX . 'fr/cache_fr_central.php';
+        include_once TMX . 'fr/cache_fr_gecko_strings.php';
         $obj = new _Search();
         $obj
             ->setSearchTerms('marque');
@@ -203,11 +203,11 @@ class Search extends atoum\test
         $obj = new _Search();
         $obj->setRepository('foobar');
         $this->string($obj->getRepository())
-            ->isEqualTo('central');
+            ->isEqualTo('gecko_strings');
 
-        $obj->setRepository('release');
+        $obj->setRepository('gecko_strings');
         $this->string($obj->getRepository())
-            ->isEqualTo('release');
+            ->isEqualTo('gecko_strings');
     }
 
     public function testSetSearchType()

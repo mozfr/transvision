@@ -10,7 +10,6 @@ $cookie_option = function ($cookie, $locale) use ($search) {
     }
 };
 ?>
-  <div id="current">You are looking at the <em><?=$repos_nice_names[$search->getRepository()]?></em> channel <strong><?=$locale?></strong></div>
     <form name="searchform" id="searchform" method="get" action="./" >
         <fieldset id="main_search">
             <div id="search">

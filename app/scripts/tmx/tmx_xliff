@@ -19,7 +19,7 @@ if (isset($argv[1])) {
     }
 }
 
-include __DIR__ . '/../inc/init.php';
+include __DIR__ . '/../../inc/init.php';
 
 $project_name = $argv[1];
 
@@ -27,6 +27,10 @@ $supported_projects = [
     'firefox_ios' => [
         'file_name' => 'firefox-ios.xliff',
         'base_path' => GIT . 'firefox_ios',
+    ],
+    'focus_ios' => [
+        'file_name' => 'focus-ios.xliff',
+        'base_path' => GIT . 'focus_ios',
     ],
 ];
 

@@ -7,7 +7,7 @@ if (php_sapi_name() != 'cli') {
     die('Nope');
 }
 
-include __DIR__ . '/../inc/init.php';
+include __DIR__ . '/../../inc/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 
