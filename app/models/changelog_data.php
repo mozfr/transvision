@@ -58,9 +58,41 @@ $releases = [
     '4.3'   => '2016-05-02',
     '4.4'   => '2016-06-02',
     '5.0'   => '2016-08-04',
+    '5.1'   => '2016-11-04',
 ];
 
 $changelog = [
+    '5.1' => [
+        [
+            'message' => ['New QA view for <a href="/empty-strings">Empty strings</a> that can be used to identify strings that should have been localized and are empty by mistake, and strings that should actually remain empty.'],
+            'section' => ['end_user'],
+            'type'    => ['new'],
+            'commit'  => ['17373b2a2e366a693ef15831c8d93be6f904b675'],
+            'authors' => ['flod'],
+        ],
+        [
+            'message' => ['Remove support for Pocket folder as the project has <a href="https://github.com/mozilla-l10n/pocket-l10n">moved to GitHub</a>'],
+            'section' => ['end_user'],
+            'type'    => ['change'],
+            'commit'  => ['2817e41622ff244a383b2b2eef0c6b461a382cd7'],
+            'authors' => ['SkySymbol'],
+        ],
+        [
+            'message' => ['Minor code fixes'],
+            'section' => ['end_user'],
+            'type'    => ['better'],
+            'commit'  => ['37b5b0b36586856aeba7fa1c18f8ff08c309317a', '4f53eceb33030bb3674590990a39570d923b137a', '5aa07615bc5497d9a8a70d8b79d05286effea8bf', '2e4d529658257faf809b07f2ee47bea888724b08'],
+            'authors' => ['flod'],
+        ],
+        [
+            'message' => ['Move productization scripts as an <a href="https://github.com/flodolo/p12n-extract/">external dependency</a>'],
+            'section' => ['developers'],
+            'type'    => ['change'],
+            'commit'  => ['400d83a2e6fa1a818759bbf474f046c37d1c6be5'],
+            'authors' => ['flod'],
+        ],
+
+      ],
     '5.0' => [
         [
             'message' => ['“To Latin” button added to Serbian results, providing on-the-fly transliteration'],
