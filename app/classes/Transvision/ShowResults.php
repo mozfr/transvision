@@ -173,7 +173,7 @@ class ShowResults
         $output = [];
 
         $clean_string = function ($string) {
-            return trim(htmlspecialchars_decode($string, ENT_QUOTES));
+            return htmlspecialchars_decode($string, ENT_QUOTES);
         };
 
         foreach ($search_results as $entity => $set) {
@@ -289,8 +289,8 @@ class ShowResults
 
             $component = explode('/', $key)[0];
             $fileAndRawString = explode(':', $key);
-            $source_string = trim($strings[0]);
-            $target_string = trim($strings[1]);
+            $source_string = $strings[0];
+            $target_string = $strings[1];
 
             $entity_link = "?sourcelocale={$locale1}"
             . "&locale={$locale2}"
@@ -303,7 +303,7 @@ class ShowResults
             )];
 
             if ($extra_locale) {
-                $target_string2 = trim($strings[2]);
+                $target_string2 = $strings[2];
                 $entity_link = "?sourcelocale={$locale1}"
                                 . "&locale={$search_object->getLocale('extra')}"
                                 . "&repo={$current_repo}"

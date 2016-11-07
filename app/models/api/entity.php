@@ -12,9 +12,9 @@ if (! $translations = Cache::getKey($cache_id)) {
         $strings = Utils::getRepoStrings($locale_code, $repo);
 
         if (isset($strings[$entity])) {
-            $strings[$entity] = trim($strings[$entity]);
+            $strings[$entity] = $strings[$entity];
             if (Strings::endsWith(strtolower($strings[$entity]), '{ok}')) {
-                $strings[$entity] = trim(substr($strings[$entity], 0, -4));
+                $strings[$entity] = substr($strings[$entity], 0, -4);
             }
             $translations[$locale_code] = $strings[$entity];
         }

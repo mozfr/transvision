@@ -132,7 +132,7 @@ class Search
      */
     public function setSearchTerms($string)
     {
-        $this->search_terms = trim($string);
+        $this->search_terms = $string;
         $this->regex_search_terms = $this->search_terms;
         $this->updateRegex();
 

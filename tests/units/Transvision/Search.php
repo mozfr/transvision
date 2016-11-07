@@ -60,10 +60,10 @@ class Search extends atoum\test
         $obj->setSearchTerms(' foobar ');
         $this
             ->string($obj->getSearchTerms())
-                ->isEqualTo('foobar');
+                ->isEqualTo(' foobar ');
         $this
             ->string($obj->getRegexSearchTerms())
-                ->isEqualTo('foobar');
+                ->isEqualTo(' foobar ');
     }
 
     public function testSetRegexSearchTerms()

@@ -233,9 +233,6 @@ class Utils
             return '';
         }
 
-        // Filter out double spaces
-        $string = Strings::mtrim($string);
-
         return $string;
     }
 
