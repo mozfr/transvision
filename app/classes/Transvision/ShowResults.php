@@ -285,6 +285,7 @@ class ShowResults
             }
 
             $component = explode('/', $key)[0];
+            $entityPath = explode(':', $key)[0];
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
@@ -321,6 +322,12 @@ class ShowResults
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
+
+            if ($current_repo === 'aurora' && ShowResults::isPresentInPootle($locale2)) {
+                $link = "https://mozilla.locamotion.org/$locale2/firefox/translate/$entityPath.po?search=$strings[1]&sfields=source&sfields=target";
+            } elseif ($current_repo === 'aurora' && ShowResults::isPresentInPontoon($locale2)) {
+                $link = "https://pontoon.mozilla.org/$locale2/firefox-aurora/$entityPath?search=$strings[1]";
+            }
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
@@ -479,7 +486,14 @@ class ShowResults
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
-                      </a>
+                      </a>";
+            if ($link) {
+                $table .= "
+                            <a class='bug_link' target='_blank' href='$link'>
+                            &lt;edit&gt;
+                            </a>";
+            }
+            $table .= "
                       &nbsp;
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
@@ -566,5 +580,287 @@ class ShowResults
         }
 
         return $error_message;
+    }
+
+    /**
+     * Check if the locale has a project 'firefox' on Pootle.
+     *
+     * @param string $locale String the locale we want to check
+     *
+     * @return bool true if the locale is present is Pootle and has a project
+     *              'firefox', false otherwise.
+     */
+    public static function isPresentInPootle($locale)
+    {
+        static $localesInPootle = [
+            "ach",
+            "af",
+            "ak",
+            "am",
+            "anp",
+            "ar",
+            "an",
+            "hy-AM",
+            "frp",
+            "as",
+            "tso",
+            "agr",
+            "aym",
+            "az",
+            "bm",
+            "eu",
+            "bn-BD",
+            "bn-IN",
+            "bho",
+            "bcl",
+            "brx",
+            "bs",
+            "br",
+            "yue-can",
+            "kea",
+            "ca",
+            "cly",
+            "cbk",
+            "cgg",
+            "ny",
+            "ctu",
+            "cv",
+            "crn",
+            "kw",
+            "co",
+            "crh",
+            "hr",
+            "dnj",
+            "prs",
+            "adh",
+            "dts",
+            "doi",
+            "dz",
+            "en-ZA",
+            "ee",
+            "fo",
+            "fj",
+            "fr",
+            "fur",
+            "ff",
+            "lg",
+            "got",
+            "gn-BO",
+            "gn-PY",
+            "gu",
+            "ht",
+            "ha",
+            "haw",
+            "hi-IN",
+            "hus",
+            "hch",
+            "hu",
+            "is",
+            "ig",
+            "ilo",
+            "id",
+            "ga-IE",
+            "ixl",
+            "jv",
+            "kab",
+            "kn",
+            "cak",
+            "krc",
+            "ks",
+            "kk",
+            "ki",
+            "rw",
+            "ky",
+            "rn",
+            "kok",
+            "rop",
+            "kfy",
+            "ku",
+            "lkt",
+            "laj",
+            "la",
+            "lv",
+            "ln",
+            "lt",
+            "jbo",
+            "lmo",
+            "lgg",
+            "lb",
+            "mai",
+            "mg",
+            "ml",
+            "mam",
+            "gv",
+            "mi",
+            "arn",
+            "mr",
+            "yua",
+            "mau",
+            "vmz",
+            "mni",
+            "min",
+            "miq",
+            "mxq",
+            "mxp",
+            "mxt",
+            "mix",
+            "mit",
+            "mqh",
+            "hto",
+            "mn",
+            "mis",
+            "mos",
+            "nah",
+            "nch",
+            "ncj",
+            "nv",
+            "nd",
+            "ne",
+            "xlo",
+            "nqo",
+            "nb-NO",
+            "nn-NO",
+            "qno",
+            "oc",
+            "or",
+            "om",
+            "ote",
+            "pbb",
+            "pai",
+            "ps",
+            "fa",
+            "pms",
+            "en-ARRR",
+            "pt",
+            "tsz",
+            "kek",
+            "tob",
+            "quy",
+            "quz",
+            "qvi",
+            "ro",
+            "nyn",
+            "ru",
+            "sm",
+            "sg",
+            "sa",
+            "sat",
+            "sc",
+            "sco",
+            "gd",
+            "sef",
+            "shn",
+            "sn",
+            "shh",
+            "scn",
+            "szl",
+            "sd",
+            "ss",
+            "xog",
+            "son",
+            "ckb",
+            "dsb",
+            "hsb",
+            "nso",
+            "es",
+            "es-MX",
+            "su",
+            "sw",
+            "sv",
+            "tg",
+            "ta",
+            "ta-LK",
+            "tt",
+            "tt-RU",
+            "th",
+            "bo",
+            "ti",
+            "meh",
+            "toj",
+            "neb",
+            "trs",
+            "trc",
+            "tn",
+            "tr",
+            "tk",
+            "tzh",
+            "tzo",
+            "ur",
+            "ug",
+            "uz",
+            "roa-ES-val",
+            "vec",
+            "vi",
+            "wa",
+            "cy",
+            "wo",
+            "noa",
+            "xh",
+            "sah",
+            "yaq",
+            "yo",
+            "zai",
+            "zam",
+            "zar",
+            "zty",
+            "zu",
+        ];
+
+        return in_array($locale, $localesInPootle);
+    }
+
+    /**
+     * Check if the locale has a project 'firefox-aurora' on Pontoon.
+     *
+     * @param string $locale String the locale we want to check
+     *
+     * @return bool true if the locale is present is Pontoon and has a project
+     *              'firefox-aurora', false otherwise.
+     */
+    public static function isPresentInPontoon($locale)
+    {
+        static $localesInPontoon = [
+            "ast",
+            "bn-IN",
+            "bg",
+            "my",
+            "zh-CN",
+            "zh-TW",
+            "cs",
+            "en-GB",
+            "eo",
+            "et",
+            "fi",
+            "fy-NL",
+            "gl",
+            "ka",
+            "el",
+            "he",
+            "id",
+            "km",
+            "ko",
+            "lo",
+            "lv",
+            "lij",
+            "mk",
+            "ms",
+            "pt-BR",
+            "pa-IN",
+            "rm",
+            "sr",
+            "si",
+            "sk",
+            "sl",
+            "es-AR",
+            "es-CL",
+            "es-MX",
+            "tl",
+            "te",
+            "th",
+            "uk",
+            "wo",
+        ];
+
+        return in_array($locale, $localesInPontoon);
     }
 }
