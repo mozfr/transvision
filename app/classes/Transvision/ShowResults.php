@@ -592,7 +592,7 @@ class ShowResults
      */
     public static function isPresentInPootle($locale)
     {
-        static $localesInPootle = [
+        $localesInPootle = [
             "ach",
             "af",
             "ak",
@@ -819,7 +819,7 @@ class ShowResults
      */
     public static function isPresentInPontoon($locale)
     {
-        static $localesInPontoon = [
+        $localesInPontoon = [
             "ast",
             "bn-IN",
             "bg",
