@@ -489,7 +489,7 @@ class ShowResults
                       </a>";
             if ($edit_link) {
                 $table .= "
-                            <a class='bug_link' target='_blank' href='{$edit_link}'>
+                            <a class='edit_link' target='_blank' href='{$edit_link}'>
                             &lt;edit&gt;
                             </a>";
             }
