@@ -324,9 +324,9 @@ class ShowResults
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             if ($current_repo === 'aurora' && ShowResults::isPresentInPootle($locale2)) {
-                $link = "https://mozilla.locamotion.org/$locale2/firefox/translate/$entityPath.po?search=$strings[1]&sfields=source&sfields=target";
+                $edit_link = "https://mozilla.locamotion.org/$locale2/firefox/translate/$entityPath.po?search=$strings[1]&sfields=source&sfields=target";
             } elseif ($current_repo === 'aurora' && ShowResults::isPresentInPontoon($locale2)) {
-                $link = "https://pontoon.mozilla.org/$locale2/firefox-aurora/$entityPath?search=$strings[1]";
+                $edit_link = "https://pontoon.mozilla.org/$locale2/firefox-aurora/$entityPath?search=$strings[1]";
             }
 
             if ($transliterate) {
@@ -487,9 +487,9 @@ class ShowResults
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>";
-            if ($link) {
+            if ($edit_link) {
                 $table .= "
-                            <a class='bug_link' target='_blank' href='$link'>
+                            <a class='bug_link' target='_blank' href='{$edit_link}'>
                             &lt;edit&gt;
                             </a>";
             }
