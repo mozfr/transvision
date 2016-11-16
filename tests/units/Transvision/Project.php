@@ -155,4 +155,25 @@ class Project extends atoum\test
             ->string($obj->getLocaleInContext($a, $b))
                 ->isEqualTo($c);
     }
+
+    public function getLocaleToolDP()
+    {
+        return [
+            ['ar', 'locamotion'],
+            ['fr', ''],
+            ['sr', 'pontoon'],
+            ['te', 'pontoon'],
+        ];
+    }
+
+    /**
+     * @dataProvider getLocaleToolDP
+     */
+    public function testGetLocaleTool($a, $b)
+    {
+        $obj = new _Project();
+        $this
+            ->string($obj->getLocaleTool($a))
+                ->isEqualTo($b);
+    }
 }
