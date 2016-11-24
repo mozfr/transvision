@@ -226,4 +226,28 @@ class Project
 
         return array_unique($reference_components);
     }
+
+    /**
+     * Return the name of the tool the requested locale is working in.
+     *
+     * @return string Name of the tool, empty if not available
+     */
+    public static function getLocaleTool($locale)
+    {
+        // Read list of tools and their supported locales from local sources
+        $file_name = APP_SOURCES . 'tools.json';
+        if (file_exists($file_name)) {
+            $json_tools = (new Json($file_name))->fetchContent();
+        } else {
+            die("ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.");
+        }
+
+        foreach ($json_tools as $tool => $supported_locales) {
+            if (in_array($locale, $supported_locales)) {
+                return $tool;
+            }
+        }
+
+        return '';
+    }
 }

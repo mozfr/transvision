@@ -50,3 +50,13 @@ ksort($json_repositories);
 echo "* Saving JSON record of all supported repositories\n";
 $file_name = "{$config_folder}/sources/supported_repositories.json";
 file_put_contents($file_name, json_encode($json_repositories));
+
+// Create list of locales working in tools like Pootle and Pontoon
+$uri = $server_config['l10nwebservice'] . '/?tool=all';
+if (! $file_content = file_get_contents($uri)) {
+    error_log('JSON source is not reachable.');
+    exit(1);
+}
+echo "* Saving JSON record of tools and their supported locales\n";
+$file_name = "{$config_folder}/sources/tools.json";
+file_put_contents($file_name, $file_content);
