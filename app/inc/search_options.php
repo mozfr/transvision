@@ -28,7 +28,7 @@ if (isset($_GET['search_type'])) {
 // Define our regex and search parameters
 $search
     ->setSearchTerms($my_search)
-    ->setRegexWholeWords($check['whole_word'])
+    ->setDistinctWords($check['distinct_words'])
     ->setRegexCaseInsensitive($check['case_sensitive'])
     ->setRegexPerfectMatch($check['perfect_match'])
     ->setRepository($repo)

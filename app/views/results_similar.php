@@ -3,7 +3,7 @@ namespace Transvision;
 
 $proposed_search = $_GET;
 // Reset advanced search options (no need to check in advance if they're set)
-unset($proposed_search['case_sensitive'], $proposed_search['perfect_match'], $proposed_search['whole_word']);
+unset($proposed_search['case_sensitive'], $proposed_search['perfect_match'], $proposed_search['distinct_words']);
 
 $list_items = '';
 foreach ($best_matches as $match) {

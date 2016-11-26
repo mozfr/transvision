@@ -444,8 +444,8 @@ class Utils
             array_map($sanitize, array_values($args))
         );
 
-        $args['locale'] = $source_locale;
-        $args['sourcelocale'] = $target_locale;
+        $args['locale'] = $target_locale;
+        $args['sourcelocale'] = $source_locale;
         $args['json'] = 'true';
 
         // We don't want to encode slashes in searches for entity names

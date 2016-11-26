@@ -267,10 +267,10 @@ class ShowResults
                      </thead>
                      <tbody>\n";
 
-        if (! $search_object->isWholeWords() && ! $search_object->isPerfectMatch()) {
-            $search = Utils::uniqueWords($search_object->getSearchTerms());
+        if ($search_object->isDistinctWords()) {
+            $search_terms = Utils::uniqueWords($search_object->getSearchTerms());
         } else {
-            $search = [$search_object->getSearchTerms()];
+            $search_terms = [$search_object->getSearchTerms()];
         }
 
         $current_repo = $search_object->getRepository();
@@ -281,7 +281,7 @@ class ShowResults
             if ($search_object->getSearchType() == 'strings') {
                 $result_entity = self::formatEntity($key);
             } else {
-                $result_entity = self::formatEntity($key, $search[0]);
+                $result_entity = self::formatEntity($key, $search_terms[0]);
             }
 
             $component = explode('/', $key)[0];
@@ -327,14 +327,14 @@ class ShowResults
                 $transliterate_string_id = 'transliterate_' . $string_id;
             }
 
-            foreach ($search as $val) {
-                $source_string = Strings::markString($val, $source_string);
-                $target_string = Strings::markString($val, $target_string);
+            foreach ($search_terms as $search_term) {
+                $source_string = Strings::markString($search_term, $source_string);
+                $target_string = Strings::markString($search_term, $target_string);
                 if ($extra_locale) {
-                    $target_string2 = Strings::markString($val, $target_string2);
+                    $target_string2 = Strings::markString($search_term, $target_string2);
                 }
                 if ($transliterate) {
-                    $transliterated_string = Strings::markString($val, $transliterated_string);
+                    $transliterated_string = Strings::markString($search_term, $transliterated_string);
                 }
             }
 

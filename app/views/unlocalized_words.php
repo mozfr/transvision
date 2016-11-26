@@ -20,7 +20,7 @@ include __DIR__ . '/simplesearchform.php';
 <?php foreach ($unlocalized_words as $english_term => $locales) :
     $string_count = $locales[$locale];
     $link = "/?recherche={$english_term}&repo={$repo}&sourcelocale={$locale}" .
-            "&locale={$ref_locale}&search_type=strings&whole_word=whole_word";
+            "&locale={$ref_locale}&search_type=strings&distinct_words=1";
 
     $link_title = $string_count == 1
         ? 'Search for this occurrence'

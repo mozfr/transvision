@@ -10,9 +10,9 @@ namespace Transvision;
  * e.g.:
  * $search = (new Search)
  *     ->setSearchTerms('Bookmark this page')
- *     ->setRegexWholeWords(true)
  *     ->setRegexCaseInsensitive(true)
  *     ->setRegexPerfectMatch(false)
+ *     ->setDistinctWords(false)
  *     ->setRepository('release')
  *     ->setSearchType('strings')
  *     ->setLocales(['en-US', 'fr']);
@@ -38,16 +38,16 @@ class Search
     protected $regex_case;
 
     /**
-     * Consider the space separated string as a single word for search
-     * @var string
-     */
-    protected $regex_whole_words;
-
-    /**
      * Only return strings that match the search perfectly (case excluded)
      * @var boolean
      */
     protected $regex_perfect_match;
+
+    /**
+     * Search for each distinct word
+     * @var boolean
+     */
+    protected $distinct_words;
 
     /**
      * The search terms for the regex, these differ from $search_terms as
@@ -79,7 +79,8 @@ class Search
      * @var array
      */
     protected $form_search_options = [
-        'case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word',
+        'case_sensitive', 'perfect_match', 'repo',
+        'search_type', 't2t', 'distinct_words',
     ];
 
     /**
@@ -102,8 +103,8 @@ class Search
         $this->search_terms = '';
         $this->regex = '';
         $this->regex_case = 'i';
-        $this->regex_whole_words = '';
         $this->regex_perfect_match = false;
+        $this->distinct_words = false;
         $this->regex_search_terms = '';
         $this->repository = 'aurora'; // Most locales work on Aurora
         $this->search_type = 'strings';
@@ -176,16 +177,15 @@ class Search
     }
 
     /**
-     * Set the regex so as that a multi-word search is taken as a single word.
+     * Set to search for each distinct word.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag A string evaluated to True will add \b to the regex
+     * @param  boolean $flag Set to True for a perfect match
      * @return $this
      */
-    public function setRegexWholeWords($flag)
+    public function setDistinctWords($flag)
     {
-        $this->regex_whole_words = (boolean) $flag ? '\b' : '';
-        $this->updateRegex();
+        $this->distinct_words = (boolean) $flag;
 
         return $this;
     }
@@ -205,9 +205,7 @@ class Search
 
         $this->regex =
             '~'
-            . $this->regex_whole_words
             . $search
-            . $this->regex_whole_words
             . '~'
             . $this->regex_case
             . 'u';
@@ -233,6 +231,16 @@ class Search
     public function isPerfectMatch()
     {
         return $this->regex_perfect_match;
+    }
+
+    /**
+     * Get the state of distinct
+     *
+     * @return boolean True if the regex searches for a perfect string match
+     */
+    public function isDistinctWords()
+    {
+        return $this->distinct_words;
     }
 
     /**
@@ -263,16 +271,6 @@ class Search
     public function getRegexCase()
     {
         return $this->regex_case;
-    }
-
-    /**
-     * Get the regex whole words
-     *
-     * @return boolean True if we have the 'whole words' option for the regex
-     */
-    public function isWholeWords()
-    {
-        return $this->regex_whole_words;
     }
 
     /**

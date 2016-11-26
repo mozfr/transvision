@@ -4,7 +4,7 @@ namespace Transvision;
 if ($controller == 'mainsearch'):
 ?>
 <p class="api_link">
-    <span>API</span>These results are also available as an API request for
+    <span>API</span>These results are also available as an API request to search in
     <a href="<?=Utils::APIPromotion($source_locale, $locale)?>"><?=$source_locale?></a> or
     <a href="<?=Utils::APIPromotion($locale, $source_locale)?>"><?=$locale?></a>.
     <br>

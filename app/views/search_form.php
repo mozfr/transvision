@@ -138,12 +138,12 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="whole_word"
-                               id="whole_word"
-                               value="whole_word"
-                               <?=Utils::checkboxState($check['whole_word'])?>
+                               name="distinct_words"
+                               id="distinct_words"
+                               value="distinct_words"
+                               <?=Utils::checkboxState($check['distinct_words'])?>
                         />
-                        <label for="whole_word">Whole Word</label>
+                        <label for="distinct_words">Distinct Words</label>
                     </span>
                     <span>
                         <input type="checkbox"

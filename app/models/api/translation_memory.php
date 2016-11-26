@@ -22,7 +22,7 @@ $output = [];
 // Define our search terms and parameters
 $search
     ->setSearchTerms(Utils::cleanString($request->parameters[5]))
-    ->setRegexWholeWords($get_option('whole_word'))
+    ->setDistinctWords($get_option('distinct_words'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexPerfectMatch($get_option('perfect_match'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);
@@ -30,17 +30,21 @@ $search
 // We loop through all repositories and merge the results
 foreach ($repositories as $repository) {
     $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
+    $source_results = [];
 
-    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
+    $search_terms = $search->isDistinctWords()
+        ? Utils::uniqueWords($search->getSearchTerms())
+        : [$search->getSearchTerms()];
+    foreach ($search_terms as $word) {
         $search->setRegexSearchTerms($word);
-        $source_strings = $search->grep($source_strings);
+        $source_results += $search->grep($source_strings);
     }
 
     /*
         If we don't have any match for a repo, no need to do heavy calculations,
         just skip to the next repo.
     */
-    if (empty($source_strings)) {
+    if (empty($source_results)) {
         continue;
     }
 
@@ -50,7 +54,7 @@ foreach ($repositories as $repository) {
     */
     $target_strings = Utils::getRepoStrings($search->getLocale('target'), $repository);
 
-    foreach ($source_strings as $key => $value) {
+    foreach ($source_results as $key => $value) {
         if (isset($target_strings[$key]) && ! empty($target_strings[$key])) {
             $output[] = [
                 $value,
@@ -58,7 +62,7 @@ foreach ($repositories as $repository) {
             ];
         }
     }
-    unset($source_strings, $target_strings);
+    unset($source_strings, $source_results, $target_strings);
 }
 
 return ShowResults::getTranslationMemoryResults(
