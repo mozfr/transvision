@@ -24,7 +24,7 @@ $search
     ->setSearchTerms(Utils::cleanString($request->parameters[5]))
     ->setDistinctWords($get_option('distinct_words'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setRegexEntireString($get_option('entire_string'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);
 
 // We loop through all repositories and merge the results

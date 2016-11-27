@@ -30,7 +30,7 @@ $search
     ->setSearchTerms($my_search)
     ->setDistinctWords($check['distinct_words'])
     ->setRegexCaseInsensitive($check['case_sensitive'])
-    ->setRegexPerfectMatch($check['perfect_match'])
+    ->setRegexEntireString($check['entire_string'])
     ->setRepository($repo)
     ->setSearchType($search_type)
     ->setLocales([$source_locale, $locale, $locale2]);

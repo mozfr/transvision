@@ -24,7 +24,7 @@ class Search extends atoum\test
             ->boolean($obj->isDistinctWords())
                 ->isEqualTo(false);
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(false);
         $this
             ->string($obj->getRegexSearchTerms())
@@ -40,10 +40,10 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->array($obj->getFormSearchOptions())
-                ->isEqualTo(['case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'distinct_words']);
+                ->isEqualTo(['case_sensitive', 'entire_string', 'repo', 'search_type', 't2t', 'distinct_words']);
         $this
             ->array($obj->getFormCheckboxes())
-                ->isEqualTo(['case_sensitive', 'perfect_match', 't2t', 'distinct_words']);
+                ->isEqualTo(['case_sensitive', 'entire_string', 't2t', 'distinct_words']);
     }
 
     public function testSetSearchTerms()
@@ -96,19 +96,19 @@ class Search extends atoum\test
                 ->isEqualTo('~~iu');
     }
 
-    public function testSetRegexPerfectMatch()
+    public function testSetRegexEntireString()
     {
         $obj = new _Search();
-        $obj->setRegexPerfectMatch('perfect_match');
+        $obj->setRegexEntireString('entire_string');
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(true)
             ->string($obj->getRegex())
                 ->isEqualTo('~^$~iu');
 
-        $obj->setRegexPerfectMatch(false);
+        $obj->setRegexEntireString(false);
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(false)
             ->string($obj->getRegex())
                 ->isEqualTo('~~iu');
@@ -119,13 +119,13 @@ class Search extends atoum\test
         $obj = new _Search();
         $obj
             ->setSearchTerms('A new hope')
-            ->setRegexPerfectMatch(false)
+            ->setRegexEntireString(false)
             ->setRegexCaseInsensitive('sensitive');
         $this->string($obj->getRegex())
                 ->isEqualTo('~A new hope~u');
 
         $obj->setSearchTerms('Return of the jedi')
-            ->setRegexPerfectMatch(true)
+            ->setRegexEntireString(true)
             ->setRegexCaseInsensitive('');
         $this
             ->string($obj->getRegex())
@@ -161,7 +161,7 @@ class Search extends atoum\test
 
         $obj
             ->setSearchTerms('...')
-            ->setRegexPerfectMatch('perfect_match');
+            ->setRegexEntireString('entire_string');
 
         $this->array($obj->grep($tmx))
             ->isEqualTo(

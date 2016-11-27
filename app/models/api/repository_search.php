@@ -23,7 +23,7 @@ $search
     ->setSearchTerms(urldecode(Utils::cleanString($request->parameters[6])))
     ->setDistinctWords($get_option('distinct_words'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setRegexEntireString($get_option('entire_string'))
     ->setSearchType($request->parameters[2])
     ->setLocales([$request->parameters[4], $request->parameters[5]]);
 
@@ -33,7 +33,7 @@ foreach ($repositories as $repository) {
     $entities = [];
     $source_results = [];
 
-    if ($search->isPerfectMatch()) {
+    if ($search->isEntireString()) {
         if ($search->getSearchType() == 'entities') {
             $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
             $source_results = array_intersect_key($source_strings, array_flip($entities));

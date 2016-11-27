@@ -29,7 +29,7 @@ include VIEWS . 'templates/api_promotion.php';
     $reference_locale = Project::getReferenceLocale($repo);
     foreach ($translations as $locale => $translation) {
         $rtl_support = RTLSupport::isRTL($locale) ? 'dir="rtl"' : '';
-        $search_link = "/?sourcelocale={$reference_locale}&locale={$locale}&repo={$repo}&search_type=entities&recherche={$entity}&perfect_match=perfect_match";
+        $search_link = "/?sourcelocale={$reference_locale}&locale={$locale}&repo={$repo}&search_type=entities&recherche={$entity}&entire_string=entire_string";
         echo "<tr id='{$locale}'>\n" .
              "  <th><a href='#{$locale}'>{$locale}</a></th>\n";
 

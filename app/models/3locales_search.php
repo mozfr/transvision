@@ -3,7 +3,7 @@ namespace Transvision;
 
 $tmx_target2 = Utils::getRepoStrings($locale2, $search->getRepository());
 
-if ($search->isPerfectMatch()) {
+if ($search->isEntireString()) {
     $locale3_strings = $search->grep($tmx_target2);
 } else {
     $locale3_strings = $tmx_target2;

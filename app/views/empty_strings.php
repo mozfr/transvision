@@ -70,7 +70,7 @@ if (count($empty_strings) == 0) {
         . "&locale={$locale}"
         . "&repo={$repo}"
         . "&search_type=entities&recherche={$key}"
-        . "&perfect_match=perfect_match";
+        . "&entire_string=entire_string";
 
         $bugzilla_link = [Bugzilla::reportErrorLink(
             $locale, $key, $reference_string, $locale_string, $repo, $entity_link

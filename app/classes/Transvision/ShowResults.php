@@ -292,7 +292,7 @@ class ShowResults
             . "&locale={$locale2}"
             . "&repo={$current_repo}"
             . "&search_type=entities&recherche={$key}"
-            . "&perfect_match=perfect_match";
+            . "&entire_string=entire_string";
 
             $bz_link = [Bugzilla::reportErrorLink(
                 $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
@@ -304,7 +304,7 @@ class ShowResults
                                 . "&locale={$search_object->getLocale('extra')}"
                                 . "&repo={$current_repo}"
                                 . "&search_type=entities&recherche={$key}"
-                                . "&perfect_match=perfect_match";
+                                . "&entire_string=entire_string";
                 $bz_link[] = Bugzilla::reportErrorLink(
                     $search_object->getLocale('extra'), $key, $source_string, $target_string2, $current_repo, $entity_link
                 );
@@ -512,7 +512,7 @@ class ShowResults
 
         /*
             If there are no results, search also through the entity names.
-            This is needed for "perfect match" when only the entity name is
+            This is needed for "entire string" when only the entity name is
             provided.
         */
         if (empty($entities)) {

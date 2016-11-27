@@ -478,8 +478,8 @@ class Utils extends atoum\test
             [
                 'it',
                 'en-US',
-                '/?recherche=Cookies&repo=aurora&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&distinct_words=distinct_words&perfect_match=perfect_match',
-                '/?recherche=Cookies&repo=aurora&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&distinct_words=distinct_words&perfect_match=perfect_match&json=true',
+                '/?recherche=Cookies&repo=aurora&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&distinct_words=distinct_words&entire_string=entire_string',
+                '/?recherche=Cookies&repo=aurora&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&distinct_words=distinct_words&entire_string=entire_string&json=true',
             ],
         ];
     }

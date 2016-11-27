@@ -66,8 +66,8 @@ $(document).ready(function() {
 
     // Some search options are mutually exclusive
     var updateSearchOptions = function() {
-        $('#perfect_match').prop('disabled', $('#distinct_words').prop('checked'));
-        $('#distinct_words').prop('disabled', $('#perfect_match').prop('checked'));
+        $('#entire_string').prop('disabled', $('#distinct_words').prop('checked'));
+        $('#distinct_words').prop('disabled', $('#entire_string').prop('checked'));
     };
     // Call it once when the page is ready, since options are set also via getRepository
     updateSearchOptions();

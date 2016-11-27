@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-if ($search->isPerfectMatch()) {
+if ($search->isEntireString()) {
     $locale1_strings = $search->grep($tmx_source);
     $locale2_strings = $search->grep($tmx_target);
 } else {

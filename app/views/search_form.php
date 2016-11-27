@@ -151,14 +151,14 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="perfect_match"
-                               id="perfect_match"
-                               value="perfect_match"
+                               name="entire_string"
+                               id="entire_string"
+                               value="entire_string"
                                class="search_options"
-                               <?=Utils::checkboxState($check['perfect_match'])?>
+                               <?=Utils::checkboxState($check['entire_string'])?>
                         />
-                        <label for="perfect_match" aria-describedby="tooltip_perfect">Perfect Match</label>
-                        <div id="tooltip_perfect" class="search_tooltip" role="tooltip">If selected, the entire string needs to <strong>perfectly match</strong> the search query. By default, partial matches are included in the results.</div>
+                        <label for="entire_string" aria-describedby="tooltip_entire">Entire String</label>
+                        <div id="tooltip_entire" class="search_tooltip" role="tooltip">If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</div>
                     </span>
                     <?php if ($check['t2t'] == 't2t') :?>
                     <input type="hidden"

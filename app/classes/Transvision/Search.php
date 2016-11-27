@@ -11,7 +11,7 @@ namespace Transvision;
  * $search = (new Search)
  *     ->setSearchTerms('Bookmark this page')
  *     ->setRegexCaseInsensitive(true)
- *     ->setRegexPerfectMatch(false)
+ *     ->setRegexEntireString(false)
  *     ->setDistinctWords(false)
  *     ->setRepository('release')
  *     ->setSearchType('strings')
@@ -38,10 +38,10 @@ class Search
     protected $regex_case;
 
     /**
-     * Only return strings that match the search perfectly (case excluded)
+     * Only return strings that entirely match the search (case excluded)
      * @var boolean
      */
-    protected $regex_perfect_match;
+    protected $regex_entire_string;
 
     /**
      * Set to search for each word in the query instead of using it as a whole.
@@ -79,7 +79,7 @@ class Search
      * @var array
      */
     protected $form_search_options = [
-        'case_sensitive', 'perfect_match', 'repo',
+        'case_sensitive', 'entire_string', 'repo',
         'search_type', 't2t', 'distinct_words',
     ];
 
@@ -103,7 +103,7 @@ class Search
         $this->search_terms = '';
         $this->regex = '';
         $this->regex_case = 'i';
-        $this->regex_perfect_match = false;
+        $this->regex_entire_string = false;
         $this->distinct_words = false;
         $this->regex_search_terms = '';
         $this->repository = 'aurora'; // Most locales work on Aurora
@@ -162,15 +162,15 @@ class Search
     }
 
     /**
-     * Set the regex to only return perfect matches for the searched string.
+     * Set the regex to only return string that entirely matches the searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True for a perfect match
+     * @param  boolean $flag Set to True for an entire string match
      * @return $this
      */
-    public function setRegexPerfectMatch($flag)
+    public function setRegexEntireString($flag)
     {
-        $this->regex_perfect_match = (boolean) $flag;
+        $this->regex_entire_string = (boolean) $flag;
         $this->updateRegex();
 
         return $this;
@@ -199,7 +199,7 @@ class Search
     private function updateRegex()
     {
         $search = preg_quote($this->regex_search_terms);
-        if ($this->regex_perfect_match) {
+        if ($this->regex_entire_string) {
             $search = "^{$search}$";
         }
 
@@ -224,13 +224,13 @@ class Search
     }
 
     /**
-     * Get the state of regex_perfect_match
+     * Get the state of regex_entire_string
      *
-     * @return boolean True if the regex searches for a perfect string match
+     * @return boolean True if the regex searches for an entire string match
      */
-    public function isPerfectMatch()
+    public function isEntireString()
     {
-        return $this->regex_perfect_match;
+        return $this->regex_entire_string;
     }
 
     /**
