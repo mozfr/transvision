@@ -772,6 +772,7 @@ input[type="checkbox"]:disabled + label {
     display: block;
     float: left;
     width: 115px;
+    position: relative;
 }
 
 #simplesearchform {
@@ -786,6 +787,30 @@ input[type="checkbox"]:disabled + label {
 
 #simplesearchform #product_select {
     width: 150px;
+}
+
+#advanced_search span > label:hover + .search_tooltip {
+    display: block;
+    white-space: normal;
+    top: -5px;
+    left: 0;
+    width: 200px;
+    font-size: 1.05em;
+    padding: 0.5em;
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #0095dd;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+    transform: rotateX(20deg) scale(0.8);
+    transform-origin: center 120%;
+    opacity: 0.9;
+}
+
+.search_tooltip {
+    display: none;
+    position: absolute;
+    z-index: 2;
 }
 
 /* Autocomplete styles for suggestion popup */
