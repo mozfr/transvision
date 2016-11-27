@@ -132,6 +132,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                name="case_sensitive"
                                id="case_sensitive"
                                value="case_sensitive"
+                               class="search_options"
                                <?=Utils::checkboxState($check['case_sensitive'])?>
                          />
                         <label for="case_sensitive" aria-describedby="tooltip_case">Case Sensitive</label>
@@ -142,6 +143,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                name="distinct_words"
                                id="distinct_words"
                                value="distinct_words"
+                               class="search_options"
                                <?=Utils::checkboxState($check['distinct_words'])?>
                         />
                         <label for="distinct_words" aria-describedby="tooltip_distinct">Distinct Words</label>
@@ -152,6 +154,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                name="perfect_match"
                                id="perfect_match"
                                value="perfect_match"
+                               class="search_options"
                                <?=Utils::checkboxState($check['perfect_match'])?>
                         />
                         <label for="perfect_match" aria-describedby="tooltip_perfect">Perfect Match</label>

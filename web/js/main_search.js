@@ -64,6 +64,15 @@ $(document).ready(function() {
         checkSuggestions();
     });
 
+    // Some search options are mutually exclusive
+    var updateSearchOptions = function() {
+        $('#perfect_match').prop('disabled', $('#distinct_words').prop('checked'));
+        $('#distinct_words').prop('disabled', $('#perfect_match').prop('checked'));
+    };
+    // Call it once when the page is ready, since options are set also via getRepository
+    updateSearchOptions();
+    $('.search_options').on('change', updateSearchOptions);
+
     // Associate code to repository switch in main search form.
     $('#repository').on('change', function(){
         var repositoryID = this.value;
