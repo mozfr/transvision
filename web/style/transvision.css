@@ -792,6 +792,7 @@ input[type="checkbox"]:disabled + label {
 #advanced_search span > label:hover + .search_tooltip {
     display: block;
     white-space: normal;
+    font-size: 0.9em;
     top: 20px;
     left: 20px;
     width: 200px;
