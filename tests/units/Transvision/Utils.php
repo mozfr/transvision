@@ -31,25 +31,31 @@ class Utils extends atoum\test
 
     public function uniqueWordsDP()
     {
-        return ['achat des couteaux suisses'];
+        return [
+            [
+                'achat des couteaux suisses',
+                ['couteaux', 'suisses', 'achat', 'des'],
+            ],
+            [
+                'achat     des  couteaux suisses   ',
+                ['couteaux', 'suisses', 'achat', 'des'],
+            ],
+            [
+                'Set a cookie',
+                ['cookie', 'Set'],
+            ],
+        ];
     }
 
     /**
      * @dataProvider uniqueWordsDP
      */
-    public function testUniqueWords($a)
+    public function testUniqueWords($a, $b)
     {
         $obj = new _Utils();
         $this
             ->array($obj->uniqueWords($a))
-                ->isEqualTo(
-                    [
-                        'couteaux',
-                        'suisses',
-                        'achat',
-                        'des',
-                    ]
-                );
+                ->isEqualTo($b);
     }
 
     public function checkboxDefaultOption1DP()

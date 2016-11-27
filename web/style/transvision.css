@@ -795,7 +795,7 @@ input[type="checkbox"]:disabled + label {
     top: -5px;
     left: 0;
     width: 200px;
-    font-size: 1.05em;
+    font-size: 1.1em;
     padding: 0.5em;
     text-align: center;
     color: #fff;
