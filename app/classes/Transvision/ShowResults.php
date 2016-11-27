@@ -491,11 +491,13 @@ class ShowResults
                       </a>";
             if (isset($edit_link)) {
                 $table .= "
+                            &nbsp;
                             <a class='edit_link' target='_blank' href='{$edit_link}'>
                             &lt;edit&gt;
                             </a>";
             }
             $table .= "
+                      &nbsp;
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
                       </a>
