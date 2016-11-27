@@ -21,7 +21,7 @@ $target_results_merged = [];
 // Define our search terms and parameters
 $search
     ->setSearchTerms(urldecode(Utils::cleanString($request->parameters[6])))
-    ->setDistinctWords($get_option('distinct_words'))
+    ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexEntireString($get_option('entire_string'))
     ->setSearchType($request->parameters[2])
@@ -42,7 +42,7 @@ foreach ($repositories as $repository) {
             $entities = array_keys($source_results);
         }
     } else {
-        $search_terms = $search->isDistinctWords()
+        $search_terms = $search->isEachWord()
             ? Utils::uniqueWords($search->getSearchTerms())
             : [$search->getSearchTerms()];
 

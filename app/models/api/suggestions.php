@@ -20,7 +20,7 @@ $target_strings_merged = [];
 // Define our search terms and parameters
 $search
     ->setSearchTerms(Utils::cleanString($request->parameters[5]))
-    ->setDistinctWords($get_option('distinct_words'))
+    ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexEntireString($get_option('entire_string'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);

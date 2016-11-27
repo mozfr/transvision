@@ -267,7 +267,7 @@ class ShowResults
                      </thead>
                      <tbody>\n";
 
-        if ($search_object->isDistinctWords()) {
+        if ($search_object->isEachWord()) {
             $search_terms = Utils::uniqueWords($search_object->getSearchTerms());
         } else {
             $search_terms = [$search_object->getSearchTerms()];

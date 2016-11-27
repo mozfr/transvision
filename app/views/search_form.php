@@ -140,14 +140,14 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="distinct_words"
-                               id="distinct_words"
-                               value="distinct_words"
+                               name="each_word"
+                               id="each_word"
+                               value="each_word"
                                class="search_options"
-                               <?=Utils::checkboxState($check['distinct_words'])?>
+                               <?=Utils::checkboxState($check['each_word'])?>
                         />
-                        <label for="distinct_words" aria-describedby="tooltip_distinct">Distinct Words</label>
-                        <div id="tooltip_distinct" class="search_tooltip" role="tooltip">If selected, <strong>search for each word</strong> (at least 2 characters long). By default, the search query is used as a whole.</div>
+                        <label for="each_word" aria-describedby="tooltip_eachword">Each Word</label>
+                        <div id="tooltip_earchword" class="search_tooltip" role="tooltip">If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</div>
                     </span>
                     <span>
                         <input type="checkbox"

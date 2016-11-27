@@ -22,7 +22,7 @@ $output = [];
 // Define our search terms and parameters
 $search
     ->setSearchTerms(Utils::cleanString($request->parameters[5]))
-    ->setDistinctWords($get_option('distinct_words'))
+    ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexEntireString($get_option('entire_string'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);
@@ -32,7 +32,7 @@ foreach ($repositories as $repository) {
     $source_strings = Utils::getRepoStrings($search->getLocale('source'), $repository);
     $source_results = [];
 
-    $search_terms = $search->isDistinctWords()
+    $search_terms = $search->isEachWord()
         ? Utils::uniqueWords($search->getSearchTerms())
         : [$search->getSearchTerms()];
     foreach ($search_terms as $word) {

@@ -12,7 +12,7 @@ namespace Transvision;
  *     ->setSearchTerms('Bookmark this page')
  *     ->setRegexCaseInsensitive(true)
  *     ->setRegexEntireString(false)
- *     ->setDistinctWords(false)
+ *     ->setEachWord(false)
  *     ->setRepository('release')
  *     ->setSearchType('strings')
  *     ->setLocales(['en-US', 'fr']);
@@ -47,7 +47,7 @@ class Search
      * Set to search for each word in the query instead of using it as a whole.
      * @var boolean
      */
-    protected $distinct_words;
+    protected $each_word;
 
     /**
      * The search terms for the regex, these differ from $search_terms as
@@ -80,7 +80,7 @@ class Search
      */
     protected $form_search_options = [
         'case_sensitive', 'entire_string', 'repo',
-        'search_type', 't2t', 'distinct_words',
+        'search_type', 't2t', 'each_word',
     ];
 
     /**
@@ -104,7 +104,7 @@ class Search
         $this->regex = '';
         $this->regex_case = 'i';
         $this->regex_entire_string = false;
-        $this->distinct_words = false;
+        $this->each_word = false;
         $this->regex_search_terms = '';
         $this->repository = 'aurora'; // Most locales work on Aurora
         $this->search_type = 'strings';
@@ -183,9 +183,9 @@ class Search
      * @param  boolean $flag Set to True to search for each word.
      * @return $this
      */
-    public function setDistinctWords($flag)
+    public function setEachWord($flag)
     {
-        $this->distinct_words = (boolean) $flag;
+        $this->each_word = (boolean) $flag;
 
         return $this;
     }
@@ -234,13 +234,13 @@ class Search
     }
 
     /**
-     * Get the state of distinct_words
+     * Get the state of each_word
      *
      * @return boolean True if the search should be for each word.
      */
-    public function isDistinctWords()
+    public function isEachWord()
     {
-        return $this->distinct_words;
+        return $this->each_word;
     }
 
     /**

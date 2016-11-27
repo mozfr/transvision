@@ -7,7 +7,7 @@ if ($search->isEntireString()) {
 } else {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
-    $search_terms = $search->isDistinctWords()
+    $search_terms = $search->isEachWord()
         ? Utils::uniqueWords($search->getSearchTerms())
         : [$search->getSearchTerms()];
     foreach ($search_terms as $word) {

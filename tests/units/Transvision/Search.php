@@ -21,7 +21,7 @@ class Search extends atoum\test
             ->string($obj->getRegexCase())
                 ->isEqualTo('i');
         $this
-            ->boolean($obj->isDistinctWords())
+            ->boolean($obj->isEachWord())
                 ->isEqualTo(false);
         $this
             ->boolean($obj->isEntireString())
@@ -40,10 +40,10 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->array($obj->getFormSearchOptions())
-                ->isEqualTo(['case_sensitive', 'entire_string', 'repo', 'search_type', 't2t', 'distinct_words']);
+                ->isEqualTo(['case_sensitive', 'entire_string', 'repo', 'search_type', 't2t', 'each_word']);
         $this
             ->array($obj->getFormCheckboxes())
-                ->isEqualTo(['case_sensitive', 'entire_string', 't2t', 'distinct_words']);
+                ->isEqualTo(['case_sensitive', 'entire_string', 't2t', 'each_word']);
     }
 
     public function testSetSearchTerms()
