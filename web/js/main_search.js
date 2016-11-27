@@ -1,8 +1,9 @@
 var checkDefault = function(id) {
-    /* Check if the associated 'default' checkbox needs to be selected.
-     * If the select is called 'repository', the default checkbox
-     * is called 'default_repository'.
-     */
+    /*
+        Check if the associated 'default' checkbox needs to be selected.
+        If the select is called 'repository', the default checkbox
+        is called 'default_repository'.
+    */
     var checkbox = $('#default_' + id);
     var currentValue = $('#' + id).val();
     if (currentValue === checkbox.val()) {
@@ -53,9 +54,10 @@ $(document).ready(function() {
     // Call it once when the page is ready
     checkSuggestions();
 
-    /* Change the label below the search field to reflect the value of "Search in".
-     * Also checks if the default checkbox needs to be selected.
-     */
+    /*
+        Change the label below the search field to reflect the value of "Search in".
+        Also checks if the default checkbox needs to be selected.
+    */
     $('#search_type').on('change', function(){
         var optionLabel = $('#search_type option[value="' + this.value + '"]').text();
         $('#searchcontextvalue').text(optionLabel);
@@ -64,9 +66,14 @@ $(document).ready(function() {
         checkSuggestions();
     });
 
-    // Some search options are mutually exclusive
+    /*
+        Some search options are mutually exclusive.
+        "Entire string" disables both "Entire Words" and "Each Word", and
+        viceversa.
+    */
     var updateSearchOptions = function() {
         $('#entire_string').prop('disabled', $('#each_word').prop('checked'));
+        $('#entire_words').prop('disabled', $('#entire_string').prop('checked'));
         $('#each_word').prop('disabled', $('#entire_string').prop('checked'));
     };
     // Call it once when the page is ready, since options are set also via getRepository
@@ -99,9 +106,10 @@ $(document).ready(function() {
         });
     });
 
-    /* When a locale selector changes, checks if the default checkbox needs
-     * to be selected.
-     */
+    /*
+        When a locale selector changes, checks if the default checkbox needs
+        to be selected.
+    */
     $('.mainsearch_locale_selector').on('change', function(){
         checkDefault(this.id);
     });
@@ -123,9 +131,10 @@ $(document).ready(function() {
             cookieValue = $('#' + selectName).val();
         }
 
-        /* Set Cookie to store default value. Use checkbox ID as cookie
-         * name (e.g. default_repository) and value as content.
-         */
+        /*
+            Set Cookie to store default value. Use checkbox ID as cookie
+            name (e.g. default_repository) and value as content.
+        */
         expire.setTime(today.getTime() + 3600000 * 24 * days);
         document.cookie = cookieName + '=' + cookieValue +
                           ';expires=' + expire.toGMTString();

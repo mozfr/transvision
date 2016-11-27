@@ -24,6 +24,7 @@ $search
     ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexEntireString($get_option('entire_string'))
+    ->setRegexEntireWords($get_option('entire_words'))
     ->setSearchType($request->parameters[2])
     ->setLocales([$request->parameters[4], $request->parameters[5]]);
 

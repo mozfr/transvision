@@ -157,8 +157,19 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['entire_string'])?>
                         />
-                        <label for="entire_string" aria-describedby="tooltip_entire">Entire String</label>
-                        <div id="tooltip_entire" class="search_tooltip" role="tooltip">If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</div>
+                        <label for="entire_string" aria-describedby="tooltip_entirestring">Entire String</label>
+                        <div id="tooltip_entirestring" class="search_tooltip" role="tooltip">If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</div>
+                    </span>
+                    <span>
+                        <input type="checkbox"
+                               name="entire_words"
+                               id="entire_words"
+                               value="entire_words"
+                               class="search_options"
+                               <?=Utils::checkboxState($check['entire_words'])?>
+                        />
+                        <label for="entire_words" aria-describedby="tooltip_entirewords">Entire Words</label>
+                        <div id="tooltip_entirewords" class="search_tooltip" role="tooltip">If selected, each search term needs to match an <strong>entire word</strong>. By default, partial word matches are included in the results.</div>
                     </span>
                     <?php if ($check['t2t'] == 't2t') :?>
                     <input type="hidden"

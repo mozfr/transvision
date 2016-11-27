@@ -31,6 +31,7 @@ $search
     ->setEachWord($check['each_word'])
     ->setRegexCaseInsensitive($check['case_sensitive'])
     ->setRegexEntireString($check['entire_string'])
+    ->setRegexEntireWords($check['entire_words'])
     ->setRepository($repo)
     ->setSearchType($search_type)
     ->setLocales([$source_locale, $locale, $locale2]);

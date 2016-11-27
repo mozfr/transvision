@@ -18,8 +18,8 @@ class Search extends atoum\test
             ->string($obj->getRegex())
                 ->isEqualTo('');
         $this
-            ->string($obj->getRegexCase())
-                ->isEqualTo('i');
+            ->boolean($obj->isCaseSensitive())
+                ->isEqualTo(false);
         $this
             ->boolean($obj->isEachWord())
                 ->isEqualTo(false);
@@ -40,10 +40,18 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->array($obj->getFormSearchOptions())
-                ->isEqualTo(['case_sensitive', 'entire_string', 'repo', 'search_type', 't2t', 'each_word']);
+                ->isEqualTo(
+                    [
+                        'case_sensitive', 'entire_string', 'repo',
+                        'search_type', 't2t', 'each_word', 'entire_words'
+                    ]);
         $this
             ->array($obj->getFormCheckboxes())
-                ->isEqualTo(['case_sensitive', 'entire_string', 't2t', 'each_word']);
+                ->isEqualTo(
+                    [
+                        'case_sensitive', 'entire_string', 't2t',
+                        'each_word', 'entire_words'
+                    ]);
     }
 
     public function testSetSearchTerms()
@@ -92,6 +100,25 @@ class Search extends atoum\test
 
         $obj->setRegexCaseInsensitive(false);
         $this
+            ->string($obj->getRegex())
+                ->isEqualTo('~~iu');
+    }
+
+    public function testSetRegexEntireWords()
+    {
+        $obj = new _Search();
+        $obj->setRegexEntireWords('entire_words');
+
+        $this
+            ->boolean($obj->isEntireWords())
+                ->isEqualTo(true)
+            ->string($obj->getRegex())
+                ->isEqualTo('~\b\b~iu');
+
+        $obj->setRegexEntireWords(false);
+        $this
+            ->boolean($obj->isEntireWords())
+                ->isEqualTo(false)
             ->string($obj->getRegex())
                 ->isEqualTo('~~iu');
     }

@@ -23,6 +23,7 @@ $search
     ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
     ->setRegexEntireString($get_option('entire_string'))
+    ->setRegexEntireWords($get_option('entire_words'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);
 
 $terms = Utils::uniqueWords($search->getSearchTerms());

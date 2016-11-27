@@ -36,7 +36,7 @@ include __DIR__ . '/simplesearchform.php';
             }
 
             $link = "/?recherche={$english_term}&repo={$repo}&sourcelocale={$locale}" .
-                    "&locale={$ref_locale}&search_type=strings";
+                    "&locale={$ref_locale}&search_type=strings&entire_words=entire_words";
 
             if ($count > 0) {
                 print "<td><a href='{$link}'>{$count}</a></td>";
