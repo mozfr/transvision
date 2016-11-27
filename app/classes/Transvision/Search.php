@@ -44,7 +44,7 @@ class Search
     protected $regex_perfect_match;
 
     /**
-     * Search for each distinct word
+     * Set to search for each word in the query instead of using it as a whole.
      * @var boolean
      */
     protected $distinct_words;
@@ -177,10 +177,10 @@ class Search
     }
 
     /**
-     * Set to search for each distinct word.
+     * Set to search for each word in the query instead of using it as a whole.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True for a perfect match
+     * @param  boolean $flag Set to True to search for each word.
      * @return $this
      */
     public function setDistinctWords($flag)
@@ -234,9 +234,9 @@ class Search
     }
 
     /**
-     * Get the state of distinct
+     * Get the state of distinct_words
      *
-     * @return boolean True if the regex searches for a perfect string match
+     * @return boolean True if the search should be for each word.
      */
     public function isDistinctWords()
     {

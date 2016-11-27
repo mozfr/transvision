@@ -15,7 +15,7 @@ use Monolog\Logger;
  * Calls are like this:
  * api/<version>/<service>/<repository>/<search type>/<source locale>/<target locale>/<url escaped search>/?optional_parameter1=foo&optional_parameter2=bar
  * Example for an entity search containing bookmark:
- * https://transvision.mozfr.org/api/v1/tm/release/entity/en-US/fr/bookmark/?case_sensitive=1
+ * https://transvision.mozfr.org/api/v1/tm/release/entity/en-US/fr/bookmark/?case_sensitive=case_sensitive
  * (tm = translation memory service)
  *
  * Example for the list of locales supported for a repo:
@@ -245,7 +245,7 @@ class API
 
                 break;
             case 'search':
-            // ex: /api/v1/search/string/central/en-US/fr/Bookmark/?case_sensitive=1
+            // ex: /api/v1/search/string/central/en-US/fr/Bookmark/?case_sensitive=case_sensitive
                 if (! $this->verifyEnoughParameters(7)) {
                     return false;
                 }
