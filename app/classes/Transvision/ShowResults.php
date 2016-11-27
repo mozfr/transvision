@@ -489,7 +489,7 @@ class ShowResults
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>";
-            if ($edit_link) {
+            if (isset($edit_link)) {
                 $table .= "
                             <a class='edit_link' target='_blank' href='{$edit_link}'>
                             &lt;edit&gt;
