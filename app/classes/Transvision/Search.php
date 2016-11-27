@@ -45,7 +45,7 @@ class Search
     protected $regex_entire_string;
 
     /**
-     * Only return strings that where entire words match the search (case excluded)
+     * Only return strings where entire words match the search (case excluded)
      * @var boolean
      */
     protected $regex_entire_words;
@@ -170,7 +170,7 @@ class Search
     }
 
     /**
-     * Set the regex to only return strings that entirely matches the
+     * Set the regex to only return strings that entirely match the
      * searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
@@ -186,7 +186,7 @@ class Search
     }
 
     /**
-     * Set the regex to only return strings where entire words matches
+     * Set the regex to only return strings where entire words match
      * the searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *

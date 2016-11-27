@@ -135,7 +135,7 @@ class Utils
         $words = explode(' ', $sentence);
         $words = array_filter($words); // Filter out extra spaces
         // Filter out 1-character words
-        $words = array_filter($words, function($a) {
+        $words = array_filter($words, function ($a) {
             return (mb_strlen($a) >= 2);
         });
 

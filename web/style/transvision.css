@@ -792,18 +792,15 @@ input[type="checkbox"]:disabled + label {
 #advanced_search span > label:hover + .search_tooltip {
     display: block;
     white-space: normal;
-    top: -5px;
-    left: 0;
+    top: 20px;
+    left: 20px;
     width: 200px;
-    font-size: 1.1em;
     padding: 0.5em;
     text-align: center;
     color: #fff;
     border-radius: 4px;
     background-color: #0095dd;
-    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
-    transform: rotateX(20deg) scale(0.8);
-    transform-origin: center 120%;
+    transition: all linear .1s;
     opacity: 0.9;
 }
 
