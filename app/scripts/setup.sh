@@ -74,26 +74,32 @@ function createSymlinks() {
     esac
 }
 
-function checkoutSilme() {
-    # Check out SILME library to a specific version (0.8.0)
-    if [ ! -d $libraries/silme/.hg ]
+function setupExternalLibraries() {
+    # Check out or update compare-locales library
+    version="RELEASE_1_2_1"
+    if [ ! -d $libraries/compare-locales/.hg ]
     then
-        echogreen "Checking out the SILME library into $libraries"
+        echogreen "Checking out compare-locales in $libraries"
         cd $libraries
-        hg clone https://hg.mozilla.org/l10n/silme -u silme-0.8.0
+        hg clone https://hg.mozilla.org/l10n/compare-locales -u $version
+        cd $install
+    else
+        echogreen "Updating compare-locales in $libraries"
+        cd $libraries/compare-locales
+        hg pull -r default --update
+        hg update $version
         cd $install
     fi
-}
 
-function setupP12nExtract() {
+    # Check out or update external p12n-extract library
     if [ ! -d $libraries/p12n/.git ]
     then
-        echogreen "Checking out the p12n-extract library into $libraries"
+        echogreen "Checking out the p12n-extract library in $libraries"
         cd $libraries
         git clone https://github.com/flodolo/p12n-extract/ p12n
         cd $install
     else
-        echogreen "Updating the p12n-extract library into $libraries"
+        echogreen "Updating the p12n-extract library in $libraries"
         cd $libraries/p12n
         git pull
         cd $install
@@ -246,8 +252,7 @@ else
 fi
 echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
 
-checkoutSilme
-setupP12nExtract
+setupExternalLibraries
 
 initDesktopSourceRepo "central"
 initDesktopSourceRepo "release"

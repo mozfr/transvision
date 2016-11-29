@@ -154,9 +154,9 @@ function updateStandardRepo() {
         echogreen "Create ${repo_name^^} cache for $repo_name/$1"
         if [ "$1" = "en-US" ]
         then
-            nice -20 $install/app/scripts/tmx_products.py ${!repo_source}/COMMUN/ ${!repo_source}/COMMUN/ en-US en-US $repo_name
+            nice -20 $install/app/scripts/tmx_products.py ${!repo_source}/COMMUN/ en-US en-US $repo_name
         else
-            nice -20 $install/app/scripts/tmx_products.py ${!repo_l10n}/$1/ ${!repo_source}/COMMUN/ $1 en-US $repo_name
+            nice -20 $install/app/scripts/tmx_products.py ${!repo_l10n}/$1/ $1 en-US $repo_name
         fi
     }
 
