@@ -288,7 +288,7 @@ class ShowResults
             }
 
             $component = explode('/', $key)[0];
-            $entityPath = explode(':', $key)[0];
+            $fileAndRawString = explode(':', $key);
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
@@ -326,9 +326,9 @@ class ShowResults
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
             if ($current_repo === 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
-                $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$entityPath}.po?search={$strings[1]}&sfields=source&sfields=target";
+                $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$fileAndRawString[0]}.po?search={$fileAndRawString[1]}&sfields=locations";
             } elseif ($current_repo === 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
-                $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$entityPath}?search={$strings[1]}";
+                $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
             }
 
             if ($transliterate) {
