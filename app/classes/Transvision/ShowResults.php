@@ -327,8 +327,10 @@ class ShowResults
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
             if ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
                 $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$fileAndRawString[0]}.po#search={$fileAndRawString[1]}&sfields=locations";
+                $edit_message = 'edit in Pootle';
             } elseif ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
                 $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
+                $edit_message = 'edit in Pontoon';
             }
 
             if ($transliterate) {
@@ -493,7 +495,7 @@ class ShowResults
                 $table .= "
                             &nbsp;
                             <a class='edit_link' target='_blank' href='{$edit_link}'>
-                            &lt;edit&gt;
+                            &lt;{$edit_message}&gt;
                             </a>";
             }
             $table .= "
