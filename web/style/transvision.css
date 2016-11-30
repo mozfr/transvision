@@ -451,6 +451,10 @@ td .result_meta_link .bug_link {
     color: #404d6c;
 }
 
+td .result_meta_link .edit_link {
+    color: #0095dd;
+}
+
 #footer {
     text-align: center;
     font-size: 0.9em;

@@ -250,6 +250,9 @@ class ShowResults
 
         $extra_column_header = '';
 
+        // Get the tool used to edit strings for the target locale
+        $toolUsedByTargetLocale = Project::getLocaleTool($locale2);
+
         if ($extra_locale) {
             $locale3 = $search_object->getLocale('extra');
             $direction3 = RTLSupport::getDirection($locale3);
@@ -285,6 +288,7 @@ class ShowResults
             }
 
             $component = explode('/', $key)[0];
+            $fileAndRawString = explode(':', $key);
             $source_string = trim($strings[0]);
             $target_string = trim($strings[1]);
 
@@ -321,6 +325,13 @@ class ShowResults
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
+            if ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
+                $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$fileAndRawString[0]}.po#search={$fileAndRawString[1]}&sfields=locations";
+                $edit_message = 'edit in Pootle';
+            } elseif ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
+                $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
+                $edit_message = 'edit in Pontoon';
+            }
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
@@ -479,7 +490,15 @@ class ShowResults
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
-                      </a>
+                      </a>";
+            if (isset($edit_link)) {
+                $table .= "
+                            &nbsp;
+                            <a class='edit_link' target='_blank' href='{$edit_link}'>
+                            &lt;{$edit_message}&gt;
+                            </a>";
+            }
+            $table .= "
                       &nbsp;
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
