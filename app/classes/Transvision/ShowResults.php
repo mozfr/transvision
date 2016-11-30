@@ -325,9 +325,9 @@ class ShowResults
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
-            if ($current_repo === 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
+            if ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
                 $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$fileAndRawString[0]}.po?search={$fileAndRawString[1]}&sfields=locations";
-            } elseif ($current_repo === 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
+            } elseif ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
                 $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
             }
 
