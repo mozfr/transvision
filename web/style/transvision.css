@@ -793,8 +793,8 @@ input[type="checkbox"]:disabled + label {
     display: block;
     white-space: normal;
     font-size: 0.9em;
-    top: 20px;
-    left: 20px;
+    top: 25px;
+    left: -80px;
     width: 200px;
     padding: 0.5em;
     text-align: center;
@@ -802,7 +802,7 @@ input[type="checkbox"]:disabled + label {
     border-radius: 4px;
     background-color: #0095dd;
     transition: all linear .1s;
-    opacity: 0.9;
+    opacity: 0.75;
 }
 
 .search_tooltip {
