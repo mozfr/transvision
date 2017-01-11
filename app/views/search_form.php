@@ -147,7 +147,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                <?=Utils::checkboxState($check['each_word'])?>
                         />
                         <label for="each_word" aria-describedby="tooltip_eachword">Each Word</label>
-                        <div id="tooltip_earchword" class="search_tooltip" role="tooltip">If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</div>
+                        <div id="tooltip_eachword" class="search_tooltip" role="tooltip">If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</div>
                     </span>
                     <span>
                         <input type="checkbox"
