@@ -512,6 +512,7 @@ table tr td.no_highligth {
     color: #000;
     background-color: rgba(255, 165, 0, 0.77);
     border-radius: 3px;
+    white-space: pre-wrap;
 }
 
 .superset {

@@ -10,18 +10,23 @@ class Strings extends atoum\test
 {
     public function mtrimDP()
     {
-        return ['Le cheval  blanc '];
+        return [
+            ['Le cheval  blanc ', 'Le cheval blanc '],
+            ['  Le cheval  blanc', ' Le cheval blanc'],
+            ['  Le cheval  blanc  ', ' Le cheval blanc '],
+            ['Le cheval  blanc', 'Le cheval blanc'],
+        ];
     }
 
     /**
      * @dataProvider mtrimDP
      */
-    public function testMtrim($a)
+    public function testMtrim($a, $b)
     {
         $obj = new _Strings();
         $this
             ->string($obj->mtrim($a))
-                ->isEqualTo('Le cheval blanc');
+                ->isEqualTo($b);
     }
 
     public function startsWithDP()

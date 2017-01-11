@@ -178,12 +178,8 @@ class Utils extends atoum\test
     {
         return [
             [
-                'pages web   fréquemment visitées (en cliquant sur « Recharger »,',
-                'pages web fréquemment visitées (en cliquant sur « Recharger »,',
-            ],
-            [
-                'toto ',
-                'toto',
+                [],
+                '',
             ],
             [
                 "don\u0027t strip unicode escaped chars",

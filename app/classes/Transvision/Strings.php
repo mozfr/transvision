@@ -11,18 +11,16 @@ namespace Transvision;
 class Strings
 {
     /**
-     * Replace contiguous spaces in a string by a single space
+     * Replace contiguous spaces in a string by a single space.
+     * Leading and trailing spaces are preserved but collapsed
+     * to a single space.
      *
      * @param  string $string The string to analyze
      * @return string Cleaned up string with extra spaces merged
      */
     public static function mtrim($string)
     {
-        $string = explode(' ', $string);
-        $string = array_filter($string);
-        $string = implode(' ', $string);
-
-        return $string;
+        return preg_replace('/\s+/', ' ', $string);
     }
 
     /**
