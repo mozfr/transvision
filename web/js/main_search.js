@@ -72,7 +72,7 @@ $(document).ready(function() {
         viceversa.
     */
     var updateSearchOptions = function() {
-        $('#entire_string').prop('disabled', $('#each_word').prop('checked'));
+        $('#entire_string').prop('disabled', $('#each_word').prop('checked') || $('#entire_words').prop('checked'));
         $('#entire_words').prop('disabled', $('#entire_string').prop('checked'));
         $('#each_word').prop('disabled', $('#entire_string').prop('checked'));
     };
