@@ -124,7 +124,8 @@ class Utils
     }
 
     /**
-     * Split a sentence in words from longest to shortest
+     * Split a sentence in words from longest to shortest, ignoring
+     * words shorter than 2 characters.
      *
      * @param  string $sentence
      * @return array  all the words in the sentence sorted by length
@@ -133,7 +134,14 @@ class Utils
     {
         $words = explode(' ', $sentence);
         $words = array_filter($words); // Filter out extra spaces
-        $words = array_unique($words); // Remove duplicate words
+        // Filter out 1-character words
+        $words = array_filter($words, function ($a) {
+            return (mb_strlen($a) >= 2);
+        });
+
+        // Remove duplicate words
+        $words = array_unique($words);
+
         // Sort words from longest to shortest
         usort(
             $words,
@@ -444,8 +452,8 @@ class Utils
             array_map($sanitize, array_values($args))
         );
 
-        $args['locale'] = $source_locale;
-        $args['sourcelocale'] = $target_locale;
+        $args['locale'] = $target_locale;
+        $args['sourcelocale'] = $source_locale;
         $args['json'] = 'true';
 
         // We don't want to encode slashes in searches for entity names

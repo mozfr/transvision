@@ -18,13 +18,13 @@ class Search extends atoum\test
             ->string($obj->getRegex())
                 ->isEqualTo('');
         $this
-            ->string($obj->getRegexCase())
-                ->isEqualTo('i');
+            ->boolean($obj->isCaseSensitive())
+                ->isEqualTo(false);
         $this
-            ->string($obj->isWholeWords())
-                ->isEqualTo('');
+            ->boolean($obj->isEachWord())
+                ->isEqualTo(false);
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(false);
         $this
             ->string($obj->getRegexSearchTerms())
@@ -40,10 +40,18 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->array($obj->getFormSearchOptions())
-                ->isEqualTo(['case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word']);
+                ->isEqualTo(
+                    [
+                        'case_sensitive', 'entire_string', 'repo',
+                        'search_type', 't2t', 'each_word', 'entire_words',
+                    ]);
         $this
             ->array($obj->getFormCheckboxes())
-                ->isEqualTo(['case_sensitive', 'perfect_match', 't2t', 'whole_word']);
+                ->isEqualTo(
+                    [
+                        'case_sensitive', 'entire_string', 't2t',
+                        'each_word', 'entire_words',
+                    ]);
     }
 
     public function testSetSearchTerms()
@@ -96,37 +104,38 @@ class Search extends atoum\test
                 ->isEqualTo('~~iu');
     }
 
-    public function testSetRegexPerfectMatch()
+    public function testSetRegexEntireWords()
     {
         $obj = new _Search();
-        $obj->setRegexPerfectMatch('perfect_match');
+        $obj->setRegexEntireWords('entire_words');
+
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireWords())
                 ->isEqualTo(true)
             ->string($obj->getRegex())
-                ->isEqualTo('~^$~iu');
+                ->isEqualTo('~\b\b~iu');
 
-        $obj->setRegexPerfectMatch(false);
+        $obj->setRegexEntireWords(false);
         $this
-            ->boolean($obj->isPerfectMatch())
+            ->boolean($obj->isEntireWords())
                 ->isEqualTo(false)
             ->string($obj->getRegex())
                 ->isEqualTo('~~iu');
     }
 
-    public function testSetRegexWholeWords()
+    public function testSetRegexEntireString()
     {
         $obj = new _Search();
-        $obj->setRegexWholeWords('whole_word');
+        $obj->setRegexEntireString('entire_string');
         $this
-            ->string($obj->isWholeWords())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(true)
             ->string($obj->getRegex())
-                ->isEqualTo('~\b\b~iu');
+                ->isEqualTo('~^$~iu');
 
-        $obj->setRegexWholeWords(false);
+        $obj->setRegexEntireString(false);
         $this
-            ->string($obj->isWholeWords())
+            ->boolean($obj->isEntireString())
                 ->isEqualTo(false)
             ->string($obj->getRegex())
                 ->isEqualTo('~~iu');
@@ -137,15 +146,13 @@ class Search extends atoum\test
         $obj = new _Search();
         $obj
             ->setSearchTerms('A new hope')
-            ->setRegexWholeWords('whole_word')
-            ->setRegexPerfectMatch(false)
+            ->setRegexEntireString(false)
             ->setRegexCaseInsensitive('sensitive');
         $this->string($obj->getRegex())
-                ->isEqualTo('~\bA new hope\b~u');
+                ->isEqualTo('~A new hope~u');
 
         $obj->setSearchTerms('Return of the jedi')
-            ->setRegexWholeWords('')
-            ->setRegexPerfectMatch(true)
+            ->setRegexEntireString(true)
             ->setRegexCaseInsensitive('');
         $this
             ->string($obj->getRegex())
@@ -157,21 +164,31 @@ class Search extends atoum\test
         include_once TMX . 'fr/cache_fr_central.php';
         $obj = new _Search();
         $obj
-            ->setSearchTerms('Marque')
-            ->setRegexWholeWords('whole_word');
+            ->setSearchTerms('marque');
         $this->array($obj->grep($tmx))
             ->isEqualTo(
                 [
+                    'mobile/android/base/android_strings.dtd:bookmark'                                => 'Marquer cette page',
                     'browser/chrome/browser/places/places.properties:bookmarkResultLabel'             => 'Marque-page',
                     'browser/chrome/browser/syncQuota.properties:collection.bookmarks.label'          => 'Marque-pages',
                     'browser/chrome/browser/places/bookmarkProperties.properties:dialogTitleAddMulti' => 'Nouveaux marque-pages',
+                    'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label'                    => 'Marquer cette page',
                 ]
             );
 
         $obj
-            ->setRegexWholeWords('')
+            ->setSearchTerms('marquer cette');
+        $this->array($obj->grep($tmx))
+            ->isEqualTo(
+                [
+                    'mobile/android/base/android_strings.dtd:bookmark'             => 'Marquer cette page',
+                    'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label' => 'Marquer cette page',
+                ]
+            );
+
+        $obj
             ->setSearchTerms('...')
-            ->setRegexPerfectMatch('perfect_match');
+            ->setRegexEntireString('entire_string');
 
         $this->array($obj->grep($tmx))
             ->isEqualTo(

@@ -1,13 +1,16 @@
 <?php
 namespace Transvision;
 
-if ($search->isPerfectMatch()) {
+if ($search->isEntireString()) {
     $locale1_strings = $search->grep($tmx_source);
     $locale2_strings = $search->grep($tmx_target);
 } else {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
-    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
+    $search_terms = $search->isEachWord()
+        ? Utils::uniqueWords($search->getSearchTerms())
+        : [$search->getSearchTerms()];
+    foreach ($search_terms as $word) {
         $search->setRegexSearchTerms($word);
         $locale1_strings = $search->grep($locale1_strings);
         $locale2_strings = $search->grep($locale2_strings);

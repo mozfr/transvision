@@ -80,7 +80,7 @@ foreach ($entities as $entity) {
                      . "&locale={$locale2}"
                      . "&repo={$current_repo}"
                      . "&search_type=entities&recherche={$entity}"
-                     . "&perfect_match=perfect_match";
+                     . "&entire_string=entire_string";
 
         $file_bug = '<a class="bug_link" target="_blank" href="'
                     . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
@@ -122,7 +122,7 @@ foreach ($entities as $entity) {
                  . "&locale={$locale}"
                  . "&repo={$current_repo}"
                  . "&search_type=entities&recherche={$entity}"
-                 . "&perfect_match=perfect_match";
+                 . "&entire_string=entire_string";
 
     $file_bug = '<a class="bug_link" target="_blank" href="'
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,

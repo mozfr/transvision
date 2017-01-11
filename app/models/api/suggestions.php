@@ -20,9 +20,10 @@ $target_strings_merged = [];
 // Define our search terms and parameters
 $search
     ->setSearchTerms(Utils::cleanString($request->parameters[5]))
-    ->setRegexWholeWords($get_option('whole_word'))
+    ->setEachWord($get_option('each_word'))
     ->setRegexCaseInsensitive($get_option('case_sensitive'))
-    ->setRegexPerfectMatch($get_option('perfect_match'))
+    ->setRegexEntireString($get_option('entire_string'))
+    ->setRegexEntireWords($get_option('entire_words'))
     ->setLocales([$request->parameters[3], $request->parameters[4]]);
 
 $terms = Utils::uniqueWords($search->getSearchTerms());

@@ -59,7 +59,7 @@ if ($strings_number == 0) {
         . "&locale={$locale}"
         . "&repo={$repo}"
         . '&search_type=strings&recherche=' . urlencode($data['source'])
-        . '&perfect_match=perfect_match';
+        . '&entire_string=entire_string';
         echo "<tr>\n";
         echo '<td>';
         echo '<a href="' . $search_link . '" title="Search for this string">' . Utils::secureText($data['source']) . "</a></td>\n";

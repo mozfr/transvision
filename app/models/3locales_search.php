@@ -3,11 +3,16 @@ namespace Transvision;
 
 $tmx_target2 = Utils::getRepoStrings($locale2, $search->getRepository());
 
-if ($search->isPerfectMatch()) {
+if ($search->isEntireString()) {
     $locale3_strings = $search->grep($tmx_target2);
 } else {
     $locale3_strings = $tmx_target2;
-    foreach (Utils::uniqueWords($search->getSearchTerms()) as $word) {
+
+    $search_terms = $search->isEachWord()
+        ? Utils::uniqueWords($search->getSearchTerms())
+        : [$search->getSearchTerms()];
+
+    foreach ($search_terms as $word) {
         $search->setRegexSearchTerms($word);
         $locale3_strings = $search->grep($locale3_strings);
     }

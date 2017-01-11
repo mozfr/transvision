@@ -27,7 +27,7 @@ if (count($perfect_results) > 0) {
         . "&locale={$locale}"
         . "&repo={$repo}"
         . "&search_type=entities&recherche={$string_id}"
-        . "&perfect_match=perfect_match";
+        . "&entire_string=entire_string";
 
         echo "<tr>\n";
         echo "  <td dir='{$locale_dir}'><span class='celltitle'>Localized string</span><div class='string'><a href='{$entity_link}'>" . Utils::secureText($string_value) . "</a></div></td>\n";

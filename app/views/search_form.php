@@ -132,29 +132,45 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                name="case_sensitive"
                                id="case_sensitive"
                                value="case_sensitive"
+                               class="search_options"
                                <?=Utils::checkboxState($check['case_sensitive'])?>
                          />
-                        <label for="case_sensitive">Case Sensitive</label>
+                        <label for="case_sensitive" aria-describedby="tooltip_case">Case Sensitive</label>
+                        <div id="tooltip_case" class="search_tooltip" role="tooltip">If selected, search with the <strong>exact case</strong> used in the search query. By default, case is ignored.</div>
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="whole_word"
-                               id="whole_word"
-                               value="whole_word"
-                               <?=Utils::checkboxState($check['whole_word'])?>
+                               name="each_word"
+                               id="each_word"
+                               value="each_word"
+                               class="search_options"
+                               <?=Utils::checkboxState($check['each_word'])?>
                         />
-                        <label for="whole_word">Whole Word</label>
+                        <label for="each_word" aria-describedby="tooltip_eachword">Each Word</label>
+                        <div id="tooltip_eachword" class="search_tooltip" role="tooltip">If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</div>
                     </span>
                     <span>
                         <input type="checkbox"
-                               name="perfect_match"
-                               id="perfect_match"
-                               value="perfect_match"
-                               <?=Utils::checkboxState($check['perfect_match'])?>
+                               name="entire_string"
+                               id="entire_string"
+                               value="entire_string"
+                               class="search_options"
+                               <?=Utils::checkboxState($check['entire_string'])?>
                         />
-                        <label for="perfect_match">Perfect Match</label>
+                        <label for="entire_string" aria-describedby="tooltip_entirestring">Entire String</label>
+                        <div id="tooltip_entirestring" class="search_tooltip" role="tooltip">If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</div>
                     </span>
-
+                    <span>
+                        <input type="checkbox"
+                               name="entire_words"
+                               id="entire_words"
+                               value="entire_words"
+                               class="search_options"
+                               <?=Utils::checkboxState($check['entire_words'])?>
+                        />
+                        <label for="entire_words" aria-describedby="tooltip_entirewords">Entire Words</label>
+                        <div id="tooltip_entirewords" class="search_tooltip" role="tooltip">If selected, each search term needs to match an <strong>entire word</strong>. By default, partial word matches are included in the results.</div>
+                    </span>
                     <?php if ($check['t2t'] == 't2t') :?>
                     <input type="hidden"
                            name="t2t"

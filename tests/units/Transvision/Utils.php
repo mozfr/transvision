@@ -31,25 +31,31 @@ class Utils extends atoum\test
 
     public function uniqueWordsDP()
     {
-        return ['achat des couteaux suisses'];
+        return [
+            [
+                'achat des couteaux suisses',
+                ['couteaux', 'suisses', 'achat', 'des'],
+            ],
+            [
+                'achat     des  couteaux suisses   ',
+                ['couteaux', 'suisses', 'achat', 'des'],
+            ],
+            [
+                'Set a cookie',
+                ['cookie', 'Set'],
+            ],
+        ];
     }
 
     /**
      * @dataProvider uniqueWordsDP
      */
-    public function testUniqueWords($a)
+    public function testUniqueWords($a, $b)
     {
         $obj = new _Utils();
         $this
             ->array($obj->uniqueWords($a))
-                ->isEqualTo(
-                    [
-                        'couteaux',
-                        'suisses',
-                        'achat',
-                        'des',
-                    ]
-                );
+                ->isEqualTo($b);
     }
 
     public function checkboxDefaultOption1DP()
@@ -464,28 +470,32 @@ class Utils extends atoum\test
     {
         return [
             [
+                'en-US',
+                'fr',
                 '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings',
-                '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings&json=true',
+                '/?recherche=test&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
             ],
             [
-                '/?whole_word=on&sourcelocale=af&repo=beta&case_sensitive=on&perfect_match=on&locale=af&search_type=entities&recherche=555-555-0199@example.com&%22%3E%3Cscript%3Ealert%281%29%3C/script%3E=1',
-                '/?whole_word=on&sourcelocale=fr&repo=beta&case_sensitive=on&perfect_match=on&locale=en-US&search_type=entities&recherche=555-555-0199@example.com&&amp;#34;&amp;#62;&amp;#60;script&amp;#62;alert(1)&amp;#60;/script&amp;#62;=1&json=true',
+                'it',
+                'en-US',
+                '/?recherche=Cookies&repo=aurora&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
+                '/?recherche=Cookies&repo=aurora&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
             ],
         ];
     }
     /**
      * @dataProvider APIPromotionDP
      */
-    public function testAPIPromotion($a, $b)
+    public function testAPIPromotion($a, $b, $c, $d)
     {
         $obj = new _Utils();
-        $_SERVER['REQUEST_URI'] = $a;
-        $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
-            ? parse_url($a)['query']
+        $_SERVER['REQUEST_URI'] = $c;
+        $_SERVER['QUERY_STRING'] = isset(parse_url($c)['query'])
+            ? parse_url($c)['query']
             : null;
         $this
-            ->string($obj->APIPromotion('en-US', 'fr'))
-                ->isEqualTo($b);
+            ->string($obj->APIPromotion($a, $b))
+                ->isEqualTo($d);
     }
 
     public function testGetScriptPerformances()

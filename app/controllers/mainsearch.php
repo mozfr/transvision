@@ -31,9 +31,10 @@ if (isset($_GET['json'])) {
         : '';
 
     $regex = [];
-    $regex['whole'] = isset($_GET['whole_word']) ? 'whole_word=1' : '';
-    $regex['case'] = isset($_GET['case_sensitive']) ? 'case_sensitive=1' : '';
-    $regex['perfect'] = isset($_GET['perfect_match']) ? 'perfect_match=1' : '';
+    $regex['each_word'] = isset($_GET['each_word']) ? 'each_word=each_word' : '';
+    $regex['case_sensitive'] = isset($_GET['case_sensitive']) ? 'case_sensitive=case_sensitive' : '';
+    $regex['entire_string'] = isset($_GET['entire_string']) ? 'entire_string=entire_string' : '';
+    $regex['entire_words'] = isset($_GET['entire_words']) ? 'entire_words=entire_words' : '';
     $regex = array_filter($regex);
     $regex = count($regex) > 0 ? '?' . implode('&', $regex) : '';
 

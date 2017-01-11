@@ -28,9 +28,10 @@ if (isset($_GET['search_type'])) {
 // Define our regex and search parameters
 $search
     ->setSearchTerms($my_search)
-    ->setRegexWholeWords($check['whole_word'])
+    ->setEachWord($check['each_word'])
     ->setRegexCaseInsensitive($check['case_sensitive'])
-    ->setRegexPerfectMatch($check['perfect_match'])
+    ->setRegexEntireString($check['entire_string'])
+    ->setRegexEntireWords($check['entire_words'])
     ->setRepository($repo)
     ->setSearchType($search_type)
     ->setLocales([$source_locale, $locale, $locale2]);

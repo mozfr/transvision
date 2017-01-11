@@ -10,9 +10,10 @@ namespace Transvision;
  * e.g.:
  * $search = (new Search)
  *     ->setSearchTerms('Bookmark this page')
- *     ->setRegexWholeWords(true)
  *     ->setRegexCaseInsensitive(true)
- *     ->setRegexPerfectMatch(false)
+ *     ->setRegexEntireString(false)
+ *     ->setEachWord(false)
+ *     ->setEntireWords(false)
  *     ->setRepository('release')
  *     ->setSearchType('strings')
  *     ->setLocales(['en-US', 'fr']);
@@ -38,16 +39,22 @@ class Search
     protected $regex_case;
 
     /**
-     * Consider the space separated string as a single word for search
-     * @var string
-     */
-    protected $regex_whole_words;
-
-    /**
-     * Only return strings that match the search perfectly (case excluded)
+     * Only return strings that entirely match the search (case excluded)
      * @var boolean
      */
-    protected $regex_perfect_match;
+    protected $regex_entire_string;
+
+    /**
+     * Only return strings where entire words match the search (case excluded)
+     * @var boolean
+     */
+    protected $regex_entire_words;
+
+    /**
+     * Set to search for each word in the query instead of using it as a whole.
+     * @var boolean
+     */
+    protected $each_word;
 
     /**
      * The search terms for the regex, these differ from $search_terms as
@@ -79,7 +86,8 @@ class Search
      * @var array
      */
     protected $form_search_options = [
-        'case_sensitive', 'perfect_match', 'repo', 'search_type', 't2t', 'whole_word',
+        'case_sensitive', 'entire_string', 'repo',
+        'search_type', 't2t', 'each_word', 'entire_words',
     ];
 
     /**
@@ -102,8 +110,9 @@ class Search
         $this->search_terms = '';
         $this->regex = '';
         $this->regex_case = 'i';
-        $this->regex_whole_words = '';
-        $this->regex_perfect_match = false;
+        $this->regex_entire_string = false;
+        $this->regex_entire_words = false;
+        $this->each_word = false;
         $this->regex_search_terms = '';
         $this->repository = 'aurora'; // Most locales work on Aurora
         $this->search_type = 'strings';
@@ -161,31 +170,47 @@ class Search
     }
 
     /**
-     * Set the regex to only return perfect matches for the searched string.
+     * Set the regex to only return strings that entirely match the
+     * searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True for a perfect match
+     * @param  boolean $flag Set to True for an entire string match
      * @return $this
      */
-    public function setRegexPerfectMatch($flag)
+    public function setRegexEntireString($flag)
     {
-        $this->regex_perfect_match = (boolean) $flag;
+        $this->regex_entire_string = (boolean) $flag;
         $this->updateRegex();
 
         return $this;
     }
 
     /**
-     * Set the regex so as that a multi-word search is taken as a single word.
+     * Set the regex to only return strings where entire words match
+     * the searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag A string evaluated to True will add \b to the regex
+     * @param  boolean $flag Set to True for an entire words match
      * @return $this
      */
-    public function setRegexWholeWords($flag)
+    public function setRegexEntireWords($flag)
     {
-        $this->regex_whole_words = (boolean) $flag ? '\b' : '';
+        $this->regex_entire_words = (boolean) $flag ? '\b' : '';
         $this->updateRegex();
+
+        return $this;
+    }
+
+    /**
+     * Set to search for each word in the query instead of using it as a whole.
+     * We cast the value to a boolean because we usually get it from a GET.
+     *
+     * @param  boolean $flag Set to True to search for each word.
+     * @return $this
+     */
+    public function setEachWord($flag)
+    {
+        $this->each_word = (boolean) $flag;
 
         return $this;
     }
@@ -199,15 +224,15 @@ class Search
     private function updateRegex()
     {
         $search = preg_quote($this->regex_search_terms);
-        if ($this->regex_perfect_match) {
+        if ($this->regex_entire_string) {
             $search = "^{$search}$";
         }
 
         $this->regex =
             '~'
-            . $this->regex_whole_words
+            . $this->regex_entire_words
             . $search
-            . $this->regex_whole_words
+            . $this->regex_entire_words
             . '~'
             . $this->regex_case
             . 'u';
@@ -226,13 +251,43 @@ class Search
     }
 
     /**
-     * Get the state of regex_perfect_match
+     * Get the state of regex_entire_string
      *
-     * @return boolean True if the regex searches for a perfect string match
+     * @return boolean True if the regex searches for an entire string match
      */
-    public function isPerfectMatch()
+    public function isEntireString()
     {
-        return $this->regex_perfect_match;
+        return $this->regex_entire_string;
+    }
+
+    /**
+     * Get the state of each_word
+     *
+     * @return boolean True if the search should be for each word.
+     */
+    public function isEachWord()
+    {
+        return $this->each_word;
+    }
+
+    /**
+     * Get the state of entire_words
+     *
+     * @return boolean True if the search should be only for entire word.
+     */
+    public function isEntireWords()
+    {
+        return $this->regex_entire_words == '\b' ? true : false;
+    }
+
+    /**
+     * Get the state of case_sensitive
+     *
+     * @return boolean False if the search should be case sensitive
+     */
+    public function isCaseSensitive()
+    {
+        return $this->regex_case == 'i' ? false : true;
     }
 
     /**
@@ -253,26 +308,6 @@ class Search
     public function getRegexSearchTerms()
     {
         return $this->regex_search_terms;
-    }
-
-    /**
-     * Get the regex case
-     *
-     * @return string Return 'i' for case insensitive search, '' for sensitive
-     */
-    public function getRegexCase()
-    {
-        return $this->regex_case;
-    }
-
-    /**
-     * Get the regex whole words
-     *
-     * @return boolean True if we have the 'whole words' option for the regex
-     */
-    public function isWholeWords()
-    {
-        return $this->regex_whole_words;
     }
 
     /**
