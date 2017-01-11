@@ -802,7 +802,7 @@ input[type="checkbox"]:disabled + label {
     border-radius: 4px;
     background-color: #0095dd;
     transition: all linear .1s;
-    opacity: 0.75;
+    opacity: 0.85;
 }
 
 .search_tooltip {
@@ -1342,16 +1342,18 @@ input[type="checkbox"]:disabled + label {
 
 .tooltip:hover::after {
     position: absolute;
-    font-size: small;
+    font-size: 0.7em;
     text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
+    background-color: #0095dd;
+    opacity: 0.85;
+    border-radius: 4px;
     bottom: 26px;
     color: #fff;
     content: attr(data-title);
     right: 20%;
-    padding: 4px 10px;
+    padding: 0.5em;
     z-index: 98;
+    transition: all linear .1s;
 }
 
 /* Unlocalized words view */
