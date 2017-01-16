@@ -134,7 +134,9 @@ foreach ($entities as $entity) {
     $error_message = ShowResults::buildErrorString($source_string, $target_string);
 
     // If there is no source_string, display an error, otherwise display the string + meta links
-    if (! $source_string) {
+    if ($source_string == '@@missing@@') {
+        $source_string = '<em class="error">Warning: Source string is missing</em>';
+    } elseif (! $source_string) {
         $source_string = '<em class="error">Warning: Source string is empty</em>';
     } else {
         $meta_source = "
