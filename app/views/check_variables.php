@@ -48,7 +48,9 @@ if ($error_count > 0) {
         $content .= "<tr class='{$component} {$search_id}'>
                        <td>
                           <span class='celltitle'>Entity</span>
-                          <a class='link_to_entity' href=\"/{$string_id_link}\">" . ShowResults::formatEntity($string_id) . "</a>
+                          <span class='link_to_entity'>
+                            <a href=\"/{$string_id_link}\">" . ShowResults::formatEntity($string_id) . "</a>
+                          </span>
                        </td>
                        <td dir='{$direction1}'>
                           <span class='celltitle'>{$source_locale}</span>
