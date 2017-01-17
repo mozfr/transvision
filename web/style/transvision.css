@@ -559,6 +559,7 @@ input[type='submit'] {
     border: none;
     cursor: pointer;
     text-transform: uppercase;
+    -webkit-appearance: none;
 }
 
 .button:hover,
@@ -607,6 +608,7 @@ input[type="checkbox"] + label:before {
     border: 1px solid #c1c1c1;
     margin: -2px 7px 0 0;
     background-color: #f1f1f1;
+    background-size: 16px;
     background-image: linear-gradient(#fff, rgba(255, 255, 255, 0.8));
     background-position: center center;
     background-repeat: no-repeat;
@@ -619,7 +621,7 @@ input[type="checkbox"]:not(:disabled) + label:hover::before {
 }
 
 input[type="checkbox"]:checked + label:before {
-    background-image: url(/img/check.svg#check), linear-gradient(#fff, rgba(255, 255, 255, 0.8));
+    background-image: url(/img/check.svg), linear-gradient(#fff, rgba(255, 255, 255, 0.8));
 }
 
 input[type="checkbox"]:disabled + label:before {
