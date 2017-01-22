@@ -434,6 +434,7 @@ td .link_to_entity {
 }
 
 td .result_meta_link {
+    position: relative;
     font-size: 75%;
     text-align: left;
     margin-top: 4px;
@@ -765,8 +766,15 @@ input[type="checkbox"]:disabled + label {
 }
 
 #advanced_search {
+    position: relative;
     width: 230px;
     text-align: left;
+    padding-top: 0;
+    margin-top: 5px;
+}
+
+#advanced_search label {
+    float: left;
 }
 
 #advanced_search span > label {
@@ -780,6 +788,83 @@ input[type="checkbox"]:disabled + label {
     float: left;
     width: 115px;
     position: relative;
+}
+
+#tooltip_search {
+    display: block;
+    width: 18px;
+    height: 26px;
+    float: left;
+    margin-left: 4px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="18" height="18"><path style="fill: rgb(0,149,221)" d="M128 22.158a105.84 105.84 0 0 0-105.84 105.84A105.84 105.84 0 0 0 128 233.838a105.84 105.84 0 0 0 105.84-105.84A105.84 105.84 0 0 0 128 22.158zm0 32.76c5.16.117 9.55 1.875 13.18 5.273 3.34 3.576 5.07 7.94 5.19 13.097-.12 5.156-1.85 9.404-5.19 12.744-3.63 3.75-8.02 5.626-13.18 5.626s-9.4-1.875-12.74-5.625c-3.75-3.34-5.63-7.587-5.63-12.743s1.88-9.52 5.63-13.096c3.34-3.397 7.58-5.155 12.74-5.272zm-16.35 53.792h32.79v92.37h-32.79v-92.37z"/></svg>') center no-repeat transparent;
+}
+
+#tooltip_search_text {
+    position: absolute;
+    padding: 8px;
+    top: 25px;
+    right: 50px;
+    width: 450px;
+    font-size: 0.85em;
+    text-align: left;
+}
+
+@media only screen and (max-width: 900px) {
+    #tooltip_search_text {
+        left: -120px;
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    #tooltip_search {
+        height: 20px;
+    }
+
+    #tooltip_search_text {
+        left: -80px;
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #tooltip_search_text {
+        left: -10px;
+        width: 280px;
+    }
+}
+
+#tooltip_search_close {
+    display: block;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-family: 'Fira Sans UltraLight', Arial, sans-serif;
+    font-size: 25px;
+    line-height: 0.5em;
+    color: #fff;
+}
+
+#tooltip_search_close:hover {
+    border: 1px solid #ccc;
+}
+
+#tooltip_search_text h2 {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    color: #fff;
+    text-align: left;
+    font-weight: bold;
+}
+
+#tooltip_search_text p {
+    margin: 0 0 5px;
+}
+
+#tooltip_search span {
+    display: none;
 }
 
 #simplesearchform {
@@ -796,26 +881,17 @@ input[type="checkbox"]:disabled + label {
     width: 150px;
 }
 
-#advanced_search span > label:hover + .search_tooltip {
-    display: block;
+.tooltip {
+    display: none;
+    z-index: 2;
     white-space: normal;
     font-size: 0.9em;
-    top: 25px;
-    left: -80px;
-    width: 200px;
     padding: 0.5em;
     text-align: center;
     color: #fff;
     border-radius: 4px;
     background-color: #0095dd;
-    transition: all linear .1s;
-    opacity: 0.85;
-}
-
-.search_tooltip {
-    display: none;
-    position: absolute;
-    z-index: 2;
+    opacity: 0.9;
 }
 
 /* Autocomplete styles for suggestion popup */
@@ -1284,17 +1360,6 @@ input[type="checkbox"]:disabled + label {
         display: block;
     }
 
-    #advanced_search span > label:hover + .search_tooltip {
-        left: 20px;
-        top: 20px;
-        opacity: 0.9;
-    }
-
-    #advanced_search span > label:hover + #tooltip_entirewords,
-    #advanced_search span > label:hover + #tooltip_eachword {
-        left: -0px;
-    }
-
     /* Hide search options */
     .smallscreen_notices {
         display: block;
@@ -1330,6 +1395,14 @@ input[type="checkbox"]:disabled + label {
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path style="fill: rgb(0,149,221)" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>') center no-repeat transparent;
 }
 
+.clipboard_tooltip {
+    position: absolute;
+    top: -65px;
+    right: 0;
+    font-size: 1.5em;
+    width: 90px;
+}
+
 @media only screen and (max-width: 850px) {
     .clipboard img {
         position: relative;
@@ -1341,26 +1414,6 @@ input[type="checkbox"]:disabled + label {
 .transliterate_button {
     float: right;
     cursor: pointer;
-}
-
-.tooltip {
-    position: relative;
-}
-
-.tooltip:hover::after {
-    position: absolute;
-    font-size: 0.7em;
-    text-align: center;
-    background-color: #0095dd;
-    opacity: 0.85;
-    border-radius: 4px;
-    bottom: 26px;
-    color: #fff;
-    content: attr(data-title);
-    right: 20%;
-    padding: 0.5em;
-    z-index: 98;
-    transition: all linear .1s;
 }
 
 /* Unlocalized words view */
