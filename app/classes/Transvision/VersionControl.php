@@ -82,6 +82,7 @@ class VersionControl
             'browser/branding/nightly/',
             'browser/branding/official/',
             'browser/branding/unofficial/',
+            'browser/extensions/webcompat-reporter/',
             'calendar/',
             'chat/',
             'devtools/client/',
