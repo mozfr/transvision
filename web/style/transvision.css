@@ -837,16 +837,13 @@ input[type="checkbox"]:disabled + label {
 #tooltip_search_close {
     display: block;
     position: absolute;
-    right: 8px;
-    top: 8px;
+    right: 5px;
+    top: 5px;
     font-family: 'Fira Sans UltraLight', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 35px;
     line-height: 0.5em;
     color: #fff;
-}
-
-#tooltip_search_close:hover {
-    border: 1px solid #ccc;
+    text-decoration: none;
 }
 
 #tooltip_search_text h2 {

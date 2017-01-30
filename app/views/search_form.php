@@ -129,7 +129,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                     <label>Advanced Search options</label>
                     <a href="#" id="tooltip_search"><span>i</span></a>
                     <div class="tooltip" id="tooltip_search_text">
-                        <a href="#" id="tooltip_search_close" data-tooltip-id="tooltip_search_text" title="Close this panel">x</a>
+                        <a href="#" id="tooltip_search_close" data-tooltip-id="tooltip_search_text" title="Close this panel">×</a>
                         <h2>Case Sensitive</h2>
                         <p>If selected, search with the <strong>exact case</strong> used in the search query. By default, case is ignored.</p>
                         <h2>Each Word</h2>
@@ -157,7 +157,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['each_word'])?>
                         />
-                        <label>Each Word</label>
+                        <label for="each_word">Each Word</label>
                     </span>
                     <span>
                         <input type="checkbox"
@@ -167,7 +167,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['entire_string'])?>
                         />
-                        <label>Entire String</label>
+                        <label for="entire_string">Entire String</label>
                     </span>
                     <span>
                         <input type="checkbox"
@@ -177,7 +177,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['entire_words'])?>
                         />
-                        <label>Entire Words</label>
+                        <label for="entire_words">Entire Words</label>
                     </span>
                     <?php if ($check['t2t'] == 't2t') :?>
                     <input type="hidden"
