@@ -127,6 +127,18 @@ $cookie_option = function ($cookie, $locale) use ($search) {
 
                 <fieldset id="advanced_search">
                     <label>Advanced Search options</label>
+                    <a href="#" id="tooltip_search"><span>i</span></a>
+                    <div class="tooltip" id="tooltip_search_text">
+                        <a href="#" id="tooltip_search_close" data-tooltip-id="tooltip_search_text" title="Close this panel">×</a>
+                        <h2>Case Sensitive</h2>
+                        <p>If selected, search with the <strong>exact case</strong> used in the search query. By default, case is ignored.</p>
+                        <h2>Each Word</h2>
+                        <p>If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</p>
+                        <h2>Entire String</h2>
+                        <p>If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</p>
+                        <h2>Entire Words</h2>
+                        <p>If selected, each search term needs to match an <strong>entire word</strong>. By default, partial word matches are included in the results.</p>
+                    </div>
                     <span>
                         <input type="checkbox"
                                name="case_sensitive"
@@ -135,8 +147,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['case_sensitive'])?>
                          />
-                        <label for="case_sensitive" aria-describedby="tooltip_case">Case Sensitive</label>
-                        <div id="tooltip_case" class="search_tooltip" role="tooltip">If selected, search with the <strong>exact case</strong> used in the search query. By default, case is ignored.</div>
+                        <label for="case_sensitive">Case Sensitive</label>
                     </span>
                     <span>
                         <input type="checkbox"
@@ -146,8 +157,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['each_word'])?>
                         />
-                        <label for="each_word" aria-describedby="tooltip_eachword">Each Word</label>
-                        <div id="tooltip_eachword" class="search_tooltip" role="tooltip">If selected, search for <strong>each word</strong> in the search query (at least 2 characters long). By default, the search query is used as a whole.</div>
+                        <label for="each_word">Each Word</label>
                     </span>
                     <span>
                         <input type="checkbox"
@@ -157,8 +167,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['entire_string'])?>
                         />
-                        <label for="entire_string" aria-describedby="tooltip_entirestring">Entire String</label>
-                        <div id="tooltip_entirestring" class="search_tooltip" role="tooltip">If selected, the <strong>entire string</strong> needs to match the search query. By default, partial matches are included in the results.</div>
+                        <label for="entire_string">Entire String</label>
                     </span>
                     <span>
                         <input type="checkbox"
@@ -168,8 +177,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                                class="search_options"
                                <?=Utils::checkboxState($check['entire_words'])?>
                         />
-                        <label for="entire_words" aria-describedby="tooltip_entirewords">Entire Words</label>
-                        <div id="tooltip_entirewords" class="search_tooltip" role="tooltip">If selected, each search term needs to match an <strong>entire word</strong>. By default, partial word matches are included in the results.</div>
+                        <label for="entire_words">Entire Words</label>
                     </span>
                     <?php if ($check['t2t'] == 't2t') :?>
                     <input type="hidden"

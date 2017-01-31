@@ -171,4 +171,29 @@ $(document).ready(function() {
         $('#recherche').autocomplete().clear();
         $(this).hide();
     });
+
+    // Associate code to search tooltip
+    $('#tooltip_search').click(function(e) {
+        e.preventDefault();
+        if (!$('#tooltip_search_text').is(':visible')) {
+            $('#tooltip_search_text').fadeIn(200);
+        } else {
+            $('#tooltip_search_text').fadeOut(20);
+        }
+    });
+
+    $('#tooltip_search_close').click(function() {
+        $('#tooltip_search_text').fadeOut(20);
+    });
+
+    // Initialize clipboard code (copy translation to clipboard)
+    var clipboard = new Clipboard('.clipboard');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $('<div class="tooltip clipboard_tooltip">Translation copied</div>').insertAfter(e.trigger);
+        $('.clipboard_tooltip').fadeIn(300).delay(1000).fadeOut(100, function() {
+            $(this).remove();
+        });
+    });
 });

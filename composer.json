@@ -21,15 +21,15 @@
             "package": {
                 "name": "zenorocha/clipboard.js",
                 "type": "component",
-                "version": "1.5.3",
+                "version": "1.5.16",
                 "dist": {
                     "type": "zip",
-                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.5.3.zip"
+                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.5.16.zip"
                 },
                 "source": {
                     "type": "git",
                     "url": "https://github.com/zenorocha/clipboard.js.git",
-                    "reference": "1.5.3"
+                    "reference": "1.5.16"
                 },
                 "extra": {
                     "component": {
