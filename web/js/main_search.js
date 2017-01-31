@@ -182,7 +182,8 @@ $(document).ready(function() {
         }
     });
 
-    $('#tooltip_search_close').click(function() {
+    $('#tooltip_search_close').click(function(e) {
+        e.preventDefault();
         $('#tooltip_search_text').fadeOut(20);
     });
 
