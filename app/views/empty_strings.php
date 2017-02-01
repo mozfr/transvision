@@ -95,8 +95,8 @@ if (count($empty_strings) == 0) {
             <tr class='{$component}'>
               <td>
                 <span class='celltitle'>Entity</span>
-                <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this string'>link</a>
-                <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$repo}' title='List all translations for this entity'>l10n</a>
+                <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this string'>#</a>
+                <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$repo}' title='List all translations for this entity'>all locales</a>
                 <span class='link_to_entity'>
                   <a href=\"/{$entity_link}\">{$entity}</a>
                 </span>
