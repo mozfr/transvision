@@ -25,7 +25,7 @@ if ($empty_TMX) {
     <span id="download">
 <?php
     if (!$empty_TMX) {
-        echo '<a class="button" href="/download/' . $target_file . '">Download</a> or ';
+        echo '<a class="button" href="/download/' . $target_file_name . '">Download</a> or ';
     }
 ?>
         <a href="/downloads">Go back to TMX creation page</a>
