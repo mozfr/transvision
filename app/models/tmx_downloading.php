@@ -5,8 +5,10 @@ $missing_repos = $available_repos = $results = '';
 $missing_repos_count = $repos_count = 0;
 $strings = ['en-US' => [], $locale => []];
 
+$requested_repositories = '';
 foreach ($repos as $repo) {
     if (isset($_GET[$repo])) {
+        $requested_repositories .= $repo;
         $cache_file_english = Utils::getRepoStrings(Project::getReferenceLocale($repo), $repo);
 
         if ($cache_file_english) {
@@ -47,16 +49,13 @@ $strings = [
 $empty_TMX = $repos_count == 0;
 
 // Generate the TMX file
+$content = $check['tmx_format'] == 'normal'
+    ? TMX::create($strings, $locale, 'en-US')
+    : TMX::createOmegat($strings, $locale, 'en-US');
 
-if ($check['tmx_format'] == 'normal') {
-    $content = TMX::create($strings, $locale, 'en-US');
-    $target_file = 'mozilla_en-US_' . $locale . '.tmx';
-} else {
-    $content = TMX::createOmegat($strings, $locale, 'en-US');
-    $target_file = 'mozilla_en-US_' . $locale . '_forOmegaT.tmx';
-}
-
-$target_file_path = WEB_ROOT . 'download/' . $target_file;
+$tmx_id = md5($requested_repositories);
+$target_file_name = "mozilla_en-US_{$locale}_{$tmx_id}_{$check['tmx_format']}.tmx";
+$target_file_path = WEB_ROOT . "download/{$target_file_name}";
 
 unset($strings);
 
