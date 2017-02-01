@@ -89,8 +89,8 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 <?php foreach ($css_files as $css_file):?>
     <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
 <?php endforeach?>
-    <link rel="shortcut icon" type="image/png" href="/img/logo/Icon_16x16.png" />
-    <link rel="shortcut icon" type="image/svg+xml" href="/img/logo/Icon.svg" />
+    <link rel="shortcut icon" type="image/png" href="/img/logo/favicon16.png" />
+    <link rel="shortcut icon" type="image/svg+xml" href="/img/logo/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="Changelog RSS" href="/rss" />
   </head>
 <body id="<?= $page ?>" class="nojs">
@@ -111,7 +111,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
         print "<div id='beta-badge'><span>BETA</span></div>\n";
     }
     ?>
-    <h1 id="logo"><a href="/"><img src="/img/logo/Logo_Full.svg" alt="Transvision"></a></h1>
+    <h1 id="logo"><a href="/"><img src="/img/logo/transvision.svg" alt="Transvision"></a></h1>
     <?php if ($experimental == true): ?>
     <h2 id="experimental" class="alert">Experimental View</h2>
     <?php endif; ?>
