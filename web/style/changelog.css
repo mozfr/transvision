@@ -1,5 +1,13 @@
 /* Rules specific for /news (changelog) */
 
+@font-face {
+    font-family: 'Fira Mono';
+    src: url(/fonts/FiraMono/FiraMono-Regular.woff2) format('woff2'),
+         url(/fonts/FiraMono/FiraMono-Regular.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #changelog #pagecontent {
     margin: 30px auto;
     width: 80%;
@@ -43,6 +51,12 @@
     background: url(/img/github.svg) top left no-repeat transparent;
     background-size: 24px;
     padding-top: 3px;
+}
+
+.github_commit {
+    font-family: 'Fira Mono', monospace;
+    font-size: 0.9em;
+    margin: 0 0.3em;
 }
 
 .release_number a:hover {
