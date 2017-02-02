@@ -59,9 +59,97 @@ $releases = [
     '4.4'   => '2016-06-02',
     '5.0'   => '2016-08-04',
     '5.1'   => '2016-11-04',
+    '5.2'   => '2017-02-02',
 ];
 
 $changelog = [
+  '5.2' => [
+      [
+          'message' => ['For locales working on Pootle or Pontoon, added links under Aurora search results to quickly access translations in the tool'],
+          'section' => ['end_user'],
+          'type'    => ['new'],
+          'commit'  => ['6876a6d910f94b7f645ef3346aa3911ea2e37771'],
+          'authors' => ['SkySymbol'],
+      ],
+      [
+          'message' => ['Tracking Webcompat Reporter strings for Desktop'],
+          'section' => ['end_user'],
+          'type'    => ['new'],
+          'commit'  => ['674252687ba98962a1f255ea68a629de2e2a07a7'],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Improved default search behavior and advanced search options. Transvision will now return more relevant results with default options. An information panel has been added to document search options.'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['e53e11790605f6037b2ca02464a267dc92790a96', 'e077c22d2972d00dd88e7263d4a0c4c6575dcd66'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Updated logo using the new Mozilla brand identity'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['d75c810897cb86ee15a85f713f22622d06ffe59f', '2a1782744426af145dad5e957914ae8e63696609'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Stopped changing whitespaces in searched strings'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['6b715e2c8e736ecb89282ed9dc4041a7d2c50fed'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Made the “l10n” view easier to discover'],
+          'section' => ['end_user'],
+          'type'    => ['better'],
+          'commit'  => ['1de6a804f8201bbcee9dca1e1042d895cb804588'],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Made entity names easier to select'],
+          'section' => ['end_user'],
+          'type'    => ['better'],
+          'commit'  => ['fb205087b85285784e8b57a2a4127e8f27df9da5'],
+          'issue'   => [830],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Fixed style issues on iOS and Safari'],
+          'section' => ['end_user'],
+          'type'    => ['bug'],
+          'commit'  => ['278fdc4468dda4f47fc45fb17ef6e4b1d7475d3c'],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['“@@missing@@” could be seen under particular circumstances when reference/source strings are missing'],
+          'section' => ['end_user'],
+          'type'    => ['bug'],
+          'commit'  => ['2876888082c38f26dce3c169d3c1fe6556025a1d'],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Switched from Silme to compare-locales as library for parsing localization files in Mozilla products'],
+          'section' => ['code'],
+          'type'    => ['change'],
+          'commit'  => ['6a4994dd79fbe93ddbd155792669c72a88d20ff2'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Generate unique filename for TMX downloads'],
+          'section' => ['code'],
+          'type'    => ['change'],
+          'commit'  => ['816fd1c2e653710eb9ed2a8582d9fdf2ae5b76f0'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Added Project::getLocaleTool method to generate Pontoon and Pootle links'],
+          'section' => ['code'],
+          'type'    => ['change'],
+          'commit'  => ['c9bb9a4eec53dee031bceabf9814d2bb6aa41de6'],
+          'authors' => ['flod'],
+      ],
+    ],
     '5.1' => [
         [
             'message' => ['New QA view for <a href="/empty-strings">Empty strings</a> that can be used to identify strings that should have been localized and are empty by mistake, and strings that should actually remain empty.'],
