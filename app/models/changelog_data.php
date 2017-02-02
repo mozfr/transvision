@@ -65,18 +65,11 @@ $releases = [
 $changelog = [
   '5.2' => [
       [
-          'message' => ['Added link to Pootle or Pontoon under strings from the Aurora channel, in order to quickly edit translations'],
+          'message' => ['For locales working on Pootle or Pontoon, added links under Aurora search results to quickly access translations in the tool'],
           'section' => ['end_user'],
           'type'    => ['new'],
           'commit'  => ['6876a6d910f94b7f645ef3346aa3911ea2e37771'],
           'authors' => ['SkySymbol'],
-      ],
-      [
-          'message' => ['Added L20N support by switching to compare-locales for parsing product repositories'],
-          'section' => ['end_user'],
-          'type'    => ['new'],
-          'commit'  => ['6a4994dd79fbe93ddbd155792669c72a88d20ff2'],
-          'authors' => ['flod'],
       ],
       [
           'message' => ['Tracking Webcompat Reporter strings for Desktop'],
@@ -129,11 +122,18 @@ $changelog = [
           'authors' => ['tchevalier'],
       ],
       [
-          'message' => ['“@@missing@@” could be seen under particular circumstances when strings are missing'],
+          'message' => ['“@@missing@@” could be seen under particular circumstances when reference/source strings are missing'],
           'section' => ['end_user'],
           'type'    => ['bug'],
           'commit'  => ['2876888082c38f26dce3c169d3c1fe6556025a1d'],
           'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Switched from Silme to compare-locales as library for parsing localization files in Mozilla products'],
+          'section' => ['code'],
+          'type'    => ['change'],
+          'commit'  => ['6a4994dd79fbe93ddbd155792669c72a88d20ff2'],
+          'authors' => ['flod'],
       ],
       [
           'message' => ['Generate unique filename for TMX downloads'],
