@@ -202,9 +202,9 @@ $(document).ready(function() {
         Jump to filters if there's not an hash already defined, e.g. to
         jump to a specific row.
     */
-    if (window.location.hash == '' && $('#filters').length) {
+    if (window.location.hash === '' && $('#filters').length) {
         $('body,html').animate({
             scrollTop: $('#filters').offset().top
-        }, 1000);
+        }, 500);
     }
 });

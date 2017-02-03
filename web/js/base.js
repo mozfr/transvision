@@ -65,5 +65,7 @@ $(document).ready(function() {
     }
 
     // Focus on the main search field.
-    $('#recherche').focus();
+    if (window.location.hash === '') {
+        $('#recherche').focus();
+    }
 });
