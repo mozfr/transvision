@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-// Promote API view
-include VIEWS . 'templates/api_promotion.php';
-
 $table = "
 <table class='collapsable'>
   <thead>
@@ -202,3 +199,6 @@ $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     print $table;
 }
+
+// Promote API view
+include VIEWS . 'templates/api_promotion.php';

@@ -14,9 +14,6 @@ if (isset($error)) {
 
 // We have no error, display results
 $page_descr = $entity;
-
-// Promote API view
-include VIEWS . 'templates/api_promotion.php';
 ?>
 
 <table>
@@ -44,3 +41,7 @@ include VIEWS . 'templates/api_promotion.php';
     }
     ?>
 </table>
+
+<?php
+// Promote API view
+include VIEWS . 'templates/api_promotion.php';
