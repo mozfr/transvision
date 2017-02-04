@@ -1,9 +1,6 @@
 <?php
 namespace Transvision;
 
-// Promote API view
-include VIEWS . 'templates/api_promotion.php';
-
 $table = "
 <table class='collapsable'>
   <thead>
@@ -19,8 +16,11 @@ $table = "
 $current_repo = $search->getRepository();
 $extra_locale = $url['path'] == '3locales';
 
+$components = [];
 // Display results
 foreach ($entities as $entity) {
+    $component = explode('/', $entity)[0];
+    $components[] = $component;
     if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
         $path_locale1 = VersionControl::gitPath($source_locale, $current_repo, $entity);
         $path_locale2 = VersionControl::gitPath($locale, $current_repo, $entity);
@@ -164,7 +164,7 @@ foreach ($entities as $entity) {
     }
 
     $table .= "
-  <tr>
+  <tr class='{$component}'>
     <td>
       <span class='celltitle'>Entity</span>
       <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>#</a>
@@ -198,7 +198,29 @@ foreach ($entities as $entity) {
   </tr>\n";
 }
 
+// Remove duplicated components
+$components = array_unique($components);
+if (Project::isDesktopRepository($search->getRepository())) {
+    // Build logic to filter components
+    $filter_block = '';
+    foreach ($components as $value) {
+        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
+    }
+}
+if (isset($filter_block)):
+?>
+<div id="filters">
+    <h4>Filter by folder:</h4>
+    <a href="#showall" id="showall" class="filter">Show all results</a>
+    <?=$filter_block;?>
+</div>
+<?php
+endif;
+
 $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     print $table;
 }
+
+// Promote API view
+include VIEWS . 'templates/api_promotion.php';
