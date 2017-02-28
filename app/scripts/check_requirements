@@ -107,7 +107,7 @@ if (file_exists($root . '/app/config/config.ini') && DATA_ROOT !== '/') {
     }
     // Check if TMX folder exists
     check(is_dir(TMX), 'TMX folder exists', 'TMX folder should exist' );
-    check(isEmptyDir(TMX), 'TMX folder has content', 'TMX folder is empty or missing');
+    check(! isEmptyDir(TMX), 'TMX folder has content', 'TMX folder is empty or missing');
 
     // Check permissions on cache folder for the user
     clearstatcache(null, CACHE_PATH);
