@@ -29,13 +29,13 @@ function colorizeOutput($text, $color) {
             break;
     }
     $output .= "\033[0m";
-    
+
     return $output;
 }
 
 /**
  * Check current configuration.
- * 
+ *
  * @param bool   $condition The condition to check.
  * @param string $message   The message to display.
  * @param string $help      Help about the message.
@@ -48,14 +48,14 @@ function check($condition, $message, $help = '', $suggested_fix = '') {
     $text = "* {$message}: {$result}\n";
 
     if (! $condition) {
-        if(! empty($help)) { 
+        if(! empty($help)) {
             $text .=  "  {$help}\n";
         }
         if(! empty($suggested_fix)) {
             $text .=  "  {$suggested_fix}\n";
         }
     }
-    
+
     echo $text;
 }
 
@@ -73,7 +73,7 @@ function isEmptyDir($dir) {
     if (($files = @scandir($dir)) && count($files) <= 2) {
         return true;
     }
-        
+
     return false;
 }
 
@@ -106,8 +106,8 @@ if (file_exists($root . '/app/config/config.ini') && DATA_ROOT !== '/') {
         }
     }
     // Check if TMX folder exists
-    check(is_dir(TMX), 'TMX folder exists', 'TMX folder should exist' );
-    check(isEmptyDir(TMX), 'TMX folder has content', 'TMX folder is empty');
+    check(!is_dir(TMX), 'TMX folder exists', 'TMX folder should exist' );
+    check(isEmptyDir(TMX), 'TMX folder has content', 'TMX folder is empty or missing');
 
     // Check permissions on cache folder for the user
     clearstatcache(null, CACHE_PATH);
