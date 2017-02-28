@@ -186,6 +186,8 @@ class Project
 
         // Firefox for iOS
         $locale_mappings['firefox_ios'] = [
+            'bn-IN' => 'bn',
+            'bn-BD' => 'bn',
             'es-AR' => 'es',
             'es-ES' => 'es',
             'son'   => 'ses',
