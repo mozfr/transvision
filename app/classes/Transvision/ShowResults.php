@@ -232,6 +232,72 @@ class ShowResults
     }
 
     /**
+     * Return link to edit a message on external tool used by requested locale
+     *
+     * @param string $tool   Name of the external tool (locamotion, pontoon)
+     * @param string $key    Key of the current string
+     * @param string $locale Current locale
+     *
+     * @return string HTML link to edit the string inside the tool used by this locale
+     */
+    public static function getEditLink($tool, $key, $locale)
+    {
+        $component = explode('/', $key)[0];
+        $fileAndRawString = explode(':', $key);
+
+        // Ignore files in /extensions
+        if ($component == 'extensions') {
+            return '';
+        }
+
+        if ($tool == 'locamotion') {
+            switch ($component) {
+                case 'calendar':
+                    $project_name = 'lightning';
+                    break;
+                case 'chat':
+                case 'editor':
+                case 'mail':
+                    $project_name = 'thunderbird';
+                    break;
+                case 'mobile':
+                    $project_name = 'mobile';
+                    break;
+                case 'suite':
+                    $project_name = 'seamonkey';
+                    break;
+                default:
+                    $project_name = 'firefox';
+            }
+            $edit_link = "https://mozilla.locamotion.org/{$locale}/{$project_name}/translate/{$fileAndRawString[0]}.po#search={$fileAndRawString[1]}&sfields=locations";
+            $tool_name = 'Pootle';
+        } else {
+            switch ($component) {
+                case 'calendar':
+                    $project_name = 'lightning-aurora';
+                    break;
+                case 'chat':
+                case 'editor':
+                case 'mail':
+                    $project_name = 'thunderbird-aurora';
+                    break;
+                case 'mobile':
+                    $project_name = 'firefox-for-android-aurora';
+                    break;
+                case 'suite':
+                    $project_name = 'seamonkey-aurora';
+                    break;
+                default:
+                    $project_name = 'firefox-aurora';
+            }
+            $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
+            $tool_name = 'Pontoon';
+        }
+
+        return "&nbsp;<a class='edit_link' target='_blank' href='{$edit_link}'>&lt;edit in {$tool_name}&gt;</a>";
+    }
+
+    /**
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
      * @param object $search_object  The Search object that contains all the options for the query
@@ -288,7 +354,6 @@ class ShowResults
             }
 
             $component = explode('/', $key)[0];
-            $fileAndRawString = explode(':', $key);
             $source_string = $strings[0];
             $target_string = $strings[1];
 
@@ -325,13 +390,10 @@ class ShowResults
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
-            if ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'locamotion') {
-                $edit_link = "https://mozilla.locamotion.org/{$locale2}/firefox/translate/{$fileAndRawString[0]}.po#search={$fileAndRawString[1]}&sfields=locations";
-                $edit_message = 'edit in Pootle';
-            } elseif ($current_repo == 'aurora' && $toolUsedByTargetLocale == 'pontoon') {
-                $edit_link = "https://pontoon.mozilla.org/{$locale2}/firefox-aurora/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
-                $edit_message = 'edit in Pontoon';
-            }
+
+            $edit_link = ($current_repo == 'aurora' && $toolUsedByTargetLocale != '')
+                ? self::getEditLink($toolUsedByTargetLocale, $key, $locale2)
+                : '';
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
@@ -494,15 +556,8 @@ class ShowResults
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
-                      </a>";
-            if (isset($edit_link)) {
-                $table .= "
-                            &nbsp;
-                            <a class='edit_link' target='_blank' href='{$edit_link}'>
-                            &lt;{$edit_message}&gt;
-                            </a>";
-            }
-            $table .= "
+                      </a>
+                      {$edit_link}
                       &nbsp;
                       <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                         &lt;report a bug&gt;
