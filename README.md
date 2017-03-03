@@ -37,11 +37,11 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 * Mercurial, Git to check out data sources (only for a Full installation for production)
 * Apache with `mod_rewrite` activated
 * [npm][] and eslint for JavaScript files (optional)
-* A PHP script is available in `app/scripts/check_requirements` to check the most important aspects of the local configuration.
 ```
 npm install -g eslint
 eslint web/js
 ```
+A PHP script is available in `app/scripts/check_requirements` to check the most important aspects of the local configuration.
 
 ## Full Installation (production or heavy development)
 
