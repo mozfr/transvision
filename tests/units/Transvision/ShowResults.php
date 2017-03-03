@@ -343,4 +343,119 @@ class ShowResults extends atoum\test
             ->string($obj->buildErrorString($a, $b))
                 ->isEqualTo($c);
     }
+
+    public function getEditLinkDP()
+    {
+        return [
+            // Pontoon links
+            [
+                'pontoon',
+                'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox-aurora/browser/chrome/browser/browser.properties?search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning-aurora/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'chat/commands.properties:dnd',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird-aurora/chat/commands.properties?search=dnd'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird-aurora/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'extensions/irc/chrome/about.dtd:chatzilla.label',
+                'es',
+                '',
+            ],
+            [
+                'pontoon',
+                'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
+                'de',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird-aurora/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'mobile/android/base/android_strings.dtd:activity_stream_highlights',
+                'bg',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android-aurora/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey-aurora/suite/chrome/browser/taskbar.properties?search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            // Locamotion links
+            [
+                'locamotion',
+                'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/firefox/translate/browser/chrome/browser/browser.properties.po#search=webextPerms.hostDescription.allUrls&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'chat/commands.properties:dnd',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/thunderbird/translate/chat/commands.properties.po#search=dnd&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/lightning/translate/calendar/chrome/calendar/calendar.dtd.po#search=calendar.calendar.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/thunderbird/translate/editor/ui/chrome/composer/editingOverlay.dtd.po#search=fileRecentMenu.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'extensions/irc/chrome/about.dtd:chatzilla.label',
+                'es',
+                '',
+            ],
+            [
+                'locamotion',
+                'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
+                'de',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/de/thunderbird/translate/mail/chrome/messenger/addressbook/abContactsPanel.dtd.po#search=ccButton.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'mobile/android/base/android_strings.dtd:activity_stream_highlights',
+                'bg',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/bg/mobile/translate/mobile/android/base/android_strings.dtd.po#search=activity_stream_highlights&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+            [
+                'locamotion',
+                'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/it/seamonkey/translate/suite/chrome/browser/taskbar.properties.po#search=taskbar.tasks.composeMessage.description&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getEditLinkDP
+     */
+    public function testGetEditLink($a, $b, $c, $d)
+    {
+        $obj = new _ShowResults();
+        $this
+            ->string($obj->getEditLink($a, $b, $c))
+                ->isEqualTo($d);
+    }
 }
