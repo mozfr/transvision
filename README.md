@@ -41,6 +41,7 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 npm install -g eslint
 eslint web/js
 ```
+A PHP script is available in `app/scripts/check_requirements` to check the most important aspects of the local configuration.
 
 ## Full Installation (production or heavy development)
 

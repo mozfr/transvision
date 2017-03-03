@@ -1,0 +1,119 @@
+#!/usr/bin/env php
+<?php
+
+// Script should not be called from the Web
+if (php_sapi_name() !== 'cli') {
+    die('Nope');
+}
+
+/**
+ * Colorize the shell output
+ *
+ * @param string $text Text to display.
+ * @param string $color Color of the text: green, red or nothing.
+ *
+ * @return string
+ */
+function colorizeOutput($text, $color) {
+    switch ($color) {
+        case 'green':
+            // White on green
+            $output = "\033[1;37m\033[42m{$text}";
+            break;
+        case 'red':
+            // White on red
+            $output = "\033[1;37m\033[41m{$text}";
+            break;
+        default:
+            $output = $text;
+            break;
+    }
+    $output .= "\033[0m";
+
+    return $output;
+}
+
+/**
+ * Check current configuration.
+ *
+ * @param bool   $condition The condition to check.
+ * @param string $message   The message to display.
+ * @param string $help      Help about the message.
+ * @param string $suggested_fix A message that helps fixing.
+ *
+ * @return void
+ */
+function check($condition, $message, $help = '', $suggested_fix = '') {
+    $result = $condition ? colorizeOutput('OK', 'green') : colorizeOutput('FAILED', 'red');
+    $text = "* {$message}: {$result}\n";
+
+    if (! $condition) {
+        if(! empty($help)) {
+            $text .=  "  {$help}\n";
+        }
+        if(! empty($suggested_fix)) {
+            $text .=  "  {$suggested_fix}\n";
+        }
+    }
+
+    echo $text;
+}
+
+/**
+ * Check if the directory is empty
+ *
+ * @param string $dir The path.
+ *
+ * @return bool
+ */
+function isEmptyDir($dir) {
+    if(! is_dir($dir)) {
+        return false;
+    }
+    if (($files = @scandir($dir)) && count($files) <= 2) {
+        return true;
+    }
+
+    return false;
+}
+
+echo " Transvision Requirements Check\n";
+
+// Get the parent folder from the script itself
+$root = dirname(dirname(dirname(__FILE__)));
+
+// Load settings and constants
+$server_config = parse_ini_file($root . '/app/config/config.ini');
+include_once($root . '/app/inc/constants.php');
+
+// Check PHP version
+$php_version = phpversion();
+check(version_compare($php_version, '5.4', '>='), "PHP version is at least 5.4 (current: {$php_version})", "Current version is {$php_version}");
+
+// Check if logs folder exists
+check(is_dir($root . '/logs'), 'Logs folder exists', 'Logs folder should exist');
+
+// Check if config file exists, then check paths in config
+check(file_exists($root . '/app/config/config.ini'), 'Config file exists', 'Config file doesn\'t exist');
+
+// Check if Transvision is installed
+if (file_exists($root . '/app/config/config.ini') && DATA_ROOT !== '/') {
+    // Check config file parameters
+    $ini_paths = ['root', 'local_hg', 'local_svn', 'local_git', 'libraries', 'install', 'config'];
+    foreach ($server_config as $key=>$value) {
+        if(in_array($key, $ini_paths)) {
+            check(file_exists($value), "{$key}: {$value} exists", '');
+        }
+    }
+    // Check if TMX folder exists
+    check(is_dir(TMX), 'TMX folder exists', 'TMX folder should exist' );
+    check(! isEmptyDir(TMX), 'TMX folder has content', 'TMX folder is empty or missing');
+
+    // Check permissions on cache folder for the user
+    clearstatcache(null, CACHE_PATH);
+    $cachePerms = substr(sprintf('%o', fileperms(CACHE_PATH) ), -4);
+    $command = 'chmod -R 755 ' . CACHE_PATH;
+    check($cachePerms[1] == '7', 'Cache folder is writable by the user running this script. Make sure it\'s also writable by the user running PHP on the webserver', "Cache folder should be writable (current permissions: {$cachePerms}). This warning can be ignored as long as the user running PHP on the webserver can write in the folder.", "To fix execute: " . $command);
+} else {
+    echo "Don't forget to run the script after the installation (check the README.md)!\n";
+}
