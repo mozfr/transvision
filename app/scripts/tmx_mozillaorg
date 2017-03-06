@@ -59,7 +59,7 @@ foreach (Files::getFilenamesInFolder(GIT . 'mozilla_org/') as $locale) {
         }
     }
 
-    $out_translation = "<?php\n\$tmx = [\n" . $out_translation .  "];\n";
+    $out_translation = "<?php\n\$tmx = [\n" . $out_translation . "];\n";
 
     Files::fileForceContents(TMX . "{$locale}/cache_{$locale}_mozilla_org.php", $out_translation);
     error_log("{$locale}: {$total_strings} strings");

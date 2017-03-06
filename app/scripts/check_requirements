@@ -9,7 +9,7 @@ if (php_sapi_name() !== 'cli') {
 /**
  * Colorize the shell output
  *
- * @param string $text Text to display.
+ * @param string $text  Text to display.
  * @param string $color Color of the text: green, red or nothing.
  *
  * @return string
@@ -36,9 +36,9 @@ function colorizeOutput($text, $color) {
 /**
  * Check current configuration.
  *
- * @param bool   $condition The condition to check.
- * @param string $message   The message to display.
- * @param string $help      Help about the message.
+ * @param bool   $condition     The condition to check.
+ * @param string $message       The message to display.
+ * @param string $help          Help about the message.
  * @param string $suggested_fix A message that helps fixing.
  *
  * @return void
@@ -49,10 +49,10 @@ function check($condition, $message, $help = '', $suggested_fix = '') {
 
     if (! $condition) {
         if(! empty($help)) {
-            $text .=  "  {$help}\n";
+            $text .= "  {$help}\n";
         }
         if(! empty($suggested_fix)) {
-            $text .=  "  {$suggested_fix}\n";
+            $text .= "  {$suggested_fix}\n";
         }
     }
 
@@ -113,7 +113,7 @@ if (file_exists($root . '/app/config/config.ini') && DATA_ROOT !== '/') {
     clearstatcache(null, CACHE_PATH);
     $cachePerms = substr(sprintf('%o', fileperms(CACHE_PATH) ), -4);
     $command = 'chmod -R 755 ' . CACHE_PATH;
-    check($cachePerms[1] == '7', 'Cache folder is writable by the user running this script. Make sure it\'s also writable by the user running PHP on the webserver', "Cache folder should be writable (current permissions: {$cachePerms}). This warning can be ignored as long as the user running PHP on the webserver can write in the folder.", "To fix execute: " . $command);
+    check($cachePerms[1] == '7', 'Cache folder is writable by the user running this script. Make sure it\'s also writable by the user running PHP on the webserver', "Cache folder should be writable (current permissions: {$cachePerms}). This warning can be ignored as long as the user running PHP on the webserver can write in the folder.", 'To fix execute: ' . $command);
 } else {
     echo "Don't forget to run the script after the installation (check the README.md)!\n";
 }
