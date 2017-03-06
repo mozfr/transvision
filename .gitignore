@@ -1,4 +1,5 @@
 .idea
+.php_cs.cache
 app/config/config.ini
 app/config/sources/*.json
 app/config/sources/*.txt

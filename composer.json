@@ -93,7 +93,7 @@
     "require-dev": {
         "atoum/atoum" : "~2.0",
         "symfony/var-dumper": "~2.6",
-        "friendsofphp/php-cs-fixer": "~1.4",
+        "friendsofphp/php-cs-fixer": "~2.1",
         "pchevrel/verif": "0.4",
         "hirak/prestissimo": "~0.1.",
         "phpdocumentor/phpdocumentor": "2.*"
