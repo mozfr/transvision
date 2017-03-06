@@ -179,7 +179,6 @@ $changelog = [
             'commit'  => ['400d83a2e6fa1a818759bbf474f046c37d1c6be5'],
             'authors' => ['flod'],
         ],
-
       ],
     '5.0' => [
         [

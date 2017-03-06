@@ -16,7 +16,8 @@ class Utils
     /**
      * Sanitize a string or an array of strings for security before template use.
      *
-     * @param  string $string The string we want to sanitize
+     * @param string $string The string we want to sanitize
+     *
      * @return string Sanitized string for security
      */
     public static function secureText($string)
@@ -44,8 +45,9 @@ class Utils
      * option in source locale, target locale and repository
      * depending on the cookie
      *
-     * @param  string $cookie Out cookie
-     * @param  string $option The checkbox
+     * @param string $cookie Out cookie
+     * @param string $option The checkbox
+     *
      * @return string Checked html attribute if cookie matches $option or false
      */
     public static function checkboxDefaultOption($option, $cookie)
@@ -61,8 +63,10 @@ class Utils
      *  value="case_sensitive"
      *  <?=Utils::checkboxState($check['case_sensitive'])?>>
      *                    />
-     * @param  string $str   Usually the value of a GET/POST parameter setting a box
-     * @param  string $extra Optional. Defaults to empty string.
+     *
+     * @param string $str   Usually the value of a GET/POST parameter setting a box
+     * @param string $extra Optional. Defaults to empty string.
+     *
      * @return string Checked attribute or empty string.
      */
     public static function checkboxState($str, $extra = '')
@@ -81,10 +85,11 @@ class Utils
     /**
      * Print a simple table, used in the accesskeys view, needs rework
      *
-     * @param  array  $arr      First column of data
-     * @param  array  $arr2     Optional. A second column of data
-     * @param  array  $titles   Column titles, by default 4 columns
-     * @param  string $cssclass optional css class to apply to the table
+     * @param array  $arr      First column of data
+     * @param array  $arr2     Optional. A second column of data
+     * @param array  $titles   Column titles, by default 4 columns
+     * @param string $cssclass optional css class to apply to the table
+     *
      * @return void
      */
     public static function printSimpleTable(
@@ -127,8 +132,9 @@ class Utils
      * Split a sentence in words from longest to shortest, ignoring
      * words shorter than 2 characters.
      *
-     * @param  string $sentence
-     * @return array  all the words in the sentence sorted by length
+     * @param string $sentence
+     *
+     * @return array all the words in the sentence sorted by length
      */
     public static function uniqueWords($sentence)
     {
@@ -156,14 +162,15 @@ class Utils
     /**
      * Generate a list of <option> html tags from an array and mark one as selected
      *
-     * @param  array   $options     All the values we want in <option> tags
-     * @param  string  $selected    put selected tag on a specific <option>
-     * @param  boolean $nice_labels Optional. Defaults to False.
-     *                              Use nice labels for the option.
-     *                              Indicates if $options is an associative
-     *                              array with the array value as the text
-     *                              inside the <option> tag
-     * @return string  html <option> tags
+     * @param array   $options     All the values we want in <option> tags
+     * @param string  $selected    put selected tag on a specific <option>
+     * @param boolean $nice_labels Optional. Defaults to False.
+     *                             Use nice labels for the option.
+     *                             Indicates if $options is an associative
+     *                             array with the array value as the text
+     *                             inside the <option> tag
+     *
+     * @return string html <option> tags
      */
     public static function getHtmlSelectOptions($options, $selected, $nice_labels = false)
     {
@@ -180,9 +187,11 @@ class Utils
 
     /**
      * Return an array of strings for a locale from a repository
-     * @param  string $locale     Locale we want to have strings for
-     * @param  string $repository string repository such as central, mozilla_org...
-     * @return array  Localized strings or empty array if no match
+     *
+     * @param string $locale     Locale we want to have strings for
+     * @param string $repository string repository such as central, mozilla_org...
+     *
+     * @return array Localized strings or empty array if no match
      */
     public static function getRepoStrings($locale, $repository)
     {
@@ -204,9 +213,11 @@ class Utils
 
     /**
      * Return an array of entities for a locale from a repository
-     * @param  string $locale     Locale we want to have entities for
-     * @param  string $repository string repository such as central, mozilla_org...
-     * @return array  Entities or empty array if no match
+     *
+     * @param string $locale     Locale we want to have entities for
+     * @param string $repository string repository such as central, mozilla_org...
+     *
+     * @return array Entities or empty array if no match
      */
     public static function getRepoEntities($locale, $repository)
     {
@@ -224,7 +235,8 @@ class Utils
     /**
      * Clean up for "noise" a string
      *
-     * @param  string $string the string to clean up
+     * @param string $string the string to clean up
+     *
      * @return string The cleaned up string
      */
     public static function cleanString($string)
@@ -241,8 +253,9 @@ class Utils
      * This is used in search views to warn of strings that look much wider
      * or much shorter than English
      *
-     * @param  string $origin     The source string
-     * @param  string $translated The string we want to compare to
+     * @param string $origin     The source string
+     * @param string $translated The string we want to compare to
+     *
      * @return string 'large' or 'small' or false if it doesn't look abnormal
      */
     public static function checkAbnormalStringLength($origin, $translated)
@@ -281,9 +294,10 @@ class Utils
     /**
      * Check if a parameter exists, if not, return fallback value
      *
-     * @param  array  $arr      Array in which we want to check $value
-     * @param  string $value    Parameter we want to check
-     * @param  string $fallback Default value
+     * @param array  $arr      Array in which we want to check $value
+     * @param string $value    Parameter we want to check
+     * @param string $fallback Default value
+     *
      * @return string $value if $value into $arr, $fallback otherwise
      */
     public static function getOrSet($arr, $value, $fallback)
@@ -365,9 +379,10 @@ class Utils
     /**
      * Lazy function to handle English plural form
      *
-     * @param  int    $count The value to check
-     * @param  string $text  The word to pluralize
-     * @return the    value concatenated with the word properly pluralized
+     * @param int    $count The value to check
+     * @param string $text  The word to pluralize
+     *
+     * @return the value concatenated with the word properly pluralized
      */
     public static function pluralize($count, $text)
     {
@@ -377,9 +392,10 @@ class Utils
     /**
      * Get the elapsed/remaining time from a DateTime vs. now
      *
-     * @param  DateTime $datetime The DateTime object to check against current time
-     * @param  DateTime $ref_time Reference time to calculate the difference (optional)
-     * @return string   String containing the value concatenated with the pluralized unit
+     * @param DateTime $datetime The DateTime object to check against current time
+     * @param DateTime $ref_time Reference time to calculate the difference (optional)
+     *
+     * @return string String containing the value concatenated with the pluralized unit
      */
     public static function ago($datetime, $ref_time = '')
     {
@@ -425,8 +441,9 @@ class Utils
      * and also adds locale codes if they are not already provided
      * by redirectToAPI()
      *
-     * @param  string $source_locale Locale code for source
-     * @param  string $target_locale Locale code for target
+     * @param string $source_locale Locale code for source
+     * @param string $target_locale Locale code for target
+     *
      * @return string URL with 'json' appended as part of the query string
      */
     public static function APIPromotion($source_locale, $target_locale)

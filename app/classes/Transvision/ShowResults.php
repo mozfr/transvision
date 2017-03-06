@@ -13,8 +13,10 @@ class ShowResults
     /**
      * Create an array for search results with this format:
      * 'entity' => ['string_locale 1', 'string_locale 2']
-     * @param  array $entities      Haystack of entities to search in
-     * @param  array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     *
+     * @param array $entities      Haystack of entities to search in
+     * @param array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     *
      * @return array Results with entities as keys and translations as values
      */
     public static function getTMXResults($entities, $array_strings)
@@ -96,11 +98,12 @@ class ShowResults
      * Return an array of search results from our Translation Memory API
      * service with a quality index based on the levenshtein distance.
      *
-     * @param  array  $strings     The source and target strings to look into
-     * @param  string $search      The string to search for
-     * @param  int    $max_results Optional, default to 200, the max number of results we return
-     * @param  int    $min_quality Optional, default to 0, The minimal quality index to filter result
-     * @return array  An array of strings as [source => string, target => string, quality=> Levenshtein index]
+     * @param array  $strings     The source and target strings to look into
+     * @param string $search      The string to search for
+     * @param int    $max_results Optional, default to 200, the max number of results we return
+     * @param int    $min_quality Optional, default to 0, The minimal quality index to filter result
+     *
+     * @return array An array of strings as [source => string, target => string, quality=> Levenshtein index]
      */
     public static function getTranslationMemoryResults($strings, $search, $max_results = 200, $min_quality = 0)
     {
@@ -163,8 +166,9 @@ class ShowResults
     /**
      * Return search results in a repository on strings/entities for the API
      *
-     * @param  array $entities      An array of all the entities we want to return
-     * @param  array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     * @param array $entities      An array of all the entities we want to return
+     * @param array $array_strings The strings to look into [locale1 strings, locale2 strings]
+     *
      * @return array An array of strings with the entity as key [entity => [English => French]]
      */
     public static function getRepositorySearchResults($entities, $array_strings)
@@ -191,8 +195,9 @@ class ShowResults
     /**
      * Returns the string from its entity or false
      *
-     * @param  string $entity  Entity we are looking for
-     * @param  array  $strings Haystack of strings to search in
+     * @param string $entity  Entity we are looking for
+     * @param array  $strings Haystack of strings to search in
+     *
      * @return string The string for the entity or false if no matching result
      */
     public static function getStringFromEntity($entity, $strings)
@@ -205,9 +210,10 @@ class ShowResults
     /**
      * Nicely format entities for tables by splitting them in subpaths and styling them
      *
-     * @param  string  $entity
-     * @param  boolean $highlight Optional. Default to false. Use a highlighting style
-     * @return string  Entity reformated with html markup and css classes for styling
+     * @param string  $entity
+     * @param boolean $highlight Optional. Default to false. Use a highlighting style
+     *
+     * @return string Entity reformated with html markup and css classes for styling
      */
     public static function formatEntity($entity, $highlight = false)
     {
@@ -345,7 +351,6 @@ class ShowResults
         $current_repo = $search_object->getRepository();
 
         foreach ($search_results as $key => $strings) {
-
             // Don't highlight search matches in entities when searching strings
             if ($search_object->getSearchType() == 'strings') {
                 $result_entity = self::formatEntity($key);

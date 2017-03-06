@@ -12,7 +12,6 @@ switch ($request->parameters[2]) {
     case 'sr-Cyrl':
         $transliterated_locale = 'Serbian-Latin/BGN';
         break;
-
     default:
     $request->error = 'Wrong locale code';
 

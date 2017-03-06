@@ -13,7 +13,8 @@ class AnalyseStrings
     /**
      * Replace common and uncommon html entities by real letters
      *
-     * @param  string $string the string to process
+     * @param string $string the string to process
+     *
      * @return string cleaned up string with entities converted
      */
     public static function cleanUpEntities($string)
@@ -32,11 +33,13 @@ class AnalyseStrings
 
     /**
      * Search for strings with variables differences
-     * @param  array  $tmx_source      TMX file as reference
-     * @param  array  $tmx_target      TMX file for the locale to compare
-     * @param  string $repo            Name of the repo to determine the right set of regexps
-     * @param  array  $ignored_strings Optional list of ignored strings, default empty
-     * @return array  List of entity names not matching source
+     *
+     * @param array  $tmx_source      TMX file as reference
+     * @param array  $tmx_target      TMX file for the locale to compare
+     * @param string $repo            Name of the repo to determine the right set of regexps
+     * @param array  $ignored_strings Optional list of ignored strings, default empty
+     *
+     * @return array List of entity names not matching source
      */
     public static function differences($tmx_source, $tmx_target, $repo, $ignored_strings = [])
     {

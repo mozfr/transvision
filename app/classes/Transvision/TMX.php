@@ -13,10 +13,11 @@ class TMX
     /**
      * Generate a TMX file from a data source
      *
-     * @param  array  $strings     All the strings the user picked
-     * @param  string $target_lang Locale picked from which we get translations
-     * @param  string $source_lang Source locale
-     * @return mixed  string that contains a TMX in xml format, False otherwise
+     * @param array  $strings     All the strings the user picked
+     * @param string $target_lang Locale picked from which we get translations
+     * @param string $source_lang Source locale
+     *
+     * @return mixed string that contains a TMX in xml format, False otherwise
      */
     public static function create($strings, $target_lang, $source_lang)
     {
@@ -51,10 +52,11 @@ class TMX
     /**
      * Generate a TMX file from a data source with the format of OmegaT
      *
-     * @param  array  $strings     All the strings the user picked
-     * @param  string $target_lang Locale picked from which we get translations
-     * @param  string $source_lang Source locale
-     * @return mixed  string that contains a TMX in xml format, False otherwise
+     * @param array  $strings     All the strings the user picked
+     * @param string $target_lang Locale picked from which we get translations
+     * @param string $source_lang Source locale
+     *
+     * @return mixed string that contains a TMX in xml format, False otherwise
      */
     public static function createOmegat($strings, $target_lang, $source_lang)
     {

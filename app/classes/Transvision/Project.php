@@ -87,7 +87,8 @@ class Project
     /**
      * Check if the repository belongs to a desktop application
      *
-     * @param  string  $repository ID of the repository
+     * @param string $repository ID of the repository
+     *
      * @return boolean True if repository is used for a desktop application
      */
     public static function isDesktopRepository($repo)
@@ -98,8 +99,9 @@ class Project
     /**
      * Get the list of locales available for a repository
      *
-     * @param  string $repository ID of the repository
-     * @return array  A sorted list of locales
+     * @param string $repository ID of the repository
+     *
+     * @return array A sorted list of locales
      */
     public static function getRepositoryLocales($repository)
     {
@@ -122,8 +124,9 @@ class Project
     /**
      * Get the list of repositories available for a locale
      *
-     * @param  string $locale Mozilla locale code
-     * @return array  A sorted list of repositories available for the locale
+     * @param string $locale Mozilla locale code
+     *
+     * @return array A sorted list of repositories available for the locale
      */
     public static function getLocaleRepositories($locale)
     {
@@ -144,7 +147,8 @@ class Project
      * We used to have en-GB as reference locale for mozilla.org
      * Now all projects use en-US but we may need this method in the future
      *
-     * @param  string $repository Name of the folder for the repository
+     * @param string $repository Name of the folder for the repository
+     *
      * @return string Name of the reference locale
      */
     public static function getReferenceLocale($repository)
@@ -155,7 +159,8 @@ class Project
     /**
      * Check if the specified repository is supported
      *
-     * @param  string  $repository Name of the folder for the repository
+     * @param string $repository Name of the folder for the repository
+     *
      * @return boolean True if supported repository, False if unknown
      */
     public static function isValidRepository($repository)
@@ -167,8 +172,9 @@ class Project
      * Return the correct locale code based on context
      * For example: given "es", returns "es-ES" for Bugzilla.
      *
-     * @param  string $locale  Name of the current locale
-     * @param  string $context The context we need to use this locale in
+     * @param string $locale  Name of the current locale
+     * @param string $context The context we need to use this locale in
+     *
      * @return string Locale code to use in the requested context
      */
     public static function getLocaleInContext($locale, $context)
@@ -214,6 +220,7 @@ class Project
      *
      * @param  array  Containing entities associated with strings,
      *                like "path/to/properties:entity" => "a string".
+     *
      * @return array List of components
      */
     public static function getComponents($strings)
