@@ -41,7 +41,7 @@ include __DIR__ . '/simplesearchform.php';
             if ($count > 0) {
                 print "<td><a href='{$link}'>{$count}</a></td>";
             } else {
-                print "<td></td>";
+                print '<td></td>';
             }
         }
     ?></tr>

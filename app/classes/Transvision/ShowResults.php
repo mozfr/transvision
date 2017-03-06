@@ -366,7 +366,7 @@ class ShowResults
             . "&locale={$locale2}"
             . "&repo={$current_repo}"
             . "&search_type=entities&recherche={$key}"
-            . "&entire_string=entire_string";
+            . '&entire_string=entire_string';
 
             $bz_link = [Bugzilla::reportErrorLink(
                 $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
@@ -378,7 +378,7 @@ class ShowResults
                                 . "&locale={$search_object->getLocale('extra')}"
                                 . "&repo={$current_repo}"
                                 . "&search_type=entities&recherche={$key}"
-                                . "&entire_string=entire_string";
+                                . '&entire_string=entire_string';
                 $bz_link[] = Bugzilla::reportErrorLink(
                     $search_object->getLocale('extra'), $key, $source_string, $target_string2, $current_repo, $entity_link
                 );

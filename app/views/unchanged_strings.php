@@ -33,7 +33,7 @@ foreach ($unchanged_strings as $string_id => $string_value) {
             . "&locale={$locale}"
             . "&repo={$repo}"
             . "&search_type=entities&recherche={$string_id}"
-            . "&entire_string=entire_string";
+            . '&entire_string=entire_string';
 
     /*
         Since this view displays strings identical to source locale, I'll use the same

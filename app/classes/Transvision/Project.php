@@ -38,7 +38,7 @@ class Project
         if (file_exists($file_name)) {
             $json_repositories = (new Json($file_name))->fetchContent();
         } else {
-            die("ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.");
+            die('ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.');
         }
 
         $repositories = [];
@@ -248,7 +248,7 @@ class Project
         if (file_exists($file_name)) {
             $json_tools = (new Json($file_name))->fetchContent();
         } else {
-            die("ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.");
+            die('ERROR: run app/scripts/setup.sh or app/scripts/dev-setup.sh to generate sources.');
         }
 
         foreach ($json_tools as $tool => $supported_locales) {

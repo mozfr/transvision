@@ -82,7 +82,7 @@ class TMX
                 $string_target = htmlentities($string_target, ENT_XML1);
 
                 // Divide the entity by two. The file and the key.
-                $entity_split = explode(":", $entity);
+                $entity_split = explode(':', $entity);
                 $content .= "\t" . '<tu>' . "\n"
                             . "\t\t" . '<prop type="file">' . $entity_split[0] . '</prop>' . "\n"
                             . "\t\t" . '<prop type="id">' . $entity_split[1] . '</prop>' . "\n"

@@ -62,11 +62,11 @@ foreach ($searches as $key => $value) {
             : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
 
         $output[$key] = "<h2>Displaying {$message_count} for the string "
-                        . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span> in {$key}:</h2>";
+                        . '<span class="searchedTerm">' . htmlentities($my_search) . "</span> in {$key}:</h2>";
         $output[$key] .= ShowResults::resultsTable($search, $search_results, $page);
     } else {
-        $output[$key] = "<h2>No matching results for the string "
-                        . "<span class=\"searchedTerm\">" . htmlentities($my_search) . "</span>"
+        $output[$key] = '<h2>No matching results for the string '
+                        . '<span class="searchedTerm">' . htmlentities($my_search) . '</span>'
                         . " for the locale {$key}</h2>";
     }
 }

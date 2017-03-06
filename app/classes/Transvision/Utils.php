@@ -179,7 +179,7 @@ class Utils
         foreach ($options as $key => $option) {
             $value = $nice_labels ? $key : $option;
             $ch = ($value == $selected) ? ' selected' : '';
-            $html .= "<option" . $ch . " value=" . $value . ">" . $option . "</option>";
+            $html .= '<option' . $ch . ' value=' . $value . '>' . $option . '</option>';
         }
 
         return $html;
@@ -433,7 +433,7 @@ class Utils
      */
     public static function redirectToAPI()
     {
-        return $_SERVER["REQUEST_URI"] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
+        return $_SERVER['REQUEST_URI'] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
     }
 
     /**

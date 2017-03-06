@@ -14,7 +14,7 @@ class Utils extends atoum\test
     {
         return [
             ["achat des couteaux\nsuisses", 'achat des couteaux suisses'],
-            ["<b>foo</b>", '&#60;b&#62;foo&#60;/b&#62;'],
+            ['<b>foo</b>', '&#60;b&#62;foo&#60;/b&#62;'],
         ];
     }
 

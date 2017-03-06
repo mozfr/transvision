@@ -4,9 +4,9 @@ namespace Transvision;
 // Error management
 if (isset($error)) {
     if ($error == 1) {
-        print "<p>No entity asked for, goodbye.</p>";
+        print '<p>No entity asked for, goodbye.</p>';
     } elseif ($error == 2) {
-        print "<p>Entity does not exist for this repo, goodbye.</p>";
+        print '<p>Entity does not exist for this repo, goodbye.</p>';
     }
 
     return;

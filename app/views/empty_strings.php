@@ -47,7 +47,7 @@ namespace Transvision;
 }
 
 if (count($empty_strings) == 0) {
-    echo "<div class=\"message\"><p>No strings found.</p></div>";
+    echo '<div class="message"><p>No strings found.</p></div>';
 } else {
     $text_direction = RTLSupport::getDirection($locale);
     $table = "<table class='collapsable results_table sortable'>
@@ -70,7 +70,7 @@ if (count($empty_strings) == 0) {
         . "&locale={$locale}"
         . "&repo={$repo}"
         . "&search_type=entities&recherche={$key}"
-        . "&entire_string=entire_string";
+        . '&entire_string=entire_string';
 
         $bugzilla_link = [Bugzilla::reportErrorLink(
             $locale, $key, $reference_string, $locale_string, $repo, $entity_link
