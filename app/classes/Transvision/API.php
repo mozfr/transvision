@@ -80,8 +80,9 @@ class API
     /**
      * Get the list of parameters for an API call.
      *
-     * @param  string $parameters The list of parameters from the URI
-     * @return array  All the main parameters for the query
+     * @param string $parameters The list of parameters from the URI
+     *
+     * @return array All the main parameters for the query
      */
     public function getParameters($parameters)
     {
@@ -104,8 +105,9 @@ class API
     /**
      * Get the list of extra parameters for an API call.
      *
-     * @param  string $parameters The $_GET list of parameters
-     * @return array  All the extra parameters as [key => value]
+     * @param string $parameters The $_GET list of parameters
+     *
+     * @return array All the extra parameters as [key => value]
      */
     public function getExtraParameters($parameters)
     {
@@ -189,7 +191,8 @@ class API
      * Check if we call a service that we do support and check that
      * the request is technically correct
      *
-     * @param  string  $service The name of the service
+     * @param string $service The name of the service
+     *
      * @return boolean Returns True if we have a valid service call, False otherwise
      */
     private function isValidServiceCall($service)
@@ -324,7 +327,8 @@ class API
     /**
      * Check that we have enough parameters in the URL to satisfy the request
      *
-     * @param  int     $number number of compulsory parameters
+     * @param int $number number of compulsory parameters
+     *
      * @return boolean True if we can satisfy the request, False if we can't
      */
     private function verifyEnoughParameters($number)
@@ -341,9 +345,10 @@ class API
     /**
      * Check that the repository asked for is one we support
      *
-     * @param  string  $repository Name of the repository
-     * @param  boolean $alias      Do we allow aliases for repository names,
-     *                             ex: 'global', to query all repositories. Default to False
+     * @param string  $repository Name of the repository
+     * @param boolean $alias      Do we allow aliases for repository names,
+     *                            ex: 'global', to query all repositories. Default to False
+     *
      * @return boolean True if we support this repository, False if we don't
      */
     private function verifyRepositoryExists($repository, $alias = false)
@@ -364,8 +369,9 @@ class API
     /**
      * Check that a locale is available for a repository
      *
-     * @param  string  $locale     Locale code we want to check
-     * @param  string  $repository Repository name we want to check the locale for
+     * @param string $locale     Locale code we want to check
+     * @param string $repository Repository name we want to check the locale for
+     *
      * @return boolean True if we support the locale, False if we don't
      */
     private function verifyLocaleExists($locale, $repository)
@@ -414,7 +420,8 @@ class API
     /**
      * Utility function to log API call errors.
      *
-     * @param  string  $message
+     * @param string $message
+     *
      * @return boolean True if we logged, False if we didn't log
      */
     private function log($message)

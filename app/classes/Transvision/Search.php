@@ -22,36 +22,42 @@ class Search
 {
     /**
      * The trimmed string searched, we keep it as the canonical reference
+     *
      * @var string
      */
     protected $search_terms;
 
     /**
      * The generated regex string updated dynamically via updateRegex()
+     *
      * @var string
      */
     protected $regex;
 
     /**
      * Case sensibility of the regex
+     *
      * @var string
      */
     protected $regex_case;
 
     /**
      * Only return strings that entirely match the search (case excluded)
+     *
      * @var boolean
      */
     protected $regex_entire_string;
 
     /**
      * Only return strings where entire words match the search (case excluded)
+     *
      * @var boolean
      */
     protected $regex_entire_words;
 
     /**
      * Set to search for each word in the query instead of using it as a whole.
+     *
      * @var boolean
      */
     protected $each_word;
@@ -59,30 +65,35 @@ class Search
     /**
      * The search terms for the regex, these differ from $search_terms as
      * they can be changed dynamically via setRegexSearchTerms()
+     *
      * @var string
      */
     protected $regex_search_terms;
 
     /**
      * The repository we want to search strings in
+     *
      * @var string
      */
     protected $repository;
 
     /**
      * The type of search we will perform
+     *
      * @var string
      */
     protected $search_type;
 
     /**
      * The different types of search we can perform
+     *
      * @var array
      */
     protected $search_types = ['strings', 'entities', 'strings_entities'];
 
     /**
      * The different options associated to searches
+     *
      * @var array
      */
     protected $form_search_options = [
@@ -92,12 +103,14 @@ class Search
 
     /**
      * The different checkboxes for the search Form
+     *
      * @var array
      */
     protected $form_checkboxes;
 
     /**
      * The different locales we will use in views
+     *
      * @var array
      */
     protected $locales;
@@ -127,7 +140,8 @@ class Search
     /**
      * Store the searched string in $search_terms and in $regex_search_terms
      *
-     * @param  string $string String we want to search for
+     * @param string $string String we want to search for
+     *
      * @return $this
      */
     public function setSearchTerms($string)
@@ -144,7 +158,8 @@ class Search
      * This is mostly useful when you have a multi-words search and need to
      * loop through all the words to return results.
      *
-     * @param  string $string The string we want to update the regex for
+     * @param string $string The string we want to update the regex for
+     *
      * @return $this
      */
     public function setRegexSearchTerms($string)
@@ -158,7 +173,8 @@ class Search
     /**
      * Set the regex case to be insensitive.
      *
-     * @param  boolean $flag True is sensitive, false insensitive
+     * @param boolean $flag True is sensitive, false insensitive
+     *
      * @return $this
      */
     public function setRegexCaseInsensitive($flag)
@@ -174,7 +190,8 @@ class Search
      * searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True for an entire string match
+     * @param boolean $flag Set to True for an entire string match
+     *
      * @return $this
      */
     public function setRegexEntireString($flag)
@@ -190,7 +207,8 @@ class Search
      * the searched string.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True for an entire words match
+     * @param boolean $flag Set to True for an entire words match
+     *
      * @return $this
      */
     public function setRegexEntireWords($flag)
@@ -205,7 +223,8 @@ class Search
      * Set to search for each word in the query instead of using it as a whole.
      * We cast the value to a boolean because we usually get it from a GET.
      *
-     * @param  boolean $flag Set to True to search for each word.
+     * @param boolean $flag Set to True to search for each word.
+     *
      * @return $this
      */
     public function setEachWord($flag)
@@ -313,7 +332,8 @@ class Search
     /**
      * Grep data in regex
      *
-     * @param  array $source_strings The array of strings to be filtered
+     * @param array $source_strings The array of strings to be filtered
+     *
      * @return array Return an array of filtered strings
      */
     public function grep($source_strings)
@@ -324,7 +344,8 @@ class Search
     /**
      * Set the repository we want to search strings in
      *
-     * @param  string $repository The name of the repository
+     * @param string $repository The name of the repository
+     *
      * @return $this
      */
     public function setRepository($repository)
@@ -349,7 +370,8 @@ class Search
     /**
      * Set the type of search we want to perform
      *
-     * @param  string $type The type of search we will perform
+     * @param string $type The type of search we will perform
+     *
      * @return $this
      */
     public function setSearchType($type)
@@ -413,7 +435,8 @@ class Search
      * The 'extra' value is optional and used in views comparing
      * data for 3 locales.
      *
-     * @param  array $locales The locale codes
+     * @param array $locales The locale codes
+     *
      * @return $this
      */
     public function setLocales(array $locales)
@@ -439,8 +462,9 @@ class Search
     /**
      * Get a locale used for searching
      *
-     * @param  string $type The type of locale we want, can be
-     *                      'source', 'target' or 'extra'.
+     * @param string $type The type of locale we want, can be
+     *                     'source', 'target' or 'extra'.
+     *
      * @return string Locale code or an empty string
      */
     public function getLocale($type)

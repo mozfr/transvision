@@ -15,7 +15,8 @@ class Strings
      * Leading and trailing spaces are preserved but collapsed
      * to a single space.
      *
-     * @param  string $string The string to analyze
+     * @param string $string The string to analyze
+     *
      * @return string Cleaned up string with extra spaces merged
      */
     public static function mtrim($string)
@@ -27,8 +28,9 @@ class Strings
      * Check if $haystack starts with a string in $needles.
      * $needles can be a string or an array of strings.
      *
-     * @param  string  $haystack String to analyse
-     * @param  array   $needles  The string to look for
+     * @param string $haystack String to analyse
+     * @param array  $needles  The string to look for
+     *
      * @return boolean True if the $haystack string starts with a string in $needles
      */
     public static function startsWith($haystack, $needles)
@@ -46,8 +48,9 @@ class Strings
      * Check if $haystack ends with a string in $needles.
      * $needles can be a string or an array of strings.
      *
-     * @param  string  $haystack String to analyse
-     * @param  array   $needles  The strings to look for
+     * @param string $haystack String to analyse
+     * @param array  $needles  The strings to look for
+     *
      * @return boolean True if the $haystack string ends with a string in $needles
      */
     public static function endsWith($haystack, $needles)
@@ -90,9 +93,10 @@ class Strings
     /**
      * Returns a string after replacing all the items provided in an array
      *
-     * @param  array  $replacements List of replacements to do as :
-     *                              ['before1' => 'after1', 'before2' => 'after2']
-     * @param  string $string       The string to process
+     * @param array  $replacements List of replacements to do as :
+     *                             ['before1' => 'after1', 'before2' => 'after2']
+     * @param string $string       The string to process
+     *
      * @return string Processed string
      */
     public static function multipleStringReplace($replacements, $string)
@@ -103,12 +107,13 @@ class Strings
     /**
      * Highlight special characters in the string
      *
-     * @param  string  $string              Source text
-     * @param  boolean $exclude_whitespaces Optional param to specify if we need
-     *                                      to highlight white spaces. White
-     *                                      spaces are not highlighted by default.
-     * @return string  Same string with specific sub-strings in <span>
-     *                                     elements for styling with CSS
+     * @param string  $string              Source text
+     * @param boolean $exclude_whitespaces Optional param to specify if we need
+     *                                     to highlight white spaces. White
+     *                                     spaces are not highlighted by default.
+     *
+     * @return string Same string with specific sub-strings in <span>
+     *                elements for styling with CSS
      */
     public static function highlightSpecial($string, $exclude_whitespaces = true)
     {
@@ -206,8 +211,9 @@ class Strings
     /**
      * Get multibyte UTF-8 string length, html tags stripped
      *
-     * @param  string $str A multibyte string
-     * @return int    The length of the string after removing all html
+     * @param string $str A multibyte string
+     *
+     * @return int The length of the string after removing all html
      */
     public static function getLength($str)
     {
@@ -217,10 +223,11 @@ class Strings
     /**
      * Search for similar strings in an array
      *
-     * @param  string $needle   string to search for
-     * @param  array  $haystack array of strings to search into
-     * @param  int    $number   optional, number of results we want, defaults to 1
-     * @return array  Closest strings to $needle in $haystack or empty array if no match
+     * @param string $needle   string to search for
+     * @param array  $haystack array of strings to search into
+     * @param int    $number   optional, number of results we want, defaults to 1
+     *
+     * @return array Closest strings to $needle in $haystack or empty array if no match
      */
     public static function getSimilar($needle, $haystack, $number = 1)
     {
@@ -255,9 +262,10 @@ class Strings
      *
      * Fallback to native levenshtein() if strings are ascii
      *
-     * @param  string $string1 First string to compare
-     * @param  string $string2 Second string to compare
-     * @return int    The Levenshtein distance
+     * @param string $string1 First string to compare
+     * @param string $string2 Second string to compare
+     *
+     * @return int The Levenshtein distance
      */
     public static function levenshteinUTF8($string1, $string2)
     {
@@ -312,9 +320,10 @@ class Strings
     /**
      * Get a quality index (%) for two strings compared with Levenshtein distance
      *
-     * @param  string $string1 First string to compare
-     * @param  string $string2 Second string to compare
-     * @return float  String similarity as a percent, higher is better
+     * @param string $string1 First string to compare
+     * @param string $string2 Second string to compare
+     *
+     * @return float String similarity as a percent, higher is better
      */
     public static function levenshteinQuality($string1, $string2)
     {

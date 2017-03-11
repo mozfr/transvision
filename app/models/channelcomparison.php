@@ -20,8 +20,8 @@ $chan_selector1 = $chan_selector2 = '';
 foreach ($desktop_repos as $repo_name) {
     $ch1 = ($repo_name == $chan1) ? ' selected' : '';
     $ch2 = ($repo_name == $chan2) ? ' selected' : '';
-    $chan_selector1 .= "\t<option" . $ch1 . " value=" . $repo_name . ">" . $repos_nice_names[$repo_name] . "</option>\n";
-    $chan_selector2 .= "\t<option" . $ch2 . " value=" . $repo_name . ">" . $repos_nice_names[$repo_name] . "</option>\n";
+    $chan_selector1 .= "\t<option" . $ch1 . ' value=' . $repo_name . '>' . $repos_nice_names[$repo_name] . "</option>\n";
+    $chan_selector2 .= "\t<option" . $ch2 . ' value=' . $repo_name . '>' . $repos_nice_names[$repo_name] . "</option>\n";
 }
 
 // Get the locale list
@@ -32,7 +32,7 @@ $target_locales_list = '';
 
 foreach ($loc_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
-    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
+    $target_locales_list .= "\t<option" . $ch . ' value=' . $loc . '>' . $loc . "</option>\n";
 }
 
 /*

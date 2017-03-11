@@ -35,7 +35,7 @@ if ($error_count > 0) {
                           "&locale={$locale}" .
                           "&repo={$repo}" .
                           "&search_type=entities&recherche={$string_id}" .
-                          "&entire_string=entire_string";
+                          '&entire_string=entire_string';
         $bugzilla_link = Bugzilla::reportErrorLink(
             $locale, $string_id, $source[$string_id],
             $target[$string_id], $repo, $string_id_link
@@ -71,7 +71,7 @@ if ($error_count > 0) {
     }
     $content .= "</tbody>\n</table>\n";
 } else {
-    $content = "<h2>Congratulations, no errors found.</h2>";
+    $content = '<h2>Congratulations, no errors found.</h2>';
 }
 
 print $content;

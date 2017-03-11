@@ -3,7 +3,6 @@ namespace Transvision;
 
 // Redirect old JSON API calls to new API
 if (isset($_GET['json'])) {
-
     // Define sane fallback values to redirect old API calls to new API calls
     $get_value = function ($value, $fallback) {
         if (isset($_GET[$value])) {
@@ -68,7 +67,6 @@ if ($check['t2t']) {
     require_once MODELS . 'mainsearch_glossary.php';
     require_once VIEWS . 'results_glossary.php';
 } else {
-
     // No search
     if ($my_search == '') {
         return;

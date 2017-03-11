@@ -18,7 +18,7 @@ foreach ($changelog as $release => $changes) {
             $empty_release = false;
         }
 
-        $output .= "  <li>";
+        $output .= '  <li>';
         $output .= isset($attributes['type']) ? $relnotes($attributes['type'][0]) . ' ' : '';
         $output .= '<div>';
         $output .= isset($attributes['issues']) ? $issue($attributes['issues']) : '';

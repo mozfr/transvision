@@ -69,7 +69,7 @@ EOT;
 $title_productname = BETA_VERSION ? 'Transvision Beta' : 'Transvision';
 
 if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
-    $last_update = "<p>Data last updated: " .
+    $last_update = '<p>Data last updated: ' .
                  date('F d, Y \a\t H:i (e)', filemtime(CACHE_PATH . 'lastdataupdate.txt')) .
                  ".</p>\n";
 } else {

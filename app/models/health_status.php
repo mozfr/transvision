@@ -8,7 +8,6 @@ use VCS\Subversion;
 
 $projects = [];
 foreach (Project::getRepositories() as $repo) {
-
     // Get the right locale for this repo
     $locale = Project::getLocaleInContext($page_locale, $repo);
 

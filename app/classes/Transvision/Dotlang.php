@@ -14,8 +14,10 @@ class Dotlang
 {
     /**
      * Recursively find all lang files, ignore common VCS dot files
-     * @param  string $path Path to the directory to scan
-     * @return array  All the file paths
+     *
+     * @param string $path Path to the directory to scan
+     *
+     * @return array All the file paths
      */
     public static function getLangFilesList($path)
     {
@@ -48,8 +50,9 @@ class Dotlang
     /**
      * Loads the lang file and returns a cleaned up array of the lines
      *
-     * @param  string $file path to the local file to load
-     * @return array  All the significant lines in the file as an array
+     * @param string $file path to the local file to load
+     *
+     * @return array All the significant lines in the file as an array
      */
     public static function getFile($file)
     {
@@ -73,9 +76,10 @@ class Dotlang
      *  ;String in english
      *  translated string
      *
-     * @param  string  $file             .lang file to load
-     * @param  boolean $reference_locale True if the current locale is the reference locale
-     * @return array   Array of strings as [original => translation]
+     * @param string  $file             .lang file to load
+     * @param boolean $reference_locale True if the current locale is the reference locale
+     *
+     * @return array Array of strings as [original => translation]
      */
     public static function getStrings($file, $reference_locale)
     {
@@ -85,7 +89,6 @@ class Dotlang
         $strings = [];
 
         for ($i = 0, $lines = count($f); $i < $lines; $i++) {
-
             // Skip comments and metadata
             if (Strings::startsWith($f[$i], '#')) {
                 continue;
@@ -126,8 +129,10 @@ class Dotlang
      * Generate a unique id for a string to store that in Transvision with
      * the unique ids for products. Since there are no names for strings
      * we generate a short hash of the string.
-     * @param  string $file_path the file path to the .lang file
-     * @param  string $string    the English string
+     *
+     * @param string $file_path the file path to the .lang file
+     * @param string $string    the English string
+     *
      * @return string unique id such as mozilla_org/mozorg/about.lang:a4a7eabd
      */
     public static function generateStringID($file_path, $string)

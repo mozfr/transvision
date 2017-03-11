@@ -13,7 +13,8 @@ class VersionControl
     /**
      * Get the right VCS for a given repository
      *
-     * @param  string $repo repository name
+     * @param string $repo repository name
+     *
      * @return string Name of the VCS or false if the repo does not exist
      */
     public static function getVCS($repo)
@@ -39,7 +40,8 @@ class VersionControl
     /**
      * Get the repo name used for VCS from the folder name used in Transvision
      *
-     * @param  string $repo repository name
+     * @param string $repo repository name
+     *
      * @return string Name of the VCS or unchanged $repo by default
      */
     public static function VCSRepoName($repo)
@@ -55,9 +57,10 @@ class VersionControl
     /**
      * Generate a path to the mercurial repo for the file
      *
-     * @param  string $locale locale code
-     * @param  string $repo   repository name
-     * @param  string $path   Entity name representing the local file
+     * @param string $locale locale code
+     * @param string $repo   repository name
+     * @param string $path   Entity name representing the local file
+     *
      * @return string Path to the file in remote mercurial repository
      */
     public static function hgPath($locale, $repo, $path)
@@ -172,9 +175,10 @@ class VersionControl
      * Generate a path to the GitHub repo for the file.
      * Only mozilla.org is supported for now.
      *
-     * @param  string $locale locale code
-     * @param  string $repo   repository name
-     * @param  string $path   Entity name representing the local file
+     * @param string $locale locale code
+     * @param string $repo   repository name
+     * @param string $path   Entity name representing the local file
+     *
      * @return string Path to the file in remote GitHub repository
      */
     public static function gitPath($locale, $repo, $path)
@@ -199,9 +203,10 @@ class VersionControl
     /**
      * Remove entity and project name from path
      *
-     * @param  string $path A Transvision file path
+     * @param string $path A Transvision file path
+     *
      * @return string The same path without the entity
-     *                     and internal project name
+     *                and internal project name
      */
     private static function extractFilePath($path)
     {

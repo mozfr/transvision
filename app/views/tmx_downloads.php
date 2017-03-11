@@ -5,7 +5,7 @@ $target_locales_list = $checkboxes = '';
 
 foreach ($locales_list as $loc) {
     $ch = ($loc == $locale) ? ' selected' : '';
-    $target_locales_list .= "\t<option" . $ch . " value=" . $loc . ">" . $loc . "</option>\n";
+    $target_locales_list .= "\t<option" . $ch . ' value=' . $loc . '>' . $loc . "</option>\n";
 }
 
 foreach ($repos_nice_names as $repo => $name) {

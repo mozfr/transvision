@@ -33,8 +33,8 @@ if (! $repositories = json_decode(file_get_contents($uri), true)) {
 
 foreach ($repositories as $repository) {
     // Save supported locales for each repository
-    echo "* Saving list of locales for {$repository["id"]}\n";
-    $file_name = "{$config_folder}/sources/{$repository["id"]}.txt";
+    echo "* Saving list of locales for {$repository['id']}\n";
+    $file_name = "{$config_folder}/sources/{$repository['id']}.txt";
     file_put_contents($file_name, implode("\n", $repository['locales']) . "\n");
 }
 
@@ -43,7 +43,7 @@ $json_repositories = [];
 foreach ($repositories as $repository) {
     $json_repositories[intval($repository['display_order'])] = [
         'id'   => $repository['id'],
-        'name' => $repository['name']
+        'name' => $repository['name'],
     ];
 }
 ksort($json_repositories);
