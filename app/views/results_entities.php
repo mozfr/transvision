@@ -163,6 +163,13 @@ foreach ($entities as $entity) {
         $meta_target .= $error_message;
     }
 
+    // Get the tool used to edit strings for the target locale
+    $toolUsedByTargetLocale = Project::getLocaleTool($locale);
+
+    $edit_link = ($current_repo == 'aurora' && $toolUsedByTargetLocale != '')
+        ? ShowResults::getEditLink($toolUsedByTargetLocale, $entity, $locale)
+        : '';
+
     $table .= "
   <tr class='{$component}'>
     <td>
@@ -190,6 +197,7 @@ foreach ($entities as $entity) {
     $table .= "
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
+        {$edit_link}
         {$file_bug}
         {$meta_target}
       </div>
