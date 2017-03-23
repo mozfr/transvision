@@ -197,8 +197,8 @@ foreach ($entities as $entity) {
     $table .= "
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
-        {$file_bug}
         {$edit_link}
+        {$file_bug}
         {$meta_target}
       </div>
     </td>
