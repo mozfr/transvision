@@ -352,25 +352,25 @@ class ShowResults extends atoum\test
                 'pontoon',
                 'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox-aurora/browser/chrome/browser/browser.properties?search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/chrome/browser/browser.properties?search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning-aurora/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
                 'chat/commands.properties:dnd',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird-aurora/chat/commands.properties?search=dnd'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/chat/commands.properties?search=dnd'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
                 'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird-aurora/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -382,19 +382,19 @@ class ShowResults extends atoum\test
                 'pontoon',
                 'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
                 'de',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird-aurora/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
                 'mobile/android/base/android_strings.dtd:activity_stream_highlights',
                 'bg',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android-aurora/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey-aurora/suite/chrome/browser/taskbar.properties?search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey/suite/chrome/browser/taskbar.properties?search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
             ],
             // Locamotion links
             [

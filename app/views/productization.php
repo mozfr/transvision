@@ -1,8 +1,8 @@
 <?php
 namespace Transvision;
 
-// Using Aurora as a reference for simplicity to create the list of locales
-$repo = 'aurora';
+// Using Central as a reference for simplicity to create the list of locales
+$repo = 'central';
 
 require_once INC . 'l10n-init.php';
 
@@ -14,7 +14,6 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
 
     $channels = [
         'trunk'   => 'Nightly',
-        'aurora'  => 'Developer Edition',
         'beta'    => 'Beta',
         'release' => 'Release',
     ];
@@ -34,7 +33,7 @@ if (!file_exists(WEB_ROOT . 'p12n/searchplugins.json')) {
     $html_output = "  <h2>Current locale: {$locale}</h2>\n";
 
     $target_locales_list = Utils::getHtmlSelectOptions(
-        Project::getRepositoryLocales('aurora'),
+        Project::getRepositoryLocales('central'),
         $locale
     );
     $product_selector = Utils::getHtmlSelectOptions($products, $product, true);

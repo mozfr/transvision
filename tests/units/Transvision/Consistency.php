@@ -61,7 +61,7 @@ class Consistency extends atoum\test
                     'dom/chrome/accessibility/AccessFu.properties:notation-phasorangle'                 => 'angle de phaseur',
                     'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
                 ],
-                'aurora',
+                'beta',
                 [
                     'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
                     'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies' => 'Les cookies',

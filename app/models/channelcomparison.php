@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-$chan1 = 'aurora';
+$chan1 = 'central';
 $chan2 = 'beta';
 
 if (isset($_GET['chan1']) && in_array($_GET['chan1'], $desktop_repos)) {

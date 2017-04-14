@@ -160,10 +160,10 @@ function updateStandardRepo() {
         fi
     }
 
-    local repo_name="$1"                # e.g. release, beta, aurora, central
+    local repo_name="$1"                # e.g. release, beta, central
     local comm_repo="comm-$1"           # e.g. comm-release, etc.
     local mozilla_repo="mozilla-$1"     # e.g. mozilla-release, etc.
-    local repo_source="${2}_source"     # e.g. release_source, beta_source, aurora_source, trunk_source
+    local repo_source="${2}_source"     # e.g. release_source, beta_source, trunk_source
     local repo_l10n="${2}_l10n"         # e.g. release_l10n, etc.
     local locale_list="${2}_locales"    # e.g. release_locales, etc.
 
@@ -317,7 +317,6 @@ updateNoBranchRepo "chatzilla"
 
 updateStandardRepo "release" "release"
 updateStandardRepo "beta" "beta"
-updateStandardRepo "aurora" "aurora"
 updateStandardRepo "central" "trunk"
 
 updateFromGitHub

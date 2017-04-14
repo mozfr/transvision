@@ -86,9 +86,9 @@ class VersionControl extends atoum\test
             ],
             [
                 'en-US',
-                'aurora',
+                'central',
                 'devtools/client/memory.properties:heapview.field.totalcount',
-                'https://hg.mozilla.org/releases/mozilla-aurora/file/default/devtools/client/locales/en-US/memory.properties',
+                'https://hg.mozilla.org/mozilla-central/file/default/devtools/client/locales/en-US/memory.properties',
             ],
             [
                 'en-US',
@@ -104,7 +104,7 @@ class VersionControl extends atoum\test
             ],
             [
                 'en-US',
-                'aurora',
+                'central',
                 'extensions/irc/chrome/chatzilla.properties:msg.save.files.folder',
                 'https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/chatzilla.properties',
             ],

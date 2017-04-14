@@ -8,14 +8,10 @@
     "name": "Beta"
   },
   "3": {
-    "id": "aurora",
-    "name": "Aurora"
-  },
-  "4": {
     "id": "central",
     "name": "Central"
   },
-  "5": {
+  "4": {
     "id": "mozilla_org",
     "name": "mozilla.org"
   }

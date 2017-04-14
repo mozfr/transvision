@@ -280,21 +280,21 @@ class ShowResults
         } else {
             switch ($component) {
                 case 'calendar':
-                    $project_name = 'lightning-aurora';
+                    $project_name = 'lightning';
                     break;
                 case 'chat':
                 case 'editor':
                 case 'mail':
-                    $project_name = 'thunderbird-aurora';
+                    $project_name = 'thunderbird';
                     break;
                 case 'mobile':
-                    $project_name = 'firefox-for-android-aurora';
+                    $project_name = 'firefox-for-android';
                     break;
                 case 'suite':
-                    $project_name = 'seamonkey-aurora';
+                    $project_name = 'seamonkey';
                     break;
                 default:
-                    $project_name = 'firefox-aurora';
+                    $project_name = 'firefox';
             }
             $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
             $tool_name = 'Pontoon';
@@ -396,7 +396,7 @@ class ShowResults
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
-            $edit_link = ($current_repo == 'aurora' && $toolUsedByTargetLocale != '')
+            $edit_link = ($current_repo == 'central' && $toolUsedByTargetLocale != '')
                 ? self::getEditLink($toolUsedByTargetLocale, $key, $locale2)
                 : '';
 

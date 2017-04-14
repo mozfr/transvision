@@ -47,7 +47,7 @@ class AnalyseStrings extends atoum\test
             [
                 ['browser:foobar2' => '$BrandShortName is already running.\n\nPlease close $BrandShortName prior to launching the version you have just installed.'],
                 ['browser:foobar2' => 'El $BrandFullName ja s\'està executant.\n\nTanqueu el $BrandFullName abans d\'executar la versió que acabeu d\'instal·lar.'],
-                'aurora',
+                'beta',
                 [],
                 ['browser:foobar2'],
             ],

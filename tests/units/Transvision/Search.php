@@ -31,7 +31,7 @@ class Search extends atoum\test
                 ->isEqualTo('');
         $this
             ->string($obj->getRepository())
-                ->isEqualTo('aurora');
+                ->isEqualTo('central');
         $this
             ->string($obj->getSearchType())
                 ->isEqualTo('strings');
@@ -203,7 +203,7 @@ class Search extends atoum\test
         $obj = new _Search();
         $obj->setRepository('foobar');
         $this->string($obj->getRepository())
-            ->isEqualTo('aurora');
+            ->isEqualTo('central');
 
         $obj->setRepository('release');
         $this->string($obj->getRepository())

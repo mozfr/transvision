@@ -11,7 +11,7 @@ class Project extends atoum\test
     public function testGetRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'aurora', 'central',
+        $repos = ['release', 'beta', 'central',
                   'mozilla_org', ];
         $this
             ->array($obj->getRepositories())
@@ -24,7 +24,6 @@ class Project extends atoum\test
         $repos = [
             'release'     => 'Release',
             'beta'        => 'Beta',
-            'aurora'      => 'Aurora',
             'central'     => 'Central',
             'mozilla_org' => 'mozilla.org',
         ];
@@ -36,7 +35,7 @@ class Project extends atoum\test
     public function testGetDesktopRepositories()
     {
         $obj = new _Project();
-        $repos = ['release', 'beta', 'aurora', 'central'];
+        $repos = ['release', 'beta', 'central'];
         $this
             ->array($obj->getDesktopRepositories())
                 ->isEqualTo($repos);

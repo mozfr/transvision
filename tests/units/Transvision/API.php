@@ -148,7 +148,7 @@ class API extends atoum\test
             ['http://foobar/api/v1/entity/central/?id=myid', true],
             ['http://foobar/api/v1/locales/', true],
             ['http://foobar/api/v1/search/strings/central/en-US/fr/Add%20%20Bookmarks/', true],
-            ['http://foobar/api/v1/suggestions/aurora/en-US/it/', true],
+            ['http://foobar/api/v1/suggestions/beta/en-US/it/', true],
             ['http://foobar/api/v1/tm/central/en-US/fr/', true],
             ['http://foobar/api/versions/', true],
         ];

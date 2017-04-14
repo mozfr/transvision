@@ -1,7 +1,6 @@
 ./b2g/branding/official/locales/en-US
 ./b2g/branding/unofficial/locales/en-US
 ./b2g/locales/en-US
-./browser/branding/aurora/locales/en-US
 ./browser/branding/nightly/locales/en-US
 ./browser/branding/official/locales/en-US
 ./browser/branding/unofficial/locales/en-US
@@ -13,7 +12,6 @@
 ./extensions/spellcheck/locales/en-US
 ./intl/locales/en-US
 ./mobile/android/base/locales/en-US
-./mobile/android/branding/aurora/locales/en-US
 ./mobile/android/branding/beta/locales/en-US
 ./mobile/android/branding/nightly/locales/en-US
 ./mobile/android/branding/official/locales/en-US
