@@ -166,7 +166,7 @@ foreach ($entities as $entity) {
     // Get the tool used to edit strings for the target locale
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
-    $edit_link = ($current_repo == 'aurora' && $toolUsedByTargetLocale != '')
+    $edit_link = ($current_repo == 'central' && $toolUsedByTargetLocale != '')
         ? ShowResults::getEditLink($toolUsedByTargetLocale, $entity, $locale)
         : '';
 

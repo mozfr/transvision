@@ -23,9 +23,9 @@
 }
 
 #productization .channel {
-    width: 200px;
+    width: 250px;
     float: left;
-    padding: 0 3px;
+    padding: 0 5px 0 15px;
 }
 
 #productization .searchplugin {

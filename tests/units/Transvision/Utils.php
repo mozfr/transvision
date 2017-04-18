@@ -442,8 +442,8 @@ class Utils extends atoum\test
                 '/v1/versions/?json',
             ],
             [
-                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings',
-                '/?recherche=home&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json',
+                '/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings',
+                '/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings&json',
             ],
         ];
     }
@@ -468,14 +468,14 @@ class Utils extends atoum\test
             [
                 'en-US',
                 'fr',
-                '/?recherche=test&repo=aurora&sourcelocale=fr&locale=en-US&search_type=strings',
-                '/?recherche=test&repo=aurora&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
+                '/?recherche=test&repo=central&sourcelocale=fr&locale=en-US&search_type=strings',
+                '/?recherche=test&repo=central&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
             ],
             [
                 'it',
                 'en-US',
-                '/?recherche=Cookies&repo=aurora&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
-                '/?recherche=Cookies&repo=aurora&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
+                '/?recherche=Cookies&repo=central&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
+                '/?recherche=Cookies&repo=central&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
             ],
         ];
     }

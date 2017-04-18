@@ -24,7 +24,7 @@ function echogreen() {
 }
 
 function createSymlinks() {
-    branches=( trunk aurora beta release )
+    branches=( trunk beta release )
 
     case "$1" in
         "mozilla" | "comm" )
@@ -38,7 +38,7 @@ function createSymlinks() {
                     # Possible values: mozilla-central, comm-central
                     local repo_name="$1-central"
                 else
-                    # Possible values: mozilla-aurora, comm-aurora, mozilla-beta, etc.
+                    # Possible values: mozilla-beta, comm-beta, etc.
                     local repo_name="$1-$branch"
                 fi
 
@@ -180,7 +180,7 @@ function initDesktopSourceRepo() {
         done
     else
         local target="$1_source"
-        # If target="aurora_source", ${!target} is equal to $aurora_source
+        # If target="beta_source", ${!target} is equal to $beta_source
         cd ${!target}
         if [ ! -d ${!target}/comm-$1/.hg ]
         then
@@ -257,12 +257,10 @@ setupExternalLibraries
 initDesktopSourceRepo "central"
 initDesktopSourceRepo "release"
 initDesktopSourceRepo "beta"
-initDesktopSourceRepo "aurora"
 
 initDesktopL10nRepo "central"
 initDesktopL10nRepo "release"
 initDesktopL10nRepo "beta"
-initDesktopL10nRepo "aurora"
 
 # Create symlinks (or recreate if missing)
 createSymlinks "mozilla"
