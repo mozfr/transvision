@@ -1,4 +1,16 @@
 $(document).ready(function() {
+
+    $(function() {
+        $('input[type="submit"]').attr('disabled', true);
+
+        $('input[name="recherche"]').on('input paste', function() {
+            if ($(this).val().length > 0) {
+                $('input[type="submit"]').attr('disabled', false);
+            }
+        });
+
+    });
+
     var hideMenuButton = function(transition) {
         $('#links-top').slideToggle(transition, function(){
             if ($('#links-top').is(':visible')) {
