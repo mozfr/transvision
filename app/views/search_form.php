@@ -23,6 +23,7 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                            placeholder="Type your search here"
                            title="Type your search here"
                            size="30"
+                           required
                     />
                     <span id="clear_search" alt="Clear the search field" title="Clear the search field"></span>
                 </div>
