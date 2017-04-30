@@ -37,3 +37,10 @@
                                       image/svg+xml
     </IfModule>
 </IfModule>
+
+# Security good practices
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security: max-age=31536000
+    Header set X-Content-Type-Options: nosniff
+    Header set X-XSS-Protection: "1; mode=block"
+</IfModule>

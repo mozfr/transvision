@@ -84,6 +84,11 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
     print $page_title . ' | ';
 } ?><?= $title_productname ?></title>
     <meta charset="utf-8" />
+
+    <?php if (! LOCAL_DEV): ?>
+      <meta http-equiv="Content-Security-Policy" content="default-src https:; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline'; frame-ancestors 'none'">
+    <?php endif; ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Tranvision is a tool used by the Mozilla Community to search translations extracted from products and websites. It also provides API access to translation memory, and specific QA features">
 <?php foreach ($css_files as $css_file):?>
