@@ -26,6 +26,6 @@
 
 <p>The Transvision logo was created by Elio Qoshi from the <a href="https://github.com/mozilla/Community-Design">Mozilla Community Design team</a>.</p>
 
-<p>Transvision’s code is available on <a href="https://github.com/mozfr/transvision/">GitHub</a>. Statistics about the project can be found on <a href="https://www.ohloh.net/p/transvision">Transvision Oloh page</a>.</p>
+<p>Transvision’s code is available on <a href="https://github.com/mozfr/transvision/">GitHub</a>. Statistics about the project can be found on <a href="https://www.openhub.net/p/transvision">Transvision Open Hub page</a>.</p>
 
 <p>Transvision is a community project under the MozFR umbrella. The server is sponsored and hosted by <a href="https://www.gandi.net/">Gandi</a>.</p>
