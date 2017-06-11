@@ -1,9 +1,7 @@
-./b2g/branding/official/locales/en-US
-./b2g/branding/unofficial/locales/en-US
-./b2g/locales/en-US
 ./browser/branding/nightly/locales/en-US
 ./browser/branding/official/locales/en-US
 ./browser/branding/unofficial/locales/en-US
+./browser/extensions/onboarding/locales/en-US
 ./browser/extensions/webcompat-reporter/locales/en-US
 ./browser/locales/en-US
 ./devtools/client/locales/en-US

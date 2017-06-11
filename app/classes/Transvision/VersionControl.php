@@ -77,13 +77,11 @@ class VersionControl
         $base_folder = $exploded_path[0];
 
         $en_US_folder_mess = [
-            'b2g/',
-            'b2g/branding/official/',
-            'b2g/branding/unofficial/',
             'browser/',
             'browser/branding/nightly/',
             'browser/branding/official/',
             'browser/branding/unofficial/',
+            'browser/extensions/onboarding/',
             'browser/extensions/webcompat-reporter/',
             'calendar/',
             'chat/',
