@@ -30,8 +30,8 @@ $(document).ready(function() {
             var resultsCount = $(className).length;
             var resultsMessage =
                 resultsCount === 1
-                ? '1 result'
-                : resultsCount + ' results';
+                    ? '1 result'
+                    : resultsCount + ' results';
 
             $('.results_count_' + searchID).text(resultsMessage);
         });
