@@ -42,10 +42,6 @@ foreach ($strings_reference as $string_id => $string_value) {
     }
 }
 
-// Sanitize strings
-$unchanged_strings = Utils::secureText($unchanged_strings);
-$strings_locale = Utils::secureText($strings_locale);
-
 if (in_array($repo, $desktop_repos)) {
     // Build logic to filter components
     $components = Project::getComponents($unchanged_strings);
