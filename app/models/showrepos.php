@@ -11,6 +11,8 @@ foreach ($repos as $repo_name) {
 
 // Filter out empty strings and known exceptions from reference strings
 $reference_locale = Project::getReferenceLocale($repo);
+$supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
+
 $is_desktop_repo = in_array($repo, $desktop_repos);
 $filter_strings = function ($value, $id) use ($is_desktop_repo) {
     // Ignore empty strings
@@ -34,10 +36,6 @@ $filter_strings = function ($value, $id) use ($is_desktop_repo) {
     return true;
 };
 $reference_strings = array_filter(Utils::getRepoStrings($reference_locale, $repo), $filter_strings, ARRAY_FILTER_USE_BOTH);
-
-// Get supported locales, ignore the reference locale
-$supported_locales = Project::getRepositoryLocales($repo);
-$supported_locales = array_diff($supported_locales, [$reference_locale]);
 
 // Reference locale count
 $string_count = [];
