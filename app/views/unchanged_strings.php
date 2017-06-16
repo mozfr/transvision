@@ -43,8 +43,8 @@ foreach ($unchanged_strings as $string_id => $string_value) {
 
     $content .= "  <tr class='{$component} {$search_id}'>\n" .
                 "    <td dir='ltr'><a href='{$entity_link}'>{$string_id}</a></td>\n" .
-                "    <td dir='{$direction}' lang='{$source_locale}'>{$string_value}</td>\n" .
-                "    <td dir='{$direction}' lang='{$locale}'>" . $strings_locale[$string_id] . "</td>\n" .
+                "    <td dir='{$direction}' lang='{$source_locale}'>" . Utils::secureText($string_value) . "</td>\n" .
+                "    <td dir='{$direction}' lang='{$locale}'>" . Utils::secureText($strings_locale[$string_id]) . "</td>\n" .
                 "  </tr>\n";
 }
 $content .= "</tbody>\n</table>\n";
