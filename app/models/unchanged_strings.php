@@ -13,6 +13,10 @@ $reference_locale = Project::getReferenceLocale($repo);
 $supported_locales = array_filter(Project::getRepositoryLocales($repo), function($loc) {
     return ! Strings::startsWith($loc, 'en-');
 });
+// If the requested locale is not available, fall back to the first
+if (! in_array($locale, $supported_locales)) {
+    $locale = array_shift($supported_locales);
+}
 
 $target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
 
