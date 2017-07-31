@@ -66,20 +66,22 @@ class Project extends atoum\test
     public function getRepositoryLocalesDP()
     {
         return [
-            ['central', ['en-US', 'fr']],
-            ['release', ['en-US']],
+            ['central', ['en-US', 'fr', 'it'], []],
+            ['central', ['fr', 'it'], ['en-US']],
+            ['central', ['it'], ['en-US', 'fr']],
+            ['release', ['en-US'], []],
         ];
     }
 
     /**
      * @dataProvider getRepositoryLocalesDP
      */
-    public function testGetRepositoryLocales($a, $b)
+    public function testGetRepositoryLocales($a, $b, $c)
     {
         $obj = new _Project();
         $this
-            ->array($obj->getRepositoryLocales($a))
-                ->isEqualTo($b);
+            ->array($obj->getRepositoryLocales($a, $b))
+                ->isEqualTo($c);
     }
 
     public function getLocaleRepositoriesDP()

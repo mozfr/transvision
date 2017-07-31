@@ -7,10 +7,18 @@ $channel_selector = Utils::getHtmlSelectOptions(
     $repo,
     true
 );
-$target_locales_list = Utils::getHtmlSelectOptions(
-    Project::getRepositoryLocales($repo),
-    $locale
-);
+
+$reference_locale = Project::getReferenceLocale($repo);
+// Exclude all en-* from this view
+$supported_locales = array_filter(Project::getRepositoryLocales($repo), function($loc) {
+    return ! Strings::startsWith($loc, 'en-');
+});
+// If the requested locale is not available, fall back to the first
+if (! in_array($locale, $supported_locales)) {
+    $locale = array_shift($supported_locales);
+}
+
+$target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
 
 // Load strings
 $strings_locale = Utils::getRepoStrings($locale, $repo);

@@ -97,13 +97,15 @@ class Project
     }
 
     /**
-     * Get the list of locales available for a repository
+     * Get the list of locales available for a repository, exclude a
+     * subset if needed
      *
      * @param string $repository ID of the repository
+     * @param array  $ignored    Array of excluded locales
      *
      * @return array A sorted list of locales
      */
-    public static function getRepositoryLocales($repository)
+    public static function getRepositoryLocales($repository, $ignored = [])
     {
         $file_name = APP_SOURCES . "{$repository}.txt";
         $supported_locales = [];
@@ -117,6 +119,10 @@ class Project
             $supported_locales[] = $reference_locale;
         }
         sort($supported_locales);
+
+        if (! empty($ignored)) {
+            $supported_locales = array_diff($supported_locales, $ignored);
+        }
 
         return $supported_locales;
     }

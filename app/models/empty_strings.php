@@ -11,12 +11,13 @@ $channel_selector = Utils::getHtmlSelectOptions(
     true
 );
 
-$target_locales_list = Utils::getHtmlSelectOptions(
-    Project::getRepositoryLocales($repo),
-    $locale
-);
-
 $reference_locale = Project::getReferenceLocale($repo);
+$supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
+// If the requested locale is not available, fall back to the first
+if (! in_array($locale, $supported_locales)) {
+    $locale = array_shift($supported_locales);
+}
+$target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
 
 $reference_strings = Utils::getRepoStrings($reference_locale, $repo);
 $locale_strings = Utils::getRepoStrings($locale, $repo);

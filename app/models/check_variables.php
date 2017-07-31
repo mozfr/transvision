@@ -1,7 +1,14 @@
 <?php
 namespace Transvision;
 
-$source = Utils::getRepoStrings(Project::getReferenceLocale($repo), $repo);
+$reference_locale = Project::getReferenceLocale($repo);
+$supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
+// If the requested locale is not available, fall back to the first
+if (! in_array($locale, $supported_locales)) {
+    $locale = array_shift($supported_locales);
+}
+
+$source = Utils::getRepoStrings($reference_locale, $repo);
 $target = Utils::getRepoStrings($locale, $repo);
 
 // Set up channel selector, ignore mozilla.org
@@ -10,10 +17,7 @@ unset($channels['mozilla_org']);
 $channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
 
 // Build the target locale switcher
-$target_locales_list = Utils::getHtmlSelectOptions(
-    Project::getRepositoryLocales($repo),
-    $locale
-);
+$target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
 
 $source = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $source);
 $target = array_map(['Transvision\AnalyseStrings', 'cleanUpEntities'], $target);
