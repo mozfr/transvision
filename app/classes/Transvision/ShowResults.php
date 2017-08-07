@@ -240,13 +240,14 @@ class ShowResults
     /**
      * Return link to edit a message on external tool used by requested locale
      *
-     * @param string $tool   Name of the external tool (locamotion, pontoon)
+     * @param string $repo   Repository
      * @param string $key    Key of the current string
+     * @param string $text   Text of the current strings
      * @param string $locale Current locale
      *
      * @return string HTML link to edit the string inside the tool used by this locale
      */
-    public static function getEditLink($tool, $key, $locale)
+    public static function getEditLink($repo, $key, $text, $locale)
     {
         $component = explode('/', $key)[0];
         $fileAndRawString = explode(':', $key);
@@ -256,28 +257,25 @@ class ShowResults
             return '';
         }
 
-        if ($tool == 'locamotion') {
-            switch ($component) {
-                case 'calendar':
-                    $project_name = 'lightning';
-                    break;
-                case 'chat':
-                case 'editor':
-                case 'mail':
-                    $project_name = 'thunderbird';
-                    break;
-                case 'mobile':
-                    $project_name = 'mobile';
-                    break;
-                case 'suite':
-                    $project_name = 'seamonkey';
-                    break;
-                default:
-                    $project_name = 'firefox';
-            }
-            $edit_link = "https://mozilla.locamotion.org/{$locale}/{$project_name}/translate/{$fileAndRawString[0]}.po#search={$fileAndRawString[1]}&sfields=locations";
-            $tool_name = 'Pootle';
+        // Ignore Beta and Release
+        if (in_array($repo, ['beta', 'release'])) {
+            return '';
+        }
+
+        // We only support Pontoon
+        $tool_name = 'Pontoon';
+
+        if ($repo == 'mozilla_org') {
+            $project_name = 'mozillaorg';
+            $resource_path = ltrim($fileAndRawString[0], 'mozilla_org/');
+            $search_key = $text;
+        } elseif ($repo == 'firefox_ios') {
+            $project_name = 'firefox-for-ios';
+            $resource_path = 'firefox-ios.xliff';
+            $search_key = $text;
         } else {
+            $resource_path = $fileAndRawString[0];
+            $search_key = $fileAndRawString[1];
             switch ($component) {
                 case 'calendar':
                     $project_name = 'lightning';
@@ -296,9 +294,9 @@ class ShowResults
                 default:
                     $project_name = 'firefox';
             }
-            $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$fileAndRawString[0]}?search={$fileAndRawString[1]}";
-            $tool_name = 'Pontoon';
         }
+
+        $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$resource_path}?search={$search_key}";
 
         return "&nbsp;<a class='edit_link' target='_blank' href='{$edit_link}'>&lt;edit in {$tool_name}&gt;</a>";
     }
@@ -396,8 +394,8 @@ class ShowResults
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
-            $edit_link = ($current_repo == 'central' && $toolUsedByTargetLocale != '')
-                ? self::getEditLink($toolUsedByTargetLocale, $key, $locale2)
+            $edit_link = $toolUsedByTargetLocale != ''
+                ? self::getEditLink($current_repo, $key, $target_string, $locale2)
                 : '';
 
             if ($transliterate) {
