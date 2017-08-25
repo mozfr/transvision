@@ -87,6 +87,7 @@ class VersionControl
             'chat/',
             'devtools/client/',
             'devtools/shared/',
+            'devtools/shim/',
             'dom/',
             'editor/ui/',
             'embedding/android/',

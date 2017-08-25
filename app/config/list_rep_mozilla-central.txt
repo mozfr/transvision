@@ -6,6 +6,7 @@
 ./browser/locales/en-US
 ./devtools/client/locales/en-US
 ./devtools/shared/locales/en-US
+./devtools/shim/locales/en-US
 ./dom/locales/en-US
 ./extensions/spellcheck/locales/en-US
 ./intl/locales/en-US
