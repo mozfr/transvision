@@ -92,6 +92,12 @@ class VersionControl extends atoum\test
             ],
             [
                 'en-US',
+                'central',
+                'devtools/shim/key-shortcuts.properties:toggleToolbox.commandkey',
+                'https://hg.mozilla.org/mozilla-central/file/default/devtools/shim/locales/en-US/key-shortcuts.properties',
+            ],
+            [
+                'en-US',
                 'release',
                 'browser/chrome/browser/browser-pocket.properties:removepage',
                 'https://hg.mozilla.org/releases/mozilla-release/file/default/browser/locales/en-US/chrome/browser/browser-pocket.properties',
