@@ -432,6 +432,14 @@ class ShowResults extends atoum\test
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
             ],
+            // Test URLencode
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '%(test)',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
+            ],
         ];
     }
 

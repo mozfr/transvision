@@ -252,14 +252,29 @@ class ShowResults
         $component = explode('/', $key)[0];
         $fileAndRawString = explode(':', $key);
 
+        $excluded_repos = ['beta', 'release'];
+        $free_text_repos = ['mozilla_org', 'firefox_ios'];
+
         // Ignore files in /extensions
         if ($component == 'extensions') {
             return '';
         }
 
         // Ignore Beta and Release
-        if (in_array($repo, ['beta', 'release'])) {
+        if (in_array($repo, $excluded_repos)) {
             return '';
+        }
+
+        /*
+            If search is performed on the string, limit search at 250 characters
+            and URLencode the text.
+        */
+        if (in_array($repo, $free_text_repos)) {
+            $limit = 250;
+            if (mb_strlen($text) > $limit) {
+                $text = mb_strcut($text, 0, $limit);
+            }
+            $text = urlencode($text);
         }
 
         // We only support Pontoon
