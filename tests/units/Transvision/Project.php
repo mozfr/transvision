@@ -160,7 +160,6 @@ class Project extends atoum\test
     public function getLocaleToolDP()
     {
         return [
-            ['ar', 'locamotion'],
             ['fr', ''],
             ['sr', 'pontoon'],
             ['te', 'pontoon'],

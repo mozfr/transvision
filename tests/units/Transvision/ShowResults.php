@@ -349,101 +349,110 @@ class ShowResults extends atoum\test
         return [
             // Pontoon links
             [
-                'pontoon',
+                'central',
                 'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
+                'test',
                 'fr',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/chrome/browser/browser.properties?search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
+                'test',
                 'fr',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'chat/commands.properties:dnd',
+                'test',
                 'fr',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/chat/commands.properties?search=dnd'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
+                'test',
                 'fr',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'extensions/irc/chrome/about.dtd:chatzilla.label',
-                'es',
+                'test',
+                '',
                 '',
             ],
             [
-                'pontoon',
+                'central',
                 'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
+                'test',
                 'de',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'mobile/android/base/android_strings.dtd:activity_stream_highlights',
+                'test',
                 'bg',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
-                'pontoon',
+                'central',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
+                'test',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey/suite/chrome/browser/taskbar.properties?search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
             ],
-            // Locamotion links
             [
-                'locamotion',
-                'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/firefox/translate/browser/chrome/browser/browser.properties.po#search=webextPerms.hostDescription.allUrls&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
-                'chat/commands.properties:dnd',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/thunderbird/translate/chat/commands.properties.po#search=dnd&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
-                'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/lightning/translate/calendar/chrome/calendar/calendar.dtd.po#search=calendar.calendar.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
-                'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/fr/thunderbird/translate/editor/ui/chrome/composer/editingOverlay.dtd.po#search=fileRecentMenu.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
-                'extensions/irc/chrome/about.dtd:chatzilla.label',
-                'es',
+                'beta',
+                'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
+                'test',
+                'it',
                 '',
             ],
             [
-                'locamotion',
-                'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
-                'de',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/de/thunderbird/translate/mail/chrome/messenger/addressbook/abContactsPanel.dtd.po#search=ccButton.label&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
-                'mobile/android/base/android_strings.dtd:activity_stream_highlights',
-                'bg',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/bg/mobile/translate/mobile/android/base/android_strings.dtd.po#search=activity_stream_highlights&sfields=locations'>&lt;edit in Pootle&gt;</a>",
-            ],
-            [
-                'locamotion',
+                'release',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
+                'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://mozilla.locamotion.org/it/seamonkey/translate/suite/chrome/browser/taskbar.properties.po#search=taskbar.tasks.composeMessage.description&sfields=locations'>&lt;edit in Pootle&gt;</a>",
+                '',
+            ],
+            [
+                'mozilla_org',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'test',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/firefox/android/index.lang?search=test'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'test',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '@@missing@@',
+                'it',
+                '',
+            ],
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '<em class="error">Warning: Missing string</em>',
+                'it',
+                '',
+            ],
+            // Test URLencode
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '%(test)',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
             ],
         ];
     }
@@ -451,11 +460,11 @@ class ShowResults extends atoum\test
     /**
      * @dataProvider getEditLinkDP
      */
-    public function testGetEditLink($a, $b, $c, $d)
+    public function testGetEditLink($a, $b, $c, $d, $e)
     {
         $obj = new _ShowResults();
         $this
-            ->string($obj->getEditLink($a, $b, $c))
-                ->isEqualTo($d);
+            ->string($obj->getEditLink($a, $b, $c, $d))
+                ->isEqualTo($e);
     }
 }
