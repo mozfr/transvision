@@ -271,7 +271,7 @@ class ShowResults
         */
         if (in_array($repo, $free_text_repos)) {
             # Disable link if the translation is missing
-            if ($text == '@@missing@@') {
+            if ($text == '@@missing@@' || Strings::startsWith($text, '<em class="error">Warning:')) {
                 return '';
             }
             $limit = 250;

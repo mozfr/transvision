@@ -439,6 +439,13 @@ class ShowResults extends atoum\test
                 'it',
                 '',
             ],
+            [
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '<em class="error">Warning: Missing string</em>',
+                'it',
+                '',
+            ],
             // Test URLencode
             [
                 'firefox_ios',
