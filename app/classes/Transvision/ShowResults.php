@@ -270,6 +270,10 @@ class ShowResults
             and URLencode the text.
         */
         if (in_array($repo, $free_text_repos)) {
+            # Disable link if the translation is missing
+            if ($text == '@@missing@@') {
+                return '';
+            }
             $limit = 250;
             if (mb_strlen($text) > $limit) {
                 $text = mb_strcut($text, 0, $limit);
