@@ -50,6 +50,9 @@ if (count($empty_strings) == 0) {
     echo '<div class="message"><p>No strings found.</p></div>';
 } else {
     $text_direction = RTLSupport::getDirection($locale);
+    // Get the tool used to edit strings for the target locale
+    $toolUsedByTargetLocale = Project::getLocaleTool($locale);
+
     $table = "<table class='collapsable results_table sortable'>
                  <thead>
                    <tr class='column_headers'>
@@ -67,10 +70,14 @@ if (count($empty_strings) == 0) {
         $locale_string = Strings::highlightSpecial(htmlspecialchars($strings['translation']), false);
 
         $entity_link = "?sourcelocale={$reference_locale}"
-        . "&locale={$locale}"
-        . "&repo={$repo}"
-        . "&search_type=entities&recherche={$key}"
-        . '&entire_string=entire_string';
+            . "&locale={$locale}"
+            . "&repo={$repo}"
+            . "&search_type=entities&recherche={$key}"
+            . '&entire_string=entire_string';
+
+        $edit_link = $toolUsedByTargetLocale != ''
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $key, $strings['translation'], $locale)
+            : '';
 
         $bugzilla_link = [Bugzilla::reportErrorLink(
             $locale, $key, $reference_string, $locale_string, $repo, $entity_link
@@ -119,6 +126,7 @@ if (count($empty_strings) == 0) {
                   <a class='source_link' href='{$locale_path}'>
                     &lt;source&gt;
                   </a>
+                  {$edit_link}
                   &nbsp;
                   <a class='bug_link' target='_blank' href='{$bugzilla_link[0]}'>
                     &lt;report a bug&gt;
