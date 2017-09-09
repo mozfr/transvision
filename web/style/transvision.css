@@ -1061,6 +1061,14 @@ input[type="checkbox"]:disabled + label {
     margin-top: -10px;
 }
 
+/* Access keys view */
+#keys .error {
+    margin: 0 auto;
+    text-align: center;
+    width: 75%;
+    color: #ed3860;
+}
+
 /* Empty strings view */
 #empty_strings .intro,
 #empty_strings .message {
@@ -1136,6 +1144,12 @@ input[type="checkbox"]:disabled + label {
 
     table.collapsable th {
         display: none;
+    }
+
+    table.collapsable tr {
+        float: left;
+        width: 100%;
+        padding: 3px;
     }
 
     table.collapsable td {

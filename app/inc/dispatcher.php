@@ -35,7 +35,7 @@ switch ($url['path']) {
         $js_files[] = '/assets/jQuery-Autocomplete/dist/jquery.autocomplete.min.js';
         break;
     case 'accesskeys':
-        $view = 'accesskeys';
+        $controller = 'accesskeys';
         $page_title = 'Access Keys';
         $page_descr = 'Check your access keys.';
         $js_files[] = '/js/sorttable.js';
