@@ -29,6 +29,9 @@ if ($error_count > 0) {
           </thead>
           <tbody>\n";
 
+    // Get the tool used to edit strings for the target locale
+    $toolUsedByTargetLocale = Project::getLocaleTool($locale);
+
     foreach ($var_errors as $string_id) {
         // Link to entity
         $string_id_link = "?sourcelocale={$source_locale}" .
@@ -41,8 +44,11 @@ if ($error_count > 0) {
             $target[$string_id], $repo, $string_id_link
         );
 
-        $path_locale1 = VersionControl::hgPath($source_locale, $repo, $string_id);
-        $path_locale2 = VersionControl::hgPath($locale, $repo, $string_id);
+        $path_source_locale = VersionControl::hgPath($source_locale, $repo, $string_id);
+        $path_target_locale = VersionControl::hgPath($locale, $repo, $string_id);
+        $edit_link = $toolUsedByTargetLocale != ''
+            ? ShowResults::getEditLink($repo, $string_id, $target[$string_id], $locale)
+            : '';
 
         $component = explode('/', $string_id)[0];
         $content .= "<tr class='{$component} {$search_id}'>
@@ -56,14 +62,15 @@ if ($error_count > 0) {
                           <span class='celltitle'>{$source_locale}</span>
                           <div class='string'>" . Utils::secureText($source[$string_id]) . "</div>
                           <div class='result_meta_link'>
-                            <a class='source_link' href='{$path_locale1}'>&lt;source&gt;</a>
+                            <a class='source_link' href='{$path_source_locale}'>&lt;source&gt;</a>
                           </div>
                        </td>
                         <td dir='{$direction2}'>
                           <span class='celltitle'>$locale</span>
                           <div class='string'>" . Utils::secureText($target[$string_id]) . "</div>
                           <div class='result_meta_link'>
-                            <a class='source_link' href='{$path_locale2}'>&lt;source&gt;</a>
+                            <a class='source_link' href='{$path_target_locale}'>&lt;source&gt;</a>
+                            {$edit_link}
                             <a class='bug_link' target='_blank' href='{$bugzilla_link}'>&lt;report a bug&gt;</a>
                           </div>
                        </td>
