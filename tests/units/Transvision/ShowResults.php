@@ -349,6 +349,7 @@ class ShowResults extends atoum\test
         return [
             // Pontoon links
             [
+                'pontoon',
                 'central',
                 'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
                 'test',
@@ -356,6 +357,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/chrome/browser/browser.properties?search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'test',
@@ -363,6 +365,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'chat/commands.properties:dnd',
                 'test',
@@ -370,6 +373,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/chat/commands.properties?search=dnd'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
                 'test',
@@ -377,6 +381,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'extensions/irc/chrome/about.dtd:chatzilla.label',
                 'test',
@@ -384,6 +389,7 @@ class ShowResults extends atoum\test
                 '',
             ],
             [
+                'pontoon',
                 'central',
                 'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
                 'test',
@@ -391,6 +397,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'mobile/android/base/android_strings.dtd:activity_stream_highlights',
                 'test',
@@ -398,6 +405,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'central',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
@@ -405,6 +413,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey/suite/chrome/browser/taskbar.properties?search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'beta',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
@@ -412,6 +421,7 @@ class ShowResults extends atoum\test
                 '',
             ],
             [
+                'pontoon',
                 'release',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
@@ -419,6 +429,7 @@ class ShowResults extends atoum\test
                 '',
             ],
             [
+                'pontoon',
                 'mozilla_org',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 'test',
@@ -426,6 +437,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/firefox/android/index.lang?search=test'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'firefox_ios',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 'test',
@@ -433,6 +445,7 @@ class ShowResults extends atoum\test
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
+                'pontoon',
                 'firefox_ios',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 '@@missing@@',
@@ -440,6 +453,7 @@ class ShowResults extends atoum\test
                 '',
             ],
             [
+                'pontoon',
                 'firefox_ios',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 '<em class="error">Warning: Missing string</em>',
@@ -448,11 +462,21 @@ class ShowResults extends atoum\test
             ],
             // Test URLencode
             [
+                'pontoon',
                 'firefox_ios',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 '%(test)',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            // Test unknown tool
+            [
+                'pontoon.test',
+                'firefox_ios',
+                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                '%(test)',
+                'it',
+                '',
             ],
         ];
     }
@@ -460,11 +484,11 @@ class ShowResults extends atoum\test
     /**
      * @dataProvider getEditLinkDP
      */
-    public function testGetEditLink($a, $b, $c, $d, $e)
+    public function testGetEditLink($a, $b, $c, $d, $e, $f)
     {
         $obj = new _ShowResults();
         $this
-            ->string($obj->getEditLink($a, $b, $c, $d))
-                ->isEqualTo($e);
+            ->string($obj->getEditLink($a, $b, $c, $d, $e))
+                ->isEqualTo($f);
     }
 }

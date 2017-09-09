@@ -240,6 +240,7 @@ class ShowResults
     /**
      * Return link to edit a message on external tool used by requested locale
      *
+     * @param string $tool   Tool name
      * @param string $repo   Repository
      * @param string $key    Key of the current string
      * @param string $text   Text of the current strings
@@ -247,8 +248,13 @@ class ShowResults
      *
      * @return string HTML link to edit the string inside the tool used by this locale
      */
-    public static function getEditLink($repo, $key, $text, $locale)
+    public static function getEditLink($tool, $repo, $key, $text, $locale)
     {
+        // Return if it's not a supported tool
+        if (! in_array($tool, ['pontoon'])) {
+            return '';
+        }
+
         $component = explode('/', $key)[0];
         $fileAndRawString = explode(':', $key);
 
@@ -414,7 +420,7 @@ class ShowResults
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
             $edit_link = $toolUsedByTargetLocale != ''
-                ? self::getEditLink($current_repo, $key, $target_string, $locale2)
+                ? self::getEditLink($toolUsedByTargetLocale, $current_repo, $key, $target_string, $locale2)
                 : '';
 
             if ($transliterate) {

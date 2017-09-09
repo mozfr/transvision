@@ -47,7 +47,7 @@ if ($error_count > 0) {
         $path_source_locale = VersionControl::hgPath($source_locale, $repo, $string_id);
         $path_target_locale = VersionControl::hgPath($locale, $repo, $string_id);
         $edit_link = $toolUsedByTargetLocale != ''
-            ? ShowResults::getEditLink($repo, $string_id, $target[$string_id], $locale)
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $string_id, $target[$string_id], $locale)
             : '';
 
         $component = explode('/', $string_id)[0];
