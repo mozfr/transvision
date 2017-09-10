@@ -327,6 +327,17 @@ h3 {
     display: block;
 }
 
+#search_warning {
+    margin: 0 auto;
+    text-align: center;
+    width: 75%;
+    margin-top: 15px;
+}
+
+#search_warning strong {
+    color: #ed3860;
+}
+
 /* Tables */
 
 table {
