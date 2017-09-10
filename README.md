@@ -3,7 +3,7 @@
 
 Transvision is a Web application targeting the Mozilla localization community, created and maintained by the French Mozilla community (https://www.mozfr.org).
 
-The main purpose of Transvision is to provide a specialized search engine to find localized strings in Mozilla code repositories for all Mozilla products (Firefox, Thunderbird, Seamonkey) and websites (currenty only www.mozilla.org is supported) via a Web interface. There are also side-features such as checks for common typographical errors for some languages, validity checks for localized access keys in the UI, or comparison views between Mozilla repository channels (Nightly/Beta/Release).
+The main purpose of Transvision is to provide a specialized search engine to find localized strings in Mozilla code repositories for all Mozilla products (Firefox, Thunderbird, Seamonkey) and websites (currently only www.mozilla.org is supported) via a Web interface. There are also side-features such as checks for common typographical errors for some languages, validity checks for localized access keys in the UI, or comparison views between Mozilla repository channels (Nightly/Beta/Release).
 
 Transvision is written in PHP, the string extraction is done with the Silme library (Python) and server install/maintenance scripts are in Bash.
 
@@ -50,7 +50,7 @@ A PHP script is available in `app/scripts/check_requirements` to check the most 
 3. Copy `app/config/config.ini-dist` to `app/config/config.ini` and adapt the variables to your system.
 4. Run first `app/scripts/setup.sh`, then `app/scripts/glossaire.sh`. This process will take some time as it downloads the source code for all Mozilla products (~20GB of data).
 5. Install Composer (Dependency Manager for PHP, https://getcomposer.org/) and run `php composer.phar install` (or "composer install" if installed globally) inside the web folder.
-6. You can run Transvision in your local machine either with the ```start.sh``` script or with ```php -S localhost:8082 -t web/ app/inc/router.php``` and opening http://localhost:8082/ with your browser. To bound PHP internal web server to 0.0.0.0 use ```start.sh -remote```: server will be accessible from other devices in the LAN, or from the host machine in case Transvision is running inside a virtual machine.
+6. You can run Transvision in your local machine either with the ```start.sh``` script or with ```php -S localhost:8082 -t web/ app/inc/router.php``` and opening http://localhost:8082/ with your browser. To bound PHP internal web server to 0.0.0.0 use ```start.sh -remote```: the server will be accessible from other devices on the LAN, or from the host machine in case Transvision is running inside a virtual machine.
 
 ## Snapshot installation (regular development)
 
