@@ -33,17 +33,30 @@ $target = Utils::getRepoStrings($locale, $repo);
 $ak_string_ids = array_filter(
     array_keys($target),
     function ($entity) {
-        return strpos($entity, 'accesskey') !== false;
+        return strpos($entity, '.accesskey') !== false;
     }
 );
 
 // Possible labels associated to an access key
-$ak_labels = ['label', 'title', 'message'];
+$ak_labels = ['.label', '.title', '.message', ''];
+
+// Known false positives
+$ignored_ids = [
+    'suite/chrome/mailnews/messenger.dtd:searchButton.title',
+];
 
 $ak_results = [];
 foreach ($ak_string_ids as $ak_string_id) {
     foreach ($ak_labels as $ak_label) {
-        $entity = str_replace('accesskey', $ak_label, $ak_string_id);
+        /*
+            Replace 'accesskey' with one of the known IDs used for labels.
+            E.g.:
+            * foo.accesskey -> foo.label
+            * foo.accesskey -> foo.title
+            * foo.accesskey -> foo.message
+            * foo.accesskey -> foo (common in devtools)
+        */
+        $entity = str_replace('.accesskey', $ak_label, $ak_string_id);
         $current_ak = $target[$ak_string_id];
 
         /*
@@ -52,6 +65,10 @@ foreach ($ak_string_ids as $ak_string_id) {
             * Empty access keys in source locale.
         */
         if (isset($target[$entity]) && ! empty($target[$entity]) && ! empty($source[$ak_string_id]) ) {
+            // Ignore known false positives
+            if (in_array($entity, $ignored_ids)) {
+                continue;
+            }
             /*
                 Store the string if the access key is empty or using a
                 character not available in the label.
