@@ -29,6 +29,7 @@ $(document).ready(function() {
                     max_results: 10 // eslint-disable-line
                 },
                 minChars: 2,
+                triggerSelectOnValidInput: false,
                 transformResult: function(response) {
                     var data = JSON.parse(response);
                     return {
