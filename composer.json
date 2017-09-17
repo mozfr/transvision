@@ -25,15 +25,15 @@
             "package": {
                 "name": "zenorocha/clipboard.js",
                 "type": "component",
-                "version": "1.5.16",
+                "version": "1.7.1",
                 "dist": {
                     "type": "zip",
-                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.5.16.zip"
+                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.7.1.zip"
                 },
                 "source": {
                     "type": "git",
                     "url": "https://github.com/zenorocha/clipboard.js.git",
-                    "reference": "1.5.16"
+                    "reference": "1.7.1"
                 },
                 "extra": {
                     "component": {
@@ -49,15 +49,15 @@
             "package": {
                 "name": "devbridge/jQuery-Autocomplete",
                 "type": "component",
-                "version": "1.2.24",
+                "version": "1.4.2",
                 "dist": {
                     "type": "zip",
-                    "url": "https://github.com/devbridge/jQuery-Autocomplete/archive/v1.2.24.zip"
+                    "url": "https://github.com/devbridge/jQuery-Autocomplete/archive/v1.4.2.zip"
                 },
                 "source": {
                     "type": "git",
                     "url": "https://github.com/devbridge/jQuery-Autocomplete.git",
-                    "reference": "1.2.24"
+                    "reference": "1.4.2"
                 },
                 "extra": {
                     "component": {
@@ -83,7 +83,7 @@
 
     "require": {
         "components/jquery": "~1.1",
-        "devbridge/jQuery-Autocomplete": "~1.2.",
+        "devbridge/jQuery-Autocomplete": "~1.4.",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
@@ -91,7 +91,7 @@
         "pascalc/tinyl10n" : "~0.1",
         "pascalc/vcs": "~0.1",
         "robloach/component-installer": "*",
-        "zenorocha/clipboard.js": "~1.5."
+        "zenorocha/clipboard.js": "~1.7."
     },
 
     "require-dev": {
@@ -100,7 +100,7 @@
         "friendsofphp/php-cs-fixer": "~2.1",
         "pchevrel/verif": "0.4",
         "hirak/prestissimo": "~0.1.",
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpdocumentor/phpdocumentor": "~2.0"
     },
 
     "autoload": {
