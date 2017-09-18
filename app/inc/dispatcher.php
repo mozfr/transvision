@@ -38,6 +38,7 @@ switch ($url['path']) {
         $controller = 'accesskeys';
         $page_title = 'Access Keys';
         $page_descr = 'Check your access keys.';
+        $js_files[] = '/js/component_filter.js';
         $js_files[] = '/js/sorttable.js';
         break;
     case Strings::StartsWith($url['path'], 'api'):

@@ -73,9 +73,7 @@ foreach ($ak_string_ids as $ak_string_id) {
                 Store the string if the access key is empty or using a
                 character not available in the label.
             */
-            if ($current_ak == '') {
-                $ak_results[$ak_string_id] = $entity;
-            } elseif (mb_stripos($target[$entity], $current_ak) === false) {
+            if (($current_ak == '') || (mb_stripos($target[$entity], $current_ak) === false)) {
                 $ak_results[$ak_string_id] = $entity;
             }
         }

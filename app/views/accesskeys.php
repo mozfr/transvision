@@ -80,7 +80,7 @@ if (! empty($ak_results)) {
                        <td dir='{$direction}'>
                           <span class='celltitle'>Label</span>
                           <div class='string'>{$label_value}</div>
-                          <div class='result_meta_link'>
+                          <div dir='ltr' class='result_meta_link'>
                             <a class='source_link' href='{$path_label}'>&lt;source&gt;</a>
                             {$edit_link_label}
                           </div>
@@ -88,7 +88,7 @@ if (! empty($ak_results)) {
                        <td dir='{$direction}'>
                           <span class='celltitle'>Access&nbsp;key</span>
                           <div class='string'>{$ak_value}</div>
-                          <div class='result_meta_link'>
+                          <div dir='ltr' class='result_meta_link'>
                             <a class='source_link' href='{$path_ak}'>&lt;source&gt;</a>
                             {$edit_link_ak}
                           </div>
