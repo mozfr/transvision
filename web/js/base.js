@@ -59,6 +59,20 @@ $(document).ready(function() {
             .prop('selected', true);
     });
 
+    // When using the simple search form, remove hashes from URL
+    $('#simplesearchform').submit(function(e){
+        var formDestination = this.action;
+        if (formDestination.indexOf('#') !== -1) {
+            e.preventDefault();
+
+            var formValues = $(this).serialize();
+            var newDestination = formDestination.split('?')[0] + '?' + formValues;
+            console.log(formDestination);
+            console.log(newDestination);
+            window.location.href = newDestination;
+        }
+    });
+
     // Hides search options on small screens (check if the warning is displayed)
     if ($('.smallscreen_notices').is(':visible')) {
         $('#searchoptions').hide();
