@@ -59,6 +59,14 @@ $(document).ready(function() {
             .prop('selected', true);
     });
 
+    // When using the simple search form, remove hashes from URL
+    $('#simplesearchform').submit(function(e){
+        if (window.location.hash !== '') {
+            e.preventDefault();
+            window.location.href = window.location.pathname + '?' + $(this).serialize();
+        }
+    });
+
     // Hides search options on small screens (check if the warning is displayed)
     if ($('.smallscreen_notices').is(':visible')) {
         $('#searchoptions').hide();
