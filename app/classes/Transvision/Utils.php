@@ -83,52 +83,6 @@ class Utils
     }
 
     /**
-     * Print a simple table, used in the accesskeys view, needs rework
-     *
-     * @param array  $arr      First column of data
-     * @param array  $arr2     Optional. A second column of data
-     * @param array  $titles   Column titles, by default 4 columns
-     * @param string $cssclass optional css class to apply to the table
-     *
-     * @return void
-     */
-    public static function printSimpleTable(
-        $arr,
-        $arr2 = false,
-        $titles = ['Column1', 'Column2', 'Column3', 'Column4'],
-        $cssclass = ''
-    ) {
-        if ($cssclass != '') {
-            echo "<table class='{$cssclass}'>";
-        } else {
-            echo '<table>';
-        }
-        echo "<thead>\n  <tr class='column_headers'>\n" .
-             "    <th>{$titles[0]}</th><th>{$titles[1]}</th>\n";
-
-        if ($arr2) {
-            echo "    <th>{$titles[2]}</th><th>{$titles[3]}</th>\n";
-        }
-
-        echo "  </tr>\n</thead>\n<tbody>\n";
-
-        foreach ($arr as $key => $val) {
-            echo '<tr>';
-            if ($arr2) {
-                echo "<td><span class='celltitle'>{$titles[0]}</span><div class='string'>" . ShowResults::formatEntity($val) . '</div></td>';
-                echo "<td><span class='celltitle'>{$titles[1]}</span><div class='string'>" . $arr2[$val] . '</div></td>';
-                echo "<td><span class='celltitle'>{$titles[2]}</span><div class='string'>" . str_replace(' ', '<span class="highlight-red"> </span>', $arr2[$key]) . '</div></td>';
-                echo "<td><span class='celltitle'>{$titles[3]}</span><div class='string'>" . ShowResults::formatEntity($key) . '</div></td>';
-            } else {
-                echo "<td>{$key}</td>";
-                echo "<td>{$val}</td>";
-            }
-            echo '</tr>';
-        }
-        echo "</tbody>\n</table>\n";
-    }
-
-    /**
      * Split a sentence in words from longest to shortest, ignoring
      * words shorter than 2 characters.
      *

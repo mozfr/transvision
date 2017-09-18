@@ -1,63 +1,109 @@
 <?php
 namespace Transvision;
 
-require_once INC . 'l10n-init.php';
-
-$strings[$repo] = Utils::getRepoStrings($locale, $repo);
-$strings_english[$repo] = Utils::getRepoStrings('en-US', $repo);
-
-$channel_selector = Utils::getHtmlSelectOptions(
-    array_intersect_key(
-        $repos_nice_names,
-        array_flip($desktop_repos)
-    ),
-    $repo,
-    true
-);
-
-// Get the locale list
-$loc_list = Project::getRepositoryLocales($repo);
-
-// Build the target locale switcher
-$target_locales_list = Utils::getHtmlSelectOptions($loc_list, $locale);
-
-$akeys = array_filter(
-    array_keys($strings[$repo]),
-    function ($entity) {
-        return substr($entity, -9) == 'accesskey';
-    }
-);
-
-$ak_labels = ['.label', '.title', '.title2'];
-$ak_results = [];
-
-foreach ($akeys as $akey) {
-    $entity = substr($akey, 0, -10);
-    $akey_value = $strings[$repo][$akey];
-
-    foreach ($ak_labels as $ak_label) {
-        if (isset($strings[$repo][$entity . $ak_label])
-             && !empty($strings[$repo][$entity . $ak_label])
-             && isset($strings_english[$repo][$akey])
-             && !empty($strings_english[$repo][$akey])
-            ) {
-            if ($akey_value == '') {
-                $ak_results[$akey] = $entity . $ak_label;
-            } elseif (mb_stripos($strings[$repo][$entity . $ak_label], $akey_value) === false) {
-                $ak_results[$akey] = $entity . $ak_label;
-            } else {
-                break;
-            }
-        }
-    }
-}
 // Include the common simple search form
 include __DIR__ . '/simplesearchform.php';
 
-echo '<h2>' . count($ak_results) . ' potential accesskey errors</h2>';
-Utils::printSimpleTable(
-    $ak_results,
-    $strings[$repo],
-    ['Label entity', 'Label value', 'Access&nbsp;key', 'Access key entity'],
-    'collapsable sortable'
-);
+if (! empty($ak_results)) {
+    $search_id = 'accesskeys';
+    $content = '';
+    if (! empty($error_messages)) {
+        $content .= '<p class="error">' .
+            implode('<br/>', $error_messages) .
+            '</p>';
+    }
+    $content .= "<h2><span class=\"results_count_{$search_id}\">"
+        . Utils::pluralize(count($ak_results), 'potential access key error')
+        . "</span> found</h2>\n";
+
+    if (isset($filter_block)) {
+        $content .= "<div id='filters'>" .
+                    "  <h4>Filter by folder:</h4>\n" .
+                    "  <a href='#showall' id='showall' class='filter'>Show all results</a>\n" .
+                    $filter_block .
+                    "</div>\n";
+    }
+
+    $content .= "
+        <table class='collapsable results_table sortable {$search_id}'>
+          <thead>
+            <tr class='column_headers'>
+              <th>Entity</th>
+              <th>Label</th>
+              <th>Access&nbsp;key</th>
+              <th>Access&nbsp;key entity</th>
+            </tr>
+          </thead>
+          <tbody>\n";
+
+    // Get the tool used to edit strings for the target locale
+    $toolUsedByTargetLocale = Project::getLocaleTool($locale);
+
+    foreach ($ak_results as $ak_string => $ak_label) {
+        // Link to entity
+        $ak_link = "?sourcelocale={$reference_locale}" .
+           "&locale={$locale}" .
+           "&repo={$repo}" .
+           "&search_type=entities&recherche={$ak_string}" .
+           '&entire_string=entire_string';
+        $label_link = "?sourcelocale={$reference_locale}" .
+           "&locale={$locale}" .
+           "&repo={$repo}" .
+           "&search_type=entities&recherche={$ak_label}" .
+           '&entire_string=entire_string';
+
+        $path_ak = VersionControl::hgPath($locale, $repo, $ak_string);
+        $path_label = VersionControl::hgPath($locale, $repo, $ak_label);
+
+        $edit_link_ak = $toolUsedByTargetLocale != ''
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_string, $target[$ak_string], $locale)
+            : '';
+        $edit_link_label = $toolUsedByTargetLocale != ''
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_label, $target[$ak_label], $locale)
+            : '';
+
+        $ak_value = ! empty($target[$ak_string])
+            ? Utils::secureText($target[$ak_string])
+            : '<em class="error">(empty)</em>';
+        $label_value = ! empty($target[$ak_label])
+            ? Utils::secureText($target[$ak_label])
+            : '<em class="error">(empty)</em>';
+
+        $component = explode('/', $ak_string)[0];
+        $content .= "<tr class='{$component} {$search_id}'>
+                       <td>
+                          <span class='celltitle'>Entity</span>
+                          <span class='link_to_entity'>
+                            <a href=\"/{$label_link}\">" . ShowResults::formatEntity($ak_label) . "</a>
+                          </span>
+                       </td>
+                       <td dir='{$direction}'>
+                          <span class='celltitle'>Label</span>
+                          <div class='string'>{$label_value}</div>
+                          <div dir='ltr' class='result_meta_link'>
+                            <a class='source_link' href='{$path_label}'>&lt;source&gt;</a>
+                            {$edit_link_label}
+                          </div>
+                       </td>
+                       <td dir='{$direction}'>
+                          <span class='celltitle'>Access&nbsp;key</span>
+                          <div class='string'>{$ak_value}</div>
+                          <div dir='ltr' class='result_meta_link'>
+                            <a class='source_link' href='{$path_ak}'>&lt;source&gt;</a>
+                            {$edit_link_ak}
+                          </div>
+                       </td>
+                       <td>
+                          <span class='celltitle'>Access&nbsp;key entity</span>
+                          <span class='link_to_entity'>
+                            <a href=\"/{$ak_link}\">" . ShowResults::formatEntity($ak_string) . "</a>
+                          </span>
+                       </td>
+                     </tr>\n";
+    }
+    $content .= "</tbody>\n</table>\n";
+} else {
+    $content = '<h2>Congratulations, no errors found.</h2>';
+}
+
+print $content;

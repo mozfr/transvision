@@ -167,7 +167,7 @@ foreach ($entities as $entity) {
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
     $edit_link = $toolUsedByTargetLocale != ''
-        ? ShowResults::getEditLink($current_repo, $entity, $target_string, $locale)
+        ? ShowResults::getEditLink($toolUsedByTargetLocale, $current_repo, $entity, $target_string, $locale)
         : '';
 
     $table .= "
