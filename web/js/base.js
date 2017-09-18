@@ -61,15 +61,9 @@ $(document).ready(function() {
 
     // When using the simple search form, remove hashes from URL
     $('#simplesearchform').submit(function(e){
-        var formDestination = this.action;
-        if (formDestination.indexOf('#') !== -1) {
+        if (window.location.hash !== '') {
             e.preventDefault();
-
-            var formValues = $(this).serialize();
-            var newDestination = formDestination.split('?')[0] + '?' + formValues;
-            console.log(formDestination);
-            console.log(newDestination);
-            window.location.href = newDestination;
+            window.location.href = window.location.pathname + '?' + $(this).serialize();
         }
     });
 
