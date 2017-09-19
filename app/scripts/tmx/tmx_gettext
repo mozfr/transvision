@@ -23,27 +23,24 @@ include __DIR__ . '/../../inc/init.php';
 
 $project_name = $argv[1];
 
-$supported_projects = [
-    'focus_android' => [
-        'file_names' => [
-            'app.po',
-        ],
-        'base_path' => GIT . 'focus_android/locales',
-    ],
-];
-
-if (! isset($supported_projects[$project_name])) {
+if (! isset(Project::$repos_info[$project_name])) {
     die("Unknown project: {$project_name}.\n");
 }
+$repo_data = Project::$repos_info[$project_name];
+if ($repo_data['source_type'] != 'gettext') {
+    die("Unsupported format: {$repo_data['source_type']}.\n");
+}
+
 error_log('Extraction of strings from Gettext (.po) file');
 
-# TODO: need to map templates to en-US
-$base_path = $supported_projects[$project_name]['base_path'];
-foreach (Files::getFilenamesInFolder($base_path) as $locale) {
+$base_path = isset($repo_data['git_subfolder'])
+    ? GIT . "{$project_name}/{$repo_data['git_subfolder']}"
+    : GIT . $project_name;
+foreach (Files::getFoldersInPath($base_path) as $locale) {
     $out_translation = '';
     $total_strings = 0;
 
-    foreach ($supported_projects[$project_name]['file_names'] as $file_name) {
+    foreach ($repo_data['files'] as $file_name) {
         $po_path = "{$base_path}/{$locale}/{$file_name}";
 
         if ($locale == 'templates') {

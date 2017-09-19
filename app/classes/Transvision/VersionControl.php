@@ -20,7 +20,7 @@ class VersionControl
     public static function getVCS($repo)
     {
         $vcs = [
-            'git' => ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org'],
+            'git' => Project::$repos_lists['git'],
             'hg'  => Project::getDesktopRepositories(),
             'svn' => [],
         ];
@@ -122,40 +122,29 @@ class VersionControl
      */
     public static function gitPath($locale, $repo, $path)
     {
-        switch ($repo) {
-            case 'firefox_ios':
-                $repo = 'firefoxios-l10n';
-                $file_path = 'firefox-ios.xliff';
-                break;
-            case 'focus_android':
-                $repo = 'focus-android-l10n';
-                $file_path = self::extractFilePath($path);
-                break;
-            case 'focus_ios':
-                $repo = 'focusios-l10n';
-                $file_path = 'focus-ios.xliff';
-                break;
-            case 'mozilla_org':
-                $repo = 'www.mozilla.org';
-                $file_path = self::extractFilePath($path);
-                break;
-            default:
-                $file_path = $path;
-                break;
+        if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['git_repository'])) {
+            $repo_data = Project::$repos_info[$repo];
+            $repo = $repo_data['git_repository'];
+            $file_path = self::extractFilePath($path);
+            if (isset($repo_data['git_subfolder'])) {
+                $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
+            }
+        } else {
+            $file_path = $path;
         }
 
         return "https://github.com/mozilla-l10n/{$repo}/blob/master/{$locale}/$file_path";
     }
 
     /**
-     * Remove entity and project name from path
+     * Remove entity and project name from path (repo/file:entity)
      *
      * @param string $path A Transvision file path
      *
      * @return string The same path without the entity
      *                and internal project name
      */
-    private static function extractFilePath($path)
+    public static function extractFilePath($path)
     {
         $path = explode(':', $path);
         $path = explode('/', $path[0]);

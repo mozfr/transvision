@@ -6,7 +6,7 @@ use Transvision\Po as _Po;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class Xliff extends atoum\test
+class Po extends atoum\test
 {
     public function testGetStrings()
     {

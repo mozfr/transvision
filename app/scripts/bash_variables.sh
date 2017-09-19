@@ -16,7 +16,7 @@ folders+=( $gecko_strings_path $sources_path )
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 
-# Firefox for iOS, Focus for iOS/Android (XLIFF)
+# Firefox for iOS, Focus for iOS/Android
 firefox_ios=$local_git/firefox_ios/
 focus_ios=$local_git/focus_ios/
 focus_android=$local_git/focus_android/

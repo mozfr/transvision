@@ -98,14 +98,20 @@ class VersionControl extends atoum\test
             [
                 'it',
                 'firefox_ios',
-                'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'firefox_ios/firefox-ios.xliff:0f4d892c',
                 'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
             ],
             [
                 'fr',
                 'focus_ios',
-                'focus_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'focus_ios/focus-ios.xliff:0f4d892c',
                 'https://github.com/mozilla-l10n/focusios-l10n/blob/master/fr/focus-ios.xliff',
+            ],
+            [
+                'fr',
+                'focus_android',
+                'focus_android/app.po:0f4d892c',
+                'https://github.com/mozilla-l10n/focus-android-l10n/blob/master/fr/locales/app.po',
             ],
             [
                 'sr',
@@ -151,7 +157,7 @@ class VersionControl extends atoum\test
             [
                 'it',
                 'firefox_ios',
-                'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'firefox_ios/firefox-ios.xliff:0f4d892c',
                 'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
             ],
         ];

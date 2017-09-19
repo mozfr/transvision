@@ -36,27 +36,24 @@ class Files
     }
 
     /**
-     * Return the list of files in a folder as an array.
-     * Hidden files starting with a dot (.svn, .htaccess...) are ignored.
+     * Return the list of folders in a path as an array.
+     * Hidden folders starting with a dot (.svn, .htaccess...) are ignored.
      *
-     * @param string $folder         the directory we want to scan
-     * @param array  $excluded_files Files to exclude from results
+     * @param string $path             The directory we want to scan
+     * @param array  $excluded_folders Folders to exclude from results
      *
-     * @return array Files in the folder
+     * @return array Folders in path
      */
-    public static function getFilenamesInFolder($folder, $excluded_files = [])
+    public static function getFoldersInPath($path, $excluded_folders = [])
     {
-        /*
-            Here we exclude by default hidden files starting with a dot and
-            the . and .. symbols for directories
-        */
-        $files = array_filter(
-            scandir($folder),
-            function ($item) {
-                return !Strings::startsWith($item, '.');
+        // We exclude by default hidden folders starting with a dot
+        $folders = array_filter(
+            scandir($path),
+            function ($item) use ($path) {
+                return is_dir("{$path}/{$item}") && ! Strings::startsWith($item, '.');
             }
         );
 
-        return array_diff($files, $excluded_files);
+        return array_diff($folders, $excluded_folders);
     }
 }

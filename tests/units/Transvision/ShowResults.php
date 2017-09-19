@@ -414,22 +414,6 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'beta',
-                'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
-                'test',
-                'it',
-                '',
-            ],
-            [
-                'pontoon',
-                'release',
-                'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
-                'test',
-                'it',
-                '',
-            ],
-            [
-                'pontoon',
                 'mozilla_org',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 'test',
@@ -439,7 +423,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'firefox_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 'test',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
@@ -447,7 +431,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'firefox_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 '@@missing@@',
                 'it',
                 '',
@@ -455,7 +439,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'firefox_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 '<em class="error">Warning: Missing string</em>',
                 'it',
                 '',
@@ -463,7 +447,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'focus_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'focus_ios/focus-ios.xliff:4e0bc9d4',
                 'test',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/focus-for-ios/focus-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
@@ -471,7 +455,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'focus_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'focus_ios/focus-ios.xliff:4e0bc9d4',
                 '@@missing@@',
                 'it',
                 '',
@@ -479,7 +463,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'focus_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'focus_ios/focus-ios.xliff:4e0bc9d4',
                 '<em class="error">Warning: Missing string</em>',
                 'it',
                 '',
@@ -488,7 +472,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'firefox_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 '%(test)',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
@@ -497,7 +481,7 @@ class ShowResults extends atoum\test
             [
                 'pontoon.test',
                 'firefox_ios',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 '%(test)',
                 'it',
                 '',

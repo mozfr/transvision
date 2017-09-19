@@ -23,6 +23,7 @@ class Xliff
     {
         $strings = [];
         if ($xml = simplexml_load_file($xliff_path)) {
+            $file_name = basename($xliff_path);
             $namespaces = $xml->getDocNamespaces();
             $xml->registerXPathNamespace('x', $namespaces['']);
             /*
@@ -30,14 +31,7 @@ class Xliff
                 translation (target).
             */
             $trans_units = $xml->xpath('//x:trans-unit');
-            /*
-                File's name is 2 levels above in the hierarchy, stored as
-                'original' attribute of the <file> element.
-            */
             foreach ($trans_units as $trans_unit) {
-                $file_node = $trans_unit->xpath('../..');
-                $file_name = $file_node[0]['original'];
-
                 $string_id = self::generateStringID($project_name, $file_name, $trans_unit['id']);
                 $translation = str_replace("'", "\\'", $trans_unit->target);
 

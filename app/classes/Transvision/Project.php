@@ -25,6 +25,97 @@ class Project
         'calendar' => 'Lightning',
     ];
 
+    /*
+     * This array contains information about supported repositories.
+     *
+     * files: list of files to analyze during extraction
+     *
+     * git_repository: name of remote Git repository in the mozilla-l10n org
+     *
+     * git_subfolder: if localizations are in a subdirectory, e.g. /locales
+     *
+     * locale_mapping: if locale codes need to be mapped (Mozilla code -> Repo code)
+     *
+     * pontoon_project: name of the project on Pontoon.
+     *
+     * source_type: source type used by the project (xliff, gettext, etc.)
+     *
+     * variable_patterns: list of patterns used to check for errors in variables.
+     * Actual patterns (regex) are defined in the AnalyseStrings class
+     *
+     * @var array
+     *
+     */
+    public static $repos_info = [
+        'firefox_ios' => [
+            'files'             => [
+                'firefox-ios.xliff',
+            ],
+            'git_repository'    => 'firefoxios-l10n',
+            'locale_mapping'    => [
+                'bn-IN' => 'bn',
+                'bn-BD' => 'bn',
+                'es-ES' => 'es',
+                'son'   => 'ses',
+            ],
+            'pontoon_project'   => 'firefox-for-ios',
+            'source_type'       => 'xliff',
+            'variable_patterns' => ['ios'],
+        ],
+        'focus_android' => [
+            'files'             => [
+                'app.po',
+            ],
+            'git_repository'    => 'focus-android-l10n',
+            'git_subfolder'     => 'locales',
+            'pontoon_project'   => 'focus-for-android',
+            'source_type'       => 'gettext',
+            'variable_patterns' => ['l10njs', 'printf'],
+        ],
+        'focus_ios' => [
+            'files'             => [
+                'focus-ios.xliff',
+            ],
+            'git_repository'    => 'focusios-l10n',
+            'locale_mapping'    => [
+                'bn-IN' => 'bn',
+                'bn-BD' => 'bn',
+                'son'   => 'ses',
+            ],
+            'pontoon_project'   => 'focus-for-ios',
+            'source_type'       => 'xliff',
+            'variable_patterns' => ['ios'],
+        ],
+        'gecko_strings'=> [
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['dtd', 'l10njs', 'printf', 'properties'],
+        ],
+        'mozilla_org'=> [
+            'git_repository'    => 'www.mozilla.org',
+            'pontoon_project'   => 'mozillaorg',
+            'source_type'       => 'dotlang',
+        ],
+    ];
+
+    /*
+        Since these variables are static, it would be too expensive
+        to generate the list of repos dinamically from $repos_info.
+    */
+    public static $repos_lists = [
+        // Desktop products
+        'desktop'     => [
+            'gecko_strings',
+        ],
+        // Products using Git
+        'git' => [
+            'firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org',
+        ],
+        // Products using free text search on Pontoon
+        'text_search' => [
+            'firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org',
+        ],
+    ];
+
     /**
      * Create a list of all supported repositories.
      *
@@ -81,10 +172,7 @@ class Project
      */
     public static function getDesktopRepositories()
     {
-        return array_diff(
-            self::getRepositories(),
-            ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org']
-        );
+        return self::$repos_lists['desktop'];
     }
 
     /**
@@ -199,31 +287,17 @@ class Project
             'sr-Latn' => 'sr',
         ];
 
-        // Firefox for iOS
-        $locale_mappings['firefox_ios'] = [
-            'bn-IN' => 'bn',
-            'bn-BD' => 'bn',
-            'es-ES' => 'es',
-            'son'   => 'ses',
-        ];
+        // Fall back to Bugzilla if there are no mappings for the requested context
+        if (isset(self::$repos_info[$context]['locale_mapping'])) {
+            $mapping = self::$repos_info[$context]['locale_mapping'];
+        } elseif (isset($locale_mappings[$context])) {
+            $mapping = $locale_mappings[$context];
+        } else {
+            $mapping = $locale_mappings['bugzilla'];
+        }
 
-        // Focus for iOS
-        $locale_mappings['focus_ios'] = [
-            'bn-IN' => 'bn',
-            'bn-BD' => 'bn',
-            'son'   => 'ses',
-        ];
-
-        // For other contexts use the same as Bugzilla
-        $locale_mappings['other'] = $locale_mappings['bugzilla'];
-
-        // Fallback to 'other' if context doesn't exist in $locale_mappings
-        $context = array_key_exists($context, $locale_mappings)
-                   ? $context
-                   : 'other';
-
-        $locale = array_key_exists($locale, $locale_mappings[$context])
-                  ? $locale_mappings[$context][$locale]
+        $locale = array_key_exists($locale, $mapping)
+                  ? $mapping[$locale]
                   : $locale;
 
         return $locale;

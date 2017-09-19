@@ -258,16 +258,10 @@ class ShowResults
         $component = explode('/', $key)[0];
         $fileAndRawString = explode(':', $key);
 
-        $excluded_repos = ['beta', 'release'];
-        $free_text_repos = ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org'];
+        $free_text_repos = Project::$repos_lists['text_search'];
 
         // Ignore files in /extensions
         if ($component == 'extensions') {
-            return '';
-        }
-
-        // Ignore Beta and Release
-        if (in_array($repo, $excluded_repos)) {
             return '';
         }
 
@@ -290,22 +284,13 @@ class ShowResults
         // We only support Pontoon
         $tool_name = 'Pontoon';
 
-        if ($repo == 'mozilla_org') {
-            $project_name = 'mozillaorg';
-            $resource_path = ltrim($fileAndRawString[0], 'mozilla_org/');
-            $search_key = $text;
-        } elseif ($repo == 'firefox_ios') {
-            $project_name = 'firefox-for-ios';
-            $resource_path = 'firefox-ios.xliff';
-            $search_key = $text;
-        } elseif ($repo == 'focus_android') {
-            $project_name = 'focus-for-android';
-            $resource_path = 'app.po';
-            $search_key = $text;
-        } elseif ($repo == 'focus_ios') {
-            $project_name = 'focus-for-ios';
-            $resource_path = 'focus-ios.xliff';
-            $search_key = $text;
+        if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['pontoon_project'])) {
+            $repo_data = Project::$repos_info[$repo];
+            $project_name = $repo_data['pontoon_project'];
+            $resource_path = VersionControl::extractFilePath($key);
+            $search_key = in_array($repo, Project::$repos_lists['text_search'])
+                ? $text
+                : $fileAndRawString[1];
         } else {
             $resource_path = $fileAndRawString[0];
             $search_key = $fileAndRawString[1];

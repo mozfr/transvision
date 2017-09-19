@@ -23,37 +23,36 @@ include __DIR__ . '/../../inc/init.php';
 
 $project_name = $argv[1];
 
-$supported_projects = [
-    'firefox_ios' => [
-        'file_name' => 'firefox-ios.xliff',
-        'base_path' => GIT . 'firefox_ios',
-    ],
-    'focus_ios' => [
-        'file_name' => 'focus-ios.xliff',
-        'base_path' => GIT . 'focus_ios',
-    ],
-];
-
-if (! isset($supported_projects[$project_name])) {
+if (! isset(Project::$repos_info[$project_name])) {
     die("Unknown project: {$project_name}.\n");
 }
+$repo_data = Project::$repos_info[$project_name];
+if ($repo_data['source_type'] != 'xliff') {
+    die("Unsupported format: {$repo_data['source_type']}.\n");
+}
+
 error_log('Extraction of strings from XLIFF file');
 
-$base_path = $supported_projects[$project_name]['base_path'];
-foreach (Files::getFilenamesInFolder($base_path, ['templates', 'README.md']) as $locale) {
+$base_path = isset($repo_data['git_subfolder'])
+    ? GIT . "{$project_name}/{$repo_data['git_subfolder']}"
+    : GIT . $project_name;
+foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale) {
     $out_translation = '';
     $total_strings = 0;
 
-    $xliff_path = "{$base_path}/{$locale}/{$supported_projects[$project_name]['file_name']}";
-    if (file_exists($xliff_path)) {
-        $strings = Xliff::getStrings($xliff_path, $project_name);
-        $total_strings = count($strings);
-        foreach ($strings as $string_id => $translation) {
-            $out_translation .= "'{$string_id}' => '{$translation}', \n";
+    foreach ($repo_data['files'] as $file_name) {
+        $xliff_path = "{$base_path}/{$locale}/{$file_name}";
+        if (file_exists($xliff_path)) {
+            $strings = Xliff::getStrings($xliff_path, $project_name);
+            $total_strings = count($strings);
+            foreach ($strings as $string_id => $translation) {
+                $out_translation .= "'{$string_id}' => '{$translation}', \n";
+            }
+        } else {
+            error_log("{$locale}: file is missing");
         }
-    } else {
-        error_log("{$locale}: file is missing");
     }
+
     $out_translation = "<?php\n\$tmx = [\n" . $out_translation . "];\n";
 
     Files::fileForceContents(TMX . "{$locale}/cache_{$locale}_{$project_name}.php", $out_translation);

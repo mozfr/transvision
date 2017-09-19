@@ -11,7 +11,7 @@ include __DIR__ . '/../../inc/init.php';
 
 error_log('Mozilla.org: extraction of strings');
 
-foreach (Files::getFilenamesInFolder(GIT . 'mozilla_org/') as $locale) {
+foreach (Files::getFoldersInPath(GIT . 'mozilla_org/') as $locale) {
     $path = GIT . "mozilla_org/{$locale}/";
 
     /*
