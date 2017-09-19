@@ -54,16 +54,16 @@ class AnalyseStrings
                 break;
             case 'focus_android':
                 $patterns = [
-                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                    'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}}
+                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
+                    'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}}
                 ];
                 break;
             default:
                 $patterns = [
-                    'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;
-                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                    'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
-                    'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}} Used in Loop and PDFViewer
+                    'dtd'        => '/&([A-Za-z0-9\.]+);/',                        // &foobar;
+                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
+                    'properties' => '/(?<!%[0-9])\$[A-Za-z0-9\.]+\b/',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+                    'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}} Used in Loop and PDFViewer
                 ];
                 break;
         }

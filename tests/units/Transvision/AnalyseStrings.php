@@ -78,7 +78,7 @@ class AnalyseStrings extends atoum\test
             [
                 // Variable format %1$s, different case
                 ['browser:foobar6' => 'Invalid section name (%1$s) at line %2$s.'],
-                ['browser:foobar6' => 'Nom de section (%1$S) incorrect à la ligne %1$S.'],
+                ['browser:foobar6' => 'Nom de section (%1$S) incorrect à la ligne %2$S.'],
                 'release',
                 [],
                 ['browser:foobar6'],
