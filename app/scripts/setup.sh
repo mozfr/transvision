@@ -206,6 +206,14 @@ then
     git clone https://github.com/mozilla-l10n/focusios-l10n .
 fi
 
+echogreen "Focus Android iOS repo being checked out from GitHub"
+cd $focus_android
+if [ ! -d $focus_android/.git ]
+then
+    echogreen "Checking out Focus for Android repo"
+    git clone https://github.com/mozilla-l10n/focus-android-l10n .
+fi
+
 # Add .htaccess to download folder. Folder should already exists, but check in
 # advance to be sure. I overwrite an existing .htaccess if already present.
 echogreen "Add .htaccess to download folder"

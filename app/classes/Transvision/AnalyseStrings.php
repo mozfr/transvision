@@ -52,6 +52,12 @@ class AnalyseStrings
                     'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.
                 ];
                 break;
+            case 'focus_android':
+                $patterns = [
+                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
+                    'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}}
+                ];
+                break;
             default:
                 $patterns = [
                     'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;

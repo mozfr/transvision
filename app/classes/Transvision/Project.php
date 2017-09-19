@@ -83,7 +83,7 @@ class Project
     {
         return array_diff(
             self::getRepositories(),
-            ['firefox_ios', 'focus_ios', 'mozilla_org']
+            ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org']
         );
     }
 

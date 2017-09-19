@@ -1,0 +1,72 @@
+#!/usr/bin/env php
+<?php
+namespace Transvision;
+
+// Script should not be called from the Web
+if (php_sapi_name() != 'cli') {
+    die("This command can only be used in CLI mode.\n");
+}
+
+if (count($argv) < 2) {
+    die("This command needs more parameters, please check tmx_gettext --help.\n");
+}
+if (isset($argv[1])) {
+    if (in_array($argv[1], ['-h', '--help'])) {
+        $command_help = "tmx_gettext - Create TMX from Gettext (.po) file\n" .
+                "Usage: tmx_gettext [project_name]\n\n" .
+                "Example: tmx_gettext focus_android\n";
+        die($command_help);
+    }
+}
+
+include __DIR__ . '/../../inc/init.php';
+
+$project_name = $argv[1];
+
+$supported_projects = [
+    'focus_android' => [
+        'file_names' => [
+            'app.po',
+        ],
+        'base_path' => GIT . 'focus_android/locales',
+    ],
+];
+
+if (! isset($supported_projects[$project_name])) {
+    die("Unknown project: {$project_name}.\n");
+}
+error_log('Extraction of strings from Gettext (.po) file');
+
+# TODO: need to map templates to en-US
+$base_path = $supported_projects[$project_name]['base_path'];
+foreach (Files::getFilenamesInFolder($base_path) as $locale) {
+    $out_translation = '';
+    $total_strings = 0;
+
+    foreach ($supported_projects[$project_name]['file_names'] as $file_name) {
+        $po_path = "{$base_path}/{$locale}/{$file_name}";
+
+        if ($locale == 'templates') {
+            echo "Loading 'templates' as en-US\n";
+            $locale = 'en-US';
+            $po_path = str_replace('.po', '.pot', $po_path);
+            $template = true;
+        } else {
+            $template = false;
+        }
+
+        if (file_exists($po_path)) {
+            $strings = Po::getStrings($po_path, $file_name, $project_name, $template);
+            $total_strings = count($strings);
+            foreach ($strings as $string_id => $translation) {
+                $out_translation .= "'{$string_id}' => '{$translation}', \n";
+            }
+        } else {
+            error_log("{$locale}: file is missing");
+        }
+    }
+
+    $out_translation = "<?php\n\$tmx = [\n" . $out_translation . "];\n";
+    Files::fileForceContents(TMX . "{$locale}/cache_{$locale}_{$project_name}.php", $out_translation);
+    error_log("{$locale}: {$total_strings} strings");
+}

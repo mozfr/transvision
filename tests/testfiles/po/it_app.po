@@ -1,0 +1,137 @@
+# Italian translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-09-07 20:09+0200\n"
+"PO-Revision-Date: 2017-09-15 08:52+0000\n"
+"Language-Team: it <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.4.0\n"
+"X-Generator: Pontoon\n"
+
+#. Label used for buttons, e.g. in dialogs
+msgctxt "action_cancel"
+msgid "Cancel"
+msgstr "Annulla"
+
+#. Label used for buttons, e.g. in dialogs
+msgctxt "action_ok"
+msgid "OK"
+msgstr "OK"
+
+#. This text is shown in the URL bar when it's empty
+msgctxt "urlbar_hint"
+msgid "Search or enter address"
+msgstr "Cerca o inserisci un indirizzo"
+
+#. Menu item: Switch to another browser to open the currently visible page.
+#. %1$s will be       replaces with the name of the browser like: "Open with
+#. Firefox" or "Open with Chrome". Some       links can be opened by native
+#. apps that aren't a browser, e.g. "Open with YouTube"
+#, c-format
+msgctxt "menu_open_with_default_browser"
+msgid "Open with %1$s"
+msgstr "Apri con %1$s"
+
+#. Menu item: Switch to another browser to open the currently visible page.
+#. This menu item       will be shown if there are multiple browsers and we do
+#. not know which one is the default       browser or in case Focus is actually
+#. the default browser. Clicking this menu item will show       a screen with
+#. multiple browsers (or other apps that can open the current URL) to choose
+#. from.
+msgctxt "menu_open_with_a_browser"
+msgid "Open with…"
+msgstr "Apri con…"
+
+#. Menu item: Add the current page as a shortcut to the device's home screen
+#. (launcher).
+msgctxt "menu_add_to_home_screen"
+msgid "Add to Home screen"
+msgstr "Agg. a schermata principale"
+
+msgctxt "menu_settings"
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgctxt "menu_about"
+msgid "About"
+msgstr "Informazioni su"
+
+msgctxt "menu_help"
+msgid "Help"
+msgstr "Aiuto"
+
+msgctxt "menu_rights"
+msgid "Your Rights"
+msgstr "I tuoi diritti"
+
+#. Menu item: This is the label for a menu entry that shows how many trackers
+#. have been blocked          for the currently loaded website. The number of
+#. blocked trackers is shown below this label.          Next to this label is a
+#. switch that allows the user to temporarily enable / disable the
+#. blocking of trackers for the current browsing session - for example if the
+#. current website          doesn't work correctly with blocked content.
+msgctxt "menu_trackers_blocked_title"
+msgid "Trackers blocked"
+msgstr "Elementi traccianti bloccati"
+
+#. This is the title of a dialog that shows all the share targets (apps or
+#. contacts) when          sharing an URL.
+msgctxt "share_dialog_title"
+msgid "Share via"
+msgstr "Condividi con"
+
+#. While a browsing session is active (in the foreground or background) we
+#. will show a notification          so that the user doesn't forget about the
+#. website still being open. This text is shown in          the notification.
+#. Clicking the notification will have the same effect as clicking the "erase"
+#. button in the application.
+msgctxt "notification_erase_text"
+msgid "Erase browsing history"
+msgstr "Elimina cronologia di navigazione"
+
+#. Notification action to open Focus and resume the current browsing session.
+msgctxt "notification_action_open"
+msgid "Open"
+msgstr "Apri"
+
+#. Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox
+#. Klar/etc).          Argument 2 is the url for the learn-more link.
+msgctxt "about_content"
+msgid ""
+"<p>%1$s puts you in control.</p>\n"
+"<p>Use it as a private browser:\n"
+"  <ul>\n"
+"    <li>Search and browse right in the app</li>\n"
+"    <li>Block trackers (or update settings to allow trackers)</li>\n"
+"    <li>Erase to delete cookies as well as search and browsing history</li>\n"
+"  </ul>\n"
+"</p>\n"
+"<p>%1$s is produced by Mozilla. Our mission is to foster a healthy, open Internet.<br/>\n"
+"<a href=\"%2$s\">Learn more</a></p>"
+msgstr ""
+"<p>Prendi il controllo con %1$s.</p>\n"
+"<p>Utilizzalo per la navigazione anonima:\n"
+"  <ul>\n"
+"    <li>Cerca e naviga direttamente nell’app.</li>\n"
+"    <li>Blocca il tracciamento (o aggiorna le impostazioni per consentirlo).</li>\n"
+"    <li>Utilizza “Elimina” per rimuovere i cookie così come la cronologia di ricerca e navigazione.</li>\n"
+"  </ul>\n"
+"</p>\n"
+"<p>%1$s è realizzato da Mozilla. La nostra missione è promuovere un Internet integro e aperto.<br/>\n"
+"<a href=\"%2$s\">Ulteriori informazioni</a></p>"
+
+msgid "{0} and {1} other replied"
+msgid_plural "{0} and {1} others replied"
+msgstr[0] "{0} e {1} altro hanno risposto"
+msgstr[1] "{0} e altri {1} hanno risposto"

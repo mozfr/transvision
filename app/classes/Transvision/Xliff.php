@@ -4,8 +4,7 @@ namespace Transvision;
 /**
  * Xliff class
  *
- * This class is used to manipulate translation files in XLIFF format
- * used in Firefox for iOS.
+ * This class is used to manipulate translation files in XLIFF format.
  *
  * @package Transvision
  */
@@ -62,6 +61,6 @@ class Xliff
      */
     public static function generateStringID($project_name, $file_name, $string_id)
     {
-        return "{$project_name}/{$file_name}:" . hash('crc32', $string_id);
+        return "{$project_name}/{$file_name}:" . hash('md5', $string_id);
     }
 }

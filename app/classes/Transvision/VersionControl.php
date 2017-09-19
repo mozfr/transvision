@@ -20,7 +20,7 @@ class VersionControl
     public static function getVCS($repo)
     {
         $vcs = [
-            'git' => ['firefox_ios', 'focus_ios', 'mozilla_org'],
+            'git' => ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org'],
             'hg'  => Project::getDesktopRepositories(),
             'svn' => [],
         ];
@@ -126,6 +126,10 @@ class VersionControl
             case 'firefox_ios':
                 $repo = 'firefoxios-l10n';
                 $file_path = 'firefox-ios.xliff';
+                break;
+            case 'focus_android':
+                $repo = 'focus-android-l10n';
+                $file_path = self::extractFilePath($path);
                 break;
             case 'focus_ios':
                 $repo = 'focusios-l10n';

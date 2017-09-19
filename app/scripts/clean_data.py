@@ -93,6 +93,7 @@ def main():
     #     supported by mozilla.org
     exclusions = {
         'firefox_ios': ['.git', 'templates'],
+        'focus_android': ['.git'],
         'focus_ios': ['.git', 'templates'],
         'mozilla_org': ['.git', 'en-US', 'hi']
     }

@@ -300,10 +300,23 @@ function updateFocusiOS() {
     nice -20 $install/app/scripts/tmx/tmx_xliff focus_ios
 }
 
+function updateFocusAndroid() {
+    if [ "$checkrepo" = true ]
+    then
+        cd $focus_android
+        echogreen "Update GitHub repository"
+        git pull
+    fi
+    echogreen "Extract strings for Focus for Android"
+    cd $install
+    nice -20 $install/app/scripts/tmx/tmx_gettext focus_android
+}
+
 updateGeckoStringsChannelRepo
 updateFromGitHub
 updateFirefoxiOS
 updateFocusiOS
+updateFocusAndroid
 
 # Generate productization data
 cd $install

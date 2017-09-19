@@ -84,6 +84,7 @@
     "require": {
         "components/jquery": "~1.1",
         "devbridge/jQuery-Autocomplete": "~1.4.",
+        "gettext/gettext": "~4.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",

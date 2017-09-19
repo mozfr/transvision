@@ -137,6 +137,6 @@ class Dotlang
      */
     public static function generateStringID($file_path, $string)
     {
-        return $file_path . ':' . hash('crc32', $string);
+        return $file_path . ':' . hash('md5', $string);
     }
 }

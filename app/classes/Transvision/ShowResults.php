@@ -259,7 +259,7 @@ class ShowResults
         $fileAndRawString = explode(':', $key);
 
         $excluded_repos = ['beta', 'release'];
-        $free_text_repos = ['firefox_ios', 'focus_ios', 'mozilla_org'];
+        $free_text_repos = ['firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org'];
 
         // Ignore files in /extensions
         if ($component == 'extensions') {
@@ -297,6 +297,10 @@ class ShowResults
         } elseif ($repo == 'firefox_ios') {
             $project_name = 'firefox-for-ios';
             $resource_path = 'firefox-ios.xliff';
+            $search_key = $text;
+        } elseif ($repo == 'focus_android') {
+            $project_name = 'focus-for-android';
+            $resource_path = 'app.po';
             $search_key = $text;
         } elseif ($repo == 'focus_ios') {
             $project_name = 'focus-for-ios';
