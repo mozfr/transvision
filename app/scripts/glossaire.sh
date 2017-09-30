@@ -264,59 +264,27 @@ function updateGeckoStringsChannelRepo() {
     fi
 }
 
-function updateFromGitHub() {
+function updateOtherProduct() {
+    # $1: product code
+    # $2: product name
+    # $3: extraction script
     if [ "$checkrepo" = true ]
     then
-        cd $mozilla_org
-        echogreen "Update mozilla.org repository"
-        git pull origin master
-    fi
-    echogreen "Extract strings for mozilla.org"
-    cd $install
-    nice -20 $install/app/scripts/tmx/tmx_mozillaorg
-}
-
-function updateFirefoxiOS() {
-    if [ "$checkrepo" = true ]
-    then
-        cd $firefox_ios
+        # If $1 = "focus_ios", ${!1} is equal to $focus_ios
+        cd ${!1}
         echogreen "Update GitHub repository"
         git pull
     fi
-    echogreen "Extract strings for Firefox for iOS"
+    echogreen "Extract strings for $2"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_xliff firefox_ios
-}
-
-function updateFocusiOS() {
-    if [ "$checkrepo" = true ]
-    then
-        cd $focus_ios
-        echogreen "Update GitHub repository"
-        git pull
-    fi
-    echogreen "Extract strings for Focus for iOS"
-    cd $install
-    nice -20 $install/app/scripts/tmx/tmx_xliff focus_ios
-}
-
-function updateFocusAndroid() {
-    if [ "$checkrepo" = true ]
-    then
-        cd $focus_android
-        echogreen "Update GitHub repository"
-        git pull
-    fi
-    echogreen "Extract strings for Focus for Android"
-    cd $install
-    nice -20 $install/app/scripts/tmx/tmx_gettext focus_android
+    nice -20 $install/app/scripts/tmx/$3 $1
 }
 
 updateGeckoStringsChannelRepo
-updateFromGitHub
-updateFirefoxiOS
-updateFocusiOS
-updateFocusAndroid
+updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg
+updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
+updateOtherProduct focus_ios "Focus for iOS" tmx_xliff
+updateOtherProduct focus_android "Focus for Android" tmx_gettext
 
 # Generate productization data
 cd $install
