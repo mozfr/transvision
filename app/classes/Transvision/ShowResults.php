@@ -287,6 +287,7 @@ class ShowResults
         if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['pontoon_project'])) {
             $repo_data = Project::$repos_info[$repo];
             $project_name = $repo_data['pontoon_project'];
+            // Key is in the format project/pathtofile:stringID
             $resource_path = VersionControl::extractFilePath($key);
             $search_key = in_array($repo, Project::$repos_lists['text_search'])
                 ? $text

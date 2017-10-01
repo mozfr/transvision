@@ -137,7 +137,7 @@ class VersionControl
     }
 
     /**
-     * Remove entity and project name from path (repo/file:entity)
+     * Remove entity and project name from path (project/file:entity)
      *
      * @param string $path A Transvision file path
      *

@@ -32,11 +32,13 @@ class Project
      *
      * git_repository: name of remote Git repository in the mozilla-l10n org
      *
-     * git_subfolder: if localizations are in a subdirectory, e.g. /locales
+     * git_subfolder: if localizations are in a subdirectory, e.g. if they're
+     * subfolders in /locales, value will be simply "locales" (no ending or
+     * starting /)
      *
      * locale_mapping: if locale codes need to be mapped (Mozilla code -> Repo code)
      *
-     * pontoon_project: name of the project on Pontoon.
+     * pontoon_project: name of the project in Pontoon
      *
      * source_type: source type used by the project (xliff, gettext, etc.)
      *
@@ -98,8 +100,8 @@ class Project
     ];
 
     /*
-        Since these variables are static, it would be too expensive
-        to generate the list of repos dinamically from $repos_info.
+        Since Project is used statically, not as an object, it would be too
+        expensive to generate the list of repos dinamically from $repos_info.
     */
     public static $repos_lists = [
         // Desktop products

@@ -4,7 +4,7 @@ namespace Transvision;
 use Gettext\Translations;
 
 /**
- * Gettext class
+ * Po class
  *
  * This class is used to manipulate translation files in Gettext (.po) format.
  *
@@ -72,13 +72,13 @@ class Po
     }
 
     /**
-     * Generate a unique id for a string to store in Transvision.
+     * Generate a unique ID for a string to store in Transvision.
      *
      * @param string $project_name The project this string belongs to
-     * @param string $file_name    'original' attribute of the <file> element
-     * @param string $string_id    'id' attribute of the <trans-unit> element
+     * @param string $file_name    .po file name
+     * @param string $string_id    String ID (context-original text)
      *
-     * @return string unique ID such as firefox_ios/Client/Intro.strings:1cd1dc4e
+     * @return string unique ID such as focus_android/app.po:1dafea7725862ca854c408f0e2df9c88
      */
     public static function generateStringID($project_name, $file_name, $string_id)
     {

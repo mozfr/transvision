@@ -206,7 +206,7 @@ then
     git clone https://github.com/mozilla-l10n/focusios-l10n .
 fi
 
-echogreen "Focus Android iOS repo being checked out from GitHub"
+echogreen "Focus for Android repo being checked out from GitHub"
 cd $focus_android
 if [ ! -d $focus_android/.git ]
 then
