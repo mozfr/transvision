@@ -15,7 +15,7 @@ if (isset($_GET['json'])) {
         return $fallback;
     };
 
-    $repo = $get_value('repo', 'release');
+    $repo = $get_value('repo', 'gecko_strings');
     $type = $get_value('search_type', 'strings');
     $source = $get_value('sourcelocale', Project::getReferenceLocale($repo));
     $target = $get_value('locale', 'fr');

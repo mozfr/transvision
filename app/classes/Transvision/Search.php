@@ -14,7 +14,7 @@ namespace Transvision;
  *     ->setRegexEntireString(false)
  *     ->setEachWord(false)
  *     ->setEntireWords(false)
- *     ->setRepository('release')
+ *     ->setRepository('gecko_strings')
  *     ->setSearchType('strings')
  *     ->setLocales(['en-US', 'fr']);
  */

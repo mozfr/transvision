@@ -12,16 +12,16 @@ class API extends atoum\test
     {
         return [
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/',
-                ['v1', 'tm', 'release', 'en-US', 'fr', 'Bookmark'],
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/',
+                ['v1', 'tm', 'gecko_strings', 'en-US', 'fr', 'Bookmark'],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Vive%20le%20vent/',
-                ['v1', 'tm', 'release', 'en-US', 'fr', 'Vive le vent'],
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Vive%20le%20vent/',
+                ['v1', 'tm', 'gecko_strings', 'en-US', 'fr', 'Vive le vent'],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/%20trailing%20spaces%20',
-                ['v1', 'tm', 'release', 'en-US', 'fr', 'trailing spaces'],
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/%20trailing%20spaces%20',
+                ['v1', 'tm', 'gecko_strings', 'en-US', 'fr', 'trailing spaces'],
             ],
         ];
     }
@@ -42,23 +42,23 @@ class API extends atoum\test
     {
         return [
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=bar',
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=bar',
                 ['foo' => 'bar'],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo',
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo',
                 ['foo' => ''],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=',
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=',
                 ['foo' => ''],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=&bar=10',
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=&bar=10',
                 ['foo' => '', 'bar' => 10],
             ],
             [
-                'http://foobar.com/api/v1/tm/release/en-US/fr/Bookmark/?foo=bar&foo2=bar2',
+                'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=bar&foo2=bar2',
                 ['foo' => 'bar', 'foo2' => 'bar2'],
             ],
         ];
