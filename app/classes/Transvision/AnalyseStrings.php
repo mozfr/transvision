@@ -54,7 +54,7 @@ class AnalyseStrings
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 
-        $patterns = array_filter($patterns, function($k) use ($repo_patterns){
+        $patterns = array_filter($patterns, function($k) use ($repo_patterns) {
             return in_array($k, $repo_patterns);
         }, ARRAY_FILTER_USE_KEY);
 

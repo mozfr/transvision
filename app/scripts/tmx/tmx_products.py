@@ -69,7 +69,7 @@ class StringExtraction():
         self.locale = locale
         self.reference_locale = reference_locale
 
-        # Define the locale storage filenames
+        # Define the local storage filenames
         self.storage_file = os.path.join(
             storage_path, locale,
             'cache_{0}_{1}'.format(locale, repository_name))
@@ -144,8 +144,8 @@ class StringExtraction():
                     if not isinstance(entity, parser.Junk):
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
-                print 'Error parsing file: {0}'.format(file_name)
-                print e
+                print('Error parsing file: {0}'.format(file_name))
+                print(e)
 
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
@@ -228,7 +228,7 @@ def main():
     extracted_strings = StringExtraction(
         storage_path, args.locale_code, args.reference_code, args.repository_name)
 
-    extracted_strings.setRepositoryPath(args.repo_path.rstrip('/'))
+    extracted_strings.setRepositoryPath(args.repo_path)
     if args.storage_mode == 'append':
         extracted_strings.setStorageMode('append', args.storage_prefix)
 
