@@ -39,7 +39,24 @@ if (isset($_SERVER[$header])) {
         $secret
     );
     if (hash_equals($validation, explode('=', $_SERVER[$header])[1])) {
+        $log = '';
+        // Acknowledge the request
+        $log = date('H:i:s') . ": acknowledging GitHub request\n";
+
+        header($_SERVER['SERVER_PROTOCOL'] . ' 202 Accepted');
+        header('Status: 202 Accepted');
+        header('Content-Encoding: none');
+        header('Content-Type: application/json');
+        header('Content-Length: ' . ob_get_length());
+        header('Connection: close');
+        ob_start();
+        echo '{}';
+        ob_end_flush();
+        ob_flush();
+        flush();
+
         // Pull latest changes
+        $log .= date('H:i:s') . ": updating Git repository\n";
         exec("git checkout $branch ; git pull origin $branch");
 
         // Install or update dependencies
@@ -47,15 +64,19 @@ if (isset($_SERVER[$header])) {
             chdir($app_root);
 
             // www-data does not have a HOME or COMPOSER_HOME, create one
-            if (! is_dir("{$app_root}/cache/.composer")) {
-                mkdir("{$app_root}/cache/.composer");
+            $cache_folder = "{$app_root}/.composer_cache";
+            if (! is_dir($cache_folder)) {
+                $log = date('H:i:s') . ": creating folder {$cache_folder}\n";
+                mkdir($cache_folder);
             }
 
             putenv("COMPOSER_HOME={$app_root}/cache/.composer");
 
             if (file_exists($app_root . '/vendor')) {
+                $log .= date('H:i:s') . ": updating Composer\n";
                 exec("php {$composer} update > /dev/null 2>&1");
             } else {
+                $log .= date('H:i:s') . ": installing Composer\n";
                 exec("php {$composer} install > /dev/null 2>&1");
             }
         }
@@ -70,7 +91,8 @@ if (isset($_SERVER[$header])) {
         chdir($app_root);
         exec('php vendor/bin/phpdoc -d "./app/classes/Transvision/" -t "web/docs/" --template="clean" --title="Transvision classes documentation" > /dev/null 2>&1');
 
-        logHookResult('Last update: ' . date('d-m-Y H:i:s'), true);
+        $log .= 'Last update: ' . date('d-m-Y H:i:s');
+        logHookResult($log, true);
     } else {
         logHookResult('Invalid GitHub secret');
     }
