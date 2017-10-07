@@ -46,6 +46,7 @@ if (isset($_SERVER[$header])) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 202 Accepted');
         header('Status: 202 Accepted');
         header('Content-Encoding: none');
+        header('X-Accel-Buffering: no');
         header('Content-Type: application/json');
         header('Content-Length: ' . ob_get_length());
         header('Connection: close');
