@@ -178,7 +178,8 @@ function updateGeckoStringsChannelRepo() {
         existing_md5=0
     fi
 
-    # Create TMX for en-US and check the updated md5
+    # Update en-US, create TMX for en-US and check the updated md5
+    hg --cwd $repo_folder/en-US pull --update -r default
     buildCache en-US
     updated_md5=($(md5sum $cache_file))
     if [ $existing_md5 != $updated_md5 ]

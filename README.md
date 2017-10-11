@@ -15,8 +15,6 @@ https://transvision-beta.mozfr.org
 
 Transvision was created by Philippe Dessante, from the French Mozilla localization team.
 
-Lead developer since version 1.0: Pascal Chevrel (pascal AT mozilla DOT com).
-
 ## Getting Started
 
 The Transvision team uses Git and GitHub for both development and issue tracking.

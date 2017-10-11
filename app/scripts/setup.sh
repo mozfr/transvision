@@ -98,8 +98,7 @@ function initGeckoStringsRepo() {
                 echogreen $repo_folder/$locale/
                 if [ "$locale" = "en-US" ]
                 then
-                    #TODO: update URL
-                    hg clone https://hg.mozilla.org/users/axel_mozilla.com/gecko-strings-quarantine $locale
+                    hg clone https://hg.mozilla.org/l10n/gecko-strings/ $locale
                 else
                     hg clone $repo_path/$locale $locale
                 fi
