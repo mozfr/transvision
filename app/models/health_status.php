@@ -22,7 +22,10 @@ foreach (Project::getRepositories() as $repo) {
         // Get VCS data
         $repo_vcs = VersionControl::VCSRepoName($repo);
 
-        $repo_path = $repo_vcs . '/' . $locale;
+        $repo_data = Project::$repos_info[$repo];
+        $repo_path = isset($repo_data['git_subfolder'])
+            ? "{$repo_vcs}/{$repo_data['git_subfolder']}/{$locale}"
+            : "{$repo_vcs}/{$locale}";
 
         switch (VersionControl::getVCS($repo)) {
             case 'hg':

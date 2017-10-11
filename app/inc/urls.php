@@ -5,7 +5,6 @@ $urls = [
     '3locales'          => '3locales',
     'accesskeys'        => 'keys',
     'api'               => 'api',
-    'channelcomparison' => 'channelcomp',
     'consistency'       => 'consistency',
     'credits'           => 'credits',
     'downloads'         => 'downloads',

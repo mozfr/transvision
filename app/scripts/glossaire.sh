@@ -143,7 +143,7 @@ function updateLocale() {
     fi
 }
 
-function updateStandardRepo() {
+function updateGeckoStringsChannelRepo() {
     # Update specified repository. Parameters:
     # $1: Channel name used in folders and TMX
     # $2: Channel name used in variable names
@@ -151,21 +151,21 @@ function updateStandardRepo() {
     function buildCache() {
         # Build the cache
         # $1: Locale code
-        echogreen "Create ${repo_name^^} cache for $repo_name/$1"
+        echogreen "Create cache for $repo_name/$1"
+        nice -20 $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
         if [ "$1" = "en-US" ]
         then
-            nice -20 $install/app/scripts/tmx_products.py ${!repo_source}/COMMUN/ en-US en-US $repo_name
+            # Append strings for other sources
+            # Chatzilla
+            nice -20 $install/app/scripts/tmx/tmx_products.py $sources_path/chatzilla/locales/en-US en-US en-US $repo_name append extensions/irc
         else
-            nice -20 $install/app/scripts/tmx_products.py ${!repo_l10n}/$1/ $1 en-US $repo_name
+            nice -20 $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/extensions/irc $1 en-US $repo_name append extensions/irc
         fi
     }
 
-    local repo_name="$1"                # e.g. release, beta, central
-    local comm_repo="comm-$1"           # e.g. comm-release, etc.
-    local mozilla_repo="mozilla-$1"     # e.g. mozilla-release, etc.
-    local repo_source="${2}_source"     # e.g. release_source, beta_source, trunk_source
-    local repo_l10n="${2}_l10n"         # e.g. release_l10n, etc.
-    local locale_list="${2}_locales"    # e.g. release_locales, etc.
+    local repo_name="gecko_strings"
+    local repo_folder="$gecko_strings_path"
+    local locale_list="gecko_strings_locales"
 
     updated_english=false
 
@@ -178,24 +178,8 @@ function updateStandardRepo() {
         existing_md5=0
     fi
 
-    if [ "$checkrepo" = true ]
-    then
-        # Update all source repositories
-        # ${!repo_source}: if repo_source contains 'release_source', this will
-        # return the value of the variable $release_source.
-        cd ${!repo_source}
-        echogreen "Update $comm_repo"
-        cd $comm_repo
-        hg pull -r default --update
-        echogreen "Update $mozilla_repo"
-        cd ../$mozilla_repo
-        hg pull -r default --update
-    fi
-
-    # Remove orphaned symbolic links
-    find -L ${!repo_source}/COMMUN/ -type l | while read -r file; do echored "$file is orphaned";  unlink $file; done
-
-    # Create TMX for en-US and check the updated md5
+    # Update en-US, create TMX for en-US and check the updated md5
+    hg --cwd $repo_folder/en-US pull --update -r default
     buildCache en-US
     updated_md5=($(md5sum $cache_file))
     if [ $existing_md5 != $updated_md5 ]
@@ -208,48 +192,51 @@ function updateStandardRepo() {
     then
         for locale in $(cat ${!locale_list})
         do
-            if [ -d ${!repo_l10n}/$locale ]
+            if [ $locale != "en-US" ]
             then
-                updated_locale=0
-                if [ "$checkrepo" = true ]
+                if [ -d $repo_folder/$locale ]
                 then
-                    updateLocale ${!repo_l10n} $locale $repo_name/$locale
-                    updated_locale=$?
-                fi
-
-                # Check if we have a cache file for this locale. If it's a brand
-                # new locale, we'll have the folder and no updates, but we
-                # still need to create the cache.
-                cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
-                if [ ! -f $cache_file ]
-                then
-                    echored "Cache doesn't exist for ${repo_name}/${locale}"
-                    updated_locale=1
-                else
-                    php -l $cache_file 2>&1 1>/dev/null
-                    if [ $? -ne 0 ]
+                    updated_locale=0
+                    if [ "$checkrepo" = true ]
                     then
-                        # There are PHP errors, force the rebuild
-                        echored "PHP errors in $cache_file. Forcing rebuild."
-                        updated_locale=1
+                        updateLocale $repo_folder $locale $repo_name/$locale
+                        updated_locale=$?
                     fi
-                fi
 
-                if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
-                then
-                    buildCache $locale
+                    # Check if we have a cache file for this locale. If it's a brand
+                    # new locale, we'll have the folder and no updates, but we
+                    # still need to create the cache.
+                    cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
+                    if [ ! -f $cache_file ]
+                    then
+                        echored "Cache doesn't exist for ${repo_name}/${locale}"
+                        updated_locale=1
+                    else
+                        php -l $cache_file 2>&1 1>/dev/null
+                        if [ $? -ne 0 ]
+                        then
+                            # There are PHP errors, force the rebuild
+                            echored "PHP errors in $cache_file. Forcing rebuild."
+                            updated_locale=1
+                        fi
+                    fi
+
+                    if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
+                    then
+                        buildCache $locale
+                    fi
+                else
+                    echored "Folder $repo_folder/$locale does not exist. Run setup.sh to fix the issue."
                 fi
-            else
-                echored "Folder ${!repo_l10n}/$locale does not exist. Run setup.sh to fix the issue."
             fi
         done
     else
-        if [ -d ${!repo_l10n}/$locale_code ]
+        if [ -d $repo_folder/$locale_code ]
         then
             updated_locale=0
             if [ "$checkrepo" = true ]
             then
-                updateLocale ${!repo_l10n} $locale_code $repo_name/$locale_code
+                updateLocale $repo_folder $locale_code $repo_name/$locale_code
                 updated_locale=$?
             fi
 
@@ -273,54 +260,32 @@ function updateStandardRepo() {
                 buildCache $locale_code
             fi
         else
-            echored "Folder ${!repo_l10n}/$locale_code does not exist."
+            echored "Folder $repo_folder/$locale_code does not exist."
         fi
     fi
 }
 
-function updateNoBranchRepo() {
-    if $checkrepo
-    then
-        # These repos exist only on trunk
-        cd $trunk_source/$1
-        echogreen "Update $1"
-        hg pull -r default --update
-    fi
-}
-
-function updateFromGitHub() {
+function updateOtherProduct() {
+    # $1: product code
+    # $2: product name
+    # $3: extraction script
     if [ "$checkrepo" = true ]
     then
-        cd $mozilla_org
-        echogreen "Update mozilla.org repository"
-        git pull origin master
-    fi
-    echogreen "Extract strings for mozilla.org"
-    cd $install
-    nice -20 $install/app/scripts/tmx_mozillaorg
-}
-
-function updateFirefoxiOS() {
-    if [ "$checkrepo" = true ]
-    then
-        cd $firefox_ios
+        # If $1 = "focus_ios", ${!1} is equal to $focus_ios
+        cd ${!1}
         echogreen "Update GitHub repository"
         git pull
     fi
-    echogreen "Extract strings for Firefox for iOS"
+    echogreen "Extract strings for $2"
     cd $install
-    nice -20 $install/app/scripts/tmx_xliff firefox_ios
+    nice -20 $install/app/scripts/tmx/$3 $1
 }
 
-# Update repos without branches first (their TMX is created in updateStandardRepo)
-updateNoBranchRepo "chatzilla"
-
-updateStandardRepo "release" "release"
-updateStandardRepo "beta" "beta"
-updateStandardRepo "central" "trunk"
-
-updateFromGitHub
-updateFirefoxiOS
+updateGeckoStringsChannelRepo
+updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg
+updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
+updateOtherProduct focus_ios "Focus for iOS" tmx_xliff
+updateOtherProduct focus_android "Focus for Android" tmx_gettext
 
 # Generate productization data
 cd $install

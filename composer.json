@@ -84,6 +84,7 @@
     "require": {
         "components/jquery": "~1.1",
         "devbridge/jQuery-Autocomplete": "~1.4.",
+        "gettext/gettext": "~4.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
@@ -100,7 +101,7 @@
         "friendsofphp/php-cs-fixer": "~2.1",
         "pchevrel/verif": "0.4",
         "hirak/prestissimo": "~0.1.",
-        "phpdocumentor/phpdocumentor": "~2.0"
+        "phpdocumentor/phpdocumentor": "2.8.5"
     },
 
     "autoload": {

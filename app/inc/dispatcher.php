@@ -47,13 +47,6 @@ switch ($url['path']) {
         $page_descr = '';
         $template = false;
         break;
-    case 'channelcomparison':
-        $controller = 'channelcomparison';
-        $page_title = 'Channel Comparison';
-        $page_descr = 'Compare strings from channel to channel.';
-        $js_files[] = '/js/select_column.js';
-        $js_files[] = '/js/sorttable.js';
-        break;
     case 'consistency':
         $experimental = true;
         $controller = 'consistency';

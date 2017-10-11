@@ -4,8 +4,7 @@ namespace Transvision;
 /**
  * Xliff class
  *
- * This class is used to manipulate translation files in XLIFF format
- * used in Firefox for iOS.
+ * This class is used to manipulate translation files in XLIFF format.
  *
  * @package Transvision
  */
@@ -24,6 +23,7 @@ class Xliff
     {
         $strings = [];
         if ($xml = simplexml_load_file($xliff_path)) {
+            $file_name = basename($xliff_path);
             $namespaces = $xml->getDocNamespaces();
             $xml->registerXPathNamespace('x', $namespaces['']);
             /*
@@ -31,14 +31,7 @@ class Xliff
                 translation (target).
             */
             $trans_units = $xml->xpath('//x:trans-unit');
-            /*
-                File's name is 2 levels above in the hierarchy, stored as
-                'original' attribute of the <file> element.
-            */
             foreach ($trans_units as $trans_unit) {
-                $file_node = $trans_unit->xpath('../..');
-                $file_name = $file_node[0]['original'];
-
                 $string_id = self::generateStringID($project_name, $file_name, $trans_unit['id']);
                 $translation = str_replace("'", "\\'", $trans_unit->target);
 
@@ -50,18 +43,18 @@ class Xliff
     }
 
     /**
-     * Generate a unique id for a string to store in Transvision.
+     * Generate a unique ID for a string to store in Transvision.
      * String ID can be identical to the source string in iOS, so it's more
      * reliable to generate a unique ID from it.
      *
      * @param string $project_name The project this string belongs to
-     * @param string $file_name    'original' attribute of the <file> element
+     * @param string $file_name    .xliff file name
      * @param string $string_id    'id' attribute of the <trans-unit> element
      *
-     * @return string unique ID such as firefox_ios/Client/Intro.strings:1cd1dc4e
+     * @return string unique ID such as firefox_ios/firefox-ios.xliff:1dafea7725862ca854c408f0e2df9c88
      */
     public static function generateStringID($project_name, $file_name, $string_id)
     {
-        return "{$project_name}/{$file_name}:" . hash('crc32', $string_id);
+        return "{$project_name}/{$file_name}:" . hash('md5', $string_id);
     }
 }

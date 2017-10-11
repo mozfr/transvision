@@ -1,0 +1,114 @@
+# Translations template for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-09-07 20:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#. Label used for buttons, e.g. in dialogs
+msgctxt "action_cancel"
+msgid "Cancel"
+msgstr ""
+
+#. Label used for buttons, e.g. in dialogs
+msgctxt "action_ok"
+msgid "OK"
+msgstr ""
+
+#. This text is shown in the URL bar when it's empty
+msgctxt "urlbar_hint"
+msgid "Search or enter address"
+msgstr ""
+
+msgctxt "teaser"
+msgid ""
+"Automatic private browsing.\n"
+"Browse. Erase. Repeat."
+msgstr ""
+
+#. "Snackbar" shown after the user has pressed the 'erase' button at the end
+#. of a browsing session
+msgctxt "feedback_erase"
+msgid "Your browsing history has been erased."
+msgstr ""
+
+#. This label is shown below the URL bar as soon as the user enters text.
+#. Clicking the label will perform a search
+#, c-format
+msgctxt "search_hint"
+msgid "Search for %1$s"
+msgstr ""
+
+#. Menu item: Share the currently visible page
+msgctxt "menu_share"
+msgid "Share…"
+msgstr ""
+
+#. Menu item: Switch to another browser to open the currently visible page.
+#. %1$s will be       replaces with the name of the browser like: "Open with
+#. Firefox" or "Open with Chrome". Some       links can be opened by native
+#. apps that aren't a browser, e.g. "Open with YouTube"
+#, c-format
+msgctxt "menu_open_with_default_browser"
+msgid "Open with %1$s"
+msgstr ""
+
+#. Menu item: Switch to another browser to open the currently visible page.
+#. This menu item       will be shown if there are multiple browsers and we do
+#. not know which one is the default       browser or in case Focus is actually
+#. the default browser. Clicking this menu item will show       a screen with
+#. multiple browsers (or other apps that can open the current URL) to choose
+#. from.
+msgctxt "menu_open_with_a_browser"
+msgid "Open with…"
+msgstr ""
+
+#. Menu item: Add the current page as a shortcut to the device's home screen
+#. (launcher).
+msgctxt "menu_add_to_home_screen"
+msgid "Add to Home screen"
+msgstr ""
+
+msgctxt "menu_settings"
+msgid "Settings"
+msgstr ""
+
+msgctxt "menu_about"
+msgid "About"
+msgstr ""
+
+msgctxt "menu_help"
+msgid "Help"
+msgstr ""
+
+msgctxt "menu_rights"
+msgid "Your Rights"
+msgstr ""
+
+#. Menu item: This is the label for a menu entry that shows how many trackers
+#. have been blocked          for the currently loaded website. The number of
+#. blocked trackers is shown below this label.          Next to this label is a
+#. switch that allows the user to temporarily enable / disable the
+#. blocking of trackers for the current browsing session - for example if the
+#. current website          doesn't work correctly with blocked content.
+msgctxt "menu_trackers_blocked_title"
+msgid "Trackers blocked"
+msgstr ""
+
+#. This is the title of a dialog that shows all the share targets (apps or
+#. contacts) when          sharing an URL.
+msgctxt "share_dialog_title"
+msgid "Share via"
+msgstr ""

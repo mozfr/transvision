@@ -45,21 +45,18 @@ class AnalyseStrings
     {
         $pattern_mismatch = [];
 
-        switch ($repo) {
-            case 'firefox_ios':
-                $patterns = [
-                    'ios' => '/(%(?:[0-9]+\$){0,1}@)/i', // %@, but also %1$@, %2$@, etc.
-                ];
-                break;
-            default:
-                $patterns = [
-                    'dtd'        => '/&([a-z0-9\.]+);/i',                        // &foobar;
-                    'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}(S))/i', // %1$S or %S. %1$0.S and %0.S are valid too
-                    'properties' => '/(?<!%[0-9])\$[a-z0-9\.]+\b/i',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
-                    'l10njs'     => '/\{\{\s*([a-z0-9_]+)\s*\}\}/iu',            // {{foobar2}} Used in Loop and PDFViewer
-                ];
-                break;
-        }
+        $patterns = [
+            'dtd'        => '/&([A-Za-z0-9\.]+);/',                        // &foobar;
+            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
+            'properties' => '/(?<!%[0-9])\$[A-Za-z0-9\.]+\b/',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
+            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}} Used in Loop and PDFViewer
+            'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',                    // %@, but also %1$@, %2$@, etc.
+        ];
+        $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
+
+        $patterns = array_filter($patterns, function($k) use ($repo_patterns) {
+            return in_array($k, $repo_patterns);
+        }, ARRAY_FILTER_USE_KEY);
 
         foreach ($patterns as $pattern_name => $pattern) {
             foreach ($tmx_source as $key => $source) {

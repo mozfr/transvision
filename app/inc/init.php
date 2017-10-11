@@ -17,6 +17,7 @@ $server_config = parse_ini_file(__DIR__ . '/../config/config.ini');
 // If current instance is running automated tests, use content from test files
 if (getenv('AUTOMATED_TESTS')) {
     $server_config['root'] = $server_config['install'] . '/tests/testfiles/';
+    $server_config['config'] = $server_config['root'] . 'config/';
 }
 
 // Load all constants for the application

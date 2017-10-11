@@ -1,16 +1,6 @@
 <?php
 namespace Transvision;
 
-// Build arrays for the search form, ignore mozilla.org and iOS
-$channel_selector = Utils::getHtmlSelectOptions(
-    array_intersect_key(
-        $repos_nice_names,
-        array_flip($desktop_repos)
-    ),
-    $repo,
-    true
-);
-
 $reference_locale = Project::getReferenceLocale($repo);
 $supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
 // If the requested locale is not available, fall back to the first

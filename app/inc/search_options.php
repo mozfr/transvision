@@ -13,7 +13,7 @@ foreach ($search->getFormCheckboxes() as $val) {
 }
 
 // Check for default_repository cookie if we don't have a GET value
-if (! isset($_GET['repo']) && isset($_COOKIE['default_repository'])) {
+if (! isset($_GET['repo']) && isset($_COOKIE['default_repository']) && Project::isValidRepository($_COOKIE['default_repository'])) {
     $repo = $_COOKIE['default_repository'];
 }
 

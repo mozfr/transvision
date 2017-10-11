@@ -20,14 +20,10 @@ class VersionControl
     public static function getVCS($repo)
     {
         $vcs = [
-            'git' => ['firefox_ios', 'mozilla_org'],
-            'hg'  => [],
+            'git' => Project::$repos_lists['git'],
+            'hg'  => Project::getDesktopRepositories(),
             'svn' => [],
         ];
-        $vcs['hg'] = array_merge(
-            Project::getDesktopRepositories(),
-            $vcs['hg']
-        );
         foreach ($vcs as $system => $repos) {
             if (in_array($repo, $repos)) {
                 return $system;
@@ -46,27 +42,51 @@ class VersionControl
      */
     public static function VCSRepoName($repo)
     {
-        // Desktop
-        if (Project::isDesktopRepository($repo)) {
-            $repo = strtoupper($repo == 'central' ? 'trunk' : $repo) . '_L10N';
+        $mappings = [];
+
+        return isset($mappings[$repo]) ? $mappings[$repo] : $repo;
+    }
+
+    /**
+     * Generate a path to the repo for the file, depending on the VCS
+     * used by this repo
+     *
+     * @param string $locale Locale code
+     * @param string $repo   Repository name
+     * @param string $path   Entity name representing the local file
+     *
+     * @return string Path to the file in remote repository
+     */
+    public static function getPath($locale, $repo, $path)
+    {
+        $vcs = self::getVCS($repo);
+
+        switch ($vcs) {
+            case 'git':
+                $path = self::gitPath($locale, $repo, $path);
+                break;
+            case 'hg':
+                $path = self::hgPath($locale, $repo, $path);
+                break;
+            default:
+                $path = '';
+                break;
         }
 
-        return $repo;
+        return $path;
     }
 
     /**
      * Generate a path to the mercurial repo for the file
      *
-     * @param string $locale locale code
-     * @param string $repo   repository name
+     * @param string $locale Locale code
+     * @param string $repo   Repository name
      * @param string $path   Entity name representing the local file
      *
      * @return string Path to the file in remote mercurial repository
      */
     public static function hgPath($locale, $repo, $path)
     {
-        $url = 'https://hg.mozilla.org';
-
         // Remove entity from path and store it in a variable
         $path = explode(':', $path);
         $path = $path[0];
@@ -76,92 +96,14 @@ class VersionControl
         $exploded_path = explode('/', $path);
         $base_folder = $exploded_path[0];
 
-        $en_US_folder_mess = [
-            'browser/',
-            'browser/branding/nightly/',
-            'browser/branding/official/',
-            'browser/branding/unofficial/',
-            'browser/extensions/onboarding/',
-            'browser/extensions/webcompat-reporter/',
-            'calendar/',
-            'chat/',
-            'devtools/client/',
-            'devtools/shared/',
-            'devtools/shim/',
-            'dom/',
-            'editor/ui/',
-            'embedding/android/',
-            'extensions/spellcheck/',
-            'intl/',
-            'layout/tools/layout-debug/ui/',
-            'mail/',
-            'mail/branding/nightly/',
-            'mail/test/resources/mozmill/mozmill/extension/',
-            'mobile/',
-            'mobile/android/',
-            'mobile/android/base/',
-            'mobile/android/branding/beta/',
-            'mobile/android/branding/nightly/',
-            'mobile/android/branding/official/',
-            'mobile/android/branding/unofficial/',
-            'netwerk/',
-            'other-licenses/branding/thunderbird/',
-            'security/manager/',
-            'services/sync/',
-            'suite/',
-            'testing/extensions/community/chrome/',
-            'toolkit/',
-            'toolkit/content/tests/fennec-tile-testapp/chrome/',
-        ];
-
-        // Desktop repos
         if ($locale != 'en-US') {
-            if ($repo == 'central') {
-                $url .= '/l10n-central/' . $locale . '/file/default/';
-            } else {
-                $url .= '/releases/l10n/mozilla-' . $repo . '/' . $locale . '/file/default/';
-            }
+            $url = "https://hg.mozilla.org/l10n-central/{$locale}/file/default/";
         } else {
             // ChatZilla is in a separate repository
             if ($base_folder == 'extensions' && $exploded_path[1] == 'irc') {
-                return "{$url}/chatzilla/file/default/locales/en-US/chrome/{$entity_file}";
+                return "https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/{$entity_file}";
             }
-
-            // comm-central folders
-            if (in_array(
-                $base_folder,
-                ['calendar', 'chat', 'editor', 'ldap', 'mail', 'mailnews', 'suite']
-            )) {
-                $repo_base = 'comm';
-            } else {
-                $repo_base = 'mozilla';
-            }
-
-            if ($repo == 'central') {
-                $url .= "/${repo_base}-central/file/default/";
-            } else {
-                $url .= "/releases/${repo_base}-${repo}/file/default/";
-            }
-
-            $loop = true;
-
-            while ($loop && count($exploded_path) > 0) {
-                if (in_array(implode('/', $exploded_path) . '/', $en_US_folder_mess)) {
-                    $path_part1 = implode('/', $exploded_path) . '/locales/en-US';
-                    $pattern = preg_quote(implode('/', $exploded_path), '/');
-                    $path = preg_replace('/' . $pattern . '/', $path_part1, $path, 1);
-                    $loop = false;
-                    break;
-                } else {
-                    array_pop($exploded_path);
-                }
-            }
-
-            if ($loop == true) {
-                $path = explode('/', $path);
-                $category = array_shift($path);
-                $path = $category . '/locales/en-US/' . implode('/', $path);
-            }
+            $url = 'https://hg.mozilla.org/l10n/gecko-strings/file/default/';
         }
 
         return $url . $path . '/' . $entity_file;
@@ -171,40 +113,37 @@ class VersionControl
      * Generate a path to the GitHub repo for the file.
      * Only mozilla.org is supported for now.
      *
-     * @param string $locale locale code
-     * @param string $repo   repository name
+     * @param string $locale Locale code
+     * @param string $repo   Repository name
      * @param string $path   Entity name representing the local file
      *
      * @return string Path to the file in remote GitHub repository
      */
     public static function gitPath($locale, $repo, $path)
     {
-        switch ($repo) {
-            case 'firefox_ios':
-                $repo = 'firefoxios-l10n';
-                $file_path = 'firefox-ios.xliff';
-                break;
-            case 'mozilla_org':
-                $repo = 'www.mozilla.org';
-                $file_path = self::extractFilePath($path);
-                break;
-            default:
-                $file_path = $path;
-                break;
+        if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['git_repository'])) {
+            $repo_data = Project::$repos_info[$repo];
+            $repo = $repo_data['git_repository'];
+            $file_path = self::extractFilePath($path);
+            if (isset($repo_data['git_subfolder'])) {
+                $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
+            }
+        } else {
+            $file_path = $path;
         }
 
         return "https://github.com/mozilla-l10n/{$repo}/blob/master/{$locale}/$file_path";
     }
 
     /**
-     * Remove entity and project name from path
+     * Remove entity and project name from path (project/file:entity)
      *
      * @param string $path A Transvision file path
      *
      * @return string The same path without the entity
      *                and internal project name
      */
-    private static function extractFilePath($path)
+    public static function extractFilePath($path)
     {
         $path = explode(':', $path);
         $path = explode('/', $path[0]);

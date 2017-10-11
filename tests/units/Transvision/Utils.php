@@ -258,7 +258,7 @@ class Utils extends atoum\test
     public function getRepoStringsDP()
     {
         return [
-            ['fr', 'central', 'Ouvrir dans le Finder'],
+            ['fr', 'gecko_strings', 'Ouvrir dans le Finder'],
         ];
     }
 
@@ -434,16 +434,16 @@ class Utils extends atoum\test
     {
         return [
             [
-                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central',
-                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=central&json',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=gecko_strings',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=gecko_strings&json',
             ],
             [
                 '/v1/versions/',
                 '/v1/versions/?json',
             ],
             [
-                '/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings',
-                '/?recherche=home&repo=central&sourcelocale=en-US&locale=fr&search_type=strings&json',
+                '/?recherche=home&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings',
+                '/?recherche=home&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings&json',
             ],
         ];
     }
@@ -468,14 +468,14 @@ class Utils extends atoum\test
             [
                 'en-US',
                 'fr',
-                '/?recherche=test&repo=central&sourcelocale=fr&locale=en-US&search_type=strings',
-                '/?recherche=test&repo=central&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
+                '/?recherche=test&repo=gecko_strings&sourcelocale=fr&locale=en-US&search_type=strings',
+                '/?recherche=test&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
             ],
             [
                 'it',
                 'en-US',
-                '/?recherche=Cookies&repo=central&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
-                '/?recherche=Cookies&repo=central&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
+                '/?recherche=Cookies&repo=gecko_strings&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
+                '/?recherche=Cookies&repo=gecko_strings&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
             ],
         ];
     }

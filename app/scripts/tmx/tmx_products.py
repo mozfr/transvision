@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+from env_setup import import_library
 import json
 import logging
 import os
@@ -9,12 +10,12 @@ import sys
 from ConfigParser import SafeConfigParser
 
 logging.basicConfig()
-# Get absolute path of ../config from the current script location (not the
+# Get absolute path of ../../config from the current script location (not the
 # current folder)
 config_folder = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, 'config'))
+    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
 
-# Read Transvision's configuration file from ../config/config.ini
+# Read Transvision's configuration file from ../../config/config.ini
 # If not available use a default storage folder to store data
 config_file = os.path.join(config_folder, 'config.ini')
 if not os.path.isfile(config_file):
@@ -22,35 +23,34 @@ if not os.path.isfile(config_file):
           'Default settings will be used.')
     root_folder = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir))
-    library_path = os.path.join(root_folder, 'libraries')
+    libraries_path = os.path.join(root_folder, 'libraries')
 else:
     config_parser = SafeConfigParser()
     config_parser.read(config_file)
-    library_path = config_parser.get('config', 'libraries')
+    libraries_path = config_parser.get('config', 'libraries')
     storage_path = os.path.join(config_parser.get('config', 'root'), 'TMX')
 
-# Import compare-locales (http://hg.mozilla.org/l10n/compare-locales/)
-# and add it to the system's path
-compare_locales_path = os.path.join(library_path, 'compare-locales')
-if not os.path.isdir(compare_locales_path):
-    try:
-        print('Cloning compare-locales...')
-        cmd_status = subprocess.check_output(
-            ['hg', 'clone', 'https://hg.mozilla.org/l10n/compare-locales',
-                compare_locales_path, '-u', 'RELEASE_1_2_1'],
-            stderr=subprocess.STDOUT,
-            shell=False)
-        print(cmd_status)
-    except Exception as e:
-        print(e)
-sys.path.insert(0, compare_locales_path)
-
+# Import Fluent Python library
+import_library(
+    libraries_path, 'git', 'python-fluent',
+    'https://github.com/projectfluent/python-fluent', '0.4.2')
 try:
-    from compare_locales import parser
-except ImportError:
-    print('Error importing compare-locales library')
+    import fluent.syntax
+except ImportError as e:
+    print('Error importing python-fluent library')
+    print(e)
     sys.exit(1)
 
+# Import compare-locales
+import_library(
+    libraries_path, 'hg', 'compare-locales',
+    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_1')
+try:
+    from compare_locales import parser
+except ImportError as e:
+    print('Error importing compare-locales library')
+    print(e)
+    sys.exit(1)
 
 class StringExtraction():
 
@@ -69,7 +69,7 @@ class StringExtraction():
         self.locale = locale
         self.reference_locale = reference_locale
 
-        # Define the locale storage filenames
+        # Define the local storage filenames
         self.storage_file = os.path.join(
             storage_path, locale,
             'cache_{0}_{1}'.format(locale, repository_name))
@@ -144,8 +144,8 @@ class StringExtraction():
                     if not isinstance(entity, parser.Junk):
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
-                print 'Error parsing file: {0}'.format(file_name)
-                print e
+                print('Error parsing file: {0}'.format(file_name))
+                print(e)
 
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
@@ -228,7 +228,7 @@ def main():
     extracted_strings = StringExtraction(
         storage_path, args.locale_code, args.reference_code, args.repository_name)
 
-    extracted_strings.setRepositoryPath(args.repo_path.rstrip('/'))
+    extracted_strings.setRepositoryPath(args.repo_path)
     if args.storage_mode == 'append':
         extracted_strings.setStorageMode('append', args.storage_prefix)
 

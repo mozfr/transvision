@@ -20,11 +20,11 @@ class Xliff extends atoum\test
 
         // Check strings
         $this
-            ->string($strings['firefox_ios/Client/ClearPrivateData.strings:3f1f90ab'])
+            ->string($strings['firefox_ios/firefox-ios.xliff:ed1347cca60701456f8611e3917b9062'])
                 ->isEqualTo('Cronologia di navigazione');
 
         $this
-            ->string($strings['firefox_ios/Client/BookmarkPanel.strings:d4a1140e'])
+            ->string($strings['firefox_ios/firefox-ios.xliff:017b147661dfd36460ddb40c7d269649'])
                 ->isEqualTo('Segnalibri pc desktop');
     }
 
@@ -33,15 +33,15 @@ class Xliff extends atoum\test
         return [
             [
                 'firefox_ios',
-                'Client/BookmarkPanel.strings',
+                'firefox-ios.xliff',
                 'Delete',
-                'firefox_ios/Client/BookmarkPanel.strings:1c63676f',
+                'firefox_ios/firefox-ios.xliff:f2a6c498fb90ee345d997f888fce3b18',
             ],
             [
                 'firefox_ios',
-                'Client/ClearPrivateData.strings',
+                'firefox-ios.xliff',
                 'Are you sure you want to clear all of your data? This will also close all open tabs.',
-                'firefox_ios/Client/ClearPrivateData.strings:0f4d892c',
+                'firefox_ios/firefox-ios.xliff:401f0b9f25a4e3ea72f8b07ea3800ee4',
             ],
         ];
     }

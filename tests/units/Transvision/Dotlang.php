@@ -106,7 +106,7 @@ class Dotlang extends atoum\test
     public function generateStringID_DP()
     {
         return [
-            ['mozilla_org/main.lang', 'Back to home page', 'mozilla_org/main.lang:8295a9f6'],
+            ['mozilla_org/main.lang', 'Back to home page', 'mozilla_org/main.lang:a922fff6646b0eb4db05fe6e0894af7d'],
         ];
     }
 

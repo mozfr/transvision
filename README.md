@@ -5,7 +5,7 @@ Transvision is a Web application targeting the Mozilla localization community, c
 
 The main purpose of Transvision is to provide a specialized search engine to find localized strings in Mozilla code repositories for all Mozilla products (Firefox, Thunderbird, Seamonkey) and websites (currently only www.mozilla.org is supported) via a Web interface. There are also side-features such as checks for common typographical errors for some languages, validity checks for localized access keys in the UI, or comparison views between Mozilla repository channels (Nightly/Beta/Release).
 
-Transvision is written in PHP, the string extraction is done with the Silme library (Python) and server install/maintenance scripts are in Bash.
+Transvision is written in PHP, the string extraction is done with the compare-locales library (Python) and server install/maintenance scripts are in Bash.
 
 Transvision is available at:
 https://transvision.mozfr.org
@@ -14,8 +14,6 @@ Transvision Beta is available at:
 https://transvision-beta.mozfr.org
 
 Transvision was created by Philippe Dessante, from the French Mozilla localization team.
-
-Lead developer since version 1.0 : Pascal Chevrel (pascal AT mozilla DOT com).
 
 ## Getting Started
 

@@ -203,7 +203,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
         [
-            'message' => ['A menu has been added on <a href="/channelcomparison">Channel Comparison</a> view to navigate through content'],
+            'message' => ['A menu has been added on <del>Channel Comparison</del> view to navigate through content'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'commit'  => ['4be64e6270046548ac6d8818fe6060a2923408bf'],
@@ -466,7 +466,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
         [
-            'message' => ['<a href="/channelcomparison/#new_strings">List translations</a> done for a locale during a cycle'],
+            'message' => ['<del>List translations</del> done for a locale during a cycle'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'issues'  => [569],
@@ -2164,7 +2164,7 @@ $changelog = [
     ],
     '1.6' => [
         [
-            'message' => ['<strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <a href="https://transvision.mozfr.org/channelcomparison/">Channel to Channel differences</a>'],
+            'message' => ['<strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <del>Channel to Channel differences</del>'],
             'section' => ['end_user'],
             'type'    => ['new'],
         ],

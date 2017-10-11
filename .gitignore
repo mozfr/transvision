@@ -1,5 +1,6 @@
 .idea
 .php_cs.cache
+*.pyc
 app/config/config.ini
 app/config/sources/*.json
 app/config/sources/*.txt
@@ -14,9 +15,9 @@ logs/github_log.txt
 phpDocumentor.phar
 vendor
 web/assets
-web/p12n
 web/data.tar.gz
 web/docs
 web/download/.htaccess
 web/download/*.tmx
+web/p12n
 web/TMX

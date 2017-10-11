@@ -26,7 +26,7 @@ local_git=/home/travis/build/mozfr/transvision/data/git
 ; of Transvision, as long as scripts have access to it.
 local_svn=/home/travis/build/mozfr/transvision/data/svn
 
-; This path is used to store libraries (e.g. silme)
+; This path is used to store libraries (e.g. compare-locales)
 libraries=/home/travis/build/mozfr/transvision/data/libraries
 
 ; Flag to know if we are working in production more or development mode

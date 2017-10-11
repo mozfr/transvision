@@ -15,7 +15,7 @@ use Monolog\Logger;
  * Calls are like this:
  * api/<version>/<service>/<repository>/<search type>/<source locale>/<target locale>/<url escaped search>/?optional_parameter1=foo&optional_parameter2=bar
  * Example for an entity search containing bookmark:
- * https://transvision.mozfr.org/api/v1/tm/release/entity/en-US/fr/bookmark/?case_sensitive=case_sensitive
+ * https://transvision.mozfr.org/api/v1/tm/gecko_strings/entity/en-US/fr/bookmark/?case_sensitive=case_sensitive
  * (tm = translation memory service)
  *
  * Example for the list of locales supported for a repo:
@@ -212,7 +212,7 @@ class API
 
                 break;
             case 'locales':
-            // ex: /api/v1/locales/release/
+            // ex: /api/v1/locales/gecko_strings/
                 if (! $this->verifyEnoughParameters(3)) {
                     return false;
                 }
@@ -276,10 +276,10 @@ class API
             case 'suggestions':
             /*
                 Use the same settings as 'tm'
-                ex: /api/v1/suggestions/release/en-US/fr/string/Home%20page/?max_results=3
+                ex: /api/v1/suggestions/gecko_strings/en-US/fr/string/Home%20page/?max_results=3
             */
             case 'tm':
-            // ex: /api/v1/tm/release/en-US/fr/string/Home%20page/?max_results=3&min_quality=80
+            // ex: /api/v1/tm/gecko_strings/en-US/fr/string/Home%20page/?max_results=3&min_quality=80
                 if (! $this->verifyEnoughParameters(6)) {
                     return false;
                 }

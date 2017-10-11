@@ -47,7 +47,7 @@ $(document).ready(function() {
         });
 
         // Hide elements (e.g. filters in Consistency view) if it's not a desktop repository
-        var desktopRepositories = ['central', 'beta', 'release'];
+        var desktopRepositories = ['gecko_strings'];
         if (desktopRepositories.indexOf(repositoryID) === -1) {
             $('.desktop_repo_only').hide();
         } else {

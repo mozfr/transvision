@@ -21,13 +21,8 @@ $components = [];
 foreach ($entities as $entity) {
     $component = explode('/', $entity)[0];
     $components[] = $component;
-    if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
-        $path_locale1 = VersionControl::gitPath($source_locale, $current_repo, $entity);
-        $path_locale2 = VersionControl::gitPath($locale, $current_repo, $entity);
-    } else {
-        $path_locale1 = VersionControl::hgPath($source_locale, $current_repo, $entity);
-        $path_locale2 = VersionControl::hgPath($locale, $current_repo, $entity);
-    }
+    $path_locale1 = VersionControl::getPath($source_locale, $current_repo, $entity);
+    $path_locale2 = VersionControl::getPath($locale, $current_repo, $entity);
 
     // Escape strings for HTML display
     $bz_target_string = $target_string = isset($tmx_target[$entity])
@@ -69,11 +64,7 @@ foreach ($entities as $entity) {
 
         $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
-        if (in_array($current_repo, ['firefox_ios', 'mozilla_org'])) {
-            $path_locale3 = VersionControl::gitPath($locale2, $current_repo, $entity);
-        } else {
-            $path_locale3 = VersionControl::hgPath($locale2, $current_repo, $entity);
-        }
+        $path_locale3 = VersionControl::getPath($locale2, $current_repo, $entity);
 
         // Link to entity
         $entity_link = "?sourcelocale={$source_locale}"

@@ -3,7 +3,7 @@ namespace Transvision;
 
 $repo = isset($_GET['repo']) && in_array($_GET['repo'], $repos)
         ? $_GET['repo']
-        : 'release';
+        : 'gecko_strings';
 
 $entity = isset($_GET['entity']) ? $_GET['entity'] : '';
 $callback = isset($_GET['callback']) ? '&callback=' . $_GET['callback'] : '';
