@@ -48,7 +48,6 @@ switch ($url['path']) {
         $template = false;
         break;
     case 'consistency':
-        $experimental = true;
         $controller = 'consistency';
         $page_title = 'Translation Consistency';
         $page_descr = 'Analyze translation consistency across repositories.';
@@ -66,7 +65,6 @@ switch ($url['path']) {
         $js_files[] = '/js/select_all.js';
         break;
     case 'empty-strings':
-        $experimental = true;
         $controller = 'empty_strings';
         $page_title = 'Empty Strings';
         $page_descr = '';
@@ -116,14 +114,12 @@ switch ($url['path']) {
         $js_files[] = '/js/sorttable.js';
         break;
     case 'unlocalized':
-        $experimental = true;
         $controller = 'unlocalized_words';
         $page_title = 'Commonly Unlocalized Words';
         $page_descr = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
         $js_files[] = '/js/sorttable.js';
         break;
     case 'unlocalized-all':
-        $experimental = true;
         $controller = 'unlocalized_words';
         $page_title = 'Commonly Unlocalized Words (Global view)';
         $page_descr = 'Display the list of the most common untranslated words for all locales. Click on the table headers to sort results.';

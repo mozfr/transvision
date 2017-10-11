@@ -27,7 +27,11 @@ include __DIR__ . '/simplesearchform.php';
         </tr>
    </thead>
    <tbody>
-<?php foreach ($unlocalized_words as $english_term => $locales) : ?>
+<?php foreach ($unlocalized_words as $english_term => $locales) :
+if (! $locales) {
+  $locales = [];
+}
+?>
     <tr><td><?=$english_term?></td><?php
         foreach ($all_locales as $locale) {
             $count = 0;

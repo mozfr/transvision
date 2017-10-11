@@ -46,7 +46,10 @@ $source_strings = Utils::getRepoStrings($reference_locale, $repo);
 // Remove blanks strings. Using 'strlen' to avoid filtering out strings set to 0
 $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 
-if (! empty($source_strings)) {
+// No filtered component by default
+$filter_message = '';
+
+if (! empty($source_strings) && $repo == 'gecko_strings') {
     // Remove known problematic strings
     $duplicated_strings_english = Consistency::filterStrings($source_strings, $repo);
 

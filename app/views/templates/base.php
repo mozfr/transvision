@@ -49,7 +49,7 @@ $links = <<<EOT
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
   </ul>
   <ul>
-    {$li_link('unlocalized_all', 'Display common words remaining in English', 'Unlocalized Words')}
+    {$li_link('unlocalized', 'Display common words remaining in English', 'Unlocalized Words')}
     {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
     {$li_link('showrepos', 'Check the health status of locales', 'Health Status Overview')}
     {$li_link('productization', 'Show productization aspects', 'Productization')}

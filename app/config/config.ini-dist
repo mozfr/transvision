@@ -29,7 +29,7 @@ config=/home/pascalc/repos/github/transvision/app/config
 ; URL to l10n web service. Wrap the value between quotes if the URL contains special characters like ~
 l10nwebservice = "https://l10n.mozilla-community.org/mozilla-l10n-query/"
 
-; Flag to know if we are working in production more or development mode
+; Flag to know if we are working in production mode or development mode
 dev=false
 
 ; Github secret key for continuous integration on Beta site
