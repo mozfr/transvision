@@ -103,8 +103,7 @@ class VersionControl
             if ($base_folder == 'extensions' && $exploded_path[1] == 'irc') {
                 return "https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/{$entity_file}";
             }
-            #TODO: update URL
-            $url = 'https://hg.mozilla.org/users/axel_mozilla.com/gecko-strings-quarantine/file/default/';
+            $url = 'https://hg.mozilla.org/l10n/gecko-strings/file/default/';
         }
 
         return $url . $path . '/' . $entity_file;
