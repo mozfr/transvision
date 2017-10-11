@@ -63,14 +63,10 @@ function setupExternalLibraries() {
         echogreen "Checking out the p12n-extract library in $libraries"
         cd $libraries
         git clone https://github.com/flodolo/p12n-extract/ p12n
-        #TODO: remove this
-        cd p12n;git checkout x-channel;cd ..
         cd $install
     else
         echogreen "Updating the p12n-extract library in $libraries"
         cd $libraries/p12n
-        #TODO: remove this
-        git checkout x-channel
         git pull
         cd $install
     fi
