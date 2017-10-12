@@ -60,9 +60,68 @@ $releases = [
     '5.0'   => '2016-08-04',
     '5.1'   => '2016-11-04',
     '5.2'   => '2017-02-02',
+    '6.0'   => '2017-10-12',
 ];
 
 $changelog = [
+  '6.0' => [
+      [
+          'message' => ['Cross-channel support for Gecko-based products. All channels have been replaced by “Gecko products”. Transvision now pulls source strings from the <a href="https://hg.mozilla.org/l10n/gecko-strings/">Gecko strings repository</a> instead of cloning code repositories for each channel, reducing data volume from over 20 GB (more than 400 repositories) to ~2 GB on the server (about 100 repositories).'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['d1dbaa349333adb7f1d23195099d3b4dfeadc7e4'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Focus for iOS and Focus for Android support in all relevant views. To make this possible, Transvision is now able to parse and extract strings from <code>.po</code> files.'],
+          'section' => ['end_user'],
+          'type'    => ['new'],
+          'commit'  => ['d1dbaa349333adb7f1d23195099d3b4dfeadc7e4'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Improved consistency between different views (Component filters, Edit in Pontoon links).'],
+          'section' => ['end_user'],
+          'type'    => ['better'],
+          'commit'  => ['332472fcfe2ca14b92d686ec416651054f1508a4', 'da02e46c388a9973d4b1a6d4013180eaeac94c1f', '48d90392247a0db9c4f35f70feaa2b96e579d8e3'],
+          'authors' => ['flod', 'SkySymbol'],
+      ],
+      [
+          'message' => ['en-US is now excluded from several QA views.'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['1f9217b0818ec1248badbb2f05572c692e30ebef'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['After a search, the viewport now scrolls automatically to the results.'],
+          'section' => ['end_user'],
+          'type'    => ['better'],
+          'commit'  => ['332472fcfe2ca14b92d686ec416651054f1508a4'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['A warning is displayed when search contains leading or trailing white spaces.'],
+          'section' => ['end_user'],
+          'type'    => ['new'],
+          'commit'  => ['a6ed21f23b4b573d5e4037c88b9734ad47931319'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Display the 404 error page when URL is not parsable.'],
+          'section' => ['end_user'],
+          'type'    => ['bug'],
+          'commit'  => ['0d34950a8538648ad2488af5c1837eadeeb815f0'],
+          'authors' => ['tchevalier'],
+      ],
+      [
+          'message' => ['Switched default view for “Unlocalized Words” to single locale, removed “experimental” tag from several views.'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['d766d4cf1870f5f8a6ccd3e9a45d8825ad1997c4'],
+          'authors' => ['tchevalier'],
+      ],
+  ],
   '5.2' => [
       [
           'message' => ['For locales working on Pootle or Pontoon, added links under Aurora search results to quickly access translations in the tool'],
