@@ -115,7 +115,7 @@ $changelog = [
           'authors' => ['tchevalier'],
       ],
       [
-          'message' => ['Switched default view for “Unlocalized strings” to single locale, removed “experimental” tag from several views.'],
+          'message' => ['Switched default view for “Unlocalized Words” to single locale, removed “experimental” tag from several views.'],
           'section' => ['end_user'],
           'type'    => ['change'],
           'commit'  => ['d766d4cf1870f5f8a6ccd3e9a45d8825ad1997c4'],
