@@ -60,9 +60,26 @@ $releases = [
     '5.0'   => '2016-08-04',
     '5.1'   => '2016-11-04',
     '5.2'   => '2017-02-02',
+    '6.0'   => '2017-10-12',
 ];
 
 $changelog = [
+  '6.0' => [
+      [
+          'message' => ['Cross-channel support for Gecko-based products. All channels have been replaced with “Gecko products”. Transvision now pulls source strings from the <a href="https://hg.mozilla.org/l10n/gecko-strings/">Gecko strings repository</a> instead of cloning code repositories for each channel, reducing data volume from 20GB+ to ~2GB on the server.'],
+          'section' => ['end_user'],
+          'type'    => ['change'],
+          'commit'  => ['d1dbaa349333adb7f1d23195099d3b4dfeadc7e4'],
+          'authors' => ['flod'],
+      ],
+      [
+          'message' => ['Focus for iOS and Focus for Android support in all relevant views. To make this possible, Transvision is now able to parse and extract strings from <code>.po</code> files.'],
+          'section' => ['end_user'],
+          'type'    => ['new'],
+          'commit'  => ['d1dbaa349333adb7f1d23195099d3b4dfeadc7e4'],
+          'authors' => ['flod'],
+      ],
+  ],
   '5.2' => [
       [
           'message' => ['For locales working on Pootle or Pontoon, added links under Aurora search results to quickly access translations in the tool'],
