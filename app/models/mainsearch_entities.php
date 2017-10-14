@@ -14,6 +14,11 @@ if ($url['path'] == '3locales') {
 
 $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
 
+$real_search_results = count($entities);
+$limit_results = 200;
+// Limit results to 200 per locale
+array_splice($entities, $limit_results);
+
 // Display a search hint for the closest string we have if we have no search results
 if (count($entities) == 0) {
     $merged_strings = [];

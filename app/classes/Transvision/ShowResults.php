@@ -324,12 +324,13 @@ class ShowResults
      * Html table of search results used by the main view (needs a lot of refactoring)
      *
      * @param object $search_object  The Search object that contains all the options for the query
+     * @param object $search_id      Search ID
      * @param array  $search_results List of rows
      * @param string $page           The page we are generating, used to output results for 2 or 3 locales
      *
      * @return string html table to insert in the view
      */
-    public static function resultsTable($search_object, $search_results, $page)
+    public static function resultsTable($search_object, $search_id, $search_results, $page)
     {
         $locale1 = $search_object->getLocale('source');
         $locale2 = $search_object->getLocale('target');
@@ -348,7 +349,7 @@ class ShowResults
             $extra_column_header = "<th>{$locale3}</th>";
         }
 
-        $table = "<table class='collapsable results_table sortable'>
+        $table = "<table class='collapsable results_table sortable {$search_id}'>
                      <thead>
                        <tr class='column_headers'>
                          <th>Entity</th>
@@ -537,7 +538,7 @@ class ShowResults
                 $extra_column_rows = '';
             }
             $table .= "
-                <tr class='{$component}'>
+                <tr class='{$component} {$search_id}'>
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>#</a>

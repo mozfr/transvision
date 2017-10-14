@@ -63,7 +63,7 @@ foreach ($searches as $key => $value) {
 
         $output[$key] = "<h2>Displaying {$message_count} for the string "
                         . '<span class="searchedTerm">' . htmlentities($my_search) . "</span> in {$key}:</h2>";
-        $output[$key] .= ShowResults::resultsTable($search, $search_results, $page);
+        $output[$key] .= ShowResults::resultsTable($search, $search_id, $search_results, $page);
     } else {
         $output[$key] = '<h2>No matching results for the string '
                         . '<span class="searchedTerm">' . htmlentities($my_search) . '</span>'
