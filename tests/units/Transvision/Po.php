@@ -13,7 +13,7 @@ class Po extends atoum\test
         $obj = new _Po();
 
         // Test standard file
-        $strings = $obj->getStrings(TEST_FILES . 'po/it_app.po', 'app.po', 'focus_android');
+        $strings = $obj->getStrings(TEST_FILES . 'po/it_app.po', 'focus_android');
 
         // Check total number of strings
         $this
@@ -22,15 +22,15 @@ class Po extends atoum\test
 
         // Check strings
         $this
-            ->string($strings['focus_android/app.po:3071c8a7530990a564b943a69f4ac652'])
+            ->string($strings['focus_android/it_app.po:3071c8a7530990a564b943a69f4ac652'])
                 ->isEqualTo('Cerca o inserisci un indirizzo');
 
         $this
-            ->string($strings['focus_android/app.po:0d6ef5cb439f059884232d5680ac138f'])
+            ->string($strings['focus_android/it_app.po:0d6ef5cb439f059884232d5680ac138f'])
                 ->isEqualTo('Elementi traccianti bloccati');
 
         // Test plurals
-        $strings = $obj->getStrings(TEST_FILES . 'po/ga_app.po', 'app.po', 'focus_android');
+        $strings = $obj->getStrings(TEST_FILES . 'po/ga_app.po', 'focus_android');
 
         // Check total number of strings
         $this
@@ -39,15 +39,15 @@ class Po extends atoum\test
 
         // Check strings
         $this
-            ->string($strings['focus_android/app.po:b8c8fe8a54683f91f8ed8a54d7f76dec'])
+            ->string($strings['focus_android/ga_app.po:b8c8fe8a54683f91f8ed8a54d7f76dec'])
                 ->isEqualTo('Thug {0} agus duine amháin eile freagra air');
 
         $this
-            ->string($strings['focus_android/app.po:1626bdedbed9939897d17cdeb4fe5e84'])
+            ->string($strings['focus_android/ga_app.po:1626bdedbed9939897d17cdeb4fe5e84'])
                 ->isEqualTo("Thug {0} agus {1} dhuine eile freagra air\nThug {0} agus {1} dhuine eile freagra air\nThug {0} agus {1} nduine eile freagra air\nThug {0} agus {1} duine eile freagra air");
 
         // Test .pot file
-        $strings = $obj->getStrings(TEST_FILES . 'po/app.pot', 'app.po', 'focus_android', true);
+        $strings = $obj->getStrings(TEST_FILES . 'po/app.pot', 'focus_android', true);
 
         // Check total number of strings
         $this
