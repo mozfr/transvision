@@ -20,11 +20,11 @@ class Xliff extends atoum\test
 
         // Check strings
         $this
-            ->string($strings['firefox_ios/firefox-ios.xliff:ed1347cca60701456f8611e3917b9062'])
+            ->string($strings['firefox_ios/firefox-ios.xliff:4c8cc9416b11b77e88809ff17e7f180e'])
                 ->isEqualTo('Cronologia di navigazione');
 
         $this
-            ->string($strings['firefox_ios/firefox-ios.xliff:017b147661dfd36460ddb40c7d269649'])
+            ->string($strings['firefox_ios/firefox-ios.xliff:f6b6d1aff4ade5b867d563d74b01a429'])
                 ->isEqualTo('Segnalibri pc desktop');
     }
 
@@ -34,14 +34,16 @@ class Xliff extends atoum\test
             [
                 'firefox_ios',
                 'firefox-ios.xliff',
+                'AccountTests/Info.plist',
                 'Delete',
-                'firefox_ios/firefox-ios.xliff:f2a6c498fb90ee345d997f888fce3b18',
+                'firefox_ios/firefox-ios.xliff:bb46926d0fcd6d43155f706a22b0f3fc',
             ],
             [
                 'firefox_ios',
                 'firefox-ios.xliff',
+                'Client/3DTouchActions.strings',
                 'Are you sure you want to clear all of your data? This will also close all open tabs.',
-                'firefox_ios/firefox-ios.xliff:401f0b9f25a4e3ea72f8b07ea3800ee4',
+                'firefox_ios/firefox-ios.xliff:46e4ec3c64a0ce5a5d9c5f8bebd74325',
             ],
         ];
     }
@@ -49,11 +51,11 @@ class Xliff extends atoum\test
     /**
      * @dataProvider generateStringID_DP
      */
-    public function testGenerateStringID($a, $b, $c, $d)
+    public function testGenerateStringID($a, $b, $c, $d, $e)
     {
         $obj = new _Xliff();
         $this
-            ->string($obj->generateStringID($a, $b, $c))
-                ->isEqualTo($d);
+            ->string($obj->generateStringID($a, $b, $c, $d))
+                ->isEqualTo($e);
     }
 }
