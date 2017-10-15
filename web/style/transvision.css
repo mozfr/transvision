@@ -1043,7 +1043,7 @@ input[type="checkbox"]:disabled + label {
 }
 
 /* Access keys view */
-#keys .error {
+#accesskeys .error {
     margin: 0 auto;
     text-align: center;
     width: 75%;

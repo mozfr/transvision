@@ -3,6 +3,8 @@
 include 'includes/init.php';
 
 $paths = [
+    ['accesskeys/', 200, 'Access Keys', 'Congratulations, no errors found.'],
+    ['commandkeys/', 200, 'Keyboard Shortcuts', 'Repository'],
     ['consistency/?locale=fr&repo=gecko_strings', 200, 'English String', 'Available Translations'],
     ['consistency/?locale=fr&repo=gecko_strings', 200, 'Translation Consistency', 'Analyze translation consistency across repositories.'],
     ['credits/', 200, 'Transvision 1.0 was created', 'Transvision is a community project under the MozFR umbrella'],

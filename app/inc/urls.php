@@ -3,7 +3,8 @@
 $urls = [
     '/'                 => 'root',
     '3locales'          => '3locales',
-    'accesskeys'        => 'keys',
+    'accesskeys'        => 'accesskeys',
+    'commandkeys'       => 'commandkeys',
     'api'               => 'api',
     'consistency'       => 'consistency',
     'credits'           => 'credits',
