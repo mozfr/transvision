@@ -39,6 +39,7 @@ $commandkey_ids = array_filter(
 
 // Known false positives
 $ignored_ids = [
+    'browser/chrome/browser/browser.properties:addonPostInstall.okay.key',
     'devtools/client/webconsole.properties:table.key',
     'extensions/irc/chrome/chatzilla.properties:msg.url.key',
 ];
