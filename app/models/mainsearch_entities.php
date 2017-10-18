@@ -12,6 +12,12 @@ if ($url['path'] == '3locales') {
     $extra_column_header = '';
 }
 
+// Trim the search query when searching for entities, display a warning
+if ($search->getSearchTerms() !== trim($search->getSearchTerms())) {
+    $search->setRegexSearchTerms(trim($search->getSearchTerms()));
+    $warning_whitespaces = '<p id="search_warning"><strong>Warning:</strong> leading or trailing whitespaces have been automatically removed from the search query.</p>';
+}
+
 $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
 
 $real_search_results = count($entities);

@@ -217,6 +217,10 @@ if (isset($filter_block)):
 <?php
 endif;
 
+if (isset($warning_whitespaces)) {
+    print $warning_whitespaces;
+}
+
 $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     $message_count = $real_search_results > $limit_results

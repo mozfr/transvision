@@ -68,12 +68,12 @@ if ($check['t2t']) {
     require_once VIEWS . 'results_glossary.php';
 } else {
     // No search
-    if ($my_search == '') {
+    if ($search->getSearchTerms() == '') {
         return;
     }
 
     // Search not acceptable
-    if (mb_strlen(trim($my_search)) < 2) {
+    if (mb_strlen($search->getSearchTerms()) < 2) {
         print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
 
         return;
