@@ -1,8 +1,9 @@
 <?php
 namespace Transvision;
 
+$search_id = 'search_entities';
 $table = "
-<table class='collapsable'>
+<table class='collapsable results_table sortable {$search_id}'>
   <thead>
     <tr class='column_headers'>
       <th>Entity</th>
@@ -162,7 +163,7 @@ foreach ($entities as $entity) {
         : '';
 
     $table .= "
-  <tr class='{$component}'>
+  <tr class='{$component} {$search_id}'>
     <td>
       <span class='celltitle'>Entity</span>
       <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>#</a>
@@ -218,6 +219,10 @@ endif;
 
 $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
+    $message_count = $real_search_results > $limit_results
+        ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
+        : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
+    print "<h2>Display {$message_count}</h2>";
     print $table;
 }
 
