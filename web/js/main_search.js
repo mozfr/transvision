@@ -45,6 +45,8 @@ $(document).ready(function() {
                     $('#searchform').submit();
                 }
             });
+            // Disable autocomplete on focus
+            $('#recherche').off('focus.autocomplete');
         }
         if ($('#search_type').val() !== 'entities') {
             $('#recherche').autocomplete().enable();
