@@ -16,7 +16,7 @@ class Xliff extends atoum\test
         // Check total number of strings
         $this
             ->integer(count($strings))
-                ->isEqualTo(12);
+                ->isEqualTo(14);
 
         // Check strings
         $this
@@ -37,6 +37,13 @@ class Xliff extends atoum\test
                 'AccountTests/Info.plist',
                 'Delete',
                 'firefox_ios/firefox-ios.xliff:bb46926d0fcd6d43155f706a22b0f3fc',
+            ],
+            [
+                'firefox_ios',
+                'firefox-ios.xliff',
+                'DiffentFile/Info.plist',
+                'Delete',
+                'firefox_ios/firefox-ios.xliff:e3b9ee7a5b6b4e96f70c539d87aff9b0',
             ],
             [
                 'firefox_ios',
