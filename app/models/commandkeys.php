@@ -37,13 +37,14 @@ $commandkey_ids = array_filter(
     }
 );
 
-// Known false positives
+// Known false positives to ignore
 $ignored_ids = [
     'browser/chrome/browser/browser.properties:addonPostInstall.okay.key',
     'devtools/client/webconsole.properties:table.key',
     'extensions/irc/chrome/chatzilla.properties:msg.url.key',
 ];
 $ignored_files = [
+    'extensions/irc/chrome/chatzilla.properties',
     'toolkit/chrome/global/charsetMenu.properties',
 ];
 
