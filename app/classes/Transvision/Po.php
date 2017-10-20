@@ -17,14 +17,17 @@ class Po
      * Loads strings from a .po file
      *
      * @param string  $po_path      Path to the .po to load
-     * @param string  $file_name    Name of the file extracted
      * @param string  $project_name The project this string belongs to
      * @param boolean $template     If I'm looking at templates
      *
      * @return array Array of strings as [string_id => translation]
      */
-    public static function getStrings($po_path, $file_name, $project_name, $template = false)
+    public static function getStrings($po_path, $project_name, $template = false)
     {
+        $file_name = basename($po_path);
+        if ($template) {
+            $file_name = str_replace('.pot', '.po', $file_name);
+        }
         $translations = Translations::fromPoFile($po_path);
         $strings = [];
 

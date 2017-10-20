@@ -53,7 +53,7 @@ foreach (Files::getFoldersInPath($base_path) as $locale) {
         }
 
         if (file_exists($po_path)) {
-            $strings = Po::getStrings($po_path, $file_name, $project_name, $template);
+            $strings = Po::getStrings($po_path, $project_name, $template);
             $total_strings = count($strings);
             foreach ($strings as $string_id => $translation) {
                 $out_translation .= "'{$string_id}' => '{$translation}', \n";

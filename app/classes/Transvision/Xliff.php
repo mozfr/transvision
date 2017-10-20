@@ -32,7 +32,10 @@ class Xliff
             */
             $trans_units = $xml->xpath('//x:trans-unit');
             foreach ($trans_units as $trans_unit) {
-                $string_id = self::generateStringID($project_name, $file_name, $trans_unit['id']);
+                $file_node = $trans_unit->xpath('../..');
+                $file_orig = $file_node[0]['original'];
+
+                $string_id = self::generateStringID($project_name, $file_name, $file_orig, $trans_unit['id']);
                 $translation = str_replace("'", "\\'", $trans_unit->target);
 
                 $strings[$string_id] = $translation;
@@ -49,12 +52,13 @@ class Xliff
      *
      * @param string $project_name The project this string belongs to
      * @param string $file_name    .xliff file name
+     * @param string $file_orig    'original' attribute of the element's parent
      * @param string $string_id    'id' attribute of the <trans-unit> element
      *
      * @return string unique ID such as firefox_ios/firefox-ios.xliff:1dafea7725862ca854c408f0e2df9c88
      */
-    public static function generateStringID($project_name, $file_name, $string_id)
+    public static function generateStringID($project_name, $file_name, $file_orig, $string_id)
     {
-        return "{$project_name}/{$file_name}:" . hash('md5', $string_id);
+        return "{$project_name}/{$file_name}:" . hash('md5', $file_orig . $string_id);
     }
 }
