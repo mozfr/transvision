@@ -41,6 +41,14 @@ switch ($url['path']) {
         $js_files[] = '/js/component_filter.js';
         $js_files[] = '/js/sorttable.js';
         break;
+    case 'commandkeys':
+        $controller = 'commandkeys';
+        $experimental = true;
+        $page_title = 'Keyboard Shortcuts';
+        $page_descr = 'Check your keyboard shortcuts.';
+        $js_files[] = '/js/component_filter.js';
+        $js_files[] = '/js/sorttable.js';
+        break;
     case Strings::StartsWith($url['path'], 'api'):
         $controller = 'api';
         $page_title = 'API response';

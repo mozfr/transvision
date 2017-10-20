@@ -43,7 +43,8 @@ $links = <<<EOT
 <div class="linkscolumn" id="qa_column">
   <h3>QA Views</h3>
   <ul>
-    {$li_link('keys', 'Check your access keys', 'Access Keys')}
+    {$li_link('accesskeys', 'Check your access keys', 'Access Keys')}
+    {$li_link('commandkeys', 'Check your keyboard shortcuts', 'Keyboard Shortcuts')}
     {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
     {$li_link('empty_strings', 'Display empty strings in English or locale', 'Empty Strings')}
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
