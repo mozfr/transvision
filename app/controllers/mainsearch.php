@@ -54,6 +54,17 @@ if ($url['path'] == '3locales') {
     require_once MODELS . '3locales_search.php';
 }
 
+/*
+    Trim the search query when searching for entities, display a warning.
+    This needs to be done before including search_form.php, in order to
+    display the trimmed value in the search field.
+*/
+if ($search->getSearchType() == 'entities' &&
+    $search->getSearchTerms() !== trim($search->getSearchTerms())) {
+    $search->setSearchTerms(trim($search->getSearchTerms()));
+    $warning_whitespaces = '<p id="search_warning"><strong>Warning:</strong> leading or trailing whitespaces have been automatically removed from the search query.</p>';
+}
+
 // The search form is shared by all search views
 require_once VIEWS . 'search_form.php';
 
@@ -68,12 +79,12 @@ if ($check['t2t']) {
     require_once VIEWS . 'results_glossary.php';
 } else {
     // No search
-    if ($my_search == '') {
+    if ($search->getSearchTerms() == '') {
         return;
     }
 
     // Search not acceptable
-    if (mb_strlen(trim($my_search)) < 2) {
+    if (mb_strlen($search->getSearchTerms()) < 2) {
         print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
 
         return;
