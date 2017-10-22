@@ -499,4 +499,33 @@ class ShowResults extends atoum\test
             ->string($obj->getEditLink($a, $b, $c, $d, $e))
                 ->isEqualTo($f);
     }
+
+    public function buildComponentsFilterDP()
+    {
+        return [
+            [
+                ['browser', 'mail'],
+                "<div id='filters'>
+                <h4>Filter by folder:</h4>
+                <a href='#showall' id='showall' class='filter'>Show all results</a>
+                 <a href='#browser' id='browser' class='filter'>browser</a> <a href='#mail' id='mail' class='filter'>mail</a>
+            </div>\n",
+            ],
+            [
+                [],
+                '',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider buildComponentsFilterDP
+     */
+    public function testBuildComponentsFilter($a, $b)
+    {
+        $obj = new _ShowResults();
+        $this
+            ->variable($obj->buildComponentsFilter($a))
+                ->isIdenticalTo($b);
+    }
 }

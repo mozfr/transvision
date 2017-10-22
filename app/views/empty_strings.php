@@ -35,15 +35,9 @@ namespace Transvision;
         <input type="submit" value="Go" alt="Go" />
     </fieldset>
 </form>
-<?php if (isset($filter_block)) {
-    ?>
-<div id="filters">
-    <h4>Filter by folder:</h4>
-    <a href="#showall" id="showall" class="filter">Show all results</a>
-    <?=$filter_block; ?>
-</div>
 <?php
-
+if (isset($filter_block)) {
+    print $filter_block;
 }
 
 if (count($empty_strings) == 0) {

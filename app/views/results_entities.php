@@ -198,24 +198,14 @@ foreach ($entities as $entity) {
   </tr>\n";
 }
 
-// Remove duplicated components
+// Remove duplicated components and build components filter
 $components = array_unique($components);
 if (Project::isDesktopRepository($search->getRepository())) {
-    // Build logic to filter components
-    $filter_block = '';
-    foreach ($components as $value) {
-        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
+    $filter_block = ShowResults::buildComponentsFilter($components);
+    if (isset($filter_block)) {
+        print $filter_block;
     }
 }
-if (isset($filter_block)):
-?>
-<div id="filters">
-    <h4>Filter by folder:</h4>
-    <a href="#showall" id="showall" class="filter">Show all results</a>
-    <?=$filter_block;?>
-</div>
-<?php
-endif;
 
 if (isset($warning_whitespaces)) {
     print $warning_whitespaces;

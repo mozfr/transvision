@@ -50,11 +50,8 @@ foreach ($strings_reference as $string_id => $string_value) {
     }
 }
 
+// Build components filter
 if (in_array($repo, $desktop_repos)) {
-    // Build logic to filter components
     $components = Project::getComponents($unchanged_strings);
-    $filter_block = '';
-    foreach ($components as $value) {
-        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-    }
+    $filter_block = ShowResults::buildComponentsFilter($components);
 }

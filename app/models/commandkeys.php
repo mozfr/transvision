@@ -67,13 +67,9 @@ foreach ($commandkey_ids as $commandkey_id) {
     }
 }
 
-// Add component filter
-// Build logic to filter components
+// Build components filter
 $components = Project::getComponents(array_flip($commandkey_results));
-$filter_block = '';
-foreach ($components as $value) {
-    $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-}
+$filter_block = ShowResults::buildComponentsFilter($components);
 
 // RTL support
 $text_direction = RTLSupport::getDirection($locale);

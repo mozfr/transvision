@@ -46,11 +46,9 @@ foreach ($empty_locale as $string_id => $value) {
 unset($reference_strings);
 unset($locale_strings);
 
+// Build components filter
 if (count($empty_strings) > 0) {
     ksort($empty_strings);
     $components = Project::getComponents($empty_strings);
-    $filter_block = '';
-    foreach ($components as $value) {
-        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-    }
+    $filter_block = ShowResults::buildComponentsFilter($components);
 }

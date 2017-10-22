@@ -80,14 +80,10 @@ foreach ($ak_string_ids as $ak_string_id) {
     }
 }
 
-// Add component filter
+// Build components filter
 if (in_array($repo, $desktop_repos)) {
-    // Build logic to filter components
     $components = Project::getComponents(array_flip($ak_results));
-    $filter_block = '';
-    foreach ($components as $value) {
-        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-    }
+    $filter_block = ShowResults::buildComponentsFilter($components);
 }
 
 // RTL support

@@ -659,4 +659,31 @@ class ShowResults
 
         return $error_message;
     }
+
+        /**
+         * Build HTML fragment for components filter.
+         *
+         * @param array $components List of components
+         *
+         * @return string HTML for components filter
+         */
+        public static function buildComponentsFilter($components)
+        {
+            if (empty($components)) {
+                return '';
+            }
+
+            $filter = '';
+            foreach ($components as $value) {
+                $filter .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
+            }
+
+            $filter = "<div id='filters'>
+                <h4>Filter by folder:</h4>
+                <a href='#showall' id='showall' class='filter'>Show all results</a>
+                {$filter}
+            </div>\n";
+
+            return $filter;
+        }
 }

@@ -88,11 +88,8 @@ if (! $search_yields_results) {
 
     return;
 } else {
+    // Build components filter
     if (Project::isDesktopRepository($search->getRepository())) {
-        // Build logic to filter components
-        $filter_block = '';
-        foreach ($components as $value) {
-            $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-        }
+        $filter_block = ShowResults::buildComponentsFilter($components);
     }
 }

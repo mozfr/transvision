@@ -17,11 +17,7 @@ if (! empty($commandkey_results)) {
         . "</span> found</h2>\n";
 
     if (isset($filter_block)) {
-        $content .= "<div id='filters'>" .
-                    "  <h4>Filter by folder:</h4>\n" .
-                    "  <a href='#showall' id='showall' class='filter'>Show all results</a>\n" .
-                    $filter_block .
-                    "</div>\n";
+        $content .= $filter_block;
     }
 
     $content .= "
