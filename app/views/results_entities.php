@@ -215,8 +215,8 @@ $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     $message_count = $real_search_results > $limit_results
         ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
-        : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($real_search_results), 'result') . '</span>';
-    print "<h2>Display {$message_count}</h2>";
+        : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize($real_search_results, 'result') . '</span>';
+    print "<h2>Displaying {$message_count}:</h2>";
     print $table;
 }
 
