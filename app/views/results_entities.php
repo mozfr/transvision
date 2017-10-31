@@ -198,24 +198,14 @@ foreach ($entities as $entity) {
   </tr>\n";
 }
 
-// Remove duplicated components
+// Remove duplicated components and build components filter
 $components = array_unique($components);
 if (Project::isDesktopRepository($search->getRepository())) {
-    // Build logic to filter components
-    $filter_block = '';
-    foreach ($components as $value) {
-        $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
+    $filter_block = ShowResults::buildComponentsFilter($components);
+    if (isset($filter_block)) {
+        print $filter_block;
     }
 }
-if (isset($filter_block)):
-?>
-<div id="filters">
-    <h4>Filter by folder:</h4>
-    <a href="#showall" id="showall" class="filter">Show all results</a>
-    <?=$filter_block;?>
-</div>
-<?php
-endif;
 
 if (isset($warning_whitespaces)) {
     print $warning_whitespaces;
@@ -225,8 +215,8 @@ $table .= "</tbody>\n</table>\n\n";
 if ($entities) {
     $message_count = $real_search_results > $limit_results
         ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
-        : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($real_search_results), 'result') . '</span>';
-    print "<h2>Display {$message_count}</h2>";
+        : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize($real_search_results, 'result') . '</span>';
+    print "<h2>Displaying {$message_count}:</h2>";
     print $table;
 }
 

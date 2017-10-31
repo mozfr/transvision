@@ -34,14 +34,25 @@ $searches = [
     $source_locale => $locale1_strings,
     $locale        => $locale2_strings,
 ];
-
 $data = [$tmx_source, $tmx_target];
+unset($tmx_source, $tmx_target);
 
-// 3locales view
+// Only use data for target locale if it's different from the source locale
+if ($locale != $source_locale) {
+    $searches[$locale] = $locale2_strings;
+}
+
+/*
+    3locales view. Only use data for this locale if it's different from both
+    source and target locale.
+*/
 if ($url['path'] == '3locales') {
     $check['extra_locale'] = $locale2;
-    $searches[$locale2] = $locale3_strings;
     $data[] = $tmx_target2;
+    unset($tmx_target2);
+    if (! in_array($locale2, [$source_locale, $locale])) {
+        $searches[$locale2] = $locale3_strings;
+    }
 }
 
 $search_yields_results = false;
@@ -88,11 +99,8 @@ if (! $search_yields_results) {
 
     return;
 } else {
+    // Build components filter
     if (Project::isDesktopRepository($search->getRepository())) {
-        // Build logic to filter components
-        $filter_block = '';
-        foreach ($components as $value) {
-            $filter_block .= " <a href='#{$value}' id='{$value}' class='filter'>{$value}</a>";
-        }
+        $filter_block = ShowResults::buildComponentsFilter($components);
     }
 }
