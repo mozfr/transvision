@@ -91,7 +91,7 @@ function initGeckoStringsRepo() {
             if [ ! -d $locale/.hg ]
             then
                 echogreen "Checking out the following repo:"
-                echogreen $repo_folder/$locale/
+                echogreen "$repo_path/$locale/"
                 if [ "$locale" = "en-US" ]
                 then
                     hg clone https://hg.mozilla.org/l10n/gecko-strings/ $locale
