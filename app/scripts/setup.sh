@@ -161,16 +161,19 @@ DEV_VERSION="dev"
 if [ ! -d ${install}/.git ]
 then
     CURRENT_TIP="unknown"
+    LATEST_TAG_NAME="unknown"
 else
     cd "${install}"
     CURRENT_TIP=$(git rev-parse HEAD)
     LATEST_TAG=$(git describe --abbrev=0 --tags | xargs -I {} git rev-list -n 1 {})
+    LATEST_TAG_NAME=$(git describe --abbrev=0 --tags)
     if [ "${CURRENT_TIP}" = "${LATEST_TAG}" ]
     then
         DEV_VERSION=""
     fi
 fi
 echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
+echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupExternalLibraries
 initGeckoStringsRepo

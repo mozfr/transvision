@@ -62,7 +62,7 @@ $get_sections = function ($section) {
 };
 
 // Helper to generate the list of patches for the version
-$github_link = function ($release) use ($releases) {
+$github_link = function ($release, $releases) {
     if ($release > 1) {
         $keys = array_keys($releases);
         $previous = $keys[array_search($release, $keys, true) - 1];
@@ -76,7 +76,7 @@ LINK;
 };
 
 // Helper to generate a release title block
-$release_title = function ($version) use ($releases) {
+$release_title = function ($version, $releases) {
     return <<<TITLE
 <h2 class="release_number" id="v{$version}"><a href="#v{$version}">Version {$version}
 <span class="release_date">{$releases[$version]}</span></a>
@@ -121,4 +121,21 @@ $authors = function ($list) use ($author_urls) {
     }
 
     return $text;
+};
+
+$latest_undocumented_release = function() use ($releases, $github_link, $release_title) {
+  $text = '';
+  $version_number = str_replace("\n", '', str_replace('v', '', file_get_contents(CACHE_PATH . 'tag.txt')));
+  end($releases);
+  $last_release = key($releases);
+
+  if ($version_number != $last_release) {
+    $github_relnotes = "https://github.com/mozfr/transvision/releases/tag/v{$version_number}";
+    $releases[$version_number] = 'Unknown';
+    $text .= $release_title($version_number, $releases);
+    $text .= "<p>This release is undocumented, but you can know more in the <a href=\"{$github_relnotes}\">GitHub release notes</a> and with the list of commits below since the last documented release.</p>";
+    $text .= $github_link($version_number, $releases);
+  }
+
+  return $text;
 };

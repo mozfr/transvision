@@ -2,9 +2,10 @@
 namespace Transvision;
 
 $output = '';
+$output .= $latest_undocumented_release();
 foreach ($changelog as $release => $changes) {
     // Add release title and initialize variables
-    $output .= $release_title($release);
+    $output .= $release_title($release, $releases);
     $empty_release = true;
     $section = '';
     foreach ($changes as $change => $attributes) {
@@ -28,7 +29,7 @@ foreach ($changelog as $release => $changes) {
         $output .= "</div></li>\n";
     }
     $output .= "</ul>\n";
-    $output .= $github_link($release);
+    $output .= $github_link($release, $releases);
 }
 
 print($output);
