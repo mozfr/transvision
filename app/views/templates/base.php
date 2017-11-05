@@ -78,7 +78,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 
 $version_number = '';
 if (file_exists(CACHE_PATH . 'tag.txt')) {
-    $version_number = $title_productname . ' ' . file_get_contents(CACHE_PATH . 'tag.txt') . "\n";
+    $version_number = $title_productname . ' ' . file_get_contents(CACHE_PATH . 'tag.txt');
 }
 ?>
 <!doctype html>

@@ -125,7 +125,7 @@ $authors = function ($list) use ($author_urls) {
 
 $latest_undocumented_release = function() use ($releases, $github_link, $release_title) {
   $text = '';
-  $version_number = str_replace("\n", '', str_replace('v', '', file_get_contents(CACHE_PATH . 'tag.txt')));
+  $version_number = substr(file_get_contents(CACHE_PATH . 'tag.txt'), 1);
   end($releases);
   $last_release = key($releases);
 
@@ -133,7 +133,7 @@ $latest_undocumented_release = function() use ($releases, $github_link, $release
     $github_relnotes = "https://github.com/mozfr/transvision/releases/tag/v{$version_number}";
     $releases[$version_number] = 'Unknown';
     $text .= $release_title($version_number, $releases);
-    $text .= "<p>This release is undocumented, but you can know more in the <a href=\"{$github_relnotes}\">GitHub release notes</a> and with the list of commits below since the last documented release.</p>";
+    $text .= "<p>There is no entry in the changelog for this release, but you can learn more about it in the <a href=\"{$github_relnotes}\">GitHub release notes</a> and look at the list of commits from the latest documented release.</p>";
     $text .= $github_link($version_number, $releases);
   }
 

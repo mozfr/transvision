@@ -172,7 +172,7 @@ else
         DEV_VERSION=""
     fi
 fi
-echo "${CURRENT_TIP:0:7}${DEV_VERSION}" > "${install}/cache/version.txt"
+echo "${CURRENT_TIP:0:7}${DEV_VERSION}" | tr -d '\n' > "${install}/cache/version.txt"
 echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupExternalLibraries
