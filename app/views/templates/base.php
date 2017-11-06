@@ -75,6 +75,11 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
 } else {
     $last_update = "<p>Data last updated: not available.</p>\n";
 }
+
+$version_number = '';
+if (file_exists(CACHE_PATH . 'tag.txt')) {
+    $version_number = $title_productname . ' ' . file_get_contents(CACHE_PATH . 'tag.txt');
+}
 ?>
 <!doctype html>
 
@@ -134,6 +139,7 @@ if (file_exists(CACHE_PATH . 'lastdataupdate.txt')) {
   <div id="footer">
     <p>Transvision is a tool provided by the French Mozilla community, <a href="https://www.mozfr.org" title="Home of MozFR, the French Mozilla Community" hreflang="fr">MozFR</a>.</p>
     <?= $last_update ?>
+    <?= $version_number ?>
   </div>
 
   <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>

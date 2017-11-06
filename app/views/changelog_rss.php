@@ -44,7 +44,7 @@ foreach ($changelog as $release => $changes) {
 
         $output .= '<br>';
     }
-    $output .= $github_link($release);
+    $output .= $github_link($release, $releases);
     $output .= ' ]]></description>' . "\n";
     $output .= '  </item>' . "\n";
 }
