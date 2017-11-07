@@ -45,36 +45,53 @@ $ignored_ids = [
     'suite/chrome/mailnews/messenger.dtd:searchButton.title',
 ];
 
+// Some keys map to a different string ID than the one identified by the
+// algorithm
+$known_mappings = [
+    'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey' => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
+];
+
 $ak_results = [];
 foreach ($ak_string_ids as $ak_string_id) {
-    foreach ($ak_labels as $ak_label) {
-        /*
-            Replace 'accesskey' with one of the known IDs used for labels.
-            E.g.:
-            * foo.accesskey -> foo.label
-            * foo.accesskey -> foo.title
-            * foo.accesskey -> foo.message
-            * foo.accesskey -> foo (common in devtools)
-        */
-        $entity = str_replace('.accesskey', $ak_label, $ak_string_id);
-        $current_ak = $target[$ak_string_id];
-
-        /*
-            Ignore:
-            * Strings not available or empty in target locale.
-            * Empty access keys in source locale.
-        */
-        if (isset($target[$entity]) && ! empty($target[$entity]) && ! empty($source[$ak_string_id]) ) {
-            // Ignore known false positives
-            if (in_array($entity, $ignored_ids)) {
-                continue;
-            }
-            /*
-                Store the string if the access key is empty or using a
-                character not available in the label.
-            */
+    if (isset($known_mappings[$ak_string_id])) {
+        $entity = $known_mappings[$ak_string_id];
+        // Check if the label is translated
+        if (isset($target[$entity]) && ! empty($target[$entity])) {
+            $current_ak = $target[$ak_string_id];
             if (($current_ak == '') || (mb_stripos($target[$entity], $current_ak) === false)) {
                 $ak_results[$ak_string_id] = $entity;
+            }
+        }
+    } else {
+        foreach ($ak_labels as $ak_label) {
+            /*
+                Replace 'accesskey' with one of the known IDs used for labels.
+                E.g.:
+                * foo.accesskey -> foo.label
+                * foo.accesskey -> foo.title
+                * foo.accesskey -> foo.message
+                * foo.accesskey -> foo (common in devtools)
+            */
+            $entity = str_replace('.accesskey', $ak_label, $ak_string_id);
+            $current_ak = $target[$ak_string_id];
+
+            /*
+                Ignore:
+                * Strings not available or empty in target locale.
+                * Empty access keys in source locale.
+            */
+            if (isset($target[$entity]) && ! empty($target[$entity]) && ! empty($source[$ak_string_id])) {
+                // Ignore known false positives
+                if (in_array($entity, $ignored_ids)) {
+                    continue;
+                }
+                /*
+                    Store the string if the access key is empty or using a
+                    character not available in the label.
+                */
+                if (($current_ak == '') || (mb_stripos($target[$entity], $current_ak) === false)) {
+                    $ak_results[$ak_string_id] = $entity;
+                }
             }
         }
     }
