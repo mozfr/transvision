@@ -26,9 +26,10 @@ foreach ($entities as $entity) {
     $path_locale2 = VersionControl::getPath($locale, $current_repo, $entity);
 
     // Escape strings for HTML display
-    $bz_target_string = $target_string = isset($tmx_target[$entity])
-                                            ? Utils::secureText($tmx_target[$entity])
-                                            : '@@missing@@';
+    $unescaped_target_string = isset($tmx_target[$entity])
+                                ? $tmx_target[$entity]
+                                : '@@missing@@';
+    $bz_target_string = $target_string = Utils::secureText($unescaped_target_string);
 
     // Highlight special characters only after strings have been escaped
     $target_string = Strings::highlightSpecial($target_string);
@@ -159,7 +160,7 @@ foreach ($entities as $entity) {
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
     $edit_link = $toolUsedByTargetLocale != ''
-        ? ShowResults::getEditLink($toolUsedByTargetLocale, $current_repo, $entity, $target_string, $locale)
+        ? ShowResults::getEditLink($toolUsedByTargetLocale, $current_repo, $entity, $unescaped_target_string, $locale)
         : '';
 
     $table .= "
