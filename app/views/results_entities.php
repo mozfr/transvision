@@ -25,10 +25,10 @@ foreach ($entities as $entity) {
     $path_locale1 = VersionControl::getPath($source_locale, $current_repo, $entity);
     $path_locale2 = VersionControl::getPath($locale, $current_repo, $entity);
 
-    // Escape strings for HTML display
     $unescaped_target_string = isset($tmx_target[$entity])
                                 ? $tmx_target[$entity]
                                 : '@@missing@@';
+    // Escape strings for HTML display
     $bz_target_string = $target_string = Utils::secureText($unescaped_target_string);
 
     // Highlight special characters only after strings have been escaped
