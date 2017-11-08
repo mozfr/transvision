@@ -49,6 +49,7 @@ $ignored_ids = [
 // algorithm
 $known_mappings = [
     'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey' => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
+    'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.accesskey'           => 'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.label',
 ];
 
 $ak_results = [];
