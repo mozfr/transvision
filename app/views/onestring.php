@@ -30,7 +30,7 @@ $page_descr = $entity;
         echo "<tr id='{$locale}'>\n" .
              "  <th><a href='#{$locale}'>{$locale}</a></th>\n";
 
-        if (! $translation) {
+        if ($translation === '') {
             echo "  <td><em class='error'>Warning: Empty string</em></td><td></td>\n";
         } else {
             echo "  <td lang='#{$locale}' {$rtl_support} >" . Strings::highlightSpecial(Utils::secureText($translation)) . "</td>\n" .
