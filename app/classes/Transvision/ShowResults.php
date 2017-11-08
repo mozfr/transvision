@@ -493,7 +493,7 @@ class ShowResults
             // If there is no target_string, display an error, otherwise display the string + meta links
             if ($target_string == '@@missing@@') {
                 $target_string = '<em class="error">Warning: Missing string</em>';
-            } elseif (! $target_string) {
+            } elseif ($target_string === '') {
                 $target_string = '<em class="error">Warning: Empty string</em>';
             } else {
                 $meta_target = "<span class='clipboard' data-clipboard-target='#{$regular_string_id}' alt='Copy to clipboard'></span>";
@@ -506,7 +506,7 @@ class ShowResults
             // If there is no target_string2, display an error, otherwise display the string + meta links
             if ($target_string2 == '@@missing@@') {
                 $target_string2 = '<em class="error">Warning: Missing string</em>';
-            } elseif (! $target_string2) {
+            } elseif ($target_string2 === '') {
                 $target_string2 = '<em class="error">Warning: Empty string</em>';
             } else {
                 $meta_target2 = "<span class='clipboard' data-clipboard-target='#{$clipboard_target_string2}' alt='Copy to clipboard'></span>";
