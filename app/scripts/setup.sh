@@ -25,7 +25,7 @@ function echogreen() {
 
 function setupExternalLibraries() {
     # Check out or update compare-locales library
-    version="RELEASE_2_1"
+    version="RELEASE_2_5_1"
     if [ ! -d $libraries/compare-locales/.hg ]
     then
         echogreen "Checking out compare-locales in $libraries"
@@ -41,7 +41,7 @@ function setupExternalLibraries() {
     fi
 
     # Check out or update python-fluent library
-    version="0.4.2"
+    version="0.4.4"
     if [ ! -d $libraries/python-fluent/.git ]
     then
         echogreen "Checking out the python-fluent library in $libraries"

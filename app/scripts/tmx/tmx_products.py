@@ -33,7 +33,7 @@ else:
 # Import Fluent Python library
 import_library(
     libraries_path, 'git', 'python-fluent',
-    'https://github.com/projectfluent/python-fluent', '0.4.2')
+    'https://github.com/projectfluent/python-fluent', '0.4.4')
 try:
     import fluent.syntax
 except ImportError as e:
@@ -44,7 +44,7 @@ except ImportError as e:
 # Import compare-locales
 import_library(
     libraries_path, 'hg', 'compare-locales',
-    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_1')
+    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_5_1')
 try:
     from compare_locales import parser
 except ImportError as e:
@@ -52,13 +52,20 @@ except ImportError as e:
     print(e)
     sys.exit(1)
 
+
 class StringExtraction():
 
     def __init__(self, storage_path, locale, reference_locale, repository_name):
         ''' Initialize object '''
 
         # Set defaults
-        self.supported_formats = ['.dtd', '.properties', '.ini', '.inc']
+        self.supported_formats = [
+            '.dtd',
+            '.ftl',
+            '.inc',
+            '.ini',
+            '.properties',
+        ]
         self.storage_mode = ''
         self.storage_prefix = ''
         self.file_list = []
@@ -139,9 +146,20 @@ class StringExtraction():
             try:
                 entities, map = file_parser.parse()
                 for entity in entities:
+                    # Ignore Junk
+                    if isinstance(entity, parser.Junk):
+                        continue
                     string_id = u'{0}:{1}'.format(
                         self.getRelativePath(file_name), unicode(entity))
-                    if not isinstance(entity, parser.Junk):
+                    if file_extension == '.ftl':
+                        if entity.raw_val is not None:
+                            self.translations[string_id] = entity.raw_val
+                        # Store attributes
+                        for attribute in entity.attributes:
+                            attr_string_id = u'{0}:{1}.{2}'.format(
+                                self.getRelativePath(file_name), unicode(entity), unicode(attribute))
+                            self.translations[attr_string_id] = attribute.raw_val
+                    else:
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
                 print('Error parsing file: {0}'.format(file_name))
