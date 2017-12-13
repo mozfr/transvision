@@ -375,6 +375,14 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'gecko_strings',
+                'browser/browser/preferences/main.ftl:default-content-process-count.label',
+                'test',
+                'fr',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/browser/preferences/main.ftl?search=default-content-process-count'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'gecko_strings',
                 'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
                 'test',
                 'fr',
