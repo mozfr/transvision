@@ -48,8 +48,14 @@ $ignored_ids = [
 // Some keys map to a different string ID than the one identified by the
 // algorithm
 $known_mappings = [
-    'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey' => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
-    'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.accesskey'           => 'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.label',
+    'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey'      => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
+    'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.accesskey'                => 'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.tabs.accesskey'         => 'browser/chrome/browser/preferences/sync.dtd:engine.tabs.label2',
+    'browser/chrome/browser/preferences/sync.dtd:engine.logins.accesskey'       => 'browser/chrome/browser/preferences/sync.dtd:engine.logins.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.prefs.accesskey'        => 'browser/chrome/browser/preferences/sync.dtd:engine.prefs.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.addons.accesskey'       => 'browser/chrome/browser/preferences/sync.dtd:engine.addons.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.addresses.accesskey'    => 'browser/chrome/browser/preferences/sync.dtd:engine.addresses.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.creditcards.accesskey'  => 'browser/chrome/browser/preferences/sync.dtd:engine.creditcards.label',
 ];
 
 $ak_results = [];
