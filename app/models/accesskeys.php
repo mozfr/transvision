@@ -40,16 +40,11 @@ $ak_string_ids = array_filter(
 // Possible labels associated to an access key
 $ak_labels = ['.label', '.title', '.message', ''];
 
-// Known false positives
-$ignored_ids = [
-    'suite/chrome/mailnews/messenger.dtd:searchButton.title',
-];
-
 // Some keys map to a different string ID than the one identified by the
 // algorithm
 $known_mappings = [
     'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey' => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
-    'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.accesskey'           => 'extensions/irc/chrome/pref-irc.dtd:pref-irc.open.label',
+    'browser/chrome/browser/preferences/sync.dtd:engine.tabs.accesskey'    => 'browser/chrome/browser/preferences/sync.dtd:engine.tabs.label2',
 ];
 
 $ak_results = [];
@@ -82,10 +77,6 @@ foreach ($ak_string_ids as $ak_string_id) {
                 * Empty access keys in source locale.
             */
             if (isset($target[$entity]) && ! empty($target[$entity]) && ! empty($source[$ak_string_id])) {
-                // Ignore known false positives
-                if (in_array($entity, $ignored_ids)) {
-                    continue;
-                }
                 /*
                     Store the string if the access key is empty or using a
                     character not available in the label.
@@ -93,6 +84,14 @@ foreach ($ak_string_ids as $ak_string_id) {
                 if (($current_ak == '') || (mb_stripos($target[$entity], $current_ak) === false)) {
                     $ak_results[$ak_string_id] = $entity;
                 }
+            }
+
+            /*
+                If we found an entity with the expected name in source strings,
+                we should stop cycling through $ak_labels.
+            */
+            if (isset($source[$entity])) {
+                break;
             }
         }
     }
