@@ -90,7 +90,7 @@ class Project
         ],
         'gecko_strings'=> [
             'source_type'       => 'mixed',
-            'variable_patterns' => ['dtd', 'l10njs', 'printf', 'properties'],
+            'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
         'mozilla_org'=> [
             'git_repository'    => 'www.mozilla.org',

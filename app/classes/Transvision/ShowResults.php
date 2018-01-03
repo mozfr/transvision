@@ -295,6 +295,10 @@ class ShowResults
         } else {
             $resource_path = $fileAndRawString[0];
             $search_key = $fileAndRawString[1];
+            // For FTL files, ignore the attribute added to the string ID
+            if (strpos($resource_path, '.ftl') !== false) {
+                $search_key = explode('.', $search_key)[0];
+            }
             switch ($component) {
                 case 'calendar':
                     $project_name = 'lightning';

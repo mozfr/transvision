@@ -156,6 +156,14 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
+                // Missing variable for FTL
+                ['browser:foobar16' => '{ $brandname } installed'],
+                ['browser:foobar16' => 'installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16'],
+            ],
+            [
                 // Mispelled variable
                 ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],

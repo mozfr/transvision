@@ -47,10 +47,11 @@ class AnalyseStrings
 
         $patterns = [
             'dtd'        => '/&([A-Za-z0-9\.]+);/',                        // &foobar;
-            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
-            'properties' => '/(?<!%[0-9])\$[A-Za-z0-9\.]+\b/',             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml"
-            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}} Used in Loop and PDFViewer
+            'ftl'        => '/\{\s*(\$[A-Za-z0-9_]+)\s*\}/u',              // { $foobar } Used in FTL files
             'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',                    // %@, but also %1$@, %2$@, etc.
+            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}} Used in Loop and PDFViewer
+            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
+            'properties' => '/(?<!%[0-9]|\{\s)\$[A-Za-z0-9\.]+\b/',        // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 
