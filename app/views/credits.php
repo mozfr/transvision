@@ -1,17 +1,8 @@
 <p>Transvision 1.0 was created by Philippe Dessante, former team leader of the French Mozilla localization team handled by the FrenchMozilla non-profit.</p>
 
-<p>In 2012, FrenchMozilla localization activities were merged with the wider MozFR organization. As part of this process, Transvision maintenance and developments since 1.0 were transferred to MozFR and the application is currently maintained by Pascal Chevrel.</p>
+<p>In 2012, FrenchMozilla localization activities were merged with the wider MozFR organization. As part of this process, Transvision maintenance and developments since 1.0 were transferred to MozFR.</p>
 
-<p>Here is the list of the main code contributors to Transvision:</p>
-<ul>
-    <li>Philippe Dessante, who initiated the project</li>
-    <li>Pascal Chevrel</li>
-    <li>Jésús Perez</li>
-    <li>Francesco Lodolo</li>
-    <li>Théo Chevalier</li>
-</ul>
-
-<p>You can find the full list on our <a href="https://github.com/mozfr/transvision/graphs/contributors">GitHub page</a>. Many localizers, and in particular localizers from the French team, have contributed to Transvision by giving feedback and making feature requests.</p>
+<p>You can find the list of contributors on our <a href="https://github.com/mozfr/transvision/graphs/contributors">GitHub page</a>. Many localizers, and in particular localizers from the French team, have contributed to Transvision by giving feedback and making feature requests.</p>
 
 <p>Transvision was created thanks to the following Open Source Software:</p>
 <ul>
