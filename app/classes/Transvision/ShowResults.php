@@ -306,6 +306,7 @@ class ShowResults
                 case 'chat':
                 case 'editor':
                 case 'mail':
+                case 'other-licenses':
                     $project_name = 'thunderbird';
                     break;
                 case 'mobile':
