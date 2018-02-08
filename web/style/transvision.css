@@ -377,6 +377,10 @@ td {
     display: none;
 }
 
+.ftl_string {
+    white-space: pre-wrap;
+}
+
 td a.onestring_search {
     display: block;
     margin: 0 auto;

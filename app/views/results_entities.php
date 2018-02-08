@@ -29,11 +29,17 @@ foreach ($entities as $entity) {
                                 ? $tmx_target[$entity]
                                 : '@@missing@@';
     // Escape strings for HTML display
-    $bz_target_string = $target_string = Utils::secureText($unescaped_target_string);
+    $bz_target_string = $target_string = htmlspecialchars($unescaped_target_string);
+
+    if (strpos($entity, '.ftl:') !== false && strpos($tmx_source[$entity], ') ->') !== false) {
+        $string_class = 'string ftl_string';
+    } else {
+        $string_class = 'string';
+    }
 
     // Highlight special characters only after strings have been escaped
     $target_string = Strings::highlightSpecial($target_string);
-    $source_string = Strings::highlightSpecial(Utils::secureText($tmx_source[$entity]));
+    $source_string = Strings::highlightSpecial(htmlspecialchars($tmx_source[$entity]));
 
     $clipboard_target_string = 'clip_' . md5($target_string);
     $string_id = md5($entity . mt_rand());
@@ -47,7 +53,7 @@ foreach ($entities as $entity) {
     $transliterate = $locale == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
     if ($transliterate) {
-        $transliterated_string = Utils::secureText($tmx_target[$entity]);
+        $transliterated_string = htmlspecialchars($tmx_target[$entity]);
         $transliterated_string = ShowResults::getTransliteratedString(urlencode($transliterated_string), 'sr-Cyrl');
         $transliterated_string = Strings::highlightSpecial($transliterated_string);
         $transliterate_string_id = 'transliterate_' . $string_id;
@@ -59,7 +65,7 @@ foreach ($entities as $entity) {
     // 3locales view
     if ($extra_locale) {
         $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
-                                                    ? Utils::secureText($tmx_target2[$entity])
+                                                    ? htmlspecialchars($tmx_target2[$entity])
                                                     : '';
         // Highlight special characters only after strings have been escaped
         $target_string2 = Strings::highlightSpecial($target_string2);
@@ -92,7 +98,7 @@ foreach ($entities as $entity) {
         $extra_column_rows = "
     <td dir='{$direction3}'>
       <span class='celltitle'>{$locale2}</span>
-      <div class='string' id='{$clipboard_target_string2}'>{$target_string2}</div>
+      <div class='{$string_class}' id='{$clipboard_target_string2}'>{$target_string2}</div>
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale3}'>&lt;source&gt;</a>
         {$file_bug}
@@ -175,7 +181,7 @@ foreach ($entities as $entity) {
     </td>
     <td dir='{$direction1}'>
       <span class='celltitle'>{$source_locale}</span>
-      <div class='string'>{$source_string}</div>
+      <div class='{$string_class}'>{$source_string}</div>
       <div dir='ltr' class='result_meta_link'>
         <a class='source_link' href='{$path_locale1}'>&lt;source&gt;</a>
         {$meta_source}
@@ -183,7 +189,7 @@ foreach ($entities as $entity) {
     </td>
     <td dir='{$direction2}'>
       <span class='celltitle'>{$locale}</span>
-      <div class='string' id='{$regular_string_id}'>{$target_string}</div>";
+      <div class='{$string_class}' id='{$regular_string_id}'>{$target_string}</div>";
     if ($transliterate) {
         $table .= "<div class='string toggle' id='{$transliterate_string_id}' style='display: none;'>{$transliterated_string}</div>";
     }
