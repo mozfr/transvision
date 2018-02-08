@@ -141,7 +141,7 @@ class AnalyseStrings extends atoum\test
             ],
             [
                 // {{n}} vs {{ n }}, changed order (not an error)
-                ['browser:foobar14' => '{{ n}} more and {{ name }}'],
+                ['browser:foobar14' => '{{n}} more and {{ name }}'],
                 ['browser:foobar14' => '{{name}} et {{n}} autre'],
                 'gecko_strings',
                 [],
@@ -162,6 +162,22 @@ class AnalyseStrings extends atoum\test
                 'gecko_strings',
                 [],
                 ['browser:foobar16'],
+            ],
+            [
+                // Missing message reference for FTL
+                ['browser:foobar16b' => '{ other-message } installed'],
+                ['browser:foobar16b' => 'installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16b'],
+            ],
+            [
+                // Missing term reference for FTL
+                ['browser:foobar16c' => '{ -brand-name } installed'],
+                ['browser:foobar16c' => 'installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16c'],
             ],
             [
                 // Mispelled variable
