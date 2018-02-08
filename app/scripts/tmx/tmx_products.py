@@ -33,7 +33,7 @@ else:
 # Import Fluent Python library
 import_library(
     libraries_path, 'git', 'python-fluent',
-    'https://github.com/projectfluent/python-fluent', '0.4.4')
+    'https://github.com/projectfluent/python-fluent', '0.6.2')
 try:
     import fluent.syntax
 except ImportError as e:
@@ -44,7 +44,7 @@ except ImportError as e:
 # Import compare-locales
 import_library(
     libraries_path, 'hg', 'compare-locales',
-    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_5_1')
+    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_7_0')
 try:
     from compare_locales import parser
 except ImportError as e:
