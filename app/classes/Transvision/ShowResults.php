@@ -306,6 +306,7 @@ class ShowResults
                 case 'chat':
                 case 'editor':
                 case 'mail':
+                case 'other-licenses':
                     $project_name = 'thunderbird';
                     break;
                 case 'mobile':
@@ -427,6 +428,13 @@ class ShowResults
                 $transliterate_string_id = 'transliterate_' . $string_id;
             }
 
+            // Check if it's an FTL expression before modifying the original string
+            if (strpos($key, '.ftl:') !== false && strpos($source_string, ') ->') !== false) {
+                $string_class = 'string ftl_string';
+            } else {
+                $string_class = 'string';
+            }
+
             foreach ($search_terms as $search_term) {
                 $source_string = Strings::markString($search_term, $source_string);
                 $target_string = Strings::markString($search_term, $target_string);
@@ -526,7 +534,7 @@ class ShowResults
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>
                     <span class='celltitle'>{$locale3}</span>
-                    <div class='string' id='{$clipboard_target_string2}'>{$target_string2}</div>
+                    <div class='{$string_class}' id='{$clipboard_target_string2}'>{$target_string2}</div>
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale3_path}'>
                         &lt;source&gt;
@@ -541,6 +549,7 @@ class ShowResults
             } else {
                 $extra_column_rows = '';
             }
+
             $table .= "
                 <tr class='{$component} {$search_id}'>
                   <td>
@@ -553,9 +562,7 @@ class ShowResults
                   </td>
                   <td dir='{$direction1}' lang='{$locale1}'>
                     <span class='celltitle'>{$locale1}</span>
-                    <div class='string'>
-                      {$source_string}
-                    </div>
+                    <div class='{$string_class}'>{$source_string}</div>
                     <div dir='ltr' class='result_meta_link'>
                       <a class='source_link' href='{$locale1_path}'>
                         &lt;source&gt;
@@ -566,9 +573,9 @@ class ShowResults
 
                   <td dir='{$direction2}' lang='{$locale2}'>
                     <span class='celltitle'>{$locale2}</span>
-                    <div class='string' id='{$regular_string_id}'>{$target_string}</div>";
+                    <div class='{$string_class}' id='{$regular_string_id}'>{$target_string}</div>";
             if ($transliterate) {
-                $table .= "<div class='string toggle' id='{$transliterate_string_id}' style='display: none;'>{$transliterated_string}</div>";
+                $table .= "<div class='{$string_class} toggle' id='{$transliterate_string_id}' style='display: none;'>{$transliterated_string}</div>";
             }
             $table .= "
                     <div dir='ltr' class='result_meta_link'>
