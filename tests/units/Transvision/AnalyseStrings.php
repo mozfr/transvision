@@ -180,6 +180,22 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar16c'],
             ],
             [
+                // Missing term reference for FTL (no spaces)
+                ['browser:foobar16d' => '{-brand-name} installed'],
+                ['browser:foobar16d' => 'installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16d'],
+            ],
+            [
+                // Different format for term reference for FTL (no errors)
+                ['browser:foobar16e' => '{-brand-name} installed'],
+                ['browser:foobar16e' => '{ -brand-name } installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16e'],
+            ],
+            [
                 // Mispelled variable
                 ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
