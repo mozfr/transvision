@@ -11,7 +11,7 @@ before_script:
   - phpenv config-rm xdebug.ini
   ## Composer
   - composer self-update
-  - composer install --no-interaction --prefer-dist
+  - travis_wait composer install --no-interaction --prefer-dist
   ## Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
   ## Install ESLint
