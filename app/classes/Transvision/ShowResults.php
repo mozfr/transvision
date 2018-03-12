@@ -488,7 +488,7 @@ class ShowResults
             // If there is no source_string, display an error, otherwise display the string + meta links
             if ($source_string == '@@missing@@') {
                 $source_string = '<em class="error">Warning: Source string is missing</em>';
-            } elseif (! $source_string) {
+            } elseif ($source_string === '') {
                 $source_string = '<em class="error">Warning: Source string is empty</em>';
             } else {
                 $meta_source = "
@@ -642,6 +642,11 @@ class ShowResults
      */
     public static function buildErrorString($source_string, $target_string)
     {
+        // Warnings for empty strings are generated in the main UI
+        if ($source_string === '' || $target_string === '') {
+            return '';
+        }
+
         $error_message = '';
 
         // Check for final dot
@@ -661,11 +666,6 @@ class ShowResults
                     $error_message = $error_message . '<em class="error">Large string?</em> ';
                     break;
             }
-        }
-
-        // Missing string error
-        if (! $source_string || ! $target_string) {
-            $error_message = '';
         }
 
         return $error_message;

@@ -56,7 +56,7 @@ foreach ($repositories as $repository) {
     $target_strings = Utils::getRepoStrings($search->getLocale('target'), $repository);
 
     foreach ($source_results as $key => $value) {
-        if (isset($target_strings[$key]) && ! empty($target_strings[$key])) {
+        if (isset($target_strings[$key]) && $target_strings[$key] !== '') {
             $output[] = [
                 $value,
                 $target_strings[$key],
