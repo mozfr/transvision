@@ -74,7 +74,7 @@ class TMX
                 $string_target = isset($strings[$target_lang][$entity]) ? $strings[$target_lang][$entity] : '';
 
                 // It does not create the pair without translation
-                if (empty($string_target)) {
+                if ($string_target === '') {
                     continue;
                 }
 

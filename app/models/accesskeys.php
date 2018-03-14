@@ -57,7 +57,7 @@ foreach ($ak_string_ids as $ak_string_id) {
     if (isset($known_mappings[$ak_string_id])) {
         $entity = $known_mappings[$ak_string_id];
         // Check if the label is translated
-        if (isset($target[$entity]) && ! empty($target[$entity])) {
+        if (isset($target[$entity]) && $target[$entity] !== '') {
             $current_ak = $target[$ak_string_id];
             if (($current_ak == '') || (mb_stripos($target[$entity], $current_ak) === false)) {
                 $ak_results[$ak_string_id] = $entity;
@@ -81,7 +81,7 @@ foreach ($ak_string_ids as $ak_string_id) {
                 * Strings not available or empty in target locale.
                 * Empty access keys in source locale.
             */
-            if (isset($target[$entity]) && ! empty($target[$entity]) && ! empty($source[$ak_string_id])) {
+            if (isset($target[$entity]) && $target[$entity] !== '' && $source[$ak_string_id] !== '') {
                 /*
                     Store the string if the access key is empty or using a
                     character not available in the label.
