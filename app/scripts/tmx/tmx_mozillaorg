@@ -44,6 +44,9 @@ foreach (Files::getFoldersInPath(GIT . 'mozilla_org/') as $locale) {
 
         foreach ($strings as $english => $translation) {
             $output = function ($str1, $str2) use ($file, $english, $translation) {
+                if (Strings::endsWith(strtolower($str2), '{ok}')) {
+                    $str2 = trim(rtrim($str2, '{ok}'));
+                }
                 $array_line =
                     "'"
                    . Dotlang::generateStringID('mozilla_org/' . $file, $str1)

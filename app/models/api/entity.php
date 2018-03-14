@@ -13,9 +13,6 @@ if (! $translations = Cache::getKey($cache_id)) {
 
         if (isset($strings[$entity])) {
             $strings[$entity] = $strings[$entity];
-            if (Strings::endsWith(strtolower($strings[$entity]), '{ok}')) {
-                $strings[$entity] = substr($strings[$entity], 0, -4);
-            }
             $translations[$locale_code] = $strings[$entity];
         }
 
