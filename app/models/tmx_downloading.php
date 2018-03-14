@@ -14,15 +14,6 @@ foreach ($repos as $repo) {
         if ($cache_file_english) {
             $cache_file_locale = Utils::getRepoStrings($locale, $repo);
 
-            if ($repo == 'mozilla_org') {
-                $cache_file_locale = array_map(
-                    function ($e) {
-                        return trim(rtrim($e, '{ok}'));
-                    },
-                    $cache_file_locale
-                );
-            }
-
             // If a repo is missing, we don't have additional keys
             if ($cache_file_locale) {
                 $strings['en-US'] = array_merge($strings['en-US'], $cache_file_english);
