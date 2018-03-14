@@ -49,6 +49,11 @@ $known_mappings = [
 
 $ak_results = [];
 foreach ($ak_string_ids as $ak_string_id) {
+    // Exclude accesskey if it's in a FTL file and includes PLATFORM()
+    if (strpos($ak_string_id, '.ftl:') !== false && strpos($source[$ak_string_id], 'PLATFORM()') !== false) {
+        continue;
+    }
+
     if (isset($known_mappings[$ak_string_id])) {
         $entity = $known_mappings[$ak_string_id];
         // Check if the label is translated

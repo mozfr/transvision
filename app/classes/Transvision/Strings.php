@@ -77,7 +77,8 @@ class Strings
     public static function inString($haystack, $needles, $match_all = false)
     {
         $matches = 0;
-        foreach ((array) $needles as $needle) {
+        $needles = (array) $needles;
+        foreach ($needles as $needle) {
             if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
                 // If I need to match any needle, I can stop at the first match
                 if (! $match_all) {
