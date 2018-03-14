@@ -45,7 +45,11 @@ foreach (Files::getFoldersInPath(GIT . 'mozilla_org/') as $locale) {
         foreach ($strings as $english => $translation) {
             $output = function ($str1, $str2) use ($file, $english, $translation) {
                 if (Strings::endsWith(strtolower($str2), '{ok}')) {
-                    $str2 = substr($str2, 0, -4);
+                    if (Strings::endsWith(strtolower($str2), ' {ok}')) {
+                        $str2 = substr($str2, 0, -5);
+                    } else {
+                        $str2 = substr($str2, 0, -4);
+                    }
                 }
                 $array_line =
                     "'"
