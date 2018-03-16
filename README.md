@@ -30,7 +30,6 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 * PHP >= 5.6 with the following extensions:
  * php5-intl for the transliteration feature
  * php-mbstring for multibyte string functions
- * php5-xsl and GraphViz packages for generating the documentation with [phpDocumentor][]
 * Composer (Dependency Manager for PHP, https://getcomposer.org/)
 * Mercurial, Git to check out data sources (only for a Full installation for production)
 * Apache with `mod_rewrite` activated
@@ -70,11 +69,8 @@ See [``CONTRIBUTING.md``](CONTRIBUTING.md)
 
 MPL 2
 
-
 [Pull Request]: https://help.github.com/articles/using-pull-requests
 [Create a new issue on github]: https://github.com/mozfr/transvision/issues
-[Transvision classes]: https://transvision-beta.mozfr.org/docs
 [Transvision Project]: https://github.com/mozfr/transvision
-[phpDocumentor]: https://phpdoc.org/
 [npm]: https://www.npmjs.com
 [Coding Standards]:https://github.com/mozfr/transvision/wiki/Code-conventions

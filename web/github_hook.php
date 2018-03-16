@@ -88,10 +88,6 @@ if (isset($_SERVER[$header])) {
         // Execute setup.sh to update potential project structure changes
         exec("{$app_root}/app/scripts/setup.sh > /dev/null 2>&1");
 
-        // Generate API documentation
-        chdir($app_root);
-        exec('php vendor/bin/phpdoc -d "./app/classes/Transvision/" -t "web/docs/" --template="clean" --title="Transvision classes documentation" > /dev/null 2>&1');
-
         $log .= 'Last update: ' . date('d-m-Y H:i:s');
         logHookResult($log, true);
     } else {
