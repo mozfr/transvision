@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 
+
 def import_library(libraries_path, type, name, url, version):
     library_path = os.path.join(libraries_path, name)
 
@@ -31,7 +32,8 @@ def import_library(libraries_path, type, name, url, version):
                                                      shell=False)
                 print(cmd_status)
                 if version != '':
-                    commands = ['git', '-C', library_path, 'checkout', '-q', version]
+                    commands = ['git', '-C', library_path,
+                                'checkout', '-q', version]
                     cmd_status = subprocess.check_output(commands,
                                                          stderr=subprocess.STDOUT,
                                                          shell=False)

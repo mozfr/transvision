@@ -25,7 +25,7 @@ function echogreen() {
 
 function setupExternalLibraries() {
     # Check out or update compare-locales library
-    version="RELEASE_2_8_0"
+    version="RELEASE_3_0_0"
     if [ ! -d $libraries/compare-locales/.hg ]
     then
         echogreen "Checking out compare-locales in $libraries"

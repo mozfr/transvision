@@ -1,19 +1,32 @@
 #!/usr/bin/python
 
 import argparse
-from env_setup import import_library
 import json
 import logging
 import os
 import subprocess
 import sys
-from ConfigParser import SafeConfigParser
+
+# Python 2/3 compatibility
+try:
+    from ConfigParser import SafeConfigParser
+except ImportError:
+    from configparser import SafeConfigParser
+
+def to_unicode(s):
+    try:
+        return unicode(s)
+    except NameError:
+        return s
 
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
 # current folder)
-config_folder = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
+script_folder = os.path.abspath(os.path.dirname(__file__))
+config_folder = os.path.abspath(os.path.join(script_folder, os.pardir, os.pardir, 'config'))
+
+sys.path.insert(0, script_folder)
+from env_setup import import_library
 
 # Read Transvision's configuration file from ../../config/config.ini
 # If not available use a default storage folder to store data
@@ -44,7 +57,7 @@ except ImportError as e:
 # Import compare-locales
 import_library(
     libraries_path, 'hg', 'compare-locales',
-    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_8_0')
+    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_3_0_0')
 try:
     from compare_locales import parser
 except ImportError as e:
@@ -150,14 +163,14 @@ class StringExtraction():
                     if isinstance(entity, parser.Junk):
                         continue
                     string_id = u'{0}:{1}'.format(
-                        self.getRelativePath(file_name), unicode(entity))
+                        self.getRelativePath(file_name), to_unicode(entity))
                     if file_extension == '.ftl':
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
                             attr_string_id = u'{0}:{1}.{2}'.format(
-                                self.getRelativePath(file_name), unicode(entity), unicode(attribute))
+                                self.getRelativePath(file_name), to_unicode(entity), to_unicode(attribute))
                             self.translations[attr_string_id] = attribute.raw_val
                     else:
                         self.translations[string_id] = entity.raw_val
@@ -174,7 +187,7 @@ class StringExtraction():
                     reference_strings = json.load(f)
                 f.close()
 
-                for string_id in self.translations.keys():
+                for string_id in list(self.translations.keys()):
                     if string_id not in reference_strings:
                         del(self.translations[string_id])
 
@@ -193,15 +206,15 @@ class StringExtraction():
 
         if output_format != 'json':
             # Store translations in PHP format (array)
-            string_ids = self.translations.keys()
+            string_ids = list(self.translations.keys())
             string_ids.sort()
 
             f = open(self.storage_file + '.php', 'w')
             f.write('<?php\n$tmx = [\n')
             for string_id in string_ids:
                 translation = self.escape(
-                    self.translations[string_id].encode('utf-8'))
-                string_id = self.escape(string_id.encode('utf-8'))
+                    self.translations[string_id])
+                string_id = self.escape(string_id)
                 line = "'{0}' => '{1}',\n".format(string_id, translation)
                 f.write(line)
             f.write('];\n')
@@ -219,6 +232,13 @@ class StringExtraction():
               "this is a 'test'" => "this is a \'test\'"
               "this is a \'test\'" => "this is a \\\'test\\\'"
         '''
+
+        # Encode to utf-8 in Python 2
+        try:
+            if type(translation) is unicode:
+                translation = translation.encode('utf-8')
+        except NameError:
+            pass
 
         # Escape slashes
         escaped_translation = translation.replace('\\', '\\\\')
