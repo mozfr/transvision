@@ -13,6 +13,7 @@ composer.lock
 composer.phar
 logs/*.log
 logs/github_log.txt
+python-venv
 vendor
 web/assets
 web/data.tar.gz

@@ -22,11 +22,8 @@ def to_unicode(s):
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
 # current folder)
-script_folder = os.path.abspath(os.path.dirname(__file__))
-config_folder = os.path.abspath(os.path.join(script_folder, os.pardir, os.pardir, 'config'))
-
-sys.path.insert(0, script_folder)
-from env_setup import import_library
+config_folder = os.path.abspath(os.path.join(
+                    os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
 
 # Read Transvision's configuration file from ../../config/config.ini
 # If not available use a default storage folder to store data
@@ -36,35 +33,17 @@ if not os.path.isfile(config_file):
           'Default settings will be used.')
     root_folder = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir))
-    libraries_path = os.path.join(root_folder, 'libraries')
 else:
     config_parser = SafeConfigParser()
     config_parser.read(config_file)
-    libraries_path = config_parser.get('config', 'libraries')
     storage_path = os.path.join(config_parser.get('config', 'root'), 'TMX')
 
-# Import Fluent Python library
-import_library(
-    libraries_path, 'git', 'python-fluent',
-    'https://github.com/projectfluent/python-fluent', '0.6.4')
-try:
-    import fluent.syntax
-except ImportError as e:
-    print('Error importing python-fluent library')
-    print(e)
-    sys.exit(1)
-
-# Import compare-locales
-import_library(
-    libraries_path, 'hg', 'compare-locales',
-    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_3_0_0')
 try:
     from compare_locales import parser
 except ImportError as e:
-    print('Error importing compare-locales library')
+    print('FATAL: make sure that dependencies are installed')
     print(e)
     sys.exit(1)
-
 
 class StringExtraction():
 
