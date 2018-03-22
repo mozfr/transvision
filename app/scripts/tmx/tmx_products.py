@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import subprocess
+import six
 import sys
 
 # Python 2/3 compatibility
@@ -12,12 +13,6 @@ try:
     from ConfigParser import SafeConfigParser
 except ImportError:
     from configparser import SafeConfigParser
-
-def to_unicode(s):
-    try:
-        return unicode(s)
-    except NameError:
-        return s
 
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
@@ -142,14 +137,14 @@ class StringExtraction():
                     if isinstance(entity, parser.Junk):
                         continue
                     string_id = u'{0}:{1}'.format(
-                        self.getRelativePath(file_name), to_unicode(entity))
+                        self.getRelativePath(file_name), six.text_type(entity))
                     if file_extension == '.ftl':
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
                             attr_string_id = u'{0}:{1}.{2}'.format(
-                                self.getRelativePath(file_name), to_unicode(entity), to_unicode(attribute))
+                                self.getRelativePath(file_name), six.text_type(entity), six.text_type(attribute))
                             self.translations[attr_string_id] = attribute.raw_val
                     else:
                         self.translations[string_id] = entity.raw_val
