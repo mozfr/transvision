@@ -116,7 +116,7 @@ class StringExtraction():
         # If storage_mode is append, read existing translations (if available)
         # before overriding them
         if self.storage_mode == 'append':
-            file_name = self.storage_file + '.json'
+            file_name = '{}.json'.format(self.storage_file)
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     self.translations = json.load(f)
@@ -155,7 +155,7 @@ class StringExtraction():
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
             # Read the JSON cache for reference locale if available
-            file_name = self.reference_storage_file + '.json'
+            file_name = '{}.json'.format(self.reference_storage_file)
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     reference_strings = json.load(f)
@@ -174,25 +174,23 @@ class StringExtraction():
 
         if output_format != 'php':
             # Store translations in JSON format
-            f = open(self.storage_file + '.json', 'w')
-            f.write(json.dumps(self.translations, sort_keys=True))
-            f.close()
+            with open('{}.json'.format(self.storage_file), 'w') as f:
+                f.write(json.dumps(self.translations, sort_keys=True))
 
         if output_format != 'json':
             # Store translations in PHP format (array)
             string_ids = list(self.translations.keys())
             string_ids.sort()
 
-            f = open(self.storage_file + '.php', 'w')
-            f.write('<?php\n$tmx = [\n')
-            for string_id in string_ids:
-                translation = self.escape(
-                    self.translations[string_id])
-                string_id = self.escape(string_id)
-                line = "'{0}' => '{1}',\n".format(string_id, translation)
-                f.write(line)
-            f.write('];\n')
-            f.close()
+            with open('{}.php'.format(self.storage_file), 'w') as f:
+                f.write('<?php\n$tmx = [\n')
+                for string_id in string_ids:
+                    translation = self.escape(
+                        self.translations[string_id])
+                    string_id = self.escape(string_id)
+                    line = "'{0}' => '{1}',\n".format(string_id, translation)
+                    f.write(line)
+                f.write('];\n')
 
     def escape(self, translation):
         '''
