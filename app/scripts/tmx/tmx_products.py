@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+import codecs
 import json
 import logging
 import os
@@ -182,13 +183,13 @@ class StringExtraction():
             string_ids = list(self.translations.keys())
             string_ids.sort()
 
-            with open('{}.php'.format(self.storage_file), 'w') as f:
+            with codecs.open('{}.php'.format(self.storage_file), 'w', encoding='utf-8') as f:
                 f.write('<?php\n$tmx = [\n')
                 for string_id in string_ids:
                     translation = self.escape(
                         self.translations[string_id])
                     string_id = self.escape(string_id)
-                    line = "'{0}' => '{1}',\n".format(string_id, translation)
+                    line = u"'{0}' => '{1}',\n".format(string_id,translation)
                     f.write(line)
                 f.write('];\n')
 
@@ -204,13 +205,6 @@ class StringExtraction():
               "this is a 'test'" => "this is a \'test\'"
               "this is a \'test\'" => "this is a \\\'test\\\'"
         '''
-
-        # Encode to utf-8 in Python 2
-        try:
-            if type(translation) is unicode:
-                translation = translation.encode('utf-8')
-        except NameError:
-            pass
 
         # Escape slashes
         escaped_translation = translation.replace('\\', '\\\\')
