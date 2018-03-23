@@ -992,13 +992,6 @@ $changelog = [
             'authors' => ['pascal'],
         ],
         [
-            'message' => ['Generate <a href="https://transvision-beta.mozfr.org/docs/">internal API documentation</a> automatically on pushes to master'],
-            'section' => ['developers'],
-            'type'    => ['better'],
-            'issues'  => [518],
-            'authors' => ['pascal'],
-        ],
-        [
             'message' => ['Add Travis CI status icon on README file on GitHub'],
             'section' => ['other'],
             'type'    => ['better'],
@@ -1684,12 +1677,6 @@ $changelog = [
         [
             'message' => ['Lithuanian added to Gaia-l10n'],
             'section' => ['end_user'],
-            'authors' => ['pascal'],
-        ],
-        [
-            'message' => ['<strong>API documentation:</strong> <a href="https://transvision.mozfr.org/docs/">Transvision classes documentation</a> is now automatically generated with phpDocumentor.'],
-            'section' => ['developers'],
-            'type'    => ['new'],
             'authors' => ['pascal'],
         ],
         [

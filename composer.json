@@ -100,8 +100,7 @@
         "symfony/var-dumper": "~2.6",
         "friendsofphp/php-cs-fixer": "~2.1",
         "pchevrel/verif": "0.4",
-        "hirak/prestissimo": "~0.1.",
-        "phpdocumentor/phpdocumentor": "2.8.5"
+        "hirak/prestissimo": "~0.1."
     },
 
     "autoload": {
