@@ -7,6 +7,13 @@ include __DIR__ . '/simplesearchform.php';
 if (! empty($ak_results)) {
     $search_id = 'accesskeys';
     $content = '';
+
+    if (count($ak_results) > 200) {
+        $error_messages[] = 'The number of errors (' . count($ak_results)
+                            . ') is too large and has been truncated.';
+        $ak_results = array_slice($ak_results, 0, 200);
+    }
+
     if (! empty($error_messages)) {
         $content .= '<p class="error">' .
             implode('<br/>', $error_messages) .
@@ -35,7 +42,12 @@ if (! empty($ak_results)) {
     // Get the tool used to edit strings for the target locale
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
-    foreach ($ak_results as $ak_string => $ak_label) {
+    foreach ($ak_results as $ak_result) {
+        $ak_string = $ak_result['accesskey_id'];
+        $ak_label = $ak_result['label_id'];
+        $accesskey_txt = $ak_result['accesskey_txt'];
+        $label_txt = $ak_result['label_txt'];
+
         // Link to entity
         $ak_link = "?sourcelocale={$reference_locale}" .
            "&locale={$locale}" .
@@ -52,17 +64,17 @@ if (! empty($ak_results)) {
         $path_label = VersionControl::hgPath($locale, $repo, $ak_label);
 
         $edit_link_ak = $toolUsedByTargetLocale != ''
-            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_string, $target[$ak_string], $locale)
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_string, $accesskey_txt, $locale)
             : '';
         $edit_link_label = $toolUsedByTargetLocale != ''
-            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_label, $target[$ak_label], $locale)
+            ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_label, $label_txt, $locale)
             : '';
 
-        $ak_value = ! empty($target[$ak_string])
-            ? Utils::secureText($target[$ak_string])
+        $ak_value = ! empty($accesskey_txt)
+            ? Utils::secureText($accesskey_txt)
             : '<em class="error">(empty)</em>';
-        $label_value = ! empty($target[$ak_label])
-            ? Utils::secureText($target[$ak_label])
+        $label_value = ! empty($label_txt)
+            ? Utils::secureText($label_txt)
             : '<em class="error">(empty)</em>';
 
         $component = explode('/', $ak_string)[0];
