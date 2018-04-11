@@ -24,39 +24,6 @@ function echogreen() {
 }
 
 function setupExternalLibraries() {
-    # Check out or update compare-locales library
-    version="RELEASE_2_8_0"
-    if [ ! -d $libraries/compare-locales/.hg ]
-    then
-        echogreen "Checking out compare-locales in $libraries"
-        cd $libraries
-        hg clone https://hg.mozilla.org/l10n/compare-locales -u $version
-        cd $install
-    else
-        echogreen "Updating compare-locales in $libraries"
-        cd $libraries/compare-locales
-        hg pull -r default --update
-        hg update $version
-        cd $install
-    fi
-
-    # Check out or update python-fluent library
-    version="0.6.4"
-    if [ ! -d $libraries/python-fluent/.git ]
-    then
-        echogreen "Checking out the python-fluent library in $libraries"
-        cd $libraries
-        git clone https://github.com/projectfluent/python-fluent
-        cd $install
-    else
-        echogreen "Updating the python-fluent library in $libraries"
-        cd $libraries/python-fluent
-        git checkout master
-        git pull
-        git checkout -q $version
-        cd $install
-    fi
-
     # Check out or update external p12n-extract library
     if [ ! -d $libraries/p12n/.git ]
     then
@@ -70,6 +37,22 @@ function setupExternalLibraries() {
         git pull
         cd $install
     fi
+}
+
+function setupVirtualEnv() {
+    # Create virtualenv folder if missing
+    cd $install
+    if [ ! -d python-venv ]
+    then
+        echo "Setting up new virtualenv..."
+        virtualenv python-venv || exit 1
+    fi
+
+    # Install or update dependencies
+    echo "Installing dependencies in virtualenv"
+    source python-venv/bin/activate || exit 1
+    pip install -r requirements.txt --upgrade
+    deactivate
 }
 
 function initGeckoStringsRepo() {
@@ -176,6 +159,7 @@ echo "${CURRENT_TIP:0:7}${DEV_VERSION}" | tr -d '\n' > "${install}/cache/version
 echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupExternalLibraries
+setupVirtualEnv
 initGeckoStringsRepo
 initOtherSources
 

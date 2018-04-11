@@ -1,19 +1,25 @@
 #!/usr/bin/python
 
 import argparse
-from env_setup import import_library
+import codecs
 import json
 import logging
 import os
 import subprocess
+import six
 import sys
-from ConfigParser import SafeConfigParser
+
+# Python 2/3 compatibility
+try:
+    from ConfigParser import SafeConfigParser
+except ImportError:
+    from configparser import SafeConfigParser
 
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
 # current folder)
-config_folder = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
+config_folder = os.path.abspath(os.path.join(
+                    os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
 
 # Read Transvision's configuration file from ../../config/config.ini
 # If not available use a default storage folder to store data
@@ -23,35 +29,17 @@ if not os.path.isfile(config_file):
           'Default settings will be used.')
     root_folder = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir))
-    libraries_path = os.path.join(root_folder, 'libraries')
 else:
     config_parser = SafeConfigParser()
     config_parser.read(config_file)
-    libraries_path = config_parser.get('config', 'libraries')
     storage_path = os.path.join(config_parser.get('config', 'root'), 'TMX')
 
-# Import Fluent Python library
-import_library(
-    libraries_path, 'git', 'python-fluent',
-    'https://github.com/projectfluent/python-fluent', '0.6.4')
-try:
-    import fluent.syntax
-except ImportError as e:
-    print('Error importing python-fluent library')
-    print(e)
-    sys.exit(1)
-
-# Import compare-locales
-import_library(
-    libraries_path, 'hg', 'compare-locales',
-    'https://hg.mozilla.org/l10n/compare-locales', 'RELEASE_2_8_0')
 try:
     from compare_locales import parser
 except ImportError as e:
-    print('Error importing compare-locales library')
+    print('FATAL: make sure that dependencies are installed')
     print(e)
     sys.exit(1)
-
 
 class StringExtraction():
 
@@ -129,7 +117,7 @@ class StringExtraction():
         # If storage_mode is append, read existing translations (if available)
         # before overriding them
         if self.storage_mode == 'append':
-            file_name = self.storage_file + '.json'
+            file_name = '{}.json'.format(self.storage_file)
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     self.translations = json.load(f)
@@ -150,14 +138,14 @@ class StringExtraction():
                     if isinstance(entity, parser.Junk):
                         continue
                     string_id = u'{0}:{1}'.format(
-                        self.getRelativePath(file_name), unicode(entity))
+                        self.getRelativePath(file_name), six.text_type(entity))
                     if file_extension == '.ftl':
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
                             attr_string_id = u'{0}:{1}.{2}'.format(
-                                self.getRelativePath(file_name), unicode(entity), unicode(attribute))
+                                self.getRelativePath(file_name), six.text_type(entity), six.text_type(attribute))
                             self.translations[attr_string_id] = attribute.raw_val
                     else:
                         self.translations[string_id] = entity.raw_val
@@ -168,13 +156,13 @@ class StringExtraction():
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
             # Read the JSON cache for reference locale if available
-            file_name = self.reference_storage_file + '.json'
+            file_name = '{}.json'.format(self.reference_storage_file)
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     reference_strings = json.load(f)
                 f.close()
 
-                for string_id in self.translations.keys():
+                for string_id in list(self.translations.keys()):
                     if string_id not in reference_strings:
                         del(self.translations[string_id])
 
@@ -187,25 +175,23 @@ class StringExtraction():
 
         if output_format != 'php':
             # Store translations in JSON format
-            f = open(self.storage_file + '.json', 'w')
-            f.write(json.dumps(self.translations, sort_keys=True))
-            f.close()
+            with open('{}.json'.format(self.storage_file), 'w') as f:
+                f.write(json.dumps(self.translations, sort_keys=True))
 
         if output_format != 'json':
             # Store translations in PHP format (array)
-            string_ids = self.translations.keys()
+            string_ids = list(self.translations.keys())
             string_ids.sort()
 
-            f = open(self.storage_file + '.php', 'w')
-            f.write('<?php\n$tmx = [\n')
-            for string_id in string_ids:
-                translation = self.escape(
-                    self.translations[string_id].encode('utf-8'))
-                string_id = self.escape(string_id.encode('utf-8'))
-                line = "'{0}' => '{1}',\n".format(string_id, translation)
-                f.write(line)
-            f.write('];\n')
-            f.close()
+            with codecs.open('{}.php'.format(self.storage_file), 'w', encoding='utf-8') as f:
+                f.write('<?php\n$tmx = [\n')
+                for string_id in string_ids:
+                    translation = self.escape(
+                        self.translations[string_id])
+                    string_id = self.escape(string_id)
+                    line = u"'{0}' => '{1}',\n".format(string_id,translation)
+                    f.write(line)
+                f.write('];\n')
 
     def escape(self, translation):
         '''

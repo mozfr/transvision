@@ -152,14 +152,14 @@ function updateGeckoStringsChannelRepo() {
         # Build the cache
         # $1: Locale code
         echogreen "Create cache for $repo_name/$1"
-        nice -20 $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
         if [ "$1" = "en-US" ]
         then
             # Append strings for other sources
             # Chatzilla
-            nice -20 $install/app/scripts/tmx/tmx_products.py $sources_path/chatzilla/locales/en-US en-US en-US $repo_name append extensions/irc
+            nice -20 python $install/app/scripts/tmx/tmx_products.py $sources_path/chatzilla/locales/en-US en-US en-US $repo_name append extensions/irc
         else
-            nice -20 $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/extensions/irc $1 en-US $repo_name append extensions/irc
+            nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/extensions/irc $1 en-US $repo_name append extensions/irc
         fi
     }
 
@@ -280,6 +280,9 @@ function updateOtherProduct() {
     cd $install
     nice -20 $install/app/scripts/tmx/$3 $1
 }
+
+echogreen "Activating virtualenv..."
+source $install/python-venv/bin/activate || exit 1
 
 updateGeckoStringsChannelRepo
 updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg

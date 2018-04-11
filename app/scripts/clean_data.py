@@ -5,9 +5,14 @@ import json
 import glob
 import os
 import shutil
+import six
 import sys
-from ConfigParser import SafeConfigParser
 
+# Python 2/3 compatibility
+try:
+    from ConfigParser import SafeConfigParser
+except ImportError:
+    from configparser import SafeConfigParser
 
 def main():
     # Parse command line options
@@ -24,7 +29,7 @@ def main():
     # Read Transvision's configuration file from ../config/config.ini
     config_file = os.path.join(config_folder, 'config.ini')
     if not os.path.isfile(config_file):
-        print 'Configuration file /app/config/config.ini is missing.'
+        print('Configuration file /app/config/config.ini is missing.')
         sys.exit(1)
     else:
         config_parser = SafeConfigParser()
@@ -43,7 +48,7 @@ def main():
 
     known_folders = []
     known_cache_files = []
-    for id, repository in json_repositories.iteritems():
+    for id, repository in six.iteritems(json_repositories):
         repository_id = repository['id']
 
         # Check if this repository is mapped to a special folder name
@@ -71,22 +76,22 @@ def main():
                 '{0}/{1}/cache_{1}_{2}.php'.format(storage_path, locale, repository_id))
 
     # List all .txt files in /sources
-    print '--\nAnalyzing sources in config/sources'
+    print('--\nAnalyzing sources in config/sources')
 
     need_cleanup = False
     for txtfile in glob.glob(os.path.join(sources_path, '*.txt')):
         filename = os.path.splitext(os.path.basename(txtfile))[0]
-        if not filename in supported_repositories.keys():
-            print '{0}.txt is not a supported repository.'.format(filename)
+        if not filename in list(supported_repositories.keys()):
+            print('{}.txt is not a supported repository.'.format(filename))
             need_cleanup = True
             if args.delete:
-                print "Removing file:", txtfile
+                print('Removing file: {}'.format(txtfile))
                 os.remove(txtfile)
     if not need_cleanup:
-        print "Nothing to remove."
+        print('Nothing to remove.')
 
     # Check all repositories for extra folders
-    print '--\nAnalyzing folders in supported repositories'
+    print('--\nAnalyzing folders in supported repositories')
     # Besides standard VCS folders or templates, we need to exclude some
     # locales on mozilla.org:
     # hi: is a fake locale used to activate legal-docs, but not actually
@@ -101,19 +106,19 @@ def main():
     git_path = config_parser.get('config', 'local_git')
 
     need_cleanup = False
-    for repository_id, repository in supported_repositories.iteritems():
+    for repository_id, repository in six.iteritems(supported_repositories):
         # Check if the folder exists as a Mercurial repository. If it doesn't
         # assume it's a Git repository.
-        print '--\nAnalyze', repository_id
+        print('--\nAnalyze: {}'.format(repository_id))
         if os.path.isdir(os.path.join(hg_path, repository['folder_name'])):
             folder_path = os.path.join(hg_path, repository['folder_name'])
         else:
             folder_path = os.path.join(git_path, repository['folder_name'])
 
         if not os.path.isdir(folder_path):
-            print 'SKIPPED. Check sources: {0} does not exist'.format(folder_path)
+            print('SKIPPED. Check sources: {} does not exist'.format(folder_path))
         else:
-            available_folders = os.walk(folder_path).next()[1]
+            available_folders = next(os.walk(folder_path))[1]
             available_folders.sort()
             for folder in available_folders:
                 if folder in exclusions.get(repository_id, []):
@@ -121,30 +126,30 @@ def main():
                 if not folder in repository['locales']:
                     # This folder is inside the repository but doesn't match
                     # any supported locale.
-                    print '{0} is not a supported locale'.format(folder)
+                    print('{} is not a supported locale'.format(folder))
                     need_cleanup = True
                     if args.delete:
                         full_path = os.path.join(folder_path, folder)
-                        print "Removing folder:", full_path
+                        print('Removing folder: {}'.format(full_path))
                         shutil.rmtree(full_path)
     if not need_cleanup:
-        print "Nothing to remove."
+        print('Nothing to remove.')
 
     # Check cache files
-    print '--\nAnalyze cache files in TMX'
-    available_folders = os.walk(storage_path).next()[1]
+    print('--\nAnalyze cache files in TMX')
+    available_folders = next(os.walk(storage_path))[1]
 
     need_cleanup = False
     for folder in available_folders:
         for filename in glob.glob(os.path.join(storage_path, folder, '*.php')):
             if not filename in known_cache_files:
-                print '{0} is not a known cache file'.format(filename)
+                print('{} is not a known cache file'.format(filename))
                 need_cleanup = True
                 if args.delete:
-                    print "Removing file:", filename
+                    print('Removing file: {}'.format(filename))
                     os.remove(filename)
     if not need_cleanup:
-        print "Nothing to remove."
+        print('Nothing to remove.')
 
 if __name__ == '__main__':
     main()
