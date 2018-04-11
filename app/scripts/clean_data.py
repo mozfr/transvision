@@ -5,6 +5,7 @@ import json
 import glob
 import os
 import shutil
+import six
 import sys
 
 # Python 2/3 compatibility
@@ -12,17 +13,6 @@ try:
     from ConfigParser import SafeConfigParser
 except ImportError:
     from configparser import SafeConfigParser
-
-try:
-    dict.iteritems
-except AttributeError:
-    # Python 3
-    def iteritems(d):
-        return iter(d.items())
-else:
-    # Python 2
-    def iteritems(d):
-        return d.iteritems()
 
 def main():
     # Parse command line options
@@ -58,7 +48,7 @@ def main():
 
     known_folders = []
     known_cache_files = []
-    for id, repository in iteritems(json_repositories):
+    for id, repository in six.iteritems(json_repositories):
         repository_id = repository['id']
 
         # Check if this repository is mapped to a special folder name
@@ -116,7 +106,7 @@ def main():
     git_path = config_parser.get('config', 'local_git')
 
     need_cleanup = False
-    for repository_id, repository in iteritems(supported_repositories):
+    for repository_id, repository in six.iteritems(supported_repositories):
         # Check if the folder exists as a Mercurial repository. If it doesn't
         # assume it's a Git repository.
         print('--\nAnalyze: {}'.format(repository_id))
