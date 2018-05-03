@@ -11,7 +11,7 @@ include MODELS . 'check_variables.php';
     and display the results as JSON instead of loading view and template.
 */
 if (isset($_GET['json'])) {
-    $json = $var_errors;
+    $json = array_column($var_errors, 'string_id');
     include VIEWS . 'json.php';
     die();
 }

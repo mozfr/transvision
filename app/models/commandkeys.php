@@ -1,6 +1,8 @@
 <?php
 namespace Transvision;
 
+use Cache\Cache;
+
 $error_messages = [];
 $reference_locale = Project::getReferenceLocale($repo);
 $supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
@@ -25,49 +27,60 @@ if (! isset($channels[$repo])) {
 }
 $channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
 
-// Get strings
-$source = Utils::getRepoStrings($reference_locale, $repo);
-$target = Utils::getRepoStrings($locale, $repo);
+$cache_id = $repo . $locale . 'commandkeys';
+$commandkey_results = Cache::getKey($cache_id);
+if ($commandkey_results === false) {
+    // Get strings
+    $source = Utils::getRepoStrings($reference_locale, $repo);
+    $target = Utils::getRepoStrings($locale, $repo);
 
-// Get string IDs in target ending with '.key' or '.commandkey'
-$commandkey_ids = array_filter(
-    array_keys($target),
-    function ($entity) {
-        return Strings::endsWith($entity, ['.key', '.commandkey']);
+    // Get string IDs in target ending with '.key' or '.commandkey'
+    $commandkey_ids = array_filter(
+        array_keys($target),
+        function ($entity) {
+            return Strings::endsWith($entity, ['.key', '.commandkey']);
+        }
+    );
+
+    // Known false positives to ignore
+    $ignored_ids = [
+        'browser/chrome/browser/browser.properties:addonPostInstall.okay.key',
+        'devtools/client/webconsole.properties:table.key',
+    ];
+    $ignored_files = [
+        'extensions/irc/chrome/chatzilla.properties',
+        'toolkit/chrome/global/charsetMenu.properties',
+    ];
+
+    $commandkey_results = [];
+    /*
+        Get keyboard shortcuts different from English (ignoring case), and
+        exclude known false positives.
+    */
+    foreach ($commandkey_ids as $commandkey_id) {
+        if (in_array($commandkey_id, $ignored_ids)) {
+            continue;
+        }
+
+        if (Strings::startsWith($commandkey_id, $ignored_files)) {
+            continue;
+        }
+
+        if (mb_strtoupper($target[$commandkey_id]) != mb_strtoupper($source[$commandkey_id])) {
+            $commandkey_results[] = [
+                'id'              => $commandkey_id,
+                'source_shortcut' => $source[$commandkey_id],
+                'target_shortcut' => $target[$commandkey_id],
+            ];
+        }
     }
-);
-
-// Known false positives to ignore
-$ignored_ids = [
-    'browser/chrome/browser/browser.properties:addonPostInstall.okay.key',
-    'devtools/client/webconsole.properties:table.key',
-];
-$ignored_files = [
-    'extensions/irc/chrome/chatzilla.properties',
-    'toolkit/chrome/global/charsetMenu.properties',
-];
-
-$commandkey_results = [];
-/*
-    Get keyboard shortcuts different from English (ignoring case), and
-    exclude known false positives.
-*/
-foreach ($commandkey_ids as $commandkey_id) {
-    if (in_array($commandkey_id, $ignored_ids)) {
-        continue;
-    }
-
-    if (Strings::startsWith($commandkey_id, $ignored_files)) {
-        continue;
-    }
-
-    if (mb_strtoupper($target[$commandkey_id]) != mb_strtoupper($source[$commandkey_id])) {
-        $commandkey_results[] = $commandkey_id;
-    }
+    Cache::setKey($cache_id, $commandkey_results);
+    unset($source);
+    unset($target);
 }
 
 // Build components filter
-$components = Project::getComponents(array_flip($commandkey_results));
+$components = Project::getComponents(array_flip(array_column($commandkey_results, 'id')));
 $filter_block = ShowResults::buildComponentsFilter($components);
 
 // RTL support

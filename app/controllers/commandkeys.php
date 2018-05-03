@@ -11,7 +11,7 @@ include MODELS . 'commandkeys.php';
     and display the results as JSON instead of loading view and template.
 */
 if (isset($_GET['json'])) {
-    $json = $commandkey_results;
+    $json = array_column($commandkey_results, 'id');
     include VIEWS . 'json.php';
     die();
 }

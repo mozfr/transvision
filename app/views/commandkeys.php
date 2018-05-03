@@ -34,7 +34,10 @@ if (! empty($commandkey_results)) {
     // Get the tool used to edit strings for the target locale
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
-    foreach ($commandkey_results as $key) {
+    foreach ($commandkey_results as $commandkey_result) {
+        $key = $commandkey_result['id'];
+        $translated_shortcut = $commandkey_result['target_shortcut'];
+        $source_shortcut = $commandkey_result['source_shortcut'];
         $entity = ShowResults::formatEntity($key);
         $component = explode('/', $key)[0];
 
@@ -43,9 +46,6 @@ if (! empty($commandkey_results)) {
             . "&repo={$repo}"
             . "&search_type=entities&recherche={$key}"
             . '&entire_string=entire_string';
-
-        $translated_shortcut = $target[$key];
-        $source_shortcut = $source[$key];
 
         $edit_link = $toolUsedByTargetLocale != ''
             ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $key, $translated_shortcut, $locale)
