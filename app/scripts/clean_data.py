@@ -14,6 +14,7 @@ try:
 except ImportError:
     from configparser import SafeConfigParser
 
+
 def main():
     # Parse command line options
     cl_parser = argparse.ArgumentParser()
@@ -62,7 +63,7 @@ def main():
         supported_locales = open(locales_file, 'r').read().splitlines()
 
         # Make sure en-US is included in the list of supported locales
-        if not 'en-US' in supported_locales:
+        if 'en-US' not in supported_locales:
             supported_locales.append('en-US')
 
         supported_repositories[repository_id] = {
@@ -72,8 +73,8 @@ def main():
 
         # Store a list of acceptable cache file names
         for locale in supported_locales:
-            known_cache_files.append(
-                '{0}/{1}/cache_{1}_{2}.php'.format(storage_path, locale, repository_id))
+            known_cache_files.append('{0}/{1}/cache_{1}_{2}.php'.format(
+                storage_path, locale, repository_id))
 
     # List all .txt files in /sources
     print('--\nAnalyzing sources in config/sources')
@@ -81,7 +82,7 @@ def main():
     need_cleanup = False
     for txtfile in glob.glob(os.path.join(sources_path, '*.txt')):
         filename = os.path.splitext(os.path.basename(txtfile))[0]
-        if not filename in list(supported_repositories.keys()):
+        if filename not in list(supported_repositories.keys()):
             print('{}.txt is not a supported repository.'.format(filename))
             need_cleanup = True
             if args.delete:
@@ -96,12 +97,18 @@ def main():
     # locales on mozilla.org:
     # hi: is a fake locale used to activate legal-docs, but not actually
     #     supported by mozilla.org
-    exclusions = {
+    excluded_folders = {
         'firefox_ios': ['.git', 'templates'],
-        'focus_android': ['.git'],
+        'focus_android': ['.git', 'templates'],
         'focus_ios': ['.git', 'templates'],
-        'mozilla_org': ['.git', 'en-US', 'hi']
+        'mozilla_org': ['.git', 'en-US', 'hi'],
     }
+
+    # Focus for Android has locales in a subfolder, not in the root
+    l10n_subfolders = {
+        'focus_android': 'locales',
+    }
+
     hg_path = config_parser.get('config', 'local_hg')
     git_path = config_parser.get('config', 'local_git')
 
@@ -115,15 +122,18 @@ def main():
         else:
             folder_path = os.path.join(git_path, repository['folder_name'])
 
+        folder_path = os.path.join(
+            folder_path, l10n_subfolders.get(repository_id, ''))
         if not os.path.isdir(folder_path):
-            print('SKIPPED. Check sources: {} does not exist'.format(folder_path))
+            print('SKIPPED. Check sources: {} '
+                  'does not exist'.format(folder_path))
         else:
             available_folders = next(os.walk(folder_path))[1]
             available_folders.sort()
             for folder in available_folders:
-                if folder in exclusions.get(repository_id, []):
+                if folder in excluded_folders.get(repository_id, []):
                     continue
-                if not folder in repository['locales']:
+                if folder not in repository['locales']:
                     # This folder is inside the repository but doesn't match
                     # any supported locale.
                     print('{} is not a supported locale'.format(folder))
@@ -142,7 +152,7 @@ def main():
     need_cleanup = False
     for folder in available_folders:
         for filename in glob.glob(os.path.join(storage_path, folder, '*.php')):
-            if not filename in known_cache_files:
+            if filename not in known_cache_files:
                 print('{} is not a known cache file'.format(filename))
                 need_cleanup = True
                 if args.delete:
@@ -150,6 +160,7 @@ def main():
                     os.remove(filename)
     if not need_cleanup:
         print('Nothing to remove.')
+
 
 if __name__ == '__main__':
     main()
