@@ -99,7 +99,7 @@ check(file_exists($root . '/app/config/config.ini'), 'Config file exists', 'Conf
 // Check if Transvision is installed
 if (file_exists($root . '/app/config/config.ini') && DATA_ROOT !== '/') {
     // Check config file parameters
-    $ini_paths = ['root', 'local_hg', 'local_svn', 'local_git', 'libraries', 'install', 'config'];
+    $ini_paths = ['root', 'local_hg', 'local_git', 'libraries', 'install', 'config'];
     foreach ($server_config as $key=>$value) {
         if(in_array($key, $ini_paths)) {
             check(file_exists($value), "{$key}: {$value} exists", '');

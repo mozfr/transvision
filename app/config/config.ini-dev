@@ -19,9 +19,6 @@ local_hg=/temp
 local_git=/temp
 
 ; Only needed for production setup
-local_svn=/temp
-
-; Only needed for production setup
 libraries=/temp
 
 ; Flag to know if we are working in production mode or development mode
