@@ -422,14 +422,6 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'gecko_strings',
-                'other-licenses/branding/thunderbird/brand.dtd:trademarkInfo.part1',
-                'test',
-                'bg',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/thunderbird/other-licenses/branding/thunderbird/brand.dtd?search=trademarkInfo.part1'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
                 'mozilla_org',
                 'mozilla_org/firefox/android/index.lang:4e0bc9d4',
                 'test',
