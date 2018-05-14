@@ -3,7 +3,6 @@
 // Constants for the project
 define('DATA_ROOT',     realpath($server_config['root']) . '/');
 define('HG',            realpath($server_config['local_hg']) . '/');
-define('SVN',           realpath($server_config['local_svn']) . '/');
 define('GIT',           realpath($server_config['local_git']) . '/');
 define('TMX',           DATA_ROOT . 'TMX/');
 define('INSTALL_ROOT',  realpath($server_config['install']) . '/');
