@@ -43,12 +43,11 @@ if ($ak_results === false) {
     );
 
     // Possible labels associated to an access key
-    $ak_labels = ['.label', '.title', '.message', ''];
+    $ak_labels = ['.label', '.title', '.button', '.message', ''];
 
     // Some keys map to a different string ID than the one identified by the
     // algorithm
     $known_mappings = [
-        'browser/chrome/browser/browser.properties:decoder.noCodecs.accesskey' => 'browser/chrome/browser/browser.properties:decoder.noCodecs.button',
         'browser/chrome/browser/preferences/sync.dtd:engine.tabs.accesskey'    => 'browser/chrome/browser/preferences/sync.dtd:engine.tabs.label2',
     ];
 
