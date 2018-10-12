@@ -5,7 +5,6 @@ import codecs
 import json
 import logging
 import os
-import subprocess
 import six
 import sys
 
@@ -41,10 +40,12 @@ except ImportError as e:
     print(e)
     sys.exit(1)
 
+
 class StringExtraction():
 
-    def __init__(self, storage_path, locale, reference_locale, repository_name):
-        ''' Initialize object '''
+    def __init__(self, storage_path, locale,
+                 reference_locale, repository_name):
+        '''Initialize object.'''
 
         # Set defaults
         self.supported_formats = [
@@ -74,22 +75,23 @@ class StringExtraction():
             'cache_{0}_{1}'.format(reference_locale, repository_name))
 
     def setRepositoryPath(self, path):
-        ''' Set path to repository '''
+        '''Set path to repository.'''
 
         # Strip trailing '/' from repository path
         self.repository_path = path.rstrip(os.path.sep)
 
     def setStorageMode(self, mode, prefix):
-        ''' Set storage mode and prefix. Currently supported '''
+        '''Set storage mode and prefix.'''
 
         self.storage_mode = mode
         # Strip trailing '/' from storage_prefix
         self.storage_prefix = prefix.rstrip(os.path.sep)
 
     def extractFileList(self):
-        ''' Extract the list of supported files '''
+        '''Extract the list of supported files.'''
 
-        for root, dirs, files in os.walk(self.repository_path, followlinks=True):
+        for root, dirs, files in os.walk(
+                self.repository_path, followlinks=True):
             for file in files:
                 for supported_format in self.supported_formats:
                     if file.endswith(supported_format):
@@ -97,8 +99,10 @@ class StringExtraction():
         self.file_list.sort()
 
     def getRelativePath(self, file_name):
-        ''' Get the relative path of a filename, prepend prefix_storage if
-        defined '''
+        '''
+        Get the relative path of a filename, prepend prefix_storage if
+        defined.
+        '''
 
         relative_path = file_name[len(self.repository_path) + 1:]
         # Prepend storage_prefix if defined
@@ -112,7 +116,7 @@ class StringExtraction():
         return relative_path
 
     def extractStrings(self):
-        ''' Extract strings from all files '''
+        '''Extract strings from all files.'''
 
         # If storage_mode is append, read existing translations (if available)
         # before overriding them
@@ -132,7 +136,7 @@ class StringExtraction():
             file_parser = parser.getParser(file_extension)
             file_parser.readFile(file_name)
             try:
-                entities, map = file_parser.parse()
+                entities = file_parser.parse()
                 for entity in entities:
                     # Ignore Junk
                     if isinstance(entity, parser.Junk):
@@ -145,8 +149,11 @@ class StringExtraction():
                         # Store attributes
                         for attribute in entity.attributes:
                             attr_string_id = u'{0}:{1}.{2}'.format(
-                                self.getRelativePath(file_name), six.text_type(entity), six.text_type(attribute))
-                            self.translations[attr_string_id] = attribute.raw_val
+                                self.getRelativePath(file_name),
+                                six.text_type(entity),
+                                six.text_type(attribute))
+                            self.translations[attr_string_id] = \
+                                attribute.raw_val
                     else:
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
@@ -168,9 +175,9 @@ class StringExtraction():
 
     def storeTranslations(self, output_format):
         '''
-            Store translations on file.
-            If no format is specified, both JSON and PHP formats will
-            be stored on file.
+        Store translations on file.
+        If no format is specified, both JSON and PHP formats will
+        be stored on file.
         '''
 
         if output_format != 'php':
@@ -183,27 +190,29 @@ class StringExtraction():
             string_ids = list(self.translations.keys())
             string_ids.sort()
 
-            with codecs.open('{}.php'.format(self.storage_file), 'w', encoding='utf-8') as f:
+            file_name = '{}.php'.format(self.storage_file)
+            with codecs.open(file_name, 'w', encoding='utf-8') as f:
                 f.write('<?php\n$tmx = [\n')
                 for string_id in string_ids:
                     translation = self.escape(
                         self.translations[string_id])
                     string_id = self.escape(string_id)
-                    line = u"'{0}' => '{1}',\n".format(string_id,translation)
+                    line = u"'{0}' => '{1}',\n".format(string_id, translation)
                     f.write(line)
                 f.write('];\n')
 
     def escape(self, translation):
         '''
-            Escape quotes and backslahes in translation. There are two issues:
-            * Internal Python escaping: the string "this is a \", has an internal
-              representation as "this is a \\".
-              Also, "\\ test" is equivalent to r"\ test" (raw string).
-            * We need to print these strings into a file, with the format of a
-              PHP array delimited by single quotes ('id' => 'translation'). Hence
-              we need to escape single quotes, but also escape backslashes.
-              "this is a 'test'" => "this is a \'test\'"
-              "this is a \'test\'" => "this is a \\\'test\\\'"
+        Escape quotes and backslahes in translation. There are two
+        issues:
+        * Internal Python escaping: the string "this is a \", has an internal
+          representation as "this is a \\".
+          Also, "\\ test" is equivalent to r"\ test" (raw string).
+        * We need to print these strings into a file, with the format of a
+          PHP array delimited by single quotes ('id' => 'translation'). Hence
+          we need to escape single quotes, but also escape backslashes.
+          "this is a 'test'" => "this is a \'test\'"
+          "this is a \'test\'" => "this is a \\\'test\\\'"
         '''
 
         # Escape slashes
@@ -221,16 +230,24 @@ def main():
     parser.add_argument('locale_code', help='Locale language code')
     parser.add_argument('reference_code', help='Reference language code')
     parser.add_argument('repository_name', help='Repository name')
-    parser.add_argument('--output', nargs='?', type=str, choices=['json', 'php'],
-                        help='Store only one type of output.', default='')
-    parser.add_argument('storage_mode', nargs='?',
-                        help='If set to \'append\', translations will be added to an existing cache file', default='')
-    parser.add_argument('storage_prefix', nargs='?',
-                        help='This prefix will be prependended to the identified path in string IDs (e.g. extensions/irc for Chatzilla)', default='')
+    parser.add_argument(
+        '--output', nargs='?', type=str, choices=['json', 'php'],
+        help='Store only one type of output.', default='')
+    parser.add_argument(
+        'storage_mode', nargs='?',
+        help='If set to \'append\', translations will be added to '
+             'an existing cache file',
+        default='')
+    parser.add_argument(
+        'storage_prefix', nargs='?',
+        help='This prefix will be prependended to the identified '
+             'path in string IDs (e.g. extensions/irc for Chatzilla)',
+        default='')
     args = parser.parse_args()
 
     extracted_strings = StringExtraction(
-        storage_path, args.locale_code, args.reference_code, args.repository_name)
+        storage_path, args.locale_code,
+        args.reference_code, args.repository_name)
 
     extracted_strings.setRepositoryPath(args.repo_path)
     if args.storage_mode == 'append':
