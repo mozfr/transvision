@@ -40,9 +40,15 @@ foreach (Files::getFoldersInPath(GIT . 'mozilla_org/') as $locale) {
 
     foreach ($mozilla_org_files as $file) {
         $strings = Dotlang::getStrings(GIT . "mozilla_org/{$locale}/{$file}", $reference_locale);
-        $total_strings += count($strings);
 
         foreach ($strings as $english => $translation) {
+            /*
+                Remove empty strings. Lang files don't support empty strings, so
+                they're actually missing and shouldn't be in the TMX.
+            */
+            if ($translation === '') {
+                continue;
+            }
             $output = function ($str1, $str2) use ($file, $english, $translation) {
                 if (Strings::endsWith(strtolower($str2), '{ok}')) {
                     $str2 = trim(rtrim($str2, '{ok}'));
@@ -59,6 +65,7 @@ foreach (Files::getFoldersInPath(GIT . 'mozilla_org/') as $locale) {
             };
 
             $out_translation .= $output($english, $translation);
+            $total_strings += 1;
         }
     }
 
