@@ -188,12 +188,28 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar16d'],
             ],
             [
+                // Term reference with variant (not an error)
+                ['browser:foobar16da' => '{-brand-name} installed'],
+                ['browser:foobar16da' => '{-brand-name[acc]} installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
+                // Term reference with variant and different spacing (not an error)
+                ['browser:foobar16db' => '{-brand-name} installed'],
+                ['browser:foobar16db' => '{ -brand-name[acc]} installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
                 // Different format for term reference for FTL (no errors)
                 ['browser:foobar16e' => '{-brand-name} installed'],
                 ['browser:foobar16e' => '{ -brand-name } installato'],
                 'gecko_strings',
                 [],
-                ['browser:foobar16e'],
+                [],
             ],
             [
                 // Mispelled variable

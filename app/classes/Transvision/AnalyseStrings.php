@@ -46,12 +46,18 @@ class AnalyseStrings
         $pattern_mismatch = [];
 
         $patterns = [
-            'dtd'        => '/&([A-Za-z0-9\.]+);/',                        // &foobar;
-            'ftl'        => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)\s*\}/u', // { $foo }, { foo }, { -foo } Used in FTL files
-            'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',                    // %@, but also %1$@, %2$@, etc.
-            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',            // {{foobar2}} Used in Loop and PDFViewer
-            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/', // %1$S or %S. %1$0.S and %0.S are valid too
-            'properties' => '/(?<!%[0-9]|\{\s)\$[A-Za-z0-9\.]+\b/',        // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
+            // &foobar;
+            'dtd'        => '/&([A-Za-z0-9\.]+);/',
+            // { $foo }, { foo }, { -foo }, { -foo[bar] } Used in FTL files
+            'ftl'        => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)(?:\[?[A-Za-z0-9_-]+\])*\s*\}/u',
+            // %@, but also %1$@, %2$@, etc.
+            'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',
+            // {{foobar2}} Used in Loop and PDFViewer
+            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',
+            // %1$S or %S. %1$0.S and %0.S are valid too
+            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/',
+            // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
+            'properties' => '/(?<!%[0-9]|\{\s)(\$[A-Za-z0-9\.]+)\b/',
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 
@@ -74,9 +80,9 @@ class AnalyseStrings
                     preg_match_all($pattern, $source, $matches_source);
                     preg_match_all($pattern, $translation, $matches_translation);
 
-                    if (count($matches_source[0]) > 0) {
-                        foreach ($matches_source[0] as $var_source) {
-                            if (! in_array($var_source, $matches_translation[0])) {
+                    if (count($matches_source[1]) > 0) {
+                        foreach ($matches_source[1] as $var_source) {
+                            if (! in_array($var_source, $matches_translation[1])) {
                                 $wrong_variable = true;
                             }
 
