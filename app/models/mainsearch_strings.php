@@ -32,7 +32,6 @@ array_splice($locale2_strings, $limit_results);
 
 $searches = [
     $source_locale => $locale1_strings,
-    $locale        => $locale2_strings,
 ];
 $data = [$tmx_source, $tmx_target];
 unset($tmx_source, $tmx_target);
