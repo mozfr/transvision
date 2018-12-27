@@ -8,19 +8,19 @@ php:
   - 7.0
   - 7.2
 before_install:
-  ## Install latest version of node
+  # Install latest version of node
   - nvm install node
-  ## Disabling xdebug
+  # Disabling xdebug
   - phpenv config-rm xdebug.ini
 install:
   # Update composer, install dependencies
-  - flags="--ansi --prefer-dist --no-interaction --optimize-autoloader --no-suggest --no-progress"    
+  - flags="--ansi --prefer-dist --no-interaction --optimize-autoloader --no-suggest --no-progress"
   - composer self-update
   - composer install $flags
-  ## Install ESLint
+  # Install ESLint
   - npm install -g eslint
 before_script:
-  ## Travis configuration
+  # Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report

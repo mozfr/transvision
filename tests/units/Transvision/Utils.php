@@ -382,16 +382,6 @@ class Utils extends atoum\test
                 (new DateTime()),
                 '1 day ago',
             ],
-            [
-                (new DateTime())->modify('+2 months'),
-                (new DateTime()),
-                '2 months',
-            ],
-            [
-                (new DateTime())->modify('+1 year'),
-                (new DateTime()),
-                '1 year',
-            ],
         ];
 
         /*
@@ -411,6 +401,22 @@ class Utils extends atoum\test
                         (new DateTime())->modify('-1 hour'),
                         '',
                         '1 hour ago',
+                    ],
+                ]
+            );
+            // These tests fail on PHP 7.2.13, see https://github.com/mozfr/transvision/pull/958
+            $data = array_merge(
+                $data,
+                [
+                    [
+                        (new DateTime())->modify('+2 months'),
+                        (new DateTime()),
+                        '2 months',
+                    ],
+                    [
+                        (new DateTime())->modify('+1 year'),
+                        (new DateTime()),
+                        '1 year',
                     ],
                 ]
             );
