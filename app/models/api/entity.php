@@ -12,6 +12,7 @@ if (! $translations = Cache::getKey($cache_id)) {
         $strings = Utils::getRepoStrings($locale_code, $repo);
 
         if (isset($strings[$entity])) {
+            $strings[$entity] = $strings[$entity];
             $translations[$locale_code] = $strings[$entity];
         }
 
