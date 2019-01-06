@@ -428,8 +428,6 @@ class API
     {
         $this->error = $message;
 
-        return $this->logging
-            ? $this->logger->addWarning($message, [$this->url['path']])
-            : false;
+        return $this->logging ?: $this->logger->addWarning($message, [$this->url['path']]);
     }
 }
