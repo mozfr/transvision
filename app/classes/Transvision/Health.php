@@ -184,8 +184,7 @@ class Health
         // Create the tab only if we get data
         if (isset($data['commit'])) {
             $date = $data['commit']['date'];
-            $tab = '';
-
+           
             // Set CSS classes if the latest commit is 1 year old or older
             $commit_class = $date->diff(new \DateTime('now'))->format('%y') >= 1
                             ? ' old' : '';
@@ -196,14 +195,12 @@ class Health
             $commit = '<b>' . Utils::ago($date) . '</b> ('
                     . $date->format('F d, Y \a\t H:i \G\M\T e')
                     . ') by ' . $data['commit']['author'];
-
-            $tab .= '<div id="' . $id . '" class="metrics tab' . $active_class . '">'
-                 . '<h4>Repo metrics:</h4><ul>'
-                 . '<li class="metric' . $commit_class . '">Last commit: ' . $commit . '</li>'
-                 . '<li class="metric">Number of commits: ' . Utils::pluralize($data['commit_sum'], 'commit') . '</li>'
-                 . '</ul></div>';
-
-            return $tab;
+    
+            return '<div id="' . $id . '" class="metrics tab' . $active_class . '">'
+                . '<h4>Repo metrics:</h4><ul>'
+                . '<li class="metric' . $commit_class . '">Last commit: ' . $commit . '</li>'
+                . '<li class="metric">Number of commits: ' . Utils::pluralize($data['commit_sum'], 'commit') . '</li>'
+                . '</ul></div>';            
         } else {
             return false;
         }
