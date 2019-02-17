@@ -33,6 +33,7 @@ if ($var_errors === false) {
         'mail/chrome/messenger/aboutRights.dtd:rights.webservices-term4',
         'suite/chrome/branding/aboutRights.dtd:rights.webservices-term4',
         'toolkit/chrome/global/aboutRights.dtd:rights.webservices-term5',
+        'toolkit/toolkit/about/aboutRights.ftl:rights-webservices-term-5',
     ];
 
     $string_ids = AnalyseStrings::differences($source, $target, $repo, $ignored_strings);
