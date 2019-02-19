@@ -207,7 +207,7 @@ class StringExtraction():
         issues:
         * Internal Python escaping: the string "this is a \", has an internal
           representation as "this is a \\".
-          Also, "\\ test" is equivalent to r"\ test" (raw string).
+          Also, "\\test" is equivalent to r"\test" (raw string).
         * We need to print these strings into a file, with the format of a
           PHP array delimited by single quotes ('id' => 'translation'). Hence
           we need to escape single quotes, but also escape backslashes.
