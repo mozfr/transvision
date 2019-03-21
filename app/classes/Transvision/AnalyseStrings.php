@@ -48,8 +48,8 @@ class AnalyseStrings
         $patterns = [
             // &foobar;
             'dtd'        => '/&([A-Za-z0-9\.]+);/',
-            // { $foo }, { foo }, { -foo }, { -foo[bar] } Used in FTL files
-            'ftl'        => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)(?:\[?[A-Za-z0-9_-]+\])*\s*\}/u',
+            // { $foo }, { foo }, { -foo }, { -foo[bar] }, { -foo(attr: "value") } Used in FTL files
+            'ftl'        => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)(?:[\[(]?[A-Za-z0-9_\- :"]+[\])])*\s*\}/u',
             // %@, but also %1$@, %2$@, etc.
             'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',
             // {{foobar2}} Used in Loop and PDFViewer
