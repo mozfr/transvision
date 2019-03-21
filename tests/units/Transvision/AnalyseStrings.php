@@ -212,6 +212,14 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
+                // Parameterized term (not an error)
+                ['browser:foobar16f' => '{-brand-name} installed'],
+                ['browser:foobar16f' => '{ -brand-name(case: "upper") } installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
                 // Mispelled variable
                 ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
                 ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
