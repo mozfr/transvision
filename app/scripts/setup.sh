@@ -23,22 +23,6 @@ function echogreen() {
     echo -e "$GREEN$*$NORMAL"
 }
 
-function setupExternalLibraries() {
-    # Check out or update external p12n-extract library
-    if [ ! -d $libraries/p12n/.git ]
-    then
-        echogreen "Checking out the p12n-extract library in $libraries"
-        cd $libraries
-        git clone https://github.com/flodolo/p12n-extract/ p12n
-        cd $install
-    else
-        echogreen "Updating the p12n-extract library in $libraries"
-        cd $libraries/p12n
-        git pull
-        cd $install
-    fi
-}
-
 function setupVirtualEnv() {
     # Create virtualenv folder if missing
     cd $install
@@ -158,7 +142,6 @@ fi
 echo "${CURRENT_TIP:0:7}${DEV_VERSION}" | tr -d '\n' > "${install}/cache/version.txt"
 echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
-setupExternalLibraries
 setupVirtualEnv
 initGeckoStringsRepo
 initOtherSources

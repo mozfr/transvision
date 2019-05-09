@@ -11,7 +11,6 @@ $urls = [
     'downloads'         => 'downloads',
     'empty-strings'     => 'empty_strings',
     'news'              => 'changelog',
-    'productization'    => 'productization',
     'rss'               => 'rss',
     'showrepos'         => 'showrepos',
     'stats'             => 'stats',

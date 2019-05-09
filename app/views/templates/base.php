@@ -47,13 +47,12 @@ $links = <<<EOT
     {$li_link('commandkeys', 'Check your keyboard shortcuts', 'Keyboard Shortcuts')}
     {$li_link('checkvariables', 'Check what variable differences there are from English', 'Check Variables')}
     {$li_link('empty_strings', 'Display empty strings in English or locale', 'Empty Strings')}
-    {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
   </ul>
   <ul>
+    {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
     {$li_link('unlocalized', 'Display common words remaining in English', 'Unlocalized Words')}
     {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
     {$li_link('showrepos', 'Check the health status of locales', 'Health Status Overview')}
-    {$li_link('productization', 'Show productization aspects', 'Productization')}
   </ul>
 </div>
 <div class="linkscolumn">
