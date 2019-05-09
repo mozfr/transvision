@@ -19,5 +19,4 @@ web/assets
 web/data.tar.gz
 web/download/.htaccess
 web/download/*.tmx
-web/p12n
 web/TMX

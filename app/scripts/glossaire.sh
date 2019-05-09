@@ -290,11 +290,6 @@ updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateOtherProduct focus_ios "Focus for iOS" tmx_xliff
 updateOtherProduct focus_android "Focus for Android" tmx_gettext
 
-# Generate productization data
-cd $install
-echogreen "Extracting p12n data"
-nice -20 python $libraries/p12n/p12n_extract/p12n_extract.py $config
-
 # Create a file to get the timestamp of the last string extraction for caching
 echogreen "Creating extraction timestamp for cache system"
 touch cache/lastdataupdate.txt

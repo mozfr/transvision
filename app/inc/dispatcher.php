@@ -85,12 +85,6 @@ switch ($url['path']) {
         $page_descr = '';
         $css_files[] = 'changelog.css';
         break;
-    case 'productization':
-        $view = 'productization';
-        $page_title = 'Productization Overview';
-        $page_descr = 'Show productization aspects for this locale.';
-        $css_files[] = 'productization.css';
-        break;
     case 'rss':
         $controller = 'changelog';
         $template = false;
