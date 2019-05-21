@@ -147,7 +147,6 @@ initGeckoStringsRepo
 initOtherSources
 
 # Check out GitHub repos
-echogreen "mozilla.org repo being checked out from GitHub"
 cd $mozilla_org
 if [ ! -d $mozilla_org/.git ]
 then
@@ -155,7 +154,6 @@ then
     git clone https://github.com/mozilla-l10n/www.mozilla.org .
 fi
 
-echogreen "Firefox for iOS repo being checked out from GitHub"
 cd $firefox_ios
 if [ ! -d $firefox_ios/.git ]
 then
@@ -163,7 +161,6 @@ then
     git clone https://github.com/mozilla-l10n/firefoxios-l10n .
 fi
 
-echogreen "Focus for iOS repo being checked out from GitHub"
 cd $focus_ios
 if [ ! -d $focus_ios/.git ]
 then
@@ -171,7 +168,6 @@ then
     git clone https://github.com/mozilla-l10n/focusios-l10n .
 fi
 
-echogreen "Focus for Android repo being checked out from GitHub"
 cd $focus_android
 if [ ! -d $focus_android/.git ]
 then
@@ -179,13 +175,20 @@ then
     git clone https://github.com/mozilla-l10n/focus-android-l10n .
 fi
 
+cd $android_l10n
+if [ ! -d $android_l10n/.git ]
+then
+    echogreen "Checking out Focus for android-l10n repo"
+    git clone https://github.com/mozilla-l10n/android-l10n .
+fi
+
 # Add .htaccess to download folder. Folder should already exists, but check in
 # advance to be sure. I overwrite an existing .htaccess if already present.
 echogreen "Add .htaccess to download folder"
 if [ ! -d $install/web/download ]
-    then
-        echogreen "Creating download folder"
-        mkdir -p $install/web/download
+then
+    echogreen "Creating download folder"
+    mkdir -p $install/web/download
 fi
 echo "AddType application/octet-stream .tmx" > $install/web/download/.htaccess
 

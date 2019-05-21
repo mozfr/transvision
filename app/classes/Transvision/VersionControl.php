@@ -123,16 +123,26 @@ class VersionControl
     {
         if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['git_repository'])) {
             $repo_data = Project::$repos_info[$repo];
-            $repo = $repo_data['git_repository'];
+            $git_repo = $repo_data['git_repository'];
             $file_path = self::extractFilePath($path);
             if (isset($repo_data['git_subfolder'])) {
                 $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
             }
+            if ($repo == 'android_l10n') {
+                // Special case for android-l10n (Android)
+                $locale_android = $locale == 'en-US'
+                    ? ''
+                    : '-' . str_replace('-', '-r', $locale);
+                $file_path = str_replace('values', "values{$locale_android}", $file_path);
+
+                return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$file_path}";
+            }
         } else {
             $file_path = $path;
+            $git_repo = $repo;
         }
 
-        return "https://github.com/mozilla-l10n/{$repo}/blob/master/{$locale}/$file_path";
+        return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$locale}/{$file_path}";
     }
 
     /**

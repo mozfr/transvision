@@ -44,8 +44,8 @@ if ($error_count > 0) {
             $target_string, $repo, $string_id_link
         );
 
-        $path_source_locale = VersionControl::hgPath($source_locale, $repo, $string_id);
-        $path_target_locale = VersionControl::hgPath($locale, $repo, $string_id);
+        $path_source_locale = VersionControl::getPath($source_locale, $repo, $string_id);
+        $path_target_locale = VersionControl::getPath($locale, $repo, $string_id);
         $edit_link = $toolUsedByTargetLocale != ''
             ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $string_id, $target_string, $locale)
             : '';

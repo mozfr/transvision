@@ -60,8 +60,8 @@ if (! empty($ak_results)) {
            "&search_type=entities&recherche={$ak_label}" .
            '&entire_string=entire_string';
 
-        $path_ak = VersionControl::hgPath($locale, $repo, $ak_string);
-        $path_label = VersionControl::hgPath($locale, $repo, $ak_label);
+        $path_ak = VersionControl::getPath($locale, $repo, $ak_string);
+        $path_label = VersionControl::getPath($locale, $repo, $ak_label);
 
         $edit_link_ak = $toolUsedByTargetLocale != ''
             ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $ak_string, $accesskey_txt, $locale)

@@ -55,8 +55,8 @@ if (! empty($commandkey_results)) {
             $locale, $key, $source_shortcut, $translated_shortcut, $repo, $entity_link
         )];
 
-        $reference_path = VersionControl::hgPath($reference_locale, $repo, $key);
-        $locale_path = VersionControl::hgPath($locale, $repo, $key);
+        $reference_path = VersionControl::getPath($reference_locale, $repo, $key);
+        $locale_path = VersionControl::getPath($locale, $repo, $key);
 
         if (! $source_shortcut) {
             $source_shortcut = '<em class="error">(empty)</em>';
