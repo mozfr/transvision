@@ -128,6 +128,10 @@ def main():
             print('SKIPPED. Check sources: {} '
                   'does not exist'.format(folder_path))
         else:
+            # Ignore android-l10n
+            if repository_id == 'android_l10n':
+                continue
+
             available_folders = next(os.walk(folder_path))[1]
             available_folders.sort()
             for folder in available_folders:
