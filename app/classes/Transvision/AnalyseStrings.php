@@ -47,17 +47,19 @@ class AnalyseStrings
 
         $patterns = [
             // &foobar;
-            'dtd'        => '/&([A-Za-z0-9\.]+);/',
+            'dtd'         => '/&([A-Za-z0-9\.]+);/',
             // { $foo }, { foo }, { -foo }, { -foo[bar] }, { -foo(attr: "value") } Used in FTL files
-            'ftl'        => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)(?:[\[(]?[A-Za-z0-9_\- :"]+[\])])*\s*\}/u',
+            'ftl'         => '/(?<!\{)\{\s*([\$|-]?[A-Za-z0-9_-]+)(?:[\[(]?[A-Za-z0-9_\- :"]+[\])])*\s*\}/u',
             // %@, but also %1$@, %2$@, etc.
-            'ios'        => '/(%(?:[0-9]+\$){0,1}@)/i',
+            'ios'         => '/(%(?:[0-9]+\$){0,1}@)/i',
             // {{foobar2}} Used in Loop and PDFViewer
-            'l10njs'     => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',
+            'l10njs'      => '/\{\{\s*([A-Za-z0-9_]+)\s*\}\}/u',
             // %1$S or %S. %1$0.S and %0.S are valid too
-            'printf'     => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/',
+            'printf'      => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/',
             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
-            'properties' => '/(?<!%[0-9]|\{\s)(\$[A-Za-z0-9\.]+)\b/',
+            'properties'  => '/(?<!%[0-9]|\{\s)(\$[A-Za-z0-9\.]+)\b/',
+            // %1$s or %s. %d
+            'xml_android' => '/(%(?:[0-9]+\$){0,1}([sd]))/',
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 

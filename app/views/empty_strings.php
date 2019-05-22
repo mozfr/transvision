@@ -77,8 +77,8 @@ if (count($empty_strings) == 0) {
             $locale, $key, $reference_string, $locale_string, $repo, $entity_link
         )];
 
-        $reference_path = VersionControl::hgPath($reference_locale, $repo, $key);
-        $locale_path = VersionControl::hgPath($locale, $repo, $key);
+        $reference_path = VersionControl::getPath($reference_locale, $repo, $key);
+        $locale_path = VersionControl::getPath($locale, $repo, $key);
 
         if (! $reference_string) {
             $reference_string = '<em class="error">(empty)</em>';

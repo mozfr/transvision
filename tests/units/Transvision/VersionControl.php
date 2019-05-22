@@ -131,6 +131,24 @@ class VersionControl extends atoum\test
                 'test/file.properties',
                 'https://github.com/mozilla-l10n/unknown/blob/master/fr/test/file.properties',
             ],
+            [
+                'en-US',
+                'android_l10n',
+                'android_l10n/test/values/strings.xml',
+                'https://github.com/mozilla-l10n/android-l10n/blob/master/test/values/strings.xml',
+            ],
+            [
+                'es-ES',
+                'android_l10n',
+                'android_l10n/test/values/strings.xml',
+                'https://github.com/mozilla-l10n/android-l10n/blob/master/test/values-es-rES/strings.xml',
+            ],
+            [
+                'de',
+                'android_l10n',
+                'android_l10n/test/values/strings.xml',
+                'https://github.com/mozilla-l10n/android-l10n/blob/master/test/values-de/strings.xml',
+            ],
         ];
     }
 

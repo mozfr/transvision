@@ -20,4 +20,5 @@ folders+=( $mozilla_org )
 firefox_ios=$local_git/firefox_ios/
 focus_ios=$local_git/focus_ios/
 focus_android=$local_git/focus_android/
-folders+=( $firefox_ios $focus_android $focus_ios )
+android_l10n=$local_git/android_l10n/
+folders+=( $firefox_ios $focus_android $focus_ios $android_l10n)

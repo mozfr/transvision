@@ -97,6 +97,13 @@ class Project
             'pontoon_project'   => 'mozillaorg',
             'source_type'       => 'dotlang',
         ],
+        'android_l10n' => [
+            'git_repository'    => 'android-l10n',
+            'locale_mapping'    => [], // To avoid using Bugzilla
+            'pontoon_project'   => 'android-l10n',
+            'source_type'       => 'xml',
+            'variable_patterns' => ['xml_android'],
+        ],
     ];
 
     /*
@@ -110,7 +117,8 @@ class Project
         ],
         // Products using Git
         'git' => [
-            'firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org',
+            'android_l10n', 'firefox_ios', 'focus_android', 'focus_ios',
+            'mozilla_org',
         ],
         // Products using free text search on Pontoon
         'text_search' => [
@@ -279,7 +287,6 @@ class Project
     public static function getLocaleInContext($locale, $context)
     {
         $locale_mappings = [];
-
         // Bugzilla locales
         $locale_mappings['bugzilla'] = [
             'es'      => 'es-ES',

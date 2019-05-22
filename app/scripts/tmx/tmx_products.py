@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import argparse
 import codecs
@@ -109,9 +109,6 @@ class StringExtraction():
         if self.storage_prefix != '':
             relative_path = '{0}/{1}'.format(self.storage_prefix,
                                              relative_path)
-        # Hack to work around Transvision symlink mess
-        relative_path = relative_path.replace(
-            'locales/en-US/en-US/', '')
 
         return relative_path
 

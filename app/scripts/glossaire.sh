@@ -281,6 +281,18 @@ function updateOtherProduct() {
     nice -20 $install/app/scripts/tmx/$3 $1
 }
 
+function updateAndroidl10n() {
+    if [ "$checkrepo" = true ]
+    then
+        cd $android_l10n
+        echogreen "Update GitHub repository"
+        git pull
+    fi
+    echogreen "Extract strings for android-l10n"
+    cd $install
+    nice -20 $install/app/scripts/tmx/tmx_android.py $android_l10n/l10n.toml en-US android_l10n
+}
+
 echogreen "Activating virtualenv..."
 source $install/python-venv/bin/activate || exit 1
 
@@ -289,6 +301,7 @@ updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateOtherProduct focus_ios "Focus for iOS" tmx_xliff
 updateOtherProduct focus_android "Focus for Android" tmx_gettext
+updateAndroidl10n
 
 # Create a file to get the timestamp of the last string extraction for caching
 echogreen "Creating extraction timestamp for cache system"
