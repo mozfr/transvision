@@ -52,10 +52,21 @@ if ($ak_results === false) {
     ];
 
     $ak_results = [];
+    $ftl_identifier_pattern = '/\s*\{\s*[a-zA-Z\-.]*\s*\}/u';
     foreach ($ak_string_ids as $ak_string_id) {
-        // Exclude accesskey if it's in a FTL file and includes PLATFORM()
-        if (strpos($ak_string_id, '.ftl:') !== false && strpos($source[$ak_string_id], 'PLATFORM()') !== false) {
-            continue;
+        // Exclude edge cases for FTL files
+        if (mb_strpos($ak_string_id, '.ftl:') !== false) {
+            // Exclude accesskey if it includes PLATFORM()
+            if (mb_strpos($source[$ak_string_id], 'PLATFORM()') !== false) {
+                continue;
+            }
+
+            // Exclude accesskey if it's a reference to another message
+            $matches = [];
+            preg_match_all($ftl_identifier_pattern, $source[$ak_string_id], $matches);
+            if (count($matches[0]) > 0) {
+                continue;
+            }
         }
 
         if (isset($known_mappings[$ak_string_id])) {
