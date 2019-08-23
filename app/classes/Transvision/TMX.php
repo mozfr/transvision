@@ -31,7 +31,11 @@ class TMX
                         . '<body>' . "\n";
 
             foreach ($strings[$source_lang] as $entity => $string_source) {
-                $string_target = isset($strings[$target_lang][$entity]) ? $strings[$target_lang][$entity] : '';
+                // If the string is not translated, move on
+                if (! isset($strings[$target_lang][$entity])) {
+                    continue;
+                }
+                $string_target = $strings[$target_lang][$entity];
 
                 $string_source = htmlentities($string_source, ENT_XML1);
                 $string_target = htmlentities($string_target, ENT_XML1);
@@ -73,8 +77,8 @@ class TMX
             foreach ($strings[$source_lang] as $entity => $string_source) {
                 $string_target = isset($strings[$target_lang][$entity]) ? $strings[$target_lang][$entity] : '';
 
-                // It does not create the pair without translation
-                if ($string_target === '') {
+                // If the string is not translated, move on
+                if (! isset($strings[$target_lang][$entity])) {
                     continue;
                 }
 
