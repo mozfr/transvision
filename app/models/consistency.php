@@ -51,7 +51,8 @@ $filter_message = '';
 
 if (! empty($source_strings) && $repo == 'gecko_strings') {
     // Remove known problematic strings
-    $duplicated_strings_english = Consistency::filterStrings($source_strings, $repo);
+    $duplicated_strings_source = Consistency::filterStrings($source_strings, $repo);
+    $duplicated_strings_target = Consistency::filterStrings($target_strings, $repo);
 
     // Filter out components
     switch ($selected_filter) {
@@ -77,16 +78,24 @@ if (! empty($source_strings) && $repo == 'gecko_strings') {
     $filter_message = empty($excluded_components)
         ? ''
         : 'Currently excluding the following folders: ' . implode(', ', $excluded_components) . '.';
-    $duplicated_strings_english = Consistency::filterComponents(
-        $duplicated_strings_english,
+    $duplicated_strings_source = Consistency::filterComponents(
+        $duplicated_strings_source,
+        $excluded_components
+    );
+    $duplicated_strings_target = Consistency::filterComponents(
+        $duplicated_strings_target,
         $excluded_components
     );
 
-    // Find strings that are identical in English
-    $duplicated_strings_english = Consistency::findDuplicates($duplicated_strings_english);
+    /*
+        Find strings that are identical in source and target language.
+        For target language, perform a case insensitive comparison.
+    */
+    $duplicated_strings_source = Consistency::findDuplicates($duplicated_strings_source);
+    $duplicated_strings_target = Consistency::findDuplicates($duplicated_strings_target, False);
 }
 
-if (! empty($duplicated_strings_english)) {
+if (! empty($duplicated_strings_source)) {
     $inconsistent_translations = [];
     $available_translations = [];
 
@@ -95,7 +104,7 @@ if (! empty($duplicated_strings_english)) {
         cycle, since it's an associative array.
         http://php.net/manual/en/class.cachingiterator.php
     */
-    $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_english));
+    $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_source));
     foreach ($collection as $key => $value) {
         // Ignore this string if is not available in the localization
         if (! isset($target_strings[$key])) {
@@ -105,7 +114,7 @@ if (! empty($duplicated_strings_english)) {
 
         $available_translations[] = $target_strings[$key];
         /*
-            If the current English string is different from the previous one,
+            If the current source string is different from the previous one,
             or I am at the last element, I need to store it with all available
             translations collected so far.
 
@@ -127,6 +136,38 @@ if (! empty($duplicated_strings_english)) {
             $available_translations = [];
         }
     }
+}
 
-    $strings_number = count($inconsistent_translations);
+if (! empty($duplicated_strings_target)) {
+    $inconsistent_source = [];
+    $available_sources = [];
+
+    $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_target));
+    foreach ($collection as $key => $value) {
+        $available_sources[] = strtolower($source_strings[$key]);
+        /*
+            If the current target string is different from the previous one,
+            or I am at the last element, I need to store it with all available
+            sources collected so far.
+
+            Source comparison is case insensitive.
+
+            $collection->getInnerIterator()->current() stores the value of
+            the next element.
+        */
+        if (! $collection->hasNext() || strtolower($collection->getInnerIterator()->current()) != strtolower($value)) {
+            $available_sources = array_unique($available_sources);
+            /*
+                Store this string only if there's more than one translation.
+                If there's only one, translations are consistent.
+            */
+            if (count($available_sources) > 1) {
+                $inconsistent_sources[] = [
+                    'target' => $value,
+                    'source' => $available_sources,
+                ];
+            }
+            $available_sources = [];
+        }
+    }
 }

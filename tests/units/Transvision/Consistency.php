@@ -14,7 +14,7 @@ class Consistency extends atoum\test
             [
                 [
                     'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
-                    'browser/pdfviewer/viewer.properties:last_page.title'                               => 'Aller à la dernière page',
+                    'browser/pdfviewer/viewer.properties:last_page.title'                               => 'Aller à la Dernière page',
                     'browser/chrome/browser/migration/migration.properties:1_safari'                    => 'Préférences',
                     'devtools/shared/gclicommands.properties:cookieListDesc'                            => 'Afficher les cookies',
                     'browser/chrome/browser/browser.properties:popupWarningButtonUnix'                  => 'Préférences',
@@ -22,7 +22,7 @@ class Consistency extends atoum\test
                 ],
                 [
                     'browser/pdfviewer/viewer.properties:last_page.label'              => 'Aller à la dernière page',
-                    'browser/pdfviewer/viewer.properties:last_page.title'              => 'Aller à la dernière page',
+                    'browser/pdfviewer/viewer.properties:last_page.title'              => 'Aller à la Dernière page',
                     'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
                     'browser/chrome/browser/migration/migration.properties:1_safari'   => 'Préférences',
                 ],
@@ -38,6 +38,37 @@ class Consistency extends atoum\test
         $obj = new _Consistency();
         $this
             ->array($obj->findDuplicates($a))
+                ->isEqualTo($b);
+    }
+
+    public function findDuplicatesSensitive_DP()
+    {
+        return [
+            [
+                [
+                    'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
+                    'browser/pdfviewer/viewer.properties:last_page.title'                               => 'Aller à la Dernière page',
+                    'browser/chrome/browser/migration/migration.properties:1_safari'                    => 'Préférences',
+                    'devtools/shared/gclicommands.properties:cookieListDesc'                            => 'Afficher les cookies',
+                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix'                  => 'Préférences',
+                    'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies' => 'Les cookies',
+                ],
+                [
+                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
+                    'browser/chrome/browser/migration/migration.properties:1_safari'   => 'Préférences',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider findDuplicatesSensitive_DP
+     */
+    public function testFindDuplicatesSensitiveID($a, $b)
+    {
+        $obj = new _Consistency();
+        $this
+            ->array($obj->findDuplicates($a, False))
                 ->isEqualTo($b);
     }
 

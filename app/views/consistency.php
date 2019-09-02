@@ -41,14 +41,14 @@ namespace Transvision;
     </fieldset>
 </form>
 <?php
-if ($strings_number == 0) {
+if (count($inconsistent_translations) == 0) {
     echo '<div class="message"><p>No inconsistent translations found.</p></div>';
 } else {
     ?>
     <table>
       <thead>
         <tr class="column_headers">
-            <th>English String</th>
+            <th>Source String</th>
             <th>Available Translations</th>
         </tr>
       </thead>
@@ -66,6 +66,37 @@ if ($strings_number == 0) {
         echo '<td>';
         foreach ($data['target'] as $target) {
             echo '<div class="inconsistent_translation highlight-specialchars">' . Strings::highlightSpecial(Utils::secureText($target), false) . "</div>\n";
+        }
+        echo "</td>\n</tr>\n";
+    }
+    echo "</tbody>\n</table>\n";
+}
+
+if (count($inconsistent_sources) == 0) {
+    echo '<div class="message"><p>No inconsistent sources found.</p></div>';
+} else {
+    ?>
+    <table>
+      <thead>
+        <tr class="column_headers">
+            <th>Translation</th>
+            <th>Source Strings</th>
+        </tr>
+      </thead>
+      <tbody>
+<?php
+    foreach ($inconsistent_sources as $data) {
+        $search_link = "/?sourcelocale={$reference_locale}"
+        . "&locale={$locale}"
+        . "&repo={$repo}"
+        . '&search_type=strings&recherche=' . urlencode($data['target'])
+        . '&entire_string=entire_string';
+        echo "<tr>\n";
+        echo '<td>';
+        echo '<a href="' . $search_link . '" title="Search for this string">' . Utils::secureText($data['target']) . "</a></td>\n";
+        echo '<td>';
+        foreach ($data['source'] as $source) {
+            echo '<div class="inconsistent_translation highlight-specialchars">' . Strings::highlightSpecial(Utils::secureText($source), false) . "</div>\n";
         }
         echo "</td>\n</tr>\n";
     }

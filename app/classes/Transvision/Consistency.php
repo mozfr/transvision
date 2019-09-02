@@ -11,7 +11,7 @@ namespace Transvision;
 class Consistency
 {
     /**
-     * Find duplicated strings (strings with the same text, ignoring case).
+     * Find duplicated strings (strings with the same text).
      *
      * @param array $strings_array Array of strings in the form
      *                             string_id => string_value
@@ -19,7 +19,7 @@ class Consistency
      * @return array Array of duplicated strings, same format as the
      *               input array
      */
-    public static function findDuplicates($strings_array)
+    public static function findDuplicates($strings_array, $case_sensitive = True)
     {
         $duplicates = [];
         // Use array_filter to exclude empty strings
@@ -29,7 +29,10 @@ class Consistency
         $previous_key = '';
         $previous_value = '';
         foreach ($strings_array as $key => $value) {
-            if (strcasecmp($previous_value, $value) === 0) {
+            $comparison = $case_sensitive
+                ? strcasecmp($previous_value, $value)
+                : strcmp($previous_value, $value);
+            if ($comparison === 0) {
                 $duplicates[$previous_key] = $previous_value;
                 $duplicates[$key] = $value;
             }
