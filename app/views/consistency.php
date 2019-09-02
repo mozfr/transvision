@@ -40,11 +40,14 @@ namespace Transvision;
         <p class="desktop_repo_only" id="filter_message"><?=$filter_message?></p>
     </fieldset>
 </form>
+
 <?php
 if (count($inconsistent_translations) == 0) {
     echo '<div class="message"><p>No inconsistent translations found.</p></div>';
 } else {
     ?>
+    <h3>Inconsistent Translations</h3>
+    <p class="subtitle">This table includes strings that are identical in the source language (English), but translated in different ways in the target language.</p>
     <table>
       <thead>
         <tr class="column_headers">
@@ -76,6 +79,8 @@ if (count($inconsistent_sources) == 0) {
     echo '<div class="message"><p>No inconsistent sources found.</p></div>';
 } else {
     ?>
+    <h3>Inconsistent Sources</h3>
+    <p class="subtitle">This table includes strings that are identical in the target language, but have a different source string. Case is ignored when evaluating the source string.</p>
     <table>
       <thead>
         <tr class="column_headers">
