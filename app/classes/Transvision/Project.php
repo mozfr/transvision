@@ -64,30 +64,6 @@ class Project
             'source_type'       => 'xliff',
             'variable_patterns' => ['ios'],
         ],
-        'focus_android' => [
-            'files'             => [
-                'app.po',
-            ],
-            'git_repository'    => 'focus-android-l10n',
-            'git_subfolder'     => 'locales',
-            'pontoon_project'   => 'focus-for-android',
-            'source_type'       => 'gettext',
-            'variable_patterns' => ['l10njs', 'printf'],
-        ],
-        'focus_ios' => [
-            'files'             => [
-                'focus-ios.xliff',
-            ],
-            'git_repository'    => 'focusios-l10n',
-            'locale_mapping'    => [
-                'bn-IN' => 'bn',
-                'bn-BD' => 'bn',
-                'son'   => 'ses',
-            ],
-            'pontoon_project'   => 'focus-for-ios',
-            'source_type'       => 'xliff',
-            'variable_patterns' => ['ios'],
-        ],
         'gecko_strings'=> [
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
@@ -117,12 +93,11 @@ class Project
         ],
         // Products using Git
         'git' => [
-            'android_l10n', 'firefox_ios', 'focus_android', 'focus_ios',
-            'mozilla_org',
+            'android_l10n', 'firefox_ios', 'mozilla_org',
         ],
         // Products using free text search on Pontoon
         'text_search' => [
-            'firefox_ios', 'focus_android', 'focus_ios', 'mozilla_org',
+            'firefox_ios', 'mozilla_org',
         ],
     ];
 

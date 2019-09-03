@@ -251,14 +251,6 @@ class AnalyseStrings extends atoum\test
                 [],
                 [],
             ],
-            [
-                // Check Focus for iOS has the same results
-                ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
-                ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
-                'focus_ios',
-                [],
-                [],
-            ],
         ];
     }
 

@@ -43,7 +43,6 @@ class Project extends atoum\test
         return [
             ['gecko_strings', true],
             ['firefox_ios', false],
-            ['focus_ios', false],
             ['mozilla_org', false],
             ['randomrepo', false],
         ];
@@ -139,8 +138,6 @@ class Project extends atoum\test
             ['es-ES', 'firefox_ios', 'es'],
             ['es', 'firefox_ios', 'es'],
             ['son', 'firefox_ios', 'ses'],
-            ['es-ES', 'focus_ios', 'es-ES'],
-            ['son', 'focus_ios', 'ses'],
         ];
     }
 
