@@ -271,7 +271,7 @@ function updateOtherProduct() {
     # $3: extraction script
     if [ "$checkrepo" = true ]
     then
-        # If $1 = "focus_ios", ${!1} is equal to $focus_ios
+        # If $1 = "firefox_ios", ${!1} is equal to $firefox_ios
         cd ${!1}
         echogreen "Update GitHub repository"
         git pull
@@ -299,8 +299,6 @@ source $install/python-venv/bin/activate || exit 1
 updateGeckoStringsChannelRepo
 updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
-updateOtherProduct focus_ios "Focus for iOS" tmx_xliff
-updateOtherProduct focus_android "Focus for Android" tmx_gettext
 updateAndroidl10n
 
 # Create a file to get the timestamp of the last string extraction for caching

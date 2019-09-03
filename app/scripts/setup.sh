@@ -161,20 +161,6 @@ then
     git clone https://github.com/mozilla-l10n/firefoxios-l10n .
 fi
 
-cd $focus_ios
-if [ ! -d $focus_ios/.git ]
-then
-    echogreen "Checking out Focus for iOS repo"
-    git clone https://github.com/mozilla-l10n/focusios-l10n .
-fi
-
-cd $focus_android
-if [ ! -d $focus_android/.git ]
-then
-    echogreen "Checking out Focus for Android repo"
-    git clone https://github.com/mozilla-l10n/focus-android-l10n .
-fi
-
 cd $android_l10n
 if [ ! -d $android_l10n/.git ]
 then

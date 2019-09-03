@@ -99,15 +99,18 @@ def main():
     #     supported by mozilla.org
     excluded_folders = {
         'firefox_ios': ['.git', 'templates'],
-        'focus_android': ['.git', 'templates'],
-        'focus_ios': ['.git', 'templates'],
         'mozilla_org': ['.git', 'en-US', 'hi'],
     }
 
-    # Focus for Android has locales in a subfolder, not in the root
-    l10n_subfolders = {
-        'focus_android': 'locales',
-    }
+    '''
+        To use if a project has locales in a subfolder, not in the root.
+        Example:
+
+        l10n_subfolders = {
+            'project_name': 'locales',
+        }
+    '''
+    l10n_subfolders = {}
 
     hg_path = config_parser.get('config', 'local_hg')
     git_path = config_parser.get('config', 'local_git')

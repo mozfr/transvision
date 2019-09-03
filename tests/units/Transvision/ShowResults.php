@@ -452,30 +452,6 @@ class ShowResults extends atoum\test
                 'it',
                 '',
             ],
-            [
-                'pontoon',
-                'focus_ios',
-                'focus_ios/focus-ios.xliff:4e0bc9d4',
-                'test',
-                'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/focus-for-ios/focus-ios.xliff?search=test'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'focus_ios',
-                'focus_ios/focus-ios.xliff:4e0bc9d4',
-                '@@missing@@',
-                'it',
-                '',
-            ],
-            [
-                'pontoon',
-                'focus_ios',
-                'focus_ios/focus-ios.xliff:4e0bc9d4',
-                '<em class="error">Warning: Missing string</em>',
-                'it',
-                '',
-            ],
             // Test URLencode
             [
                 'pontoon',
