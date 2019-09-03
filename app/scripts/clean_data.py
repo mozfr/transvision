@@ -102,7 +102,14 @@ def main():
         'mozilla_org': ['.git', 'en-US', 'hi'],
     }
 
-    # To use if a project has locales in a subfolder, not in the root
+    '''
+        To use if a project has locales in a subfolder, not in the root.
+        Example:
+
+        l10n_subfolders = {
+            'project_name': 'locales',
+        }
+    '''
     l10n_subfolders = {}
 
     hg_path = config_parser.get('config', 'local_hg')

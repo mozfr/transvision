@@ -161,6 +161,13 @@ then
     git clone https://github.com/mozilla-l10n/firefoxios-l10n .
 fi
 
+cd $android_l10n
+if [ ! -d $android_l10n/.git ]
+then
+    echogreen "Checking out Focus for android-l10n repo"
+    git clone https://github.com/mozilla-l10n/android-l10n .
+fi
+
 # Add .htaccess to download folder. Folder should already exists, but check in
 # advance to be sure. I overwrite an existing .htaccess if already present.
 echogreen "Add .htaccess to download folder"
