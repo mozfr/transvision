@@ -164,6 +164,22 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar16'],
             ],
             [
+                // Difference spacing in variable for FTL (not an error)
+                ['browser:foobar16a1' => '{ $brandname } installed'],
+                ['browser:foobar16a1' => '{$brandname} installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
+                // Difference spacing in variable for FTL (not an error)
+                ['browser:foobar16a2' => '{$brandname} installed'],
+                ['browser:foobar16a2' => '{ $brandname } installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
                 // Missing message reference for FTL
                 ['browser:foobar16b' => '{ other-message } installed'],
                 ['browser:foobar16b' => 'installato'],

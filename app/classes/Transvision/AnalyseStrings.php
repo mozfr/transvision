@@ -57,7 +57,7 @@ class AnalyseStrings
             // %1$S or %S. %1$0.S and %0.S are valid too
             'printf'      => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/',
             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
-            'properties'  => '/(?<!%[0-9]|\{\s)(\$[A-Za-z0-9\.]+)\b/',
+            'properties'  => '/(?<!%[0-9]|\{\s|\{)(\$[A-Za-z0-9\.]+)\b/',
             // %1$s or %s. %d
             'xml_android' => '/(%(?:[0-9]+\$){0,1}([sd]))/',
         ];
