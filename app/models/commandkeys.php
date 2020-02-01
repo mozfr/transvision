@@ -58,19 +58,36 @@ if ($commandkey_results === false) {
         exclude known false positives.
     */
     foreach ($commandkey_ids as $commandkey_id) {
+        // Ignore specific strings
         if (in_array($commandkey_id, $ignored_ids)) {
             continue;
         }
 
+        // Ignore entire files
         if (Strings::startsWith($commandkey_id, $ignored_files)) {
             continue;
         }
 
-        if (mb_strtoupper($target[$commandkey_id]) != mb_strtoupper($source[$commandkey_id])) {
+        $target_ak = $target[$commandkey_id];
+        $source_ak = $source[$commandkey_id];
+
+        // Special clean up for Fluent
+        $file_name = explode(':', $commandkey_id)[0];
+        if (Strings::endsWith($file_name, ['.ftl'])) {
+            // Remove all spaces for PLATFORM() or escaped values
+            if (mb_strpos($target_ak, '{') !== false) {
+                $target_ak = trim(preg_replace('/\s+/', '', $target_ak));
+            }
+            if (mb_strpos($source_ak, '{') !== false) {
+                $source_ak = trim(preg_replace('/\s+/', '', $source_ak));
+            }
+        }
+
+        if (mb_strtoupper($target_ak) != mb_strtoupper($source_ak)) {
             $commandkey_results[] = [
                 'id'              => $commandkey_id,
-                'source_shortcut' => $source[$commandkey_id],
-                'target_shortcut' => $target[$commandkey_id],
+                'source_shortcut' => $source_ak,
+                'target_shortcut' => $target_ak,
             ];
         }
     }
