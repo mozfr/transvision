@@ -34,11 +34,11 @@ if ($commandkey_results === false) {
     $source = Utils::getRepoStrings($reference_locale, $repo);
     $target = Utils::getRepoStrings($locale, $repo);
 
-    // Get string IDs in target ending with '.key' or '.commandkey'
+    // Get string IDs in target ending with '.key', '.keycode', or '.commandkey'
     $commandkey_ids = array_filter(
         array_keys($target),
         function ($entity) {
-            return Strings::endsWith($entity, ['.key', '.commandkey']);
+            return Strings::endsWith($entity, ['.key', '.keycode', '.commandkey']);
         }
     );
 
@@ -84,10 +84,11 @@ if ($commandkey_results === false) {
         }
 
         if (mb_strtoupper($target_ak) != mb_strtoupper($source_ak)) {
+            // We want to display the original shortcut, not the cleaned up version
             $commandkey_results[] = [
                 'id'              => $commandkey_id,
-                'source_shortcut' => $source_ak,
-                'target_shortcut' => $target_ak,
+                'source_shortcut' => $source[$commandkey_id],
+                'target_shortcut' => $target[$commandkey_id],
             ];
         }
     }
