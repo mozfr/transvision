@@ -111,9 +111,14 @@ class StringExtraction():
 
         for locale in self.translations:
             translations = self.translations[locale]
+            storage_folder = os.path.join(self.storage_path, locale)
             storage_file = os.path.join(
-                self.storage_path, locale,
+                storage_folder,
                 'cache_{0}_{1}'.format(locale, self.repository_name))
+
+            # Make sure that the TMX folder exists
+            if not os.path.exists(storage_folder):
+                os.mkdir(storage_folder)
 
             if output_format != 'php':
                 # Store translations in JSON format
