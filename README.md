@@ -20,7 +20,6 @@ Transvision was created by Philippe Dessante, from the French Mozilla localizati
 The Transvision team uses Git and GitHub for both development and issue tracking.
 - If you'd like to contribute code back to us, you can do it using a [Pull Request][].
 - We generate automatic documentation of [Transvision classes][].
-- If you want to chat with the team, you can find us on IRC in [![#transvision IRC channel](https://kiwiirc.com/buttons/irc.mozilla.org/transvision.png)](https://kiwiirc.com/client/irc.mozilla.org/?nick=github_vis|?#transvision) (#transvision channel on irc.mozilla.org server).
 - If you want to file a bug [Create a new issue on GitHub][] or contact the team.
 
 ## Dependencies
