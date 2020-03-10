@@ -96,15 +96,15 @@
     },
 
     "require-dev": {
-        "atoum/atoum" : "~3.0",
+        "atoum/atoum" : "~3.4",
         "symfony/var-dumper": "~2.6",
-        "friendsofphp/php-cs-fixer": "~2.1",
+        "friendsofphp/php-cs-fixer": "~2.16",
         "pchevrel/verif": "0.4",
         "hirak/prestissimo": "~0.1."
     },
 
     "autoload": {
-        "psr-0": {"Transvision": "app/classes/"},
+        "psr-4": {"Transvision\\": "app/classes/Transvision/"},
         "files": ["app/helpers/debug.php"]
     }
 }
