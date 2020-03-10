@@ -20,8 +20,10 @@ install:
   # Install ESLint
   - npm install -g eslint
 before_script:
-  # Travis configuration
+  # Copy Travis configuration
   - cp app/config/config.ini-travis app/config/config.ini
+  # Replace repository directory in configuration template
+  - sed -i "s|TRAVIS_HOME|$TRAVIS_BUILD_DIR|g" app/config/config.ini
 script:
   - vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
   - php tests/functional/api.php
