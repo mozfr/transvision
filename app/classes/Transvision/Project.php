@@ -69,9 +69,11 @@ class Project
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
         'mozilla_org'=> [
-            'git_repository'    => 'www.mozilla.org',
+            'git_repository'    => 'www-l10n',
             'pontoon_project'   => 'mozillaorg',
-            'source_type'       => 'dotlang',
+            'reference_locale'  => 'en',
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['ftl'],
         ],
         'android_l10n' => [
             'git_repository'    => 'android-l10n',
@@ -97,7 +99,7 @@ class Project
         ],
         // Products using free text search on Pontoon
         'text_search' => [
-            'firefox_ios', 'mozilla_org',
+            'firefox_ios',
         ],
     ];
 
@@ -226,8 +228,6 @@ class Project
 
     /**
      * Return the reference locale for a repository
-     * We used to have en-GB as reference locale for mozilla.org
-     * Now all projects use en-US but we may need this method in the future
      *
      * @param string $repository Name of the folder for the repository
      *
@@ -235,7 +235,9 @@ class Project
      */
     public static function getReferenceLocale($repository)
     {
-        return 'en-US';
+        return isset(self::$repos_info[$repository]['reference_locale'])
+            ? self::$repos_info[$repository]['reference_locale']
+            : 'en-US';
     }
 
     /**

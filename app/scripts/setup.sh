@@ -150,8 +150,8 @@ initOtherSources
 cd $mozilla_org
 if [ ! -d $mozilla_org/.git ]
 then
-    echogreen "Checking out mozilla.org repo"
-    git clone https://github.com/mozilla-l10n/www.mozilla.org .
+    echogreen "Checking out mozilla.org (Fluent) repo"
+    git clone https://github.com/mozilla-l10n/www-l10n .
 fi
 
 cd $firefox_ios

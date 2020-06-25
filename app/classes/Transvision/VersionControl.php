@@ -137,6 +137,14 @@ class VersionControl
 
                 return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$file_path}";
             }
+            if ($repo == 'mozilla_org') {
+                // Special case for mozilla.org (Fluent)
+                if ($locale != 'en') {
+                    $file_path = str_replace('en/', "{$locale}/", $file_path);
+                }
+
+                return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$file_path}";
+            }
         } else {
             $file_path = $path;
             $git_repo = $repo;

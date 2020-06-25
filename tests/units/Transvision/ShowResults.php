@@ -423,10 +423,10 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'mozilla_org',
-                'mozilla_org/firefox/android/index.lang:4e0bc9d4',
+                'mozilla_org/en/banners/firefox-mobile.ftl:banner-firefox-mobile-get-android-title',
                 'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/firefox/android/index.lang?search=test'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/en/banners/firefox-mobile.ftl?search=banner-firefox-mobile-get-android-title'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',

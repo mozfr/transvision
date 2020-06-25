@@ -12,7 +12,7 @@ gecko_strings_locales=${path_sources}/gecko_strings.txt
 sources_path=${local_hg}/sources
 folders+=( $gecko_strings_path $sources_path )
 
-# Location of Dotlang-based repos
+# Location of mozilla.org repository (Fluent based)
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 

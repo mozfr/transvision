@@ -290,14 +290,26 @@ function updateAndroidl10n() {
     fi
     echogreen "Extract strings for android-l10n"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_android.py $android_l10n/l10n.toml en-US android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/l10n.toml en-US android_l10n
+}
+
+function updateMozOrg() {
+    if [ "$checkrepo" = true ]
+    then
+        cd $android_l10n
+        echogreen "Update GitHub repository"
+        git pull
+    fi
+    echogreen "Extract strings for mozilla.org (Fluent)"
+    cd $install
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-pontoon.toml en mozilla_org
 }
 
 echogreen "Activating virtualenv..."
 source $install/python-venv/bin/activate || exit 1
 
 updateGeckoStringsChannelRepo
-updateOtherProduct mozilla_org "mozilla.org" tmx_mozillaorg
+updateMozOrg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateAndroidl10n
 

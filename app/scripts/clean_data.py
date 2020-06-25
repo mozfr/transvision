@@ -94,12 +94,9 @@ def main():
     # Check all repositories for extra folders
     print('--\nAnalyzing folders in supported repositories')
     # Besides standard VCS folders or templates, we need to exclude some
-    # locales on mozilla.org:
-    # hi: is a fake locale used to activate legal-docs, but not actually
-    #     supported by mozilla.org
+    # folders in specific projects.
     excluded_folders = {
         'firefox_ios': ['.git', 'templates'],
-        'mozilla_org': ['.git', 'en-US', 'hi'],
     }
 
     '''

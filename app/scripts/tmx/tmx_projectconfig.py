@@ -17,7 +17,7 @@ logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
 # current folder)
 config_folder = os.path.abspath(os.path.join(
-                    os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
+    os.path.dirname(__file__), os.pardir, os.pardir, 'config'))
 
 # Read Transvision's configuration file from ../../config/config.ini
 # If not available use a default storage folder to store data
@@ -90,15 +90,15 @@ class StringExtraction():
                     self.translations[self.reference_locale].update(
                         ('{}/{}:{}'.format(
                             self.repository_name, key_path, entity.key),
-                        entity.raw_val)
+                            entity.raw_val)
                         for entity in p.parse()
                     )
 
                 p.readFile(l10n_file)
                 self.translations[locale].update(
                     ('{}/{}:{}'.format(
-                            self.repository_name, key_path, entity.key),
-                    entity.raw_val)
+                        self.repository_name, key_path, entity.key),
+                        entity.raw_val)
                     for entity in p.parse()
                 )
 
