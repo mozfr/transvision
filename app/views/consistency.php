@@ -42,9 +42,7 @@ namespace Transvision;
 </form>
 
 <?php
-if (count($inconsistent_translations) == 0) {
-    echo '<div class="message"><p>No inconsistent translations found.</p></div>';
-} else {
+if (isset($inconsistent_translations) && count($inconsistent_translations) > 0) {
     ?>
     <h3>Inconsistent Translations</h3>
     <p class="subtitle">This table includes strings that are identical in the source language (English), but translated in different ways in the target language.</p>
@@ -73,11 +71,11 @@ if (count($inconsistent_translations) == 0) {
         echo "</td>\n</tr>\n";
     }
     echo "</tbody>\n</table>\n";
+} else {
+    echo '<h3>Inconsistent Translations</h3><div class="message"><p>No inconsistent translations found.</p></div>';
 }
 
-if (count($inconsistent_sources) == 0) {
-    echo '<div class="message"><p>No inconsistent sources found.</p></div>';
-} else {
+if (isset($inconsistent_sources) && count($inconsistent_sources) > 0) {
     ?>
     <h3>Inconsistent Sources</h3>
     <p class="subtitle">This table includes strings that are identical in the target language, but have a different source string. Case is ignored when evaluating the source string.</p>
@@ -106,4 +104,6 @@ if (count($inconsistent_sources) == 0) {
         echo "</td>\n</tr>\n";
     }
     echo "</tbody>\n</table>\n";
+} else {
+    echo '<h3>Inconsistent Sources</h3><div class="message"><p>No inconsistent sources found.</p></div>';
 }
