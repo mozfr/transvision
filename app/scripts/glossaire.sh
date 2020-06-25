@@ -296,7 +296,7 @@ function updateAndroidl10n() {
 function updateMozOrg() {
     if [ "$checkrepo" = true ]
     then
-        cd $android_l10n
+        cd $mozilla_org
         echogreen "Update GitHub repository"
         git pull
     fi
