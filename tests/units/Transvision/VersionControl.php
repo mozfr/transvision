@@ -101,14 +101,14 @@ class VersionControl extends atoum\test
             [
                 'sr',
                 'mozilla_org',
-                'mozilla_org/download_button.lang:ab34ff81',
-                'https://github.com/mozilla-l10n/www.mozilla.org/blob/master/sr/download_button.lang',
+                'mozilla_org/en/brands.ftl:-brand-name-firefox-accounts',
+                'https://github.com/mozilla-l10n/www-l10n/blob/master/sr/brands.ftl',
             ],
             [
-                'es-ES',
+                'pt-BR',
                 'mozilla_org',
-                'mozilla_org/firefox/os/faq.lang:c71a7a50',
-                'https://github.com/mozilla-l10n/www.mozilla.org/blob/master/es-ES/firefox/os/faq.lang',
+                'mozilla_org/en/brands.ftl:-brand-name-firefox-esr',
+                'https://github.com/mozilla-l10n/www-l10n/blob/master/pt-BR/brands.ftl',
             ],
             [
                 'fr',

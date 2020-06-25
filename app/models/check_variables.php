@@ -12,7 +12,6 @@ if (! in_array($locale, $supported_locales)) {
 
 // Set up channel selector, ignore mozilla.org
 $channels = Project::getSupportedRepositories();
-unset($channels['mozilla_org']);
 $channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
 
 // Build the target locale switcher
