@@ -87,14 +87,14 @@ if (! empty($source_strings) && $repo == 'gecko_strings') {
         $duplicated_strings_target,
         $excluded_components
     );
-
-    /*
-        Find strings that are identical in source and target language.
-        For target language, perform a case insensitive comparison.
-    */
-    $duplicated_strings_source = Consistency::findDuplicates($duplicated_strings_source);
-    $duplicated_strings_target = Consistency::findDuplicates($duplicated_strings_target, False);
 }
+
+/*
+    Find strings that are identical in source and target language.
+    For target language, perform a case insensitive comparison.
+*/
+$duplicated_strings_source = Consistency::findDuplicates($duplicated_strings_source);
+$duplicated_strings_target = Consistency::findDuplicates($duplicated_strings_target, False);
 
 if (! empty($duplicated_strings_source)) {
     $inconsistent_translations = [];
@@ -109,7 +109,6 @@ if (! empty($duplicated_strings_source)) {
     foreach ($collection as $key => $value) {
         // Ignore this string if is not available in the localization
         if (! isset($target_strings[$key])) {
-            $available_translations = [];
             continue;
         }
 
@@ -147,7 +146,6 @@ if (! empty($duplicated_strings_target)) {
     foreach ($collection as $key => $value) {
         // Ignore this string if is not available in the source
         if (! isset($source_strings[$key])) {
-            $available_sources = [];
             continue;
         }
         /*
