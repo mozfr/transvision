@@ -49,10 +49,11 @@ $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 // No filtered component by default
 $filter_message = '';
 
+$duplicated_strings_source = Consistency::filterStrings($source_strings, $repo);
+$duplicated_strings_target = Consistency::filterStrings($target_strings, $repo);
+
 if (! empty($source_strings) && $repo == 'gecko_strings') {
     // Remove known problematic strings
-    $duplicated_strings_source = Consistency::filterStrings($source_strings, $repo);
-    $duplicated_strings_target = Consistency::filterStrings($target_strings, $repo);
 
     // Filter out components
     switch ($selected_filter) {
@@ -144,7 +145,11 @@ if (! empty($duplicated_strings_target)) {
 
     $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_target));
     foreach ($collection as $key => $value) {
-        $available_sources[] = strtolower($source_strings[$key]);
+        // Ignore this string if is not available in the source
+        if (! isset($source_strings[$key])) {
+            $available_sources = [];
+            continue;
+        }
         /*
             If the current target string is different from the previous one,
             or I am at the last element, I need to store it with all available
