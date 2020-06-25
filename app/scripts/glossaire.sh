@@ -290,7 +290,7 @@ function updateAndroidl10n() {
     fi
     echogreen "Extract strings for android-l10n"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_android.py $android_l10n/l10n.toml en-US android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/l10n.toml en-US android_l10n
 }
 
 echogreen "Activating virtualenv..."
