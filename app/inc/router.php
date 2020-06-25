@@ -21,6 +21,12 @@ if ($url === false) {
     $url['path'] = '404';
 }
 
+// Log if the 'path' is not set set.
+if (! isset($url['path'])) {
+    error_log('app/inc/router.php: ' . $_SERVER['REQUEST_URI'] . ' is not parsable (no path).');
+    $url['path'] = '404';
+}
+
 $file = pathinfo($url['path']);
 
 // Real files and folders don't get pre-processed
