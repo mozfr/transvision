@@ -104,8 +104,21 @@ $(document).ready(function() {
             });
 
             // Try to select the same locale previously selected.
-            $('#' + this.id + ' option[value="' + currentLocale + '"]')
-                .prop('selected', true);
+            var optIdentifier = '#' + this.id + ' option[value="' + currentLocale + '"]';
+            if ($(optIdentifier).length > 0) {
+                // Locale still exist, select it
+                $(optIdentifier).prop('selected', true);
+            } else if (['en-US', 'en'].indexOf(currentLocale) > -1 ) {
+                /*
+                    Source locale might be 'en' or 'en-US', try to keep the
+                    correct source locale selected.
+                */
+                optIdentifier = currentLocale === 'en-US'
+                    ? '#' + this.id + ' option[value="en"]'
+                    : '#' + this.id + ' option[value="en-US"]';
+                $(optIdentifier).prop('selected', true);
+            }
+
         });
     });
 
