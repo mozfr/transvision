@@ -3,7 +3,7 @@ namespace Transvision;
 
 // Build arrays for the search form, ignore mozilla.org
 $channel_selector = Utils::getHtmlSelectOptions(
-    array_diff($repos_nice_names, ['mozilla.org']),
+    $repos_nice_names,
     $repo,
     true
 );
