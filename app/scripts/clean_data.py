@@ -62,9 +62,11 @@ def main():
         locales_file = os.path.join(sources_path, repository_id + '.txt')
         supported_locales = open(locales_file, 'r').read().splitlines()
 
-        # Make sure en-US is included in the list of supported locales
+        # Make sure en-US and en are included in the list of supported locales
         if 'en-US' not in supported_locales:
             supported_locales.append('en-US')
+        if repository_id == 'mozilla_org':
+            supported_locales.append('en')
 
         supported_repositories[repository_id] = {
             'folder_name': folder_name,
@@ -97,6 +99,7 @@ def main():
     # folders in specific projects.
     excluded_folders = {
         'firefox_ios': ['.git', 'templates'],
+        'mozilla_org': ['.git', 'configs', 'en'],
     }
 
     '''
