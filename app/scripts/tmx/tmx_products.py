@@ -68,11 +68,11 @@ class StringExtraction():
         # Define the local storage filenames
         self.storage_file = os.path.join(
             storage_path, locale,
-            'cache_{0}_{1}'.format(locale, repository_name))
+            'cache_{}_{}'.format(locale, repository_name))
 
         self.reference_storage_file = os.path.join(
             storage_path, reference_locale,
-            'cache_{0}_{1}'.format(reference_locale, repository_name))
+            'cache_{}_{}'.format(reference_locale, repository_name))
 
     def setRepositoryPath(self, path):
         '''Set path to repository.'''
@@ -107,8 +107,8 @@ class StringExtraction():
         relative_path = file_name[len(self.repository_path) + 1:]
         # Prepend storage_prefix if defined
         if self.storage_prefix != '':
-            relative_path = '{0}/{1}'.format(self.storage_prefix,
-                                             relative_path)
+            relative_path = '{}/{}'.format(self.storage_prefix,
+                                           relative_path)
 
         return relative_path
 
@@ -138,14 +138,14 @@ class StringExtraction():
                     # Ignore Junk
                     if isinstance(entity, parser.Junk):
                         continue
-                    string_id = u'{0}:{1}'.format(
+                    string_id = u'{}:{}'.format(
                         self.getRelativePath(file_name), six.text_type(entity))
                     if file_extension == '.ftl':
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
-                            attr_string_id = u'{0}:{1}.{2}'.format(
+                            attr_string_id = u'{}:{}.{}'.format(
                                 self.getRelativePath(file_name),
                                 six.text_type(entity),
                                 six.text_type(attribute))
@@ -154,7 +154,7 @@ class StringExtraction():
                     else:
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
-                print('Error parsing file: {0}'.format(file_name))
+                print('Error parsing file: {}'.format(file_name))
                 print(e)
 
         # Remove extra strings from locale
@@ -179,24 +179,28 @@ class StringExtraction():
 
         if output_format != 'php':
             # Store translations in JSON format
+            json_output = json.dumps(self.translations, sort_keys=True)
             with open('{}.json'.format(self.storage_file), 'w') as f:
-                f.write(json.dumps(self.translations, sort_keys=True))
+                f.write(json_output)
 
         if output_format != 'json':
             # Store translations in PHP format (array)
             string_ids = list(self.translations.keys())
             string_ids.sort()
 
+            # Generate output before creating an handle for the file
+            output_php = []
+            output_php.append('<?php\n$tmx = [\n')
+            for string_id in string_ids:
+                translation = self.escape(self.translations[string_id])
+                string_id = self.escape(string_id)
+                output_php.append(
+                    u"'{}' => '{}',\n".format(string_id, translation))
+            output_php.append('];\n')
+
             file_name = '{}.php'.format(self.storage_file)
             with codecs.open(file_name, 'w', encoding='utf-8') as f:
-                f.write('<?php\n$tmx = [\n')
-                for string_id in string_ids:
-                    translation = self.escape(
-                        self.translations[string_id])
-                    string_id = self.escape(string_id)
-                    line = u"'{0}' => '{1}',\n".format(string_id, translation)
-                    f.write(line)
-                f.write('];\n')
+                f.writelines(output_php)
 
     def escape(self, translation):
         '''
