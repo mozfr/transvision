@@ -114,7 +114,7 @@ class StringExtraction():
             storage_folder = os.path.join(self.storage_path, locale)
             storage_file = os.path.join(
                 storage_folder,
-                'cache_{0}_{1}'.format(locale, self.repository_name))
+                'cache_{}_{}'.format(locale, self.repository_name))
 
             # Make sure that the TMX folder exists
             if not os.path.exists(storage_folder):
@@ -122,24 +122,28 @@ class StringExtraction():
 
             if output_format != 'php':
                 # Store translations in JSON format
+                json_output = json.dumps(translations, sort_keys=True)
                 with open('{}.json'.format(storage_file), 'w') as f:
-                    f.write(json.dumps(translations, sort_keys=True))
+                    f.write(json_output)
 
             if output_format != 'json':
                 # Store translations in PHP format (array)
                 string_ids = list(translations.keys())
                 string_ids.sort()
 
+                # Generate output before creating an handle for the file
+                output_php = []
+                output_php.append('<?php\n$tmx = [\n')
+                for string_id in string_ids:
+                    translation = self.escape(translations[string_id])
+                    string_id = self.escape(string_id)
+                    output_php.append(u"'{}' => '{}',\n".format(
+                        string_id, translation))
+                output_php.append('];\n')
+
                 file_name = '{}.php'.format(storage_file)
                 with codecs.open(file_name, 'w', encoding='utf-8') as f:
-                    f.write('<?php\n$tmx = [\n')
-                    for string_id in string_ids:
-                        translation = self.escape(translations[string_id])
-                        string_id = self.escape(string_id)
-                        line = u"'{0}' => '{1}',\n".format(
-                            string_id, translation)
-                        f.write(line)
-                    f.write('];\n')
+                    f.writelines(output_php)
 
     def escape(self, translation):
         '''
