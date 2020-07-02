@@ -39,9 +39,6 @@ $filter_selector = Utils::getHtmlSelectOptions(
     true
 );
 
-// Set a default for the number of strings to display
-$strings_number = 0;
-
 $source_strings = Utils::getRepoStrings($reference_locale, $repo);
 // Remove blanks strings. Using 'strlen' to avoid filtering out strings set to 0
 $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
@@ -49,12 +46,11 @@ $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 // No filtered component by default
 $filter_message = '';
 
+// Remove strings that should not be checked, like accesskeys, CSS, etc.
 $duplicated_strings_source = Consistency::filterStrings($source_strings, $repo);
 $duplicated_strings_target = Consistency::filterStrings($target_strings, $repo);
 
 if (! empty($source_strings) && $repo == 'gecko_strings') {
-    // Remove known problematic strings
-
     // Filter out components
     switch ($selected_filter) {
         case 'firefox':
@@ -107,8 +103,15 @@ if (! empty($duplicated_strings_source)) {
     */
     $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_source));
     foreach ($collection as $key => $value) {
-        // Ignore this string if is not available in the localization
+        /*
+            Ignore this string if is not available in the localization.
+            If the next string changes, we also need to reset the array of
+            available translations.
+        */
         if (! isset($target_strings[$key])) {
+            if (! $collection->hasNext() || $collection->getInnerIterator()->current() != $value) {
+                $available_translations = [];
+            }
             continue;
         }
 
@@ -128,6 +131,7 @@ if (! empty($duplicated_strings_source)) {
                 If there's only one, translations are consistent.
             */
             if (count($available_translations) > 1) {
+                asort($available_translations);
                 $inconsistent_translations[] = [
                     'source' => $value,
                     'target' => $available_translations,
@@ -144,8 +148,15 @@ if (! empty($duplicated_strings_target)) {
 
     $collection = new \CachingIterator(new \ArrayIterator($duplicated_strings_target));
     foreach ($collection as $key => $value) {
-        // Ignore this string if is not available in the source
+        /*
+            Ignore this string if is not available in the source.
+            If the next string changes, we also need to reset the array of
+            available sources.
+        */
         if (! isset($source_strings[$key])) {
+            if (! $collection->hasNext() || strtolower($collection->getInnerIterator()->current()) != strtolower($value)) {
+                $available_sources = [];
+            }
             continue;
         }
         /*
@@ -165,6 +176,7 @@ if (! empty($duplicated_strings_target)) {
                 If there's only one, translations are consistent.
             */
             if (count($available_sources) > 1) {
+                asort($available_sources);
                 $inconsistent_sources[] = [
                     'target' => $value,
                     'source' => $available_sources,
