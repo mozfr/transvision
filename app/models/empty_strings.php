@@ -20,7 +20,7 @@ $locale_strings = Utils::getRepoStrings($locale, $repo);
 $empty_strings = [];
 
 $empty_reference = array_filter($reference_strings, function ($string) {
-    return strlen($string) == 0;
+    return strlen($string) == 0 || $string === '{ "" }' || $string === '{""}';
 });
 foreach ($empty_reference as $string_id => $value) {
     if (isset($locale_strings[$string_id]) && $locale_strings[$string_id] != '') {
@@ -32,7 +32,7 @@ foreach ($empty_reference as $string_id => $value) {
 }
 
 $empty_locale = array_filter($locale_strings, function ($string) {
-    return strlen($string) == 0;
+    return strlen($string) == 0 || $string === '{ "" }' || $string === '{""}';
 });
 foreach ($empty_locale as $string_id => $value) {
     if (isset($reference_strings[$string_id]) && $reference_strings[$string_id] != '') {
