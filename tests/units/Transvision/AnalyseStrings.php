@@ -188,6 +188,14 @@ class AnalyseStrings extends atoum\test
                 ['browser:foobar16b'],
             ],
             [
+                // Missing message reference for FTL
+                ['browser:foobar16b1' => '{ other-message.attribute } installed'],
+                ['browser:foobar16b1' => 'installato'],
+                'gecko_strings',
+                [],
+                ['browser:foobar16b1'],
+            ],
+            [
                 // Missing term reference for FTL
                 ['browser:foobar16c' => '{ -brand-name } installed'],
                 ['browser:foobar16c' => 'installato'],
@@ -237,8 +245,8 @@ class AnalyseStrings extends atoum\test
             ],
             [
                 // Parameterized term with multiple parameters (not an error)
-                ['browser:foobar16f' => '{-brand-name} installed'],
-                ['browser:foobar16f' => '{ -brand-name(case: "gen", capitalization: "lower") } installato'],
+                ['browser:foobar16f2' => '{-brand-name} installed'],
+                ['browser:foobar16f2' => '{ -brand-name(case: "gen", capitalization: "lower") } installato'],
                 'gecko_strings',
                 [],
                 [],
