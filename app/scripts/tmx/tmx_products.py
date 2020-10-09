@@ -12,7 +12,7 @@ import sys
 try:
     from ConfigParser import SafeConfigParser
 except ImportError:
-    from configparser import SafeConfigParser
+    from configparser import ConfigParser as SafeConfigParser
 
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
