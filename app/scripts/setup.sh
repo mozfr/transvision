@@ -35,6 +35,7 @@ function setupVirtualEnv() {
     # Install or update dependencies
     echo "Installing dependencies in virtualenv"
     source python-venv/bin/activate || exit 1
+    pip install --upgrade pip
     pip install -r requirements.txt --upgrade
     deactivate
 }
