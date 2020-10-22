@@ -4,7 +4,7 @@
 try:
     from ConfigParser import SafeConfigParser
 except ImportError:
-    from configparser import SafeConfigParser
+    from configparser import ConfigParser as SafeConfigParser
 import sys
 
 parser = SafeConfigParser()
