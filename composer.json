@@ -47,7 +47,7 @@
         {
             "type": "package",
             "package": {
-                "name": "devbridge/jQuery-Autocomplete",
+                "name": "devbridge/jquery-autocomplete",
                 "type": "component",
                 "version": "1.4.3",
                 "dist": {
@@ -71,19 +71,12 @@
     ],
 
     "config": {
-        "component-dir": "web/assets",
-        "prestissimo": {
-            "maxConnections": 12,
-            "minConnections": 3,
-            "pipeline": true,
-            "verbose": true,
-            "insecure": false
-        }
+        "component-dir": "web/assets"
     },
 
     "require": {
         "components/jquery": "~1.1",
-        "devbridge/jQuery-Autocomplete": "~1.4.",
+        "devbridge/jquery-autocomplete": "~1.4.",
         "gettext/gettext": "~4.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
@@ -99,8 +92,7 @@
         "atoum/atoum" : "~3.4",
         "symfony/var-dumper": "~2.6",
         "friendsofphp/php-cs-fixer": "~2.16",
-        "pchevrel/verif": "0.4",
-        "hirak/prestissimo": "~0.1."
+        "pchevrel/verif": "0.4"
     },
 
     "autoload": {
