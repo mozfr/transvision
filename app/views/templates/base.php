@@ -90,7 +90,7 @@ if (file_exists(CACHE_PATH . 'tag.txt')) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Tranvision is a tool used by the Mozilla Community to search translations extracted from products and websites. It also provides API access to translation memory, and specific QA features">
-<?php foreach ($css_files as $css_file):?>
+<?php foreach ($css_files as $css_file) : ?>
     <link rel="stylesheet" href="/style/<?= $css_file . $cache_bust ?>" type="text/css" media="all" />
 <?php endforeach?>
     <link rel="shortcut icon" type="image/png" href="/img/logo/favicon16.png" />
@@ -116,11 +116,11 @@ if (file_exists(CACHE_PATH . 'tag.txt')) {
     }
     ?>
     <h1 id="logo"><a href="/"><img src="/img/logo/transvision.svg<?= $cache_bust ?>" alt="Transvision"></a></h1>
-    <?php if ($experimental == true): ?>
+    <?php if ($experimental == true) : ?>
     <h2 id="experimental" class="alert">Experimental View</h2>
     <?php endif; ?>
 
-    <?php if ($show_title == true): ?>
+    <?php if ($show_title == true) : ?>
     <h2 id="page_title"><?= $page_title ?></h2>
     <p class="page_description"><?= $page_descr ?></p>
     <?php endif; ?>
@@ -143,7 +143,7 @@ if (file_exists(CACHE_PATH . 'tag.txt')) {
 
   <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
   <script src="/assets/clipboard.js/clipboard.js-built.js?v=<?= VERSION ?>"></script>
-<?php foreach ($js_files as $js_file):?>
+<?php foreach ($js_files as $js_file) : ?>
   <script src="<?= $js_file . $cache_bust ?>"></script>
 <?php endforeach?>
 
