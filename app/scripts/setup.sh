@@ -95,7 +95,7 @@ function initOtherSources() {
 # Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 # Convert .ini file in bash variables
-eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+eval $($DIR/ini_to_bash.py $DIR/../config/config.ini)
 
 # Generate sources (supported locales and repositories)
 echogreen "Generate list of locales and supported repositories"

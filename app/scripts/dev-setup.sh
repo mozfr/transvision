@@ -40,7 +40,7 @@ then
 fi
 
 # Convert config.ini to bash variables
-eval $(cat $DIR/../config/config.ini | $DIR/ini_to_bash.py)
+eval $($DIR/ini_to_bash.py $DIR/../config/config.ini)
 
 # If there are no .txt files in /sources, try to retrieve them online
 if ! $(ls $config/sources/*.txt &> /dev/null)

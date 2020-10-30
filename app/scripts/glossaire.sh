@@ -97,7 +97,7 @@ export PATH=$PATH:$app_folder/
 script_path=$(dirname "$0")
 
 # Convert .ini file in bash variables
-eval $(cat $script_path/../config/config.ini | $script_path/ini_to_bash.py)
+eval $($script_path/ini_to_bash.py $script_path/../config/config.ini)
 
 # Check if we have sources
 echogreen "Checking if Transvision sources are available..."
