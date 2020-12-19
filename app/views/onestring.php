@@ -37,7 +37,7 @@ $page_descr = $entity;
                  "  <td><a class='onestring_search' href='{$search_link}' title='Search for the entity in this locale'>🔍</a></td>\n";
         }
 
-        "</tr>\n";
+        echo "</tr>\n";
     }
     ?>
 </table>
