@@ -1,31 +1,29 @@
 [config]
 
-;TRAVIS_HOME will be replaced by the actual build dir in Travis
-
 ; Path to the data root folder. TMX files will be stored in root/TMX so that
 ; they could be shared between multiple versions of Transvision
-root=TRAVIS_HOME/tests/testfiles/
+root=tests/testfiles/
 
 ; Path to Git checkout of Transvision, it will contain setup/update scripts
 ; and the web folder
-install=TRAVIS_HOME/
+install=./
 
 ; Path to configuration files for Transvision
-config=TRAVIS_HOME/app/config
+config=app/config
 
 ; URL to l10n web service. Wrap the value between quotes if the URL contains special characters like ~
-l10nwebservice = "https://l10n.mozilla-community.org/mozilla-l10n-query/"
+l10nwebservice = "https://flod.org/mozilla-l10n-query/mozilla-l10n-query/"
 
 ; Path to the local Mercurial clones, both en-US and l10n. Could be external
 ; to the Git checkout of Transvision, as long as scripts have access to it.
-local_hg=TRAVIS_HOME/data/hg
+local_hg=data/hg
 
 ; Path to the local Git clones, both en-US and l10n. Could be external
 ; to the Git checkout of Transvision, as long as scripts have access to it.
-local_git=TRAVIS_HOME/data/git
+local_git=data/git
 
 ; This path is used to store libraries (e.g. compare-locales)
-libraries=TRAVIS_HOME/data/libraries
+libraries=data/libraries
 
 ; Flag to know if we are working in production mode or development mode
 dev=true
