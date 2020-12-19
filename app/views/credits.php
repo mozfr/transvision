@@ -12,7 +12,6 @@
     <li><a href="https://getcomposer.org/">Composer</a>, a dependency manager for PHP projects</li>
     <li><a href="https://www.atoum.org/">Atoum</a>, a unit testing framework for PHP</li>
     <li><a href="https://www.jquery.com/">jQuery</a>, a JavaScript library</li>
-    <li><a href="https://travis-ci.com/">Travis CI</a></li>
 </ul>
 
 <p>The Transvision logo was created by Elio Qoshi from the <a href="https://github.com/mozilla/Community-Design">Mozilla Community Design team</a>.</p>
