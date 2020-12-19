@@ -1,5 +1,4 @@
 # Transvision
-[![Build Status](https://travis-ci.org/mozfr/transvision.svg?branch=master)](https://travis-ci.org/mozfr/transvision/)
 
 Transvision is a Web application targeting the Mozilla localization community, created and maintained by the French Mozilla community (https://www.mozfr.org).
 

@@ -267,7 +267,7 @@ class Utils extends atoum\test
      */
     public function testGetRepoStrings($a, $b, $c)
     {
-        if (! getenv('TRAVIS')) {
+        if (! getenv('GITHUB_ACTIONS')) {
             $obj = new _Utils();
             $this
                 ->array($obj->getRepoStrings($a, $b))
@@ -388,7 +388,7 @@ class Utils extends atoum\test
             If running tests locally, check also the behavior without providing
             a reference date.
         */
-        if (! getenv('TRAVIS')) {
+        if (! getenv('GITHUB_ACTIONS')) {
             $data = array_merge(
                 $data,
                 [
