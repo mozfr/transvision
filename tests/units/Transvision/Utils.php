@@ -267,12 +267,10 @@ class Utils extends atoum\test
      */
     public function testGetRepoStrings($a, $b, $c)
     {
-        if (! getenv('GITHUB_ACTIONS')) {
-            $obj = new _Utils();
-            $this
-                ->array($obj->getRepoStrings($a, $b))
-                    ->contains($c);
-        }
+        $obj = new _Utils();
+        $this
+            ->array($obj->getRepoStrings($a, $b))
+                ->contains($c);
     }
 
     public function getOrSetDP()
@@ -382,45 +380,33 @@ class Utils extends atoum\test
                 (new DateTime()),
                 '1 day ago',
             ],
+            [
+                (new DateTime())->modify('+2 months +1 day'),
+                (new DateTime()),
+                '2 months',
+            ],
+            [
+                (new DateTime())->modify('+1 year +1 day'),
+                (new DateTime()),
+                '1 year',
+            ],
         ];
 
-        /*
-            If running tests locally, check also the behavior without providing
-            a reference date.
-        */
-        if (! getenv('GITHUB_ACTIONS')) {
-            $data = array_merge(
-                $data,
+        $data = array_merge(
+            $data,
+            [
                 [
-                    [
-                        (new DateTime())->modify('-2 seconds'),
-                        '',
-                        '2 seconds ago',
-                    ],
-                    [
-                        (new DateTime())->modify('-1 hour'),
-                        '',
-                        '1 hour ago',
-                    ],
-                ]
-            );
-            // These tests fail on PHP 7.2.13, see https://github.com/mozfr/transvision/pull/958
-            $data = array_merge(
-                $data,
+                    (new DateTime())->modify('-2 seconds'),
+                    '',
+                    '2 seconds ago',
+                ],
                 [
-                    [
-                        (new DateTime())->modify('+2 months'),
-                        (new DateTime()),
-                        '2 months',
-                    ],
-                    [
-                        (new DateTime())->modify('+1 year'),
-                        (new DateTime()),
-                        '1 year',
-                    ],
-                ]
-            );
-        }
+                    (new DateTime())->modify('-1 hour'),
+                    '',
+                    '1 hour ago',
+                ],
+            ]
+        );
 
         return $data;
     }
