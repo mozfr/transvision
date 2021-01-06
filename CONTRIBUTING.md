@@ -4,7 +4,7 @@ First of all thank you for taking the time to contribute to the Transvision proj
 
 ## Code Conventions
 
-Our minimum requirements for PHP is PHP 5.6 (5.6.19 to be precise as our production server is under a Debian Stable distro)
+Our minimum requirements for PHP is PHP 7.0.
 
 Generally speaking we try to follow the [PSR standards](https://github.com/php-fig/fig-standards/tree/master/accepted) and also adopt a few coding rules from the Symfony framework.
 

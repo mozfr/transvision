@@ -26,8 +26,8 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 * Bash scripting support
 * Python 2.7, or 3.5 and later
  * [pip](https://pip.pypa.io/en/stable/installing/) and [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
-* PHP >= 5.6 with the following extensions:
- * php5-intl for the transliteration feature
+* PHP >= 7.0 with the following extensions:
+ * php-intl for the transliteration feature
  * php-mbstring for multibyte string functions
 * Composer (Dependency Manager for PHP, https://getcomposer.org/)
 * Mercurial, Git to check out data sources (only for a Full installation for production)
