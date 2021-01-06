@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum;
+use atoum\atoum;
 use Cache\Cache as _Cache;
 use DateTime;
 use Transvision\Utils as _Utils;

@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum;
+use atoum\atoum;
 use Transvision\ShowResults as _ShowResults;
 
 require_once __DIR__ . '/../bootstrap.php';

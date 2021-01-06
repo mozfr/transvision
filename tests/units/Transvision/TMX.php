@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum;
+use atoum\atoum;
 use Transvision\TMX as _TMX;
 
 require_once __DIR__ . '/../bootstrap.php';

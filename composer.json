@@ -89,9 +89,9 @@
     },
 
     "require-dev": {
-        "atoum/atoum" : "~3.4",
+        "atoum/atoum" : "~4.0",
         "symfony/var-dumper": "~2.6",
-        "friendsofphp/php-cs-fixer": "~2.16",
+        "friendsofphp/php-cs-fixer": "~2.17",
         "pchevrel/verif": "0.4"
     },
 

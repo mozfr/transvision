@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum;
+use atoum\atoum;
 use Transvision\API as _API;
 
 require_once __DIR__ . '/../bootstrap.php';
