@@ -9,7 +9,7 @@ function setupVirtualEnv() {
     if [ ! -d python-venv ]
     then
         echo "Setting up new virtualenv..."
-        virtualenv python-venv || exit 1
+        virtualenv --python=/usr/bin/python3 python-venv || exit 1
     fi
 
     # Install or update dependencies

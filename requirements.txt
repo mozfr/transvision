@@ -1,2 +1,1 @@
 compare-locales==8.1.0
-six==1.15.0
