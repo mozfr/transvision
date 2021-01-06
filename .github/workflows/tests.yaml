@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.0', '7.2', '7.4']
+        php-versions: ['7.2', '7.3', '7.4', '8.0']
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -52,15 +52,13 @@ jobs:
         run: eslint web/js
 
       - name: Run PHP linter (php-cs-fixer)
-        run: vendor/bin/php-cs-fixer --diff --dry-run -v fix
+        run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer --diff --dry-run -v fix
 
       - name: Atoum tests
         run: |
           cp app/config/config.ini-ghactions app/config/config.ini
           vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
       - name: Functional tests (API, pages)
-        # Functional tests are broken in PHP 7.0
-        if: matrix.php-versions != '7.0'
         run: |
           php tests/functional/api.php
           php tests/functional/pages.php

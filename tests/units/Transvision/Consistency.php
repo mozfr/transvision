@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum;
+use atoum\atoum;
 use Transvision\Consistency as _Consistency;
 
 require_once __DIR__ . '/../bootstrap.php';

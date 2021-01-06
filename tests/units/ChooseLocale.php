@@ -5,7 +5,7 @@ namespace tinyl10n\tests\units;
 // Inclusion de atoum dans toutes les classes de tests
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use atoum;
+use atoum\atoum;
 
 class ChooseLocale extends atoum\test
 {
