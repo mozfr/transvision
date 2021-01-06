@@ -1,19 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
+from configparser import ConfigParser
 import argparse
-import json
 import glob
+import json
 import os
 import shutil
-import six
 import sys
-
-# Python 2/3 compatibility
-try:
-    from ConfigParser import SafeConfigParser
-except ImportError:
-    from configparser import ConfigParser as SafeConfigParser
-
 
 def main():
     # Parse command line options
@@ -33,7 +26,7 @@ def main():
         print('Configuration file /app/config/config.ini is missing.')
         sys.exit(1)
     else:
-        config_parser = SafeConfigParser()
+        config_parser = ConfigParser()
         config_parser.read(config_file)
         storage_path = os.path.join(config_parser.get('config', 'root'), 'TMX')
 
@@ -49,7 +42,7 @@ def main():
 
     known_folders = []
     known_cache_files = []
-    for id, repository in six.iteritems(json_repositories):
+    for id, repository in json_repositories.items():
         repository_id = repository['id']
 
         # Check if this repository is mapped to a special folder name
@@ -116,7 +109,7 @@ def main():
     git_path = config_parser.get('config', 'local_git')
 
     need_cleanup = False
-    for repository_id, repository in six.iteritems(supported_repositories):
+    for repository_id, repository in supported_repositories.items():
         # Check if the folder exists as a Mercurial repository. If it doesn't
         # assume it's a Git repository.
         print('--\nAnalyze: {}'.format(repository_id))
