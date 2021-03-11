@@ -165,8 +165,15 @@ fi
 cd $android_l10n
 if [ ! -d $android_l10n/.git ]
 then
-    echogreen "Checking out Focus for android-l10n repo"
+    echogreen "Checking out android-l10n repo"
     git clone https://github.com/mozilla-l10n/android-l10n .
+fi
+
+cd $vpn_client
+if [ ! -d $vpn_client/.git ]
+then
+    echogreen "Checking out VPN Client repo"
+    git clone https://github.com/mozilla-l10n/mozilla-vpn-client-l10n .
 fi
 
 # Add .htaccess to download folder. Folder should already exists, but check in

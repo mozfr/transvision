@@ -43,7 +43,12 @@ foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale) {
     foreach ($repo_data['files'] as $file_name) {
         $xliff_path = "{$base_path}/{$locale}/{$file_name}";
         if (file_exists($xliff_path)) {
-            $strings = Xliff::getStrings($xliff_path, $project_name);
+            // Make sure there is a reference locale defined
+            $reference_locale = isset($repo_data['reference_locale'])
+                ? $repo_data['reference_locale']
+                : 'en-US';
+            $is_reference_locale = $locale == $reference_locale;
+            $strings = Xliff::getStrings($xliff_path, $project_name, $is_reference_locale);
             $total_strings = count($strings);
             foreach ($strings as $string_id => $translation) {
                 $out_translation .= "'{$string_id}' => '{$translation}', \n";
