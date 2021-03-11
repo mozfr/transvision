@@ -28,6 +28,26 @@ class Xliff extends atoum\test
                 ->isEqualTo('Segnalibri pc desktop');
     }
 
+    public function testGetStringsReference()
+    {
+        $obj = new _Xliff();
+        $strings = $obj->getStrings(TEST_FILES . 'xliff/firefox-ios.xliff', 'firefox_ios', true);
+
+        // Check total number of strings
+        $this
+            ->integer(count($strings))
+                ->isEqualTo(14);
+
+        // Check strings
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:4c8cc9416b11b77e88809ff17e7f180e'])
+                ->isEqualTo('Browsing History');
+
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:f6b6d1aff4ade5b867d563d74b01a429'])
+                ->isEqualTo('Desktop Bookmarks');
+    }
+
     public function generateStringID_DP()
     {
         return [

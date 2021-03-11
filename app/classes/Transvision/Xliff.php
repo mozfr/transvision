@@ -14,12 +14,13 @@ class Xliff
      *
      * Loads strings from a .xliff file
      *
-     * @param string $xliff_path   Path to the .xliff to load
-     * @param string $project_name The project this string belongs to
+     * @param string  $xliff_path       Path to the .xliff to load
+     * @param string  $project_name     The project this string belongs to
+     * @param boolean $reference_locale If the current file belongs to the reference locale
      *
      * @return array Array of strings as [string_id => translation]
      */
-    public static function getStrings($xliff_path, $project_name)
+    public static function getStrings($xliff_path, $project_name, $reference_locale = false)
     {
         $strings = [];
         if ($xml = simplexml_load_file($xliff_path)) {
@@ -36,7 +37,10 @@ class Xliff
                 $file_orig = $file_node[0]['original'];
 
                 $string_id = self::generateStringID($project_name, $file_name, $file_orig, $trans_unit['id']);
-                $translation = str_replace("'", "\\'", $trans_unit->target);
+                // If it's the reference locale, we use the source instead of the target
+                $translation = $reference_locale
+                    ? str_replace("'", "\\'", $trans_unit->source)
+                    : str_replace("'", "\\'", $trans_unit->target);
 
                 $strings[$string_id] = $translation;
             }

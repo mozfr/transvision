@@ -311,6 +311,7 @@ source $install/python-venv/bin/activate || exit 1
 updateGeckoStringsChannelRepo
 updateMozOrg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
+updateOtherProduct vpn_client "Mozilla VPN Client" tmx_xliff
 updateAndroidl10n
 
 # Create a file to get the timestamp of the last string extraction for caching

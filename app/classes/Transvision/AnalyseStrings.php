@@ -60,6 +60,8 @@ class AnalyseStrings
             'properties'  => '/(?<!%[0-9]|\{\s|\{)(\$[A-Za-z0-9\.]+)\b/',
             // %1$s or %s. %d
             'xml_android' => '/(%(?:[0-9]+\$){0,1}([sd]))/',
+            // %1, %2, etc.
+            'xliff-qt'    => '/(%[0-9])/',
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 

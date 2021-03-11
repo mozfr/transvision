@@ -16,7 +16,8 @@ folders+=( $gecko_strings_path $sources_path )
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 
-# Firefox for iOS, Android-l10n
-firefox_ios=$local_git/firefox_ios/
+# Firefox for iOS, Android-l10n, VPN Client
 android_l10n=$local_git/android_l10n/
-folders+=( $firefox_ios $android_l10n)
+firefox_ios=$local_git/firefox_ios/
+vpn_client=$local_git/vpn_client/
+folders+=( $firefox_ios $android_l10n $vpn_client)

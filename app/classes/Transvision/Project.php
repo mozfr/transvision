@@ -82,6 +82,16 @@ class Project
             'source_type'       => 'xml',
             'variable_patterns' => ['xml_android'],
         ],
+        'vpn_client' => [
+            'files'             => [
+                'mozillavpn.xliff',
+            ],
+            'git_repository'    => 'mozilla-vpn-client-l10n',
+            'pontoon_project'   => 'mozilla-vpn-client',
+            'reference_locale'  => 'en',
+            'source_type'       => 'xliff',
+            'variable_patterns' => ['xliff-qt'],
+        ],
     ];
 
     /*
@@ -95,7 +105,7 @@ class Project
         ],
         // Products using Git
         'git' => [
-            'android_l10n', 'firefox_ios', 'mozilla_org',
+            'android_l10n', 'firefox_ios', 'mozilla_org', 'vpn_client',
         ],
         // Products using free text search on Pontoon
         'text_search' => [
