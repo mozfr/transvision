@@ -61,6 +61,11 @@ class VersionControl
     {
         $vcs = self::getVCS($repo);
 
+        $repo_data = Project::$repos_info[$repo];
+        $locale = isset($repo_data['underscore_locales']) && $repo_data['underscore_locales']
+            ? str_replace('-', '_', $locale)
+            : $locale;
+
         switch ($vcs) {
             case 'git':
                 $path = self::gitPath($locale, $repo, $path);

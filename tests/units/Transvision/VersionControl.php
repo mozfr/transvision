@@ -163,6 +163,12 @@ class VersionControl extends atoum\test
                 'firefox_ios/firefox-ios.xliff:0f4d892c',
                 'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
             ],
+            [
+                'sv-SE',
+                'vpn_client',
+                'vpn_client/mozillavpn.xliff.xliff:0f4d892c',
+                'https://github.com/mozilla-l10n/mozilla-vpn-client-l10n/blob/master/sv_SE/mozillavpn.xliff.xliff',
+            ],
         ];
     }
 
