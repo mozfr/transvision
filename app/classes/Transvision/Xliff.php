@@ -37,12 +37,20 @@ class Xliff
                 $file_orig = $file_node[0]['original'];
 
                 $string_id = self::generateStringID($project_name, $file_name, $file_orig, $trans_unit['id']);
-                // If it's the reference locale, we use the source instead of the target
-                $translation = $reference_locale
-                    ? str_replace("'", "\\'", $trans_unit->source)
-                    : str_replace("'", "\\'", $trans_unit->target);
 
-                $strings[$string_id] = $translation;
+                if ($reference_locale) {
+                    // If it's the reference locale, we use the source instead of the target
+                    $translation = str_replace("'", "\\'", $trans_unit->source);
+                    $strings[$string_id] = $translation;
+                } elseif (isset($trans_unit->target)) {
+                    /*
+                        We only store the translation if the target is set.
+                        simplexml returns an empty string if the element is
+                        missing.
+                    */
+                    $translation = str_replace("'", "\\'", $trans_unit->target);
+                    $strings[$string_id] = $translation;
+                }
             }
         }
 

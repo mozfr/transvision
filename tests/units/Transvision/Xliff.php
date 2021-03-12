@@ -16,7 +16,7 @@ class Xliff extends atoum\test
         // Check total number of strings
         $this
             ->integer(count($strings))
-                ->isEqualTo(14);
+                ->isEqualTo(13);
 
         // Check strings
         $this

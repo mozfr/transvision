@@ -38,6 +38,9 @@ class Project
      *
      * locale_mapping: if locale codes need to be mapped (Mozilla code -> Repo code)
      *
+     * underscore_locale: set to true if using underscores as separator (en_CA)
+     *                    instead of hyphens (en-CA)
+     *
      * pontoon_project: name of the project in Pontoon
      *
      * source_type: source type used by the project (xliff, gettext, etc.)
@@ -83,14 +86,15 @@ class Project
             'variable_patterns' => ['xml_android'],
         ],
         'vpn_client' => [
-            'files'             => [
+            'files'              => [
                 'mozillavpn.xliff',
             ],
-            'git_repository'    => 'mozilla-vpn-client-l10n',
-            'pontoon_project'   => 'mozilla-vpn-client',
-            'reference_locale'  => 'en',
-            'source_type'       => 'xliff',
-            'variable_patterns' => ['xliff-qt'],
+            'git_repository'     => 'mozilla-vpn-client-l10n',
+            'underscore_locales' => true,
+            'pontoon_project'    => 'mozilla-vpn-client',
+            'reference_locale'   => 'en',
+            'source_type'        => 'xliff',
+            'variable_patterns'  => ['xliff-qt'],
         ],
     ];
 
@@ -110,6 +114,7 @@ class Project
         // Products using free text search on Pontoon
         'text_search' => [
             'firefox_ios',
+            'vpn_client',
         ],
     ];
 
