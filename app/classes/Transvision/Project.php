@@ -114,6 +114,7 @@ class Project
         // Products using free text search on Pontoon
         'text_search' => [
             'firefox_ios',
+            'vpn_client',
         ],
     ];
 
