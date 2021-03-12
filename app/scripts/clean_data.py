@@ -94,6 +94,7 @@ def main():
     excluded_folders = {
         "firefox_ios": [".git", "templates"],
         "mozilla_org": [".git", "configs", "en"],
+        "vpn_client": [".git", ".github", "en"],
     }
 
     """
