@@ -36,12 +36,17 @@ error_log('Extraction of strings from XLIFF file');
 $base_path = isset($repo_data['git_subfolder'])
     ? GIT . "{$project_name}/{$repo_data['git_subfolder']}"
     : GIT . $project_name;
-foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale) {
+foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale_folder) {
     $out_translation = '';
     $total_strings = 0;
 
+    # Always use hyphens for locale codes
+    $locale = isset($repo_data['underscore_locales']) && $repo_data['underscore_locales']
+        ? str_replace('_', '-', $locale_folder)
+        : $locale_folder;
+
     foreach ($repo_data['files'] as $file_name) {
-        $xliff_path = "{$base_path}/{$locale}/{$file_name}";
+        $xliff_path = "{$base_path}/{$locale_folder}/{$file_name}";
         if (file_exists($xliff_path)) {
             // Make sure there is a reference locale defined
             $reference_locale = isset($repo_data['reference_locale'])
