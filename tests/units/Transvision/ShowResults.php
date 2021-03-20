@@ -430,6 +430,22 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
+                'android_l10n',
+                'android_l10n/mozilla-mobile/fenix/app/src/main/res/values/strings.xml:preference_experiments',
+                'test',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-android/mozilla-mobile/fenix/app/src/main/res/values/strings.xml?search=preference_experiments'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
+                'android_l10n',
+                'android_l10n/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml:password_for',
+                'test',
+                'it',
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/lockwise-for-android/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml?search=password_for'>&lt;edit in Pontoon&gt;</a>",
+            ],
+            [
+                'pontoon',
                 'firefox_ios',
                 'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 'test',
