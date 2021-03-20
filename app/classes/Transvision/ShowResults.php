@@ -287,8 +287,20 @@ class ShowResults
         if (isset(Project::$repos_info[$repo]) && isset(Project::$repos_info[$repo]['pontoon_project'])) {
             $repo_data = Project::$repos_info[$repo];
             $project_name = $repo_data['pontoon_project'];
+
             // Key is in the format project/pathtofile:stringID
             $resource_path = VersionControl::extractFilePath($key);
+
+            // android-l10n maps to different projects in Pontoon
+            if ($project_name == 'android-l10n') {
+                if (Strings::startsWith($resource_path, 'mozilla-lockwise')) {
+                    $project_name = 'lockwise-for-android';
+                } else {
+                    // Default project is firefox-for-android
+                    $project_name = 'firefox-for-android';
+                }
+            }
+
             $search_key = in_array($repo, Project::$repos_lists['text_search'])
                 ? $text
                 : $fileAndRawString[1];
