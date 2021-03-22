@@ -11,8 +11,6 @@ $paths = [
     ['empty-strings/', 200, 'Empty Strings', 'Locale'],
     ['downloads/', 200, 'Select which strings', 'Generate the TMX'],
     ['news/', 200, 'Version 4.0', 'End user visible changes'],
-    ['showrepos/?locale=en-GB', 200, 'Check the health status of locales.', 'Health status'],
-    ['stats/', 200, 'Repository status overview', 'Status estimate'],
     ['string/?entity=browser/chrome/browser/places/places.properties:bookmarkResultLabel&repo=gecko_strings', 200, 'supportedLocales', 'Marque-page'],
     ['unchanged/', 200, 'Display a list of strings identical', 'Locale'],
     ['unlocalized/', 200, 'Display the list of the most common untranslated words', 'Occurrences'],

@@ -52,7 +52,6 @@ $links = <<<EOT
     {$li_link('unchangedstrings', 'Display all strings identical to English', 'Unchanged Strings')}
     {$li_link('unlocalized', 'Display common words remaining in English', 'Unlocalized Words')}
     {$li_link('consistency', 'Translation Consistency', 'Translation Consistency')}
-    {$li_link('showrepos', 'Check the health status of locales', 'Health Status Overview')}
   </ul>
 </div>
 <div class="linkscolumn">
@@ -60,7 +59,6 @@ $links = <<<EOT
   <ul>
     {$li_link('credits', 'Transvision Credits page', 'Credits')}
     {$li_link('changelog', 'Release Notes', 'Release Notes')}
-    {$li_link('stats', 'Light usage statistics', 'Statistics')}
   </ul>
 </div>
 EOT;
