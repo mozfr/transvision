@@ -20,7 +20,7 @@ switch ($url['path']) {
         $show_title = false;
         $js_files[] = '/js/component_filter.js';
         $js_files[] = '/js/main_search.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         $js_files[] = '/js/toggle_transliterated_string.js';
         $js_files[] = '/js/libs/jquery.autocomplete.min.js';
         break;
@@ -31,7 +31,7 @@ switch ($url['path']) {
         $page_descr = 'One source locale, get search results for two target locales';
         $js_files[] = '/js/component_filter.js';
         $js_files[] = '/js/main_search.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         $js_files[] = '/js/libs/jquery.autocomplete.min.js';
         break;
     case 'accesskeys':
@@ -39,7 +39,7 @@ switch ($url['path']) {
         $page_title = 'Access Keys';
         $page_descr = 'Check your access keys.';
         $js_files[] = '/js/component_filter.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     case 'commandkeys':
         $controller = 'commandkeys';
@@ -47,7 +47,7 @@ switch ($url['path']) {
         $page_title = 'Keyboard Shortcuts';
         $page_descr = 'Check your keyboard shortcuts.';
         $js_files[] = '/js/component_filter.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     case Strings::StartsWith($url['path'], 'api'):
         $controller = 'api';
@@ -77,7 +77,7 @@ switch ($url['path']) {
         $page_title = 'Empty Strings';
         $page_descr = '';
         $js_files[] = '/js/component_filter.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     case 'news':
         $controller = 'changelog';
@@ -99,19 +99,19 @@ switch ($url['path']) {
         $page_title = 'Unchanged Strings';
         $page_descr = 'Display a list of strings identical to English';
         $js_files[] = '/js/component_filter.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     case 'unlocalized':
         $controller = 'unlocalized_words';
         $page_title = 'Commonly Unlocalized Words';
         $page_descr = 'Display the list of the most common untranslated words. Click on the table headers to sort results.';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     case 'unlocalized-all':
         $controller = 'unlocalized_words';
         $page_title = 'Commonly Unlocalized Words (Global view)';
         $page_descr = 'Display the list of the most common untranslated words for all locales. Click on the table headers to sort results.';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         $js_files[] = '/js/hide_table_rows.js';
         $js_files[] = '/js/toggle_checkboxes.js';
         break;
@@ -124,7 +124,7 @@ switch ($url['path']) {
         $page_title = 'Variables Overview';
         $page_descr = 'Show potential errors related to missing or mispelled variables in your strings.';
         $js_files[] = '/js/component_filter.js';
-        $js_files[] = '/js/sorttable.js';
+        $js_files[] = '/js/libs/sorttable.js';
         break;
     default:
         $view = '404';
