@@ -139,8 +139,8 @@ if (file_exists(CACHE_PATH . 'tag.txt')) {
     <?= $version_number ?>
   </div>
 
-  <script src="/assets/jquery/jquery.min.js?v=<?= VERSION ?>"></script>
-  <script src="/assets/clipboard.js/clipboard.js-built.js?v=<?= VERSION ?>"></script>
+  <script src="/js/libs/jquery.min.js?v=<?= VERSION ?>"></script>
+  <script src="/js/libs/clipboard.min.js?v=<?= VERSION ?>"></script>
 <?php foreach ($js_files as $js_file) : ?>
   <script src="<?= $js_file . $cache_bust ?>"></script>
 <?php endforeach?>

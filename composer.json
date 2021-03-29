@@ -19,72 +19,16 @@
             "type": "vcs",
             "url": "https://github.com/pascalchevrel/Verif/",
             "no-api": true
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "zenorocha/clipboard.js",
-                "type": "component",
-                "version": "1.7.1",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.7.1.zip"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/zenorocha/clipboard.js.git",
-                    "reference": "1.7.1"
-                },
-                "extra": {
-                    "component": {
-                        "scripts": [
-                            "dist/clipboard.js"
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "devbridge/jquery-autocomplete",
-                "type": "component",
-                "version": "1.4.3",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/devbridge/jQuery-Autocomplete/archive/v1.4.3.zip"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/devbridge/jQuery-Autocomplete.git",
-                    "reference": "1.4.3"
-                },
-                "extra": {
-                    "component": {
-                        "scripts": [
-                            "dist/jquery.autocomplete.min.js"
-                        ]
-                    }
-                }
-            }
         }
     ],
 
-    "config": {
-        "component-dir": "web/assets"
-    },
-
     "require": {
-        "components/jquery": "~1.1",
-        "devbridge/jquery-autocomplete": "~1.4.",
         "gettext/gettext": "~4.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",
-        "pascalc/tinyl10n" : "~0.1",
-        "robloach/component-installer": "*",
-        "zenorocha/clipboard.js": "~1.7."
+        "pascalc/tinyl10n" : "~0.1"
     },
 
     "require-dev": {
