@@ -204,7 +204,7 @@ $(document).ready(function() {
     });
 
     // Initialize clipboard code (copy translation to clipboard)
-    var clipboard = new Clipboard('.clipboard');
+    var clipboard = new ClipboardJS('.clipboard');
 
     clipboard.on('success', function(e) {
         e.clearSelection();
