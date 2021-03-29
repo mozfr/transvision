@@ -19,7 +19,7 @@
             "type": "vcs",
             "url": "https://github.com/pascalchevrel/Verif/",
             "no-api": true
-        },
+        }
     ],
 
     "require": {
