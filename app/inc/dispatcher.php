@@ -89,20 +89,6 @@ switch ($url['path']) {
         $controller = 'changelog';
         $template = false;
         break;
-    case 'showrepos':
-        $experimental = true;
-        $controller = 'health_status';
-        $page_title = 'Health status';
-        $page_descr = 'Check the health status of locales.';
-        $css_files[] = 'health.css';
-        $js_files[] = '/js/show_hide_tabs.js';
-        break;
-    case 'stats':
-        $controller = 'showrepos';
-        $page_title = 'Status Overview';
-        $page_descr = 'Repository status overview.';
-        $js_files[] = '/js/sorttable.js';
-        break;
     case 'string':
         $controller = 'onestring';
         $page_title = 'All translations for this string:';

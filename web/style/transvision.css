@@ -1089,12 +1089,6 @@ input[type="checkbox"]:disabled + label {
     background-color: #90ee90;
 }
 
-/* Showrepos (/stats) */
-
-#showrepos_table td {
-    text-align: right;
-}
-
 /* 404 */
 #notfound #pagecontent {
     text-align: center;
