@@ -15,7 +15,6 @@ logs/*.log
 logs/github_log.txt
 python-venv
 vendor
-web/assets
 web/data.tar.gz
 web/download/.htaccess
 web/download/*.tmx

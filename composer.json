@@ -43,30 +43,6 @@
                     }
                 }
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "devbridge/jquery-autocomplete",
-                "type": "component",
-                "version": "1.4.3",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/devbridge/jQuery-Autocomplete/archive/v1.4.3.zip"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/devbridge/jQuery-Autocomplete.git",
-                    "reference": "1.4.3"
-                },
-                "extra": {
-                    "component": {
-                        "scripts": [
-                            "dist/jquery.autocomplete.min.js"
-                        ]
-                    }
-                }
-            }
         }
     ],
 
@@ -76,14 +52,12 @@
 
     "require": {
         "components/jquery": "~1.1",
-        "devbridge/jquery-autocomplete": "~1.4.",
         "gettext/gettext": "~4.1",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",
         "pascalc/tinyl10n" : "~0.1",
-        "robloach/component-installer": "*",
         "zenorocha/clipboard.js": "~1.7."
     },
 
