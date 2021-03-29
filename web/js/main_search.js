@@ -1,3 +1,5 @@
+/*global ClipboardJS*/
+
 var checkDefault = function(id) {
     /*
         Check if the associated 'default' checkbox needs to be selected.
