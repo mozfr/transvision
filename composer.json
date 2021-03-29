@@ -20,30 +20,6 @@
             "url": "https://github.com/pascalchevrel/Verif/",
             "no-api": true
         },
-        {
-            "type": "package",
-            "package": {
-                "name": "zenorocha/clipboard.js",
-                "type": "component",
-                "version": "1.7.1",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/zenorocha/clipboard.js/archive/v1.7.1.zip"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/zenorocha/clipboard.js.git",
-                    "reference": "1.7.1"
-                },
-                "extra": {
-                    "component": {
-                        "scripts": [
-                            "dist/clipboard.js"
-                        ]
-                    }
-                }
-            }
-        }
     ],
 
     "require": {
@@ -52,8 +28,7 @@
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",
-        "pascalc/tinyl10n" : "~0.1",
-        "zenorocha/clipboard.js": "~1.7."
+        "pascalc/tinyl10n" : "~0.1"
     },
 
     "require-dev": {
