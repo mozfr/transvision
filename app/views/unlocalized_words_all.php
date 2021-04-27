@@ -28,15 +28,21 @@ include __DIR__ . '/simplesearchform.php';
    </thead>
    <tbody>
 <?php foreach ($unlocalized_words as $english_term => $locales) :
-if (! $locales) {
+if (empty($locales)) {
   $locales = [];
+  error_log("unlocalized-all: empty list of locales for {$english_term}, creating empty array.");
 }
 ?>
     <tr><td><?=$english_term?></td><?php
         foreach ($all_locales as $locale) {
             $count = 0;
-            if (in_array($locale, array_keys($locales))) {
+
+            try {
+                if (in_array($locale, array_keys($locales))) {
                 $count = $locales[$locale];
+            }
+            } catch (Exception $e) {
+                error_log("unlocalized-all: caught exception for {$english_term}. locales: {$locales}.");
             }
 
             $link = "/?recherche={$english_term}&repo={$repo}&sourcelocale={$locale}" .
