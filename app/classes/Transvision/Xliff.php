@@ -32,6 +32,7 @@ class Xliff
                 translation (target).
             */
             $trans_units = $xml->xpath('//x:trans-unit');
+
             foreach ($trans_units as $trans_unit) {
                 $file_node = $trans_unit->xpath('../..');
                 $file_orig = $file_node[0]['original'];
@@ -40,16 +41,15 @@ class Xliff
 
                 if ($reference_locale) {
                     // If it's the reference locale, we use the source instead of the target
-                    $translation = str_replace("'", "\\'", $trans_unit->source);
-                    $strings[$string_id] = $translation;
+
+                    $strings[$string_id] = addslashes($trans_unit->source);
                 } elseif (isset($trans_unit->target)) {
                     /*
                         We only store the translation if the target is set.
                         simplexml returns an empty string if the element is
                         missing.
                     */
-                    $translation = str_replace("'", "\\'", $trans_unit->target);
-                    $strings[$string_id] = $translation;
+                    $strings[$string_id] = addslashes($trans_unit->target);
                 }
             }
         }

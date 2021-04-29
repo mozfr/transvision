@@ -16,7 +16,7 @@ class Xliff extends atoum\test
         // Check total number of strings
         $this
             ->integer(count($strings))
-                ->isEqualTo(13);
+                ->isEqualTo(15);
 
         // Check strings
         $this
@@ -26,6 +26,15 @@ class Xliff extends atoum\test
         $this
             ->string($strings['firefox_ios/firefox-ios.xliff:f6b6d1aff4ade5b867d563d74b01a429'])
                 ->isEqualTo('Segnalibri pc desktop');
+
+        // Check escaped single straight quotes
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:e15c1a9a6082aa32623205328418a603'])
+                ->isEqualTo("Test con \'");
+
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:1348465d2e7136641805937598daaeda'])
+                ->isEqualTo("Test con \\\\\' già escaped");
     }
 
     public function testGetStringsReference()
@@ -36,7 +45,7 @@ class Xliff extends atoum\test
         // Check total number of strings
         $this
             ->integer(count($strings))
-                ->isEqualTo(14);
+                ->isEqualTo(16);
 
         // Check strings
         $this
@@ -46,6 +55,15 @@ class Xliff extends atoum\test
         $this
             ->string($strings['firefox_ios/firefox-ios.xliff:f6b6d1aff4ade5b867d563d74b01a429'])
                 ->isEqualTo('Desktop Bookmarks');
+
+        // Check escaped single straight quotes
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:e15c1a9a6082aa32623205328418a603'])
+                ->isEqualTo("Test with \'");
+
+        $this
+            ->string($strings['firefox_ios/firefox-ios.xliff:1348465d2e7136641805937598daaeda'])
+                ->isEqualTo("Test with \\\\\' already escaped");
     }
 
     public function generateStringID_DP()
