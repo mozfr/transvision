@@ -73,6 +73,14 @@
         <target>Accessi salvati</target>
         <note>Settings item for clearing passwords and login data</note>
       </trans-unit>
+      <trans-unit id="test_escape">
+        <source>Test with '</source>
+        <target>Test con '</target>
+      </trans-unit>
+      <trans-unit id="test_already_escaped">
+        <source>Test with \' already escaped</source>
+        <target>Test con \' già escaped</target>
+      </trans-unit>
     </body>
   </file>
   <file original="Client/ClearPrivateData2.strings" source-language="en" datatype="plaintext" target-language="it">
