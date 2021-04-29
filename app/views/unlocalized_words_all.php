@@ -30,6 +30,7 @@ include __DIR__ . '/simplesearchform.php';
 <?php foreach ($unlocalized_words as $english_term => $locales) :
 if (empty($locales)) {
   $locales = [];
+  // TODO: temporary debug
   error_log("unlocalized-all: empty list of locales for {$english_term}, creating empty array.");
 }
 ?>
@@ -37,12 +38,16 @@ if (empty($locales)) {
         foreach ($all_locales as $locale) {
             $count = 0;
 
-            try {
-                if (in_array($locale, array_keys($locales))) {
-                $count = $locales[$locale];
+            // TODO: temporary debug
+            if (is_string($locales)) {
+                error_log("unlocalized-all: locales is a string for \"{$english_term}\". locales var: {$locales}.");
             }
-            } catch (Exception $e) {
-                error_log("unlocalized-all: caught exception for {$english_term}. locales: {$locales}.");
+            if (is_null($locales)) {
+                error_log("unlocalized-all: locales is null for \"{$english_term}\".");
+            }
+
+            if (in_array($locale, array_keys($locales))) {
+                $count = $locales[$locale];
             }
 
             $link = "/?recherche={$english_term}&repo={$repo}&sourcelocale={$locale}" .
