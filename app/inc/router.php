@@ -56,7 +56,7 @@ require_once __DIR__ . '/urls.php';
 
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
-if (substr($temp_url['path'], -1) != '/') {
+if (isset($temp_url['path']) && substr($temp_url['path'], -1) != '/') {
     unset($temp_url);
     header('Location:/' . $url['path'] . '/');
     exit;
