@@ -28,24 +28,21 @@ include __DIR__ . '/simplesearchform.php';
    </thead>
    <tbody>
 <?php foreach ($unlocalized_words as $english_term => $locales) :
-if (empty($locales)) {
-  $locales = [];
+if (empty($locales) || is_string($locales)) {
   // TODO: temporary debug
-  error_log("unlocalized-all: empty list of locales for {$english_term}, creating empty array.");
+  if (is_string($locales)) {
+    error_log("unlocalized-all: locales is a string for \"{$english_term}\". locales var: {$locales}.");
+    error_log("unlocalized-all: cache-id is {$cache_id}.");
+  }
+  if (empty($locales)) {
+    error_log("unlocalized-all: empty list of locales for {$english_term}, creating empty array.");
+  }
+  $locales = [];
 }
 ?>
     <tr><td><?=$english_term?></td><?php
         foreach ($all_locales as $locale) {
             $count = 0;
-
-            // TODO: temporary debug
-            if (is_string($locales)) {
-                error_log("unlocalized-all: locales is a string for \"{$english_term}\". locales var: {$locales}.");
-            }
-            if (is_null($locales)) {
-                error_log("unlocalized-all: locales is null for \"{$english_term}\".");
-            }
-
             if (in_array($locale, array_keys($locales))) {
                 $count = $locales[$locale];
             }
