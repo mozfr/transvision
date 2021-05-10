@@ -28,7 +28,15 @@ include __DIR__ . '/simplesearchform.php';
    </thead>
    <tbody>
 <?php foreach ($unlocalized_words as $english_term => $locales) :
-if (! $locales) {
+if (empty($locales) || is_string($locales)) {
+  // TODO: remove logs, see https://github.com/mozfr/transvision/issues/1010
+  if (is_string($locales)) {
+    error_log("unlocalized-all: locales is a string for \"{$english_term}\". locales var: {$locales}.");
+    error_log("unlocalized-all: cache-id is {$cache_id}.");
+  }
+  if (empty($locales)) {
+    error_log("unlocalized-all: empty list of locales for {$english_term}, creating empty array.");
+  }
   $locales = [];
 }
 ?>
