@@ -75,7 +75,7 @@ function filter_strings($locale, $repo, $strings_reference)
 */
 switch ($page) {
     case 'unlocalized-all':
-        $cache_id = $repo . $page . 'unlocalized_words';
+        $cache_id = $repo . $page . 'unlocalized_words_all';
         break;
     default:
         $cache_id = $repo . $page . $locale . 'unlocalized_words';
