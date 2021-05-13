@@ -74,18 +74,18 @@ function filter_strings($locale, $repo, $strings_reference)
     unlocalized-all.
 */
 switch ($page) {
-    case 'unlocalized-all':
-        $cache_id = $repo . $page . 'unlocalized_words_all';
+    case 'unlocalized_all':
+        $cache_id = "{$repo}|{$page}|unlocalized_words_all";
         break;
     default:
-        $cache_id = $repo . $page . $locale . 'unlocalized_words';
+        $cache_id = "{$repo}|{$page}|{$locale}|unlocalized_words";
 }
 
 if (! $unlocalized_words = Cache::getKey($cache_id)) {
     $unlocalized_words = [];
     foreach ($all_locales as $lang) {
         // Load locale strings.
-        $cache_id2 = $repo . $page . $lang . 'unlocalized_words';
+        $cache_id2 = "{$repo}|{$page}|{$lang}|unlocalized_words";
         if (! $strings = Cache::getKey($cache_id2)) {
             $strings = filter_strings($lang, $repo, $strings_reference);
             Cache::setKey($cache_id2, $strings);
