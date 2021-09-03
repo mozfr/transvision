@@ -295,6 +295,8 @@ class ShowResults
             if ($project_name == 'android-l10n') {
                 if (Strings::startsWith($resource_path, 'mozilla-lockwise')) {
                     $project_name = 'lockwise-for-android';
+                } elseif (Strings::startsWith($resource_path, 'mozilla-mobile/focus-android')) {
+                    $project_name = 'focus-for-android';
                 } else {
                     // Default project is firefox-for-android
                     $project_name = 'firefox-for-android';
