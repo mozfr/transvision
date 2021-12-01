@@ -303,6 +303,7 @@ function updateMozOrg() {
     echogreen "Extract strings for mozilla.org (Fluent)"
     cd $install
     nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-pontoon.toml en mozilla_org
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-vendor.toml en mozilla_org
 }
 
 echogreen "Activating virtualenv..."
