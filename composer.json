@@ -34,7 +34,7 @@
     "require-dev": {
         "atoum/atoum" : "~4.0",
         "symfony/var-dumper": "~2.6",
-        "friendsofphp/php-cs-fixer": "~2.17",
+        "friendsofphp/php-cs-fixer": "~3.8",
         "pchevrel/verif": "0.4"
     },
 
