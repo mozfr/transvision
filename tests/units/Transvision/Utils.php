@@ -328,6 +328,7 @@ class Utils extends atoum\test
     public function redYellowGreenDP()
     {
         return [
+            ['34.13', '255,168,0'],
             ['99.92', '10,255,0'],
         ];
     }

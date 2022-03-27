@@ -1,6 +1,7 @@
 <?php
 
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+$config
     ->setRiskyAllowed(true)
     ->setRules(
         [
@@ -8,9 +9,13 @@ return PhpCsFixer\Config::create()
                 'syntax' => 'short',
             ],
             'binary_operator_spaces' => [
-                'align_double_arrow' => true,
+                'operators' => [
+                  '=>' => 'align',
+                ],
             ],
-            'blank_line_before_return' => true,
+            'blank_line_before_statement' => [
+                'statements' => ['return']
+            ],
             'cast_spaces'              => true,
             'concat_space'             => [
                 'spacing' => 'one',
@@ -21,10 +26,12 @@ return PhpCsFixer\Config::create()
             'no_blank_lines_after_class_opening' => true,
             'no_blank_lines_after_phpdoc'        => true,
             'no_empty_statement'                 => true,
-            'no_extra_consecutive_blank_lines'   => [
-                'break', 'continue', 'extra', 'return', 'throw', 'use',
-                'parenthesis_brace_block', 'square_brace_block',
-                'curly_brace_block',
+            'no_extra_blank_lines'   => [
+                'tokens' => [
+                    'break', 'continue', 'extra', 'return', 'throw', 'use',
+                    'parenthesis_brace_block', 'square_brace_block',
+                    'curly_brace_block',
+                ],
             ],
             'no_leading_import_slash'                    => true,
             'no_leading_namespace_whitespace'            => true,
@@ -38,12 +45,12 @@ return PhpCsFixer\Config::create()
             'phpdoc_indent'                              => true,
             'phpdoc_separation'                          => true,
             'phpdoc_types'                               => true,
-            'psr0'                                       => true,
+            'psr_autoloading'                            => true,
             'simplified_null_return'                     => true,
             'single_quote'                               => true,
             'standardize_not_equals'                     => true,
             'ternary_operator_spaces'                    => true,
-            'trailing_comma_in_multiline_array'          => true,
+            'trailing_comma_in_multiline'                => true,
             'trim_array_spaces'                          => true,
         ]
     )
@@ -54,3 +61,5 @@ return PhpCsFixer\Config::create()
             ->in(__DIR__)
     )
 ;
+
+return $config;

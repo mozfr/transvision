@@ -73,8 +73,8 @@ class ShowResults
 
         // Determine how many suggestions we should display
         $limits = [
-            'source' => $max_results / 2,
-            'target' => $max_results / 2,
+            'source' => intval($max_results / 2),
+            'target' => intval($max_results / 2),
         ];
         if (count($output['source']) < $limits['source']) {
             $limits['target'] = $max_results - count($output['source']);
@@ -137,7 +137,7 @@ class ShowResults
 
         // We sort by quality to get the best results first
         usort($output, function ($a, $b) {
-            return $a['quality'] < $b['quality'];
+            return $b['quality'] <=> $a['quality'];
         });
 
         if ($max_results > 0) {
