@@ -314,6 +314,7 @@ class Utils
     public static function redYellowGreen($number)
     {
         // Work with 0-99 values
+        $number = intval($number);
         $number--;
 
         if ($number < 50) {

@@ -23,7 +23,7 @@
     ],
 
     "require": {
-        "gettext/gettext": "~4.1",
+        "gettext/gettext": "~5.6",
         "monolog/monolog" : "~1.1",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",

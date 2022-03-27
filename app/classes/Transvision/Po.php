@@ -1,7 +1,7 @@
 <?php
 namespace Transvision;
 
-use Gettext\Translations;
+use Gettext\Loader\PoLoader;
 
 /**
  * Po class
@@ -28,14 +28,15 @@ class Po
         if ($template) {
             $file_name = str_replace('.pot', '.po', $file_name);
         }
-        $translations = Translations::fromPoFile($po_path);
+        $loader = new PoLoader();
+        $translations = $loader->loadFile($po_path);
         $strings = [];
 
         foreach ($translations as $translation_obj) {
             $translated_string = $translation_obj->getTranslation();
 
             // Ignore fuzzy strings
-            if (in_array('fuzzy', $translation_obj->getFlags())) {
+            if (in_array('fuzzy', $translation_obj->getFlags()->toArray())) {
                 continue;
             }
 
@@ -59,7 +60,7 @@ class Po
 
             // Check if there are plurals, in case put them as translation of
             // the only English plural form
-            if ($translation_obj->hasPluralTranslations()) {
+            if ($translation_obj->getPluralTranslations()) {
                 $string_id = self::generateStringID(
                     $project_name,
                     $file_name,
