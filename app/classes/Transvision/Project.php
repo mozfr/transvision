@@ -53,9 +53,6 @@ class Project
      */
     public static $repos_info = [
         'firefox_ios' => [
-            'files'             => [
-                'firefox-ios.xliff',
-            ],
             'git_repository'    => 'firefoxios-l10n',
             'locale_mapping'    => [
                 'bn-IN' => 'bn',
@@ -86,9 +83,6 @@ class Project
             'variable_patterns' => ['xml_android'],
         ],
         'vpn_client' => [
-            'files'              => [
-                'mozillavpn.xliff',
-            ],
             'git_repository'     => 'mozilla-vpn-client-l10n',
             'underscore_locales' => true,
             'pontoon_project'    => 'mozilla-vpn-client',

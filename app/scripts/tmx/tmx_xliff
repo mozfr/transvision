@@ -36,6 +36,25 @@ error_log('Extraction of strings from XLIFF file');
 $base_path = isset($repo_data['git_subfolder'])
     ? GIT . "{$project_name}/{$repo_data['git_subfolder']}"
     : GIT . $project_name;
+
+$reference_locale = isset($repo_data['reference_locale'])
+    ? $repo_data['reference_locale']
+    : 'en-US';
+
+// Extract a list of reference files, with relative path to the locale folder
+$ref_path = "{$base_path}/{$reference_locale}";
+$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($ref_path));
+$ref_files = array();
+foreach ($iterator as $file) {
+    $filename = $file->getFilename();
+    if (! $file->isDir()) {
+        if (! Strings::startsWith($filename, '.') && $file->getExtension() == 'xliff') {
+            $relative_filename = substr($file->getPathname(), strlen($ref_path) + 1);
+            $ref_files[] = $relative_filename;
+        }
+    }
+}
+
 foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale_folder) {
     $out_translation = '';
     $total_strings = 0;
@@ -44,17 +63,14 @@ foreach (Files::getFoldersInPath($base_path, ['templates']) as $locale_folder) {
     $locale = isset($repo_data['underscore_locales']) && $repo_data['underscore_locales']
         ? str_replace('_', '-', $locale_folder)
         : $locale_folder;
+    $is_reference_locale = $locale == $reference_locale;
 
-    foreach ($repo_data['files'] as $file_name) {
-        $xliff_path = "{$base_path}/{$locale_folder}/{$file_name}";
+    $total_strings = 0;
+    foreach ($ref_files as $filename) {
+        $xliff_path = "{$base_path}/{$locale_folder}/{$filename}";
         if (file_exists($xliff_path)) {
-            // Make sure there is a reference locale defined
-            $reference_locale = isset($repo_data['reference_locale'])
-                ? $repo_data['reference_locale']
-                : 'en-US';
-            $is_reference_locale = $locale == $reference_locale;
-            $strings = Xliff::getStrings($xliff_path, $project_name, $is_reference_locale);
-            $total_strings = count($strings);
+            $strings = Xliff::getStrings($xliff_path, $filename, $project_name, $is_reference_locale);
+            $total_strings += count($strings);
             foreach ($strings as $string_id => $translation) {
                 $out_translation .= "'{$string_id}' => '{$translation}', \n";
             }

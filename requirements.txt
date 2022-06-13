@@ -1,1 +1,1 @@
-compare-locales==8.1.0
+compare-locales==8.2.1

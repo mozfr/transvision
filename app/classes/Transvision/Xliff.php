@@ -15,16 +15,17 @@ class Xliff
      * Loads strings from a .xliff file
      *
      * @param string  $xliff_path       Path to the .xliff to load
+     * @param string  $relative_file    Relative path of the file within the locale
      * @param string  $project_name     The project this string belongs to
      * @param boolean $reference_locale If the current file belongs to the reference locale
      *
      * @return array Array of strings as [string_id => translation]
      */
-    public static function getStrings($xliff_path, $project_name, $reference_locale = false)
+    public static function getStrings($xliff_path, $relative_file, $project_name, $reference_locale = false)
     {
         $strings = [];
         if ($xml = simplexml_load_file($xliff_path)) {
-            $file_name = basename($xliff_path);
+            $file_name = $relative_file;
             $namespaces = $xml->getDocNamespaces();
             $xml->registerXPathNamespace('x', $namespaces['']);
             /*
