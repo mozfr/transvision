@@ -11,7 +11,7 @@ class Xliff extends atoum\test
     public function testGetStrings()
     {
         $obj = new _Xliff();
-        $strings = $obj->getStrings(TEST_FILES . 'xliff/firefox-ios.xliff', 'firefox_ios');
+        $strings = $obj->getStrings(TEST_FILES . 'xliff/firefox-ios.xliff', 'firefox-ios.xliff', 'firefox_ios');
 
         // Check total number of strings
         $this
@@ -40,7 +40,7 @@ class Xliff extends atoum\test
     public function testGetStringsReference()
     {
         $obj = new _Xliff();
-        $strings = $obj->getStrings(TEST_FILES . 'xliff/firefox-ios.xliff', 'firefox_ios', true);
+        $strings = $obj->getStrings(TEST_FILES . 'xliff/firefox-ios.xliff', 'firefox-ios.xliff', 'firefox_ios', true);
 
         // Check total number of strings
         $this
