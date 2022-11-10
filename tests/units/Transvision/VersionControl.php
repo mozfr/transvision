@@ -71,9 +71,9 @@ class VersionControl extends atoum\test
             ],
             [
                 'en-US',
-                'gecko_strings',
-                'extensions/irc/chrome/chatzilla.properties:msg.save.files.folder',
-                'https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/chatzilla.properties',
+                'comm_l10n',
+                'mail/branding/thunderbird/brand.dtd:brandFullName',
+                'https://hg.mozilla.org/projects/comm-l10n/file/default/en-US/mail/branding/thunderbird/brand.dtd',
             ],
         ];
     }

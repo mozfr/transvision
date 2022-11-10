@@ -67,29 +67,18 @@ function initGeckoStringsRepo() {
                     hg clone $repo_path/$locale $locale
                 fi
             fi
-
-            if [ ! -d $root/TMX/$locale ]
-            then
-                echogreen "Creating folder cache for: $locale"
-                mkdir -p $root/TMX/$locale
-            fi
     done
 }
 
-function initOtherSources() {
-    # Can add other products to array products, as long
-    # as their code is located in https://hg.mozilla.org/PRODUCT
-    local products=( chatzilla )
-    for product in "${products[@]}"
-    do
-        if [ ! -d $sources_path/$product/.hg ]
-        then
-            echogreen "Checking out the following repo:"
-            echogreen $sources_path/$product
-            cd $sources_path
-            hg clone https://hg.mozilla.org/$product/
-        fi
-    done
+function initCommL10nRepo() {
+    local repo_folder="comm_l10n_path"
+
+    if [ ! -d ${!repo_folder}/.hg ]
+    then
+        echogreen "Checking out comm-l10n repo."
+        cd ${local_hg}
+        hg clone https://hg.mozilla.org/projects/comm-l10n/ comm_l10n
+    fi
 }
 
 # Store current directory path to be able to call this script from anywhere
@@ -145,7 +134,7 @@ echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupVirtualEnv
 initGeckoStringsRepo
-initOtherSources
+initCommL10nRepo
 
 # Check out GitHub repos
 cd $mozilla_org

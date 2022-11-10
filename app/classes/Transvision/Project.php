@@ -13,18 +13,6 @@ use Json\Json;
  */
 class Project
 {
-    /**
-     * This array maps different subfolders name for Desktop products
-     * with their display name
-     */
-    public static $components_names = [
-        'browser'  => 'Firefox Desktop',
-        'mobile'   => 'Firefox for Android',
-        'mail'     => 'Thunderbird',
-        'suite'    => 'SeaMonkey',
-        'calendar' => 'Lightning',
-    ];
-
     /*
      * This array contains information about supported repositories.
      *
@@ -68,6 +56,10 @@ class Project
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
+        'comm_l10n'=> [
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
+        ],
         'mozilla_org'=> [
             'git_repository'    => 'www-l10n',
             'pontoon_project'   => 'mozillaorg',
@@ -100,6 +92,7 @@ class Project
         // Desktop products
         'desktop'     => [
             'gecko_strings',
+            'comm_l10n',
         ],
         // Products using Git
         'git' => [

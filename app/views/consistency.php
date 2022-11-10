@@ -27,17 +27,7 @@ namespace Transvision;
         </fieldset>
         <?php endif; ?>
 
-        <fieldset class="desktop_repo_only" <?=$filter_visibility?>>
-            <label>Filter consistency for</label>
-            <div class="select-style">
-                <select name="filter" title="Filters" id="simplesearch_filter">
-                    <?=$filter_selector?>
-                </select>
-            </div>
-        </fieldset>
-
         <input type="submit" value="Go" alt="Go" />
-        <p class="desktop_repo_only" id="filter_message"><?=$filter_message?></p>
     </fieldset>
 </form>
 

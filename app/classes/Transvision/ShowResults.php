@@ -293,9 +293,7 @@ class ShowResults
 
             // android-l10n maps to different projects in Pontoon
             if ($project_name == 'android-l10n') {
-                if (Strings::startsWith($resource_path, 'mozilla-lockwise')) {
-                    $project_name = 'lockwise-for-android';
-                } elseif (Strings::startsWith($resource_path, 'mozilla-mobile/focus-android')) {
+                if (Strings::startsWith($resource_path, 'mozilla-mobile/focus-android')) {
                     $project_name = 'focus-for-android';
                 } else {
                     // Default project is firefox-for-android
@@ -315,15 +313,9 @@ class ShowResults
             }
             switch ($component) {
                 case 'calendar':
-                    $project_name = 'lightning';
-                    break;
                 case 'chat':
-                case 'editor':
                 case 'mail':
                     $project_name = 'thunderbird';
-                    break;
-                case 'mobile':
-                    $project_name = 'firefox-for-android';
                     break;
                 case 'suite':
                     $project_name = 'seamonkey';

@@ -101,14 +101,14 @@ class VersionControl
         $exploded_path = explode('/', $path);
         $base_folder = $exploded_path[0];
 
-        if ($locale != 'en-US') {
-            $url = "https://hg.mozilla.org/l10n-central/{$locale}/file/default/";
+        if ($repo == 'comm_l10n') {
+            $url = "https://hg.mozilla.org/projects/comm-l10n/file/default/{$locale}/";
         } else {
-            // ChatZilla is in a separate repository
-            if ($base_folder == 'extensions' && $exploded_path[1] == 'irc') {
-                return "https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/{$entity_file}";
+            if ($locale != 'en-US') {
+                $url = "https://hg.mozilla.org/l10n-central/{$locale}/file/default/";
+            } else {
+                $url = 'https://hg.mozilla.org/l10n/gecko-strings/file/default/';
             }
-            $url = 'https://hg.mozilla.org/l10n/gecko-strings/file/default/';
         }
 
         return $url . $path . '/' . $entity_file;

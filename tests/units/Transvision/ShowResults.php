@@ -362,7 +362,7 @@ class ShowResults extends atoum\test
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -383,14 +383,6 @@ class ShowResults extends atoum\test
             [
                 'pontoon',
                 'gecko_strings',
-                'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
-                'test',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'gecko_strings',
                 'extensions/irc/chrome/about.dtd:chatzilla.label',
                 'test',
                 '',
@@ -403,14 +395,6 @@ class ShowResults extends atoum\test
                 'test',
                 'de',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'gecko_strings',
-                'mobile/android/base/android_strings.dtd:activity_stream_highlights',
-                'test',
-                'bg',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -435,14 +419,6 @@ class ShowResults extends atoum\test
                 'test',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-android/mozilla-mobile/fenix/app/src/main/res/values/strings.xml?search=preference_experiments'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'android_l10n',
-                'android_l10n/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml:password_for',
-                'test',
-                'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/lockwise-for-android/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml?search=password_for'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
