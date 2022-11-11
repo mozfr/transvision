@@ -13,12 +13,12 @@
         </fieldset>
         <?php endif; ?>
 
-        <?php if (isset($channel_selector)) : ?>
+        <?php if (isset($repository_selector)) : ?>
         <fieldset>
             <label>Repository</label>
             <div class="select-style">
                 <select name="repo" title="Repository" id="simplesearch_repository">
-                <?=$channel_selector?>
+                <?=$repository_selector?>
                 </select>
             </div>
         </fieldset>

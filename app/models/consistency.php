@@ -1,12 +1,10 @@
 <?php
 namespace Transvision;
 
-// Build arrays for the search form, ignore mozilla.org
-$channel_selector = Utils::getHtmlSelectOptions(
-    $repos_nice_names,
-    $repo,
-    true
-);
+// Set up the repository selector, remove "all_projects"
+$repositories = Project::getSupportedRepositories();
+unset($repositories['all_projects']);
+$repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 $reference_locale = Project::getReferenceLocale($repo);
 $supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);

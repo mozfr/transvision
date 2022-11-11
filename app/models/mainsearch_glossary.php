@@ -9,7 +9,7 @@ $search_terms = Utils::uniqueWords($search->getSearchTerms());
 
 foreach ($search_terms as $word) {
     $search->setRegexSearchTerms($word);
-    $locale1_strings = $search->grep($locale1_strings);
+    $locale1_strings = $search->grep($locale1_strings, false);
 }
 
 // Limit results to 200

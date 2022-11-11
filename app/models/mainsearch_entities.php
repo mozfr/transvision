@@ -21,9 +21,11 @@ array_splice($entities, $limit_results);
 
 // Display a search hint for the closest string we have if we have no search results
 if (count($entities) == 0) {
-    $merged_strings = [];
-
-    $best_matches = Strings::getSimilar($search->getSearchTerms(), array_keys($tmx_source), 3);
+    $all_entities = [];
+    foreach (array_keys($tmx_source) as $repo) {
+        $all_entities = array_merge($all_entities, $tmx_source[$repo]);
+    }
+    $best_matches = Strings::getSimilar($search->getSearchTerms(), $all_entities, 3);
 
     include VIEWS . 'results_similar.php';
 

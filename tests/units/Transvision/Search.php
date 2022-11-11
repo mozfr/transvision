@@ -196,6 +196,17 @@ class Search extends atoum\test
                     'browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2' => '...',
                 ]
             );
+
+        $obj
+            ->setSearchTerms('...')
+            ->setRegexEntireString('entire_string');
+
+        $this->array($obj->grep(['test_repo' => $tmx], false))
+            ->isEqualTo(
+                [
+                    'test_repo' => ['browser/chrome/browser/browser.dtd:bookmarkThisPageCmd.label2' => '...'],
+                ]
+            );
     }
 
     public function testSetRepository()

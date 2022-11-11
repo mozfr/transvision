@@ -25,12 +25,10 @@ $stopwords = [
     'prime239v2', 'prime192v3', 'prime192v1', 'srcdir', 'newsrc',
 ];
 
-// Build arrays for the search form.
-$channel_selector = Utils::getHtmlSelectOptions(
-    $repos_nice_names,
-    $repo,
-    true
-);
+// Set up the repository selector, remove "all_projects"
+$repositories = Project::getSupportedRepositories();
+unset($repositories['all_projects']);
+$repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 // Load reference strings.
 $ref_locale = Project::getReferenceLocale($repo);

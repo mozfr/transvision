@@ -2,8 +2,8 @@
 namespace Transvision;
 
 if ($search->isEntireString()) {
-    $locale1_strings = $search->grep($tmx_source);
-    $locale2_strings = $search->grep($tmx_target);
+    $locale1_strings = $search->grep($tmx_source, false);
+    $locale2_strings = $search->grep($tmx_target, false);
 } else {
     $locale1_strings = $tmx_source;
     $locale2_strings = $tmx_target;
@@ -12,17 +12,23 @@ if ($search->isEntireString()) {
         : [$search->getSearchTerms()];
     foreach ($search_terms as $word) {
         $search->setRegexSearchTerms($word);
-        $locale1_strings = $search->grep($locale1_strings);
-        $locale2_strings = $search->grep($locale2_strings);
+        $locale1_strings = $search->grep($locale1_strings, false);
+        $locale2_strings = $search->grep($locale2_strings, false);
     }
 }
 
+# Add entity matches to the results
 if ($search->getSearchType() == 'strings_entities') {
     $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
-    foreach ($entities as $entity) {
-        $locale1_strings[$entity] = $tmx_source[$entity];
+    foreach ($entities as $entity_object) {
+        [$repo, $entity] = $entity_object;
+        $locale1_strings[$repo][$entity] = $tmx_source[$repo][$entity];
     }
 }
+
+# Flatten results to be able to count and slice them
+$locale1_strings = Utils::flattenTMX($locale1_strings);
+$locale2_strings = Utils::flattenTMX($locale2_strings);
 
 $real_search_results = count($locale1_strings);
 $limit_results = 200;
@@ -30,7 +36,7 @@ $limit_results = 200;
 array_splice($locale1_strings, $limit_results);
 array_splice($locale2_strings, $limit_results);
 
-$searches = [
+$search_results = [
     $source_locale => $locale1_strings,
 ];
 $data = [$tmx_source, $tmx_target];
@@ -38,7 +44,7 @@ unset($tmx_source, $tmx_target);
 
 // Only use data for target locale if it's different from the source locale
 if ($locale != $source_locale) {
-    $searches[$locale] = $locale2_strings;
+    $search_results[$locale] = $locale2_strings;
 }
 
 /*
@@ -50,34 +56,36 @@ if ($url['path'] == '3locales') {
     $data[] = $tmx_target2;
     unset($tmx_target2);
     if (! in_array($locale2, [$source_locale, $locale])) {
-        $searches[$locale2] = $locale3_strings;
+        $search_results[$locale2] = $locale3_strings;
     }
 }
 
 $search_yields_results = false;
-
 // This will hold the components names for the search filters
+$requested_repo = $search->getRepository();
 $components = [];
-foreach ($searches as $key => $value) {
-    $search_results = ShowResults::getTMXResults(array_keys($value), $data);
-    $components += Project::getComponents($search_results);
+foreach ($search_results as $locale => $locale_matches) {
+    $search_results = ShowResults::getTMXResultsRepos($locale_matches, $data);
+    if ($requested_repo != 'all_projects') {
+        $components += Project::getComponents($search_results);
+    }
 
-    if (count($value) > 0) {
+    if (count($locale_matches) > 0) {
         // We have results, we won't display search suggestions but search results
         $search_yields_results = true;
 
-        $search_id = strtolower(str_replace('-', '', $key));
+        $search_id = strtolower(str_replace('-', '', $locale));
         $message_count = $real_search_results > $limit_results
             ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
             : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
 
-        $output[$key] = "<h2>Displaying {$message_count} for the string "
-                        . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . "</span> in {$key}:</h2>";
-        $output[$key] .= ShowResults::resultsTable($search, $search_id, $search_results, $page);
+        $output[$locale] = "<h2>Displaying {$message_count} for the string "
+                         . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . "</span> in {$locale}:</h2>";
+        $output[$locale] .= ShowResults::resultsTable($search, $search_id, $search_results, $page);
     } else {
-        $output[$key] = '<h2>No matching results for the string '
-                        . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . '</span>'
-                        . " for the locale {$key}</h2>";
+        $output[$locale] = '<h2>No matching results for the string '
+                         . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . '</span>'
+                         . " for the locale {$locale}</h2>";
     }
 }
 
@@ -88,8 +96,10 @@ $components = array_unique($components);
 if (! $search_yields_results) {
     $merged_strings = [];
 
-    foreach ($data as $key => $values) {
-        $merged_strings = array_merge($merged_strings, array_values($values));
+    foreach ($data as $locale => $locale_strings) {
+        foreach ($locale_strings as $repo => $repo_strings) {
+            $merged_strings = array_merge($merged_strings, array_values($repo_strings));
+        }
     }
 
     $best_matches = Strings::getSimilar($search->getSearchTerms(), $merged_strings, 3);

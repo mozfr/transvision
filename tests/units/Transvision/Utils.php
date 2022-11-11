@@ -273,6 +273,35 @@ class Utils extends atoum\test
                 ->contains($c);
     }
 
+    public function flattenTMXDP()
+    {
+        return [
+            [
+                [
+                    'test_repo' => [
+                        'entity'  => 'text',
+                        'entity2' => 'text2',
+                    ],
+                ],
+                [
+                    ['test_repo', 'entity', 'text'],
+                    ['test_repo', 'entity2', 'text2'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider flattenTMXDP
+     */
+    public function testFlattenTMX($a, $b)
+    {
+        $obj = new _Utils();
+        $this
+            ->array($obj->flattenTMX($a))
+                ->isEqualTo($b);
+    }
+
     public function getOrSetDP()
     {
         return [

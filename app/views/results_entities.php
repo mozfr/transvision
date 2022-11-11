@@ -14,24 +14,24 @@ $table = "
   </thead>
   <tbody>\n";
 
-$current_repo = $search->getRepository();
 $extra_locale = $url['path'] == '3locales';
 
 $components = [];
 // Display results
-foreach ($entities as $entity) {
+foreach ($entities as $entity_object) {
+    [$current_repo, $entity] = $entity_object;
     $component = explode('/', $entity)[0];
     $components[] = $component;
     $path_locale1 = VersionControl::getPath($source_locale, $current_repo, $entity);
     $path_locale2 = VersionControl::getPath($locale, $current_repo, $entity);
 
-    $unescaped_target_string = isset($tmx_target[$entity])
-                                ? $tmx_target[$entity]
+    $unescaped_target_string = isset($tmx_target[$current_repo][$entity])
+                                ? $tmx_target[$current_repo][$entity]
                                 : '@@missing@@';
     // Escape strings for HTML display
     $bz_target_string = $target_string = htmlspecialchars($unescaped_target_string);
 
-    if (strpos($entity, '.ftl:') !== false && strpos($tmx_source[$entity], ') ->') !== false) {
+    if (strpos($entity, '.ftl:') !== false && strpos($tmx_source[$current_repo][$entity], ') ->') !== false) {
         $string_class = 'string ftl_string';
     } else {
         $string_class = 'string';
@@ -39,7 +39,7 @@ foreach ($entities as $entity) {
 
     // Highlight special characters only after strings have been escaped
     $target_string = Strings::highlightSpecial($target_string);
-    $source_string = Strings::highlightSpecial(htmlspecialchars($tmx_source[$entity]));
+    $source_string = Strings::highlightSpecial(htmlspecialchars($tmx_source[$current_repo][$entity]));
 
     $clipboard_target_string = 'clip_' . md5($target_string);
     $string_id = md5($entity . mt_rand());
@@ -53,7 +53,7 @@ foreach ($entities as $entity) {
     $transliterate = $locale == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
     if ($transliterate) {
-        $transliterated_string = htmlspecialchars($tmx_target[$entity]);
+        $transliterated_string = htmlspecialchars($tmx_target[$current_repo][$entity]);
         $transliterated_string = ShowResults::getTransliteratedString(urlencode($transliterated_string), 'sr-Cyrl');
         $transliterated_string = Strings::highlightSpecial($transliterated_string);
         $transliterate_string_id = 'transliterate_' . $string_id;
@@ -64,8 +64,8 @@ foreach ($entities as $entity) {
 
     // 3locales view
     if ($extra_locale) {
-        $bz_target_string2 = $target_string2 = isset($tmx_target2[$entity])
-                                                    ? htmlspecialchars($tmx_target2[$entity])
+        $bz_target_string2 = $target_string2 = isset($tmx_target2[$current_repo][$entity])
+                                                    ? htmlspecialchars($tmx_target2[$current_repo][$entity])
                                                     : '';
         // Highlight special characters only after strings have been escaped
         $target_string2 = Strings::highlightSpecial($target_string2);

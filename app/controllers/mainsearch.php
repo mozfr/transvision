@@ -91,8 +91,8 @@ if ($check['t2t']) {
     }
 
     // Valid search, we load all the strings
-    $tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository());
-    $tmx_target = Utils::getRepoStrings($locale, $search->getRepository());
+    $tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository(), false);
+    $tmx_target = Utils::getRepoStrings($locale, $search->getRepository(), false);
 
     if ($search->getSearchType() == 'entities') {
         require_once MODELS . 'mainsearch_entities.php';
