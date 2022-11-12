@@ -235,22 +235,20 @@ class Utils extends atoum\test
                 ->isEqualTo($c);
     }
 
-    public function getRepoStringsDP()
-    {
-        return [
-            ['fr', 'gecko_strings', 'Ouvrir dans le Finder'],
-        ];
-    }
-
-    /**
-     * @dataProvider getRepoStringsDP
-     */
-    public function testGetRepoStrings($a, $b, $c)
+    public function testGetRepoStrings()
     {
         $obj = new _Utils();
         $this
-            ->array($obj->getRepoStrings($a, $b))
-                ->contains($c);
+            ->array($obj->getRepoStrings('fr', 'gecko_strings'))
+                ->contains('Ouvrir dans le Finder');
+
+        $results = $obj->getRepoStrings('fr', 'gecko_strings', false);
+        $this
+            ->array($results)
+                ->hasKey('gecko_strings');
+        $this
+            ->array($results['gecko_strings'])
+                ->contains('Ouvrir dans le Finder');
     }
 
     public function flattenTMXDP()
