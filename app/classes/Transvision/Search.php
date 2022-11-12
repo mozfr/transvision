@@ -98,7 +98,7 @@ class Search
      */
     protected $form_search_options = [
         'case_sensitive', 'entire_string', 'repo',
-        'search_type', 't2t', 'each_word', 'entire_words',
+        'search_type', 'each_word', 'entire_words',
     ];
 
     /**

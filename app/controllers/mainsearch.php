@@ -74,31 +74,26 @@ if ($search->getSearchTerms() != '') {
 }
 
 // Search results process
-if ($check['t2t']) {
-    require_once MODELS . 'mainsearch_glossary.php';
-    require_once VIEWS . 'results_glossary.php';
+// No search
+if ($search->getSearchTerms() == '') {
+    return;
+}
+
+// Search not acceptable
+if (mb_strlen($search->getSearchTerms()) < 2) {
+    print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
+
+    return;
+}
+
+// Valid search, we load all the strings
+$tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository(), false);
+$tmx_target = Utils::getRepoStrings($locale, $search->getRepository(), false);
+
+if ($search->getSearchType() == 'entities') {
+    require_once MODELS . 'mainsearch_entities.php';
+    require_once VIEWS . 'results_entities.php';
 } else {
-    // No search
-    if ($search->getSearchTerms() == '') {
-        return;
-    }
-
-    // Search not acceptable
-    if (mb_strlen($search->getSearchTerms()) < 2) {
-        print '<p><strong>Search term should be at least 2 characters long.</strong></p>';
-
-        return;
-    }
-
-    // Valid search, we load all the strings
-    $tmx_source = Utils::getRepoStrings($source_locale, $search->getRepository(), false);
-    $tmx_target = Utils::getRepoStrings($locale, $search->getRepository(), false);
-
-    if ($search->getSearchType() == 'entities') {
-        require_once MODELS . 'mainsearch_entities.php';
-        require_once VIEWS . 'results_entities.php';
-    } else {
-        require_once MODELS . 'mainsearch_strings.php';
-        require_once VIEWS . 'results_strings.php';
-    }
+    require_once MODELS . 'mainsearch_strings.php';
+    require_once VIEWS . 'results_strings.php';
 }

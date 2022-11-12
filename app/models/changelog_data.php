@@ -1218,7 +1218,7 @@ $changelog = [
     ],
     '3.7' => [
         [
-            'message' => ['The <a href="https://transvision.mozfr.org/?sourcelocale=en-US&amp;locale=fr&amp;repo=aurora&amp;t2t=t2t&amp;recherche=Bookmarks">glossary</a> view looks better and is visually more consistent with the rest of the site'],
+            'message' => ['The <a href="https://transvision.mozfr.org/?sourcelocale=en-US&amp;locale=fr&amp;repo=aurora&amp;&amp;recherche=Bookmarks">glossary</a> view looks better and is visually more consistent with the rest of the site'],
             'section' => ['end_user'],
             'type'    => ['better'],
             'authors' => ['flod'],

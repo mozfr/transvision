@@ -43,13 +43,13 @@ class Search extends atoum\test
                 ->isEqualTo(
                     [
                         'case_sensitive', 'entire_string', 'repo',
-                        'search_type', 't2t', 'each_word', 'entire_words',
+                        'search_type', 'each_word', 'entire_words',
                     ]);
         $this
             ->array($obj->getFormCheckboxes())
                 ->isEqualTo(
                     [
-                        'case_sensitive', 'entire_string', 't2t',
+                        'case_sensitive', 'entire_string',
                         'each_word', 'entire_words',
                     ]);
     }

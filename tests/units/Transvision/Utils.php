@@ -94,26 +94,6 @@ class Utils extends atoum\test
                 ->isEqualTo($c);
     }
 
-    public function checkBoxState1DP()
-    {
-        $_GET['t2t'] = 'somedata';
-
-        return [
-            [$_GET['t2t'], ''],
-        ];
-    }
-
-    /**
-     * @dataProvider checkBoxState1DP
-     */
-    public function testCheckboxState1($a, $b)
-    {
-        $obj = new _Utils();
-        $this
-            ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' disabled="disabled"');
-    }
-
     public function checkBoxState2DP()
     {
         $_GET['t2t'] = 'somedata';

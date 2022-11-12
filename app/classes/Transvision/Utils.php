@@ -71,14 +71,6 @@ class Utils
      */
     public static function checkboxState($str, $extra = '')
     {
-        if (isset($_GET['t2t']) && $extra != 't2t') {
-            return ' disabled="disabled"';
-        }
-
-        if (isset($_GET['t2t']) && $extra == 't2t') {
-            return ' checked="checked"';
-        }
-
         return $str ? ' checked="checked"' : '';
     }
 
