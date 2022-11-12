@@ -109,6 +109,20 @@ class Project extends atoum\test
                 ->isEqualTo('en');
     }
 
+    public function testIstReferenceLocale()
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isReferenceLocale('en-US', 'gecko_strings'))
+                ->isEqualTo(True);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'gecko_strings'))
+                ->isEqualTo(False);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'mozilla_org'))
+                ->isEqualTo(True);
+    }
+
     public function testIsValidRepository()
     {
         $obj = new _Project();

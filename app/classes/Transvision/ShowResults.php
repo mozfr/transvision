@@ -592,12 +592,14 @@ class ShowResults
                       <a class='source_link' href='{$locale3_path}'>
                         &lt;source&gt;
                       </a>
-                      {$edit_link[1]}
-                      &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link[1]}'>
-                        &lt;report a bug&gt;
-                      </a>
-                      {$meta_target2}
+                      {$edit_link[1]}&nbsp;";
+                # Don't display Bugzilla link for the reference locale
+                if (! Project::isReferenceLocale($locale2, $repo)) {
+                    $extra_column_rows .= "<a class='bug_link' target='_blank' href='{$bz_link[1]}'>
+                            &lt;report a bug&gt;
+                        </a>";
+                }
+                $extra_column_rows .= "{$meta_target2}
                     </div>
                 </td>";
             } else {
@@ -636,12 +638,14 @@ class ShowResults
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>
-                      {$edit_link[0]}
-                      &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
-                        &lt;report a bug&gt;
-                      </a>
-                      {$meta_target}
+                      {$edit_link[0]}&nbsp;";
+            # Don't display Bugzilla link for the reference locale
+            if (! Project::isReferenceLocale($locale2, $repo)) {
+                $table .= "<a class='bug_link' target='_blank' href='{$bz_link[0]}'>
+                            &lt;report a bug&gt;
+                        </a>";
+            }
+            $table .= " {$meta_target}
                     </div>
                   </td>
                 {$extra_column_rows}

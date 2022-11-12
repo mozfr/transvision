@@ -243,6 +243,19 @@ class Project
     }
 
     /**
+     * Return true if the locale is the reference locale for a repository
+     *
+     * @param string $locale     Locale code
+     * @param string $repository Name of the folder for the repository
+     *
+     * @return boolean True is it's the reference locale
+     */
+    public static function isReferenceLocale($locale, $repository)
+    {
+        return self::getReferenceLocale($repository) == $locale;
+    }
+
+    /**
      * Check if the specified repository is supported
      *
      * @param string $repository Name of the folder for the repository
