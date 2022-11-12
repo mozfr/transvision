@@ -1,18 +1,28 @@
 <?php
 namespace Transvision;
 
-$locales_list = [];
-
-foreach (Project::getRepositories() as $repo) {
-    $locales_list = array_merge($locales_list, Project::getRepositoryLocales($repo));
-}
+$locales_list = Project::getAllLocales();
 
 // Clean up table to remove duplicate and sort by locale name
 $locales_list = array_unique($locales_list);
 sort($locales_list);
 
-// Include TMX Options
-require_once INC . 'tmx_options.php';
+// Build the tmx format switcher
+$check['tmx_format'] = 'normal';
+if (isset($_GET['tmx_format'])
+    && in_array($_GET['tmx_format'], ['normal', 'omegat'])
+    ) {
+    $check['tmx_format'] = $_GET['tmx_format'];
+}
+$tmx_format_descriptions = [
+    'normal' => 'Normal',
+    'omegat' => 'OmegaT',
+];
+$tmx_format_list = Utils::getHtmlSelectOptions(
+    $tmx_format_descriptions,
+    $check['tmx_format'],
+    true
+);
 
 if (isset($_GET['locale'])) {
     $locale = Utils::getOrSet($locales_list, $_GET['locale'], 'en-US');

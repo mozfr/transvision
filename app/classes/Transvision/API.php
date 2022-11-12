@@ -231,8 +231,7 @@ class API
                 */
                 if (isset($this->parameters[2])) {
                     $match = false;
-
-                    foreach (Project::getRepositories() as $repository) {
+                    foreach (Project::getRepositories(true) as $repository) {
                         if ($this->verifyLocaleExists($this->parameters[2], $repository)) {
                             $match = true;
                             break;
@@ -354,8 +353,8 @@ class API
     private function verifyRepositoryExists($repository, $alias = false)
     {
         $this->valid_repositories = $alias
-            ? array_merge(Project::getRepositories(), ['global'])
-            : Project::getRepositories();
+            ? array_merge(Project::getRepositories(true), ['global'])
+            : Project::getRepositories(true);
 
         if (! in_array($repository, $this->valid_repositories)) {
             $this->log("The repo queried ({$repository}) doesn't exist.");

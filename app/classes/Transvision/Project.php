@@ -40,6 +40,9 @@ class Project
      *
      */
     public static $repos_info = [
+        'all_projects' => [
+            'meta' => true,
+        ],
         'firefox_ios' => [
             'git_repository'    => 'firefoxios-l10n',
             'locale_mapping'    => [
@@ -108,10 +111,12 @@ class Project
     /**
      * Create a list of all supported repositories.
      *
+     * @param boolean $exclude_meta Exclude meta project
+     *
      * @return array List of supported repositories, key is the repo, value is
      *               the nice name for the repo for display purposes.
      */
-    public static function getSupportedRepositories()
+    public static function getSupportedRepositories($exclude_meta = false)
     {
         // Read list of repositories from supported_repositories.json
         $file_name = APP_SOURCES . 'supported_repositories.json';
@@ -123,6 +128,9 @@ class Project
 
         $repositories = [];
         foreach ($json_repositories as $repository) {
+            if ($exclude_meta && self::isMetaRepository($repository['id'])) {
+                continue;
+            }
             $repositories[$repository['id']] = $repository['name'];
         }
 
@@ -132,11 +140,13 @@ class Project
     /**
      * Get the list of repositories.
      *
+     * @param boolean $exclude_meta Exclude meta projects
+     *
      * @return array list of local repositories values
      */
-    public static function getRepositories()
+    public static function getRepositories($exclude_meta = false)
     {
-        $repositories = array_keys(self::getSupportedRepositories());
+        $repositories = array_keys(self::getSupportedRepositories($exclude_meta));
         sort($repositories);
 
         return $repositories;
@@ -147,11 +157,13 @@ class Project
      * The array has repo folder names as keys and Display names as value:
      * ex: ['firefox_ios' => 'Firefox for iOS', 'mozilla_org' => 'mozilla.org']
      *
+     * @param boolean $exclude_meta Exclude meta project
+     *
      * @return array list of local repositories and their Display names
      */
-    public static function getRepositoriesNames()
+    public static function getRepositoriesNames($exclude_meta = false)
     {
-        return self::getSupportedRepositories();
+        return self::getSupportedRepositories($exclude_meta);
     }
 
     /**
@@ -208,6 +220,23 @@ class Project
     }
 
     /**
+     * Get the list of all locales available by looking at the meta project
+     *
+     * @return array A sorted list of all supported locales
+     */
+    public static function getAllLocales()
+    {
+        $file_name = APP_SOURCES . 'all_projects.txt';
+        $supported_locales = [];
+        if (file_exists($file_name)) {
+            $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        sort($supported_locales);
+
+        return $supported_locales;
+    }
+
+    /**
      * Get the list of repositories available for a locale
      *
      * @param string $locale Mozilla locale code
@@ -217,7 +246,7 @@ class Project
     public static function getLocaleRepositories($locale)
     {
         $matches = [];
-        foreach (self::getRepositories() as $repository) {
+        foreach (self::getRepositories(true) as $repository) {
             if (in_array($locale, self::getRepositoryLocales($repository))) {
                 $matches[] = $repository;
             }
@@ -240,6 +269,20 @@ class Project
         return isset(self::$repos_info[$repository]['reference_locale'])
             ? self::$repos_info[$repository]['reference_locale']
             : 'en-US';
+    }
+
+    /**
+     * Return true if it's a meta repository
+     *
+     * @param string $repository Name of the folder for the repository
+     *
+     * @return boolean True if set as meta
+     */
+    public static function isMetaRepository($repository)
+    {
+        return isset(self::$repos_info[$repository]['meta'])
+            ? self::$repos_info[$repository]['meta']
+            : false;
     }
 
     /**

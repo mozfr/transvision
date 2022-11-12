@@ -25,9 +25,8 @@ $stopwords = [
     'prime239v2', 'prime192v3', 'prime192v1', 'srcdir', 'newsrc',
 ];
 
-// Set up the repository selector, remove "all_projects"
-$repositories = Project::getSupportedRepositories();
-unset($repositories['all_projects']);
+// Set up the repository selector, remove meta project
+$repositories = Project::getSupportedRepositories(true);
 $repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 // Load reference strings.

@@ -158,7 +158,7 @@ class Utils
                 return $tmx;
             }
         } else {
-            $repositories = $repository == 'all_projects'
+            $repositories = Project::isMetaRepository($repository)
                 ? Project::getRepositories()
                 : [$repository];
 

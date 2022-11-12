@@ -66,7 +66,7 @@ $requested_repo = $search->getRepository();
 $components = [];
 foreach ($search_results as $locale => $locale_matches) {
     $search_results = ShowResults::getTMXResultsRepos($locale_matches, $data);
-    if ($requested_repo != 'all_projects') {
+    if (! Project::isMetaRepository($requested_repo)) {
         $components += Project::getComponents($search_results);
     }
 

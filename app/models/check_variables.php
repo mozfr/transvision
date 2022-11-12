@@ -10,9 +10,8 @@ if (! in_array($locale, $supported_locales)) {
     $locale = array_shift($supported_locales);
 }
 
-// Set up the repository selector, remove "all_projects"
-$repositories = Project::getSupportedRepositories();
-unset($repositories['all_projects']);
+// Set up the repository selector, remove meta project
+$repositories = Project::getSupportedRepositories(true);
 $repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 // Build the target locale switcher

@@ -1,9 +1,8 @@
 <?php
 namespace Transvision;
 
-// Set up the repository selector, remove "all_projects" and "mozilla.org"
-$repositories = Project::getSupportedRepositories();
-unset($repositories['all_projects']);
+// Set up the repository selector, remove meta project and mozilla.org
+$repositories = Project::getSupportedRepositories(true);
 unset($repositories['mozilla_org']);
 $repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 

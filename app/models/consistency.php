@@ -1,9 +1,8 @@
 <?php
 namespace Transvision;
 
-// Set up the repository selector, remove "all_projects"
-$repositories = Project::getSupportedRepositories();
-unset($repositories['all_projects']);
+// Set up the repository selector, remove meta project
+$repositories = Project::getSupportedRepositories(true);
 $repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 $reference_locale = Project::getReferenceLocale($repo);
