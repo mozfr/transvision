@@ -19,19 +19,19 @@ $extra_locale = $url['path'] == '3locales';
 $components = [];
 // Display results
 foreach ($entities as $entity_object) {
-    [$current_repo, $entity] = $entity_object;
+    [$repo, $entity] = $entity_object;
     $component = explode('/', $entity)[0];
     $components[] = $component;
-    $path_locale1 = VersionControl::getPath($source_locale, $current_repo, $entity);
-    $path_locale2 = VersionControl::getPath($locale, $current_repo, $entity);
+    $path_locale1 = VersionControl::getPath($source_locale, $repo, $entity);
+    $path_locale2 = VersionControl::getPath($locale, $repo, $entity);
 
-    $unescaped_target_string = isset($tmx_target[$current_repo][$entity])
-                                ? $tmx_target[$current_repo][$entity]
+    $unescaped_target_string = isset($tmx_target[$repo][$entity])
+                                ? $tmx_target[$repo][$entity]
                                 : '@@missing@@';
     // Escape strings for HTML display
     $bz_target_string = $target_string = htmlspecialchars($unescaped_target_string);
 
-    if (strpos($entity, '.ftl:') !== false && strpos($tmx_source[$current_repo][$entity], ') ->') !== false) {
+    if (strpos($entity, '.ftl:') !== false && strpos($tmx_source[$repo][$entity], ') ->') !== false) {
         $string_class = 'string ftl_string';
     } else {
         $string_class = 'string';
@@ -39,7 +39,7 @@ foreach ($entities as $entity_object) {
 
     // Highlight special characters only after strings have been escaped
     $target_string = Strings::highlightSpecial($target_string);
-    $source_string = Strings::highlightSpecial(htmlspecialchars($tmx_source[$current_repo][$entity]));
+    $source_string = Strings::highlightSpecial(htmlspecialchars($tmx_source[$repo][$entity]));
 
     $clipboard_target_string = 'clip_' . md5($target_string);
     $string_id = md5($entity . mt_rand());
@@ -53,7 +53,7 @@ foreach ($entities as $entity_object) {
     $transliterate = $locale == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
 
     if ($transliterate) {
-        $transliterated_string = htmlspecialchars($tmx_target[$current_repo][$entity]);
+        $transliterated_string = htmlspecialchars($tmx_target[$repo][$entity]);
         $transliterated_string = ShowResults::getTransliteratedString(urlencode($transliterated_string), 'sr-Cyrl');
         $transliterated_string = Strings::highlightSpecial($transliterated_string);
         $transliterate_string_id = 'transliterate_' . $string_id;
@@ -64,26 +64,26 @@ foreach ($entities as $entity_object) {
 
     // 3locales view
     if ($extra_locale) {
-        $bz_target_string2 = $target_string2 = isset($tmx_target2[$current_repo][$entity])
-                                                    ? htmlspecialchars($tmx_target2[$current_repo][$entity])
+        $bz_target_string2 = $target_string2 = isset($tmx_target2[$repo][$entity])
+                                                    ? htmlspecialchars($tmx_target2[$repo][$entity])
                                                     : '';
         // Highlight special characters only after strings have been escaped
         $target_string2 = Strings::highlightSpecial($target_string2);
 
         $clipboard_target_string2 = 'clip_' . md5($target_string2);
 
-        $path_locale3 = VersionControl::getPath($locale2, $current_repo, $entity);
+        $path_locale3 = VersionControl::getPath($locale2, $repo, $entity);
 
         // Link to entity
         $entity_link = "?sourcelocale={$source_locale}"
                      . "&locale={$locale2}"
-                     . "&repo={$current_repo}"
+                     . "&repo={$repo}"
                      . "&search_type=entities&recherche={$entity}"
                      . '&entire_string=entire_string';
 
         $file_bug = '<a class="bug_link" target="_blank" href="'
                     . Bugzilla::reportErrorLink($locale2, $entity, $source_string,
-                                              $bz_target_string2, $current_repo, $entity_link)
+                                              $bz_target_string2, $repo, $entity_link)
                   . '">&lt;report a bug&gt;</a>';
 
         // If there is no target_string2, display an error
@@ -119,13 +119,13 @@ foreach ($entities as $entity_object) {
     // Link to entity
     $entity_link = "?sourcelocale={$source_locale}"
                  . "&locale={$locale}"
-                 . "&repo={$current_repo}"
+                 . "&repo={$repo}"
                  . "&search_type=entities&recherche={$entity}"
                  . '&entire_string=entire_string';
 
     $file_bug = '<a class="bug_link" target="_blank" href="'
                 . Bugzilla::reportErrorLink($locale, $entity, $source_string,
-                                          $bz_target_string, $current_repo, $entity_link)
+                                          $bz_target_string, $repo, $entity_link)
               . '">&lt;report a bug&gt;</a>';
     $anchor_name = str_replace(['/', ':'], '_', $entity);
 
@@ -166,7 +166,7 @@ foreach ($entities as $entity_object) {
     $toolUsedByTargetLocale = Project::getLocaleTool($locale);
 
     $edit_link = $toolUsedByTargetLocale != ''
-        ? ShowResults::getEditLink($toolUsedByTargetLocale, $current_repo, $entity, $unescaped_target_string, $locale)
+        ? ShowResults::getEditLink($toolUsedByTargetLocale, $repo, $entity, $unescaped_target_string, $locale)
         : '';
 
     $table .= "
@@ -174,7 +174,7 @@ foreach ($entities as $entity_object) {
     <td>
       <span class='celltitle'>Entity</span>
       <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>#</a>
-      <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$current_repo}' title='List all translations for this entity'>all locales</a>
+      <a class='l10n tag' href='/string/?entity={$entity}&amp;repo={$repo}' title='List all translations for this entity'>all locales</a>
       <span class='link_to_entity'>
         <a href='/{$entity_link}'>" . ShowResults::formatEntity($entity, $search->getSearchTerms()) . "</a>
       </span>
