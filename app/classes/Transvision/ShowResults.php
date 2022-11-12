@@ -38,7 +38,7 @@ class ShowResults
 
     /**
      * Create an array for search results with this format:
-     * 'entity' => [repository, 'string_locale 1', 'string_locale 2']
+     * 'entity' => ['repository', 'string_locale 1', 'string_locale 2']
      *
      * The incoming $entities have a structure provided by Utils::flattenTMX()
      *
@@ -227,7 +227,7 @@ class ShowResults
      * @param string $repo    Repository
      * @param array  $strings Haystack of strings to search in
      *
-     * @return string The string for the entity or false if no matching result
+     * @return string The string for the entity or '@@missing@@' if no matching result
      */
     public static function getStringFromEntityRepos($entity, $repo, $strings)
     {
@@ -246,7 +246,7 @@ class ShowResults
      * @param string $entity  Entity we are looking for
      * @param array  $strings Haystack of strings to search in
      *
-     * @return string The string for the entity or false if no matching result
+     * @return string The string for the entity or '@@missing@@' if no matching result
      */
     public static function getStringFromEntity($entity, $strings)
     {

@@ -260,7 +260,7 @@ class Project
     /**
      * Return the reference locale for a repository
      *
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
      * @return string Name of the reference locale
      */
@@ -274,9 +274,9 @@ class Project
     /**
      * Return true if it's a meta repository
      *
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
-     * @return boolean True if set as meta
+     * @return boolean True if the repository is set as meta
      */
     public static function isMetaRepository($repository)
     {
@@ -289,7 +289,7 @@ class Project
      * Return true if the locale is the reference locale for a repository
      *
      * @param string $locale     Locale code
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
      * @return boolean True is it's the reference locale
      */
@@ -301,7 +301,7 @@ class Project
     /**
      * Check if the specified repository is supported
      *
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
      * @return boolean True if supported repository, False if unknown
      */

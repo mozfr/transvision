@@ -33,6 +33,20 @@ class Project extends atoum\test
                 ->isEqualTo(false);
     }
 
+    public function testIsReferenceLocale()
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isReferenceLocale('en-US', 'all_projects'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'mozilla_org'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isReferenceLocale('fr', 'mozilla_org'))
+                ->isEqualTo(false);
+    }
+
     public function testGetRepositoriesNames()
     {
         $obj = new _Project();
