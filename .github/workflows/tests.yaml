@@ -58,6 +58,7 @@ jobs:
         run: |
           cp app/config/config.ini-ghactions app/config/config.ini
           vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
+
       - name: Functional tests (API, pages)
         run: |
           php tests/functional/api.php

@@ -52,8 +52,7 @@ then
     # 1. Clone or update mozilla-l10n-query in the libraries folder
     if [ ! -d ${libraries}/mozilla-l10n-query ]
     then
-        # TODO: remove the testing branch
-        git clone -b comm_l10n https://github.com/mozilla-l10n/mozilla-l10n-query ${libraries}/mozilla-l10n-query
+        git clone https://github.com/mozilla-l10n/mozilla-l10n-query ${libraries}/mozilla-l10n-query
     else
         git -C ${libraries}/mozilla-l10n-query pull --quiet
     fi
