@@ -132,13 +132,13 @@ class StringExtraction:
                     # Ignore Junk
                     if isinstance(entity, parser.Junk):
                         continue
-                    string_id = u"{}:{}".format(self.getRelativePath(file_name), entity)
+                    string_id = "{}:{}".format(self.getRelativePath(file_name), entity)
                     if file_extension == ".ftl":
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
-                            attr_string_id = u"{}:{}.{}".format(
+                            attr_string_id = "{}:{}.{}".format(
                                 self.getRelativePath(file_name),
                                 entity,
                                 attribute,
@@ -187,7 +187,7 @@ class StringExtraction:
             for string_id in string_ids:
                 translation = self.escape(self.translations[string_id])
                 string_id = self.escape(string_id)
-                output_php.append(u"'{}' => '{}',\n".format(string_id, translation))
+                output_php.append("'{}' => '{}',\n".format(string_id, translation))
             output_php.append("];\n")
 
             file_name = "{}.php".format(self.storage_file)
