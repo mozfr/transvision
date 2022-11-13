@@ -58,8 +58,12 @@ def main():
         # Make sure en-US and en are included in the list of supported locales
         if "en-US" not in supported_locales:
             supported_locales.append("en-US")
-        if repository_id == "mozilla_org":
+
+        # Exceptions
+        if repository_id in ["mozilla_org", "vpn_client"]:
             supported_locales.append("en")
+        if repository_id in ["android_l10n", "firefox_ios"]:
+            supported_locales.append("es")
 
         supported_repositories[repository_id] = {
             "folder_name": folder_name,
@@ -92,9 +96,10 @@ def main():
     # Besides standard VCS folders or templates, we need to exclude some
     # folders in specific projects.
     excluded_folders = {
-        "firefox_ios": [".git", "templates"],
-        "mozilla_org": [".git", "configs", "en"],
-        "vpn_client": [".git", ".github", "en"],
+        "comm_l10n": ["ja-JP-mac"],
+        "firefox_ios": ["templates", "es"],
+        "mozilla_org": ["configs", "en"],
+        "vpn_client": ["en"],
     }
 
     """
@@ -131,7 +136,10 @@ def main():
             available_folders = next(os.walk(folder_path))[1]
             available_folders.sort()
             for folder in available_folders:
-                if folder in excluded_folders.get(repository_id, []):
+                folder = folder.replace("_", "-")
+                if folder in excluded_folders.get(
+                    repository_id, []
+                ) or folder.startswith("."):
                     continue
                 if folder not in repository["locales"]:
                     # This folder is inside the repository but doesn't match
