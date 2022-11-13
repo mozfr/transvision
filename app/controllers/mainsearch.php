@@ -16,6 +16,10 @@ if (isset($_GET['json'])) {
     };
 
     $repo = $get_value('repo', 'gecko_strings');
+    # Redirect "all_projects" to 'global'
+    if ($repo == 'all_projects') {
+        $repo = 'global';
+    }
     $type = $get_value('search_type', 'strings');
     $source = $get_value('sourcelocale', Project::getReferenceLocale($repo));
     $target = $get_value('locale', 'fr');
