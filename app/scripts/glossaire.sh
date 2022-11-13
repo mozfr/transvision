@@ -104,7 +104,7 @@ echogreen "Checking if Transvision sources are available..."
 if ! $(ls $config/sources/*.txt &> /dev/null)
 then
     echored "CRITICAL ERROR: no sources available, aborting."
-    echored "Check the value for l10nwebservice in your config.ini and run setup.sh"
+    echored "Run setup.sh first."
     exit
 fi
 

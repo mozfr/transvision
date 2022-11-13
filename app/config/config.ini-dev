@@ -9,9 +9,6 @@ install=${TRANSVISIONDIR}/
 ; Path to configuration files for Transvision
 config=${TRANSVISIONDIR}/app/config
 
-; URL to l10n web service. Wrap the value between quotes if the URL contains special characters like ~
-l10nwebservice='https://flod.org/mozilla-l10n-query/'
-
 ; Only needed for production setup
 local_hg=/temp
 
