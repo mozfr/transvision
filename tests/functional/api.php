@@ -9,6 +9,7 @@ $paths = [
     ['v1/entity/gecko_strings/?id=browser/chrome/browser/IdontExist', 400, '{"error":"Entity not available"}'],
     ['v1/search/strings/gecko_strings/en-US/fr/New%2Bbookmarks/', 200, '{"browser\/chrome\/browser\/places\/bookmarkProperties.properties:dialogTitleAddMulti":{"New Bookmarks":"Nouveaux marque-pages"}}'],
     ['v1/search/strings/gecko_strings/en-US/fr/tralala/', 200, '[]'],
+    ['v1/search/all/gecko_strings/en-US/fr/showMac/', 200, '{"browser\/chrome\/browser\/downloads\/downloads.dtd:cmd.showMac.label":{"Find in Finder":"Ouvrir dans le Finder"}}'],
     ['v1/locales/gecko_strings/', 200, '["en-US","fr","it"]'],
     ['v1/locales/iDontExist/', 400, '{"error":"The repo queried (iDontExist) doesn\'t exist."}'],
     ['v1/repositories/', 200, '["gecko_strings","mozilla_org"]'],

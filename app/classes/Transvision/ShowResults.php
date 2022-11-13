@@ -661,34 +661,56 @@ class ShowResults
      * Search entity names: search full entity IDs (including path and filename),
      * then search entity names (without the full path) if there are no results.
      *
-     * @param array  $source_strings Array of source strings
-     * @param string $regex          Regular expression to search entity names
+     * @param array   $source_strings Array of source strings
+     * @param string  $regex          Regular expression to search entity names
+     * @param boolean $flat           If the source and output are flat or
+     *                                separated by repo
      *
-     * @return array List of matching items with structure [project, entity]
+     * @return array List of matching items with structure [project, entity],
+     *               or [entity] if flat
      */
-    public static function searchEntities($source_strings, $regex)
+    public static function searchEntities($source_strings, $regex, $flat = false)
     {
-        $entities = [];
-        foreach ($source_strings as $repo => $repo_strings) {
+        if ($flat) {
             // Search through the full entity ID
-            $repo_entities = preg_grep($regex, array_keys($repo_strings));
+            $entities = preg_grep($regex, array_keys($source_strings));
 
             /*
                 If there are no results, search also through the entity names.
                 This is needed for "entire string" when only the entity name is
                 provided.
             */
-            if (empty($repo_entities)) {
+            if (empty($entities)) {
                 $entity_names = [];
-                foreach ($repo_strings as $entity => $translation) {
+                foreach ($source_strings as $entity => $translation) {
                     $entity_names[$entity] = explode(':', $entity)[1];
                 }
-                $repo_entities = preg_grep($regex, $entity_names);
-                $repo_entities = array_keys($repo_entities);
+                $entities = preg_grep($regex, $entity_names);
+                $entities = array_keys($entities);
             }
+        } else {
+            $entities = [];
+            foreach ($source_strings as $repo => $repo_strings) {
+                // Search through the full entity ID
+                $repo_entities = preg_grep($regex, array_keys($repo_strings));
 
-            foreach ($repo_entities as $entity) {
-                $entities[] = [$repo, $entity];
+                /*
+                    If there are no results, search also through the entity names.
+                    This is needed for "entire string" when only the entity name is
+                    provided.
+                */
+                if (empty($repo_entities)) {
+                    $entity_names = [];
+                    foreach ($repo_strings as $entity => $translation) {
+                        $entity_names[$entity] = explode(':', $entity)[1];
+                    }
+                    $repo_entities = preg_grep($regex, $entity_names);
+                    $repo_entities = array_keys($repo_entities);
+                }
+
+                foreach ($repo_entities as $entity) {
+                    $entities[] = [$repo, $entity];
+                }
             }
         }
 

@@ -302,6 +302,7 @@ class ShowResults extends atoum\test
                     ],
                 ],
                 '~^browser/chrome/browser/migration/migration.properties:sourceNameIE$~i',
+                false,
                 [
                     [
                         'test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE',
@@ -316,9 +317,22 @@ class ShowResults extends atoum\test
                     ],
                 ],
                 '~sourceNameIE~i',
+                false,
                 [
                     ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE'],
                     ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE1'],
+                ],
+            ],
+            [
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                ],
+                '~sourceNameIE~i',
+                true,
+                [
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1',
                 ],
             ],
             [
@@ -327,6 +341,7 @@ class ShowResults extends atoum\test
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
                 ]],
                 '~^sourceNameIE$~i',
+                false,
                 [
                     ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE'],
                 ],
@@ -336,11 +351,13 @@ class ShowResults extends atoum\test
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE' => 'test',
                 ]],
                 '~foobar~',
+                false,
                 [],
             ],
             [
                 [],
                 '~foobar~',
+                false,
                 [],
             ],
         ];
@@ -349,12 +366,12 @@ class ShowResults extends atoum\test
     /**
      * @dataProvider searchEntitiesDP
      */
-    public function testSearchEntities($a, $b, $c)
+    public function testSearchEntities($a, $b, $c, $d)
     {
         $obj = new _ShowResults();
         $this
-            ->array($obj->searchEntities($a, $b))
-                ->isEqualTo($c);
+            ->array($obj->searchEntities($a, $b, $c))
+                ->isEqualTo($d);
     }
 
     public function testGetSuggestionsResults()
