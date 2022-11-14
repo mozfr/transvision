@@ -18,7 +18,7 @@ if ($search->isEntireString()) {
     }
 }
 
-# Flatten results to be able to count and slice them
+// Flatten results to be able to count and slice them
 $locale3_strings = Utils::flattenTMX($locale3_strings);
 array_splice($locale3_strings, 200);
 

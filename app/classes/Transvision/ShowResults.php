@@ -318,7 +318,7 @@ class ShowResults
             and URLencode the text.
         */
         if (in_array($repo, $free_text_repos)) {
-            # Disable link if the translation is missing
+            // Disable link if the translation is missing
             if ($text == '@@missing@@' || Strings::startsWith($text, '<em class="error">Warning:')) {
                 return '';
             }
@@ -593,7 +593,7 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       {$edit_link[1]}&nbsp;";
-                # Don't display Bugzilla link for the reference locale
+                // Don't display Bugzilla link for the reference locale
                 if (! Project::isReferenceLocale($locale2, $repo)) {
                     $extra_column_rows .= "<a class='bug_link' target='_blank' href='{$bz_link[1]}'>
                             &lt;report a bug&gt;
@@ -639,7 +639,7 @@ class ShowResults
                         &lt;source&gt;
                       </a>
                       {$edit_link[0]}&nbsp;";
-            # Don't display Bugzilla link for the reference locale
+            // Don't display Bugzilla link for the reference locale
             if (! Project::isReferenceLocale($locale2, $repo)) {
                 $table .= "<a class='bug_link' target='_blank' href='{$bz_link[0]}'>
                             &lt;report a bug&gt;

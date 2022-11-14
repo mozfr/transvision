@@ -16,7 +16,7 @@ if (isset($_GET['json'])) {
     };
 
     $repo = $get_value('repo', 'gecko_strings');
-    # Redirect "all_projects" to 'global'
+    // Redirect "all_projects" to 'global'
     if ($repo == 'all_projects') {
         $repo = 'global';
     }

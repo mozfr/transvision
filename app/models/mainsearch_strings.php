@@ -17,7 +17,7 @@ if ($search->isEntireString()) {
     }
 }
 
-# Add entity matches to the results
+// Add entity matches to the results
 if ($search->getSearchType() == 'strings_entities') {
     $entities = ShowResults::searchEntities($tmx_source, $search->getRegex());
     foreach ($entities as $entity_object) {
@@ -26,7 +26,7 @@ if ($search->getSearchType() == 'strings_entities') {
     }
 }
 
-# Flatten results to be able to count and slice them
+// Flatten results to be able to count and slice them
 $locale1_strings = Utils::flattenTMX($locale1_strings);
 $locale2_strings = Utils::flattenTMX($locale2_strings);
 
