@@ -116,7 +116,6 @@ class VersionControl
 
     /**
      * Generate a path to the GitHub repo for the file.
-     * Only mozilla.org is supported for now.
      *
      * @param string $locale Locale code
      * @param string $repo   Repository name
@@ -130,6 +129,9 @@ class VersionControl
             $repo_data = Project::$repos_info[$repo];
             $git_repo = $repo_data['git_repository'];
             $file_path = self::extractFilePath($path);
+            $git_branch = isset($repo_data['git_branch'])
+                ? $repo_data['git_branch']
+                : 'main';
             if (isset($repo_data['git_subfolder'])) {
                 $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
             }
@@ -140,7 +142,7 @@ class VersionControl
                     : '-' . str_replace('-', '-r', $locale);
                 $file_path = str_replace('values', "values{$locale_android}", $file_path);
 
-                return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$file_path}";
+                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
             if ($repo == 'mozilla_org') {
                 // Special case for mozilla.org (Fluent)
@@ -148,14 +150,15 @@ class VersionControl
                     $file_path = str_replace('en/', "{$locale}/", $file_path);
                 }
 
-                return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$file_path}";
+                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
         } else {
             $file_path = $path;
             $git_repo = $repo;
+            $git_branch = 'main';
         }
 
-        return "https://github.com/mozilla-l10n/{$git_repo}/blob/master/{$locale}/{$file_path}";
+        return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
     }
 
     /**

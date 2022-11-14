@@ -1,13 +1,13 @@
 name: Run Tests
 on:
-  # Trigger on push to master
+  # Trigger on push to the default branch
   push:
     branches:
-      - master
+      - main
   # Trigger the workflow on pull request events
-  # but only for the master branch
+  # but only for the default branch
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     types: [ opened, synchronize, reopened ]
   workflow_dispatch:
 jobs:

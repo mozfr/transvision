@@ -1351,7 +1351,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
         [
-            'message' => ['Continuous integration of commits to master to the <a href="https://transvision-beta.mozfr.org/">beta</a> site via GitHub notification API'],
+            'message' => ['Continuous integration of commits to default branch to the <a href="https://transvision-beta.mozfr.org/">beta</a> site via GitHub notification API'],
             'section' => ['developers'],
             'type'    => ['new'],
             'issues'  => [400],
@@ -1714,7 +1714,7 @@ $changelog = [
             'authors' => ['pike'],
         ],
         [
-            'message' => ['Updated <a href="https://github.com/mozfr/transvision/blob/master/README.md">README</a> page to better explain the installation of Transvision for developers'],
+            'message' => ['Updated <a href="https://github.com/mozfr/transvision/blob/main/README.md">README</a> page to better explain the installation of Transvision for developers'],
             'section' => ['developers'],
             'authors' => ['jesus'],
         ],

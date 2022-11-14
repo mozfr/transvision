@@ -65,6 +65,7 @@ class Project
         ],
         'mozilla_org'=> [
             'git_repository'    => 'www-l10n',
+            'git_branch'        => 'master',
             'pontoon_project'   => 'mozillaorg',
             'reference_locale'  => 'en',
             'source_type'       => 'mixed',
@@ -72,6 +73,7 @@ class Project
         ],
         'android_l10n' => [
             'git_repository'    => 'android-l10n',
+            'git_branch'        => 'master',
             'locale_mapping'    => [], // To avoid using Bugzilla
             'pontoon_project'   => 'android-l10n',
             'source_type'       => 'xml',
