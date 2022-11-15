@@ -2,7 +2,7 @@
 
 Transvision is a Web application targeting the Mozilla localization community, created and maintained by the French Mozilla community (https://www.mozfr.org).
 
-The main purpose of Transvision is to provide a specialized search engine to find localized strings in Mozilla code repositories for all Mozilla products (Firefox, Firefox for Android, Firefox for iOS, Android projects, Thunderbird, SeaMonkey) and websites (currently only www.mozilla.org is supported) via a Web interface. There are also side-features such as checks for common typographical errors for some languages or validity checks for localized access keys in the UI).
+The main purpose of Transvision is to provide a specialized search engine to find localized strings in Mozilla code repositories for some Mozilla products and websites via a Web interface. There are also side-features such as checks for common typographical errors for some languages or validity checks for localized access keys in the UI.
 
 Transvision is written in PHP, the string extraction is done with the compare-locales library (Python) and server install/maintenance scripts are in Bash.
 
@@ -12,21 +12,20 @@ https://transvision.mozfr.org
 Transvision Beta is available at:
 https://transvision-beta.mozfr.org
 
-Transvision was created by Philippe Dessante, from the French Mozilla localization team.
+Transvision was originally created by Philippe Dessante, from the French Mozilla localization team.
 
 ## Getting Started
 
 The Transvision team uses Git and GitHub for both development and issue tracking.
 - If you'd like to contribute code back to us, you can do it using a [Pull Request][].
-- We generate automatic documentation of [Transvision classes][].
 - If you want to file a bug [Create a new issue on GitHub][] or contact the team.
 
 ## Dependencies
 
 * Bash scripting support
-* Python 3.5 and later
+* Python 3.8 and later
  * [pip](https://pip.pypa.io/en/stable/installing/) and [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
-* PHP >= 7.0 with the following extensions:
+* PHP >= 7.4 with the following extensions:
  * php-intl for the transliteration feature
  * php-mbstring for multibyte string functions
 * Composer (Dependency Manager for PHP, https://getcomposer.org/)
@@ -58,7 +57,7 @@ Note that if you launch start.sh again after the installation, it will not downl
 
 ## Update glossary
 
-- To update Transvision glossary, run `app/scripts/glossaire.sh` (only for full installations) .
+To update Transvision glossary, run `app/scripts/glossaire.sh` (only for full installations) .
 
 ## Contribution tips
 
@@ -72,4 +71,4 @@ MPL 2
 [Create a new issue on github]: https://github.com/mozfr/transvision/issues
 [Transvision Project]: https://github.com/mozfr/transvision
 [npm]: https://www.npmjs.com
-[Coding Standards]:https://github.com/mozfr/transvision/wiki/Code-conventions
+[Coding Standards]: https://github.com/mozfr/transvision/wiki/Code-conventions
