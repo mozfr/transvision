@@ -98,7 +98,7 @@ class Search
      */
     protected $form_search_options = [
         'case_sensitive', 'entire_string', 'repo',
-        'search_type', 't2t', 'each_word', 'entire_words',
+        'search_type', 'each_word', 'entire_words',
     ];
 
     /**
@@ -332,13 +332,23 @@ class Search
     /**
      * Grep data in regex
      *
-     * @param array $source_strings The array of strings to be filtered
+     * @param array   $source_strings The array of strings to be filtered
+     * @param boolean $flat_source    If true, the source source is a flat array
      *
      * @return array Return an array of filtered strings
      */
-    public function grep($source_strings)
+    public function grep($source_strings, $flat = true)
     {
-        return preg_grep($this->getRegex(), $source_strings);
+        if ($flat) {
+            return preg_grep($this->getRegex(), $source_strings);
+        } else {
+            $results = [];
+            foreach ($source_strings as $repo => $strings) {
+                $results[$repo] = preg_grep($this->getRegex(), $strings);
+            }
+
+            return $results;
+        }
     }
 
     /**

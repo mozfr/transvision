@@ -94,26 +94,6 @@ class Utils extends atoum\test
                 ->isEqualTo($c);
     }
 
-    public function checkBoxState1DP()
-    {
-        $_GET['t2t'] = 'somedata';
-
-        return [
-            [$_GET['t2t'], ''],
-        ];
-    }
-
-    /**
-     * @dataProvider checkBoxState1DP
-     */
-    public function testCheckboxState1($a, $b)
-    {
-        $obj = new _Utils();
-        $this
-            ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' disabled="disabled"');
-    }
-
     public function checkBoxState2DP()
     {
         $_GET['t2t'] = 'somedata';
@@ -255,22 +235,49 @@ class Utils extends atoum\test
                 ->isEqualTo($c);
     }
 
-    public function getRepoStringsDP()
+    public function testGetRepoStrings()
+    {
+        $obj = new _Utils();
+        $this
+            ->array($obj->getRepoStrings('fr', 'gecko_strings'))
+                ->contains('Ouvrir dans le Finder');
+
+        $results = $obj->getRepoStrings('fr', 'gecko_strings', false);
+        $this
+            ->array($results)
+                ->hasKey('gecko_strings');
+        $this
+            ->array($results['gecko_strings'])
+                ->contains('Ouvrir dans le Finder');
+    }
+
+    public function flattenTMXDP()
     {
         return [
-            ['fr', 'gecko_strings', 'Ouvrir dans le Finder'],
+            [
+                [
+                    'test_repo' => [
+                        'entity'  => 'text',
+                        'entity2' => 'text2',
+                    ],
+                ],
+                [
+                    ['test_repo', 'entity', 'text'],
+                    ['test_repo', 'entity2', 'text2'],
+                ],
+            ],
         ];
     }
 
     /**
-     * @dataProvider getRepoStringsDP
+     * @dataProvider flattenTMXDP
      */
-    public function testGetRepoStrings($a, $b, $c)
+    public function testFlattenTMX($a, $b)
     {
         $obj = new _Utils();
         $this
-            ->array($obj->getRepoStrings($a, $b))
-                ->contains($c);
+            ->array($obj->flattenTMX($a))
+                ->isEqualTo($b);
     }
 
     public function getOrSetDP()

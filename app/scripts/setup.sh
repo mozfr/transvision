@@ -36,7 +36,7 @@ function setupVirtualEnv() {
     echo "Installing dependencies in virtualenv"
     source python-venv/bin/activate || exit 1
     pip install --upgrade pip
-    pip install -r requirements.txt --upgrade
+    pip install -r requirements.txt --upgrade --quiet
     deactivate
 }
 
@@ -67,48 +67,24 @@ function initGeckoStringsRepo() {
                     hg clone $repo_path/$locale $locale
                 fi
             fi
-
-            if [ ! -d $root/TMX/$locale ]
-            then
-                echogreen "Creating folder cache for: $locale"
-                mkdir -p $root/TMX/$locale
-            fi
     done
 }
 
-function initOtherSources() {
-    # Can add other products to array products, as long
-    # as their code is located in https://hg.mozilla.org/PRODUCT
-    local products=( chatzilla )
-    for product in "${products[@]}"
-    do
-        if [ ! -d $sources_path/$product/.hg ]
-        then
-            echogreen "Checking out the following repo:"
-            echogreen $sources_path/$product
-            cd $sources_path
-            hg clone https://hg.mozilla.org/$product/
-        fi
-    done
+function initCommL10nRepo() {
+    local repo_folder="comm_l10n_path"
+
+    if [ ! -d ${!repo_folder}/.hg ]
+    then
+        echogreen "Checking out comm-l10n repo."
+        cd ${local_hg}
+        hg clone https://hg.mozilla.org/projects/comm-l10n/ comm_l10n
+    fi
 }
 
 # Store current directory path to be able to call this script from anywhere
 DIR=$(dirname "$0")
 # Convert .ini file in bash variables
 eval $($DIR/ini_to_bash.py $DIR/../config/config.ini)
-
-# Generate sources (supported locales and repositories)
-echogreen "Generate list of locales and supported repositories"
-$DIR/generate_sources $config
-
-# Check if we have sources
-echogreen "Checking if Transvision sources are available..."
-if ! $(ls $config/sources/*.txt &> /dev/null)
-then
-    echored "CRITICAL ERROR: no sources available, aborting."
-    echored "Check the value for l10nwebservice in your config.ini"
-    exit
-fi
 
 # Create all bash variables
 source $DIR/bash_variables.sh
@@ -123,6 +99,51 @@ do
         mkdir -p "$folder"
     fi
 done
+
+# Generate sources (supported locales and repositories)
+# 1. Clone or update mozilla-l10n-query in the libraries folder
+if [ ! -d ${libraries}/mozilla-l10n-query ]
+then
+    git clone https://github.com/mozilla-l10n/mozilla-l10n-query ${libraries}/mozilla-l10n-query
+else
+    git -C ${libraries}/mozilla-l10n-query pull --quiet
+fi
+# 2. Install or update Composer
+if [ ! -d ${libraries}/mozilla-l10n-query/composer.phar ]
+then
+    $DIR/install_composer.sh "${libraries}/mozilla-l10n-query"
+else
+    ${libraries}/mozilla-l10n-query/composer.phar --self-udpate
+fi
+# 3. Install or update Composer dependencies
+cwd=$(pwd)
+cd "${libraries}/mozilla-l10n-query"
+if [ ! -f composer.lock ]
+then
+    php composer.phar install
+else
+    php composer.phar update
+fi
+cd ${cwd}
+# 4. Run the PHP server locally on port 8088 (in background)
+nohup php -S localhost:8088 -t "${libraries}/mozilla-l10n-query/web" >/dev/null 2>&1 &
+PHP_SERVER_PID=$!
+echogreen "PHP server running on port 8088 (PID: ${PHP_SERVER_PID})"
+sleep 1
+# 5. Generate sources
+echogreen "Generate list of locales and supported repositories"
+$DIR/generate_sources $config http://localhost:8088
+# 6. Kill the PHP server
+echogreen "Stopping PHP server"
+kill -9 $PHP_SERVER_PID
+
+# Check if we have sources
+echogreen "Checking if Transvision sources are available..."
+if ! $(ls $config/sources/*.txt &> /dev/null)
+then
+    echored "CRITICAL ERROR: no sources available, aborting."
+    exit
+fi
 
 # Store version information in cache
 DEV_VERSION="dev"
@@ -145,7 +166,7 @@ echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupVirtualEnv
 initGeckoStringsRepo
-initOtherSources
+initCommL10nRepo
 
 # Check out GitHub repos
 cd $mozilla_org

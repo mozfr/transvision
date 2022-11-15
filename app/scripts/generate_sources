@@ -5,9 +5,6 @@ if (php_sapi_name() != 'cli') {
     die('This command can only be used in CLI mode.');
 }
 
-if (count($argv) < 2) {
-    die("This command needs more parameters, please check generate_sources --help.\n");
-}
 if (isset($argv[1])) {
     if (in_array($argv[1], ['-h', '--help'])) {
         $command_help = "generate_sources - Create .txt sources files (supported locales and repositories)\n" .
@@ -17,15 +14,13 @@ if (isset($argv[1])) {
     }
 }
 
-$config_folder = realpath($argv[1]);
-$server_config = parse_ini_file("{$config_folder}/config.ini");
-
-if (! isset($server_config['l10nwebservice'])) {
-    error_log('Missing l10nwebservice parameter in config.ini');
-    exit(1);
+if (count($argv) < 3) {
+    die("This command needs more parameters, please check generate_sources --help.\n");
 }
 
-$uri = $server_config['l10nwebservice'];
+$config_folder = realpath($argv[1]);
+$uri = $argv[2];
+
 if (! $repositories = json_decode(file_get_contents($uri), true)) {
     error_log('JSON source is not valid or not reachable.');
     exit(1);
@@ -56,7 +51,7 @@ $file_name = "{$config_folder}/sources/supported_repositories.json";
 file_put_contents($file_name, json_encode($json_repositories));
 
 // Create list of locales working in tools like Pootle and Pontoon
-$uri = $server_config['l10nwebservice'] . '/?tool=all';
+$uri = "{$uri}/?tool=all";
 if (! $file_content = file_get_contents($uri)) {
     error_log('JSON source is not reachable.');
     exit(1);

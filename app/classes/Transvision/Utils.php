@@ -71,14 +71,6 @@ class Utils
      */
     public static function checkboxState($str, $extra = '')
     {
-        if (isset($_GET['t2t']) && $extra != 't2t') {
-            return ' disabled="disabled"';
-        }
-
-        if (isset($_GET['t2t']) && $extra == 't2t') {
-            return ' checked="checked"';
-        }
-
         return $str ? ' checked="checked"' : '';
     }
 
@@ -142,27 +134,71 @@ class Utils
     /**
      * Return an array of strings for a locale from a repository
      *
-     * @param string $locale     Locale we want to have strings for
-     * @param string $repository string repository such as central, mozilla_org...
+     * @param string  $locale     Locale we want to have strings for
+     * @param string  $repository String repository such as central, mozilla_org...
+     * @param boolean $flat       If true, the returned array will be flat
      *
      * @return array Localized strings or empty array if no match
      */
-    public static function getRepoStrings($locale, $repository)
+    public static function getRepoStrings($locale, $repository, $flat = true)
     {
         $locale = Project::getLocaleInContext($locale, $repository);
+        $tmx_output = [];
 
-        $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
-        if (! is_file($file)) {
-            return [];
+        if ($flat) {
+            $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
+            if (! is_file($file)) {
+                return [];
+            }
+
+            include $file;
+            if (! isset($tmx)) {
+                error_log('$tmx not set in file: ' . $file);
+            } else {
+                return $tmx;
+            }
+        } else {
+            $repositories = Project::isMetaRepository($repository)
+                ? Project::getRepositories()
+                : [$repository];
+
+            foreach ($repositories as $repository) {
+                $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
+                if (! is_file($file)) {
+                    continue;
+                }
+
+                include $file;
+                if (! isset($tmx)) {
+                    error_log('$tmx not set in file: ' . $file);
+                } else {
+                    $tmx_output[$repository] = $tmx;
+                }
+            }
+
+            return $tmx_output;
         }
 
-        include $file;
+        return [];
+    }
 
-        if (! isset($tmx)) {
-            error_log('$tmx not set in file: ' . $file);
+    /**
+     * Return a flat array of entity items with structure (repo, entity, entity's text)
+     *
+     * @param string $tmx Array with strings organized per repo
+     *
+     * @return array Flattened array
+     */
+    public static function flattenTMX($tmx)
+    {
+        $output = [];
+        foreach ($tmx as $repo => $repo_strings) {
+            foreach ($repo_strings as $entity => $text) {
+                $output[] = [$repo, $entity, $text];
+            }
         }
 
-        return $tmx;
+        return $output;
     }
 
     /**

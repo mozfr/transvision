@@ -1,4 +1,8 @@
 {
+  "0": {
+    "id": "all_projects",
+    "name": "All Projects"
+  },
   "1": {
     "id": "gecko_strings",
     "name": "Gecko Products"

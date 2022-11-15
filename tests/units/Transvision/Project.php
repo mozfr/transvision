@@ -13,14 +13,53 @@ class Project extends atoum\test
         $obj = new _Project();
         $repos = ['gecko_strings', 'mozilla_org'];
         $this
+            ->array($obj->getRepositories(true))
+                ->isEqualTo($repos);
+
+        $repos = ['all_projects', 'gecko_strings', 'mozilla_org'];
+        $this
             ->array($obj->getRepositories())
                 ->isEqualTo($repos);
+    }
+
+    public function testIsMetaRepository()
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isMetaRepository('all_projects'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isMetaRepository('gecko_strings'))
+                ->isEqualTo(false);
+    }
+
+    public function testIsReferenceLocale()
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isReferenceLocale('en-US', 'all_projects'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'mozilla_org'))
+                ->isEqualTo(true);
+        $this
+            ->boolean($obj->isReferenceLocale('fr', 'mozilla_org'))
+                ->isEqualTo(false);
     }
 
     public function testGetRepositoriesNames()
     {
         $obj = new _Project();
         $repos = [
+            'gecko_strings' => 'Gecko Products',
+            'mozilla_org'   => 'mozilla.org',
+        ];
+        $this
+            ->array($obj->getRepositoriesNames(true))
+                ->isEqualTo($repos);
+
+        $repos = [
+            'all_projects'  => 'All Projects',
             'gecko_strings' => 'Gecko Products',
             'mozilla_org'   => 'mozilla.org',
         ];
@@ -32,7 +71,7 @@ class Project extends atoum\test
     public function testGetDesktopRepositories()
     {
         $obj = new _Project();
-        $repos = ['gecko_strings'];
+        $repos = ['gecko_strings', 'comm_l10n'];
         $this
             ->array($obj->getDesktopRepositories())
                 ->isEqualTo($repos);
@@ -107,6 +146,28 @@ class Project extends atoum\test
         $this
             ->string($obj->getReferenceLocale('mozilla_org'))
                 ->isEqualTo('en');
+    }
+
+    public function testIstReferenceLocale()
+    {
+        $obj = new _Project();
+        $this
+            ->boolean($obj->isReferenceLocale('en-US', 'gecko_strings'))
+                ->isEqualTo(True);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'gecko_strings'))
+                ->isEqualTo(False);
+        $this
+            ->boolean($obj->isReferenceLocale('en', 'mozilla_org'))
+                ->isEqualTo(True);
+    }
+
+    public function testGetAllLocales()
+    {
+        $obj = new _Project();
+        $this
+            ->array($obj->getAllLocales())
+                ->isEqualTo(['en-US', 'fr', 'it']);
     }
 
     public function testIsValidRepository()

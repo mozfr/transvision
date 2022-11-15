@@ -8,7 +8,8 @@ foreach ($locales_list as $loc) {
     $target_locales_list .= "\t<option" . $ch . ' value=' . $loc . '>' . $loc . "</option>\n";
 }
 
-foreach ($repos_nice_names as $repo => $name) {
+$repositories = Project::getRepositoriesNames(true);
+foreach ($repositories as $repo => $name) {
     $checkboxes .= '<p>
                 <input type="checkbox"
                        name="' . $repo . '"

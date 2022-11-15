@@ -104,7 +104,7 @@ echogreen "Checking if Transvision sources are available..."
 if ! $(ls $config/sources/*.txt &> /dev/null)
 then
     echored "CRITICAL ERROR: no sources available, aborting."
-    echored "Check the value for l10nwebservice in your config.ini and run setup.sh"
+    echored "Run setup.sh first."
     exit
 fi
 
@@ -143,24 +143,13 @@ function updateLocale() {
     fi
 }
 
-function updateGeckoStringsChannelRepo() {
-    # Update specified repository. Parameters:
-    # $1: Channel name used in folders and TMX
-    # $2: Channel name used in variable names
-
+function updateGeckoStrings() {
     function buildCache() {
         # Build the cache
         # $1: Locale code
         echogreen "Create cache for $repo_name/$1"
+        mkdir -p "${root}TMX/${locale}/"
         nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
-        if [ "$1" = "en-US" ]
-        then
-            # Append strings for other sources
-            # Chatzilla
-            nice -20 python $install/app/scripts/tmx/tmx_products.py $sources_path/chatzilla/locales/en-US en-US en-US $repo_name append extensions/irc
-        else
-            nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/extensions/irc $1 en-US $repo_name append extensions/irc
-        fi
     }
 
     local repo_name="gecko_strings"
@@ -265,6 +254,34 @@ function updateGeckoStringsChannelRepo() {
     fi
 }
 
+function updateCommL10n() {
+    function buildCache() {
+        # Build the cache
+        # $1: Locale code
+        echogreen "Create cache for $repo_name/$1"
+        mkdir -p "${root}TMX/${locale}/"
+        nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
+    }
+
+    local repo_name="comm_l10n"
+    local repo_folder="$comm_l10n_path"
+    local locale_list="comm_l10n_locales"
+
+    if [ "$checkrepo" = true ]
+    then
+        # Pull repo
+        echogreen "Update comm-l10n repository"
+        hg --cwd $repo_folder pull --update -r default
+    fi
+
+    # Build cache for en-US first, then other locales
+    buildCache en-US
+    for locale in $(cat ${!locale_list})
+    do
+        buildCache $locale
+    done
+}
+
 function updateOtherProduct() {
     # $1: product code
     # $2: product name
@@ -290,7 +307,7 @@ function updateAndroidl10n() {
     fi
     echogreen "Extract strings for android-l10n"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/l10n.toml en-US android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile.toml en-US android_l10n
 }
 
 function updateMozOrg() {
@@ -309,7 +326,8 @@ function updateMozOrg() {
 echogreen "Activating virtualenv..."
 source $install/python-venv/bin/activate || exit 1
 
-updateGeckoStringsChannelRepo
+updateGeckoStrings
+updateCommL10n
 updateMozOrg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateOtherProduct vpn_client "Mozilla VPN Client" tmx_xliff

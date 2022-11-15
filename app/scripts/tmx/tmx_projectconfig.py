@@ -134,7 +134,7 @@ class StringExtraction:
                 for string_id in string_ids:
                     translation = self.escape(translations[string_id])
                     string_id = self.escape(string_id)
-                    output_php.append(u"'{}' => '{}',\n".format(string_id, translation))
+                    output_php.append("'{}' => '{}',\n".format(string_id, translation))
                 output_php.append("];\n")
 
                 file_name = "{}.php".format(storage_file)

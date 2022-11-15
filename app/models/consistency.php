@@ -1,12 +1,9 @@
 <?php
 namespace Transvision;
 
-// Build arrays for the search form, ignore mozilla.org
-$channel_selector = Utils::getHtmlSelectOptions(
-    $repos_nice_names,
-    $repo,
-    true
-);
+// Set up the repository selector, remove meta project
+$repositories = Project::getSupportedRepositories(true);
+$repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 $reference_locale = Project::getReferenceLocale($repo);
 $supported_locales = Project::getRepositoryLocales($repo, [$reference_locale]);
@@ -16,74 +13,13 @@ if (! in_array($locale, $supported_locales)) {
 }
 $target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
 
-$available_filters = [
-    'all'         => 'All products',
-    'firefox'     => 'Firefox for desktop and Android',
-    'seamonkey'   => 'SeaMonkey',
-    'thunderbird' => 'Thunderbird',
-];
-
-if (isset($_GET['filter'])) {
-    $selected_filter = isset($available_filters[$_GET['filter']])
-        ? Utils::secureText($_GET['filter'])
-        : 'all';
-} else {
-    $selected_filter = 'all';
-}
-$filter_visibility = Project::isDesktopRepository($repo)
-    ? ''
-    : 'style="display: none;"';
-$filter_selector = Utils::getHtmlSelectOptions(
-    $available_filters,
-    $selected_filter,
-    true
-);
-
 $source_strings = Utils::getRepoStrings($reference_locale, $repo);
 // Remove blanks strings. Using 'strlen' to avoid filtering out strings set to 0
 $target_strings = array_filter(Utils::getRepoStrings($locale, $repo), 'strlen');
 
-// No filtered component by default
-$filter_message = '';
-
 // Remove strings that should not be checked, like accesskeys, CSS, etc.
 $duplicated_strings_source = Consistency::filterStrings($source_strings, $repo);
 $duplicated_strings_target = Consistency::filterStrings($target_strings, $repo);
-
-if (! empty($source_strings) && $repo == 'gecko_strings') {
-    // Filter out components
-    switch ($selected_filter) {
-        case 'firefox':
-            $excluded_components = [
-                'calendar', 'chat', 'editor', 'extensions', 'mail', 'suite',
-            ];
-            break;
-        case 'seamonkey':
-            $excluded_components = [
-                'browser', 'calendar', 'chat', 'extensions', 'mail', 'mobile',
-            ];
-            break;
-        case 'thunderbird':
-            $excluded_components = [
-                'browser', 'extensions', 'mobile', 'suite',
-            ];
-            break;
-        default:
-            $excluded_components = [];
-            break;
-    }
-    $filter_message = empty($excluded_components)
-        ? ''
-        : 'Currently excluding the following folders: ' . implode(', ', $excluded_components) . '.';
-    $duplicated_strings_source = Consistency::filterComponents(
-        $duplicated_strings_source,
-        $excluded_components
-    );
-    $duplicated_strings_target = Consistency::filterComponents(
-        $duplicated_strings_target,
-        $excluded_components
-    );
-}
 
 /*
     Find strings that are identical in source and target language.

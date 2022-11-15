@@ -10,9 +10,9 @@ if (! in_array($locale, $supported_locales)) {
     $locale = array_shift($supported_locales);
 }
 
-// Set up channel selector, ignore mozilla.org
-$channels = Project::getSupportedRepositories();
-$channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
+// Set up the repository selector, remove meta project
+$repositories = Project::getSupportedRepositories(true);
+$repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 // Build the target locale switcher
 $target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);

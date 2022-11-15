@@ -13,18 +13,6 @@ use Json\Json;
  */
 class Project
 {
-    /**
-     * This array maps different subfolders name for Desktop products
-     * with their display name
-     */
-    public static $components_names = [
-        'browser'  => 'Firefox Desktop',
-        'mobile'   => 'Firefox for Android',
-        'mail'     => 'Thunderbird',
-        'suite'    => 'SeaMonkey',
-        'calendar' => 'Lightning',
-    ];
-
     /*
      * This array contains information about supported repositories.
      *
@@ -52,6 +40,9 @@ class Project
      *
      */
     public static $repos_info = [
+        'all_projects' => [
+            'meta' => true,
+        ],
         'firefox_ios' => [
             'git_repository'    => 'firefoxios-l10n',
             'locale_mapping'    => [
@@ -68,8 +59,13 @@ class Project
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
+        'comm_l10n'=> [
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
+        ],
         'mozilla_org'=> [
             'git_repository'    => 'www-l10n',
+            'git_branch'        => 'master',
             'pontoon_project'   => 'mozillaorg',
             'reference_locale'  => 'en',
             'source_type'       => 'mixed',
@@ -77,6 +73,7 @@ class Project
         ],
         'android_l10n' => [
             'git_repository'    => 'android-l10n',
+            'git_branch'        => 'master',
             'locale_mapping'    => [], // To avoid using Bugzilla
             'pontoon_project'   => 'android-l10n',
             'source_type'       => 'xml',
@@ -100,6 +97,7 @@ class Project
         // Desktop products
         'desktop'     => [
             'gecko_strings',
+            'comm_l10n',
         ],
         // Products using Git
         'git' => [
@@ -115,10 +113,12 @@ class Project
     /**
      * Create a list of all supported repositories.
      *
+     * @param boolean $exclude_meta Exclude meta project
+     *
      * @return array List of supported repositories, key is the repo, value is
      *               the nice name for the repo for display purposes.
      */
-    public static function getSupportedRepositories()
+    public static function getSupportedRepositories($exclude_meta = false)
     {
         // Read list of repositories from supported_repositories.json
         $file_name = APP_SOURCES . 'supported_repositories.json';
@@ -130,6 +130,9 @@ class Project
 
         $repositories = [];
         foreach ($json_repositories as $repository) {
+            if ($exclude_meta && self::isMetaRepository($repository['id'])) {
+                continue;
+            }
             $repositories[$repository['id']] = $repository['name'];
         }
 
@@ -139,11 +142,13 @@ class Project
     /**
      * Get the list of repositories.
      *
+     * @param boolean $exclude_meta Exclude meta projects
+     *
      * @return array list of local repositories values
      */
-    public static function getRepositories()
+    public static function getRepositories($exclude_meta = false)
     {
-        $repositories = array_keys(self::getSupportedRepositories());
+        $repositories = array_keys(self::getSupportedRepositories($exclude_meta));
         sort($repositories);
 
         return $repositories;
@@ -154,11 +159,13 @@ class Project
      * The array has repo folder names as keys and Display names as value:
      * ex: ['firefox_ios' => 'Firefox for iOS', 'mozilla_org' => 'mozilla.org']
      *
+     * @param boolean $exclude_meta Exclude meta project
+     *
      * @return array list of local repositories and their Display names
      */
-    public static function getRepositoriesNames()
+    public static function getRepositoriesNames($exclude_meta = false)
     {
-        return self::getSupportedRepositories();
+        return self::getSupportedRepositories($exclude_meta);
     }
 
     /**
@@ -215,6 +222,23 @@ class Project
     }
 
     /**
+     * Get the list of all locales available by looking at the meta project
+     *
+     * @return array A sorted list of all supported locales
+     */
+    public static function getAllLocales()
+    {
+        $file_name = APP_SOURCES . 'all_projects.txt';
+        $supported_locales = [];
+        if (file_exists($file_name)) {
+            $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        sort($supported_locales);
+
+        return $supported_locales;
+    }
+
+    /**
      * Get the list of repositories available for a locale
      *
      * @param string $locale Mozilla locale code
@@ -224,7 +248,7 @@ class Project
     public static function getLocaleRepositories($locale)
     {
         $matches = [];
-        foreach (self::getRepositories() as $repository) {
+        foreach (self::getRepositories(true) as $repository) {
             if (in_array($locale, self::getRepositoryLocales($repository))) {
                 $matches[] = $repository;
             }
@@ -238,7 +262,7 @@ class Project
     /**
      * Return the reference locale for a repository
      *
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
      * @return string Name of the reference locale
      */
@@ -250,9 +274,36 @@ class Project
     }
 
     /**
+     * Return true if it's a meta repository
+     *
+     * @param string $repository Name of the repository
+     *
+     * @return boolean True if the repository is set as meta
+     */
+    public static function isMetaRepository($repository)
+    {
+        return isset(self::$repos_info[$repository]['meta'])
+            ? self::$repos_info[$repository]['meta']
+            : false;
+    }
+
+    /**
+     * Return true if the locale is the reference locale for a repository
+     *
+     * @param string $locale     Locale code
+     * @param string $repository Name of the repository
+     *
+     * @return boolean True is it's the reference locale
+     */
+    public static function isReferenceLocale($locale, $repository)
+    {
+        return self::getReferenceLocale($repository) == $locale;
+    }
+
+    /**
      * Check if the specified repository is supported
      *
-     * @param string $repository Name of the folder for the repository
+     * @param string $repository Name of the repository
      *
      * @return boolean True if supported repository, False if unknown
      */

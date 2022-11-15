@@ -21,22 +21,12 @@ $li_link = function ($page, $title, $text) use ($url, $urls) {
     return "<li><a {$css_class} href=\"{$link}\" title=\"{$title}\">{$text}</a></li>";
 };
 
-/*
-    The t2t page is a legacy page without an entry in the $urls array.
-*/
-$li_t2t = '<li><a ' . (isset($_GET['t2t']) ? 'class="selected_view" ' : '')
-       . 'href="/?sourcelocale=' . $source_locale . '&locale=' . $locale
-       . '&repo=' . $search->getRepository() . '&t2t=t2t&recherche='
-       . Utils::secureText($search->getSearchTerms())
-       . '" title="Search in the Glossary">Glossary</a></li>';
-
 $links = <<<EOT
 <div class="linkscolumn">
   <h3>Main Views</h3>
   <ul>
     {$li_link('root', 'Main search', 'Home')}
     {$li_link('3locales', 'Search with 3 locales', '3 locales')}
-    {$li_t2t}
     {$li_link('downloads', 'Download TMX files', 'TMX Download')}
   </ul>
 </div>

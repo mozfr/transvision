@@ -38,10 +38,10 @@ php-cs-fixer will tell you if it changed some of the files in the repository, do
 ```bash
 git remote add upstream git@github.com:mozfr/transvision.git
 ```
-- Update your master branch to the latest version of Transvision every time you want to do some dev work:
+- Update your default branch to the latest version of Transvision every time you want to do some dev work:
 ```bash
-git checkout master
-git pull upstream master
+git checkout main
+git pull upstream main
 ```
 Then switch to a new branch where you will work on the patch you want to propose:
 ```bash

@@ -50,7 +50,7 @@ then
     exit 1
 fi
 
-./app/scripts/dev-setup.sh
+wait ./app/scripts/dev-setup.sh
 
 case "$1" in
     -remote)

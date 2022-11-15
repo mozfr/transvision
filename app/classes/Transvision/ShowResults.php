@@ -37,6 +37,34 @@ class ShowResults
     }
 
     /**
+     * Create an array for search results with this format:
+     * 'entity' => ['repository', 'string_locale 1', 'string_locale 2']
+     *
+     * The incoming $entities have a structure provided by Utils::flattenTMX()
+     *
+     * @param array $entities      Haystack of entities to search in
+     * @param array $array_strings The strings for all locales
+     *
+     * @return array Results with entities as keys and repo+translations as values
+     */
+    public static function getTMXResultsRepos($entities, $array_strings)
+    {
+        $search_results = [];
+
+        foreach ($entities as $entity_object) {
+            [$repo, $entity, $source_text] = $entity_object;
+
+            $temp = [$repo];
+            foreach ($array_strings as $locale_strings) {
+                $temp[] = self::getStringFromEntityRepos($entity, $repo, $locale_strings);
+            }
+            $search_results[$entity] = $temp;
+        }
+
+        return $search_results;
+    }
+
+    /**
      * Return an array of suggestions from our Translation Memory API. Unlike
      * other services, we return values from both source and target languages.
      *
@@ -196,9 +224,29 @@ class ShowResults
      * Returns the string from its entity or false
      *
      * @param string $entity  Entity we are looking for
+     * @param string $repo    Repository
      * @param array  $strings Haystack of strings to search in
      *
-     * @return string The string for the entity or false if no matching result
+     * @return string The string for the entity or '@@missing@@' if no matching result
+     */
+    public static function getStringFromEntityRepos($entity, $repo, $strings)
+    {
+        if (! isset($strings[$repo])) {
+            return '@@missing@@';
+        }
+
+        return isset($strings[$repo][$entity])
+               ? $strings[$repo][$entity]
+               : '@@missing@@';
+    }
+
+    /**
+     * Returns the string from its entity or false
+     *
+     * @param string $entity  Entity we are looking for
+     * @param array  $strings Haystack of strings to search in
+     *
+     * @return string The string for the entity or '@@missing@@' if no matching result
      */
     public static function getStringFromEntity($entity, $strings)
     {
@@ -270,7 +318,7 @@ class ShowResults
             and URLencode the text.
         */
         if (in_array($repo, $free_text_repos)) {
-            # Disable link if the translation is missing
+            // Disable link if the translation is missing
             if ($text == '@@missing@@' || Strings::startsWith($text, '<em class="error">Warning:')) {
                 return '';
             }
@@ -293,9 +341,7 @@ class ShowResults
 
             // android-l10n maps to different projects in Pontoon
             if ($project_name == 'android-l10n') {
-                if (Strings::startsWith($resource_path, 'mozilla-lockwise')) {
-                    $project_name = 'lockwise-for-android';
-                } elseif (Strings::startsWith($resource_path, 'mozilla-mobile/focus-android')) {
+                if (Strings::startsWith($resource_path, 'mozilla-mobile/focus-android')) {
                     $project_name = 'focus-for-android';
                 } else {
                     // Default project is firefox-for-android
@@ -315,15 +361,9 @@ class ShowResults
             }
             switch ($component) {
                 case 'calendar':
-                    $project_name = 'lightning';
-                    break;
                 case 'chat':
-                case 'editor':
                 case 'mail':
                     $project_name = 'thunderbird';
-                    break;
-                case 'mobile':
-                    $project_name = 'firefox-for-android';
                     break;
                 case 'suite':
                     $project_name = 'seamonkey';
@@ -384,40 +424,44 @@ class ShowResults
             $search_terms = [$search_object->getSearchTerms()];
         }
 
-        $current_repo = $search_object->getRepository();
+        $requested_repo = $search_object->getRepository();
 
-        foreach ($search_results as $key => $strings) {
+        foreach ($search_results as $key => $entity_object) {
             // Don't highlight search matches in entities when searching strings
             if ($search_object->getSearchType() == 'strings') {
                 $result_entity = self::formatEntity($key);
             } else {
                 $result_entity = self::formatEntity($key, $search_terms[0]);
             }
-
             $component = explode('/', $key)[0];
-            $source_string = $strings[0];
-            $target_string = $strings[1];
+            [$repo, $source_string, $target_string] = $entity_object;
 
             $entity_link = "?sourcelocale={$locale1}"
             . "&locale={$locale2}"
-            . "&repo={$current_repo}"
+            . "&repo={$requested_repo}"
             . "&search_type=entities&recherche={$key}"
             . '&entire_string=entire_string';
 
             $bz_link = [Bugzilla::reportErrorLink(
-                $locale2, $key, $source_string, $target_string, $current_repo, $entity_link
+                $locale2, $key, $source_string, $target_string, $repo, $entity_link
             )];
+            $edit_link = $toolUsedByTargetLocale != ''
+                ? [self::getEditLink($toolUsedByTargetLocale, $repo, $key, $target_string, $locale2)]
+                : [''];
 
             if ($extra_locale) {
-                $target_string2 = $strings[2];
+                $target_string2 = $entity_object[3];
                 $entity_link = "?sourcelocale={$locale1}"
                                 . "&locale={$search_object->getLocale('extra')}"
-                                . "&repo={$current_repo}"
+                                . "&repo={$requested_repo}"
                                 . "&search_type=entities&recherche={$key}"
                                 . '&entire_string=entire_string';
                 $bz_link[] = Bugzilla::reportErrorLink(
-                    $search_object->getLocale('extra'), $key, $source_string, $target_string2, $current_repo, $entity_link
+                    $search_object->getLocale('extra'), $key, $source_string, $target_string2, $repo, $entity_link
                 );
+                $edit_link[] = $toolUsedByTargetLocale != ''
+                    ? self::getEditLink($toolUsedByTargetLocale, $repo, $key, $target_string, $locale3)
+                    : '';
             } else {
                 $target_string2 = '';
             }
@@ -431,10 +475,6 @@ class ShowResults
                 if we aren't in the 3locales view and if we have a $target_string
             */
             $transliterate = $locale2 == 'sr' && ! $extra_locale && $target_string && $target_string != '@@missing@@';
-
-            $edit_link = $toolUsedByTargetLocale != ''
-                ? self::getEditLink($toolUsedByTargetLocale, $current_repo, $key, $target_string, $locale2)
-                : '';
 
             if ($transliterate) {
                 $transliterated_string = self::getTransliteratedString(urlencode($target_string), 'sr-Cyrl');
@@ -489,8 +529,8 @@ class ShowResults
             $temp = explode('-', $locale2);
             $locale2_short_code = $temp[0];
 
-            $locale1_path = VersionControl::getPath($locale1, $current_repo, $key);
-            $locale2_path = VersionControl::getPath($locale2, $current_repo, $key);
+            $locale1_path = VersionControl::getPath($locale1, $repo, $key);
+            $locale2_path = VersionControl::getPath($locale2, $repo, $key);
 
             // Get the potential errors for $target_string (final dot, long/small string)
             $error_message = ShowResults::buildErrorString($source_string, $target_string);
@@ -542,7 +582,7 @@ class ShowResults
 
             // 3locales view
             if ($extra_locale) {
-                $locale3_path = VersionControl::getPath($locale3, $current_repo, $key);
+                $locale3_path = VersionControl::getPath($locale3, $repo, $key);
 
                 $extra_column_rows = "
                 <td dir='{$direction3}' lang='{$locale3}'>
@@ -552,11 +592,14 @@ class ShowResults
                       <a class='source_link' href='{$locale3_path}'>
                         &lt;source&gt;
                       </a>
-                      &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link[1]}'>
-                        &lt;report a bug&gt;
-                      </a>
-                      {$meta_target2}
+                      {$edit_link[1]}&nbsp;";
+                // Don't display Bugzilla link for the reference locale
+                if (! Project::isReferenceLocale($locale2, $repo)) {
+                    $extra_column_rows .= "<a class='bug_link' target='_blank' href='{$bz_link[1]}'>
+                            &lt;report a bug&gt;
+                        </a>";
+                }
+                $extra_column_rows .= "{$meta_target2}
                     </div>
                 </td>";
             } else {
@@ -568,7 +611,7 @@ class ShowResults
                   <td>
                     <span class='celltitle'>Entity</span>
                     <a class='resultpermalink tag' id='{$anchor_name}' href='#{$anchor_name}' title='Permalink to this result'>#</a>
-                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$current_repo}' title='List all translations for this entity'>all locales</a>
+                    <a class='l10n tag' href='/string/?entity={$key}&amp;repo={$repo}' title='List all translations for this entity'>all locales</a>
                     <span class='link_to_entity'>
                       <a href=\"/{$entity_link}\">{$result_entity}</a>
                     </span>
@@ -595,12 +638,14 @@ class ShowResults
                       <a class='source_link' href='{$locale2_path}'>
                         &lt;source&gt;
                       </a>
-                      {$edit_link}
-                      &nbsp;
-                      <a class='bug_link' target='_blank' href='{$bz_link[0]}'>
-                        &lt;report a bug&gt;
-                      </a>
-                      {$meta_target}
+                      {$edit_link[0]}&nbsp;";
+            // Don't display Bugzilla link for the reference locale
+            if (! Project::isReferenceLocale($locale2, $repo)) {
+                $table .= "<a class='bug_link' target='_blank' href='{$bz_link[0]}'>
+                            &lt;report a bug&gt;
+                        </a>";
+            }
+            $table .= " {$meta_target}
                     </div>
                   </td>
                 {$extra_column_rows}
@@ -616,28 +661,57 @@ class ShowResults
      * Search entity names: search full entity IDs (including path and filename),
      * then search entity names (without the full path) if there are no results.
      *
-     * @param array  $source_strings Array of source strings
-     * @param string $regex          Regular expression to search entity names
+     * @param array   $source_strings Array of source strings
+     * @param string  $regex          Regular expression to search entity names
+     * @param boolean $flat           If the source and output are flat or
+     *                                separated by repo
      *
-     * @return array List of matching entity names
+     * @return array List of matching items with structure [project, entity],
+     *               or [entity] if flat
      */
-    public static function searchEntities($source_strings, $regex)
+    public static function searchEntities($source_strings, $regex, $flat = false)
     {
-        // Search through the full entity ID
-        $entities = preg_grep($regex, array_keys($source_strings));
+        if ($flat) {
+            // Search through the full entity ID
+            $entities = preg_grep($regex, array_keys($source_strings));
 
-        /*
-            If there are no results, search also through the entity names.
-            This is needed for "entire string" when only the entity name is
-            provided.
-        */
-        if (empty($entities)) {
-            $entity_names = [];
-            foreach ($source_strings as $entity => $translation) {
-                $entity_names[$entity] = explode(':', $entity)[1];
+            /*
+                If there are no results, search also through the entity names.
+                This is needed for "entire string" when only the entity name is
+                provided.
+            */
+            if (empty($entities)) {
+                $entity_names = [];
+                foreach ($source_strings as $entity => $translation) {
+                    $entity_names[$entity] = explode(':', $entity)[1];
+                }
+                $entities = preg_grep($regex, $entity_names);
+                $entities = array_keys($entities);
             }
-            $entities = preg_grep($regex, $entity_names);
-            $entities = array_keys($entities);
+        } else {
+            $entities = [];
+            foreach ($source_strings as $repo => $repo_strings) {
+                // Search through the full entity ID
+                $repo_entities = preg_grep($regex, array_keys($repo_strings));
+
+                /*
+                    If there are no results, search also through the entity names.
+                    This is needed for "entire string" when only the entity name is
+                    provided.
+                */
+                if (empty($repo_entities)) {
+                    $entity_names = [];
+                    foreach ($repo_strings as $entity => $translation) {
+                        $entity_names[$entity] = explode(':', $entity)[1];
+                    }
+                    $repo_entities = preg_grep($regex, $entity_names);
+                    $repo_entities = array_keys($repo_entities);
+                }
+
+                foreach ($repo_entities as $entity) {
+                    $entities[] = [$repo, $entity];
+                }
+            }
         }
 
         return $entities;

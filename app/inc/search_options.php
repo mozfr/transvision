@@ -12,9 +12,17 @@ foreach ($search->getFormCheckboxes() as $val) {
     $check[$val] = isset($_GET[$val]);
 }
 
-// Check for default_repository cookie if we don't have a GET value
-if (! isset($_GET['repo']) && isset($_COOKIE['default_repository']) && Project::isValidRepository($_COOKIE['default_repository'])) {
-    $repo = $_COOKIE['default_repository'];
+/*
+    Check for default_repository cookie if we don't have a GET value,
+    otherwise fall back to all_projects instead of gecko_strings,
+    which is the default for the search() class.
+*/
+if (! isset($_GET['repo'])) {
+    if (isset($_COOKIE['default_repository']) && Project::isValidRepository($_COOKIE['default_repository'])) {
+        $repo = $_COOKIE['default_repository'];
+    } else {
+        $repo = 'all_projects';
+    }
 }
 
 if (isset($_GET['search_type'])) {

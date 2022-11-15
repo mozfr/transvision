@@ -41,5 +41,11 @@
     "autoload": {
         "psr-4": {"Transvision\\": "app/classes/Transvision/"},
         "files": ["app/helpers/debug.php"]
+    },
+    "config": {
+        "allow-plugins": {
+            "hirak/prestissimo": true,
+            "robloach/component-installer": true
+        }
     }
 }

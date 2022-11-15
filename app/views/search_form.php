@@ -179,14 +179,6 @@ $cookie_option = function ($cookie, $locale) use ($search) {
                         />
                         <label for="entire_words">Entire Words</label>
                     </span>
-                    <?php if ($check['t2t'] == 't2t') :?>
-                    <input type="hidden"
-                           name="t2t"
-                           id="t2t"
-                           value="t2t"
-                           <?=Utils::checkboxState($check['t2t'], 't2t')?>
-                    />
-                    <?php endif; ?>
                 </fieldset>
             </div>
             <p id="displaysearchoptions" class="smallscreen_notices"><a class="toggle-searchoptions-link" href="">⇓ Display search options ⇓</a></p>

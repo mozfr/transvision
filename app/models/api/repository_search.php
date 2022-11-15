@@ -36,7 +36,7 @@ foreach ($repositories as $repository) {
 
     if ($search->isEntireString()) {
         if ($search->getSearchType() == 'entities') {
-            $entities = ShowResults::searchEntities($source_strings, $search->getRegex());
+            $entities = ShowResults::searchEntities($source_strings, $search->getRegex(), true);
             $source_results = array_intersect_key($source_strings, array_flip($entities));
         } else {
             $source_results = $search->grep($source_strings);
@@ -50,7 +50,7 @@ foreach ($repositories as $repository) {
         foreach ($search_terms as $word) {
             $search->setRegexSearchTerms($word);
             if ($search->getSearchType() == 'entities') {
-                $entities += ShowResults::searchEntities($source_strings, $search->getRegex());
+                $entities += ShowResults::searchEntities($source_strings, $search->getRegex(), true);
                 $source_results += array_intersect_key($source_strings, array_flip($entities));
             } else {
                 $source_results += $search->grep($source_strings);

@@ -17,15 +17,15 @@ $target_locales_list = Utils::getHtmlSelectOptions($supported_locales, $locale);
     Only use desktop repositories. If the requested repository is not
     available, fall back to the first key.
 */
-$channels = array_intersect_key(
+$repositories = array_intersect_key(
     Project::getSupportedRepositories(),
     array_flip($desktop_repos)
 );
-if (! isset($channels[$repo])) {
-    $repo = current(array_keys($channels));
+if (! isset($repositories[$repo])) {
+    $repo = current(array_keys($repositories));
     $error_messages[] = "The selected repository is not supported. Falling back to <em>{$repo}</em>.";
 }
-$channel_selector = Utils::getHtmlSelectOptions($channels, $repo, true);
+$repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 $cache_id = $repo . $locale . 'commandkeys';
 $commandkey_results = Cache::getKey($cache_id);

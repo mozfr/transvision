@@ -71,9 +71,9 @@ class VersionControl extends atoum\test
             ],
             [
                 'en-US',
-                'gecko_strings',
-                'extensions/irc/chrome/chatzilla.properties:msg.save.files.folder',
-                'https://hg.mozilla.org/chatzilla/file/default/locales/en-US/chrome/chatzilla.properties',
+                'comm_l10n',
+                'mail/branding/thunderbird/brand.dtd:brandFullName',
+                'https://hg.mozilla.org/projects/comm-l10n/file/default/en-US/mail/branding/thunderbird/brand.dtd',
             ],
         ];
     }
@@ -96,7 +96,7 @@ class VersionControl extends atoum\test
                 'it',
                 'firefox_ios',
                 'firefox_ios/firefox-ios.xliff:0f4d892c',
-                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
+                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/main/it/firefox-ios.xliff',
             ],
             [
                 'sr',
@@ -114,7 +114,7 @@ class VersionControl extends atoum\test
                 'fr',
                 'unknown',
                 'test/file.properties',
-                'https://github.com/mozilla-l10n/unknown/blob/master/fr/test/file.properties',
+                'https://github.com/mozilla-l10n/unknown/blob/main/fr/test/file.properties',
             ],
             [
                 'en-US',
@@ -161,13 +161,13 @@ class VersionControl extends atoum\test
                 'it',
                 'firefox_ios',
                 'firefox_ios/firefox-ios.xliff:0f4d892c',
-                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/master/it/firefox-ios.xliff',
+                'https://github.com/mozilla-l10n/firefoxios-l10n/blob/main/it/firefox-ios.xliff',
             ],
             [
                 'sv-SE',
                 'vpn_client',
                 'vpn_client/mozillavpn.xliff.xliff:0f4d892c',
-                'https://github.com/mozilla-l10n/mozilla-vpn-client-l10n/blob/master/sv_SE/mozillavpn.xliff.xliff',
+                'https://github.com/mozilla-l10n/mozilla-vpn-client-l10n/blob/main/sv_SE/mozillavpn.xliff.xliff',
             ],
         ];
     }

@@ -38,6 +38,40 @@ class ShowResults extends atoum\test
                 ->isEqualTo($c);
     }
 
+    public function getTMXResultsReposDP()
+    {
+        include TMX . 'en-US/cache_en-US_gecko_strings.php';
+        $source['test_repo'] = $tmx;
+        include TMX . 'fr/cache_fr_gecko_strings.php';
+        $target['test_repo'] = $tmx;
+        $data = [$source, $target];
+
+        return [
+            [
+                [
+                    ['test_repo', 'browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label', 'Find in Finder'],
+                ],
+                $data,
+                [
+                    'browser/chrome/browser/downloads/downloads.dtd:cmd.showMac.label' => [
+                       'test_repo', 'Find in Finder', 'Ouvrir dans le Finder',
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getTMXResultsReposDP
+     */
+    public function testGetTMXResultsRepos($a, $b, $c)
+    {
+        $obj = new _ShowResults();
+        $this
+            ->array($obj->getTMXResultsRepos($a, $b))
+                ->isEqualTo($c);
+    }
+
     public function getTranslationMemoryResultsDP()
     {
         include TMX . 'en-US/cache_en-US_gecko_strings.php';
@@ -147,6 +181,53 @@ class ShowResults extends atoum\test
                 ->isIdenticalTo($c);
     }
 
+    public function getStringFromEntityReposDP()
+    {
+        return [
+            [
+                'browser/pdfviewer/viewer.properties:last_page.label',
+                'test_repo',
+                [
+                    'test_repo' => [
+                        'browser/pdfviewer/viewer.properties:last_page.label' => 'Aller à la dernière page',
+                    ],
+                ],
+                'Aller à la dernière page',
+            ],
+            [
+                'browser/pdfviewer/viewer.properties:last_page.label',
+                'test_repo',
+                [
+                    'test_repo' => [
+                        'entity.is.not.found' => 'Aller à la dernière page',
+                    ],
+                ],
+                '@@missing@@',
+            ],
+            [
+                'browser/pdfviewer/viewer.properties:last_page.label',
+                'test_repo',
+                [
+                    'test_repo' => [
+                        'browser/pdfviewer/viewer.properties:last_page.label' => '',
+                    ],
+                ],
+                '',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getStringFromEntityReposDP
+     */
+    public function testGetStringFromEntityRepos($a, $b, $c, $d)
+    {
+        $obj = new _ShowResults();
+        $this
+            ->variable($obj->getStringFromEntityRepos($a, $b, $c))
+                ->isIdenticalTo($d);
+    }
+
     public function getRepositorySearchResultsDP()
     {
         return [
@@ -215,12 +296,31 @@ class ShowResults extends atoum\test
         return [
             [
                 [
-                    'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
-                    'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                    'test_repo' => [
+                        'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                        'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                    ],
                 ],
                 '~^browser/chrome/browser/migration/migration.properties:sourceNameIE$~i',
+                false,
                 [
-                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    [
+                        'test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    ],
+                ],
+            ],
+            [
+                [
+                    'test_repo' => [
+                        'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
+                        'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
+                    ],
+                ],
+                '~sourceNameIE~i',
+                false,
+                [
+                    ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE'],
+                    ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE1'],
                 ],
             ],
             [
@@ -229,31 +329,35 @@ class ShowResults extends atoum\test
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
                 ],
                 '~sourceNameIE~i',
+                true,
                 [
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE',
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE1',
                 ],
             ],
             [
-                [
+                ['test_repo' => [
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE'  => 'test',
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE1' => 'test2',
-                ],
+                ]],
                 '~^sourceNameIE$~i',
+                false,
                 [
-                    'browser/chrome/browser/migration/migration.properties:sourceNameIE',
+                    ['test_repo', 'browser/chrome/browser/migration/migration.properties:sourceNameIE'],
                 ],
             ],
             [
-                [
+                ['test_repo' => [
                     'browser/chrome/browser/migration/migration.properties:sourceNameIE' => 'test',
-                ],
+                ]],
                 '~foobar~',
+                false,
                 [],
             ],
             [
                 [],
                 '~foobar~',
+                false,
                 [],
             ],
         ];
@@ -262,12 +366,12 @@ class ShowResults extends atoum\test
     /**
      * @dataProvider searchEntitiesDP
      */
-    public function testSearchEntities($a, $b, $c)
+    public function testSearchEntities($a, $b, $c, $d)
     {
         $obj = new _ShowResults();
         $this
-            ->array($obj->searchEntities($a, $b))
-                ->isEqualTo($c);
+            ->array($obj->searchEntities($a, $b, $c))
+                ->isEqualTo($d);
     }
 
     public function testGetSuggestionsResults()
@@ -358,15 +462,15 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'gecko_strings',
+                'comm_l10n',
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/lightning/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/calendar/chrome/calendar/calendar.dtd?search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
-                'gecko_strings',
+                'comm_l10n',
                 'chat/commands.properties:dnd',
                 'test',
                 'fr',
@@ -379,14 +483,6 @@ class ShowResults extends atoum\test
                 'test',
                 'fr',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/browser/preferences/main.ftl?search=default-content-process-count'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'gecko_strings',
-                'editor/ui/chrome/composer/editingOverlay.dtd:fileRecentMenu.label',
-                'test',
-                'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/editor/ui/chrome/composer/editingOverlay.dtd?search=fileRecentMenu.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -406,15 +502,7 @@ class ShowResults extends atoum\test
             ],
             [
                 'pontoon',
-                'gecko_strings',
-                'mobile/android/base/android_strings.dtd:activity_stream_highlights',
-                'test',
-                'bg',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/bg/firefox-for-android/mobile/android/base/android_strings.dtd?search=activity_stream_highlights'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'gecko_strings',
+                'comm_l10n',
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
                 'it',
@@ -435,14 +523,6 @@ class ShowResults extends atoum\test
                 'test',
                 'it',
                 "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-android/mozilla-mobile/fenix/app/src/main/res/values/strings.xml?search=preference_experiments'>&lt;edit in Pontoon&gt;</a>",
-            ],
-            [
-                'pontoon',
-                'android_l10n',
-                'android_l10n/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml:password_for',
-                'test',
-                'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/lockwise-for-android/mozilla-lockwise/lockwise-android/app/src/main/res/values/strings.xml?search=password_for'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
