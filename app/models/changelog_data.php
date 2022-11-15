@@ -75,7 +75,7 @@ $changelog = [
             'message' => ['Allow searching across all projects'],
             'section' => ['end_user'],
             'type'    => ['new'],
-            'commit'  => ['TODO'],
+            'commit'  => ['2a8d2d106e877d57f81ef089b6aa410f179eb77c'],
             'authors' => ['flod'],
         ],
         [
@@ -89,7 +89,7 @@ $changelog = [
             'message' => ['Removed views: Health Status, Stats, Productization, Glossary'],
             'section' => ['end_user'],
             'type'    => ['change'],
-            'commit'  => ['73c771369f0b5386f280421df064cd13fc3e04b2', 'a0cc21ea3425d9b16f5392b0eb550dc75121b47b', 'TODO'],
+            'commit'  => ['73c771369f0b5386f280421df064cd13fc3e04b2', 'a0cc21ea3425d9b16f5392b0eb550dc75121b47b', '2a8d2d106e877d57f81ef089b6aa410f179eb77c'],
             'authors' => ['flod'],
         ],
         [
@@ -103,7 +103,7 @@ $changelog = [
             'message' => ['Added products: mozilla.org (Fluent), VPN Client, Thunderbird & Seamonkey (comm-l10n)'],
             'section' => ['code'],
             'type'    => ['new'],
-            'commit'  => ['be96c0c64766c054e44ae31e163d5877fb3df429', '4153e5319ab6d86016c03f4c98f8b820cbfcf648', 'TODO'],
+            'commit'  => ['be96c0c64766c054e44ae31e163d5877fb3df429', '4153e5319ab6d86016c03f4c98f8b820cbfcf648', '2a8d2d106e877d57f81ef089b6aa410f179eb77c'],
             'authors' => ['flod'],
         ],
         [
@@ -124,7 +124,7 @@ $changelog = [
             'message' => ['Run mozilla-l10n-query locally as part of the setup process'],
             'section' => ['code'],
             'type'    => ['change'],
-            'commit'  => ['TODO'],
+            'commit'  => ['2a8d2d106e877d57f81ef089b6aa410f179eb77c'],
             'authors' => ['flod'],
         ],
     ],
