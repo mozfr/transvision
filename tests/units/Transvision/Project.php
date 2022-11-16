@@ -22,7 +22,7 @@ class Project extends atoum\test
                 ->isEqualTo($repos);
     }
 
-    public function testIsMetaRepository()
+    public function testMetaRepository()
     {
         $obj = new _Project();
         $this
@@ -31,6 +31,9 @@ class Project extends atoum\test
         $this
             ->boolean($obj->isMetaRepository('gecko_strings'))
                 ->isEqualTo(false);
+        $this
+            ->string($obj->getMetaRepository())
+                ->isEqualTo('all_projects');
     }
 
     public function testIsReferenceLocale()

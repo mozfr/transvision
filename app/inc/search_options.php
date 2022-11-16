@@ -14,14 +14,14 @@ foreach ($search->getFormCheckboxes() as $val) {
 
 /*
     Check for default_repository cookie if we don't have a GET value,
-    otherwise fall back to all_projects instead of gecko_strings,
+    otherwise fall back to meta repository instead of gecko_strings,
     which is the default for the search() class.
 */
 if (! isset($_GET['repo'])) {
     if (isset($_COOKIE['default_repository']) && Project::isValidRepository($_COOKIE['default_repository'])) {
         $repo = $_COOKIE['default_repository'];
     } else {
-        $repo = 'all_projects';
+        $repo = Project::getMetaRepository();
     }
 }
 
