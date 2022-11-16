@@ -41,6 +41,10 @@ class Project
      */
     public static $repos_info = [
         'all_projects' => [
+            /*
+             *  Only one project should be set as meta, as it's used to track
+             *  the repository ID that includes all other projects.
+             */
             'meta' => true,
         ],
         'firefox_ios' => [
@@ -285,6 +289,20 @@ class Project
         return isset(self::$repos_info[$repository]['meta'])
             ? self::$repos_info[$repository]['meta']
             : false;
+    }
+
+    /**
+     * Return meta repository
+     *
+     * @return string ID of the meta repository
+     */
+    public static function getMetaRepository()
+    {
+        foreach (self::getRepositories() as $repository) {
+            if (self::isMetaRepository($repository)) {
+                return $repository;
+            }
+        }
     }
 
     /**

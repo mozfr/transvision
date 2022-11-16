@@ -14,6 +14,8 @@ $paths = [
     ['v1/locales/iDontExist/', 400, '{"error":"The repo queried (iDontExist) doesn\'t exist."}'],
     ['v1/repositories/', 200, '["gecko_strings","mozilla_org"]'],
     ['v1/repositories/fr/', 200, '["gecko_strings","mozilla_org"]'],
+    ['v1/suggestions/all_projects/en-US/fr/ar/?max_results=2', 200, '["Bookmark","Marque-page"]'],
+    ['v1/suggestions/global/en-US/fr/ar/?max_results=2', 200, '["Bookmark","Marque-page"]'],
     ['v1/suggestions/gecko_strings/en-US/fr/ar/?max_results=2', 200, '["Bookmark","Marque-page"]'],
     ['v1/suggestions/gecko_strings/en-US/fr/ar/?max_results=10', 200, '["Bookmark","Bookmarks","New Bookmarks","Bookmark This Page","Marque-page","Marque-pages","Marquer cette page","Nouveaux marque-pages"]'],
     ['v1/suggestions/gecko_strings/en-US/fr/ar/?max_results=0', 200, '["Bookmark","Bookmarks","New Bookmarks","Bookmark This Page","Marque-page","Marque-pages","Marquer cette page","Nouveaux marque-pages"]'],

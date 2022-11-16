@@ -200,6 +200,10 @@ class API
         switch ($service) {
             case 'entity':
             // ex: /api/v1/entity/mozilla_org/?id=mozilla_org/mozorg/home.lang:d9d4307d
+                // Use 'global' in API calls instead of the meta project ID
+                if (Project::isMetaRepository($this->parameters[2])) {
+                    $this->parameters[2] = 'global';
+                }
                 if (! $this->verifyRepositoryExists($this->parameters[2])) {
                     return false;
                 }
@@ -217,6 +221,10 @@ class API
                     return false;
                 }
 
+                // Use 'global' in API calls instead of the meta project ID
+                if (Project::isMetaRepository($this->parameters[2])) {
+                    $this->parameters[2] = 'global';
+                }
                 if (! $this->verifyRepositoryExists($this->parameters[2])) {
                     return false;
                 }
@@ -259,6 +267,10 @@ class API
                     return false;
                 }
 
+                // Use 'global' in API calls instead of the meta project ID
+                if (Project::isMetaRepository($this->parameters[3])) {
+                    $this->parameters[3] = 'global';
+                }
                 if (! $this->verifyRepositoryExists($this->parameters[3], true)) {
                     return false;
                 }
@@ -283,6 +295,10 @@ class API
                     return false;
                 }
 
+                // Use 'global' in API calls instead of the meta project ID
+                if (Project::isMetaRepository($this->parameters[2])) {
+                    $this->parameters[2] = 'global';
+                }
                 if (! $this->verifyRepositoryExists($this->parameters[2], true)) {
                     return false;
                 }
