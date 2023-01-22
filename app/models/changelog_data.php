@@ -70,7 +70,7 @@ $releases = [
 */
 
 $changelog = [
-    '7.0' => [
+    '7.0'   => [
         [
             'message' => ['Allow searching across all projects'],
             'section' => ['end_user'],
@@ -128,7 +128,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '6.0' => [
+    '6.0'   => [
         [
             'message' => ['Cross-channel support for Gecko-based products. All channels have been replaced by “Gecko products”. Transvision now pulls source strings from the <a href="https://hg.mozilla.org/l10n/gecko-strings/">Gecko strings repository</a> instead of cloning code repositories for each channel, reducing data volume from over 20 GB (more than 400 repositories) to ~2 GB on the server (about 100 repositories).'],
             'section' => ['end_user'],
@@ -186,7 +186,7 @@ $changelog = [
             'authors' => ['tchevalier'],
         ],
     ],
-    '5.2' => [
+    '5.2'   => [
         [
             'message' => ['For locales working on Pootle or Pontoon, added links under Aurora search results to quickly access translations in the tool'],
             'section' => ['end_user'],
@@ -273,7 +273,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '5.1' => [
+    '5.1'   => [
         [
             'message' => ['New QA view for <a href="/empty-strings">Empty strings</a> that can be used to identify strings that should have been localized and are empty by mistake, and strings that should actually remain empty.'],
             'section' => ['end_user'],
@@ -303,7 +303,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '5.0' => [
+    '5.0'   => [
         [
             'message' => ['“To Latin” button added to Serbian results, providing on-the-fly transliteration'],
             'section' => ['end_user'],
@@ -426,7 +426,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '4.4' => [
+    '4.4'   => [
         [
             'message' => ['Allow toggling all locales checkboxes in the <a href="/unlocalized-all/">global view</a> for commonly unlocalized words'],
             'section' => ['end_user'],
@@ -442,7 +442,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
     ],
-    '4.3' => [
+    '4.3'   => [
         [
             'message' => ['Allow filtering by components on <a href="/consistency/">Consistency view</a>'],
             'section' => ['end_user'],
@@ -573,7 +573,7 @@ $changelog = [
             'authors' => ['SkySymbol', 'pascal'],
         ],
     ],
-    '4.2' => [
+    '4.2'   => [
         [
             'message' => ['Create view to display <a href="/consistency/">translation inconsistencies</a>'],
             'section' => ['end_user'],
@@ -736,7 +736,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
     ],
-    '4.1' => [
+    '4.1'   => [
         [
             'message' => ['Remove Gaia 2.0, 2.1, 2.2 repositories'],
             'section' => ['end_user'],
@@ -903,7 +903,7 @@ $changelog = [
             'authors' => ['Clement', 'tchevalier'],
         ],
     ],
-    '4.0' => [
+    '4.0'   => [
         [
             'message' => ['Propose search suggestions as you type in the search field'],
             'section' => ['end_user'],
@@ -1012,7 +1012,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '3.10' => [
+    '3.10'  => [
         [
             'message' => ['Provide a way to go back to the search view from the onestring view'],
             'section' => ['end_user'],
@@ -1076,7 +1076,7 @@ $changelog = [
             'authors' => ['the team'],
         ],
     ],
-    '3.9' => [
+    '3.9'   => [
         [
             'message' => ['Update Transvision for mozilla.org migration to GitHub'],
             'section' => ['end_user'],
@@ -1168,7 +1168,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '3.8' => [
+    '3.8'   => [
         [
             'message' => ['Add a widget in search form to switch source and target locales'],
             'section' => ['end_user'],
@@ -1280,7 +1280,7 @@ $changelog = [
             'authors' => ['SkySymbol'],
         ],
     ],
-    '3.7' => [
+    '3.7'   => [
         [
             'message' => ['The <a href="https://transvision.mozfr.org/?sourcelocale=en-US&amp;locale=fr&amp;repo=aurora&amp;&amp;recherche=Bookmarks">glossary</a> view looks better and is visually more consistent with the rest of the site'],
             'section' => ['end_user'],
@@ -1369,7 +1369,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '3.6' => [
+    '3.6'   => [
         [
             'message' => ['Added a new view exposing all <a href="https://transvision.mozfr.org/unchanged/">strings that are kept identical to en-US</a>'],
             'section' => ['end_user'],
@@ -1468,7 +1468,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '3.5' => [
+    '3.5'   => [
         [
             'message' => ['Starting with this release, adding a locale to a repository (mostly Gaia) no longer requires releasing a new version of Transvision as the list of locales per repositories is now fetched from a web service maintained by flod, which means that adding new locales to Transvision can now be done at any time'],
             'section' => ['end_user'],
@@ -1593,7 +1593,7 @@ $changelog = [
             'authors' => ['Anthony Maton'],
         ],
     ],
-    '3.4' => [
+    '3.4'   => [
         [
             'message' => ['<strong>On demand TMX generation:</strong> The static <a href="https://transvision.mozfr.org/downloads/">download page for TMX</a> was replaced by a dynamic one in which you can select which repositories you want to use to build the translation memory'],
             'section' => ['end_user'],
@@ -1654,7 +1654,7 @@ $changelog = [
             'authors' => ['team'],
         ],
     ],
-    '3.3' => [
+    '3.3'   => [
         [
             'message' => ['<strong>Search hints:</strong> If your search for a word or entity yields no result, Transvision <a href="https://transvision.mozfr.org/?recherche=lookmark&amp;repo=central&amp;sourcelocale=en-US&amp;locale=fr&amp;search_type=strings">proposes similar searches that do yield results</a>'],
             'section' => ['end_user'],
@@ -1726,7 +1726,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
     ],
-    '3.2' => [
+    '3.2'   => [
         [
             'message' => ['<strong>www.mozilla.org support:</strong> Transvision can now extract and index projects using the .lang format, the first repository added is www.mozilla.org and appears as a separate channel. Source links and Bugzilla links are adjusted to point to subversion instead of Mercurial and to file bugs in the www.mozilla.org/L10N component instead of the Mozilla Localization one. This makes Transvision more useful for people working on Web localization'],
             'section' => ['end_user'],
@@ -1754,7 +1754,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
     ],
-    '3.1' => [
+    '3.1'   => [
         [
             'message' => ['<strong>Top menu:</strong> The application now has a top menu summarizing and categorizing the different views in the application'],
             'section' => ['end_user'],
@@ -1803,7 +1803,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '3.0' => [
+    '3.0'   => [
         [
             'message' => ['<strong>New view:</strong> <a href="https://transvision.mozfr.org/3locales/">3 locales search</a> in your strings for potential errors'],
             'section' => ['end_user'],
@@ -1878,7 +1878,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '2.9' => [
+    '2.9'   => [
         [
             'message' => ['Two new repos are added for searches: Gaia 1.1 and Gaia 1.2'],
             'section' => ['end_user'],
@@ -1920,7 +1920,7 @@ $changelog = [
             'authors' => ['jesus'],
         ],
     ],
-    '2.8' => [
+    '2.8'   => [
         [
             'message' => ['Make search context changes clearer, the type of search (strings, entities, strings &amp; entities) is now displayed as a hint below the search field'],
             'section' => ['end_user'],
@@ -1958,7 +1958,7 @@ $changelog = [
             'authors' => ['flod'],
         ],
     ],
-    '2.7' => [
+    '2.7'   => [
         [
             'message' => ['The repository select box is now located on the far left of the search page. Switching repositories now dynamically updates the select boxes for locales with the right locales'],
             'section' => ['end_user'],
@@ -2001,7 +2001,7 @@ $changelog = [
             'authors' => ['pascal'],
         ],
     ],
-    '2.6' => [
+    '2.6'   => [
         [
             'message' => ['All TMX files for all locales/repos combinations are now available via a <a href="https://transvision.mozfr.org/downloads/">TMX download page</a>'],
             'section' => ['end_user'],
@@ -2024,7 +2024,7 @@ $changelog = [
             'authors' => ['jesus'],
         ],
     ],
-    '2.5' => [
+    '2.5'   => [
         [
             'message' => ['Updated visual theme inspired by Mozilla Sandstone, responsive design'],
             'section' => ['end_user'],
@@ -2056,7 +2056,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '2.4' => [
+    '2.4'   => [
         [
             'message' => ['There is now a &lt;report a bug&gt; link below each translated string that allows anybody to report a bug in Bugzilla for a badly translated string'],
             'section' => ['end_user'],
@@ -2064,7 +2064,7 @@ $changelog = [
             'authors' => ['jesus', 'pascal'],
         ],
     ],
-    '2.3' => [
+    '2.3'   => [
         [
             'message' => ['You now can remember your locales and repo choices and bypass locale detection with checkboxes, a cookie will be set and remember your preferences'],
             'section' => ['end_user'],
@@ -2097,7 +2097,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '2.2' => [
+    '2.2'   => [
         [
             'message' => ['Selected search type value (strings, entities, strings and entities) is kept after a search.'],
             'section' => ['end_user'],
@@ -2119,7 +2119,7 @@ $changelog = [
             'section' => ['end_user'],
         ],
     ],
-    '2.1' => [
+    '2.1'   => [
         [
             'message' => ['<strong>New feature:</strong> New select box option to search in strings, entities, or both strings and entities.'],
             'section' => ['end_user'],
@@ -2171,7 +2171,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '2.0' => [
+    '2.0'   => [
         [
             'message' => ['<strong>New feature:</strong> In search results, there is now a <em>source</em> link next to the original string and your translation, this links to the file on hg.mozilla.org, this way you can find easily where the file to edit is.'],
             'section' => ['end_user'],
@@ -2201,7 +2201,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.9' => [
+    '1.9'   => [
         [
             'message' => ['Searches including special characters such as [, (, { are now possible (useful for plurals in Gaia entities, replacement variables in Gais strings or output of messages containing function names in developer tools)'],
             'section' => ['end_user'],
@@ -2231,7 +2231,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.8' => [
+    '1.8'   => [
         [
             'message' => ['Searches need to be at least 2 characters long, single letter searches now return an error message.'],
             'section' => ['end_user'],
@@ -2249,7 +2249,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.7' => [
+    '1.7'   => [
         [
             'message' => ['<strong>New experimental feature:</strong> You can now see all the translated <a href="https://transvision.mozfr.org/accesskeys/">access keys</a> that are potentially wrong for your locale. If you see a reddish square next to your access key letter such as this one&nbsp;: <span class="highlight-red">&nbsp;</span>, it means that there is a space in your string and the access key may not work.'],
             'section' => ['end_user'],
@@ -2272,7 +2272,7 @@ $changelog = [
             'section' => ['developers'],
         ],
     ],
-    '1.6' => [
+    '1.6'   => [
         [
             'message' => ['<strong>New experimental feature:</strong> You can now compare differences in your translations across channels (central, aurora, beta, release) on this page <del>Channel to Channel differences</del>'],
             'section' => ['end_user'],
@@ -2299,7 +2299,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.5' => [
+    '1.5'   => [
         [
             'message' => ['<strong>New feature:</strong> Gaia strings are now included and merged with your repos. You can also do searches for the Gaia repo only'],
             'section' => ['end_user'],
@@ -2330,7 +2330,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.4' => [
+    '1.4'   => [
         [
             'message' => ['<strong>New feature:</strong> locale to locale comparison. There is now two locale switchers, the source and the target one. By default, the source is en-US and the target is your detected locale code. You can manually set a different source than en-US so as to compare your translations with another locale. Note that the search results will be limited to the amount of translated strings in the source locale.'],
             'section' => ['end_user'],
@@ -2349,7 +2349,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.3' => [
+    '1.3'   => [
         [
             'message' => ['Strings in .ini and .inc files are now also in results'],
             'section' => ['end_user'],
@@ -2375,7 +2375,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.2' => [
+    '1.2'   => [
         [
             'message' => ['Searches for strings with single and double quotes work ex: <a href="https://transvision.mozfr.org/?locale=fr&amp;repo=release&amp;recherche=Don\'t">Search for “Don\'t”</a>'],
             'section' => ['end_user'],
@@ -2405,7 +2405,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.1' => [
+    '1.1'   => [
         [
             'message' => ['added ach, ff, lij, my, wo locales'],
             'section' => ['end_user'],
@@ -2443,7 +2443,7 @@ $changelog = [
             'section' => ['other'],
         ],
     ],
-    '1.0' => [
+    '1.0'   => [
         [
             'message' => ['Initial import of existing code into github and reinstalling on MozFR server'],
             'section' => ['end_user'],

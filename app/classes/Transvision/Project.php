@@ -47,7 +47,7 @@ class Project
              */
             'meta' => true,
         ],
-        'firefox_ios' => [
+        'firefox_ios'  => [
             'git_repository'    => 'firefoxios-l10n',
             'locale_mapping'    => [
                 'bn-IN' => 'bn',
@@ -63,11 +63,11 @@ class Project
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
-        'comm_l10n'=> [
+        'comm_l10n'    => [
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
-        'mozilla_org'=> [
+        'mozilla_org'  => [
             'git_repository'    => 'www-l10n',
             'git_branch'        => 'master',
             'pontoon_project'   => 'mozillaorg',
@@ -83,7 +83,7 @@ class Project
             'source_type'       => 'xml',
             'variable_patterns' => ['xml_android'],
         ],
-        'vpn_client' => [
+        'vpn_client'   => [
             'git_repository'     => 'mozilla-vpn-client-l10n',
             'underscore_locales' => true,
             'pontoon_project'    => 'mozilla-vpn-client',
@@ -104,7 +104,7 @@ class Project
             'comm_l10n',
         ],
         // Products using Git
-        'git' => [
+        'git'         => [
             'android_l10n', 'firefox_ios', 'mozilla_org', 'vpn_client',
         ],
         // Products using free text search on Pontoon
