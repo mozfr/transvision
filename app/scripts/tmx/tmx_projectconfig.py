@@ -51,6 +51,13 @@ class StringExtraction:
         self.reference_locale = reference_locale
         self.repository_name = repository_name
 
+    def setStorageMode(self, mode, prefix):
+        """Set storage mode and prefix."""
+
+        self.storage_mode = mode
+        # Strip trailing '/' from storage_prefix
+        self.storage_prefix = prefix.rstrip(os.path.sep)
+
     def extractStrings(self):
         """Extract strings from all locales."""
 
@@ -59,10 +66,27 @@ class StringExtraction:
         basedir = os.path.join(basedir, project_config.root)
 
         reference_cache = {}
-        self.translations[self.reference_locale] = {}
+
+        if self.reference_locale not in self.translations:
+            self.translations[self.reference_locale] = {}
         for locale in project_config.all_locales:
+
+            # If storage_mode is append, read existing translations (if available)
+            if self.storage_mode == "append":
+                storage_file = os.path.join(
+                    os.path.join(self.storage_path, locale),
+                    f"cache_{locale}_{self.repository_name}",
+                )
+                file_name = f"{storage_file}.json"
+                if os.path.isfile(file_name):
+                    with open(file_name) as f:
+                        tmp_translations = json.load(f)
+                    f.close()
+                    self.translations[locale] = tmp_translations
+            else:
+                self.translations[locale] = {}
+
             files = paths.ProjectFiles(locale, [project_config])
-            self.translations[locale] = {}
             for l10n_file, reference_file, _, _ in files:
                 if not os.path.exists(l10n_file):
                     # File not available in localization
@@ -73,6 +97,9 @@ class StringExtraction:
                     continue
 
                 key_path = os.path.relpath(reference_file, basedir)
+                # Prepend storage_prefix if defined
+                if self.storage_prefix != "":
+                    key_path = f"{self.storage_prefix}/{key_path}"
                 try:
                     p = getParser(reference_file)
                 except UserWarning:
@@ -82,9 +109,7 @@ class StringExtraction:
                     reference_cache[key_path] = set(p.parse().keys())
                     self.translations[self.reference_locale].update(
                         (
-                            "{}/{}:{}".format(
-                                self.repository_name, key_path, entity.key
-                            ),
+                            f"{self.repository_name}/{key_path}:{entity.key}",
                             entity.raw_val,
                         )
                         for entity in p.parse()
@@ -93,7 +118,7 @@ class StringExtraction:
                 p.readFile(l10n_file)
                 self.translations[locale].update(
                     (
-                        "{}/{}:{}".format(self.repository_name, key_path, entity.key),
+                        f"{self.repository_name}/{key_path}:{entity.key}",
                         entity.raw_val,
                     )
                     for entity in p.parse()
@@ -110,7 +135,7 @@ class StringExtraction:
             translations = self.translations[locale]
             storage_folder = os.path.join(self.storage_path, locale)
             storage_file = os.path.join(
-                storage_folder, "cache_{}_{}".format(locale, self.repository_name)
+                storage_folder, f"cache_{locale}_{self.repository_name}"
             )
 
             # Make sure that the TMX folder exists
@@ -120,7 +145,7 @@ class StringExtraction:
             if output_format != "php":
                 # Store translations in JSON format
                 json_output = json.dumps(translations, sort_keys=True)
-                with open("{}.json".format(storage_file), "w") as f:
+                with open(f"{storage_file}.json", "w") as f:
                     f.write(json_output)
 
             if output_format != "json":
@@ -134,10 +159,10 @@ class StringExtraction:
                 for string_id in string_ids:
                     translation = self.escape(translations[string_id])
                     string_id = self.escape(string_id)
-                    output_php.append("'{}' => '{}',\n".format(string_id, translation))
+                    output_php.append(f"'{string_id}' => '{translation}',\n")
                 output_php.append("];\n")
 
-                file_name = "{}.php".format(storage_file)
+                file_name = f"{storage_file}.php"
                 with codecs.open(file_name, "w", encoding="utf-8") as f:
                     f.writelines(output_php)
 
@@ -167,8 +192,30 @@ def main():
     # Read command line input parameters
     parser = argparse.ArgumentParser()
     parser.add_argument("toml_path", help="Path to root l10n.toml file")
-    parser.add_argument("reference_code", help="Reference language code")
-    parser.add_argument("repository_name", help="Repository name")
+    parser.add_argument(
+        "--ref",
+        dest="reference_code",
+        help="Reference language code",
+        required=True,
+    )
+    parser.add_argument(
+        "--repo", dest="repository_name", help="Repository name", required=True
+    )
+    parser.add_argument(
+        "--mode",
+        dest="storage_mode",
+        nargs="?",
+        help="If set to 'append', translations will be added to an existing cache file",
+        default="",
+    )
+    parser.add_argument(
+        "--prefix",
+        dest="storage_prefix",
+        nargs="?",
+        help="This prefix will be prependended to the identified "
+        "path in string IDs (e.g. extensions/irc for Chatzilla)",
+        default="",
+    )
     parser.add_argument(
         "--output",
         nargs="?",
@@ -180,8 +227,13 @@ def main():
     args = parser.parse_args()
 
     extracted_strings = StringExtraction(
-        args.toml_path, storage_path, args.reference_code, args.repository_name
+        args.toml_path,
+        storage_path,
+        args.reference_code,
+        args.repository_name,
     )
+    extracted_strings.setStorageMode(args.storage_mode, args.storage_prefix)
+
     extracted_strings.extractStrings()
     extracted_strings.storeTranslations(args.output)
 
