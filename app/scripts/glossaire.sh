@@ -149,7 +149,7 @@ function updateGeckoStrings() {
         # $1: Locale code
         echogreen "Create cache for $repo_name/$1"
         mkdir -p "${root}TMX/${locale}/"
-        nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
     }
 
     local repo_name="gecko_strings"
@@ -260,7 +260,7 @@ function updateCommL10n() {
         # $1: Locale code
         echogreen "Create cache for $repo_name/$1"
         mkdir -p "${root}TMX/${locale}/"
-        nice -20 python $install/app/scripts/tmx/tmx_products.py $repo_folder/$1/ $1 en-US $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
     }
 
     local repo_name="comm_l10n"
@@ -307,7 +307,8 @@ function updateAndroidl10n() {
     fi
     echogreen "Extract strings for android-l10n"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile.toml en-US android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile.toml --ref en-US --repo android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile/focus-android/l10n.toml --ref en-US --repo android_l10n --mode append --prefix mozilla-mobile/focus-android
 }
 
 function updateMozOrg() {
@@ -319,8 +320,8 @@ function updateMozOrg() {
     fi
     echogreen "Extract strings for mozilla.org (Fluent)"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-pontoon.toml en mozilla_org
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-vendor.toml en mozilla_org
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-pontoon.toml --ref en --repo mozilla_org
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-vendor.toml --ref en --repo mozilla_org
 }
 
 echogreen "Activating virtualenv..."

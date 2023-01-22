@@ -61,13 +61,13 @@ class StringExtraction:
 
         # Define the local storage filenames
         self.storage_file = os.path.join(
-            storage_path, locale, "cache_{}_{}".format(locale, repository_name)
+            storage_path, locale, f"cache_{locale}_{repository_name}"
         )
 
         self.reference_storage_file = os.path.join(
             storage_path,
             reference_locale,
-            "cache_{}_{}".format(reference_locale, repository_name),
+            f"cache_{reference_locale}_{repository_name}",
         )
 
     def setRepositoryPath(self, path):
@@ -102,7 +102,7 @@ class StringExtraction:
         relative_path = file_name[len(self.repository_path) + 1 :]
         # Prepend storage_prefix if defined
         if self.storage_prefix != "":
-            relative_path = "{}/{}".format(self.storage_prefix, relative_path)
+            relative_path = f"{self.storage_prefix}/{relative_path}"
 
         return relative_path
 
@@ -112,7 +112,7 @@ class StringExtraction:
         # If storage_mode is append, read existing translations (if available)
         # before overriding them
         if self.storage_mode == "append":
-            file_name = "{}.json".format(self.storage_file)
+            file_name = f"{self.storage_file}.json"
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     self.translations = json.load(f)
@@ -132,28 +132,24 @@ class StringExtraction:
                     # Ignore Junk
                     if isinstance(entity, parser.Junk):
                         continue
-                    string_id = "{}:{}".format(self.getRelativePath(file_name), entity)
+                    string_id = f"{self.getRelativePath(file_name)}:{entity}"
                     if file_extension == ".ftl":
                         if entity.raw_val is not None:
                             self.translations[string_id] = entity.raw_val
                         # Store attributes
                         for attribute in entity.attributes:
-                            attr_string_id = "{}:{}.{}".format(
-                                self.getRelativePath(file_name),
-                                entity,
-                                attribute,
-                            )
+                            attr_string_id = f"{self.getRelativePath(file_name)}:{entity}.{attribute}"
                             self.translations[attr_string_id] = attribute.raw_val
                     else:
                         self.translations[string_id] = entity.raw_val
             except Exception as e:
-                print("Error parsing file: {}".format(file_name))
+                print(f"Error parsing file: {file_name}")
                 print(e)
 
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
             # Read the JSON cache for reference locale if available
-            file_name = "{}.json".format(self.reference_storage_file)
+            file_name = f"{self.reference_storage_file}.json"
             if os.path.isfile(file_name):
                 with open(file_name) as f:
                     reference_strings = json.load(f)
@@ -173,7 +169,7 @@ class StringExtraction:
         if output_format != "php":
             # Store translations in JSON format
             json_output = json.dumps(self.translations, sort_keys=True)
-            with open("{}.json".format(self.storage_file), "w") as f:
+            with open(f"{self.storage_file}.json", "w") as f:
                 f.write(json_output)
 
         if output_format != "json":
@@ -187,10 +183,10 @@ class StringExtraction:
             for string_id in string_ids:
                 translation = self.escape(self.translations[string_id])
                 string_id = self.escape(string_id)
-                output_php.append("'{}' => '{}',\n".format(string_id, translation))
+                output_php.append(f"'{string_id}' => '{translation}',\n")
             output_php.append("];\n")
 
-            file_name = "{}.php".format(self.storage_file)
+            file_name = f"{self.storage_file}.php"
             with codecs.open(file_name, "w", encoding="utf-8") as f:
                 f.writelines(output_php)
 
@@ -219,30 +215,48 @@ class StringExtraction:
 def main():
     # Read command line input parameters
     parser = argparse.ArgumentParser()
-    parser.add_argument("repo_path", help="Path to locale files")
-    parser.add_argument("locale_code", help="Locale language code")
-    parser.add_argument("reference_code", help="Reference language code")
-    parser.add_argument("repository_name", help="Repository name")
+    parser.add_argument(
+        "--path",
+        dest="repo_path",
+        help="Path to locale files",
+        required=True,
+    )
+    parser.add_argument(
+        "--locale",
+        dest="locale_code",
+        help="Locale code",
+        required=True,
+    )
+    parser.add_argument(
+        "--ref",
+        dest="reference_code",
+        help="Reference locale code",
+        required=True,
+    )
+    parser.add_argument(
+        "--repo", dest="repository_name", help="Repository name", required=True
+    )
+    parser.add_argument(
+        "--mode",
+        dest="storage_mode",
+        nargs="?",
+        help="If set to 'append', translations will be added to an existing cache file",
+        default="",
+    )
+    parser.add_argument(
+        "--prefix",
+        dest="storage_prefix",
+        nargs="?",
+        help="This prefix will be prependended to the identified "
+        "path in string IDs (e.g. extensions/irc for Chatzilla)",
+        default="",
+    )
     parser.add_argument(
         "--output",
         nargs="?",
         type=str,
         choices=["json", "php"],
         help="Store only one type of output.",
-        default="",
-    )
-    parser.add_argument(
-        "storage_mode",
-        nargs="?",
-        help="If set to 'append', translations will be added to "
-        "an existing cache file",
-        default="",
-    )
-    parser.add_argument(
-        "storage_prefix",
-        nargs="?",
-        help="This prefix will be prependended to the identified "
-        "path in string IDs (e.g. extensions/irc for Chatzilla)",
         default="",
     )
     args = parser.parse_args()
@@ -252,8 +266,7 @@ def main():
     )
 
     extracted_strings.setRepositoryPath(args.repo_path)
-    if args.storage_mode == "append":
-        extracted_strings.setStorageMode("append", args.storage_prefix)
+    extracted_strings.setStorageMode("append", args.storage_prefix)
 
     extracted_strings.extractStrings()
     extracted_strings.storeTranslations(args.output)
