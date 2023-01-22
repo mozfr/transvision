@@ -44,6 +44,8 @@ class StringExtraction:
 
         # Set defaults
         self.translations = {}
+        self.storage_mode = ""
+        self.storage_prefix = ""
 
         # Set instance variables
         self.toml_path = toml_path
