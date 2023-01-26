@@ -44,7 +44,7 @@ class StringExtraction:
 
         # Set defaults
         self.translations = {}
-        self.storage_mode = ""
+        self.storage_append = False
         self.storage_prefix = ""
 
         # Set instance variables
@@ -53,10 +53,10 @@ class StringExtraction:
         self.reference_locale = reference_locale
         self.repository_name = repository_name
 
-    def setStorageMode(self, mode, prefix):
+    def setStorageAppendMode(self, prefix):
         """Set storage mode and prefix."""
 
-        self.storage_mode = mode
+        self.storage_append = True
         # Strip trailing '/' from storage_prefix
         self.storage_prefix = prefix.rstrip(os.path.sep)
 
@@ -73,8 +73,8 @@ class StringExtraction:
             self.translations[self.reference_locale] = {}
         for locale in project_config.all_locales:
 
-            # If storage_mode is append, read existing translations (if available)
-            if self.storage_mode == "append":
+            # If storage mode is append, read existing translations (if available)
+            if self.storage_append:
                 storage_file = os.path.join(
                     os.path.join(self.storage_path, locale),
                     f"cache_{locale}_{self.repository_name}",
@@ -204,11 +204,10 @@ def main():
         "--repo", dest="repository_name", help="Repository name", required=True
     )
     parser.add_argument(
-        "--mode",
-        dest="storage_mode",
-        nargs="?",
+        "--append",
+        dest="append_mode",
+        action="store_true",
         help="If set to 'append', translations will be added to an existing cache file",
-        default="",
     )
     parser.add_argument(
         "--prefix",
@@ -234,7 +233,8 @@ def main():
         args.reference_code,
         args.repository_name,
     )
-    extracted_strings.setStorageMode(args.storage_mode, args.storage_prefix)
+    if args.append_mode:
+        extracted_strings.setStorageAppendMode(args.storage_prefix)
 
     extracted_strings.extractStrings()
     extracted_strings.storeTranslations(args.output)

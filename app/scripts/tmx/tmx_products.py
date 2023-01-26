@@ -49,7 +49,7 @@ class StringExtraction:
             ".ini",
             ".properties",
         ]
-        self.storage_mode = ""
+        self.storage_append = False
         self.storage_prefix = ""
         self.file_list = []
         self.translations = {}
@@ -76,10 +76,10 @@ class StringExtraction:
         # Strip trailing '/' from repository path
         self.repository_path = path.rstrip(os.path.sep)
 
-    def setStorageMode(self, mode, prefix):
+    def setStorageAppendMode(self, prefix):
         """Set storage mode and prefix."""
 
-        self.storage_mode = mode
+        self.storage_append = True
         # Strip trailing '/' from storage_prefix
         self.storage_prefix = prefix.rstrip(os.path.sep)
 
@@ -109,9 +109,9 @@ class StringExtraction:
     def extractStrings(self):
         """Extract strings from all files."""
 
-        # If storage_mode is append, read existing translations (if available)
+        # If storage mode is append, read existing translations (if available)
         # before overriding them
-        if self.storage_mode == "append":
+        if self.storage_append:
             file_name = f"{self.storage_file}.json"
             if os.path.isfile(file_name):
                 with open(file_name) as f:
@@ -237,11 +237,10 @@ def main():
         "--repo", dest="repository_name", help="Repository name", required=True
     )
     parser.add_argument(
-        "--mode",
-        dest="storage_mode",
-        nargs="?",
+        "--append",
+        dest="append_mode",
+        action="store_true",
         help="If set to 'append', translations will be added to an existing cache file",
-        default="",
     )
     parser.add_argument(
         "--prefix",
@@ -266,7 +265,8 @@ def main():
     )
 
     extracted_strings.setRepositoryPath(args.repo_path)
-    extracted_strings.setStorageMode("append", args.storage_prefix)
+    if args.append_mode:
+        extracted_strings.setStorageAppendMode(args.storage_prefix)
 
     extracted_strings.extractStrings()
     extracted_strings.storeTranslations(args.output)
