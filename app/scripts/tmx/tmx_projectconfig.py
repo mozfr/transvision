@@ -63,32 +63,28 @@ class StringExtraction:
     def extractStrings(self):
         """Extract strings from all locales."""
 
-        basedir = os.path.dirname(self.toml_path)
-        project_config = paths.TOMLParser().parse(self.toml_path, env={"l10n_base": ""})
-        basedir = os.path.join(basedir, project_config.root)
+        def readExistingJSON(locale):
+            """Read translations from existing JSON file"""
+            translations = {}
+            storage_file = os.path.join(
+                os.path.join(self.storage_path, locale),
+                f"cache_{locale}_{self.repository_name}",
+            )
+            file_name = f"{storage_file}.json"
+            if os.path.isfile(file_name):
+                with open(file_name) as f:
+                    translations = json.load(f)
 
-        reference_cache = {}
+            return translations
 
-        if self.reference_locale not in self.translations:
-            self.translations[self.reference_locale] = {}
-        for locale in project_config.all_locales:
+        def readFiles(locale):
+            """Read files for locale"""
 
-            # If storage mode is append, read existing translations (if available)
-            if self.storage_append:
-                storage_file = os.path.join(
-                    os.path.join(self.storage_path, locale),
-                    f"cache_{locale}_{self.repository_name}",
-                )
-                file_name = f"{storage_file}.json"
-                if os.path.isfile(file_name):
-                    with open(file_name) as f:
-                        tmp_translations = json.load(f)
-                    f.close()
-                    self.translations[locale] = tmp_translations
+            if locale == self.reference_locale:
+                files = paths.ProjectFiles(None, [project_config])
             else:
-                self.translations[locale] = {}
+                files = paths.ProjectFiles(locale, [project_config])
 
-            files = paths.ProjectFiles(locale, [project_config])
             for l10n_file, reference_file, _, _ in files:
                 if not os.path.exists(l10n_file):
                     # File not available in localization
@@ -106,16 +102,6 @@ class StringExtraction:
                     p = getParser(reference_file)
                 except UserWarning:
                     continue
-                if key_path not in reference_cache:
-                    p.readFile(reference_file)
-                    reference_cache[key_path] = set(p.parse().keys())
-                    self.translations[self.reference_locale].update(
-                        (
-                            f"{self.repository_name}/{key_path}:{entity.key}",
-                            entity.raw_val,
-                        )
-                        for entity in p.parse()
-                    )
 
                 p.readFile(l10n_file)
                 self.translations[locale].update(
@@ -125,6 +111,23 @@ class StringExtraction:
                     )
                     for entity in p.parse()
                 )
+
+        basedir = os.path.dirname(self.toml_path)
+        project_config = paths.TOMLParser().parse(self.toml_path, env={"l10n_base": ""})
+        basedir = os.path.join(basedir, project_config.root)
+
+        # Read strings for reference locale
+        self.translations[self.reference_locale] = (
+            readExistingJSON(self.reference_locale) if self.storage_append else {}
+        )
+        readFiles(self.reference_locale)
+
+        for locale in project_config.all_locales:
+            # If storage mode is append, read existing translations (if available)
+            self.translations[locale] = (
+                readExistingJSON(locale) if self.storage_append else {}
+            )
+            readFiles(locale)
 
     def storeTranslations(self, output_format):
         """
