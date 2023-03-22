@@ -64,7 +64,7 @@ $search_yields_results = false;
 // This will hold the components names for the search filters
 $requested_repo = $search->getRepository();
 $components = [];
-foreach ($search_results as $locale => $locale_matches) {
+foreach ($search_results as $locale_search => $locale_matches) {
     $search_results = ShowResults::getTMXResultsRepos($locale_matches, $data);
     if (! Project::isMetaRepository($requested_repo)) {
         $components += Project::getComponents($search_results);
@@ -74,18 +74,18 @@ foreach ($search_results as $locale => $locale_matches) {
         // We have results, we won't display search suggestions but search results
         $search_yields_results = true;
 
-        $search_id = strtolower(str_replace('-', '', $locale));
+        $search_id = strtolower(str_replace('-', '', $locale_search));
         $message_count = $real_search_results > $limit_results
             ? "<span class=\"results_count_{$search_id}\">{$limit_results} results</span> out of {$real_search_results}"
             : "<span class=\"results_count_{$search_id}\">" . Utils::pluralize(count($search_results), 'result') . '</span>';
 
-        $output[$locale] = "<h2>Displaying {$message_count} for the string "
-                         . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . "</span> in {$locale}:</h2>";
-        $output[$locale] .= ShowResults::resultsTable($search, $search_id, $search_results, $page);
+        $output[$locale_search] = "<h2>Displaying {$message_count} for the string "
+                                . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . "</span> in {$locale_search}:</h2>";
+        $output[$locale_search] .= ShowResults::resultsTable($search, $search_id, $search_results, $page);
     } else {
-        $output[$locale] = '<h2>No matching results for the string '
-                         . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . '</span>'
-                         . " for the locale {$locale}</h2>";
+        $output[$locale_search] = '<h2>No matching results for the string '
+                                . '<span class="searchedTerm">' . htmlentities($search->getSearchTerms()) . '</span>'
+                                . " for the locale {$locale_search}</h2>";
     }
 }
 
@@ -96,7 +96,7 @@ $components = array_unique($components);
 if (! $search_yields_results) {
     $merged_strings = [];
 
-    foreach ($data as $locale => $locale_strings) {
+    foreach ($data as $locale_data => $locale_strings) {
         foreach ($locale_strings as $repo => $repo_strings) {
             $merged_strings = array_merge($merged_strings, array_values($repo_strings));
         }
