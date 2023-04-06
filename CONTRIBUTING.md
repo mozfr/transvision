@@ -51,12 +51,12 @@ git checkout -b my_new_branch
 ```bash
 start.sh -tests
 ```
-- Update dependencies with composer:
+- Install dependencies with composer:
 ```bash
-php composer.phar update
+php composer.phar install
 ```
 or, if Composer is installed globally:
 ```bash
-composer update
+composer install
 ```
 - Check our [Coding Standards](https://github.com/mozfr/transvision/wiki/Code-conventions) before submitting pull requests.
