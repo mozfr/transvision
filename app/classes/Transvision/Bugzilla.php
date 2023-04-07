@@ -55,14 +55,26 @@ class Bugzilla extends _Bugzilla
         $target_string = $target_string != ''
             ? $target_string
             : '(empty string)';
-        $bug_message = rawurlencode(
-            html_entity_decode(
-                "The string:\n{$source_string}\n\n"
-                . "Is translated as:\n{$target_string}\n\n"
-                . "And should be:\n\n\n\n"
+
+        $default_message = "The string:\n{$source_string}\n\n"
+            . "Is translated as:\n{$target_string}\n\n"
+            . "And should be:\n\n\n\n"
+            . "Feedback via Transvision:\n"
+            . $transvision_url;
+
+        $message = $default_message;
+
+        // If the target string has the @@missing@@ tag, use an alternate comment
+        if($target_string === '@@missing@@'){
+            $message = "Source string:\n{$source_string}\n\n"
+                . "This string has not been translated yet. Proposed translation:\n\n\n\n"
                 . "Feedback via Transvision:\n"
-                . $transvision_url
-            ));
+                . $transvision_url;
+        }
+
+        $bug_message = rawurlencode(
+            html_entity_decode($message)
+        );
 
         if ($repo == 'mozilla_org') {
             if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
