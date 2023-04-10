@@ -49,20 +49,30 @@ class Bugzilla extends _Bugzilla
     {
         $bug_summary = rawurlencode("[{$locale}] Translation update proposed for {$entity}");
         $transvision_url = "https://transvision.mozfr.org/{$entity_link}";
+
         $source_string = $source_string != ''
             ? $source_string
             : '(empty string)';
         $target_string = $target_string != ''
             ? $target_string
             : '(empty string)';
+
+        $message = "Source string:\n\n```\n{$source_string}\n```\n\n";
+
+        if($target_string !== '@@missing@@') {
+            $message .= "Is translated as:\n\n```\n{$target_string}\n```\n\n"
+                . "And should be:\n\n```\n(add your translation here)\n```\n\n";
+        } else {
+            // If the target string has the @@missing@@ tag, use an alternative comment
+            $message .= "This string has not been translated yet. Proposed translation:\n\n"
+                . "```\n(add your translation here)\n```\n\n";
+        }
+
+        // Add link to the string in Transvision
+        $message .= "Feedback via [Transvision]({$transvision_url}).";
         $bug_message = rawurlencode(
-            html_entity_decode(
-                "The string:\n{$source_string}\n\n"
-                . "Is translated as:\n{$target_string}\n\n"
-                . "And should be:\n\n\n\n"
-                . "Feedback via Transvision:\n"
-                . $transvision_url
-            ));
+            html_entity_decode($message)
+        );
 
         if ($repo == 'mozilla_org') {
             if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
