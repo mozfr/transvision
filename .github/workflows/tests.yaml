@@ -7,8 +7,8 @@ on:
   # Trigger the workflow on pull request events
   # but only for the default branch
   pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize, reopened ]
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   run:
@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         php-versions:
-          - '7.4'
           - '8.0'
           - '8.1'
           - '8.2'
