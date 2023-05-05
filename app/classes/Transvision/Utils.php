@@ -163,7 +163,19 @@ class Utils
                 : [$repository];
 
             foreach ($repositories as $repository) {
-                $file = TMX . "{$locale}/cache_{$locale}_{$repository}.php";
+                # Ignore meta project (all_projects)
+                if (Project::isMetaRepository($repository)) {
+                    continue;
+                }
+                /*
+                    If the locale requested is en-US, we assume that the research
+                    needs to look at the reference locale (which might be "en"
+                    for some projects).
+                */
+                $repo_locale = ($locale == 'en-US')
+                    ? Project::getReferenceLocale($repository)
+                    : $locale;
+                $file = TMX . "{$repo_locale}/cache_{$repo_locale}_{$repository}.php";
                 if (! is_file($file)) {
                     continue;
                 }
@@ -183,7 +195,8 @@ class Utils
     }
 
     /**
-     * Return a flat array of entity items with structure (repo, entity, entity's text)
+     * Return a flat array of entity items with structure (repo, entity,
+       entity's text)
      *
      * @param string $tmx Array with strings organized per repo
      *
