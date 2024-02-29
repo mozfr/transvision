@@ -46,12 +46,12 @@ class Consistency
      /**
       * Filter out strings that should not be evaluted for consistency.
       *
-      * @param  array $strings_array Array of strings in the form
-      *                              string_id => string_value
+       * @param array $strings_array Array of strings in the form
+       *                             string_id => string_value
       * @param  string Repository identifier
       *
-      * @return array Array of filtered strings, with known false positives
-      *               removed
+       * @return array Array of filtered strings, with known false positives
+       *               removed
       */
      public static function filterStrings($strings_array, $repo)
      {
@@ -107,12 +107,12 @@ class Consistency
      /**
       * Filter out strings that belong to a group of components
       *
-      * @param  array $strings_array Array of strings in the form
-      *                              string_id => string_value
-      * @param  array $components    Array of component names
+       * @param array $strings_array Array of strings in the form
+       *                             string_id => string_value
+       * @param array $components    Array of component names
       *
-      * @return array Array of filtered strings, with strings belonging
-      *               to requested components removed
+       * @return array Array of filtered strings, with strings belonging
+       *               to requested components removed
       */
      public static function filterComponents($strings_array, $components)
      {
