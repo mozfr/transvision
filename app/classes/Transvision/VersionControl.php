@@ -101,15 +101,8 @@ class VersionControl
         $exploded_path = explode('/', $path);
         $base_folder = $exploded_path[0];
 
-        if ($repo == 'comm_l10n') {
-            $url = "https://hg.mozilla.org/projects/comm-l10n/file/default/{$locale}/";
-        } else {
-            if ($locale != 'en-US') {
-                $url = "https://hg.mozilla.org/l10n-central/{$locale}/file/default/";
-            } else {
-                $url = 'https://hg.mozilla.org/l10n/gecko-strings/file/default/';
-            }
-        }
+        # comm-l10n is the last repository using Mercurial
+        $url = "https://hg.mozilla.org/projects/comm-l10n/file/default/{$locale}/";
 
         return $url . $path . '/' . $entity_file;
     }
@@ -134,6 +127,15 @@ class VersionControl
                 : 'main';
             if (isset($repo_data['git_subfolder'])) {
                 $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
+            }
+            if ($repo == 'gecko_strings') {
+                // Special case for gecko-strings (Firefox)
+                $file_path = explode(':', $path)[0];
+                if ($locale == 'en-US') {
+                    return "https://github.com/mozilla-l10n/firefox-l10n-source/blob/main/{$file_path}";
+                }
+
+                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
             }
             if ($repo == 'android_l10n') {
                 // Special case for android-l10n (Android)
