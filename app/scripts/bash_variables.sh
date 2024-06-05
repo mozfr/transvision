@@ -6,8 +6,8 @@
 folders=( $libraries )
 path_sources=${config}/sources
 
-# Path and list of locales for gecko-strings
-gecko_strings_path=${local_hg}/gecko_strings
+# Path and list of locales for Gecko locales (Firefox)
+gecko_strings_path=${local_git}/gecko_strings
 gecko_strings_locales=${path_sources}/gecko_strings.txt
 folders+=( $gecko_strings_path )
 

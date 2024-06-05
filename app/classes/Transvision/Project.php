@@ -60,6 +60,8 @@ class Project
             'variable_patterns' => ['ios'],
         ],
         'gecko_strings'=> [
+            'git_repository'    => 'firefox-l10n',
+            'git_branch'        => 'main',
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
@@ -105,7 +107,8 @@ class Project
         ],
         // Products using Git
         'git'         => [
-            'android_l10n', 'firefox_ios', 'mozilla_org', 'vpn_client',
+            'android_l10n', 'firefox_ios', 'gecko_strings', 'mozilla_org',
+            'vpn_client',
         ],
         // Products using free text search on Pontoon
         'text_search' => [

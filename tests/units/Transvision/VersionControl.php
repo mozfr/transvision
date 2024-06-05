@@ -15,7 +15,7 @@ class VersionControl extends atoum\test
                 'mozilla_org', 'git',
             ],
             [
-                'gecko_strings', 'hg',
+                'gecko_strings', 'git',
             ],
             [
                 'firefox_ios', 'git',
@@ -63,12 +63,6 @@ class VersionControl extends atoum\test
     public function hgPathDP()
     {
         return [
-            [
-                'fr',
-                'gecko_strings',
-                'browser/updater/updater.ini:TitleText',
-                'https://hg.mozilla.org/l10n-central/fr/file/default/browser/updater/updater.ini',
-            ],
             [
                 'en-US',
                 'comm_l10n',
@@ -152,10 +146,16 @@ class VersionControl extends atoum\test
     {
         return [
             [
+                'en-US',
+                'gecko_strings',
+                'browser/updater/updater.ini:TitleText',
+                'https://github.com/mozilla-l10n/firefox-l10n-source/blob/main/browser/updater/updater.ini',
+            ],
+            [
                 'fr',
                 'gecko_strings',
                 'browser/updater/updater.ini:TitleText',
-                'https://hg.mozilla.org/l10n-central/fr/file/default/browser/updater/updater.ini',
+                'https://github.com/mozilla-l10n/firefox-l10n/blob/main/fr/browser/updater/updater.ini',
             ],
             [
                 'it',

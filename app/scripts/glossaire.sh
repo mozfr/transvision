@@ -111,147 +111,51 @@ fi
 # Create all bash variables
 source $script_path/bash_variables.sh
 
-function updateLocale() {
-    # Update this locale's repository
-    # $1: Path to l10n repository
-    # $2: Locale code
-    # $3: Repository name
-
-    # Assign input variables to variables with meaningful names
-    l10n_path="$1"
-    locale="$2"
-    repository_name="$3"
-
-    cd $l10n_path/$locale
-    # Check if there are incoming changesets
-    hg incoming -r default --bundle incoming.hg 2>&1 >/dev/null
-    incoming_changesets=$?
-    if [ $incoming_changesets -eq 0 ]
-    then
-        # Update with incoming changesets and remove the bundle
-        echogreen "Updating $repository_name"
-        hg pull --update incoming.hg
-        rm incoming.hg
-
-        # Return 1: we need to create the cache for this locale
-        return 1
-    else
-        echogreen "There are no changes to pull for $repository_name"
-
-        # Return 0: no need to create the cache
-        return 0
-    fi
-}
-
 function updateGeckoStrings() {
     function buildCache() {
         # Build the cache
-        # $1: Locale code
-        echogreen "Create cache for $repo_name/$1"
+        # $1: Path containing locale folder
+        # $2: Locale code
+        local path="$1"
+        local locale="$2"
+        echogreen "Create cache for $path/$locale"
         mkdir -p "${root}TMX/${locale}/"
-        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $path/$locale/ --locale $locale --ref en-US --repo $repo_name
     }
 
     local repo_name="gecko_strings"
     local repo_folder="$gecko_strings_path"
     local locale_list="gecko_strings_locales"
 
-    updated_english=false
+    # Update en-US, create TMX for en-US
+    git -C $repo_folder/en-US pull
+    buildCache $repo_folder en-US
 
-    # Store md5 of the existing en-US cache before updating the repositories
-    cache_file="${root}TMX/en-US/cache_en-US_${repo_name}.php"
-    if [ -f $cache_file ]
+    # Pull l10n repository if necessary
+    if [ "$checkrepo" = true ]
     then
-        existing_md5=($(md5sum $cache_file))
-    else
-        existing_md5=0
-    fi
-
-    # Update en-US, create TMX for en-US and check the updated md5
-    hg --cwd $repo_folder/en-US pull --update -r default
-    buildCache en-US
-    updated_md5=($(md5sum $cache_file))
-    if [ $existing_md5 != $updated_md5 ]
-    then
-        echo "English strings have been updated."
-        updated_english=true
+        git -C $repo_folder/l10n pull
     fi
 
     if [ "$all_locales" = true ]
     then
-        for locale in $(cat ${!locale_list})
-        do
-            if [ $locale != "en-US" ]
-            then
-                if [ -d $repo_folder/$locale ]
-                then
-                    updated_locale=0
-                    if [ "$checkrepo" = true ]
-                    then
-                        updateLocale $repo_folder $locale $repo_name/$locale
-                        updated_locale=$?
-                    fi
-
-                    # Check if we have a cache file for this locale. If it's a brand
-                    # new locale, we'll have the folder and no updates, but we
-                    # still need to create the cache.
-                    cache_file="${root}TMX/${locale}/cache_${locale}_${repo_name}.php"
-                    if [ ! -f $cache_file ]
-                    then
-                        echored "Cache doesn't exist for ${repo_name}/${locale}"
-                        updated_locale=1
-                    else
-                        php -l $cache_file 2>&1 1>/dev/null
-                        if [ $? -ne 0 ]
-                        then
-                            # There are PHP errors, force the rebuild
-                            echored "PHP errors in $cache_file. Forcing rebuild."
-                            updated_locale=1
-                        fi
-                    fi
-
-                    if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
-                    then
-                        buildCache $locale
-                    fi
-                else
-                    echored "Folder $repo_folder/$locale does not exist. Run setup.sh to fix the issue."
-                fi
-            fi
-        done
+        locales=$(cat ${!locale_list})
     else
-        if [ -d $repo_folder/$locale_code ]
-        then
-            updated_locale=0
-            if [ "$checkrepo" = true ]
-            then
-                updateLocale $repo_folder $locale_code $repo_name/$locale_code
-                updated_locale=$?
-            fi
-
-            cache_file="${root}TMX/${locale_code}/cache_${locale_code}_${repo_name}.php"
-            if [ ! -f $cache_file ]
-            then
-                echored "Cache doesn't exist for ${repo_name}/${locale_code}"
-                updated_locale=1
-            else
-                php -l $cache_file 2>&1 1>/dev/null
-                if [ $? -ne 0 ]
-                then
-                    # There are PHP errors, force the rebuild
-                    echored "PHP errors in $cache_file. Forcing rebuild."
-                    updated_locale=1
-                fi
-            fi
-
-            if [ "$forceTMX" = true -o "$updated_english" = true -o "$updated_locale" -eq 1 ]
-            then
-                buildCache $locale_code
-            fi
-        else
-            echored "Folder $repo_folder/$locale_code does not exist."
-        fi
+        locales=($locale_code)
     fi
+
+    for locale in $locales
+    do
+        if [ $locale != "en-US" ]
+        then
+            if [ -d $repo_folder/l10n/$locale ]
+            then
+                buildCache $repo_folder/l10n $locale
+            else
+                echored "Folder $repo_folder/l10n/$locale does not exist. Run setup.sh to fix the issue."
+            fi
+        fi
+    done
 }
 
 function updateCommL10n() {
