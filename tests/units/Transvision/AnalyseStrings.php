@@ -260,6 +260,30 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
+                // $brand variables in .properties
+                ['browser:foobar17' => 'Are you sure you want to quit $BrandFullName Setup?'],
+                ['browser:foobar17' => 'Da li ste sigurni da želite ugasiti $BrandFullName instalaciju?'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
+                // Missing $brand variables in .properties
+                ['browser:foobar17a' => 'Are you sure you want to quit $BrandFullName Setup?'],
+                ['browser:foobar17a' => 'Da li ste sigurni da želite ugasiti instalaciju?'],
+                'gecko_strings',
+                [],
+                ['browser:foobar17a'],
+            ],
+            [
+                // $brand variables in .properties with added text, not an error
+                ['browser:foobar17a' => 'Are you sure you want to quit $BrandFullName Setup?'],
+                ['browser:foobar17a' => 'Wil u definitief die $BrandFullName-opsteller afsluit?'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
                 // Mispelled variable
                 ['iostest:foobar1' => 'Introductory slide %1$@ of %2$@'],
                 ['iostest:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
