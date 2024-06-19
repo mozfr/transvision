@@ -172,6 +172,14 @@ class AnalyseStrings extends atoum\test
                 [],
             ],
             [
+                // .properties checks should not run in FTL messages
+                ['browser.ftl:foobar16a1' => '{ $brandname } installed $properties_var'],
+                ['browser.ftl:foobar16a1' => '{ $brandname } installato'],
+                'gecko_strings',
+                [],
+                [],
+            ],
+            [
                 // Difference spacing in variable for FTL (not an error)
                 ['browser:foobar16a2' => '{$brandname} installed'],
                 ['browser:foobar16a2' => '{ $brandname } installato'],
@@ -253,24 +261,24 @@ class AnalyseStrings extends atoum\test
             ],
             [
                 // Mispelled variable
-                ['ios:foobar1' => 'Introductory slide %1$@ of %2$@'],
-                ['ios:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
+                ['iostest:foobar1' => 'Introductory slide %1$@ of %2$@'],
+                ['iostest:foobar1' => 'Introduzione (passaggio %1$@ di %$@)'],
                 'firefox_ios',
                 [],
-                ['ios:foobar1'],
+                ['iostest:foobar1'],
             ],
             [
                 // Missing variable
-                ['ios:foobar2' => 'Do you want to save the password on %@?'],
-                ['ios:foobar2' => 'Salvare la password?'],
+                ['iostest:foobar2' => 'Do you want to save the password on %@?'],
+                ['iostest:foobar2' => 'Salvare la password?'],
                 'firefox_ios',
                 [],
-                ['ios:foobar2'],
+                ['iostest:foobar2'],
             ],
             [
                 // Changed order, not an error
-                ['ios:foobar3' => 'Introductory slide %1$@ of %2$@'],
-                ['ios:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
+                ['iostest:foobar3' => 'Introductory slide %1$@ of %2$@'],
+                ['iostest:foobar3' => 'Introduzione (passaggio %2$@ di %1$@)'],
                 'firefox_ios',
                 [],
                 [],
