@@ -57,11 +57,18 @@ class AnalyseStrings
             // %1$S or %S. %1$0.S and %0.S are valid too
             'printf'      => '/(%(?:[0-9]+\$){0,1}(?:[0-9].){0,1}([sS]))/',
             // $BrandShortName, but not "My%1$SFeeds-%2$S.opml" or "{ $brandShortName }"
-            'properties'  => '/(?<!%[0-9]|\{\s|\{)(\$[A-Za-z0-9\.]+)\b/',
+            'properties'  => '/(?<!%[0-9]|\{\s|\{)(\$[A-Za-z0-9\._-]+)\b/',
             // %1$s or %s. %d
             'xml_android' => '/(%(?:[0-9]+\$){0,1}([sd]))/',
             // %1, %2, etc.
             'xliff-qt'    => '/(%[0-9])/',
+        ];
+        $pattern_extensions = [
+            'ios'         => 'xml',
+            'l10njs'      => 'properties',
+            'printf'      => 'properties',
+            'xml_android' => 'xml',
+            'xliff-qt'    => 'xliff',
         ];
         $repo_patterns = Project::$repos_info[$repo]['variable_patterns'];
 
@@ -71,7 +78,20 @@ class AnalyseStrings
 
         foreach ($patterns as $pattern_name => $pattern) {
             foreach ($tmx_source as $key => $source) {
+                $file_path = explode(':', $key)[0];
+                $file_extension = explode('.', $file_path);
+                $file_extension = end($file_extension);
+
+                // If not specified, run all patterns
+                $check_pattern = True;
+                if (array_key_exists($file_extension, $patterns) || in_array($file_extension, array_values($pattern_extensions))) {
+                    // Run current pattern only on specific file extensions
+                    $valid_extension = $pattern_extensions[$pattern_name] ?? ".{$pattern_name}";
+                    $check_pattern = Strings::endsWith($file_path, $valid_extension);
+                }
+
                 if (isset($tmx_target[$key])
+                    && $check_pattern
                     && $tmx_target[$key] != ''
                     && ! in_array($key, $ignored_strings)) {
                     /*
