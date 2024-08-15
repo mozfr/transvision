@@ -111,7 +111,7 @@ fi
 # Create all bash variables
 source $script_path/bash_variables.sh
 
-function updateGeckoStrings() {
+function updateMultirepo() {
     function buildCache() {
         # Build the cache
         # $1: Path containing locale folder
@@ -123,9 +123,11 @@ function updateGeckoStrings() {
         nice -20 python $install/app/scripts/tmx/tmx_products.py --path $path/$locale/ --locale $locale --ref en-US --repo $repo_name
     }
 
-    local repo_name="gecko_strings"
-    local repo_folder="$gecko_strings_path"
-    local locale_list="gecko_strings_locales"
+    local repo_name="$1"
+    local var_repo_path="$1_path"
+    local var_locales_list="$1_locales"
+    local repo_folder=${!var_repo_path}
+    local locale_list=${!var_locales_list}
 
     # Update en-US, create TMX for en-US
     git -C $repo_folder/en-US pull
@@ -139,7 +141,7 @@ function updateGeckoStrings() {
 
     if [ "$all_locales" = true ]
     then
-        locales=$(cat ${!locale_list})
+        locales=$(cat $locale_list)
     else
         locales=($locale_code)
     fi
@@ -158,7 +160,7 @@ function updateGeckoStrings() {
     done
 }
 
-function updateCommL10n() {
+function updateSeamonkey() {
     function buildCache() {
         # Build the cache
         # $1: Locale code
@@ -167,15 +169,15 @@ function updateCommL10n() {
         nice -20 python $install/app/scripts/tmx/tmx_products.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
     }
 
-    local repo_name="comm_l10n"
-    local repo_folder="$comm_l10n_path"
-    local locale_list="comm_l10n_locales"
+    local repo_name="seamonkey"
+    local repo_folder="$seamonkey_path"
+    local locale_list="seamonkey_locales"
 
     if [ "$checkrepo" = true ]
     then
         # Pull repo
-        echogreen "Update comm-l10n repository"
-        hg --cwd $repo_folder pull --update -r default
+        echogreen "Update seamonkey repository"
+        git -C $repo_folder pull
     fi
 
     # Build cache for en-US first, then other locales
@@ -231,8 +233,9 @@ function updateMozOrg() {
 echogreen "Activating virtualenv..."
 source $install/python-venv/bin/activate || exit 1
 
-updateGeckoStrings
-updateCommL10n
+updateMultirepo gecko_strings
+updateMultirepo thunderbird
+updateSeamonkey
 updateMozOrg
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateOtherProduct vpn_client "Mozilla VPN Client" tmx_xliff
