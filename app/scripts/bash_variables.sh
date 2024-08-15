@@ -11,10 +11,15 @@ gecko_strings_path=${local_git}/gecko_strings
 gecko_strings_locales=${path_sources}/gecko_strings.txt
 folders+=( $gecko_strings_path )
 
-# Path and list of locales for comm-l10n
-comm_l10n_locales=${path_sources}/comm_l10n.txt
-comm_l10n_path=${local_hg}/comm_l10n
-folders+=( $comm_l10n_path )
+# Path and list of locales for Thunderbird
+thunderbird_locales=${path_sources}/thunderbird.txt
+thunderbird_path=${local_git}/thunderbird
+folders+=( $thunderbird_path )
+
+# Path and list of locales for Seamonkey
+seamonkey_locales=${path_sources}/seamonkey.txt
+seamonkey_path=${local_git}/seamonkey
+folders+=( $seamonkey_path )
 
 # Location of mozilla.org repository (Fluent based)
 mozilla_org=$local_git/mozilla_org/

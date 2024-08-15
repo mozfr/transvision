@@ -70,41 +70,12 @@ class VersionControl
             case 'git':
                 $path = self::gitPath($locale, $repo, $path);
                 break;
-            case 'hg':
-                $path = self::hgPath($locale, $repo, $path);
-                break;
             default:
                 $path = '';
                 break;
         }
 
         return $path;
-    }
-
-    /**
-     * Generate a path to the mercurial repo for the file
-     *
-     * @param string $locale Locale code
-     * @param string $repo   Repository name
-     * @param string $path   Entity name representing the local file
-     *
-     * @return string Path to the file in remote mercurial repository
-     */
-    public static function hgPath($locale, $repo, $path)
-    {
-        // Remove entity from path and store it in a variable
-        $path = explode(':', $path);
-        $path = $path[0];
-        $path = explode('/', $path);
-        $entity_file = array_pop($path);
-        $path = implode('/', $path);
-        $exploded_path = explode('/', $path);
-        $base_folder = $exploded_path[0];
-
-        # comm-l10n is the last repository using Mercurial
-        $url = "https://hg.mozilla.org/projects/comm-l10n/file/default/{$locale}/";
-
-        return $url . $path . '/' . $entity_file;
     }
 
     /**
@@ -129,13 +100,25 @@ class VersionControl
                 $file_path = "{$repo_data['git_subfolder']}/{$file_path}";
             }
             if ($repo == 'gecko_strings') {
-                // Special case for gecko-strings (Firefox)
                 $file_path = explode(':', $path)[0];
                 if ($locale == 'en-US') {
                     return "https://github.com/mozilla-l10n/firefox-l10n-source/blob/main/{$file_path}";
                 }
 
-                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
+                return "https://github.com/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
+            }
+            if ($repo == 'seamonkey') {
+                $file_path = explode(':', $path)[0];
+
+                return "https://gitlab.com/{$git_repo}/-/blob/{$git_branch}/{$locale}/{$file_path}";
+            }
+            if ($repo == 'thunderbird') {
+                $file_path = explode(':', $path)[0];
+                if ($locale == 'en-US') {
+                    return "https://github.com/thunderbird/thunderbird-l10n-source/blob/main/{$file_path}";
+                }
+
+                return "https://github.com/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
             }
             if ($repo == 'android_l10n') {
                 // Special case for android-l10n (Android)
@@ -144,7 +127,7 @@ class VersionControl
                     : '-' . str_replace('-', '-r', $locale);
                 $file_path = str_replace('values', "values{$locale_android}", $file_path);
 
-                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$file_path}";
+                return "https://github.com/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
             if ($repo == 'mozilla_org') {
                 // Special case for mozilla.org (Fluent)
@@ -152,7 +135,7 @@ class VersionControl
                     $file_path = str_replace('en/', "{$locale}/", $file_path);
                 }
 
-                return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$file_path}";
+                return "https://github.com/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
         } else {
             $file_path = $path;
@@ -160,7 +143,7 @@ class VersionControl
             $git_branch = 'main';
         }
 
-        return "https://github.com/mozilla-l10n/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
+        return "https://github.com/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
     }
 
     /**

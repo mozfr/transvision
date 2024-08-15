@@ -96,9 +96,10 @@ def main():
     # Besides standard VCS folders or templates, we need to exclude some
     # folders in specific projects.
     excluded_folders = {
-        "comm_l10n": ["ja-JP-mac"],
         "firefox_ios": ["templates", "es"],
         "mozilla_org": ["configs", "en"],
+        "seamonkey": ["ja-JP-mac"],
+        "thunderbird": ["ja-JP-mac"],
         "vpn_client": ["en"],
     }
 
