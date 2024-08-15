@@ -109,6 +109,7 @@ class Project
         // Desktop products
         'desktop'     => [
             'gecko_strings',
+            'seamonkey',
             'thunderbird',
         ],
         // Products using Git
