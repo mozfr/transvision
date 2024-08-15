@@ -42,7 +42,6 @@ function setupVirtualEnv() {
 
 function initGeckoStringsRepo() {
     local repo_folder="gecko_strings_path"
-    local repo_path="https://hg.mozilla.org/l10n-central"
 
     # If repo_folder="gecko_strings_path", ${!repo_folder} is equal to $gecko_strings_path
     cd ${!repo_folder}
@@ -62,14 +61,35 @@ function initGeckoStringsRepo() {
     fi
 }
 
-function initCommL10nRepo() {
-    local repo_folder="comm_l10n_path"
+function initThunderbirdRepo() {
+    local repo_folder="thunderbird_path"
 
-    if [ ! -d ${!repo_folder}/.hg ]
+    # If repo_folder="thunderbird_path", ${!repo_folder} is equal to $thunderbird_path
+    cd ${!repo_folder}
+
+    # Clone source repository as en-US
+    if [ ! -d "en-US" ];
     then
-        echogreen "Checking out comm-l10n repo."
-        cd ${local_hg}
-        hg clone https://hg.mozilla.org/projects/comm-l10n/ comm_l10n
+        echogreen "Checking out thunderbird-l10n-source"
+        git clone https://github.com/thunderbird/thunderbird-l10n-source en-US
+    fi
+
+    # Clone l10n monorepo as l10n
+    if [ ! -d "l10n" ];
+    then
+        echogreen "Checking out thunderbird-l10n"
+        git clone https://github.com/thunderbird/thunderbird-l10n l10n
+    fi
+}
+
+function initSeamonkeyRepo() {
+    local repo_folder="seamonkey_path"
+
+    if [ ! -d ${!repo_folder}/.git ]
+    then
+        echogreen "Checking out seamonkey-central-l10n repo."
+        cd ${local_git}
+        git clone https://gitlab.com/seamonkey-project/seamonkey-central-l10n seamonkey
     fi
 }
 
@@ -158,7 +178,8 @@ echo "${LATEST_TAG_NAME}" | tr -d '\n' > "${install}/cache/tag.txt"
 
 setupVirtualEnv
 initGeckoStringsRepo
-initCommL10nRepo
+initThunderbirdRepo
+initSeamonkeyRepo
 
 # Check out GitHub repos
 cd $mozilla_org
