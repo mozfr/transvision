@@ -74,7 +74,7 @@ class Project extends atoum\test
     public function testGetDesktopRepositories()
     {
         $obj = new _Project();
-        $repos = ['gecko_strings', 'comm_l10n'];
+        $repos = ['gecko_strings', 'thunderbird'];
         $this
             ->array($obj->getDesktopRepositories())
                 ->isEqualTo($repos);

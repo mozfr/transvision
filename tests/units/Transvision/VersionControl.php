@@ -60,29 +60,6 @@ class VersionControl extends atoum\test
                 ->isEqualTo($b);
     }
 
-    public function hgPathDP()
-    {
-        return [
-            [
-                'en-US',
-                'comm_l10n',
-                'mail/branding/thunderbird/brand.dtd:brandFullName',
-                'https://hg.mozilla.org/projects/comm-l10n/file/default/en-US/mail/branding/thunderbird/brand.dtd',
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider hgPathDP
-     */
-    public function testHgPath($a, $b, $c, $d)
-    {
-        $obj = new _VersionControl();
-        $this
-            ->string($obj->hgPath($a, $b, $c))
-                ->isEqualTo($d);
-    }
-
     public function gitPathDP()
     {
         return [
@@ -108,7 +85,7 @@ class VersionControl extends atoum\test
                 'fr',
                 'unknown',
                 'test/file.properties',
-                'https://github.com/mozilla-l10n/unknown/blob/main/fr/test/file.properties',
+                'https://github.com/unknown/blob/main/fr/test/file.properties',
             ],
             [
                 'en-US',
@@ -156,6 +133,30 @@ class VersionControl extends atoum\test
                 'gecko_strings',
                 'browser/updater/updater.ini:TitleText',
                 'https://github.com/mozilla-l10n/firefox-l10n/blob/main/fr/browser/updater/updater.ini',
+            ],
+            [
+                'en-US',
+                'thunderbird',
+                'browser/updater/updater.ini:TitleText',
+                'https://github.com/thunderbird/thunderbird-l10n-source/blob/main/browser/updater/updater.ini',
+            ],
+            [
+                'fr',
+                'thunderbird',
+                'browser/updater/updater.ini:TitleText',
+                'https://github.com/thunderbird/thunderbird-l10n/blob/main/fr/browser/updater/updater.ini',
+            ],
+            [
+                'en-US',
+                'seamonkey',
+                'browser/updater/updater.ini:TitleText',
+                'https://gitlab.com/seamonkey-project/seamonkey-central-l10n/-/blob/main/en-US/browser/updater/updater.ini',
+            ],
+            [
+                'fr',
+                'seamonkey',
+                'browser/updater/updater.ini:TitleText',
+                'https://gitlab.com/seamonkey-project/seamonkey-central-l10n/-/blob/main/fr/browser/updater/updater.ini',
             ],
             [
                 'it',

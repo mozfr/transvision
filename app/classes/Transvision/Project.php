@@ -18,7 +18,7 @@ class Project
      *
      * files: list of files to analyze during extraction
      *
-     * git_repository: name of remote Git repository in the mozilla-l10n org
+     * git_repository: name of remote Git repository
      *
      * git_subfolder: if localizations are in a subdirectory, e.g. if they're
      * subfolders in /locales, value will be simply "locales" (no ending or
@@ -48,7 +48,7 @@ class Project
             'meta' => true,
         ],
         'firefox_ios'  => [
-            'git_repository'    => 'firefoxios-l10n',
+            'git_repository'    => 'mozilla-l10n/firefoxios-l10n',
             'locale_mapping'    => [
                 'bn-IN' => 'bn',
                 'bn-BD' => 'bn',
@@ -60,17 +60,23 @@ class Project
             'variable_patterns' => ['ios'],
         ],
         'gecko_strings'=> [
-            'git_repository'    => 'firefox-l10n',
+            'git_repository'    => 'mozilla-l10n/firefox-l10n',
             'git_branch'        => 'main',
             'source_type'       => 'mixed',
             'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
         ],
-        'comm_l10n'    => [
+        'seamonkey'    => [
+            'git_repository'    => 'seamonkey-project/seamonkey-central-l10n',
             'source_type'       => 'mixed',
-            'variable_patterns' => ['dtd', 'ftl', 'l10njs', 'printf', 'properties'],
+            'variable_patterns' => ['dtd', 'ftl', 'printf', 'properties'],
+        ],
+        'thunderbird'  => [
+            'git_repository'    => 'thunderbird/thunderbird-l10n',
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['dtd', 'ftl', 'printf', 'properties'],
         ],
         'mozilla_org'  => [
-            'git_repository'    => 'www-l10n',
+            'git_repository'    => 'mozilla-l10n/www-l10n',
             'git_branch'        => 'master',
             'pontoon_project'   => 'mozillaorg',
             'reference_locale'  => 'en',
@@ -78,7 +84,7 @@ class Project
             'variable_patterns' => ['ftl'],
         ],
         'android_l10n' => [
-            'git_repository'    => 'android-l10n',
+            'git_repository'    => 'mozilla-l10n/android-l10n',
             'git_branch'        => 'master',
             'locale_mapping'    => [], // To avoid using Bugzilla
             'pontoon_project'   => 'android-l10n',
@@ -86,7 +92,7 @@ class Project
             'variable_patterns' => ['xml_android'],
         ],
         'vpn_client'   => [
-            'git_repository'     => 'mozilla-vpn-client-l10n',
+            'git_repository'     => 'mozilla-l10n/mozilla-vpn-client-l10n',
             'underscore_locales' => true,
             'pontoon_project'    => 'mozilla-vpn-client',
             'reference_locale'   => 'en',
@@ -103,12 +109,12 @@ class Project
         // Desktop products
         'desktop'     => [
             'gecko_strings',
-            'comm_l10n',
+            'thunderbird',
         ],
         // Products using Git
         'git'         => [
             'android_l10n', 'firefox_ios', 'gecko_strings', 'mozilla_org',
-            'vpn_client',
+            'seamonkey', 'thunderbird', 'vpn_client',
         ],
         // Products using free text search on Pontoon
         'text_search' => [
