@@ -111,20 +111,17 @@ def main():
             'project_name': 'locales',
         }
     """
-    l10n_subfolders = {}
+    l10n_subfolders = {
+        "gecko_strings": "l10n",
+        "thunderbird": "l10n",
+    }
 
-    hg_path = config_parser.get("config", "local_hg")
     git_path = config_parser.get("config", "local_git")
 
     need_cleanup = False
     for repository_id, repository in supported_repositories.items():
-        # Check if the folder exists as a Mercurial repository. If it doesn't
-        # assume it's a Git repository.
         print("--\nAnalyze: {}".format(repository_id))
-        if os.path.isdir(os.path.join(hg_path, repository["folder_name"])):
-            folder_path = os.path.join(hg_path, repository["folder_name"])
-        else:
-            folder_path = os.path.join(git_path, repository["folder_name"])
+        folder_path = os.path.join(git_path, repository["folder_name"])
 
         folder_path = os.path.join(folder_path, l10n_subfolders.get(repository_id, ""))
         if not os.path.isdir(folder_path):
@@ -146,11 +143,6 @@ def main():
                     # This folder is inside the repository but doesn't match
                     # any supported locale.
                     print("{} is not a supported locale".format(folder))
-                    need_cleanup = True
-                    if args.delete:
-                        full_path = os.path.join(folder_path, folder)
-                        print("Removing folder: {}".format(full_path))
-                        shutil.rmtree(full_path)
     if not need_cleanup:
         print("Nothing to remove.")
 
