@@ -373,7 +373,7 @@ class ShowResults
             }
         }
 
-        $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$resource_path}?search={$search_key}";
+        $edit_link = "https://pontoon.mozilla.org/{$locale}/{$project_name}/{$resource_path}?search_identifiers=true&search_translations_only=true&search={$search_key}";
 
         return "&nbsp;<a class='edit_link' target='_blank' href='{$edit_link}'>&lt;edit in {$tool_name}&gt;</a>";
     }
