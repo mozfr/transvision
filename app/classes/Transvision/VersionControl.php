@@ -137,6 +137,13 @@ class VersionControl
 
                 return "https://github.com/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
+            if ($repo == 'vpn_client') {
+                if ($locale == 'en_US') {
+                    $locale = 'en';
+                }
+
+                return "https://github.com/{$git_repo}/blob/{$git_branch}/{$locale}/{$file_path}";
+            }
         } else {
             $file_path = $path;
             $git_repo = $repo;
