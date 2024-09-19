@@ -458,7 +458,7 @@ class ShowResults extends atoum\test
                 'browser/chrome/browser/browser.properties:webextPerms.hostDescription.allUrls',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/chrome/browser/browser.properties?search_identifiers=true&search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/chrome/browser/browser.properties?search_identifiers=true&search_exclude_source_strings=true&search=webextPerms.hostDescription.allUrls'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -466,7 +466,7 @@ class ShowResults extends atoum\test
                 'calendar/chrome/calendar/calendar.dtd:calendar.calendar.label',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/calendar/chrome/calendar/calendar.dtd?search_identifiers=true&search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/calendar/chrome/calendar/calendar.dtd?search_identifiers=true&search_exclude_source_strings=true&search=calendar.calendar.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -474,7 +474,7 @@ class ShowResults extends atoum\test
                 'chat/commands.properties:dnd',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/chat/commands.properties?search_identifiers=true&search=dnd'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/thunderbird/chat/commands.properties?search_identifiers=true&search_exclude_source_strings=true&search=dnd'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -482,7 +482,7 @@ class ShowResults extends atoum\test
                 'browser/browser/preferences/main.ftl:default-content-process-count.label',
                 'test',
                 'fr',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/browser/preferences/main.ftl?search_identifiers=true&search=default-content-process-count'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/fr/firefox/browser/browser/preferences/main.ftl?search_identifiers=true&search_exclude_source_strings=true&search=default-content-process-count'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -498,7 +498,7 @@ class ShowResults extends atoum\test
                 'mail/chrome/messenger/addressbook/abContactsPanel.dtd:ccButton.label',
                 'test',
                 'de',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search_identifiers=true&search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/de/thunderbird/mail/chrome/messenger/addressbook/abContactsPanel.dtd?search_identifiers=true&search_exclude_source_strings=true&search=ccButton.label'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -506,7 +506,7 @@ class ShowResults extends atoum\test
                 'suite/chrome/browser/taskbar.properties:taskbar.tasks.composeMessage.description',
                 'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey/suite/chrome/browser/taskbar.properties?search_identifiers=true&search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/seamonkey/suite/chrome/browser/taskbar.properties?search_identifiers=true&search_exclude_source_strings=true&search=taskbar.tasks.composeMessage.description'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -514,7 +514,7 @@ class ShowResults extends atoum\test
                 'mozilla_org/en/banners/firefox-mobile.ftl:banner-firefox-mobile-get-android-title',
                 'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/en/banners/firefox-mobile.ftl?search_identifiers=true&search=banner-firefox-mobile-get-android-title'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/mozillaorg/en/banners/firefox-mobile.ftl?search_identifiers=true&search_exclude_source_strings=true&search=banner-firefox-mobile-get-android-title'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -522,7 +522,7 @@ class ShowResults extends atoum\test
                 'android_l10n/mozilla-mobile/fenix/app/src/main/res/values/strings.xml:preference_experiments',
                 'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-android/mozilla-mobile/fenix/app/src/main/res/values/strings.xml?search_identifiers=true&search=preference_experiments'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-android/mozilla-mobile/fenix/app/src/main/res/values/strings.xml?search_identifiers=true&search_exclude_source_strings=true&search=preference_experiments'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -530,7 +530,7 @@ class ShowResults extends atoum\test
                 'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 'test',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search_identifiers=true&search=test'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search_identifiers=true&search_exclude_source_strings=true&search=test'>&lt;edit in Pontoon&gt;</a>",
             ],
             [
                 'pontoon',
@@ -555,7 +555,7 @@ class ShowResults extends atoum\test
                 'firefox_ios/firefox-ios.xliff:4e0bc9d4',
                 '%(test)',
                 'it',
-                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search_identifiers=true&search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
+                "&nbsp;<a class='edit_link' target='_blank' href='https://pontoon.mozilla.org/it/firefox-for-ios/firefox-ios.xliff?search_identifiers=true&search_exclude_source_strings=true&search=%25%28test%29'>&lt;edit in Pontoon&gt;</a>",
             ],
             // Test unknown tool
             [
