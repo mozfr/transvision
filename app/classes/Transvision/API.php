@@ -444,7 +444,7 @@ class API
         $this->error = $message;
 
         return $this->logging
-            ? $this->logger->addWarning($message, [$this->url['path']])
+            ? $this->logger->warning($message, [$this->url['path']])
             : false;
     }
 }
