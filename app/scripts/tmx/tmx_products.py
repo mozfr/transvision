@@ -24,6 +24,8 @@ if not os.path.isfile(config_file):
         "Default settings will be used."
     )
     root_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+    storage_path = os.path.join(root_folder, "TMX")
+    os.makedirs(storage_path, exist_ok=True)
 else:
     config_parser = ConfigParser()
     config_parser.read(config_file)
