@@ -1,1 +1,2 @@
-compare-locales==9.0.*
+compare-locales~=9.0.0
+moz-l10n~=0.6.1
