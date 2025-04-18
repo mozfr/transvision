@@ -13,19 +13,22 @@ class TMX
     /**
      * Generate a TMX file from a data source
      *
-     * @param array  $strings     All the strings the user picked
-     * @param string $target_lang Locale picked from which we get translations
-     * @param string $source_lang Source locale
+     * @param array       $strings     All the strings the user picked
+     * @param string      $target_lang Locale picked from which we get translations
+     * @param string      $source_lang Source locale
+     * @param string|null $time        Optional time string (in a valid date format) to use for creationdate; if not provided, date('c') is used.
      *
      * @return mixed string that contains a TMX in xml format, False otherwise
      */
-    public static function create($strings, $target_lang, $source_lang)
+    public static function create($strings, $target_lang, $source_lang, $time = null)
     {
         if ($strings[$target_lang] && $strings[$source_lang]) {
+            $creationDate = $time ?? date('c');
+
             $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
                         . '<tmx version="1.4">' . "\n"
                         . '<header o-tmf="plain text" o-encoding="UTF8" adminlang="en"'
-                        . ' creationdate="' . date('c') . '" creationtoolversion="0.1" creationtool="Transvision"'
+                        . ' creationdate="' . $creationDate . '" creationtoolversion="0.1" creationtool="Transvision"'
                         . ' srclang="' . $source_lang . '" segtype="sentence" datatype="plaintext">' . "\n"
                         . '</header>' . "\n"
                         . '<body>' . "\n";
@@ -56,21 +59,24 @@ class TMX
     /**
      * Generate a TMX file from a data source with the format of OmegaT
      *
-     * @param array  $strings     All the strings the user picked
-     * @param string $target_lang Locale picked from which we get translations
-     * @param string $source_lang Source locale
+     * @param array       $strings     All the strings the user picked
+     * @param string      $target_lang Locale picked from which we get translations
+     * @param string      $source_lang Source locale
+     * @param string|null $time        Optional time string (in a valid date format) to use for creationdate; if not provided, date('c') is used.
      *
      * @return mixed string that contains a TMX in xml format, False otherwise
      */
-    public static function createOmegat($strings, $target_lang, $source_lang)
+    public static function createOmegat($strings, $target_lang, $source_lang, $time = null)
     {
         if ($strings[$target_lang] && $strings[$source_lang]) {
+            $creationDate = $time ?? date('c');
+
             $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
                         . '<!DOCTYPE tmx SYSTEM "tmx11.dtd">' . "\n"
                         . '<tmx version="1.1">' . "\n"
                         . '<header creationtool="Transvision" o-tmf="OmegaT TMX" o-encoding="UTF8"'
                         . ' adminlang="EN-US" datatype="plaintext" creationtoolversion="0.1" segtype="paragraph"'
-                        . ' creationdate="' . date('c') . '" srclang="' . $source_lang . '">'
+                        . ' creationdate="' . $creationDate . '" srclang="' . $source_lang . '">'
                         . '</header>' . "\n"
                         . '<body>' . "\n";
 

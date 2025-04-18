@@ -1,5 +1,6 @@
 .idea
 .php-cs-fixer.cache
+.phpunit.result.cache
 *.pyc
 app/config/config.ini
 app/config/sources/*.json
@@ -14,6 +15,7 @@ composer.phar
 logs/*.log
 logs/github_log.txt
 python-venv
+tests/**/*.cache
 vendor
 web/data.tar.gz
 web/download/.htaccess

@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\AnalyseStrings as _AnalyseStrings;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\AnalyseStrings;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class AnalyseStrings extends atoum\test
+class AnalyzeStringsTest extends TestCase
 {
-    public function cleanUpEntitiesDP()
+    public static function cleanUpEntitiesDP()
     {
         return [
             ['&#037; &amp; &apos; &percnt; &lt; ', "% & ' % < "],
@@ -16,18 +17,15 @@ class AnalyseStrings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider cleanUpEntitiesDP
-     */
+    #[DataProvider('cleanUpEntitiesDP')]
     public function testCleanUpEntities($a, $b)
     {
-        $obj = new _AnalyseStrings();
+        $obj = new AnalyseStrings();
         $this
-            ->string($obj->cleanUpEntities($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->cleanUpEntities($a), $b);
     }
 
-    public function differencesDP()
+    public static function differencesDP()
     {
         return [
             [
@@ -310,14 +308,11 @@ class AnalyseStrings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider differencesDP
-     */
+    #[DataProvider('differencesDP')]
     public function testDifferences($a, $b, $c, $d, $e)
     {
-        $obj = new _AnalyseStrings();
+        $obj = new AnalyseStrings();
         $this
-            ->array($obj->differences($a, $b, $c, $d))
-                ->isEqualTo($e);
+            ->assertEqualsCanonicalizing($obj->differences($a, $b, $c, $d), $e);
     }
 }

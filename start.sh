@@ -57,7 +57,7 @@ case "$1" in
         SERVER="0.0.0.0:8082"
         ;;
     -tests)
-        php ./vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
+        php ./vendor/bin/phpunit
         php ./tests/functional/api.php
         php ./tests/functional/pages.php
         vendor/bin/php-cs-fixer --diff --dry-run -v fix

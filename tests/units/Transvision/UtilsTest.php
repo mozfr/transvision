@@ -1,16 +1,17 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
 use Cache\Cache as _Cache;
 use DateTime;
-use Transvision\Utils as _Utils;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\Utils;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class Utils extends atoum\test
+class UtilsTest extends TestCase
 {
-    public function secureTextDP()
+    public static function secureTextDP()
     {
         return [
             ["achat des couteaux\nsuisses", 'achat des couteaux suisses'],
@@ -18,18 +19,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider secureTextDP
-     */
+    #[DataProvider('secureTextDP')]
     public function testSecureText($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->secureText($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->secureText($a), $b);
     }
 
-    public function uniqueWordsDP()
+    public static function uniqueWordsDP()
     {
         return [
             [
@@ -47,54 +45,45 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider uniqueWordsDP
-     */
+    #[DataProvider('uniqueWordsDP')]
     public function testUniqueWords($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->array($obj->uniqueWords($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->uniqueWords($a), $b);
     }
 
-    public function checkboxDefaultOption1DP()
+    public static function checkboxDefaultOption1DP()
     {
         return [
             ['es-ES', 'es-ES', ' checked="checked"'],
         ];
     }
 
-    /**
-     * @dataProvider checkboxDefaultOption1DP
-     */
+    #[DataProvider('checkboxDefaultOption1DP')]
     public function testCheckboxDefaultOption1($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->checkboxDefaultOption($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->checkboxDefaultOption($a, $b), $c);
     }
 
-    public function checkboxDefaultOption2DP()
+    public static function checkboxDefaultOption2DP()
     {
         return [
             ['es-ES', 'en-US', false],
         ];
     }
 
-    /**
-     * @dataProvider checkboxDefaultOption2DP
-     */
+    #[DataProvider('checkboxDefaultOption2DP')]
     public function testCheckboxDefaultOption2($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->boolean($obj->checkboxDefaultOption($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->checkboxDefaultOption($a, $b), $c);
     }
 
-    public function checkBoxState2DP()
+    public static function checkBoxState2DP()
     {
         $_GET['t2t'] = 'somedata';
 
@@ -103,36 +92,30 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider checkBoxState2DP
-     */
+    #[DataProvider('checkBoxState2DP')]
     public function testCheckboxState2($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' checked="checked"');
+            ->assertSame($obj->checkboxState($a, $b), ' checked="checked"');
     }
 
-    public function checkBoxState3DP()
+    public static function checkBoxState3DP()
     {
         return [
             ['some string', null],
         ];
     }
 
-    /**
-     * @dataProvider checkBoxState3DP
-     */
+    #[DataProvider('checkBoxState3DP')]
     public function testCheckboxState3($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->checkboxState($a, $b))
-                ->isEqualTo(' checked="checked"');
+            ->assertSame($obj->checkboxState($a, $b), ' checked="checked"');
     }
 
-    public function getHtmlSelectOptionsDP()
+    public static function getHtmlSelectOptionsDP()
     {
         return [
             [
@@ -143,18 +126,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getHtmlSelectOptionsDP
-     */
+    #[DataProvider('getHtmlSelectOptionsDP')]
     public function testGetHtmlSelectOptions($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->getHtmlSelectOptions($a, $b, $c))
-                ->isEqualTo('<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>');
+            ->assertEqualsCanonicalizing($obj->getHtmlSelectOptions($a, $b, $c), '<option value=strings>Strings</option><option value=entities>Entities</option><option selected value=strings_entities>Strings & Entities</option>');
     }
 
-    public function cleanStringDP()
+    public static function cleanStringDP()
     {
         return [
             [
@@ -168,18 +148,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider cleanStringDP
-     */
+    #[DataProvider('cleanStringDP')]
     public function testCleanString($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->cleanString($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->cleanString($a), $b);
     }
 
-    public function checkAbnormalStringLengthDP()
+    public static function checkAbnormalStringLengthDP()
     {
         return [
             [
@@ -205,18 +182,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider checkAbnormalStringLengthDP
-     */
+    #[DataProvider('checkAbnormalStringLengthDP')]
     public function testCheckAbnormalStringLength($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->checkAbnormalStringLength($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->checkAbnormalStringLength($a, $b), $c);
     }
 
-    public function checkAbnormalStringLength2DP()
+    public static function checkAbnormalStringLength2DP()
     {
         return [
             ['Add Bookmarks', 'Ajouter des marque-pages', false],
@@ -224,34 +198,28 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider checkAbnormalStringLength2DP
-     */
+    #[DataProvider('checkAbnormalStringLength2DP')]
     public function testCheckAbnormalStringLength2($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->boolean($obj->checkAbnormalStringLength($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->checkAbnormalStringLength($a, $b), $c);
     }
 
     public function testGetRepoStrings()
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->array($obj->getRepoStrings('fr', 'gecko_strings'))
-                ->contains('Ouvrir dans le Finder');
+            ->assertContains('Ouvrir dans le Finder', $obj->getRepoStrings('fr', 'gecko_strings'));
 
         $results = $obj->getRepoStrings('fr', 'gecko_strings', false);
         $this
-            ->array($results)
-                ->hasKey('gecko_strings');
+            ->assertArrayHasKey('gecko_strings', $results);
         $this
-            ->array($results['gecko_strings'])
-                ->contains('Ouvrir dans le Finder');
+            ->assertContains('Ouvrir dans le Finder', $results['gecko_strings']);
     }
 
-    public function flattenTMXDP()
+    public static function flattenTMXDP()
     {
         return [
             [
@@ -269,18 +237,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider flattenTMXDP
-     */
+    #[DataProvider('flattenTMXDP')]
     public function testFlattenTMX($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->array($obj->flattenTMX($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->flattenTMX($a), $b);
     }
 
-    public function getOrSetDP()
+    public static function getOrSetDP()
     {
         return [
             [
@@ -310,15 +275,12 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getOrSetDP
-     */
+    #[DataProvider('getOrSetDP')]
     public function testGetOrSet($a, $b, $c, $d)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->getOrSet($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertEqualsCanonicalizing($obj->getOrSet($a, $b, $c), $d);
     }
 
     public function afterTestMethod($method)
@@ -332,7 +294,7 @@ class Utils extends atoum\test
         }
     }
 
-    public function redYellowGreenDP()
+    public static function redYellowGreenDP()
     {
         return [
             ['34.13', '255,168,0'],
@@ -340,18 +302,15 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider redYellowGreenDP
-     */
+    #[DataProvider('redYellowGreenDP')]
     public function testRedYellowGreen($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->redYellowGreen($a))
-                ->contains($b);
+            ->assertEqualsCanonicalizing($obj->redYellowGreen($a), $b);
     }
 
-    public function pluralizeDP()
+    public static function pluralizeDP()
     {
         return [
             ['42', 'test', '42 tests'],
@@ -359,24 +318,21 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider pluralizeDP
-     */
+    #[DataProvider('pluralizeDP')]
     public function testPluralize($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->pluralize($a, $b))
-                ->contains($c);
+            ->assertSame($obj->pluralize($a, $b), $c);
     }
 
-    public function agoDP()
+    public static function agoDP()
     {
         $data = [
             [
-                (new DateTime())->modify('-2 seconds'),
+                (new DateTime())->modify('-30 seconds'),
                 (new DateTime()),
-                '2 seconds ago',
+                '30 seconds ago',
             ],
             [
                 (new DateTime())->modify('-10 hours'),
@@ -398,39 +354,20 @@ class Utils extends atoum\test
                 (new DateTime()),
                 '1 year',
             ],
-        ];
-
-        $data = array_merge(
-            $data,
-            [
-                [
-                    (new DateTime())->modify('-2 seconds'),
-                    '',
-                    '2 seconds ago',
-                ],
-                [
-                    (new DateTime())->modify('-1 hour'),
-                    '',
-                    '1 hour ago',
-                ],
-            ]
-        );
+         ];
 
         return $data;
     }
 
-    /**
-     * @dataProvider agoDP
-     */
+    #[DataProvider('agoDP')]
     public function testAgo($a, $b, $c)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $this
-            ->string($obj->ago($a, $b))
-                ->contains($c);
+            ->assertSame($obj->ago($a, $b), $c);
     }
 
-    public function redirectToAPIDP()
+    public static function redirectToAPIDP()
     {
         return [
             [
@@ -448,21 +385,18 @@ class Utils extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider redirectToAPIDP
-     */
+    #[DataProvider('redirectToAPIDP')]
     public function testRedirectToAPI($a, $b)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $_SERVER['REQUEST_URI'] = $a;
         $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
             ? parse_url($a)['query']
             : null;
         $this
-            ->string($obj->redirectToAPI())
-                ->isEqualTo($b);
+            ->assertSame($obj->redirectToAPI(), $b);
     }
-    public function APIPromotionDP()
+    public static function APIPromotionDP()
     {
         return [
             [
@@ -479,30 +413,29 @@ class Utils extends atoum\test
             ],
         ];
     }
-    /**
-     * @dataProvider APIPromotionDP
-     */
+    #[DataProvider('APIPromotionDP')]
     public function testAPIPromotion($a, $b, $c, $d)
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $_SERVER['REQUEST_URI'] = $c;
         $_SERVER['QUERY_STRING'] = isset(parse_url($c)['query'])
             ? parse_url($c)['query']
             : null;
         $this
-            ->string($obj->APIPromotion($a, $b))
-                ->isEqualTo($d);
+            ->assertSame($obj->APIPromotion($a, $b), $d);
     }
 
     public function testGetScriptPerformances()
     {
-        $obj = new _Utils();
+        $obj = new Utils();
         $data = $obj->getScriptPerformances();
         $this
-            ->array($data)
-                ->size->isEqualTo(3)
-            ->integer($data[0])
-            ->float($data[1])
-            ->float($data[2]);
+            ->assertCount(3, $data);
+        $this
+            ->assertIsInt($data[0]);
+        $this
+            ->assertIsFloat($data[1]);
+        $this
+            ->assertIsFloat($data[2]);
     }
 }

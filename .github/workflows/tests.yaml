@@ -19,6 +19,7 @@ jobs:
           - '8.1'
           - '8.2'
           - '8.3'
+          - '8.4'
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -57,10 +58,10 @@ jobs:
       - name: Run PHP linter (php-cs-fixer)
         run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer --diff --dry-run -v fix
 
-      - name: Atoum tests
+      - name: Unit tests
         run: |
           cp app/config/config.ini-ghactions app/config/config.ini
-          vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
+          php ./vendor/bin/phpunit
 
       - name: Functional tests (API, pages)
         run: |

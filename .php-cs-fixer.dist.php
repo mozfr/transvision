@@ -22,6 +22,10 @@ $config
             ],
             'encoding'                           => true,
             'full_opening_tag'                   => true,
+            'method_argument_space'            => [
+                'on_multiline' => 'ignore',
+                'keep_multiple_spaces_after_comma' => false,
+            ],
             'no_alias_functions'                 => true,
             'no_blank_lines_after_class_opening' => true,
             'no_blank_lines_after_phpdoc'        => true,

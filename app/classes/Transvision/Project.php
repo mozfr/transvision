@@ -218,7 +218,7 @@ class Project
         $file_name = APP_SOURCES . "{$repository}.txt";
         $supported_locales = [];
         if (file_exists($file_name)) {
-            $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $supported_locales = file($file_name, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         }
 
         // Make sure that the reference locale is included
@@ -245,7 +245,7 @@ class Project
         $file_name = APP_SOURCES . 'all_projects.txt';
         $supported_locales = [];
         if (file_exists($file_name)) {
-            $supported_locales = file($file_name,  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $supported_locales = file($file_name, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         }
         sort($supported_locales);
 

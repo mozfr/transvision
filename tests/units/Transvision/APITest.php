@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\API as _API;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\API;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class API extends atoum\test
+class APITest extends TestCase
 {
-    public function getParametersDP()
+    public static function getParametersDP()
     {
         return [
             [
@@ -26,19 +27,16 @@ class API extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getParametersDP
-     */
+    #[DataProvider('getParametersDP')]
     public function testGetParameters($a, $b)
     {
         $url = parse_url($a);
-        $obj = new _API($url);
+        $obj = new API($url);
         $this
-            ->array($obj->getParameters($url['path']))
-                ->isEqualTo($b);
+            ->assertSame($obj->getParameters($url['path']), $b);
     }
 
-    public function getExtraParametersDP()
+    public static function getExtraParametersDP()
     {
         return [
             [
@@ -55,7 +53,7 @@ class API extends atoum\test
             ],
             [
                 'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=&bar=10',
-                ['foo' => '', 'bar' => 10],
+                ['foo' => '', 'bar' => '10'],
             ],
             [
                 'http://foobar.com/api/v1/tm/gecko_strings/en-US/fr/Bookmark/?foo=bar&foo2=bar2',
@@ -64,19 +62,16 @@ class API extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getExtraParametersDP
-     */
+    #[DataProvider('getExtraParametersDP')]
     public function testGetExtraParameters($a, $b)
     {
         $url = parse_url($a);
-        $obj = new _API($url);
+        $obj = new API($url);
         $this
-            ->array($obj->getExtraParameters($url['query']))
-                ->isEqualTo($b);
+            ->assertSame($obj->getExtraParameters($url['query']), $b);
     }
 
-    public function isValidRequestDP()
+    public static function isValidRequestDP()
     {
         return [
             // General
@@ -126,44 +121,38 @@ class API extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider isValidRequestDP
-     */
+    #[DataProvider('isValidRequestDP')]
     public function testIsValidRequest($a, $b)
     {
         $url = parse_url($a);
-        $obj = new _API($url);
-        $obj->logging = false; // Logging interfers with Atoum
+        $obj = new API($url);
+        $obj->logging = false; // Logging interferes with tests
         $this
-            ->boolean($obj->isValidRequest())
-                ->isEqualTo($b);
+            ->assertSame($obj->isValidRequest(), $b);
     }
 
-    public function getServiceDP()
+    public static function getServiceDP()
     {
         return [
             ['http://foobar/api/v1/', 'Invalid service'],
             ['http://foobar/api/v1/wrong_service/gecko_strings/en-US/fr/hello world', 'Invalid service'],
-            ['http://foobar/api/wrong_version/tm/gecko_strings/en-US/fr/Bookmark/', true],
-            ['http://foobar/api/v1/entity/gecko_strings/?id=myid', true],
-            ['http://foobar/api/v1/locales/', true],
-            ['http://foobar/api/v1/search/strings/gecko_strings/en-US/fr/Add%20%20Bookmarks/', true],
-            ['http://foobar/api/v1/suggestions/beta/en-US/it/', true],
-            ['http://foobar/api/v1/tm/gecko_strings/en-US/fr/', true],
-            ['http://foobar/api/versions/', true],
+            ['http://foobar/api/wrong_version/tm/gecko_strings/en-US/fr/Bookmark/', 'tm'],
+            ['http://foobar/api/v1/entity/gecko_strings/?id=myid', 'entity'],
+            ['http://foobar/api/v1/locales/', 'locales'],
+            ['http://foobar/api/v1/search/strings/gecko_strings/en-US/fr/Add%20%20Bookmarks/', 'search'],
+            ['http://foobar/api/v1/suggestions/beta/en-US/it/', 'suggestions'],
+            ['http://foobar/api/v1/tm/gecko_strings/en-US/fr/', 'tm'],
+            ['http://foobar/api/versions/', 'versions'],
         ];
     }
 
-    /**
-     * @dataProvider getServiceDP
-     */
+    #[DataProvider('getServiceDP')]
     public function testGetService($a, $b)
     {
         $url = parse_url($a);
-        $obj = new _API($url);
-        $obj->logging = false; // Logging interfers with Atoum
+        $obj = new API($url);
+        $obj->logging = false; // Logging interferes with tests
         $this
-            ->variable($obj->getService())
-                ->isEqualTo($b);
+            ->assertSame($obj->getService(), $b);
     }
 }

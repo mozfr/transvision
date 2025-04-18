@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\ShowResults as _ShowResults;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\ShowResults;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class ShowResults extends atoum\test
+class ShowResultsTest extends TestCase
 {
-    public function getTMXResultsDP()
+    public static function getTMXResultsDP()
     {
         include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
@@ -27,18 +28,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getTMXResultsDP
-     */
+    #[DataProvider('getTMXResultsDP')]
     public function testGetTMXResults($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->array($obj->getTMXResults($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->getTMXResults($a, $b), $c);
     }
 
-    public function getTMXResultsReposDP()
+    public static function getTMXResultsReposDP()
     {
         include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source['test_repo'] = $tmx;
@@ -61,18 +59,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getTMXResultsReposDP
-     */
+    #[DataProvider('getTMXResultsReposDP')]
     public function testGetTMXResultsRepos($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->array($obj->getTMXResultsRepos($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->getTMXResultsRepos($a, $b), $c);
     }
 
-    public function getTranslationMemoryResultsDP()
+    public static function getTranslationMemoryResultsDP()
     {
         include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
@@ -120,36 +115,30 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getTranslationMemoryResultsDP
-     */
+    #[DataProvider('getTranslationMemoryResultsDP')]
     public function testGetTranslationMemoryResults($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->array($obj->getTranslationMemoryResults($a, $b, 4))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->getTranslationMemoryResults($a, $b, 4), $c);
     }
 
-    public function formatEntityDP()
+    public static function formatEntityDP()
     {
         return [
             ['browser/chrome/browser/browser.dtd:historyHomeCmd.label', false],
         ];
     }
 
-    /**
-     * @dataProvider formatEntityDP
-     */
+    #[DataProvider('formatEntityDP')]
     public function testFormatEntity($a, $b)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->string($obj->formatEntity($a, $b))
-                ->isEqualTo('<span class="green">browser</span><span class="superset">&nbsp;&bull;&nbsp;</span>chrome<span class="superset">&nbsp;&bull;&nbsp;</span>browser<span class="superset">&nbsp;&bull;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>');
+            ->assertSame($obj->formatEntity($a, $b), '<span class="green">browser</span><span class="superset">&nbsp;&bull;&nbsp;</span>chrome<span class="superset">&nbsp;&bull;&nbsp;</span>browser<span class="superset">&nbsp;&bull;&nbsp;</span>browser.dtd<br><span class="red">historyHomeCmd.label</span>');
     }
 
-    public function getStringFromEntityDP()
+    public static function getStringFromEntityDP()
     {
         return [
             [
@@ -170,18 +159,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getStringFromEntityDP
-     */
+    #[DataProvider('getStringFromEntityDP')]
     public function testGetStringFromEntity($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->variable($obj->getStringFromEntity($a, $b))
-                ->isIdenticalTo($c);
+            ->assertEqualsCanonicalizing($obj->getStringFromEntity($a, $b), $c);
     }
 
-    public function getStringFromEntityReposDP()
+    public static function getStringFromEntityReposDP()
     {
         return [
             [
@@ -217,18 +203,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getStringFromEntityReposDP
-     */
+    #[DataProvider('getStringFromEntityReposDP')]
     public function testGetStringFromEntityRepos($a, $b, $c, $d)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->variable($obj->getStringFromEntityRepos($a, $b, $c))
-                ->isIdenticalTo($d);
+            ->assertEqualsCanonicalizing($obj->getStringFromEntityRepos($a, $b, $c), $d);
     }
 
-    public function getRepositorySearchResultsDP()
+    public static function getRepositorySearchResultsDP()
     {
         return [
             // Simple search
@@ -280,18 +263,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getRepositorySearchResultsDP
-     */
+    #[DataProvider('getRepositorySearchResultsDP')]
     public function testGeRepositorySearchResults($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->array($obj->getRepositorySearchResults($a, $b))
-                ->isIdenticalTo($c);
+            ->assertEqualsCanonicalizing($obj->getRepositorySearchResults($a, $b), $c);
     }
 
-    public function searchEntitiesDP()
+    public static function searchEntitiesDP()
     {
         return [
             [
@@ -363,40 +343,38 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider searchEntitiesDP
-     */
+    #[DataProvider('searchEntitiesDP')]
     public function testSearchEntities($a, $b, $c, $d)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->array($obj->searchEntities($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertEqualsCanonicalizing($obj->searchEntities($a, $b, $c), $d);
     }
 
     public function testGetSuggestionsResults()
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         include TMX . 'en-US/cache_en-US_gecko_strings.php';
         $source = $tmx;
         include TMX . 'fr/cache_fr_gecko_strings.php';
         $target = $tmx;
         $this
-            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark'))
-                ->isEqualTo(['Bookmark', 'Bookmarks', 'New Bookmarks',
+            ->assertEqualsCanonicalizing($obj->getSuggestionsResults($source, $target, 'Bookmark'),
+                            ['Bookmark', 'Bookmarks', 'New Bookmarks',
                              'Bookmark This Page', 'Find in Finder',
                              'Nouveaux marque-pages', 'Marque-page', 'Marque-pages',
-                             'Marquer cette page', 'Ouvrir dans le Finder', ])
-            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark', 10))
-                ->isEqualTo(['Bookmark', 'Bookmarks', 'New Bookmarks',
+                             'Marquer cette page', 'Ouvrir dans le Finder', ]);
+        $this
+            ->assertEqualsCanonicalizing($obj->getSuggestionsResults($source, $target, 'Bookmark', 10),
+                            ['Bookmark', 'Bookmarks', 'New Bookmarks',
                              'Bookmark This Page', 'Find in Finder',
                              'Nouveaux marque-pages', 'Marque-page', 'Marque-pages',
-                             'Marquer cette page', 'Ouvrir dans le Finder', ])
-            ->array($obj->getSuggestionsResults($source, $target, 'Bookmark', 3))
-                ->isEqualTo(['Bookmark', 'Nouveaux marque-pages']);
+                             'Marquer cette page', 'Ouvrir dans le Finder', ]);
+        $this
+            ->assertEqualsCanonicalizing($obj->getSuggestionsResults($source, $target, 'Bookmark', 3), ['Bookmark', 'Nouveaux marque-pages']);
     }
 
-    public function buildErrorStringDP()
+    public static function buildErrorStringDP()
     {
         return [
             [
@@ -437,18 +415,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider buildErrorStringDP
-     */
+    #[DataProvider('buildErrorStringDP')]
     public function testBuildErrorString($a, $b, $c)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->string($obj->buildErrorString($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->buildErrorString($a, $b), $c);
     }
 
-    public function getEditLinkDP()
+    public static function getEditLinkDP()
     {
         return [
             // Pontoon links
@@ -569,18 +544,15 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getEditLinkDP
-     */
+    #[DataProvider('getEditLinkDP')]
     public function testGetEditLink($a, $b, $c, $d, $e, $f)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->string($obj->getEditLink($a, $b, $c, $d, $e))
-                ->isEqualTo($f);
+            ->assertEqualsCanonicalizing($obj->getEditLink($a, $b, $c, $d, $e), $f);
     }
 
-    public function buildComponentsFilterDP()
+    public static function buildComponentsFilterDP()
     {
         return [
             [
@@ -598,14 +570,11 @@ class ShowResults extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider buildComponentsFilterDP
-     */
+    #[DataProvider('buildComponentsFilterDP')]
     public function testBuildComponentsFilter($a, $b)
     {
-        $obj = new _ShowResults();
+        $obj = new ShowResults();
         $this
-            ->variable($obj->buildComponentsFilter($a))
-                ->isIdenticalTo($b);
+            ->assertEqualsCanonicalizing($obj->buildComponentsFilter($a), $b);
     }
 }
