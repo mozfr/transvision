@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Transvision\VersionControl as _VersionControl;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class VersionControl extends atoum\test
+class VersionControlTest extends TestCase
 {
-    public function getVCSDP()
+    public static function getVCSDP()
     {
         return [
             [
@@ -23,18 +24,15 @@ class VersionControl extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getVCSDP
-     */
+    #[DataProvider('getVCSDP')]
     public function testGetVCS($a, $b)
     {
         $obj = new _VersionControl();
         $this
-            ->string($obj->getVCS($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->getVCS($a), $b);
     }
 
-    public function VCSRepoNameDP()
+    public static function VCSRepoNameDP()
     {
         return [
             [
@@ -49,18 +47,15 @@ class VersionControl extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider VCSRepoNameDP
-     */
+    #[DataProvider('VCSRepoNameDP')]
     public function testVCSRepoName($a, $b)
     {
         $obj = new _VersionControl();
         $this
-            ->string($obj->VCSRepoName($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->VCSRepoName($a), $b);
     }
 
-    public function gitPathDP()
+    public static function gitPathDP()
     {
         return [
             [
@@ -108,18 +103,15 @@ class VersionControl extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider gitPathDP
-     */
+    #[DataProvider('gitPathDP')]
     public function testGitPath($a, $b, $c, $d)
     {
         $obj = new _VersionControl();
         $this
-            ->string($obj->gitPath($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertSame($obj->gitPath($a, $b, $c), $d);
     }
 
-    public function getPathDP()
+    public static function getPathDP()
     {
         return [
             [
@@ -179,14 +171,11 @@ class VersionControl extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getPathDP
-     */
+    #[DataProvider('getPathDP')]
     public function testGetPath($a, $b, $c, $d)
     {
         $obj = new _VersionControl();
         $this
-            ->string($obj->getPath($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertSame($obj->getPath($a, $b, $c), $d);
     }
 }

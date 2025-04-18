@@ -1,15 +1,18 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\TMX as _TMX;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\TMX;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class TMX extends atoum\test
+class TMXTest extends TestCase
 {
-    public function createDP()
+    public static function createDP()
     {
+        $creationDate = date('c');
+
         return [
             [
                 [
@@ -25,9 +28,10 @@ class TMX extends atoum\test
                 ],
                 'fr',
                 'en-US',
+                $creationDate,
                 '<?xml version="1.0" encoding="UTF-8"?>
 <tmx version="1.4">
-<header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="' . date('c') . '" creationtoolversion="0.1" creationtool="Transvision" srclang="en-US" segtype="sentence" datatype="plaintext">
+<header o-tmf="plain text" o-encoding="UTF8" adminlang="en" creationdate="' . $creationDate . '" creationtoolversion="0.1" creationtool="Transvision" srclang="en-US" segtype="sentence" datatype="plaintext">
 </header>
 <body>'
 . "\n\t" . '<tu tuid="shared/date/date.properties:month-7-genitive" srclang="en-US">'
@@ -44,18 +48,17 @@ class TMX extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider createDP
-     */
-    public function testCreate($a, $b, $c, $d)
+    #[DataProvider('createDP')]
+    public function testCreate($a, $b, $c, $d, $e)
     {
-        $obj = new _TMX();
-        $this->string($obj->create($a, $b, $c))
-                ->isEqualTo($d);
+        $obj = new TMX();
+        $this->assertSame($obj->create($a, $b, $c, $d), $e);
     }
 
-    public function createOmegatDP()
+    public static function createOmegatDP()
     {
+        $creationDate = date('c');
+
         return [
             [
                 [
@@ -71,10 +74,11 @@ class TMX extends atoum\test
                 ],
                 'fr',
                 'en-US',
+                $creationDate,
                 '<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx11.dtd">
 <tmx version="1.1">
-<header creationtool="Transvision" o-tmf="OmegaT TMX" o-encoding="UTF8" adminlang="EN-US" datatype="plaintext" creationtoolversion="0.1" segtype="paragraph" creationdate="' . date('c') . '" srclang="en-US"></header>
+<header creationtool="Transvision" o-tmf="OmegaT TMX" o-encoding="UTF8" adminlang="EN-US" datatype="plaintext" creationtoolversion="0.1" segtype="paragraph" creationdate="' . $creationDate . '" srclang="en-US"></header>
 <body>'
 . "\n\t" . '<tu>'
 . "\n\t\t" . '<prop type="file">shared/date/date.properties</prop>'
@@ -102,13 +106,10 @@ class TMX extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider createOmegatDP
-     */
-    public function testCreateOmegat($a, $b, $c, $d)
+    #[DataProvider('createOmegatDP')]
+    public function testCreateOmegat($a, $b, $c, $d, $e)
     {
-        $obj = new _TMX();
-        $this->string($obj->createOmegat($a, $b, $c))
-                ->isEqualTo($d);
+        $obj = new TMX();
+        $this->assertSame($obj->createOmegat($a, $b, $c, $d), $e);
     }
 }

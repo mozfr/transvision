@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\Dotlang as _Dotlang;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\Dotlang;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class Dotlang extends atoum\test
+class DotlangTest extends TestCase
 {
-    public function getLangFilesListDP()
+    public static function getLangFilesListDP()
     {
         return [
             [
@@ -21,19 +22,16 @@ class Dotlang extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getLangFilesListDP
-     */
+    #[DataProvider('getLangFilesListDP')]
     public function testGetLangFilesList($a, $b)
     {
-        $obj = new _Dotlang();
+        $obj = new Dotlang();
         $this
-            ->array($obj->getLangFilesList($a))
-                ->isEqualTo($b)
+            ->assertSame($obj->getLangFilesList($a), $b)
         ;
     }
 
-    public function getFileDP()
+    public static function getFileDP()
     {
         return [
             [
@@ -55,18 +53,15 @@ class Dotlang extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getFileDP
-     */
+    #[DataProvider('getFileDP')]
     public function testGetFile($a, $b)
     {
-        $obj = new _Dotlang();
+        $obj = new Dotlang();
         $this
-            ->array($obj->getFile($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->getFile($a), $b);
     }
 
-    public function getStringsDP()
+    public static function getStringsDP()
     {
         return [
             [
@@ -92,32 +87,26 @@ class Dotlang extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getStringsDP
-     */
+    #[DataProvider('getStringsDP')]
     public function testGetStrings($a, $b, $c)
     {
-        $obj = new _Dotlang();
+        $obj = new Dotlang();
         $this
-            ->array($obj->getStrings($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->getStrings($a, $b), $c);
     }
 
-    public function generateStringID_DP()
+    public static function generateStringID_DP()
     {
         return [
             ['mozilla_org/main.lang', 'Back to home page', 'mozilla_org/main.lang:a922fff6646b0eb4db05fe6e0894af7d'],
         ];
     }
 
-    /**
-     * @dataProvider generateStringID_DP
-     */
+    #[DataProvider('generateStringID_DP')]
     public function testGenerateStringID($a, $b, $c)
     {
-        $obj = new _Dotlang();
+        $obj = new Dotlang();
         $this
-            ->string($obj->generateStringID($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->generateStringID($a, $b), $c);
     }
 }

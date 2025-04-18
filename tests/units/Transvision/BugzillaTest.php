@@ -1,17 +1,21 @@
 <?php
 namespace tests\units\Transvision;
 
-use atoum\atoum;
-use Transvision\Bugzilla as _Bugzilla;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\Bugzilla;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class _BugzillaTest extends _Bugzilla
+/**
+ * Override Bugzilla to use a local file instead of querying the remote service.
+ */
+class ModifiedBugzilla extends Bugzilla
 {
     public static function getURLencodedBugzillaLocale($locale, $type)
     {
-        // Override default function to use a local file instead of query remote service
-        if ($type == 'www') {
+        // Override the default function: use a local file based on the type.
+        if ($type === 'www') {
             $local_json = TEST_FILES . 'cache/www.json';
         } else {
             $local_json = TEST_FILES . 'cache/desktop.json';
@@ -21,9 +25,9 @@ class _BugzillaTest extends _Bugzilla
     }
 }
 
-class Bugzilla extends atoum\test
+class BugzillaTest extends TestCase
 {
-    public function reportErrorLinkDP()
+    public static function reportErrorLinkDP()
     {
         return [
             [
@@ -56,14 +60,11 @@ class Bugzilla extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider reportErrorLinkDP
-     */
+    #[DataProvider('reportErrorLinkDP')]
     public function testReportErrorLink($a, $b, $c, $d, $e, $f, $g)
     {
-        $obj = new _BugzillaTest();
-        $this
-            ->string($obj->reportErrorLink($a, $b, $c, $d, $e, $f))
-                ->isEqualTo($g);
+        $obj = new ModifiedBugzilla();
+        $result = $obj->reportErrorLink($a, $b, $c, $d, $e, $f);
+        $this->assertSame($g, $result);
     }
 }

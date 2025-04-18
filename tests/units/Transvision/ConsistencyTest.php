@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\Consistency as _Consistency;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\Consistency;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class Consistency extends atoum\test
+class ConsistencyTest extends TestCase
 {
-    public function findDuplicates_DP()
+    public static function findDuplicates_DP()
     {
         return [
             [
@@ -21,58 +22,52 @@ class Consistency extends atoum\test
                     'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies' => 'Les cookies',
                 ],
                 [
-                    'browser/pdfviewer/viewer.properties:last_page.label'              => 'Aller à la dernière page',
                     'browser/pdfviewer/viewer.properties:last_page.title'              => 'Aller à la Dernière page',
-                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
+                    'browser/pdfviewer/viewer.properties:last_page.label'              => 'Aller à la dernière page',
                     'browser/chrome/browser/migration/migration.properties:1_safari'   => 'Préférences',
+                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
                 ],
             ],
         ];
     }
 
-    /**
-     * @dataProvider findDuplicates_DP
-     */
+    #[DataProvider('findDuplicates_DP')]
     public function testFindDuplicatesID($a, $b)
     {
-        $obj = new _Consistency();
+        $obj = new Consistency();
         $this
-            ->array($obj->findDuplicates($a))
-                ->isEqualTo($b);
+            ->assertEqualsCanonicalizing($obj->findDuplicates($a), $b);
     }
 
-    public function findDuplicatesSensitive_DP()
+    public static function findDuplicatesSensitive_DP()
     {
         return [
             [
                 [
-                    'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
                     'browser/pdfviewer/viewer.properties:last_page.title'                               => 'Aller à la Dernière page',
+                    'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
                     'browser/chrome/browser/migration/migration.properties:1_safari'                    => 'Préférences',
                     'devtools/shared/gclicommands.properties:cookieListDesc'                            => 'Afficher les cookies',
                     'browser/chrome/browser/browser.properties:popupWarningButtonUnix'                  => 'Préférences',
                     'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies' => 'Les cookies',
                 ],
                 [
-                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
                     'browser/chrome/browser/migration/migration.properties:1_safari'   => 'Préférences',
+                    'browser/chrome/browser/browser.properties:popupWarningButtonUnix' => 'Préférences',
                 ],
             ],
         ];
     }
 
-    /**
-     * @dataProvider findDuplicatesSensitive_DP
-     */
+    #[DataProvider('findDuplicatesSensitive_DP')]
     public function testFindDuplicatesSensitiveID($a, $b)
     {
-        $obj = new _Consistency();
+        $obj = new Consistency();
         $this
-            ->array($obj->findDuplicates($a, False))
-                ->isEqualTo($b);
+            ->assertEqualsCanonicalizing($obj->findDuplicates($a, False), $b);
     }
 
-    public function filterStrings_DP()
+    public static function filterStrings_DP()
     {
         return [
             [
@@ -96,26 +91,23 @@ class Consistency extends atoum\test
                 [
                     'browser/pdfviewer/viewer.properties:last_page.label'                               => 'Aller à la dernière page',
                     'browser/chrome/browser/aboutPrivateBrowsing.dtd:aboutPrivateBrowsing.info.cookies' => 'Les cookies',
-                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
                     'dom/chrome/accessibility/win/accessible.properties:press'                          => 'Appuyer',
+                    'shared/date/date.properties:days-until-long[many]'                                 => 'dans {{value}} jours',
                     'apps/system/accessibility.properties:accessibility-listItemsCount[two]'            => '{{count}} éléments',
                 ],
             ],
         ];
     }
 
-    /**
-     * @dataProvider filterStrings_DP
-     */
+    #[DataProvider('filterStrings_DP')]
     public function testFilterStrings($a, $b, $c)
     {
-        $obj = new _Consistency();
+        $obj = new Consistency();
         $this
-            ->array($obj->filterStrings($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->filterStrings($a, $b), $c);
     }
 
-    public function filterComponents_DP()
+    public static function filterComponents_DP()
     {
         return [
             [
@@ -159,14 +151,11 @@ class Consistency extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider filterComponents_DP
-     */
+    #[DataProvider('filterComponents_DP')]
     public function testFilterComponents($a, $b, $c)
     {
-        $obj = new _Consistency();
+        $obj = new Consistency();
         $this
-            ->array($obj->filterComponents($a, $b))
-                ->isEqualTo($c);
+            ->assertEqualsCanonicalizing($obj->filterComponents($a, $b), $c);
     }
 }

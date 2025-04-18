@@ -1,14 +1,15 @@
 <?php
-namespace tests\units\Transvision;
+namespace tests\Transvision;
 
-use atoum\atoum;
-use Transvision\Strings as _Strings;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Transvision\Strings;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class Strings extends atoum\test
+class StringsTest extends TestCase
 {
-    public function mtrimDP()
+    public static function mtrimDP()
     {
         return [
             ['Le cheval  blanc ', 'Le cheval blanc '],
@@ -18,18 +19,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider mtrimDP
-     */
+    #[DataProvider('mtrimDP')]
     public function testMtrim($a, $b)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->string($obj->mtrim($a))
-                ->isEqualTo($b);
+            ->assertEqualsCanonicalizing($obj->mtrim($a), $b);
     }
 
-    public function startsWithDP()
+    public static function startsWithDP()
     {
         return [
             ['it is raining', 'it', true],
@@ -39,18 +37,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider startsWithDP
-     */
+    #[DataProvider('startsWithDP')]
     public function testStartsWith($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->boolean($obj->startsWith($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->startsWith($a, $b), $c);
     }
 
-    public function endsWithDP()
+    public static function endsWithDP()
     {
         return [
             ['it is raining', 'ing', true],
@@ -60,18 +55,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider endsWithDP
-     */
+    #[DataProvider('endsWithDP')]
     public function testEndsWith($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->boolean($obj->endsWith($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->endsWith($a, $b), $c);
     }
 
-    public function inStringWithDP()
+    public static function inStringWithDP()
     {
         return [
             ['La maison est blanche', 'blanche', false, true],
@@ -85,18 +77,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider inStringWithDP
-     */
+    #[DataProvider('inStringWithDP')]
     public function testInString($a, $b, $c, $d)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->boolean($obj->inString($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertSame($obj->inString($a, $b, $c), $d);
     }
 
-    public function multipleStringReplaceDP()
+    public static function multipleStringReplaceDP()
     {
         return [
             [
@@ -112,29 +101,24 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider multipleStringReplaceDP
-     */
+    #[DataProvider('multipleStringReplaceDP')]
     public function testmultipleStringReplace($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->string($obj->multipleStringReplace($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->multipleStringReplace($a, $b), $c);
     }
 
     public function testHighlightSpecial()
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…'))
-                ->isEqualTo('Foo is bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar is Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
+            ->assertSame($obj->highlightSpecial('Foo is bar ; Bar is Foo…'), 'Foo is bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar is Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
         $this
-            ->string($obj->highlightSpecial('Foo is bar ; Bar is Foo…', false))
-                ->isEqualTo('Foo<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
+            ->assertSame($obj->highlightSpecial('Foo is bar ; Bar is Foo…', false), 'Foo<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>bar<span class="highlight-special highlight-gray" title="Non breakable space"> </span>;<span class="highlight-special highlight-gray" title="Non breakable space"> </span>Bar<span class="highlight-special highlight-space" title="White space"> </span>is<span class="highlight-special highlight-space" title="White space"> </span>Foo<span class="highlight-special highlight-gray" title="Real ellipsis">…</span>');
     }
 
-    public function markStringDP()
+    public static function markStringDP()
     {
         return [
             ['in', '@@missing@@', '@@missing@@'],
@@ -147,18 +131,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider markStringDP
-     */
+    #[DataProvider('markStringDP')]
     public function testMarkString($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->string($obj->markString($a, $b, $c))
-                ->isEqualTo($c);
+            ->assertSame($obj->markString($a, $b), $c);
     }
 
-    public function highlightStringDP()
+    public static function highlightStringDP()
     {
         return [
             ['@@missing@@', '@@missing@@'],
@@ -170,18 +151,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider highlightStringDP
-     */
+    #[DataProvider('highlightStringDP')]
     public function testHighlightString($a, $b)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->string($obj->highlightString($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->highlightString($a), $b);
     }
 
-    public function getLengthDP()
+    public static function getLengthDP()
     {
         return [
             ['Le cheval  blanc ', 17],
@@ -189,18 +167,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getLengthDP
-     */
+    #[DataProvider('getLengthDP')]
     public function testGetLength($a, $b)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->integer($obj->getLength($a))
-                ->isEqualTo($b);
+            ->assertSame($obj->getLength($a), $b);
     }
 
-    public function getSimilarDP()
+    public static function getSimilarDP()
     {
         return [
             [
@@ -218,18 +193,15 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getSimilarDP
-     */
+    #[DataProvider('getSimilarDP')]
     public function testGetSimilar($a, $b, $c, $d)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->array($obj->getSimilar($a, $b, $c))
-                ->isEqualTo($d);
+            ->assertSame($obj->getSimilar($a, $b, $c), $d);
     }
 
-    public function getLevenshteinUTF8DP()
+    public static function getLevenshteinUTF8DP()
     {
         return [
             ['notre', 'nôtre', 1],
@@ -242,39 +214,33 @@ class Strings extends atoum\test
         ];
     }
 
-    /**
-     * @dataProvider getLevenshteinUTF8DP
-     */
+    #[DataProvider('getLevenshteinUTF8DP')]
     public function testLevenshteinUTF8($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->integer($obj->LevenshteinUTF8($a, $b))
-                ->isEqualTo($c);
+            ->assertSame($obj->LevenshteinUTF8($a, $b), $c);
     }
 
-    public function getLevenshteinQualityDP()
+    public static function getLevenshteinQualityDP()
     {
-        // We use divisions so as to have real precise numbers for float comparizon
+        // We use divisions so as to have real precise numbers for float comparison
         return [
             ['notre', 'nôtre', (float) 80],
             ['웹', '으', (float) 0],
-            ['हिस्सा', 'हमारे', (float) 100 / 6],
+            ['हिस्सा', 'हमारे', (float) round(100 / 6, 5)],
             ['hello', 'melon', (float) 40],
-            ['കട', 'കടല', (float) 100 / 1.5],
+            ['കട', 'കടല', (float) round(100 / 1.5, 5)],
             ['കട', 'കല', (float) 50],
-            ['കട', 'കടി', (float) 100 / 1.5],
+            ['കട', 'കടി', (float) round(100 / 1.5, 5)],
         ];
     }
 
-    /**
-     * @dataProvider getLevenshteinQualityDP
-     */
+    #[DataProvider('getLevenshteinQualityDP')]
     public function testLevenshteinQuality($a, $b, $c)
     {
-        $obj = new _Strings();
+        $obj = new Strings();
         $this
-            ->float($obj->levenshteinQuality($a, $b))
-                ->isNearlyEqualTo($c);
+            ->assertSame($obj->levenshteinQuality($a, $b), $c);
     }
 }

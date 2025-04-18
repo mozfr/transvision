@@ -1,6 +1,6 @@
 <?php
 
-define('INSTALL_ROOT',  realpath(__DIR__ . '/../../../') . '/');
+define('INSTALL_ROOT', realpath(__DIR__ . '/../../../') . '/');
 
 // We always work with UTF8 encoding
 mb_internal_encoding('UTF-8');

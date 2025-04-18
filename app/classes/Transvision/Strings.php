@@ -333,6 +333,6 @@ class Strings
             mb_strlen($string2, 'UTF-8'),
         ]);
 
-        return (float) (1 - self::levenshteinUTF8($string1, $string2) / $length) * 100;
+        return (float) round((1 - self::levenshteinUTF8($string1, $string2) / $length) * 100, 5);
     }
 }

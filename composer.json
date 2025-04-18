@@ -32,10 +32,10 @@
     },
 
     "require-dev": {
-        "atoum/atoum" : "~4.2",
         "symfony/var-dumper": "~6.4",
-        "friendsofphp/php-cs-fixer": "~3.64",
-        "pchevrel/verif": "0.4"
+        "friendsofphp/php-cs-fixer": "~3.75",
+        "pchevrel/verif": "0.4",
+        "phpunit/phpunit": "^10 || ^12"
     },
 
     "autoload": {
