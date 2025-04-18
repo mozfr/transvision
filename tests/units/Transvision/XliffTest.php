@@ -27,10 +27,10 @@ class XliffTest extends TestCase
 
         // Check escaped single straight quotes
         $this
-            ->assertSame($strings['firefox_ios/firefox-ios.xliff:e15c1a9a6082aa32623205328418a603'], "Test con \'");
+            ->assertSame($strings['firefox_ios/firefox-ios.xliff:test_escape'], "Test con \'");
 
         $this
-            ->assertSame($strings['firefox_ios/firefox-ios.xliff:1348465d2e7136641805937598daaeda'], "Test con \\\\\' già escaped");
+            ->assertSame($strings['firefox_ios/firefox-ios.xliff:test_already_escaped'], "Test con \\\\\' già escaped");
     }
 
     public function testGetStringsReference()
@@ -51,10 +51,10 @@ class XliffTest extends TestCase
 
         // Check escaped single straight quotes
         $this
-            ->assertSame($strings['firefox_ios/firefox-ios.xliff:e15c1a9a6082aa32623205328418a603'], "Test with \'");
+            ->assertSame($strings['firefox_ios/firefox-ios.xliff:test_escape'], "Test with \'");
 
         $this
-            ->assertSame($strings['firefox_ios/firefox-ios.xliff:1348465d2e7136641805937598daaeda'], "Test with \\\\\' already escaped");
+            ->assertSame($strings['firefox_ios/firefox-ios.xliff:test_already_escaped'], "Test with \\\\\' already escaped");
     }
 
     public static function generateStringID_DP()
@@ -65,30 +65,43 @@ class XliffTest extends TestCase
                 'firefox-ios.xliff',
                 'AccountTests/Info.plist',
                 'Delete',
-                'firefox_ios/firefox-ios.xliff:bb46926d0fcd6d43155f706a22b0f3fc',
+                [],
+                'firefox_ios/firefox-ios.xliff:Delete',
             ],
             [
                 'firefox_ios',
                 'firefox-ios.xliff',
                 'DiffentFile/Info.plist',
                 'Delete',
-                'firefox_ios/firefox-ios.xliff:e3b9ee7a5b6b4e96f70c539d87aff9b0',
+                [],
+                'firefox_ios/firefox-ios.xliff:Delete',
+            ],
+            [
+                'firefox_ios',
+                'firefox-ios.xliff',
+                'DiffentFile/Info.plist',
+                'Delete',
+                [
+                    'firefox_ios/firefox-ios.xliff:Delete' => 'Some Test',
+                ],
+                'firefox_ios/firefox-ios.xliff:Delete-e3b9ee7a5b6b4e96f70c539d87aff9b0',
             ],
             [
                 'firefox_ios',
                 'firefox-ios.xliff',
                 'Client/3DTouchActions.strings',
                 'Are you sure you want to clear all of your data? This will also close all open tabs.',
+                [],
                 'firefox_ios/firefox-ios.xliff:46e4ec3c64a0ce5a5d9c5f8bebd74325',
             ],
         ];
     }
 
     #[DataProvider('generateStringID_DP')]
-     public function testGenerateStringID($a, $b, $c, $d, $e)
+     public function testGenerateStringID($a, $b, $c, $d, $e, $f)
     {
         $obj = new Xliff();
         $this
-            ->assertSame($obj->generateStringID($a, $b, $c, $d), $e);
+            ->assertSame($obj->generateStringID($a, $b, $c, $d, $e), $f);
     }
 }
