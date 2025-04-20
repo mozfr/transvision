@@ -3,6 +3,7 @@ namespace Transvision;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
+use Monolog\Level;
 use Monolog\Logger;
 
 // We always work with UTF8 encoding
@@ -38,7 +39,7 @@ if (DEBUG) {
 $logger = new Logger(VERSION);
 $handler = new StreamHandler(INSTALL_ROOT . 'logs/transvision.log');
 $handler->setFormatter(new LineFormatter(null, null, false, true));
-$logger->pushHandler($handler, Logger::DEBUG);
+$logger->pushHandler($handler, Level::Debug);
 
 // Create a Search object with default values available everywhere
 $search = new Search;
