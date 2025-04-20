@@ -24,7 +24,7 @@
 
     "require": {
         "gettext/gettext": "~5.7",
-        "monolog/monolog" : "~3.7",
+        "monolog/monolog" : "~3.9",
         "mozillal10n/bugzilla": "~0.1",
         "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",

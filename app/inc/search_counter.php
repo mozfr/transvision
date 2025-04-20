@@ -20,7 +20,7 @@ if (is_array($stats)) {
     $stats[$locale] = array_key_exists($locale, $stats) ? $stats[$locale] += 1 : 1;
     $json_data->saveFile($stats, $local_filename);
 } else {
-    $logger->addError('stats_locales.json exists but couldn\'t extract a valid array from JSON');
+    $logger->error('stats_locales.json exists but couldn\'t extract a valid array from JSON');
 }
 
 // Create a JSON file logging search options to determine if some are unused
@@ -47,6 +47,6 @@ if (is_array($stats)) {
         $json_data->saveFile($stats, $local_filename);
     }
 } else {
-    $logger->addError('stats_requests.json exists but couldn\'t extract a valid array from JSON');
+    $logger->error('stats_requests.json exists but couldn\'t extract a valid array from JSON');
 }
 unset($stats);
