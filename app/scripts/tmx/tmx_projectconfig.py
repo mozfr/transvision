@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from compare_locales.parser import getParser
+from compare_locales import parser
 from configparser import ConfigParser
 from moz.l10n.paths import L10nConfigPaths, get_android_locale
 import argparse
@@ -120,18 +120,31 @@ class StringExtraction:
                 if self.storage_prefix != "":
                     key_path = f"{self.storage_prefix}/{key_path}"
                 try:
-                    p = getParser(reference_file)
+                    p = parser.getParser(reference_file)
                 except UserWarning:
                     continue
 
                 p.readFile(l10n_file)
-                self.translations[locale].update(
-                    (
-                        f"{self.repository_name}/{key_path}:{entity.key}",
-                        entity.raw_val,
+                if isinstance(p, parser.android.AndroidParser):
+                    # As of https://github.com/mozilla/pontoon/pull/3611, Pontoon
+                    # uses moz.l10n for resource parsing, resulting in quotes being
+                    # escaped. compare-locales doesn't escape them, so need to
+                    # manually remove escapes.
+                    self.translations[locale].update(
+                        (
+                            f"{self.repository_name}/{key_path}:{entity.key}",
+                            entity.raw_val.replace("\\'", "'").replace('\\"', '"'),
+                        )
+                        for entity in p.parse()
                     )
-                    for entity in p.parse()
-                )
+                else:
+                    self.translations[locale].update(
+                        (
+                            f"{self.repository_name}/{key_path}:{entity.key}",
+                            entity.raw_val,
+                        )
+                        for entity in p.parse()
+                    )
 
         basedir = os.path.dirname(self.toml_path)
         if self.android_project:
