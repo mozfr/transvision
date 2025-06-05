@@ -189,6 +189,13 @@ then
     git clone https://github.com/mozilla-l10n/www-l10n .
 fi
 
+cd $firefox_com
+if [ ! -d $firefox_com/.git ]
+then
+    echogreen "Checking out firefox.com (Fluent) repo"
+    git clone https://github.com/mozilla-l10n/www-firefox-l10n .
+fi
+
 cd $firefox_ios
 if [ ! -d $firefox_ios/.git ]
 then

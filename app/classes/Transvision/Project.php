@@ -83,6 +83,14 @@ class Project
             'source_type'       => 'mixed',
             'variable_patterns' => ['ftl'],
         ],
+        'firefox_com'  => [
+            'git_repository'    => 'mozilla-l10n/www-firefox-l10n',
+            'git_branch'        => 'main',
+            'pontoon_project'   => 'firefoxcom',
+            'reference_locale'  => 'en',
+            'source_type'       => 'mixed',
+            'variable_patterns' => ['ftl'],
+        ],
         'android_l10n' => [
             'git_repository'    => 'mozilla-l10n/android-l10n',
             'git_branch'        => 'master',
@@ -114,8 +122,8 @@ class Project
         ],
         // Products using Git
         'git'         => [
-            'android_l10n', 'firefox_ios', 'gecko_strings', 'mozilla_org',
-            'seamonkey', 'thunderbird', 'vpn_client',
+            'android_l10n', 'firefox_ios', 'gecko_strings', 'firefox_com',
+            'mozilla_org', 'seamonkey', 'thunderbird', 'vpn_client',
         ],
         // Products using free text search on Pontoon
         'text_search' => [

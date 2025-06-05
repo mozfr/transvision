@@ -25,6 +25,10 @@ folders+=( $seamonkey_path )
 mozilla_org=$local_git/mozilla_org/
 folders+=( $mozilla_org )
 
+# Location of firefox.com repository (Fluent based)
+firefox_com=$local_git/firefox_com/
+folders+=( $firefox_com )
+
 # Firefox for iOS, Android-l10n, VPN Client
 android_l10n=$local_git/android_l10n/
 firefox_ios=$local_git/firefox_ios/

@@ -1,9 +1,10 @@
 <?php
 namespace Transvision;
 
-// Set up the repository selector, remove meta project and mozilla.org
+// Set up the repository selector, remove meta project, mozilla.org, firefox.com
 $repositories = Project::getSupportedRepositories(true);
 unset($repositories['mozilla_org']);
+unset($repositories['firefox_com']);
 $repository_selector = Utils::getHtmlSelectOptions($repositories, $repo, true);
 
 $reference_locale = Project::getReferenceLocale($repo);

@@ -230,6 +230,19 @@ function updateMozOrg() {
     nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $mozilla_org/l10n-vendor.toml --ref en --repo mozilla_org
 }
 
+function updateFirefoxCom() {
+    if [ "$checkrepo" = true ]
+    then
+        cd $firefox_com
+        echogreen "Update GitHub repository"
+        git pull
+    fi
+    echogreen "Extract strings for firefox.com (Fluent)"
+    cd $install
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $firefox_com/l10n-pontoon.toml --ref en --repo firefox_com
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $firefox_com/l10n-vendor.toml --ref en --repo firefox_com
+}
+
 echogreen "Activating virtualenv..."
 source $install/python-venv/bin/activate || exit 1
 
@@ -237,6 +250,7 @@ updateMultirepo gecko_strings
 updateMultirepo thunderbird
 updateSeamonkey
 updateMozOrg
+updateFirefoxCom
 updateOtherProduct firefox_ios "Firefox for iOS" tmx_xliff
 updateOtherProduct vpn_client "Mozilla VPN Client" tmx_xliff
 updateAndroidl10n

@@ -129,8 +129,8 @@ class VersionControl
 
                 return "https://github.com/{$git_repo}/blob/{$git_branch}/{$file_path}";
             }
-            if ($repo == 'mozilla_org') {
-                // Special case for mozilla.org (Fluent)
+            if ($repo == 'mozilla_org' || $repo == 'firefox_com') {
+                // Special case for mozilla.org and firefox.com (Fluent)
                 if ($locale != 'en') {
                     $file_path = str_replace('en/', "{$locale}/", $file_path);
                 }
