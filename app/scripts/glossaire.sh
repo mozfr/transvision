@@ -213,8 +213,8 @@ function updateAndroidl10n() {
     fi
     echogreen "Extract strings for android-l10n"
     cd $install
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/firefox.toml --ref en-US --repo android_l10n --android
-    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile/focus-android/l10n.toml --ref en-US --repo android_l10n --android --append --prefix mozilla-mobile/focus-android
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/firefox.toml --ref en-US --repo android_l10n
+    nice -20 $install/app/scripts/tmx/tmx_projectconfig.py $android_l10n/mozilla-mobile/focus-android/l10n.toml --ref en-US --repo android_l10n --append --prefix mozilla-mobile/focus-android
 }
 
 function updateMozOrg() {

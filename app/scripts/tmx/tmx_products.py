@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from compare_locales import parser
 from configparser import ConfigParser
 import argparse
 import codecs
@@ -25,8 +24,6 @@ if not os.path.isfile(config_file):
         "Default settings will be used."
     )
     root_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-    storage_path = os.path.join(root_folder, "TMX")
-    os.makedirs(storage_path, exist_ok=True)
 else:
     config_parser = ConfigParser()
     config_parser.read(config_file)
@@ -144,16 +141,7 @@ class StringExtraction:
                             attr_string_id = f"{self.getRelativePath(file_name)}:{entity}.{attribute}"
                             self.translations[attr_string_id] = attribute.raw_val
                     else:
-                        if isinstance(file_parser, parser.android.AndroidParser):
-                            # As of https://github.com/mozilla/pontoon/pull/3611, Pontoon
-                            # uses moz.l10n for resource parsing, resulting in quotes being
-                            # escaped. compare-locales doesn't escape them, so need to
-                            # manually remove escapes.
-                            self.translations[string_id] = entity.raw_val.replace(
-                                "\\'", "'"
-                            ).replace('\\"', '"')
-                        else:
-                            self.translations[string_id] = entity.raw_val
+                        self.translations[string_id] = entity.raw_val
             except Exception as e:
                 print(f"Error parsing file: {file_name}")
                 print(e)

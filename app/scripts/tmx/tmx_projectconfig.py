@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-from compare_locales import parser
 from configparser import ConfigParser
-from moz.l10n.paths import L10nConfigPaths, get_android_locale
 import argparse
 import codecs
 import json
 import logging
 import os
+import sys
 
 logging.basicConfig()
 # Get absolute path of ../../config from the current script location (not the
@@ -25,23 +24,22 @@ if not os.path.isfile(config_file):
         "Default settings will be used."
     )
     root_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-    storage_path = os.path.join(root_folder, "TMX")
-    os.makedirs(storage_path, exist_ok=True)
 else:
     config_parser = ConfigParser()
     config_parser.read(config_file)
     storage_path = os.path.join(config_parser.get("config", "root"), "TMX")
 
+try:
+    from compare_locales import paths
+    from compare_locales.parser import getParser
+except ImportError as e:
+    print("FATAL: make sure that dependencies are installed")
+    print(e)
+    sys.exit(1)
+
 
 class StringExtraction:
-    def __init__(
-        self,
-        toml_path,
-        storage_path,
-        reference_locale,
-        repository_name,
-        android_project,
-    ):
+    def __init__(self, toml_path, storage_path, reference_locale, repository_name):
         """Initialize object."""
 
         # Set defaults
@@ -54,7 +52,6 @@ class StringExtraction:
         self.storage_path = storage_path
         self.reference_locale = reference_locale
         self.repository_name = repository_name
-        self.android_project = android_project
 
     def setStorageAppendMode(self, prefix):
         """Set storage mode and prefix."""
@@ -83,30 +80,12 @@ class StringExtraction:
         def readFiles(locale):
             """Read files for locale"""
 
-            if locale != self.reference_locale:
-                locale_files = [
-                    (
-                        os.path.abspath(ref_path),
-                        os.path.abspath(tgt_path),
-                    )
-                    for (
-                        ref_path,
-                        raw_tgt_path,
-                    ), locales in project_config_paths.all().items()
-                    if locale in locales
-                    and os.path.exists(
-                        tgt_path := project_config_paths.format_target_path(
-                            raw_tgt_path, locale
-                        )
-                    )
-                ]
+            if locale == self.reference_locale:
+                files = paths.ProjectFiles(None, [project_config])
             else:
-                locale_files = [
-                    (os.path.abspath(ref_path), os.path.abspath(ref_path))
-                    for ref_path in project_config_paths.ref_paths
-                ]
+                files = paths.ProjectFiles(locale, [project_config])
 
-            for reference_file, l10n_file in locale_files:
+            for l10n_file, reference_file, _, _ in files:
                 if not os.path.exists(l10n_file):
                     # File not available in localization
                     continue
@@ -120,39 +99,22 @@ class StringExtraction:
                 if self.storage_prefix != "":
                     key_path = f"{self.storage_prefix}/{key_path}"
                 try:
-                    p = parser.getParser(reference_file)
+                    p = getParser(reference_file)
                 except UserWarning:
                     continue
 
                 p.readFile(l10n_file)
-                if isinstance(p, parser.android.AndroidParser):
-                    # As of https://github.com/mozilla/pontoon/pull/3611, Pontoon
-                    # uses moz.l10n for resource parsing, resulting in quotes being
-                    # escaped. compare-locales doesn't escape them, so need to
-                    # manually remove escapes.
-                    self.translations[locale].update(
-                        (
-                            f"{self.repository_name}/{key_path}:{entity.key}",
-                            entity.raw_val.replace("\\'", "'").replace('\\"', '"'),
-                        )
-                        for entity in p.parse()
+                self.translations[locale].update(
+                    (
+                        f"{self.repository_name}/{key_path}:{entity.key}",
+                        entity.raw_val,
                     )
-                else:
-                    self.translations[locale].update(
-                        (
-                            f"{self.repository_name}/{key_path}:{entity.key}",
-                            entity.raw_val,
-                        )
-                        for entity in p.parse()
-                    )
+                    for entity in p.parse()
+                )
 
         basedir = os.path.dirname(self.toml_path)
-        if self.android_project:
-            project_config_paths = L10nConfigPaths(
-                self.toml_path, locale_map={"android_locale": get_android_locale}
-            )
-        else:
-            project_config_paths = L10nConfigPaths(self.toml_path)
+        project_config = paths.TOMLParser().parse(self.toml_path, env={"l10n_base": ""})
+        basedir = os.path.join(basedir, project_config.root)
 
         # Read strings for reference locale
         self.translations[self.reference_locale] = (
@@ -160,9 +122,7 @@ class StringExtraction:
         )
         readFiles(self.reference_locale)
 
-        locales = list(project_config_paths.all_locales)
-        locales.sort()
-        for locale in locales:
+        for locale in project_config.all_locales:
             # If storage mode is append, read existing translations (if available)
             self.translations[locale] = (
                 readExistingJSON(locale) if self.storage_append else {}
@@ -253,13 +213,6 @@ def main():
         help="If set to 'append', translations will be added to an existing cache file",
     )
     parser.add_argument(
-        "--android",
-        dest="android_project",
-        action="store_true",
-        help="If passed, the script will parse the config file using Android locale codes",
-        default=False,
-    )
-    parser.add_argument(
         "--prefix",
         dest="storage_prefix",
         nargs="?",
@@ -282,7 +235,6 @@ def main():
         storage_path,
         args.reference_code,
         args.repository_name,
-        args.android_project,
     )
     if args.append_mode:
         extracted_strings.setStorageAppendMode(args.storage_prefix)
