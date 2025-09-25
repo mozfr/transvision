@@ -120,7 +120,7 @@ function updateMultirepo() {
         local locale="$2"
         echogreen "Create cache for $path/$locale"
         mkdir -p "${root}TMX/${locale}/"
-        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $path/$locale/ --locale $locale --ref en-US --repo $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_repository.py --path $path/$locale/ --locale $locale --ref en-US --repo $repo_name
     }
 
     local repo_name="$1"
@@ -166,7 +166,7 @@ function updateSeamonkey() {
         # $1: Locale code
         echogreen "Create cache for $repo_name/$1"
         mkdir -p "${root}TMX/${locale}/"
-        nice -20 python $install/app/scripts/tmx/tmx_products.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
+        nice -20 python $install/app/scripts/tmx/tmx_repository.py --path $repo_folder/$1/ --locale $1 --ref en-US --repo $repo_name
     }
 
     local repo_name="seamonkey"

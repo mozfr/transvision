@@ -1,43 +1,12 @@
 #!/usr/bin/env python
 
-from compare_locales import parser
-from configparser import ConfigParser
-import argparse
+from functions import get_cli_parameters, get_config
+from moz.l10n.resource import parse_resource
+from moz.l10n.message import serialize_message
+from moz.l10n.model import Entry
 import codecs
 import json
-import logging
 import os
-import sys
-
-logging.basicConfig()
-# Get absolute path of ../../config from the current script location (not the
-# current folder)
-config_folder = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "config")
-)
-
-# Read Transvision's configuration file from ../../config/config.ini
-# If not available use a default storage folder to store data
-config_file = os.path.join(config_folder, "config.ini")
-if not os.path.isfile(config_file):
-    print(
-        "Configuration file /app/config/config.ini is missing. "
-        "Default settings will be used."
-    )
-    root_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-    storage_path = os.path.join(root_folder, "TMX")
-    os.makedirs(storage_path, exist_ok=True)
-else:
-    config_parser = ConfigParser()
-    config_parser.read(config_file)
-    storage_path = os.path.join(config_parser.get("config", "root"), "TMX")
-
-try:
-    from compare_locales import parser
-except ImportError as e:
-    print("FATAL: make sure that dependencies are installed")
-    print(e)
-    sys.exit(1)
 
 
 class StringExtraction:
@@ -125,35 +94,29 @@ class StringExtraction:
         self.extractFileList()
 
         for file_name in self.file_list:
-            file_extension = os.path.splitext(file_name)[1]
-
-            file_parser = parser.getParser(file_extension)
-            file_parser.readFile(file_name)
+            resource = parse_resource(file_name)
             try:
-                entities = file_parser.parse()
-                for entity in entities:
-                    # Ignore Junk
-                    if isinstance(entity, parser.Junk):
-                        continue
-                    string_id = f"{self.getRelativePath(file_name)}:{entity}"
-                    if file_extension == ".ftl":
-                        if entity.raw_val is not None:
-                            self.translations[string_id] = entity.raw_val
-                        # Store attributes
-                        for attribute in entity.attributes:
-                            attr_string_id = f"{self.getRelativePath(file_name)}:{entity}.{attribute}"
-                            self.translations[attr_string_id] = attribute.raw_val
-                    else:
-                        if isinstance(file_parser, parser.android.AndroidParser):
-                            # As of https://github.com/mozilla/pontoon/pull/3611, Pontoon
-                            # uses moz.l10n for resource parsing, resulting in quotes being
-                            # escaped. compare-locales doesn't escape them, so need to
-                            # manually remove escapes.
-                            self.translations[string_id] = entity.raw_val.replace(
-                                "\\'", "'"
-                            ).replace('\\"', '"')
-                        else:
-                            self.translations[string_id] = entity.raw_val
+                for section in resource.sections:
+                    for entry in section.entries:
+                        if isinstance(entry, Entry):
+                            entry_id = ".".join(section.id + entry.id)
+                            string_id = f"{self.getRelativePath(file_name)}:{entry_id}"
+                            if entry.properties:
+                                # Store the value of an entry with attributes only
+                                # if the value is not empty.
+                                if not entry.value.is_empty():
+                                    self.translations[string_id] = serialize_message(
+                                        resource.format, entry.value
+                                    )
+                                for attribute, attr_value in entry.properties.items():
+                                    attr_id = f"{string_id}.{attribute}"
+                                    self.translations[attr_id] = serialize_message(
+                                        resource.format, attr_value
+                                    )
+                            else:
+                                self.translations[string_id] = serialize_message(
+                                    resource.format, entry.value
+                                )
             except Exception as e:
                 print(f"Error parsing file: {file_name}")
                 print(e)
@@ -225,53 +188,8 @@ class StringExtraction:
 
 
 def main():
-    # Read command line input parameters
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--path",
-        dest="repo_path",
-        help="Path to locale files",
-        required=True,
-    )
-    parser.add_argument(
-        "--locale",
-        dest="locale_code",
-        help="Locale code",
-        required=True,
-    )
-    parser.add_argument(
-        "--ref",
-        dest="reference_code",
-        help="Reference locale code",
-        required=True,
-    )
-    parser.add_argument(
-        "--repo", dest="repository_name", help="Repository name", required=True
-    )
-    parser.add_argument(
-        "--append",
-        dest="append_mode",
-        action="store_true",
-        help="If set to 'append', translations will be added to an existing cache file",
-    )
-    parser.add_argument(
-        "--prefix",
-        dest="storage_prefix",
-        nargs="?",
-        help="This prefix will be prependended to the identified "
-        "path in string IDs (e.g. extensions/irc for Chatzilla)",
-        default="",
-    )
-    parser.add_argument(
-        "--output",
-        nargs="?",
-        type=str,
-        choices=["json", "php"],
-        help="Store only one type of output.",
-        default="",
-    )
-    args = parser.parse_args()
-
+    args = get_cli_parameters()
+    storage_path = get_config()
     extracted_strings = StringExtraction(
         storage_path, args.locale_code, args.reference_code, args.repository_name
     )
