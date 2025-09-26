@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-from functions import get_cli_parameters, get_config
+from functions import get_cli_parameters, get_config, parse_file
 from moz.l10n.resource import parse_resource
-from moz.l10n.message import serialize_message
-from moz.l10n.model import Entry
 import codecs
 import json
 import os
@@ -84,49 +82,30 @@ class StringExtraction:
         # If storage mode is append, read existing translations (if available)
         # before overriding them
         if self.storage_append:
-            file_name = f"{self.storage_file}.json"
-            if os.path.isfile(file_name):
-                with open(file_name) as f:
+            filename = f"{self.storage_file}.json"
+            if os.path.isfile(filename):
+                with open(filename) as f:
                     self.translations = json.load(f)
                 f.close()
 
         # Create a list of files to analyze
         self.extractFileList()
 
-        for file_name in self.file_list:
-            resource = parse_resource(file_name)
+        for filename in self.file_list:
             try:
-                for section in resource.sections:
-                    for entry in section.entries:
-                        if isinstance(entry, Entry):
-                            entry_id = ".".join(section.id + entry.id)
-                            string_id = f"{self.getRelativePath(file_name)}:{entry_id}"
-                            if entry.properties:
-                                # Store the value of an entry with attributes only
-                                # if the value is not empty.
-                                if not entry.value.is_empty():
-                                    self.translations[string_id] = serialize_message(
-                                        resource.format, entry.value
-                                    )
-                                for attribute, attr_value in entry.properties.items():
-                                    attr_id = f"{string_id}.{attribute}"
-                                    self.translations[attr_id] = serialize_message(
-                                        resource.format, attr_value
-                                    )
-                            else:
-                                self.translations[string_id] = serialize_message(
-                                    resource.format, entry.value
-                                )
+                resource = parse_resource(filename)
+                rel_filename = self.getRelativePath(filename)
+                parse_file(resource, self.translations, filename, f"{rel_filename}")
             except Exception as e:
-                print(f"Error parsing file: {file_name}")
+                print(f"Error parsing resource: {filename}")
                 print(e)
 
         # Remove extra strings from locale
         if self.reference_locale != self.locale:
             # Read the JSON cache for reference locale if available
-            file_name = f"{self.reference_storage_file}.json"
-            if os.path.isfile(file_name):
-                with open(file_name) as f:
+            filename = f"{self.reference_storage_file}.json"
+            if os.path.isfile(filename):
+                with open(filename) as f:
                     reference_strings = json.load(f)
                 f.close()
 

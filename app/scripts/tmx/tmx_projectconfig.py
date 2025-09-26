@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
-from functions import get_cli_parameters, get_config
-from moz.l10n.formats import Format
-from moz.l10n.message import serialize_message
-from moz.l10n.model import Entry
+from functions import get_cli_parameters, get_config, parse_file
 from moz.l10n.paths import L10nConfigPaths, get_android_locale
 from moz.l10n.resource import parse_resource
 import codecs
@@ -58,14 +55,6 @@ class StringExtraction:
 
             return translations
 
-        def getEntryValue(resource, value):
-            entry_value = serialize_message(resource.format, value)
-            if resource.format == Format.android:
-                # In Android resources, unescape quotes
-                entry_value = entry_value.replace('\\"', '"').replace("\\'", "'")
-
-            return entry_value
-
         def readFiles(locale):
             """Read files for locale"""
 
@@ -116,34 +105,15 @@ class StringExtraction:
                         resource = parse_resource(
                             l10n_file, android_literal_quotes=True
                         )
-                    for section in resource.sections:
-                        for entry in section.entries:
-                            if isinstance(entry, Entry):
-                                entry_id = ".".join(section.id + entry.id)
-                                string_id = (
-                                    f"{self.repository_name}/{key_path}:{entry_id}"
-                                )
-                                if entry.properties:
-                                    # Store the value of an entry with attributes only
-                                    # if the value is not empty.
-                                    if not entry.value.is_empty():
-                                        self.translations[locale][string_id] = (
-                                            getEntryValue(resource, entry.value)
-                                        )
-                                    for (
-                                        attribute,
-                                        attr_value,
-                                    ) in entry.properties.items():
-                                        attr_id = f"{string_id}.{attribute}"
-                                        self.translations[locale][attr_id] = (
-                                            getEntryValue(resource, attr_value)
-                                        )
-                                else:
-                                    self.translations[locale][string_id] = (
-                                        getEntryValue(resource, entry.value)
-                                    )
+
+                    parse_file(
+                        resource,
+                        self.translations[locale],
+                        l10n_file,
+                        f"{self.repository_name}/{key_path}",
+                    )
                 except Exception as e:
-                    print(f"Error parsing file: {reference_file}")
+                    print(f"Error parsing resource: {reference_file}")
                     print(e)
 
         basedir = os.path.dirname(self.toml_path)
