@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-from functions import get_cli_parameters, get_config, parse_file
-from moz.l10n.resource import parse_resource
 import codecs
 import json
 import os
+
+from functions import get_cli_parameters, get_config, parse_file
+from moz.l10n.resource import parse_resource
 
 
 class StringExtraction:
