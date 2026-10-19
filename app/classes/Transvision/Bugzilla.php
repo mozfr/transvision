@@ -76,14 +76,14 @@ class Bugzilla extends _Bugzilla
 
         if ($repo == 'mozilla_org') {
             if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
-                self::$URLencodedBugzillaLocale[$repo] = self::getURLencodedBugzillaLocale($locale, 'www');
+                self::$URLencodedBugzillaLocale[$repo] = static::getURLencodedBugzillaLocale($locale, 'www');
             }
             $bz_component = 'L10N';
             $bz_product = 'www.mozilla.org';
             $bz_extra = '&cf_locale=' . self::$URLencodedBugzillaLocale[$repo];
         } else {
             if (! isset(self::$URLencodedBugzillaLocale[$repo])) {
-                self::$URLencodedBugzillaLocale[$repo] = self::getURLencodedBugzillaLocale($locale, 'products');
+                self::$URLencodedBugzillaLocale[$repo] = static::getURLencodedBugzillaLocale($locale, 'products');
             }
             $bz_component = self::$URLencodedBugzillaLocale[$repo];
             $bz_product = 'Mozilla%20Localizations';

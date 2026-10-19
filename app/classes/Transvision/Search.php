@@ -179,7 +179,7 @@ class Search
      */
     public function setRegexCaseInsensitive($flag)
     {
-        $this->regex_case = (boolean) $flag ? '' : 'i';
+        $this->regex_case = (bool) $flag ? '' : 'i';
         $this->updateRegex();
 
         return $this;
@@ -196,7 +196,7 @@ class Search
      */
     public function setRegexEntireString($flag)
     {
-        $this->regex_entire_string = (boolean) $flag;
+        $this->regex_entire_string = (bool) $flag;
         $this->updateRegex();
 
         return $this;
@@ -213,7 +213,7 @@ class Search
      */
     public function setRegexEntireWords($flag)
     {
-        $this->regex_entire_words = (boolean) $flag ? '\b' : '';
+        $this->regex_entire_words = (bool) $flag ? '\b' : '';
         $this->updateRegex();
 
         return $this;
@@ -229,7 +229,7 @@ class Search
      */
     public function setEachWord($flag)
     {
-        $this->each_word = (boolean) $flag;
+        $this->each_word = (bool) $flag;
 
         return $this;
     }
