@@ -1,8 +1,9 @@
 import argparse
 import os
+import sys
 
 from configparser import ConfigParser
-from typing import Union
+from pathlib import Path
 
 from moz.l10n.formats import Format
 from moz.l10n.message import serialize_message
@@ -16,31 +17,38 @@ from moz.l10n.model import (
 )
 
 
-def get_config() -> str:
+def get_storage_path(config_path: str) -> str:
+    # Check if the requested output path is valid.
+    if config_path != "":
+        storage_path = Path(config_path).resolve()
+        if storage_path.is_dir():
+            return str(storage_path)
+        sys.exit(
+            f"The provided output path {storage_path} is not a valid directory. "
+            "Ignoring the parameter."
+        )
+
     # Get absolute path of ../../config from the current script location (not the
-    # current folder)
-    config_folder = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "config")
-    )
-    # Read Transvision's configuration file from ../../config/config.ini
-    # If not available use a default storage folder to store data
-    config_file = os.path.join(config_folder, "config.ini")
-    if not os.path.isfile(config_file):
+    # current folder). This is based on Transvision's file structure.
+    # https://github.com/mozfr/transvision/tree/main/app/scripts/tmx
+    # https://github.com/mozfr/transvision/tree/main/app/config
+    config_folder = (Path(__file__).parent.parent.parent / "config").resolve()
+    config_file = config_folder / "config.ini"
+    if not config_file.is_file():
         print(
             "Configuration file /app/config/config.ini is missing. "
-            "Default settings will be used."
+            "The default path will be used."
         )
-        root_folder = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir)
-        )
-        storage_path = os.path.join(root_folder, "TMX")
+        root_folder = Path(__file__).parent.parent.resolve()
+        storage_path = root_folder / "TMX"
         os.makedirs(storage_path, exist_ok=True)
-    else:
-        config_parser = ConfigParser()
-        config_parser.read(config_file)
-        storage_path = os.path.join(config_parser.get("config", "root"), "TMX")
 
-    return storage_path
+        return str(storage_path)
+
+    # Read from config
+    config_parser = ConfigParser()
+    config_parser.read(config_file)
+    return str(Path(config_parser.get("config", "root")) / "TMX")
 
 
 def get_cli_parameters(config: bool = False) -> argparse.Namespace:
@@ -102,6 +110,13 @@ def get_cli_parameters(config: bool = False) -> argparse.Namespace:
         help="Store only one type of output.",
         default="",
     )
+    parser.add_argument(
+        "--output_path",
+        nargs="?",
+        type=str,
+        help="Path where to store TMX files. By default, it will be stored in the same folder as the script if a config file is not provided.",
+        default="",
+    )
 
     return parser.parse_args()
 
@@ -124,7 +139,7 @@ def parse_file(
         msg: SelectMessage = entry.value
         lines: list[str] = []
         for key_tuple, pattern in msg.variants.items():
-            key: Union[str, CatchallKey] = key_tuple[0] if key_tuple else "other"
+            key: str | CatchallKey = key_tuple[0] if key_tuple else "other"
             default = "*" if isinstance(key, CatchallKey) else ""
             label: str | None = key.value if isinstance(key, CatchallKey) else str(key)
             lines.append(
