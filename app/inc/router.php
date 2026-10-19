@@ -36,7 +36,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
 }
 
 // Define if an url is for the API or the site
-$api_url = (boolean) ! strncmp($url['path'], '/api/', strlen('/api/'));
+$api_url = (bool) ! strncmp($url['path'], '/api/', strlen('/api/'));
 
 // Don't process non-PHP files, even if they don't exist on the server
 if (isset($file['extension']) && $file['extension'] != 'php' && ! $api_url) {
