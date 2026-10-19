@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-import codecs
 import json
 import os
 
-from functions import get_cli_parameters, get_config, parse_file
+from pathlib import Path
+
+from functions import get_cli_parameters, get_storage_path, parse_file
 from moz.l10n.paths import L10nConfigPaths, get_android_locale
 from moz.l10n.resource import parse_resource
 
@@ -45,12 +46,13 @@ class StringExtraction:
         def readExistingJSON(locale):
             """Read translations from existing JSON file"""
             translations = {}
-            storage_file = os.path.join(
-                os.path.join(self.storage_path, locale),
-                f"cache_{locale}_{self.repository_name}",
+            storage_file = (
+                Path(self.storage_path)
+                / locale
+                / f"cache_{locale}_{self.repository_name}"
             )
-            file_name = f"{storage_file}.json"
-            if os.path.isfile(file_name):
+            file_name = Path(f"{storage_file}.json")
+            if file_name.is_file():
                 with open(file_name) as f:
                     translations = json.load(f)
 
@@ -62,37 +64,37 @@ class StringExtraction:
             is_ref_locale = locale == self.reference_locale
             if is_ref_locale:
                 locale_files = [
-                    (os.path.abspath(ref_path), os.path.abspath(ref_path))
+                    (Path(ref_path).resolve(), Path(ref_path).resolve())
                     for ref_path in project_config_paths.ref_paths
                 ]
             else:
                 locale_files = [
                     (
-                        os.path.abspath(ref_path),
-                        os.path.abspath(tgt_path),
+                        Path(ref_path).resolve(),
+                        Path(tgt_path).resolve(),
                     )
                     for (
                         ref_path,
                         raw_tgt_path,
                     ), locales in project_config_paths.all().items()
                     if locale in locales
-                    and os.path.exists(
+                    and Path(
                         tgt_path := project_config_paths.format_target_path(
                             raw_tgt_path, locale
                         )
-                    )
+                    ).exists()
                 ]
 
             for reference_file, l10n_file in locale_files:
-                if not os.path.exists(l10n_file):
+                if not l10n_file.exists():
                     # File not available in localization
                     continue
 
-                if not os.path.exists(reference_file):
+                if not reference_file.exists():
                     # File not available in reference
                     continue
 
-                key_path = os.path.relpath(reference_file, basedir)
+                key_path = reference_file.relative_to(basedir)
                 # Prepend storage_prefix if defined
                 if self.storage_prefix != "":
                     key_path = f"{self.storage_prefix}/{key_path}"
@@ -100,24 +102,24 @@ class StringExtraction:
                 try:
                     if is_ref_locale:
                         resource = parse_resource(
-                            reference_file, android_literal_quotes=True
+                            str(reference_file), android_literal_quotes=True
                         )
                     else:
                         resource = parse_resource(
-                            l10n_file, android_literal_quotes=True
+                            str(l10n_file), android_literal_quotes=True
                         )
 
                     parse_file(
                         resource,
                         self.translations[locale],
-                        l10n_file,
+                        str(l10n_file),
                         f"{self.repository_name}/{key_path}",
                     )
                 except Exception as e:
                     print(f"Error parsing resource: {reference_file}")
                     print(e)
 
-        basedir = os.path.dirname(self.toml_path)
+        basedir = Path(self.toml_path).parent
         if self.android_project:
             project_config_paths = L10nConfigPaths(
                 self.toml_path, locale_map={"android_locale": get_android_locale}
@@ -149,18 +151,21 @@ class StringExtraction:
 
         for locale in self.translations:
             translations = self.translations[locale]
-            storage_folder = os.path.join(self.storage_path, locale)
-            storage_file = os.path.join(
-                storage_folder, f"cache_{locale}_{self.repository_name}"
-            )
+            storage_folder = Path(self.storage_path) / locale
+            os.makedirs(storage_folder, exist_ok=True)
+            storage_file = storage_folder / f"cache_{locale}_{self.repository_name}"
 
             # Make sure that the TMX folder exists
-            if not os.path.exists(storage_folder):
+            if not storage_folder.exists():
                 os.mkdir(storage_folder)
 
             if output_format != "php":
                 # Store translations in JSON format
-                json_output = json.dumps(translations, sort_keys=True)
+                json_output = json.dumps(
+                    translations,
+                    sort_keys=True,
+                    ensure_ascii=False,
+                )
                 with open(f"{storage_file}.json", "w") as f:
                     f.write(json_output)
 
@@ -179,7 +184,7 @@ class StringExtraction:
                 output_php.append("];\n")
 
                 file_name = f"{storage_file}.php"
-                with codecs.open(file_name, "w", encoding="utf-8") as f:
+                with open(file_name, "w", encoding="utf-8", newline="") as f:
                     f.writelines(output_php)
 
     def escape(self, translation):
@@ -206,7 +211,7 @@ class StringExtraction:
 
 def main():
     args = get_cli_parameters(config=True)
-    storage_path = get_config()
+    storage_path = get_storage_path(args.output_path)
     extracted_strings = StringExtraction(
         args.toml_path,
         storage_path,
