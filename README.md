@@ -23,15 +23,15 @@ The Transvision team uses Git and GitHub for both development and issue tracking
 ## Dependencies
 
 * Bash scripting support
-* Python 3.8 and later
+* Python 3.13 and later
  * [pip](https://pip.pypa.io/en/stable/installing/) and [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
-* PHP >= 7.4 with the following extensions:
+* PHP >= 8.4 with the following extensions:
  * php-intl for the transliteration feature
- * php-mbstring for multibyte string functions
+ * php-mbstring for multi-byte string functions
 * Composer (Dependency Manager for PHP, https://getcomposer.org/)
 * Mercurial, Git to check out data sources (only for a Full installation for production)
 * Apache with `mod_rewrite` activated
-* [npm][] and eslint for JavaScript files (optional)
+* npm and eslint for JavaScript files (optional)
 ```
 npm install -g eslint
 eslint web/js
