@@ -50,7 +50,11 @@ then
     exit 1
 fi
 
-./app/scripts/dev-setup.sh
+# The tests server uses test files, it doesn't need the dev setup
+if [ "$1" != '-tests-server' ]
+then
+    ./app/scripts/dev-setup.sh
+fi
 
 case "$1" in
     -remote)
