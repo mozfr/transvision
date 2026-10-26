@@ -57,11 +57,11 @@ then
         git -C ${libraries}/mozilla-l10n-query pull --quiet
     fi
     # 2. Install or update Composer
-    if [ ! -d ${libraries}/mozilla-l10n-query/composer.phar ]
+    if [ ! -f ${libraries}/mozilla-l10n-query/composer.phar ]
     then
         $DIR/install_composer.sh "${libraries}/mozilla-l10n-query"
     else
-        ${libraries}/mozilla-l10n-query/composer.phar --self-udpate
+        php ${libraries}/mozilla-l10n-query/composer.phar self-update
     fi
     # 3. Install or update Composer dependencies
     cwd=$(pwd)
@@ -120,7 +120,7 @@ then
         then
             wget https://transvision.mozfr.org/data.tar.gz -O - | tar -xz
         else
-            curl https://transvision.mozfr.org/data.tar.gz | tar -xz
+            curl -# https://transvision.mozfr.org/data.tar.gz | tar -xz
         fi
         echogreen "Data is now extracted in your web/TMX/ folder"
     fi

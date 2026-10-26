@@ -10,13 +10,13 @@ install=${TRANSVISIONDIR}/
 config=${TRANSVISIONDIR}/app/config
 
 ; Only needed for production setup
-local_hg=/temp
+local_hg=/tmp
 
 ; Only needed for production setup
-local_git=/temp
+local_git=/tmp
 
-; Only needed for production setup
-libraries=/temp
+; Path used to store libraries (e.g. mozilla-l10n-query, needed to generate sources)
+libraries=/tmp
 
 ; Flag to know if we are working in production mode or development mode
 dev=true
