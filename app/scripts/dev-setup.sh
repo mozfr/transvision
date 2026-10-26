@@ -104,8 +104,8 @@ fi
 # Check that we have PHP installed on this machine
 if ! command -v php >/dev/null 2>&1
 then
-    echored "ERROR: PHP is not installed on your machine, PHP >=5.4 is required to run Transvision."
-    echo "If you are on Debian/Ubuntu you can install it with 'sudo apt-get install php5'."
+    echored "ERROR: PHP is not installed on your machine, PHP >=8.4 is required to run Transvision."
+    echo "If you are on Debian/Ubuntu you can install it with 'sudo apt install php', on macOS with 'brew install php'."
     exit 1
 fi
 
