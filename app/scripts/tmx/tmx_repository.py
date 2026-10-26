@@ -71,7 +71,7 @@ class StringExtraction:
         defined.
         """
 
-        relative_path = file_name[len(self.repository_path) + 1 :]
+        relative_path = Path(file_name).relative_to(self.repository_path).as_posix()
         # Prepend storage_prefix if defined
         if self.storage_prefix != "":
             relative_path = f"{self.storage_prefix}/{relative_path}"
