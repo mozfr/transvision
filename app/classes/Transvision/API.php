@@ -1,10 +1,6 @@
 <?php
 namespace Transvision;
 
-use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-
 /**
  * API class
  *
@@ -47,8 +43,6 @@ class API
         'suggestions', 'tm', 'transliterate', 'versions',
     ];
     public $error;
-    public $logging = true;
-    public $logger;
     public $valid_repositories;
     /**
      * The constructor analyzes the URL to extract its parameters
@@ -58,19 +52,6 @@ class API
     public function __construct($url)
     {
         $this->url = $url;
-
-        // We use the Monolog library to log our events
-        $this->logger = new Logger('API');
-
-        if ($this->logging) {
-            $this->logger->pushHandler(new StreamHandler(INSTALL_ROOT . 'logs/api-errors.log'));
-        }
-
-        // Also log to error console in Debug mode
-        if (DEBUG) {
-            $this->logger->pushHandler(new ErrorLogHandler());
-        }
-
         $this->parameters = $this->getParameters($url['path']);
         $this->extra_parameters = isset($url['query'])
             ? $this->getExtraParameters($url['query'])
@@ -152,7 +133,7 @@ class API
     {
         // No parameters passed
         if (! count($this->parameters)) {
-            $this->log('No service requested');
+            $this->setError('No service requested');
 
             return false;
         }
@@ -169,7 +150,7 @@ class API
 
         // Check if we (still) support this API version
         if (! in_array($this->parameters[0], array_keys($this->api_versions))) {
-            $this->log("Incorrect version of API ({$this->parameters[0]})");
+            $this->setError("Incorrect version of API ({$this->parameters[0]})");
 
             return false;
         }
@@ -209,7 +190,7 @@ class API
                 }
 
                 if (! isset($this->extra_parameters['id'])) {
-                    $this->log("You haven't provided the entity id to search.");
+                    $this->setError("You haven't provided the entity id to search.");
 
                     return false;
                 }
@@ -247,7 +228,7 @@ class API
                     }
 
                     if (! $match) {
-                        $this->log("The locale queried ({$this->parameters[2]}) is not supported");
+                        $this->setError("The locale queried ({$this->parameters[2]}) is not supported");
 
                         return false;
                     }
@@ -261,7 +242,7 @@ class API
                 }
 
                 if (! in_array($this->parameters[2], ['strings', 'entities', 'all'])) {
-                    $this->log("'{$this->parameters[2]}' is not a type of search "
+                    $this->setError("'{$this->parameters[2]}' is not a type of search "
                                 . "you can perform, 'strings' and 'entities' are.");
 
                     return false;
@@ -349,7 +330,7 @@ class API
     private function verifyEnoughParameters($number)
     {
         if (count($this->parameters) < $number) {
-            $this->log('Not enough parameters for this query.');
+            $this->setError('Not enough parameters for this query.');
 
             return false;
         }
@@ -373,7 +354,7 @@ class API
             : Project::getRepositories(true);
 
         if (! in_array($repository, $this->valid_repositories)) {
-            $this->log("The repo queried ({$repository}) doesn't exist.");
+            $this->setError("The repo queried ({$repository}) doesn't exist.");
 
             return false;
         }
@@ -399,7 +380,7 @@ class API
         }
 
         if (! in_array($locale, Project::getRepositoryLocales($repository))) {
-            $this->log("The locale queried ({$locale}) is not "
+            $this->setError("The locale queried ({$locale}) is not "
                        . "available for the repository ({$repository}).");
 
             return false;
@@ -424,7 +405,7 @@ class API
         }
 
         if (! in_array($this->parameters[1], $this->services)) {
-            $this->log("The service requested ({$this->parameters[1]}) doesn't exist");
+            $this->setError("The service requested ({$this->parameters[1]}) doesn't exist");
 
             return false;
         }
@@ -433,18 +414,12 @@ class API
     }
 
     /**
-     * Utility function to log API call errors.
+     * Store the error message for an invalid API call.
      *
      * @param string $message
-     *
-     * @return boolean True if we logged, False if we didn't log
      */
-    private function log($message)
+    private function setError($message)
     {
         $this->error = $message;
-
-        return $this->logging
-            ? $this->logger->warning($message, [$this->url['path']])
-            : false;
     }
 }

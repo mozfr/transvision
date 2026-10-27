@@ -126,7 +126,6 @@ class APITest extends TestCase
     {
         $url = parse_url($a);
         $obj = new API($url);
-        $obj->logging = false; // Logging interferes with tests
         $this
             ->assertSame($obj->isValidRequest(), $b);
     }
@@ -151,7 +150,6 @@ class APITest extends TestCase
     {
         $url = parse_url($a);
         $obj = new API($url);
-        $obj->logging = false; // Logging interferes with tests
         $this
             ->assertSame($obj->getService(), $b);
     }
