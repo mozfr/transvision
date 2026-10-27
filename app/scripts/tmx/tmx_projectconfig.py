@@ -94,7 +94,7 @@ class StringExtraction:
                     # File not available in reference
                     continue
 
-                key_path = reference_file.relative_to(basedir)
+                key_path = reference_file.relative_to(basedir).as_posix()
                 # Prepend storage_prefix if defined
                 if self.storage_prefix != "":
                     key_path = f"{self.storage_prefix}/{key_path}"
@@ -119,7 +119,7 @@ class StringExtraction:
                     print(f"Error parsing resource: {reference_file}")
                     print(e)
 
-        basedir = Path(self.toml_path).parent
+        basedir = Path(self.toml_path).resolve().parent
         if self.android_project:
             project_config_paths = L10nConfigPaths(
                 self.toml_path, locale_map={"android_locale": get_android_locale}
