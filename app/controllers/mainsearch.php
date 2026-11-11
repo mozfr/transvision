@@ -9,7 +9,7 @@ if (isset($_GET['json'])) {
             // 'strings_entities' search is now called 'all' in new API
             return $_GET[$value] == 'strings_entities'
                 ? 'all'
-                : Utils::secureText($_GET[$value]);
+                : rawurlencode($_GET[$value]);
         }
 
         return $fallback;
@@ -38,7 +38,8 @@ if (isset($_GET['json'])) {
     $regex = count($regex) > 0 ? '?' . implode('&', $regex) : '';
 
     header('Status: 301 Moved Permanently', false, 301);
-    header('Location:' . APP_SCHEME . "{$_SERVER['HTTP_HOST']}/api/v1/search/"
+    // Relative URL so that the redirect always stays on the same host
+    header('Location: /api/v1/search/'
         . "{$type}/{$repo}/{$source}/{$target}/{$terms}/{$regex}");
     exit;
 }

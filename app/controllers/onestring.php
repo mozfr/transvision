@@ -10,7 +10,8 @@ $entity = isset($_GET['entity']) ? $_GET['entity'] : '';
 // Redirect old API call to new official API
 if (isset($_GET['json'])) {
     header('Status: 301 Moved Permanently', false, 301);
-    header('Location:' . APP_SCHEME . "{$_SERVER['HTTP_HOST']}/api/v1/entity/{$repo}/?id={$entity}");
+    // Relative URL so that the redirect always stays on the same host
+    header('Location: /api/v1/entity/' . rawurlencode($repo) . '/?id=' . rawurlencode($entity));
     exit;
 }
 
