@@ -58,7 +58,11 @@ require_once __DIR__ . '/urls.php';
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
 if (isset($temp_url['path']) && substr($temp_url['path'], -1) != '/') {
     unset($temp_url);
-    header('Location:/' . $url['path'] . '/');
+    /*
+        Strip leading slashes and backslashes: browsers treat '/\host' like
+        '//host', a protocol-relative URL to another site (open redirect).
+    */
+    header('Location: /' . ltrim($url['path'], '/\\') . '/');
     exit;
 }
 
