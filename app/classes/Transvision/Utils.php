@@ -478,13 +478,15 @@ class Utils
 
     /**
      * Return the current URL with the json GET variable appended
-     * and also adds locale codes if they are not already provided
-     * in the query string
+     * and the locale and sourcelocale parameters set to the given locales
+     *
+     * Like getAPIUrl(), the URL is a same-origin relative URL escaped with
+     * secureText() so it can be printed directly in a template.
      *
      * @param string $source_locale Locale code for source
      * @param string $target_locale Locale code for target
      *
-     * @return string URL with 'json' appended as part of the query string
+     * @return string HTML-escaped URL with 'json' appended as part of the query string
      */
     public static function APIPromotion($source_locale, $target_locale)
     {
@@ -492,28 +494,17 @@ class Utils
         [$path, $query] = self::getRequestPathAndQuery();
         parse_str($query, $args);
 
-        /*
-            We are separating keys and values and recombine them
-            after sanitization. With a simple array_map only values
-            get sanitized but we also use the keys to build links
-            in the view.
-        */
-        $sanitize = function ($str) {
-            return htmlentities(self::secureText($str));
-        };
-
-        $args = array_combine(
-            array_map($sanitize, array_keys($args)),
-            array_map($sanitize, array_values($args))
-        );
-
-        $args['locale'] = $target_locale;
-        $args['sourcelocale'] = $source_locale;
+        $args['locale'] = (string) $target_locale;
+        $args['sourcelocale'] = (string) $source_locale;
         $args['json'] = 'true';
 
-        // We don't want to encode slashes in searches for entity names
-        $query = urldecode(http_build_query($args));
+        /*
+            Build the query from raw values so that they are URL-encoded
+            once, then escape the whole URL once for HTML output.
+            We don't want to encode slashes in searches for entity names.
+        */
+        $query = str_replace('%2F', '/', http_build_query($args, '', '&', PHP_QUERY_RFC3986));
 
-        return self::secureText($path) . '?' . $query;
+        return self::secureText($path . '?' . $query);
     }
 }

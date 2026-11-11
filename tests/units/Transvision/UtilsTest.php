@@ -442,27 +442,69 @@ class UtilsTest extends TestCase
                 'en-US',
                 'fr',
                 '/?recherche=test&repo=gecko_strings&sourcelocale=fr&locale=en-US&search_type=strings',
-                '/?recherche=test&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings&json=true',
+                '/?recherche=test&#38;repo=gecko_strings&#38;sourcelocale=en-US&#38;locale=fr&#38;search_type=strings&#38;json=true',
             ],
             [
                 'it',
                 'en-US',
                 '/?recherche=Cookies&repo=gecko_strings&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
-                '/?recherche=Cookies&repo=gecko_strings&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
+                '/?recherche=Cookies&#38;repo=gecko_strings&#38;sourcelocale=it&#38;locale=en-US&#38;search_type=strings_entities&#38;case_sensitive=case_sensitive&#38;each_word=each_word&#38;entire_string=entire_string&#38;json=true',
             ],
             [
                 // No query string
                 'en-US',
                 'fr',
                 '/',
-                '/?locale=fr&sourcelocale=en-US&json=true',
+                '/?locale=fr&#38;sourcelocale=en-US&#38;json=true',
             ],
             [
                 // Protocol-relative URL and HTML in the path
                 'en-US',
                 'fr',
                 '//evil.example.com/"><b>?recherche=test',
-                '/&#34;&#62;&#60;b&#62;?recherche=test&locale=fr&sourcelocale=en-US&json=true',
+                '/&#34;&#62;&#60;b&#62;?recherche=test&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // HTML in a value is URL-encoded once, not HTML-escaped twice
+                'en-US',
+                'fr',
+                '/?recherche=%22%3E%3Cscript%3Ealert(1)%3C/script%3E',
+                '/?recherche=%22%3E%3Cscript%3Ealert%281%29%3C/script%3E&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // HTML in a key
+                'en-US',
+                'fr',
+                '/?a%22%3E%3Cb%3E=1',
+                '/?a%22%3E%3Cb%3E=1&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // Quotes and spaces in a search are kept for the API request
+                'en-US',
+                'fr',
+                '/?recherche=%22foo%27s%20bar%22',
+                '/?recherche=%22foo%27s%20bar%22&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // Slashes are not encoded in searches for entity names
+                'en-US',
+                'fr',
+                '/?recherche=browser/chrome/browser.ftl&search_type=entities',
+                '/?recherche=browser/chrome/browser.ftl&#38;search_type=entities&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // Array parameters don't cause a TypeError
+                'en-US',
+                'fr',
+                '/?a[]=1&b[c]=%3Cb%3E',
+                '/?a%5B0%5D=1&#38;b%5Bc%5D=%3Cb%3E&#38;locale=fr&#38;sourcelocale=en-US&#38;json=true',
+            ],
+            [
+                // Locale arguments are escaped as well
+                '"><script>alert(1)</script>',
+                "fr' onmouseover='alert(1)",
+                '/?recherche=test',
+                '/?recherche=test&#38;locale=fr%27%20onmouseover%3D%27alert%281%29&#38;sourcelocale=%22%3E%3Cscript%3Ealert%281%29%3C/script%3E&#38;json=true',
             ],
         ];
     }
