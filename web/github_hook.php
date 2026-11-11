@@ -9,7 +9,7 @@ $composer = $app_root . '/composer.phar';
 
 // Git variables
 $branch = 'main';
-$header = 'HTTP_X_HUB_SIGNATURE';
+$header = 'HTTP_X_HUB_SIGNATURE_256';
 $secret = parse_ini_file($app_root . '/app/config/config.ini')['github_key'];
 
 // Logging function to output content to /github_log.txt
@@ -24,24 +24,14 @@ function logHookResult($message, $success = false)
     file_put_contents(__DIR__ . '/../logs/github_log.txt', $log_headers);
 }
 
-// CHECK: Download composer in the app root if it is not already there
-if (! file_exists($composer)) {
-    file_put_contents(
-        $composer,
-        file_get_contents('https://getcomposer.org/composer.phar')
-    );
-} else {
-    // Update composer
-    exec("php $composer self-update");
-}
-
 if (isset($_SERVER[$header])) {
-    $validation = hash_hmac(
-        'sha1',
+    // GitHub sends 'sha256=<hex digest>'
+    $validation = 'sha256=' . hash_hmac(
+        'sha256',
         file_get_contents('php://input'),
         $secret
     );
-    if (hash_equals($validation, explode('=', $_SERVER[$header])[1])) {
+    if (hash_equals($validation, (string) $_SERVER[$header])) {
         $log = '';
         // Acknowledge the request
         $log = date('H:i:s') . ": acknowledging GitHub request\n";
@@ -62,6 +52,17 @@ if (isset($_SERVER[$header])) {
         // Pull latest changes
         $log .= date('H:i:s') . ": updating Git repository\n";
         exec("git checkout $branch ; git pull origin $branch");
+
+        // Download composer in the app root if it is not already there
+        if (! file_exists($composer)) {
+            file_put_contents(
+                $composer,
+                file_get_contents('https://getcomposer.org/composer.phar')
+            );
+        } else {
+            // Update composer
+            exec("php $composer self-update");
+        }
 
         // Install or update dependencies
         if (file_exists($composer)) {
