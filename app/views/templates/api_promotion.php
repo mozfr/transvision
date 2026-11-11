@@ -13,7 +13,7 @@ if ($controller == 'mainsearch'):
 <?php else: ?>
 
 <p class="api_link">
-    <span>API</span>These results are also available as an <a href="<?=Utils::redirectToAPI()?>">API request</a>.
+    <span>API</span>These results are also available as an <a href="<?=Utils::getAPIUrl()?>">API request</a>.
     <br>
     <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
 </p>
