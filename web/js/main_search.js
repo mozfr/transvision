@@ -155,7 +155,8 @@ $(document).ready(function() {
         */
         expire.setTime(today.getTime() + 3600000 * 24 * days);
         document.cookie = cookieName + '=' + cookieValue +
-                          ';expires=' + expire.toGMTString();
+                          ';expires=' + expire.toUTCString() +
+                          ';SameSite=Lax;Secure';
         $(this).val(cookieValue);
     });
 
