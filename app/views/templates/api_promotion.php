@@ -5,8 +5,8 @@ if ($controller == 'mainsearch'):
 ?>
 <p class="api_link">
     <span>API</span>These results are also available as an API request to search in
-    <a href="<?=Utils::APIPromotion($source_locale, $locale)?>"><?=$source_locale?></a> or
-    <a href="<?=Utils::APIPromotion($locale, $source_locale)?>"><?=$locale?></a>.
+    <a href="<?=Utils::APIPromotion($source_locale, $locale)?>"><?=htmlspecialchars($source_locale)?></a> or
+    <a href="<?=Utils::APIPromotion($locale, $source_locale)?>"><?=htmlspecialchars($locale)?></a>.
     <br>
     <a href="https://github.com/mozfr/transvision/wiki/JSON-API">Learn more about the Transvision API</a>.
 </p>

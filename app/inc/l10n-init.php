@@ -17,19 +17,23 @@ $locale = $l10n->getCompatibleLocale();
 $locale2 = $locale;
 $source_locale = Project::getReferenceLocale($repo);
 
-// Bypass locale & source locale detection if there are COOKIES stored with them
-if (isset($_COOKIE['default_source_locale'])) {
-    $source_locale = $_COOKIE['default_source_locale'];
-}
+/*
+    Bypass locale & source locale detection if there are COOKIES stored with them.
+    Cookies are user-controlled input that end up in HTML pages, so we only
+    accept values that are known locale codes.
+*/
+$known_locales = array_merge(Project::getAllLocales(), $all_locales);
+$get_cookie_locale = function ($name) use ($known_locales) {
+    return isset($_COOKIE[$name]) && is_string($_COOKIE[$name])
+        && in_array($_COOKIE[$name], $known_locales, true)
+        ? $_COOKIE[$name]
+        : null;
+};
 
-if (isset($_COOKIE['default_target_locale'])) {
-    $locale = $_COOKIE['default_target_locale'];
-}
-
+$source_locale = $get_cookie_locale('default_source_locale') ?? $source_locale;
+$locale = $get_cookie_locale('default_target_locale') ?? $locale;
 // 3 locales view
-if (isset($_COOKIE['default_target_locale2'])) {
-    $locale2 = $_COOKIE['default_target_locale2'];
-}
+$locale2 = $get_cookie_locale('default_target_locale2') ?? $locale2;
 
 // Bypass locale detection if the page sends a valid GET variable
 if (isset($_GET['locale'])) {
