@@ -62,6 +62,7 @@ $releases = [
     '5.2'   => '2017-02-02',
     '6.0'   => '2017-10-12',
     '7.0'   => '2022-11-17',
+    '7.4'   => 'Unreleased',
 ];
 
 /*
@@ -70,6 +71,14 @@ $releases = [
 */
 
 $changelog = [
+    '7.4'   => [
+        [
+            'message' => ['Removed JSONP support from the API: the <var>callback</var> parameter is now ignored and results are always returned as JSON. The API sends the <code>Access-Control-Allow-Origin: *</code> CORS header, so it can be queried directly from JavaScript on any site with <code>fetch()</code>.'],
+            'section' => ['external_api'],
+            'type'    => ['change'],
+            'authors' => ['pascal'],
+        ],
+    ],
     '7.0'   => [
         [
             'message' => ['Allow searching across all projects'],
