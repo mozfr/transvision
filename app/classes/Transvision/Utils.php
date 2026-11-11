@@ -429,21 +429,57 @@ class Utils
     }
 
     /**
+     * Get the path and query of the current request from REQUEST_URI.
+     *
+     * Scheme, host, user info and fragment are dropped and the path always
+     * starts with a single slash, so that URLs built from it are always
+     * same-origin relative URLs. Values are NOT escaped for HTML output.
+     *
+     * @return array [path, query] of the current request
+     */
+    private static function getRequestPathAndQuery()
+    {
+        $uri = isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI'])
+            ? $_SERVER['REQUEST_URI']
+            : '/';
+
+        $parts = parse_url($uri);
+        if ($parts === false) {
+            $parts = [];
+        }
+
+        // Force a single leading slash to avoid protocol-relative URLs (//host)
+        $path = '/' . ltrim($parts['path'] ?? '', '/');
+        $query = $parts['query'] ?? '';
+
+        return [$path, $query];
+    }
+
+    /**
      * Return the current URL with the json GET variable appended
      * This is used on views which also exist in our public API
      * https://github.com/mozfr/transvision/wiki/JSON-API
      *
-     * @return string URL with 'json' appended as part of the query string
+     * The URL is a same-origin relative URL, and it is escaped with
+     * secureText() so it can be printed directly in a template. Don't use
+     * it for HTTP redirects (e.g. a Location header): '&' is returned as
+     * an HTML entity.
+     *
+     * @return string HTML-escaped URL with 'json' appended as part of the query string
      */
-    public static function redirectToAPI()
+    public static function getAPIUrl()
     {
-        return $_SERVER['REQUEST_URI'] . (is_null($_SERVER['QUERY_STRING']) ? '?json' : '&json');
+        [$path, $query] = self::getRequestPathAndQuery();
+
+        return self::secureText(
+            $path . ($query === '' ? '?json' : '?' . $query . '&json')
+        );
     }
 
     /**
      * Return the current URL with the json GET variable appended
      * and also adds locale codes if they are not already provided
-     * by redirectToAPI()
+     * in the query string
      *
      * @param string $source_locale Locale code for source
      * @param string $target_locale Locale code for target
@@ -452,8 +488,9 @@ class Utils
      */
     public static function APIPromotion($source_locale, $target_locale)
     {
-        // We are going to split and then rebuild QUERY_STRING
-        parse_str(self::redirectToAPI(), $args);
+        // We are going to split and then rebuild the query string
+        [$path, $query] = self::getRequestPathAndQuery();
+        parse_str($query, $args);
 
         /*
             We are separating keys and values and recombine them
@@ -477,6 +514,6 @@ class Utils
         // We don't want to encode slashes in searches for entity names
         $query = urldecode(http_build_query($args));
 
-        return $query;
+        return self::secureText($path) . '?' . $query;
     }
 }

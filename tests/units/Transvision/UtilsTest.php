@@ -367,12 +367,12 @@ class UtilsTest extends TestCase
             ->assertSame($obj->ago($a, $b), $c);
     }
 
-    public static function redirectToAPIDP()
+    public static function getAPIUrlDP()
     {
         return [
             [
                 '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=gecko_strings',
-                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&repo=gecko_strings&json',
+                '/string/?entity=browser/chrome/browser/downloads/downloads.properties:stateStarting&#38;repo=gecko_strings&#38;json',
             ],
             [
                 '/v1/versions/',
@@ -380,22 +380,61 @@ class UtilsTest extends TestCase
             ],
             [
                 '/?recherche=home&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings',
-                '/?recherche=home&repo=gecko_strings&sourcelocale=en-US&locale=fr&search_type=strings&json',
+                '/?recherche=home&#38;repo=gecko_strings&#38;sourcelocale=en-US&#38;locale=fr&#38;search_type=strings&#38;json',
+            ],
+            [
+                // Empty query string
+                '/v1/versions/?',
+                '/v1/versions/?json',
+            ],
+            [
+                // Protocol-relative URL
+                '//evil.example.com/path?a=b',
+                '/path?a=b&#38;json',
+            ],
+            [
+                // Absolute-form request target
+                'https://evil.example.com/path?a=b#frag',
+                '/path?a=b&#38;json',
+            ],
+            [
+                // Malformed URI (rejected by parse_url) falls back to the root
+                '///evil.example.com',
+                '/?json',
             ],
         ];
     }
 
-    #[DataProvider('redirectToAPIDP')]
-    public function testRedirectToAPI($a, $b)
+    #[DataProvider('getAPIUrlDP')]
+    public function testGetAPIUrl($a, $b)
     {
         $obj = new Utils();
         $_SERVER['REQUEST_URI'] = $a;
-        $_SERVER['QUERY_STRING'] = isset(parse_url($a)['query'])
-            ? parse_url($a)['query']
-            : null;
         $this
-            ->assertSame($obj->redirectToAPI(), $b);
+            ->assertSame($obj->getAPIUrl(), $b);
     }
+
+    public function testGetAPIUrlInvalidRequestURI()
+    {
+        // Missing REQUEST_URI falls back to the root
+        unset($_SERVER['REQUEST_URI']);
+        $this->assertSame(Utils::getAPIUrl(), '/?json');
+
+        // Non-string REQUEST_URI falls back to the root
+        $_SERVER['REQUEST_URI'] = ['/?recherche=test'];
+        $this->assertSame(Utils::getAPIUrl(), '/?json');
+    }
+
+    public function testGetAPIUrlEscapedOutput()
+    {
+        $_SERVER['REQUEST_URI'] = '/?recherche="><script>alert(1)</script>&repo=gecko_strings';
+        $this
+            ->assertSame(
+                Utils::getAPIUrl(),
+                '/?recherche=&#34;&#62;&#60;script&#62;alert(1)&#60;/script&#62;&#38;repo=gecko_strings&#38;json'
+            );
+    }
+
     public static function APIPromotionDP()
     {
         return [
@@ -411,6 +450,20 @@ class UtilsTest extends TestCase
                 '/?recherche=Cookies&repo=gecko_strings&sourcelocale=en-US&locale=it&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string',
                 '/?recherche=Cookies&repo=gecko_strings&sourcelocale=it&locale=en-US&search_type=strings_entities&case_sensitive=case_sensitive&each_word=each_word&entire_string=entire_string&json=true',
             ],
+            [
+                // No query string
+                'en-US',
+                'fr',
+                '/',
+                '/?locale=fr&sourcelocale=en-US&json=true',
+            ],
+            [
+                // Protocol-relative URL and HTML in the path
+                'en-US',
+                'fr',
+                '//evil.example.com/"><b>?recherche=test',
+                '/&#34;&#62;&#60;b&#62;?recherche=test&locale=fr&sourcelocale=en-US&json=true',
+            ],
         ];
     }
     #[DataProvider('APIPromotionDP')]
@@ -418,9 +471,6 @@ class UtilsTest extends TestCase
     {
         $obj = new Utils();
         $_SERVER['REQUEST_URI'] = $c;
-        $_SERVER['QUERY_STRING'] = isset(parse_url($c)['query'])
-            ? parse_url($c)['query']
-            : null;
         $this
             ->assertSame($obj->APIPromotion($a, $b), $d);
     }
